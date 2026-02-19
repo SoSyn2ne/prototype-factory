@@ -28,7 +28,21 @@ The north star: **high-quality decisions and designs**, not perfect software.
 
 ---
 
-## 1) Default stance
+## 1) Roles (to prevent conflicts)
+
+### Orchestrator (OpenClaw / 댕댕봇)
+- Convert requests into **success criteria + gates**
+- Run/coordinate Codex/OMX work
+- Verify outputs (build/tests/manual)
+- Handle git commits/push, cron automation, reporting
+
+### Coder (Codex / OMX workers)
+- Perform **all code edits** and file creation
+- Keep changes **surgical** and tied to success criteria
+
+Rule: **The orchestrator should not hand-edit code** except for trivial 1–2 line fixes when an agent is blocked.
+
+## 2) Default stance
 
 - **AI is fallible.** Always produce a **risk/unknowns** section for non-trivial decisions.
 - Prefer **repeatable templates** and **deterministic outputs** for factory steps.
