@@ -6,6 +6,7 @@
  *
  * Usage:
  *   node scripts/new-proto.mjs --title "..." --oneLiner "..." --slug "..." --tags ai,productivity
+ *   node scripts/new-proto.mjs --title "..." --template auth
  *
  * Notes:
  * - Does not call any external APIs.
@@ -63,6 +64,22 @@ function writeFile(p, content) {
   fs.writeFileSync(p, content, "utf8");
 }
 
+function copyDirectory(srcDir, dstDir) {
+  fs.mkdirSync(dstDir, { recursive: true });
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(srcDir, entry.name);
+    const dstPath = path.join(dstDir, entry.name);
+    if (entry.isDirectory()) {
+      copyDirectory(srcPath, dstPath);
+      continue;
+    }
+    if (entry.isFile()) {
+      fs.copyFileSync(srcPath, dstPath);
+    }
+  }
+}
+
 function ensureUniqueId(dateStr) {
   // Find next available pNNN for the date.
   const baseDir = path.join(process.cwd(), "prototypes");
@@ -90,8 +107,18 @@ function main() {
   const tagsIn = argValue(args, "--tags", "ai,productivity");
   const stackIn = argValue(args, "--stack", "design,docs");
   const status = argValue(args, "--status", "prototype");
+  const template = argValue(args, "--template", "none");
+  const templateMap = {
+    auth: "auth-ui",
+    map: "map-ui",
+    commerce: "commerce-ui",
+  };
+  const templateChoices = ["none", ...Object.keys(templateMap)];
 
   if (!title) die("Missing --title");
+  if (!templateChoices.includes(template)) {
+    die(`Invalid --template \"${template}\". Use auth|map|commerce|none`);
+  }
   const slug = toSlug(slugIn || title);
   if (!slug) die("Could not derive slug");
 
@@ -152,6 +179,15 @@ function main() {
     `# QA checklist\n\n## Happy path\n- \n\n## Edge cases\n- \n\n## Acceptance verification\n- \n`
   );
 
+  if (template !== "none") {
+    const templateDirName = templateMap[template];
+    const templateSrc = path.join(process.cwd(), "templates", "nextjs", templateDirName);
+    if (!fs.existsSync(templateSrc)) {
+      die(`Template not found: templates/nextjs/${templateDirName}`);
+    }
+    copyDirectory(templateSrc, path.join(outDir, "app"));
+  }
+
   // Optional: create web/ placeholder when requested
   if (argFlag(args, "--with-web")) {
     writeFile(path.join(outDir, "web", "README.md"), "Placeholder for web prototype.\n");
@@ -159,6 +195,7 @@ function main() {
 
   console.log(`Created: ${repoPath}`);
   console.log(`id: ${id}`);
+  console.log(`template: ${template}`);
 }
 
 main();
