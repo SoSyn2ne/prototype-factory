@@ -1,0 +1,95 @@
+# Prototype Factory — AGENTS.md
+
+This repository is a **daily idea → design → (optional) code** factory.
+
+The north star: **high-quality decisions and designs**, not perfect software.
+
+---
+
+## 0) Non‑negotiables (Karpathy-inspired)
+
+1) **Think before coding**
+- Don’t assume. If ambiguous, ask or state assumptions explicitly.
+- Surface tradeoffs; don’t silently pick one interpretation.
+
+2) **Simplicity first**
+- Minimum code that solves the requested goal.
+- No speculative abstractions, no “just in case” flexibility.
+
+3) **Surgical changes**
+- Touch only what’s needed for the request.
+- Don’t refactor unrelated code or reformat files “for cleanliness”.
+- If you create new dead code/imports, clean up only what *you* introduced.
+
+4) **Goal‑driven execution**
+- Define success criteria.
+- Verify via build/tests/manual steps.
+- If you can’t verify, say exactly what is unverified and why.
+
+---
+
+## 1) Default stance
+
+- **AI is fallible.** Always produce a **risk/unknowns** section for non-trivial decisions.
+- Prefer **repeatable templates** and **deterministic outputs** for factory steps.
+
+---
+
+## 2) Output contract (what each prototype must contain)
+
+For each prototype folder `prototypes/YYYY-MM-DD-pNNN-<slug>/`:
+
+Required:
+- `meta.json` (see root README spec)
+- `README.md`
+- One of:
+  - `web/` (static HTML/CSS/JS)
+  - `app/` (framework app, e.g., Next.js / Vue / Flutter, if applicable)
+
+Optional (recommended for UI):
+- `screenshot.png`
+
+---
+
+## 3) Design-first workflow (recommended)
+
+When the task is “idea + design”:
+1) Write a 1‑page PRD (problem, target user, constraints, success metric)
+2) Create user flow (happy path + 2 edge cases)
+3) Produce UI spec (components, states, events)
+4) Only then code (if requested)
+
+---
+
+## 4) Docs-first rule (Context7)
+
+When you need library/API details, configuration steps, or examples:
+- **Use Context7 MCP first.**
+- Quote/ground decisions with a snippet or source note when possible.
+- If Context7 is unavailable, say so and proceed with careful assumptions.
+
+---
+
+## 5) Framework defaults
+
+### Next.js (default for web prototypes)
+- App Router by default
+- Prefer Server Components; minimize `"use client"`
+- Avoid data waterfalls; parallelize server fetches where possible
+- Use `next/image` and `next/font` when relevant
+- URL reflects state for filters/pagination
+
+### Vue / Nuxt (when chosen)
+- Composition API
+- Keep state colocated; avoid global stores unless required
+
+### Flutter (when chosen)
+- Keep widget tree simple
+- Be explicit about state management choice (start minimal)
+
+---
+
+## 6) Repo hygiene
+
+- Never commit secrets.
+- Keep diffs small and explain intent in commit messages.
