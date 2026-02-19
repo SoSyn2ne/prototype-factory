@@ -38,10 +38,10 @@ repo-root/
 ```
 
 ## 3) 오늘 해야 할 일(체크리스트)
-- [ ] GitHub 레포 생성 (private/public 선택)
-- [ ] Vercel 프로젝트 생성 (site 배포)
-- [ ] `BRAVE_API_KEY`(웹검색용) 필요하면 추가
-- [ ] n8n에서 GitHub/Vercel 자격증명 연결
+- [ ] (자동화) 오늘 프로토타입 폴더 스캐폴딩 생성
+  - 예: `node scripts/new-proto.mjs --title "..." --oneLiner "..." --tags ai,decision-making`
+- [ ] (선택) GitHub/Vercel 연동
+- [ ] (선택) n8n/cron으로 자동 커밋/푸시/알림
 
 ## 4) n8n 파이프라인(개요)
 1) Cron(평일/매일 원하는 시간)
