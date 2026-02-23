@@ -107,11 +107,12 @@ function main() {
   const tagsIn = argValue(args, "--tags", "ai,productivity");
   const stackIn = argValue(args, "--stack", "design,docs");
   const status = argValue(args, "--status", "prototype");
-  const template = argValue(args, "--template", "none");
+  const template = argValue(args, "--template", "proto");
   const templateMap = {
     auth: "auth-ui",
     map: "map-ui",
     commerce: "commerce-ui",
+    proto: "proto-app",
   };
   const templateChoices = ["none", ...Object.keys(templateMap)];
 

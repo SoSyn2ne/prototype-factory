@@ -46,13 +46,15 @@ repo-root/
 ## 3-1) 템플릿 기반 프로토타입 생성
 `scripts/new-proto.mjs`는 Next.js 템플릿 복사를 지원합니다.
 
-- 옵션: `--template <auth|map|commerce|none>` (기본값: `none`)
+- 옵션: `--template <proto|auth|map|commerce|none>` (기본값: `none`)
 - 템플릿을 선택하면 새 프로토타입 폴더 내부 `app/`에 템플릿 앱이 복사됩니다.
 - 스펙 문서(`spec/prd.md` 등)는 기존과 동일하게 생성됩니다.
 
 예시:
 ```bash
-node scripts/new-proto.mjs --title "Auth Onboarding" --oneLiner "Fast auth UI" --template auth
+node scripts/new-proto.mjs --title "Auth Onboarding" --oneLiner "Fast auth UI" --template proto
+node scripts/new-proto.mjs --title "Proto 기본" --template proto
+node scripts/new-proto.mjs --title "Auth Onboarding" --template auth
 node scripts/new-proto.mjs --title "Neighborhood Map Finder" --template map
 node scripts/new-proto.mjs --title "Simple Product Grid" --template commerce
 ```
