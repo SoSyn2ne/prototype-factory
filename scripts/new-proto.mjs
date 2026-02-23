@@ -152,6 +152,10 @@ function main() {
     createdAt: dateStr,
   };
 
+  if (template !== "none") {
+    meta.pages = ["/", "/demo", "/spec"];
+  }
+
   writeFile(path.join(outDir, "meta.json"), JSON.stringify(meta, null, 2) + "\n");
 
   writeFile(
