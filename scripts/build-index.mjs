@@ -25,6 +25,7 @@ const ROOT = resolveRoot();
 const PROTOTYPES_DIR = path.join(ROOT, "prototypes");
 const OUTPUT_PATH = path.join(ROOT, "site", "public", "prototypes-index.json");
 const COPIED_PROTOTYPES_DIR = path.join(ROOT, "site", "public", "prototypes");
+const COPIED_DEMOS_DIR = path.join(ROOT, "site", "public", "demos");
 const PREVIEWS_DIR = path.join(ROOT, "site", "public", "previews");
 
 function readJson(filePath) {
@@ -53,7 +54,18 @@ function compareDesc(a, b) {
   return String(b.id || "").localeCompare(String(a.id || ""));
 }
 
-function normalizeMeta(folderName, meta) {
+function isExternalUrl(url) {
+  return /^https?:\/\//i.test(String(url || "").trim());
+}
+
+function resolveDemoUrl(meta, id, hasDemoEntry) {
+  const explicitDemoUrl = typeof meta.demoUrl === "string" ? meta.demoUrl.trim() : "";
+  if (isExternalUrl(explicitDemoUrl)) return explicitDemoUrl;
+  if (hasDemoEntry) return `/d/${id}`;
+  return explicitDemoUrl;
+}
+
+function normalizeMeta(folderName, meta, hasDemoEntry) {
   const fallbackId = folderName.slice(0, "YYYY-MM-DD-p000".length);
   const fallbackDate = folderName.slice(0, "YYYY-MM-DD".length);
   const id = typeof meta.id === "string" && meta.id ? meta.id : fallbackId;
@@ -77,11 +89,41 @@ function normalizeMeta(folderName, meta) {
     stack: Array.isArray(meta.stack) ? meta.stack : [],
     repoPath,
     previewUrl: typeof meta.previewUrl === "string" ? meta.previewUrl : "",
-    demoUrl: typeof meta.demoUrl === "string" ? meta.demoUrl : "",
+    demoUrl: resolveDemoUrl(meta, id, hasDemoEntry),
     previewImage,
     createdAt: typeof meta.createdAt === "string" && meta.createdAt ? meta.createdAt : fallbackDate,
     pages: Array.isArray(meta.pages) ? meta.pages : undefined,
   };
+}
+
+function copyDirectory(srcDir, dstDir) {
+  fs.mkdirSync(dstDir, { recursive: true });
+  const entries = fs.readdirSync(srcDir, { withFileTypes: true });
+
+  for (const entry of entries) {
+    const srcPath = path.join(srcDir, entry.name);
+    const dstPath = path.join(dstDir, entry.name);
+    if (entry.isDirectory()) {
+      copyDirectory(srcPath, dstPath);
+      continue;
+    }
+    if (entry.isFile()) {
+      fs.copyFileSync(srcPath, dstPath);
+    }
+  }
+}
+
+function hasDemoEntrypoint(folderName) {
+  const demoIndexPath = path.join(PROTOTYPES_DIR, folderName, "demo", "index.html");
+  return fs.existsSync(demoIndexPath);
+}
+
+function copyDemoFiles(folderName, id) {
+  const srcDemoDir = path.join(PROTOTYPES_DIR, folderName, "demo");
+  if (!fs.existsSync(path.join(srcDemoDir, "index.html"))) return;
+
+  const dstDemoDir = path.join(COPIED_DEMOS_DIR, id);
+  copyDirectory(srcDemoDir, dstDemoDir);
 }
 
 function copySpecFiles(folderName) {
@@ -106,6 +148,10 @@ function buildItems() {
     throw new Error(`Missing directory: ${PROTOTYPES_DIR}`);
   }
 
+  // Keep copied demos deterministic and remove stale entries.
+  fs.rmSync(COPIED_DEMOS_DIR, { recursive: true, force: true });
+  fs.mkdirSync(COPIED_DEMOS_DIR, { recursive: true });
+
   const folders = fs
     .readdirSync(PROTOTYPES_DIR, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
@@ -121,8 +167,13 @@ function buildItems() {
 
     try {
       const meta = readJson(metaPath);
-      items.push(normalizeMeta(folderName, meta));
+      const hasDemoEntry = hasDemoEntrypoint(folderName);
+      const item = normalizeMeta(folderName, meta, hasDemoEntry);
+      items.push(item);
       copySpecFiles(folderName);
+      if (hasDemoEntry) {
+        copyDemoFiles(folderName, item.id);
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.warn(`Skipping ${folderName}: failed to read meta.json (${message})`);

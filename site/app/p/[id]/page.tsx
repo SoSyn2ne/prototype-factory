@@ -12,6 +12,10 @@ type SpecFile = {
   body: string;
 };
 
+function isExternalUrl(url: string) {
+  return /^https?:\/\//i.test(url);
+}
+
 function readSpecFiles(repoPath: string): { files: SpecFile[]; message?: string } {
   if (!repoPath) {
     return { files: [], message: "This prototype has no repoPath in meta.json." };
@@ -47,6 +51,7 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
   if (!item) notFound();
 
   const spec = readSpecFiles(item.repoPath);
+  const isExternalDemo = isExternalUrl(item.demoUrl);
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
@@ -75,14 +80,16 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
         <h2 className="text-lg font-semibold text-slate-900">Demo</h2>
         {item.demoUrl ? (
           <div className="mt-4 space-y-4">
-            <a
-              href={item.demoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-blue-700"
-            >
-              Open Live Demo
-            </a>
+            {isExternalDemo ? (
+              <a
+                href={item.demoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-blue-700"
+              >
+                Open Live Demo
+              </a>
+            ) : null}
             <div className="overflow-hidden rounded-lg border border-slate-200">
               <div className="aspect-[1200/630] w-full">
                 <iframe
@@ -96,7 +103,8 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </div>
         ) : (
           <p className="mt-3 rounded border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
-            Demo is not configured yet for this prototype. Add <code>demoUrl</code> in meta.json to enable it.
+            Demo is not configured yet for this prototype. Add <code>demo/index.html</code> in the prototype folder or
+            set an external <code>demoUrl</code> in <code>meta.json</code>.
           </p>
         )}
       </section>

@@ -1,6 +1,10 @@
 import Link from 'next/link';
 import { loadIndex } from '@/lib/index';
 
+function isExternalUrl(url: string) {
+  return /^https?:\/\//i.test(url);
+}
+
 export default function Page() {
   const index = loadIndex();
 
@@ -35,32 +39,62 @@ export default function Page() {
                   View
                 </Link>
                 {item.demoUrl ? (
-                  <a
-                    className="rounded-md border border-blue-300 px-2 py-1 text-blue-700 hover:bg-blue-50 hover:no-underline"
-                    href={item.demoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Demo
-                  </a>
+                  isExternalUrl(item.demoUrl) ? (
+                    <a
+                      className="rounded-md border border-blue-300 px-2 py-1 text-blue-700 hover:bg-blue-50 hover:no-underline"
+                      href={item.demoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Demo
+                    </a>
+                  ) : (
+                    <Link
+                      className="rounded-md border border-blue-300 px-2 py-1 text-blue-700 hover:bg-blue-50 hover:no-underline"
+                      href={item.demoUrl}
+                    >
+                      Demo
+                    </Link>
+                  )
                 ) : null}
               </div>
             </div>
 
-            <div className="mt-3 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
-              {item.previewImage ? (
-                <img
-                  src={item.previewImage}
-                  alt={`${item.title} preview`}
-                  className="aspect-[1200/630] w-full object-cover"
-                  loading="lazy"
-                />
-              ) : (
-                <div className="flex aspect-[1200/630] w-full items-center justify-center text-xs text-neutral-500">
-                  Preview image not available
-                </div>
-              )}
-            </div>
+            {item.demoUrl ? (
+              <Link
+                href={`/p/${encodeURIComponent(item.id)}`}
+                className="mt-3 block overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 hover:no-underline"
+                aria-label={`View ${item.title}`}
+              >
+                {item.previewImage ? (
+                  <img
+                    src={item.previewImage}
+                    alt={`${item.title} preview`}
+                    className="aspect-[1200/630] w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex aspect-[1200/630] w-full items-center justify-center text-xs text-neutral-500">
+                    Preview image not available
+                  </div>
+                )}
+              </Link>
+            ) : (
+              <div className="mt-3 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
+                {item.previewImage ? (
+                  <img
+                    src={item.previewImage}
+                    alt={`${item.title} preview`}
+                    className="aspect-[1200/630] w-full object-cover"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="flex aspect-[1200/630] w-full items-center justify-center text-xs text-neutral-500">
+                    Preview image not available
+                  </div>
+                )}
+              </div>
+            )}
 
             {item.oneLiner ? <div className="mt-2 text-sm text-neutral-700">{item.oneLiner}</div> : null}
 
