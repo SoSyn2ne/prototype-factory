@@ -7,6 +7,7 @@
  * Usage:
  *   node scripts/new-proto.mjs --title "..." --oneLiner "..." --slug "..." --tags ai,productivity
  *   node scripts/new-proto.mjs --title "..." --template auth
+ *   node scripts/new-proto.mjs --title "..." --demo-template landing
  *   node scripts/new-proto.mjs --title "..." --no-demo
  *
  * Notes:
@@ -90,6 +91,13 @@ function copyDirectory(srcDir, dstDir) {
   }
 }
 
+function replaceDemoPlaceholders(html, values) {
+  return html
+    .replaceAll("{{TITLE}}", values.title)
+    .replaceAll("{{ONELINER}}", values.oneLiner)
+    .replaceAll("{{ID}}", values.id);
+}
+
 function ensureUniqueId(dateStr) {
   // Find next available pNNN for the date.
   const baseDir = path.join(process.cwd(), "prototypes");
@@ -118,6 +126,7 @@ function main() {
   const stackIn = argValue(args, "--stack", "design,docs");
   const status = argValue(args, "--status", "prototype");
   const noDemo = argFlag(args, "--no-demo");
+  const demoTemplate = argValue(args, "--demo-template", "dashboard");
   const template = argValue(args, "--template", "proto");
   const templateMap = {
     auth: "auth-ui",
@@ -126,10 +135,14 @@ function main() {
     proto: "proto-app",
   };
   const templateChoices = ["none", ...Object.keys(templateMap)];
+  const demoTemplateChoices = ["landing", "dashboard", "form", "minimal"];
 
   if (!title) die("Missing --title");
   if (!templateChoices.includes(template)) {
-    die(`Invalid --template \"${template}\". Use auth|map|commerce|none`);
+    die(`Invalid --template "${template}". Use proto|auth|map|commerce|none`);
+  }
+  if (!demoTemplateChoices.includes(demoTemplate)) {
+    die(`Invalid --demo-template "${demoTemplate}". Use landing|dashboard|form|minimal`);
   }
   const slug = toSlug(slugIn || title);
   if (!slug) die("Could not derive slug");
@@ -210,102 +223,33 @@ function main() {
   }
 
   if (!noDemo) {
-    const safeTitle = escapeHtml(title);
-    const safeOneLiner = escapeHtml(oneLiner || "Design and build a custom demo for this prototype.");
+    const demoTemplateSrc = path.join(process.cwd(), "templates", "demo", demoTemplate, "demo");
+    if (!fs.existsSync(demoTemplateSrc)) {
+      die(`Demo template not found: templates/demo/${demoTemplate}/demo`);
+    }
 
-    writeFile(
-      path.join(outDir, "demo", "index.html"),
-      `<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${safeTitle} Demo</title>
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="shell">
-      <header class="hero">
-        <p class="kicker">${id}</p>
-        <h1>${safeTitle}</h1>
-        <p>${safeOneLiner}</p>
-      </header>
-      <section class="canvas" aria-label="Demo canvas">
-        <div class="placeholder">
-          Replace this placeholder with your custom demo UI and interactions.
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
-`
-    );
+    const demoOutDir = path.join(outDir, "demo");
+    copyDirectory(demoTemplateSrc, demoOutDir);
 
-    writeFile(
-      path.join(outDir, "demo", "assets", "style.css"),
-      `:root {
-  color-scheme: light;
-  font-family: "Helvetica Neue", Arial, sans-serif;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: linear-gradient(180deg, #f9fafb, #eef2ff);
-  color: #0f172a;
-}
-
-.shell {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px 64px;
-}
-
-.hero h1 {
-  margin: 8px 0 12px;
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-}
-
-.hero p {
-  margin: 0;
-}
-
-.kicker {
-  margin: 0;
-  font-size: 0.875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #475569;
-}
-
-.canvas {
-  margin-top: 28px;
-  border: 1px dashed #94a3b8;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.85);
-  min-height: 360px;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-}
-
-.placeholder {
-  max-width: 36ch;
-  text-align: center;
-  line-height: 1.55;
-  color: #334155;
-}
-`
-    );
+    const demoIndexPath = path.join(demoOutDir, "index.html");
+    if (fs.existsSync(demoIndexPath)) {
+      const safeTitle = escapeHtml(title);
+      const safeOneLiner = escapeHtml(oneLiner || "Design and build a custom demo for this prototype.");
+      const safeId = escapeHtml(id);
+      const html = fs.readFileSync(demoIndexPath, "utf8");
+      const injectedHtml = replaceDemoPlaceholders(html, {
+        title: safeTitle,
+        oneLiner: safeOneLiner,
+        id: safeId,
+      });
+      fs.writeFileSync(demoIndexPath, injectedHtml, "utf8");
+    }
   }
 
   console.log(`Created: ${repoPath}`);
   console.log(`id: ${id}`);
   console.log(`template: ${template}`);
+  console.log(`demo-template: ${noDemo ? "none (--no-demo)" : demoTemplate}`);
 }
 
 main();
