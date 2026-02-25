@@ -10,6 +10,8 @@ export type PrototypeIndexItem = {
   stack: string[];
   repoPath: string;
   previewUrl: string;
+  demoUrl: string;
+  previewImage: string;
   createdAt: string;
   pages?: string[];
 };
@@ -19,12 +21,53 @@ export type PrototypeIndex = {
   items: PrototypeIndexItem[];
 };
 
+function toStringArray(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === 'string');
+}
+
+function normalizeItem(value: unknown): PrototypeIndexItem | null {
+  if (!value || typeof value !== 'object') return null;
+  const item = value as Record<string, unknown>;
+  const id = typeof item.id === 'string' ? item.id : '';
+  if (!id) return null;
+
+  return {
+    id,
+    title: typeof item.title === 'string' ? item.title : id,
+    oneLiner: typeof item.oneLiner === 'string' ? item.oneLiner : '',
+    tags: toStringArray(item.tags),
+    status: typeof item.status === 'string' ? item.status : '',
+    stack: toStringArray(item.stack),
+    repoPath: typeof item.repoPath === 'string' ? item.repoPath : '',
+    previewUrl: typeof item.previewUrl === 'string' ? item.previewUrl : '',
+    demoUrl: typeof item.demoUrl === 'string' ? item.demoUrl : '',
+    previewImage: typeof item.previewImage === 'string' ? item.previewImage : '',
+    createdAt: typeof item.createdAt === 'string' ? item.createdAt : '',
+    pages: Array.isArray(item.pages) ? toStringArray(item.pages) : undefined,
+  };
+}
+
 export function loadIndex(): PrototypeIndex {
   const p = path.join(process.cwd(), 'public', 'prototypes-index.json');
   if (!fs.existsSync(p)) {
     return { updatedAt: new Date(0).toISOString(), items: [] };
   }
-  return JSON.parse(fs.readFileSync(p, 'utf8')) as PrototypeIndex;
+  const raw = JSON.parse(fs.readFileSync(p, 'utf8')) as unknown;
+  if (!raw || typeof raw !== 'object') {
+    return { updatedAt: new Date(0).toISOString(), items: [] };
+  }
+
+  const record = raw as Record<string, unknown>;
+  const itemsRaw = Array.isArray(record.items) ? record.items : [];
+  const items = itemsRaw
+    .map((value) => normalizeItem(value))
+    .filter((value): value is PrototypeIndexItem => value !== null);
+
+  return {
+    updatedAt: typeof record.updatedAt === 'string' ? record.updatedAt : new Date(0).toISOString(),
+    items,
+  };
 }
 
 export function repoFolderName(repoPath: string) {

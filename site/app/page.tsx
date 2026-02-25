@@ -27,8 +27,41 @@ export default function Page() {
                 <div className="text-xs text-neutral-500">{item.createdAt} · {item.id}</div>
                 <div className="mt-1 text-lg font-extrabold">{item.title}</div>
               </div>
-              <Link className="text-sm" href={`/p/${encodeURIComponent(item.id)}`}>View</Link>
+              <div className="flex items-center gap-2 text-sm">
+                <Link
+                  className="rounded-md border border-neutral-300 px-2 py-1 text-neutral-700 hover:bg-neutral-50 hover:no-underline"
+                  href={`/p/${encodeURIComponent(item.id)}`}
+                >
+                  View
+                </Link>
+                {item.demoUrl ? (
+                  <a
+                    className="rounded-md border border-blue-300 px-2 py-1 text-blue-700 hover:bg-blue-50 hover:no-underline"
+                    href={item.demoUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Demo
+                  </a>
+                ) : null}
+              </div>
             </div>
+
+            <div className="mt-3 overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
+              {item.previewImage ? (
+                <img
+                  src={item.previewImage}
+                  alt={`${item.title} preview`}
+                  className="aspect-[1200/630] w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div className="flex aspect-[1200/630] w-full items-center justify-center text-xs text-neutral-500">
+                  Preview image not available
+                </div>
+              )}
+            </div>
+
             {item.oneLiner ? <div className="mt-2 text-sm text-neutral-700">{item.oneLiner}</div> : null}
 
             <div className="mt-3 flex flex-wrap gap-2 text-xs">

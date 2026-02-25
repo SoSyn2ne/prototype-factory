@@ -9,6 +9,8 @@ export type PrototypeItem = {
   stack: string[];
   repoPath: string;
   previewUrl: string;
+  demoUrl: string;
+  previewImage: string;
   createdAt: string;
   pages?: string[];
 };
@@ -38,6 +40,8 @@ function normalizeItem(value: unknown): PrototypeItem | null {
     stack: toStringArray(item.stack),
     repoPath: typeof item.repoPath === "string" ? item.repoPath : "",
     previewUrl: typeof item.previewUrl === "string" ? item.previewUrl : "",
+    demoUrl: typeof item.demoUrl === "string" ? item.demoUrl : "",
+    previewImage: typeof item.previewImage === "string" ? item.previewImage : "",
     createdAt: typeof item.createdAt === "string" ? item.createdAt : "",
     pages: Array.isArray(item.pages) ? toStringArray(item.pages) : undefined,
   };

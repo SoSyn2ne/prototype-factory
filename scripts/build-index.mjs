@@ -1,10 +1,31 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = path.resolve(process.cwd());
+function resolveRoot() {
+  const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+  const candidates = [
+    path.resolve(process.cwd()),
+    path.resolve(scriptDir, ".."),
+    path.resolve(process.cwd(), ".."),
+  ];
+
+  for (const candidate of candidates) {
+    const prototypesDir = path.join(candidate, "prototypes");
+    const siteDir = path.join(candidate, "site");
+    if (fs.existsSync(prototypesDir) && fs.existsSync(siteDir)) {
+      return candidate;
+    }
+  }
+
+  throw new Error("Could not resolve repository root (expected prototypes/ and site/).");
+}
+
+const ROOT = resolveRoot();
 const PROTOTYPES_DIR = path.join(ROOT, "prototypes");
 const OUTPUT_PATH = path.join(ROOT, "site", "public", "prototypes-index.json");
 const COPIED_PROTOTYPES_DIR = path.join(ROOT, "site", "public", "prototypes");
+const PREVIEWS_DIR = path.join(ROOT, "site", "public", "previews");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -35,6 +56,7 @@ function compareDesc(a, b) {
 function normalizeMeta(folderName, meta) {
   const fallbackId = folderName.slice(0, "YYYY-MM-DD-p000".length);
   const fallbackDate = folderName.slice(0, "YYYY-MM-DD".length);
+  const id = typeof meta.id === "string" && meta.id ? meta.id : fallbackId;
   const repoPath = typeof meta.repoPath === "string" && meta.repoPath
     ? meta.repoPath
     : `prototypes/${folderName}`;
@@ -43,8 +65,11 @@ function normalizeMeta(folderName, meta) {
     ? meta.oneLiner.trim()
     : readmeOneLiner;
 
+  const previewImagePath = path.join(PREVIEWS_DIR, `${id}.png`);
+  const previewImage = fs.existsSync(previewImagePath) ? `/previews/${id}.png` : "";
+
   return {
-    id: typeof meta.id === "string" && meta.id ? meta.id : fallbackId,
+    id,
     title: typeof meta.title === "string" ? meta.title : folderName,
     oneLiner,
     tags: Array.isArray(meta.tags) ? meta.tags : [],
@@ -52,6 +77,8 @@ function normalizeMeta(folderName, meta) {
     stack: Array.isArray(meta.stack) ? meta.stack : [],
     repoPath,
     previewUrl: typeof meta.previewUrl === "string" ? meta.previewUrl : "",
+    demoUrl: typeof meta.demoUrl === "string" ? meta.demoUrl : "",
+    previewImage,
     createdAt: typeof meta.createdAt === "string" && meta.createdAt ? meta.createdAt : fallbackDate,
     pages: Array.isArray(meta.pages) ? meta.pages : undefined,
   };

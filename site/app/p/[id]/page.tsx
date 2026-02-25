@@ -1,8 +1,11 @@
-import fs from "node:fs";
-import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getPrototypeById, getPrototypesIndex } from "@/lib/prototypes";
+import {
+  listSpecFilesCopied,
+  loadIndex,
+  readSpecFileCopied,
+  repoFolderName,
+} from "@/lib/index";
 
 type SpecFile = {
   name: string;
@@ -14,42 +17,33 @@ function readSpecFiles(repoPath: string): { files: SpecFile[]; message?: string 
     return { files: [], message: "This prototype has no repoPath in meta.json." };
   }
 
-  const repoRoot = path.resolve(process.cwd(), "..");
-  const specDir = path.join(repoRoot, repoPath, "spec");
-  if (!fs.existsSync(specDir)) {
-    return { files: [], message: `Spec directory not found: ${specDir}` };
+  const folderName = repoFolderName(repoPath);
+  if (!folderName) {
+    return { files: [], message: "Could not resolve the prototype folder from repoPath." };
   }
 
-  const entries = fs
-    .readdirSync(specDir, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith(".md"))
-    .map((entry) => entry.name)
-    .sort((a, b) => a.localeCompare(b));
+  const entries = listSpecFilesCopied(folderName);
 
   if (entries.length === 0) {
-    return { files: [], message: "No markdown spec files were found in this prototype." };
+    return { files: [], message: "No copied markdown spec files were found for this prototype." };
   }
 
   const files = entries.map((name) => {
-    const filePath = path.join(specDir, name);
-    try {
-      return { name, body: fs.readFileSync(filePath, "utf8") };
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      return { name, body: `Failed to read ${filePath}: ${message}` };
-    }
+    const body = readSpecFileCopied(folderName, name);
+    return { name, body: body ?? `Failed to read copied spec file: ${name}` };
   });
 
   return { files };
 }
 
 export function generateStaticParams() {
-  const index = getPrototypesIndex();
+  const index = loadIndex();
   return index.items.map((item) => ({ id: item.id }));
 }
 
 export default function PrototypeDetailPage({ params }: { params: { id: string } }) {
-  const item = getPrototypeById(params.id);
+  const index = loadIndex();
+  const item = index.items.find((candidate) => candidate.id === params.id);
   if (!item) notFound();
 
   const spec = readSpecFiles(item.repoPath);
@@ -76,6 +70,36 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           {item.pages ? <p>Pages: {item.pages.join(", ")}</p> : null}
         </div>
       </header>
+
+      <section className="mt-6 rounded-lg border border-slate-200 bg-white p-6">
+        <h2 className="text-lg font-semibold text-slate-900">Demo</h2>
+        {item.demoUrl ? (
+          <div className="mt-4 space-y-4">
+            <a
+              href={item.demoUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white no-underline hover:bg-blue-700"
+            >
+              Open Live Demo
+            </a>
+            <div className="overflow-hidden rounded-lg border border-slate-200">
+              <div className="aspect-[1200/630] w-full">
+                <iframe
+                  src={item.demoUrl}
+                  title={`${item.title} demo preview`}
+                  className="h-full w-full border-0"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <p className="mt-3 rounded border border-slate-200 bg-slate-50 p-4 text-sm text-slate-700">
+            Demo is not configured yet for this prototype. Add <code>demoUrl</code> in meta.json to enable it.
+          </p>
+        )}
+      </section>
 
       <section className="mt-6 space-y-4">
         <h2 className="text-lg font-semibold text-slate-900">Spec Markdown</h2>
