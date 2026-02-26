@@ -3,57 +3,45 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Earnings Language Drift Radar - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Earnings Language Drift Radar Demo</title>
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-02-26-p001</p>
+    <main class="shell">
+      <header>
+        <p class="id">2026-02-26-p001</p>
         <h1>Earnings Language Drift Radar</h1>
-        <p>Detect meaningful changes in earnings-call language (risk, demand, supply) for semis/AI names and alert you before price reacts.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
+        <p>
+          Paste earnings-call text and highlight demand/risk/supply drift terms
+          with live category counts.
+        </p>
+      </header>
+
+      <section class="layout">
+        <article class="panel input-panel">
+          <h2>Transcript Input</h2>
+          <textarea id="transcript" rows="12" placeholder="Paste a section of earnings-call remarks..."></textarea>
+          <button id="analyze" type="button">Analyze Language Drift</button>
+
+          <div class="counts" aria-live="polite">
+            <span class="count demand">Demand: <strong id="count-demand">0</strong></span>
+            <span class="count risk">Risk: <strong id="count-risk">0</strong></span>
+            <span class="count supply">Supply: <strong id="count-supply">0</strong></span>
+          </div>
+        </article>
+
+        <article class="panel output-panel">
+          <h2>Highlighted Output</h2>
+          <div id="output" class="output">No analysis yet.</div>
+          <p class="legend">
+            <span class="dot demand"></span> demand terms
+            <span class="dot risk"></span> risk terms
+            <span class="dot supply"></span> supply terms
+          </p>
+        </article>
       </section>
     </main>
+
     <script src="./assets/app.js" defer></script>
   </body>
 </html>

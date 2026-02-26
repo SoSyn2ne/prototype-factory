@@ -3,57 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChipSignal Daily Brief - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>ChipSignal Daily Brief Demo</title>
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-02-21-p001</p>
+    <main class="page">
+      <header class="hero">
+        <p class="id">2026-02-21-p001</p>
         <h1>ChipSignal Daily Brief</h1>
-        <p>A 5-minute daily semiconductor/AI-hardware brief that turns news + earnings calendar into actionable portfolio tripwires (hold/add/trim) with explicit uncertainty labels.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+        <p>
+          Timeline-first morning brief for semis/AI investors. Flip between 5-minute
+          scan and deep mode while keeping alert tags visible.
+        </p>
+      </header>
+
+      <section class="controls" aria-label="Brief controls">
+        <div class="mode-switch" role="tablist" aria-label="Reading mode">
+          <button class="mode active" data-mode="quick" type="button">5-Min Mode</button>
+          <button class="mode" data-mode="deep" type="button">Deep Mode</button>
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
+
+        <div class="tag-filter">
+          <button class="tag active" data-tag="all" type="button">All</button>
+          <button class="tag" data-tag="tripwire" type="button">Tripwire</button>
+          <button class="tag" data-tag="calendar" type="button">Calendar</button>
+          <button class="tag" data-tag="uncertainty" type="button">Uncertainty</button>
+        </div>
+      </section>
+
+      <section class="timeline" id="timeline" aria-live="polite">
+        <article class="item" data-tags="tripwire uncertainty">
+          <div class="time">06:02</div>
+          <div class="content">
+            <h2>NVDA export-control mention frequency rose</h2>
+            <p class="summary quick">Label as WATCH. No position change yet.</p>
+            <p class="summary deep hidden">
+              Prepared remarks used tighter language on regional shipment risk versus prior quarter. Verify channel mix exposure before market open.
+            </p>
+            <div class="chips">
+              <span class="chip tripwire">Tripwire</span>
+              <span class="chip uncertainty">UNKNOWN</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-tags="calendar">
+          <div class="time">06:05</div>
+          <div class="content">
+            <h2>Earnings calendar: AVGO in 2 days</h2>
+            <p class="summary quick">Set reminder and pre-commit reaction rules.</p>
+            <p class="summary deep hidden">
+              Add one checklist item: if gross-margin guide drops below baseline, reduce by a pre-defined trim amount instead of discretionary reaction.
+            </p>
+            <div class="chips">
+              <span class="chip calendar">Calendar</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="item" data-tags="tripwire">
+          <div class="time">06:11</div>
+          <div class="content">
+            <h2>TSM utilization commentary improved</h2>
+            <p class="summary quick">Signal = HOLD/ADD small if thesis intact.</p>
+            <p class="summary deep hidden">
+              Capacity commentary implies less near-term inventory digestion than last call. Keep action small and contingent on follow-up demand confirmation.
+            </p>
+            <div class="chips">
+              <span class="chip tripwire">Tripwire</span>
+            </div>
+          </div>
+        </article>
       </section>
     </main>
+
     <script src="./assets/app.js" defer></script>
   </body>
 </html>

@@ -3,57 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Earnings Tripwire for Chip/AI Stocks - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>Earnings Tripwire Demo</title>
     <link rel="stylesheet" href="./assets/style.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-02-22-p001</p>
+    <main class="frame">
+      <header>
+        <p class="id">2026-02-22-p001</p>
         <h1>Earnings Tripwire for Chip/AI Stocks</h1>
-        <p>A checklist-driven daily alert that flags early risk signals in earnings calls/news for semiconductor &amp; AI equities.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
+        <p>
+          Run a fixed tripwire checklist on fresh text and generate a severity preview
+          with evidence-ready next checks.
+        </p>
+      </header>
+
+      <section class="layout">
+        <form id="tripwire-form" class="panel" aria-label="Tripwire checklist form">
+          <h2>Checklist</h2>
+
+          <fieldset>
+            <legend>Guidance and Demand</legend>
+            <label><input type="checkbox" value="Guidance language weakened" /> Guidance language weakened</label>
+            <label><input type="checkbox" value="Demand normalization mention increased" /> Demand normalization mention increased</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Margins and Inventory</legend>
+            <label><input type="checkbox" value="Gross margin pressure discussed" /> Gross margin pressure discussed</label>
+            <label><input type="checkbox" value="Inventory digestion comments expanded" /> Inventory digestion comments expanded</label>
+          </fieldset>
+
+          <fieldset>
+            <legend>Regulation and Competitive Pressure</legend>
+            <label><input type="checkbox" value="Export-control exposure increased" /> Export-control exposure increased</label>
+            <label><input type="checkbox" value="Design-loss or displacement risk surfaced" /> Design-loss or displacement risk surfaced</label>
+          </fieldset>
+
+          <label for="ticker">Ticker</label>
+          <input id="ticker" type="text" value="NVDA" maxlength="8" />
+
+          <button type="submit">Generate Alert Preview</button>
+        </form>
+
+        <section class="panel preview" aria-live="polite">
+          <h2>Alert Preview</h2>
+          <p id="severity" class="severity info">Severity: INFO</p>
+          <p id="headline" class="headline">No tripwires selected yet.</p>
+
+          <h3>Triggered checks</h3>
+          <ul id="trigger-list"></ul>
+
+          <h3>What to verify next</h3>
+          <ul id="next-actions"></ul>
         </section>
       </section>
     </main>
+
     <script src="./assets/app.js" defer></script>
   </body>
 </html>
