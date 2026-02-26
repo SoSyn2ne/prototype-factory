@@ -1,11 +1,16 @@
-const clock = document.getElementById("clock");
+const textarea = document.getElementById("constraints");
+const counter = document.getElementById("counter");
 
-if (clock) {
-  const updateClock = () => {
-    const now = new Date();
-    clock.textContent = now.toLocaleTimeString();
+if (textarea && counter) {
+  const maxChars = 280;
+
+  const updateCounter = () => {
+    if (textarea.value.length > maxChars) {
+      textarea.value = textarea.value.slice(0, maxChars);
+    }
+    counter.textContent = `${textarea.value.length} / ${maxChars}`;
   };
 
-  updateClock();
-  setInterval(updateClock, 1000);
+  textarea.addEventListener("input", updateCounter);
+  updateCounter();
 }

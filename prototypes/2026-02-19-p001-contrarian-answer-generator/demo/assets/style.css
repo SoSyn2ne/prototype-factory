@@ -1,13 +1,11 @@
 :root {
-  color-scheme: dark;
-  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
-  --bg: #04070f;
-  --panel: #0d1324;
-  --panel-2: #101a32;
-  --line: rgba(148, 163, 184, 0.2);
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --accent: #22d3ee;
+  color-scheme: light;
+  font-family: "Manrope", "Arial Narrow", sans-serif;
+  --ink: #1f2937;
+  --muted: #4b5563;
+  --line: #d1d5db;
+  --paper: #fffaf0;
+  --accent: #ea580c;
 }
 
 * {
@@ -17,138 +15,117 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background:
-    radial-gradient(34rem 20rem at 90% -10%, rgba(34, 211, 238, 0.18), transparent 65%),
-    radial-gradient(28rem 18rem at 0% 100%, rgba(79, 70, 229, 0.16), transparent 70%),
-    var(--bg);
-  color: var(--text);
+  background: linear-gradient(115deg, #fcd34d 0%, #fb7185 45%, #a7f3d0 100%);
+  color: var(--ink);
 }
 
-.app-shell {
-  max-width: 1200px;
-  margin: 0 auto;
+.split {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 18px;
-  padding: 18px;
+  grid-template-columns: 0.85fr 1fr;
 }
 
-.rail,
-.content {
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.65));
-  backdrop-filter: blur(8px);
+.brand {
+  padding: clamp(24px, 5vw, 56px);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  display: grid;
+  align-content: end;
+  gap: 10px;
 }
 
-.rail {
-  padding: 20px;
-}
-
-.rail-id {
+.id {
   margin: 0;
-  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   font-size: 0.75rem;
 }
 
-.rail h1 {
-  margin: 8px 0 10px;
-  font-size: 1.5rem;
+.brand h1 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 0.95;
 }
 
-.rail p {
+.brand p {
   margin: 0;
-  color: var(--muted);
+  max-width: 34ch;
   line-height: 1.5;
 }
 
-nav {
-  margin-top: 24px;
+.card-wrap {
   display: grid;
-  gap: 8px;
+  place-items: center;
+  padding: 24px;
 }
 
-nav a {
-  color: var(--text);
-  text-decoration: none;
+.card {
+  width: min(520px, 100%);
+  border: 1px solid rgba(17, 24, 39, 0.2);
+  background: var(--paper);
+  border-radius: 22px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+}
+
+.card h2 {
+  margin-top: 0;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
   padding: 10px 12px;
-  border-radius: 10px;
-  background: rgba(148, 163, 184, 0.08);
-  border: 1px solid transparent;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
 }
 
-nav a:hover {
-  border-color: rgba(34, 211, 238, 0.5);
+textarea {
+  resize: vertical;
 }
 
-.content {
-  padding: 18px;
-}
-
-header {
+.foot {
+  margin-top: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
 }
 
-header h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-header p {
-  margin: 0;
+#counter {
   color: var(--muted);
-  font-variant-numeric: tabular-nums;
+  font-size: 0.86rem;
 }
 
-.cards {
-  margin-top: 14px;
-  display: grid;
-  gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-}
-
-.cards article,
-.panel {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--panel-2);
-  padding: 14px;
-}
-
-span,
-small,
-.panel li {
-  color: var(--muted);
-}
-
-strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 1.8rem;
-}
-
-.panel {
-  margin-top: 12px;
-}
-
-.panel h3 {
-  margin-top: 0;
-}
-
-.panel ul {
-  margin: 0;
-  padding-left: 18px;
-  line-height: 1.6;
+button {
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 16px;
 }
 
 @media (max-width: 860px) {
-  .app-shell {
+  .split {
     grid-template-columns: 1fr;
+  }
+
+  .brand {
+    align-content: start;
   }
 }
