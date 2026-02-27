@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thesis Pre-Mortem Canvas</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="kicker">2026-02-28-p001</p>
+        <h1>Thesis Pre-Mortem Canvas</h1>
+        <p>Turn your thesis into explicit assumptions, concrete failure modes, and a 1-day falsification plan.</p>
+      </header>
+
+      <section class="canvas-grid">
+        <section class="panel thesis-panel" aria-labelledby="thesisHeading">
+          <h2 id="thesisHeading">Thesis Inputs</h2>
+          <div class="field">
+            <label for="tickerInput">Ticker/Name</label>
+            <input id="tickerInput" name="ticker" type="text" maxlength="64" placeholder="e.g., NVDA / NVIDIA" />
+          </div>
+          <div class="field">
+            <label for="thesisInput">Thesis (1-2 sentences)</label>
+            <textarea
+              id="thesisInput"
+              name="thesis"
+              rows="4"
+              maxlength="600"
+              placeholder="What are you betting on, and why should it work?"
+            ></textarea>
+          </div>
+        </section>
+
+        <section class="panel fragility-panel" aria-labelledby="fragilityHeading">
+          <div class="panel-head">
+            <h2 id="fragilityHeading">Fragility Score</h2>
+            <p id="fragilityScore" class="score-pill" aria-live="polite">0 / 100</p>
+          </div>
+          <p id="fragilitySummary" class="summary">Add assumptions to estimate thesis fragility.</p>
+          <p
+            id="fragilityExplanation"
+            class="hint"
+            title="Formula: weighted uncertainty = sum((100 - confidence) x impact weight) / sum(100 x impact weight). Impact weights: Low 1, Med 2, High 3."
+          >
+            Weighted uncertainty: low-confidence + high-impact assumptions increase this score fastest.
+          </p>
+        </section>
+
+        <section class="panel assumptions-panel" aria-labelledby="assumptionsHeading">
+          <div class="panel-head">
+            <h2 id="assumptionsHeading">Assumption Cards</h2>
+            <button id="addAssumptionBtn" type="button" class="primary-btn">Add assumption</button>
+          </div>
+          <p class="hint">Each card should be a specific statement that can be disproven.</p>
+          <div id="assumptionsList" class="assumption-list"></div>
+        </section>
+
+        <section class="panel failures-panel" aria-labelledby="failureModesHeading">
+          <h2 id="failureModesHeading">Failure Modes (ranked)</h2>
+          <ol id="failureModesList" class="failure-list" aria-live="polite"></ol>
+        </section>
+
+        <section class="panel plan-panel" aria-labelledby="planHeading">
+          <div class="panel-head">
+            <h2 id="planHeading">1-Day Falsification Plan</h2>
+            <p id="planProgressText" class="progress-text">0/0 complete</p>
+          </div>
+          <progress id="planProgressBar" class="progress-bar" value="0" max="100">0%</progress>
+          <p class="hint">Try to disprove your favorite story before you add or hold-and-hope.</p>
+          <ul id="falsificationPlanList" class="plan-list" aria-live="polite"></ul>
+        </section>
+      </section>
+    </main>
+
+    <template id="assumptionCardTemplate">
+      <article class="assumption-card">
+        <div class="assumption-head">
+          <h3 class="assumption-label">Assumption</h3>
+          <button type="button" class="text-btn remove-assumption-btn">Remove</button>
+        </div>
+        <div class="field">
+          <label>
+            Assumption title
+            <input
+              class="assumption-title-input"
+              type="text"
+              maxlength="140"
+              placeholder="e.g., AI inference demand keeps compounding in enterprise"
+            />
+          </label>
+        </div>
+        <div class="assumption-grid">
+          <div class="field">
+            <label>
+              Category
+              <select class="assumption-category-select">
+                <option value="Demand">Demand</option>
+                <option value="Competition">Competition</option>
+                <option value="Execution">Execution</option>
+                <option value="Valuation">Valuation</option>
+              </select>
+            </label>
+          </div>
+          <div class="field">
+            <label>
+              Impact
+              <select class="assumption-impact-select">
+                <option value="Low">Low</option>
+                <option value="Med">Med</option>
+                <option value="High">High</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div class="field">
+          <label class="slider-label">
+            Confidence
+            <span class="confidence-value">0%</span>
+            <input class="assumption-confidence-input" type="range" min="0" max="100" step="1" value="60" />
+          </label>
+        </div>
+      </article>
+    </template>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
