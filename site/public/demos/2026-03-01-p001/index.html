@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Falsification Sprint Planner — Demo</title>
+    <meta name="description" content="Turn assumptions into 1-day experiments with ROI scoring, kill criteria, and an evidence log." />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <div class="app-shell">
+      <aside class="rail" aria-label="Prototype info">
+        <p class="rail-id">2026-03-01-p001</p>
+        <h1>Falsification Sprint Planner</h1>
+        <p class="rail-sub">Turn assumptions into 1-day experiments with ROI scoring and explicit kill criteria.</p>
+
+        <section class="rail-box" aria-label="Controls">
+          <h2 class="h-sm">Workspace</h2>
+          <div class="btn-row">
+            <button id="addCardBtn" class="btn" type="button">Add experiment</button>
+            <button id="prioritizeBtn" class="btn btn-ghost" type="button">Prioritize</button>
+          </div>
+          <div class="btn-row">
+            <button id="resetBtn" class="btn btn-danger" type="button">Reset (clear local)</button>
+          </div>
+          <p class="hint">Score = (Impact × Confidence) ÷ Effort. Use it to pick <strong>one</strong> experiment to run today.</p>
+        </section>
+
+        <section class="rail-box" aria-label="Falsification questions">
+          <h2 class="h-sm">Falsification questions (sample)</h2>
+          <ol class="q-list">
+            <li>Do users interpret “falsification” as academic/jargony and bounce?</li>
+            <li>If we remove scoring entirely, does completion rate increase (i.e., scoring is friction not value)?</li>
+            <li>Will users actually write measurable kill criteria (numbers + timeframe), or keep it vague?</li>
+            <li>Does a fixed set of test templates (landing/outreach/price) feel restrictive vs. helpful?</li>
+            <li>In a real use case, do users revisit the evidence log after the experiment, or ignore it?</li>
+          </ol>
+        </section>
+
+        <footer class="rail-footer">
+          <p class="muted">Demo is offline-first (localStorage). No accounts. No network requests.</p>
+        </footer>
+      </aside>
+
+      <main id="main" class="content" aria-label="Planner">
+        <header class="top">
+          <div>
+            <h2>Plan today’s falsification sprint</h2>
+            <p class="muted">Make the hypothesis explicit, define kill criteria, then log evidence and decide.</p>
+          </div>
+          <div class="status" role="status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="statusText">Loaded</span>
+          </div>
+        </header>
+
+        <section class="grid">
+          <section class="panel" aria-label="Experiments">
+            <div class="panel-head">
+              <h3>Experiments</h3>
+              <p class="muted">Click a card to edit. Mark one as <strong>Run today</strong>.</p>
+            </div>
+
+            <div id="cards" class="cards" role="list"></div>
+          </section>
+
+          <section class="panel" aria-label="Editor">
+            <div class="panel-head">
+              <h3>Editor</h3>
+              <p class="muted">Keep it falsifiable: measurable kill criteria + timeframe.</p>
+            </div>
+
+            <form id="editor" class="form" autocomplete="off">
+              <input type="hidden" id="cardId" />
+
+              <fieldset>
+                <legend>Experiment card</legend>
+
+                <div class="field">
+                  <label for="assumption">Assumption</label>
+                  <textarea id="assumption" rows="2" placeholder="e.g., Indie founders will write kill criteria if prompted." required></textarea>
+                </div>
+
+                <div class="field">
+                  <label for="hypothesis">Hypothesis</label>
+                  <textarea id="hypothesis" rows="2" placeholder="If we provide templates + scoring, users can produce a plan in &lt;10 minutes." required></textarea>
+                </div>
+
+                <div class="field">
+                  <label for="testType">Test type</label>
+                  <select id="testType">
+                    <option>Landing page</option>
+                    <option>Cold outreach</option>
+                    <option>Concierge</option>
+                    <option>Price test</option>
+                    <option>Smoke test</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="killCriteria">Kill criteria</label>
+                  <textarea id="killCriteria" rows="2" placeholder="Fail if: &lt; 5 replies from 50 DMs in 24h." required></textarea>
+                  <p class="help" id="killHelp">Tip: include a number + timeframe.</p>
+                </div>
+
+                <div class="field">
+                  <label for="successCriteria">Success criteria</label>
+                  <textarea id="successCriteria" rows="2" placeholder="Pass if: ≥ 10 qualified leads from 100 visits in 1 day." required></textarea>
+                </div>
+
+                <div class="two">
+                  <div class="field">
+                    <label for="effort">Effort (hours)</label>
+                    <input id="effort" type="number" inputmode="decimal" min="0" step="0.5" value="2" required />
+                  </div>
+
+                  <div class="field">
+                    <label for="verdict">Verdict</label>
+                    <select id="verdict">
+                      <option value="inconclusive">Inconclusive</option>
+                      <option value="pass">Pass</option>
+                      <option value="fail">Fail</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="two">
+                  <div class="field">
+                    <label for="impact">Impact <span class="muted">(1–5)</span></label>
+                    <input id="impact" type="range" min="1" max="5" step="1" value="3" />
+                    <div class="range-row"><span class="muted">Low</span><strong id="impactVal">3</strong><span class="muted">High</span></div>
+                  </div>
+
+                  <div class="field">
+                    <label for="confidence">Confidence <span class="muted">(1–5)</span></label>
+                    <input id="confidence" type="range" min="1" max="5" step="1" value="3" />
+                    <div class="range-row"><span class="muted">Low</span><strong id="confidenceVal">3</strong><span class="muted">High</span></div>
+                  </div>
+                </div>
+
+                <div class="score" aria-live="polite">
+                  <span class="muted">Live score</span>
+                  <strong id="scoreVal">—</strong>
+                  <span class="muted" id="scoreFormula">(Impact × Confidence) ÷ Effort</span>
+                </div>
+
+                <div class="btn-row">
+                  <button id="saveBtn" class="btn" type="submit">Save</button>
+                  <button id="runTodayBtn" class="btn btn-ghost" type="button">Set as Run today</button>
+                  <button id="deleteBtn" class="btn btn-danger" type="button">Delete</button>
+                </div>
+              </fieldset>
+            </form>
+          </section>
+
+          <section class="panel" aria-label="Run today">
+            <div class="panel-head">
+              <h3>Run today</h3>
+              <p class="muted">Log evidence as you run the test. Decide with less sunk-cost bias.</p>
+            </div>
+
+            <div class="run-today">
+              <div class="run-head">
+                <div>
+                  <p class="muted">Selected</p>
+                  <p id="runTitle" class="run-title">No card selected</p>
+                </div>
+                <div class="pill" id="runVerdict">INCONCLUSIVE</div>
+              </div>
+
+              <section class="evidence" aria-label="Evidence log">
+                <h4>Evidence log</h4>
+
+                <form id="evidenceForm" class="evidence-form">
+                  <div class="field">
+                    <label for="evidenceNote">Note</label>
+                    <input id="evidenceNote" type="text" placeholder="e.g., 12 clicks, 1 reply — objections: ‘too academic’" />
+                  </div>
+                  <div class="two">
+                    <div class="field">
+                      <label for="evidenceMetric">Metric (optional)</label>
+                      <input id="evidenceMetric" type="text" placeholder="e.g., replies=1/50" />
+                    </div>
+                    <div class="field">
+                      <label>&nbsp;</label>
+                      <button class="btn" type="submit">Add entry</button>
+                    </div>
+                  </div>
+                </form>
+
+                <ul id="evidenceList" class="evidence-list"></ul>
+              </section>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
