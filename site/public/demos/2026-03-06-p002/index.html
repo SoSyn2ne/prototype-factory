@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Supply Chain Shock Watch</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="dashboard">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Operator Console</p>
+          <h1>Supply Chain Shock Watch</h1>
+          <p class="subtitle">Monitor dependency fragility and update mitigation posture in real time.</p>
+        </div>
+        <div class="clock-wrap">
+          <span>Local time</span>
+          <strong id="clock">--:--:--</strong>
+        </div>
+      </header>
+
+      <section class="shock-panel">
+        <article class="score-card">
+          <p>Shock Score</p>
+          <strong id="shockScore">0</strong>
+          <span id="scoreSeverity">Stable</span>
+          <div class="score-meter" aria-hidden="true">
+            <div id="scoreFill"></div>
+          </div>
+        </article>
+        <article>
+          <p>Avg Criticality</p>
+          <strong id="avgCriticality">0.0</strong>
+          <span>Scale 1-5</span>
+        </article>
+        <article>
+          <p>SPOF Rows</p>
+          <strong id="spofCount">0</strong>
+          <span>Alternatives = 0</span>
+        </article>
+        <article>
+          <p>Visible Dependencies</p>
+          <strong id="visibleRows">0</strong>
+          <span>After filters</span>
+        </article>
+      </section>
+
+      <section class="controls" aria-label="Filter controls">
+        <label>
+          Vendor
+          <select id="vendorFilter">
+            <option value="all">All vendors</option>
+          </select>
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" id="spofOnly" />
+          <span>SPOF only</span>
+        </label>
+      </section>
+
+      <section class="workspace">
+        <article class="panel">
+          <header class="panel-head">
+            <h2>Dependency table</h2>
+            <p>Edit criticality and alternatives inline</p>
+          </header>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Vendor</th>
+                  <th>Part</th>
+                  <th>Product</th>
+                  <th>Criticality (1-5)</th>
+                  <th>Alternatives</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="dependencyBody"></tbody>
+            </table>
+          </div>
+        </article>
+
+        <aside class="panel suggestions">
+          <header class="panel-head">
+            <h2>Mitigation suggestions</h2>
+            <p>Based on currently filtered rows</p>
+          </header>
+          <ol id="suggestionList"></ol>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
