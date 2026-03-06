@@ -201,99 +201,106 @@ export default function GalleryClient({ updatedAt, items }: Props) {
       <div id="grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {filtered.map((item) => {
           const category = pickCategory((item.tags || [])[0] || '');
+          const stage = (item.status || '').toLowerCase();
+          const badge = stage === 'prototype' ? 'Live' : stage === 'spec' ? 'Beta' : stage ? stage : 'Tool';
+          const badgeClass = stage === 'prototype'
+            ? 'bg-emerald-500/90'
+            : stage === 'spec'
+              ? 'bg-blue-500/90'
+              : 'bg-amber-500/90';
+
           return (
             <article
               key={item.id}
-              className="group rounded-xl border border-slate-200 bg-background-light shadow-sm transition hover:-translate-y-0.5 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
+              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/50"
             >
-              <Link href={`/p/${encodeURIComponent(item.id)}`} className="block overflow-hidden rounded-t-xl hover:no-underline">
-                {item.previewImage ? (
-                  <img
-                    src={item.previewImage}
-                    alt={`${item.title} preview`}
-                    className="aspect-[1200/630] w-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="flex aspect-[1200/630] w-full items-center justify-center text-xs text-slate-500">
-                    Preview image not available
-                  </div>
-                )}
-              </Link>
+              <div className="aspect-video relative overflow-hidden bg-slate-900">
+                <Link href={`/p/${encodeURIComponent(item.id)}`} className="block h-full w-full hover:no-underline">
+                  {item.previewImage ? (
+                    <img
+                      alt={`${item.title} preview`}
+                      src={item.previewImage}
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-xs text-slate-400">
+                      Preview image not available
+                    </div>
+                  )}
+                </Link>
 
-              <div className="p-5">
-                <div className="flex items-start justify-between gap-3">
+                <div className="absolute top-3 left-3 flex gap-2">
+                  <span className={`${badgeClass} text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider`}>
+                    {badge}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-5 flex flex-col flex-1">
+                <div className="flex justify-between items-start gap-3 mb-2">
                   <div className="min-w-0">
-                    <div className="text-xs text-slate-500">{item.createdAt} · {item.id}</div>
-                    <h3 className="mt-1 line-clamp-2 text-lg font-bold tracking-tight text-slate-900 dark:text-white">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight line-clamp-2">
                       {item.title}
                     </h3>
+                    <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{item.createdAt} · {item.id}</div>
                   </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <Link
-                      className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-900 hover:bg-slate-50 hover:no-underline dark:border-slate-800 dark:bg-slate-950 dark:text-white dark:hover:bg-slate-900"
-                      href={`/p/${encodeURIComponent(item.id)}`}
-                    >
-                      View
-                    </Link>
-                    {item.demoUrl ? (
-                      isExternalUrl(item.demoUrl) ? (
-                        <a
-                          className="rounded-lg bg-primary px-3 py-1.5 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline"
-                          href={item.demoUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Demo
-                        </a>
-                      ) : (
-                        <Link
-                          className="rounded-lg bg-primary px-3 py-1.5 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline"
-                          href={item.demoUrl}
-                        >
-                          Demo
-                        </Link>
-                      )
-                    ) : null}
-                  </div>
+                  <span className="text-primary font-bold">{category !== 'other' ? category.toUpperCase() : 'PF'}</span>
                 </div>
 
                 {item.oneLiner ? (
-                  <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-2">
                     {item.oneLiner}
                   </p>
                 ) : null}
 
-                <div className="mt-4 flex flex-wrap gap-2 text-xs">
-                  {item.status ? (
-                    <span className="rounded-full bg-slate-100 px-2 py-1 font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      {item.status}
+                <div className="flex flex-wrap gap-2 mt-auto mb-6">
+                  {item.stack?.slice(0, 2).map((s) => (
+                    <span
+                      key={s}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300"
+                    >
+                      {s}
                     </span>
-                  ) : null}
+                  ))}
                   {category !== 'other' ? (
-                    <span className="rounded-full bg-primary/10 px-2 py-1 font-medium text-primary">{category}</span>
-                  ) : null}
-                  {item.stack?.length ? (
-                    <span className="rounded-full bg-slate-100 px-2 py-1 font-medium text-slate-700 dark:bg-slate-800 dark:text-slate-300">
-                      {item.stack.slice(0, 3).join(', ')}
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-primary">
+                      {category === 'ai' ? 'AI & ML' : category[0].toUpperCase() + category.slice(1)}
                     </span>
                   ) : null}
                 </div>
 
-                {item.tags?.length ? (
-                  <div className="mt-3 flex flex-wrap gap-2 text-xs text-slate-500">
-                    {item.tags.slice(0, 8).map((t) => (
-                      <button
-                        key={t}
-                        type="button"
-                        onClick={() => setTag(t)}
-                        className="rounded-full border border-slate-200 bg-background-light px-2 py-1 hover:bg-slate-100 dark:border-slate-800 dark:bg-slate-900 dark:hover:bg-slate-800"
+                <div className="grid grid-cols-2 gap-2">
+                  {item.demoUrl ? (
+                    isExternalUrl(item.demoUrl) ? (
+                      <a
+                        href={item.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors hover:no-underline"
                       >
-                        #{t}
-                      </button>
-                    ))}
-                  </div>
-                ) : null}
+                        Demo
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.demoUrl}
+                        className="flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors hover:no-underline"
+                      >
+                        Demo
+                      </Link>
+                    )
+                  ) : (
+                    <div className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-bold bg-slate-200 text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                      No demo
+                    </div>
+                  )}
+                  <Link
+                    href={`/p/${encodeURIComponent(item.id)}`}
+                    className="flex items-center justify-center gap-1.5 px-4 py-2 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hover:no-underline"
+                  >
+                    View
+                  </Link>
+                </div>
               </div>
             </article>
           );
