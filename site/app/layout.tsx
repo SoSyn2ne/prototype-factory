@@ -2,39 +2,64 @@ import Link from 'next/link';
 import './globals.css';
 
 export const metadata = {
-  title: 'Prototype Factory — Gallery',
-  description: 'Daily prototypes index',
+  title: 'Prototype Factory — Premium Gallery',
+  description: 'Daily prototypes index (premium gallery)',
 };
+
+function Icon({ path, className }: { path: string; className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true">
+      <path d={path} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ko">
+    <html lang="en" className="dark">
       <body>
-        <div className="min-h-screen">
-          <div className="sticky top-0 z-50 border-b border-white/10 bg-white/70 backdrop-blur">
-            <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-              <Link href="/" className="flex items-baseline gap-2 hover:no-underline">
-                <span className="text-xs font-semibold tracking-wider text-neutral-500">prototype-factory</span>
-                <span className="text-sm font-extrabold tracking-tight text-neutral-900">Gallery</span>
-              </Link>
-              <div className="text-xs text-neutral-500">Daily prototypes · static index</div>
+        <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+          <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-background-light/80 backdrop-blur-md dark:border-slate-800 dark:bg-background-dark/80">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex h-16 items-center justify-between">
+                <div className="flex items-center gap-8">
+                  <Link href="/" className="flex items-center gap-2 text-primary hover:no-underline">
+                    <Icon
+                      className="h-7 w-7"
+                      path="M4 7h6v6H4V7Zm10 0h6v6h-6V7ZM4 17h6v2H4v-2Zm10 0h6v2h-6v-2Z"
+                    />
+                    <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Prototype Factory</h2>
+                  </Link>
+                  <nav className="hidden items-center gap-6 md:flex">
+                    <Link className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="/">
+                      Gallery
+                    </Link>
+                    <span className="text-sm font-medium text-slate-400">Marketplace</span>
+                    <span className="text-sm font-medium text-slate-400">Experiments</span>
+                    <span className="text-sm font-medium text-slate-400">Pricing</span>
+                  </nav>
+                </div>
+
+                <div className="flex flex-1 items-center justify-end gap-3">
+                  <span className="hidden text-xs text-slate-500 sm:block">static index · demos</span>
+                  <a
+                    className="flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-bold text-white transition-all hover:bg-primary/90"
+                    href="https://github.com/SoSyn2ne/prototype-factory"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Repo
+                  </a>
+                </div>
+              </div>
             </div>
-          </div>
+          </header>
 
-          <div className="mx-auto max-w-6xl px-4 py-8">
-            <header className="mb-6">
-              <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900">Prototype Factory</h1>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-neutral-600">
-                A daily shipping log. Browse prototypes, open demos, and keep a lightweight trail of specs.
-              </p>
-            </header>
+          {children}
 
-            {children}
-
-            <footer className="mt-12 border-t border-white/10 pt-6 text-xs text-neutral-500">
-              Built from <code>site/public/prototypes-index.json</code>
-            </footer>
-          </div>
+          <footer className="mt-auto border-t border-slate-200 bg-background-light/70 px-4 py-8 text-xs text-slate-500 dark:border-slate-800 dark:bg-background-dark/70">
+            <div className="mx-auto max-w-7xl">Built from <code>site/public/prototypes-index.json</code></div>
+          </footer>
         </div>
       </body>
     </html>
