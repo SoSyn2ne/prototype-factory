@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding RSVP Ops Console</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="topbar__left">
+        <div class="badge">2026-03-07-p001</div>
+        <div>
+          <h1>Wedding RSVP Ops Console</h1>
+          <p class="sub">Intake guests → track dietary risk → generate a print-ready day-of checklist.</p>
+        </div>
+      </div>
+      <div class="topbar__right">
+        <button id="btnPrint" class="btn">Print day-of checklist</button>
+        <button id="btnSeed" class="btn btn--ghost" title="Load sample guests">Load sample</button>
+        <button id="btnReset" class="btn btn--danger btn--ghost" title="Clear all saved data">Reset</button>
+      </div>
+    </header>
+
+    <main id="main" class="grid">
+      <section class="card" aria-labelledby="intakeTitle">
+        <h2 id="intakeTitle">Guest intake</h2>
+        <form id="guestForm" class="form">
+          <input type="hidden" id="guestId" />
+          <div class="row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" autocomplete="name" required placeholder="e.g., Minji Kim" />
+            </div>
+            <div class="field">
+              <label for="group">Group / family</label>
+              <input id="group" name="group" required placeholder="e.g., Bride family" />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="attendance">Attendance</label>
+              <select id="attendance" name="attendance" required>
+                <option value="yes">Attending</option>
+                <option value="no">Declined</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="meal">Meal</label>
+              <select id="meal" name="meal" required>
+                <option value="beef">Beef</option>
+                <option value="fish">Fish</option>
+                <option value="veg">Vegetarian</option>
+                <option value="kids">Kids</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="notes">Allergies / notes</label>
+            <textarea id="notes" name="notes" rows="3" placeholder="e.g., peanut allergy, wheelchair access"></textarea>
+            <p class="hint">Tip: anything safety-critical should go here (allergies, mobility, late arrival).</p>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="submit" id="btnSave">Save guest</button>
+            <button class="btn btn--ghost" type="button" id="btnCancel" hidden>Cancel edit</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="opsTitle">
+        <div class="card__head">
+          <h2 id="opsTitle">Ops view</h2>
+          <div class="pill" id="storageStatus" aria-live="polite">Local data: ready</div>
+        </div>
+
+        <div class="summary" aria-label="Summary counts">
+          <div class="kpi"><div class="kpi__label">Attending</div><div class="kpi__value" id="kpiAttending">0</div></div>
+          <div class="kpi"><div class="kpi__label">Declined</div><div class="kpi__value" id="kpiDeclined">0</div></div>
+          <div class="kpi"><div class="kpi__label">Allergy flags</div><div class="kpi__value" id="kpiAllergies">0</div></div>
+          <div class="kpi"><div class="kpi__label">Groups</div><div class="kpi__value" id="kpiGroups">0</div></div>
+        </div>
+
+        <div class="row row--tight" role="group" aria-label="Filters">
+          <div class="field">
+            <label for="filterGroup">Filter by group</label>
+            <select id="filterGroup">
+              <option value="">All groups</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="search">Search</label>
+            <input id="search" placeholder="name / notes" />
+          </div>
+        </div>
+
+        <div class="meal" aria-label="Meal breakdown">
+          <div class="meal__item"><span>Beef</span><strong id="mealBeef">0</strong></div>
+          <div class="meal__item"><span>Fish</span><strong id="mealFish">0</strong></div>
+          <div class="meal__item"><span>Veg</span><strong id="mealVeg">0</strong></div>
+          <div class="meal__item"><span>Kids</span><strong id="mealKids">0</strong></div>
+        </div>
+
+        <div class="seating">
+          <div class="seating__controls">
+            <div class="field">
+              <label for="tableSize">Table size</label>
+              <input id="tableSize" type="number" min="2" max="20" value="8" />
+            </div>
+            <button class="btn" id="btnSeat" type="button">Generate seating suggestions</button>
+          </div>
+          <div class="seating__out" aria-label="Seating output">
+            <h3>Suggested tables</h3>
+            <div id="tables"></div>
+          </div>
+        </div>
+
+        <h3>Guest list</h3>
+        <div class="tableWrap" role="region" aria-label="Guest list table" tabindex="0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Group</th>
+                <th>Status</th>
+                <th>Meal</th>
+                <th>Notes</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="guestRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="printTitle">
+        <h2 id="printTitle">Day-of checklist (print preview)</h2>
+        <p class="hint">This section becomes the printable sheet. Use the “Print day-of checklist” button.</p>
+        <div id="printable" class="printable">
+          <header class="printable__head">
+            <h3>Wedding day ops — checklist</h3>
+            <div class="printable__meta">
+              <span id="printMetaGuests">0 guests</span>
+              <span id="printMetaUpdated">Updated: —</span>
+            </div>
+          </header>
+
+          <section class="printSection">
+            <h4>Arrivals (attending)</h4>
+            <ol id="printArrivals"></ol>
+          </section>
+
+          <section class="printSection">
+            <h4>Dietary / accessibility notes</h4>
+            <ul id="printDietary"></ul>
+          </section>
+
+          <section class="printSection">
+            <h4>Seating suggestions</h4>
+            <div id="printSeating"></div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Local-only demo. Data is stored in your browser via <code>localStorage</code>.
+      </p>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
