@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026-03-08-p001 — Earnings Call Signal Sifter</title>
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-08-p001</div>
+        <div>
+          <h1>Earnings Call Signal Sifter</h1>
+          <p class="sub">Paste a transcript → get 5 decision signals + a falsification queue.</p>
+        </div>
+      </div>
+      <div class="hint">
+        <span class="pill">Offline</span>
+        <span class="pill">Vanilla JS</span>
+        <span class="pill">No CDNs</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panelHeader">
+          <h2>Transcript</h2>
+          <div class="controls">
+            <label class="field">
+              <span>Preset</span>
+              <select id="presetSelect">
+                <option value="">— choose —</option>
+                <option value="gpu">GPU / datacenter demand</option>
+                <option value="foundry">Foundry / supply & capex</option>
+              </select>
+            </label>
+            <button class="btn" id="extractBtn" type="button">Extract signals</button>
+          </div>
+        </div>
+
+        <label class="field">
+          <span>Paste transcript</span>
+          <textarea id="transcriptInput" rows="10" placeholder="Paste prepared remarks or a full transcript here..."></textarea>
+        </label>
+
+        <div class="row">
+          <label class="field grow">
+            <span>Filter signals by keyword</span>
+            <input id="filterInput" type="text" placeholder="e.g., inventory, capex, ASP, backlog" />
+          </label>
+          <div class="stat" aria-live="polite">
+            <div class="statLabel">Visible</div>
+            <div class="statValue" id="visibleCount">0</div>
+          </div>
+        </div>
+
+        <div class="notice" id="notice" role="status" aria-live="polite"></div>
+
+        <div class="signals" id="signals"></div>
+      </section>
+
+      <aside class="sidebar" aria-label="Falsification queue">
+        <div class="sidebarHeader">
+          <h2>Falsification queue</h2>
+          <p class="muted">Add signals you want to check within 24–72h.</p>
+        </div>
+        <div class="queue" id="queue"></div>
+        <div class="sidebarFooter">
+          <button class="btn btnGhost" id="clearQueueBtn" type="button">Clear queue</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p>
+        This demo does <strong>not</strong> run real NLP. It’s a decision UI prototype: structure, confidence, falsification.
+      </p>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

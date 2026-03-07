@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026-03-08-p002 — Wedding RSVP Drift Detector</title>
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-08-p002</div>
+        <div>
+          <h1>Wedding RSVP Drift Detector</h1>
+          <p class="sub">Simulate RSVP changes → get a ranked review queue (seat-breakers first).</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="simulateBtn" type="button">Simulate update</button>
+        <button class="btn btnGhost" id="resetBtn" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panelHead">
+          <h2>Guest ledger</h2>
+          <div class="stats">
+            <div class="stat">
+              <div class="k">Attending</div>
+              <div class="v" id="attendingCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="k">Plus-ones</div>
+              <div class="v" id="plusOneCount">0</div>
+            </div>
+            <div class="stat">
+              <div class="k">Special meals</div>
+              <div class="v" id="dietCount">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tableWrap" role="region" aria-label="Guest list">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th>+1</th>
+                <th>Diet</th>
+                <th>Table</th>
+              </tr>
+            </thead>
+            <tbody id="guestBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <div class="sideHead">
+          <h2>Drift queue</h2>
+          <p class="muted">Click an item to review. Seat-breakers are flagged.</p>
+        </div>
+        <div class="queue" id="queue"></div>
+
+        <div class="detail" id="detail" aria-live="polite"></div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">Prototype: deterministic simulation + diff UI. No backend.</p>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

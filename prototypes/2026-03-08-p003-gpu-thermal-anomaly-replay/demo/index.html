@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2026-03-08-p003 — GPU Thermal Anomaly Replay</title>
+    <meta name="color-scheme" content="light" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-08-p003</div>
+        <div>
+          <h1>GPU Thermal Anomaly Replay</h1>
+          <p class="sub">Scrub the timeline, spot spikes, and read “what changed”.</p>
+        </div>
+      </div>
+      <div class="toggles">
+        <label class="check"><input id="showAnoms" type="checkbox" checked /> Show anomalies</label>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panelHead">
+          <h2>Replay</h2>
+          <div class="readout" id="readout"></div>
+        </div>
+
+        <div class="canvasWrap">
+          <canvas id="chart" width="980" height="320" aria-label="Chart" role="img"></canvas>
+        </div>
+
+        <div class="scrubRow">
+          <input id="scrubber" type="range" min="0" max="0" step="1" value="0" aria-label="Timeline" />
+          <div class="time" id="timeLabel">t=0s</div>
+        </div>
+
+        <div class="thresholds">
+          <div class="th">
+            <label>Temp anomaly ≥ <span id="tempVal">80</span>°C</label>
+            <input id="tempTh" type="range" min="50" max="95" step="1" value="80" />
+          </div>
+          <div class="th">
+            <label>Power jump ≥ <span id="pwrVal">40</span>W</label>
+            <input id="pwrTh" type="range" min="5" max="120" step="1" value="40" />
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <h2>Anomaly notes</h2>
+        <p class="muted">Heuristic annotations from deltas around spikes.</p>
+        <div class="notes" id="notes"></div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">Sample data is embedded. No uploads or external dependencies.</p>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
