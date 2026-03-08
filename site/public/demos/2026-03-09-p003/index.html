@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Seating Solver Lite</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="top">
+      <div class="top__inner">
+        <div>
+          <div class="kicker">2026-03-09-p003</div>
+          <h1>Wedding Seating Solver Lite</h1>
+          <p class="sub">Drag guests into tables. Add conflict pairs. Export a plan.</p>
+        </div>
+        <div class="top__actions">
+          <button id="btnExportJson" class="btn" type="button">Export JSON</button>
+          <button id="btnExportText" class="btn" type="button">Export Text</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <section class="panel" aria-label="Guest pool">
+        <div class="panel__head">
+          <h2>Guest pool</h2>
+          <div class="small" id="poolCount"></div>
+        </div>
+        <div id="pool" class="pool" role="list" aria-label="Guests available"></div>
+      </section>
+
+      <section class="panel" aria-label="Tables">
+        <div class="panel__head">
+          <h2>Tables</h2>
+          <div class="small">Drop guests into any table. Over-capacity and conflicts are flagged.</div>
+        </div>
+        <div id="tables" class="tables"></div>
+      </section>
+
+      <section class="panel" aria-label="Constraints">
+        <div class="panel__head">
+          <h2>Constraints</h2>
+          <div class="small">Define "cannot sit together" pairs.</div>
+        </div>
+
+        <div class="field">
+          <label for="guestA">Guest A</label>
+          <select id="guestA"></select>
+        </div>
+        <div class="field">
+          <label for="guestB">Guest B</label>
+          <select id="guestB"></select>
+        </div>
+        <button id="btnAddConflict" class="btn btn--primary" type="button">Add conflict pair</button>
+
+        <div class="conflicts">
+          <h3>Conflict pairs</h3>
+          <div id="conflictList" class="conflictList"></div>
+        </div>
+
+        <div class="legend">
+          <h3>Legend</h3>
+          <ul>
+            <li><strong>Capacity warning:</strong> table has more guests than seats.</li>
+            <li><strong>Conflict warning:</strong> a conflict pair sits at the same table.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

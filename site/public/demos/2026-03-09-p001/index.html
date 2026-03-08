@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ad Copy Variant Forge</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="topbar__inner">
+        <div>
+          <div class="kicker">2026-03-09-p001</div>
+          <h1>Ad Copy Variant Forge</h1>
+          <p class="sub">Deterministic copy variants + quick scoring + one-click export.</p>
+        </div>
+        <div class="topbar__actions">
+          <button id="btnGenerate" class="btn btn--primary" type="button">Generate</button>
+          <button id="btnExport" class="btn" type="button">Export CSV</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <aside class="panel" aria-label="Inputs">
+        <div class="panel__section">
+          <h2>Inputs</h2>
+          <div class="field">
+            <label for="product">Product</label>
+            <input id="product" type="text" placeholder="e.g., OrbitNotes" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="audience">Target audience</label>
+            <input id="audience" type="text" placeholder="e.g., busy founders" autocomplete="off" />
+          </div>
+          <div class="field">
+            <label for="valueProp">Value proposition</label>
+            <textarea id="valueProp" rows="3" placeholder="e.g., turn scattered notes into weekly action plans"></textarea>
+          </div>
+          <div class="field">
+            <label for="tone">Tone</label>
+            <select id="tone">
+              <option value="clear">Clear & direct</option>
+              <option value="playful">Playful</option>
+              <option value="premium">Premium</option>
+              <option value="urgent">Urgent</option>
+              <option value="curious">Curious</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="panel__section">
+          <h2>Constraints</h2>
+          <div class="field">
+            <label for="forbidden">Forbidden words (comma-separated)</label>
+            <input id="forbidden" type="text" placeholder="e.g., free, cheap, guaranteed" autocomplete="off" />
+          </div>
+          <div class="field inline">
+            <div>
+              <label for="maxLen">Max length</label>
+              <input id="maxLen" type="number" min="10" max="200" value="40" />
+            </div>
+            <div class="hint" id="lenHint">Used for the selected tab.</div>
+          </div>
+          <div class="mini">
+            <p><strong>Tip:</strong> This demo is offline and deterministic. Tweak inputs to get predictable changes.</p>
+          </div>
+        </div>
+      </aside>
+
+      <section class="content" aria-label="Generated variants">
+        <div class="tabs" role="tablist" aria-label="Copy type">
+          <button class="tab" id="tabHeadline" role="tab" aria-selected="true" aria-controls="panelHeadline" type="button">Headlines</button>
+          <button class="tab" id="tabPrimary" role="tab" aria-selected="false" aria-controls="panelPrimary" type="button">Primary text</button>
+        </div>
+
+        <div class="tabpanels">
+          <div id="panelHeadline" class="tabpanel" role="tabpanel" aria-labelledby="tabHeadline"></div>
+          <div id="panelPrimary" class="tabpanel" role="tabpanel" aria-labelledby="tabPrimary" hidden></div>
+        </div>
+
+        <section class="legend" aria-label="Scoring explanation">
+          <h2>Scores</h2>
+          <ul>
+            <li><strong>Length fit:</strong> closer to max length scores higher.</li>
+            <li><strong>Clarity:</strong> presence of product + value prop keywords.</li>
+            <li><strong>Curiosity:</strong> hooks like “why”, “stop”, “before”, numbers, questions.</li>
+          </ul>
+        </section>
+      </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
