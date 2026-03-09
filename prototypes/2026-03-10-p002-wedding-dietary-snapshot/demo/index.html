@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Dietary Snapshot — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="hero">
+        <div>
+          <p class="id">2026-03-10-p002</p>
+          <h1>Wedding Dietary Snapshot</h1>
+          <p class="sub">Capture dietary needs fast. Get an accurate kitchen-ready summary. Export as JSON.</p>
+        </div>
+        <div class="pill">Offline • Vanilla</div>
+      </header>
+
+      <section class="grid">
+        <section class="card">
+          <div class="cardHead">
+            <h2>Guests</h2>
+            <div class="actions">
+              <button id="addBtn" type="button">Add guest</button>
+              <button id="clearBtn" type="button" class="ghost">Clear all</button>
+            </div>
+          </div>
+
+          <div class="table" role="table" aria-label="Guest list">
+            <div class="thead" role="rowgroup">
+              <div class="tr" role="row">
+                <div class="th" role="columnheader">Name</div>
+                <div class="th" role="columnheader">Tags</div>
+                <div class="th" role="columnheader">Notes</div>
+                <div class="th" role="columnheader">Actions</div>
+              </div>
+            </div>
+            <div id="rows" class="tbody" role="rowgroup"></div>
+          </div>
+
+          <p class="hint">Tip: use Notes for “no pork”, “low sodium”, or venue-specific instructions.</p>
+          <p id="dupeWarn" class="warn" aria-live="polite"></p>
+        </section>
+
+        <section class="card">
+          <h2>Kitchen summary</h2>
+          <div id="summary" class="summary"></div>
+
+          <div class="panel">
+            <h3>Export</h3>
+            <textarea id="exportBox" rows="10" readonly></textarea>
+            <div class="actions">
+              <button id="copyBtn" type="button">Copy export JSON</button>
+              <span id="copyStatus" class="status" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>What to send the caterer</h3>
+            <ol class="check">
+              <li>Counts by tag (top section)</li>
+              <li>Names for allergy tags (nut/shellfish/etc.)</li>
+              <li>Notes list (from JSON)</li>
+            </ol>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <template id="rowTpl">
+      <div class="tr" role="row">
+        <div class="td">
+          <input class="name" type="text" placeholder="e.g., Kim Minji" />
+        </div>
+        <div class="td tags">
+          <label><input type="checkbox" value="vegetarian" /> Vegetarian</label>
+          <label><input type="checkbox" value="vegan" /> Vegan</label>
+          <label><input type="checkbox" value="gluten_free" /> Gluten-free</label>
+          <label><input type="checkbox" value="nut_allergy" /> Nut allergy</label>
+          <label><input type="checkbox" value="shellfish_allergy" /> Shellfish allergy</label>
+          <label><input type="checkbox" value="halal" /> Halal</label>
+          <label><input type="checkbox" value="no_pork" /> No pork</label>
+        </div>
+        <div class="td">
+          <input class="notes" type="text" placeholder="optional" />
+        </div>
+        <div class="td">
+          <button class="remove" type="button">Remove</button>
+        </div>
+      </div>
+    </template>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
