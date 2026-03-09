@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Risk Budget Guardrails — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <p class="id">2026-03-10-p001</p>
+          <h1>Risk Budget Guardrails</h1>
+          <p class="sub">Turn conviction + volatility into a max position size and a simple stop-loss plan.</p>
+        </div>
+        <div class="badge">Offline • Vanilla HTML/CSS/JS</div>
+      </header>
+
+      <section class="grid">
+        <section class="card">
+          <h2>Inputs</h2>
+
+          <div class="row">
+            <label for="account">Account size</label>
+            <div class="control">
+              <input id="account" type="number" min="0" step="100" value="10000" />
+              <span class="unit">USD</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="riskPct">Max risk per trade</label>
+            <div class="control">
+              <input id="riskPct" type="number" min="0" step="0.1" value="1" />
+              <span class="unit">%</span>
+            </div>
+            <p class="hint">Most guardrails land in ~0.25–1.0% for single-name trades.</p>
+          </div>
+
+          <div class="row">
+            <label for="entry">Entry price</label>
+            <div class="control">
+              <input id="entry" type="number" min="0" step="0.01" value="100" />
+              <span class="unit">USD</span>
+            </div>
+          </div>
+
+          <div class="row">
+            <label for="stopPct">Stop distance</label>
+            <div class="control">
+              <input id="stopPct" type="number" min="0" step="0.1" value="8" />
+              <span class="unit">%</span>
+            </div>
+            <p class="hint" id="stopHint">Tip: volatility presets can suggest a starting stop distance.</p>
+          </div>
+
+          <div class="row">
+            <label>Volatility preset</label>
+            <div class="seg" role="group" aria-label="Volatility preset">
+              <button class="seg-btn" data-vol="low" type="button">Low</button>
+              <button class="seg-btn active" data-vol="med" type="button">Medium</button>
+              <button class="seg-btn" data-vol="high" type="button">High</button>
+            </div>
+            <p class="hint">Preset nudges a suggested stop distance. You can override.</p>
+          </div>
+
+          <div class="row">
+            <label for="conviction">Conviction (optional)</label>
+            <div class="control">
+              <input id="conviction" type="range" min="1" max="5" step="1" value="3" />
+              <span class="unit" id="convictionLabel">3/5</span>
+            </div>
+            <p class="hint">Conviction never increases risk budget; it only changes the reminder text.</p>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>Plan</h2>
+
+          <div class="kpis">
+            <div class="kpi">
+              <span class="k">Risk budget</span>
+              <strong class="v" id="riskBudget">—</strong>
+              <span class="s">max loss if stop hits</span>
+            </div>
+            <div class="kpi">
+              <span class="k">Max notional</span>
+              <strong class="v" id="maxNotional">—</strong>
+              <span class="s">position size limit</span>
+            </div>
+            <div class="kpi">
+              <span class="k">Max shares</span>
+              <strong class="v" id="maxShares">—</strong>
+              <span class="s">rounded down</span>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h3>Stop plan</h3>
+            <div class="stop-grid">
+              <div>
+                <span class="k">Suggested stop price</span>
+                <strong class="v" id="stopPrice">—</strong>
+              </div>
+              <div>
+                <span class="k">Dollars per share at risk</span>
+                <strong class="v" id="riskPerShare">—</strong>
+              </div>
+            </div>
+            <p class="note" id="warnings"></p>
+          </div>
+
+          <div class="panel">
+            <h3>Copy/paste plan</h3>
+            <textarea id="planText" rows="6" readonly></textarea>
+            <div class="actions">
+              <button id="copyBtn" type="button">Copy</button>
+              <button id="resetBtn" type="button" class="ghost">Reset defaults</button>
+              <span id="copyStatus" class="status" aria-live="polite"></span>
+            </div>
+          </div>
+
+          <footer class="fine">
+            <p><strong>Disclaimer:</strong> not financial advice. This is a sizing guardrail, not a prediction engine.</p>
+          </footer>
+        </section>
+      </section>
+    </main>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
