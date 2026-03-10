@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Log Triage Pad — Demo</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div>
+        <div class="id">{{ID}}</div>
+        <h1>{{TITLE}}</h1>
+        <p class="sub">{{ONELINER}}</p>
+      </div>
+      <div class="actions">
+        <button id="clearBtn" class="btn btn-ghost" type="button">Clear</button>
+        <button id="resetBtn" class="btn btn-danger" type="button">Reset history</button>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <section class="card span-2">
+        <div class="rowHead">
+          <h2>Paste logs</h2>
+          <div class="pill" id="statusPill">Offline</div>
+        </div>
+        <textarea id="logInput" rows="10" placeholder="Paste logs here (dmesg / app stdout / nvidia-smi output)..."></textarea>
+        <div class="row">
+          <button id="analyzeBtn" class="btn" type="button">Analyze</button>
+          <div class="hint" id="hint">Tip: try pasting a line containing "CUDA out of memory" or "NVRM: Xid".</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Signals</h2>
+        <div id="signals" class="signals"></div>
+        <p class="hint">Heuristic scoring. Click a signal to see evidence lines.</p>
+      </section>
+
+      <section class="card">
+        <h2>Next actions</h2>
+        <ul id="actions" class="actionsList"></ul>
+        <div class="row">
+          <button id="saveBtn" class="btn btn-ghost" type="button" disabled>Save triage note</button>
+          <div id="saveMsg" class="hint" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="card span-2">
+        <div class="rowHead">
+          <h2>Evidence</h2>
+          <div class="pill" id="evidenceTitle">—</div>
+        </div>
+        <pre id="evidence" class="evidence" aria-label="Matching log lines"></pre>
+      </section>
+
+      <section class="card span-2">
+        <div class="rowHead">
+          <h2>Saved notes</h2>
+          <button id="deleteOneBtn" class="btn btn-ghost" type="button" disabled>Delete selected</button>
+        </div>
+        <div class="notes">
+          <select id="notesSelect" aria-label="Select saved note"></select>
+          <pre id="noteView" class="evidence" aria-label="Saved note"></pre>
+        </div>
+      </section>
+
+      <footer class="foot span-2">
+        <p>Local-first demo. No uploads. Treat suggestions as a starting checklist.</p>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

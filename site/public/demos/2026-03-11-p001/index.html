@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earnings Whisper Radar — Demo</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">{{ID}}</div>
+        <h1>{{TITLE}}</h1>
+        <p class="subtitle">{{ONELINER}}</p>
+      </div>
+      <div class="top-actions">
+        <button id="resetBtn" class="btn btn-ghost" type="button">Reset demo data</button>
+      </div>
+    </header>
+
+    <main id="main" class="layout" aria-label="Earnings watchlist">
+      <section class="card" aria-label="Add to watchlist">
+        <h2>Add ticker</h2>
+        <form id="addForm" class="grid" novalidate>
+          <label>
+            <span>Ticker</span>
+            <input id="tickerInput" name="ticker" autocomplete="off" placeholder="NVDA" required maxlength="12" />
+          </label>
+
+          <label>
+            <span>Earnings date</span>
+            <input id="dateInput" name="earningsDate" type="date" required />
+          </label>
+
+          <label>
+            <span>Expected volatility</span>
+            <select id="volInput" name="vol">
+              <option value="low">Low</option>
+              <option value="med" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </label>
+
+          <label class="span-2">
+            <span>Whisper vs consensus (subjective)</span>
+            <div class="rangeRow">
+              <input id="whisperInput" name="whisper" type="range" min="-50" max="50" value="0" />
+              <output id="whisperOut" for="whisperInput">0</output>
+            </div>
+            <p class="hint">Negative = you think expectations are lower than consensus; positive = higher. This is *not* a forecast.</p>
+          </label>
+
+          <div class="span-2 formActions">
+            <button class="btn" type="submit">Add</button>
+            <p id="formError" class="error" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-label="Filters">
+        <h2>Focus window</h2>
+        <div class="grid">
+          <label>
+            <span>From</span>
+            <input id="fromInput" type="date" />
+          </label>
+          <label>
+            <span>To</span>
+            <input id="toInput" type="date" />
+          </label>
+          <div class="span-2 formActions">
+            <button id="clearFiltersBtn" class="btn btn-ghost" type="button">Clear filters</button>
+            <div class="summary" id="summary"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card span-2" aria-label="Watchlist">
+        <div class="rowHead">
+          <h2>Watchlist</h2>
+          <div class="pill" id="storagePill">Local</div>
+        </div>
+        <div class="tableWrap" role="region" aria-label="Earnings watchlist table" tabindex="0">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Ticker</th>
+                <th scope="col">Date</th>
+                <th scope="col">Vol</th>
+                <th scope="col">Whisper</th>
+                <th scope="col">Readiness</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <p class="hint">Readiness = % checklist done, adjusted for volatility. It measures preparation, not outcome.</p>
+      </section>
+
+      <section class="card span-2" aria-label="Ticker details">
+        <div class="rowHead">
+          <h2 id="detailTitle">Details</h2>
+          <div class="detailActions">
+            <button id="deleteBtn" class="btn btn-danger" type="button" disabled>Delete</button>
+          </div>
+        </div>
+
+        <div id="detailEmpty" class="empty">
+          <p>Select a row to open its checklist.</p>
+        </div>
+
+        <div id="detailPane" class="detail" hidden>
+          <div class="detailGrid">
+            <div>
+              <div class="k">Ticker</div>
+              <div class="v" id="dTicker">—</div>
+            </div>
+            <div>
+              <div class="k">Earnings date</div>
+              <div class="v" id="dDate">—</div>
+            </div>
+            <div>
+              <div class="k">Expected volatility</div>
+              <div class="v" id="dVol">—</div>
+            </div>
+            <div>
+              <div class="k">Whisper vs consensus</div>
+              <div class="v" id="dWhisper">—</div>
+            </div>
+          </div>
+
+          <h3>Catalyst checklist</h3>
+          <ul id="checklist" class="checklist"></ul>
+
+          <h3>Post-earnings review (optional)</h3>
+          <label class="block">
+            <span>What surprised you?</span>
+            <textarea id="reviewSurprise" rows="3" placeholder="e.g., margin guide, data center demand..."> </textarea>
+          </label>
+          <label class="block">
+            <span>What would you do differently next time?</span>
+            <textarea id="reviewNext" rows="3" placeholder="e.g., read the 10-Q, set a hard max position..."> </textarea>
+          </label>
+          <div class="formActions">
+            <button id="saveReviewBtn" class="btn btn-ghost" type="button">Save review notes</button>
+            <span id="saveHint" class="hint" aria-live="polite"></span>
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot span-2">
+        <p>Demo-only UI. No financial advice. No network calls.</p>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

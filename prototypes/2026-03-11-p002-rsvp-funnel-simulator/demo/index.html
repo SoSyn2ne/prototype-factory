@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP Funnel Simulator — Demo</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div>
+        <div class="id">{{ID}}</div>
+        <h1>{{TITLE}}</h1>
+        <p class="sub">{{ONELINER}}</p>
+      </div>
+      <div class="actions">
+        <button id="newBtn" class="btn" type="button">New scenario</button>
+        <button id="resetBtn" class="btn btn-ghost" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <section class="card">
+        <div class="rowHead">
+          <h2>Scenario</h2>
+          <select id="scenarioSelect" aria-label="Select scenario"></select>
+        </div>
+
+        <div class="grid">
+          <label>
+            <span>Event date</span>
+            <input id="eventDate" type="date" required />
+          </label>
+          <label>
+            <span>Caterer deadline</span>
+            <input id="deadlineDate" type="date" required />
+          </label>
+          <label>
+            <span>Invited count</span>
+            <input id="invited" type="number" min="1" step="1" value="120" />
+          </label>
+          <label>
+            <span>Baseline response rate by event (%)</span>
+            <input id="baseResponse" type="number" min="0" max="100" value="85" />
+          </label>
+          <label>
+            <span>Response speed (days)</span>
+            <input id="speedDays" type="number" min="1" max="60" value="18" />
+            <p class="hint">Lower = people reply faster.</p>
+          </label>
+          <label>
+            <span>Reminder lift (max +%)</span>
+            <input id="lift" type="number" min="0" max="40" value="12" />
+            <p class="hint">Each reminder nudges the curve upward temporarily.</p>
+          </label>
+          <div class="span-2 formActions">
+            <button id="saveBtn" class="btn" type="button">Save scenario</button>
+            <div id="err" class="err" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="rowHead">
+          <h2>Reminders</h2>
+          <button id="addReminderBtn" class="btn btn-ghost" type="button">Add reminder</button>
+        </div>
+        <div id="reminders" class="reminders"></div>
+        <p class="hint">Think of reminders as “touches” (text, call, group chat). Strength approximates how effective it is.</p>
+      </section>
+
+      <section class="card span-2">
+        <div class="rowHead">
+          <h2>Forecast</h2>
+          <div class="pill" id="byDeadline">—</div>
+        </div>
+
+        <div class="chartWrap" role="img" aria-label="Forecast chart">
+          <canvas id="chart" width="980" height="280"></canvas>
+        </div>
+
+        <div class="legend">
+          <div><span class="swatch s1"></span>Expected responses</div>
+          <div><span class="swatch s2"></span>Range (±)</div>
+          <div><span class="swatch s3"></span>Deadline</div>
+        </div>
+
+        <p class="hint">This is a planning simulator. Use ranges and keep contingency buffers.</p>
+      </section>
+
+      <footer class="foot span-2">
+        <p>Demo-only. No guest PII stored. No network calls.</p>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
