@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Memory Capsule QR Wall</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+    <script defer src="./assets/app.js"></script>
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <main class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="hero-kicker">Wedding Memory Capsule QR Wall</p>
+          <h1>Capture the table talk before the night disappears.</h1>
+          <p class="hero-lede">
+            Guests can leave a note, emoji, and simulated photo memory right from their phone. Everything stays local on this device until the couple is ready to export it.
+          </p>
+          <div class="hero-tags" aria-label="Prototype qualities">
+            <span>Local-only capture</span>
+            <span>Optional approval</span>
+            <span>Keepsake export</span>
+          </div>
+        </div>
+        <aside class="hero-qr-card" aria-label="QR placeholder">
+          <div class="qr-placeholder" role="img" aria-label="QR placeholder with scan me label">
+            <span>Scan me</span>
+          </div>
+          <p class="qr-table-label">Table 07 invitation card</p>
+          <p class="qr-caption">Designed for flaky venue Wi-Fi and fast, one-handed guest input.</p>
+        </aside>
+      </header>
+
+      <div class="content-grid">
+        <section class="panel form-panel" aria-labelledby="leave-message-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-eyebrow">1. Leave a message</p>
+              <h2 id="leave-message-title">Leave a message</h2>
+            </div>
+            <p class="panel-note">Saved locally on this browser as soon as you submit.</p>
+          </div>
+
+          <form id="memory-form" novalidate>
+            <div class="field-grid">
+              <label class="field">
+                <span>Name (optional)</span>
+                <input id="guest-name" name="guestName" type="text" maxlength="40" placeholder="Aunt Mina" />
+              </label>
+
+              <label class="field">
+                <span>Relation</span>
+                <select id="guest-relation" name="relation" required>
+                  <option value="">Choose one</option>
+                  <option value="Family">Family</option>
+                  <option value="Friend">Friend</option>
+                  <option value="Wedding party">Wedding party</option>
+                  <option value="Coworker">Coworker</option>
+                  <option value="Neighbor">Neighbor</option>
+                  <option value="Mentor">Mentor</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="field field-message">
+              <span>Message for the couple</span>
+              <textarea
+                id="memory-message"
+                name="message"
+                rows="5"
+                maxlength="280"
+                placeholder="Share a story, a blessing, or one piece of marriage advice."
+                required
+              ></textarea>
+            </label>
+
+            <fieldset class="reaction-group">
+              <legend>Emoji reaction</legend>
+              <div class="reaction-options">
+                <label>
+                  <input type="radio" name="reaction" value="💛" checked />
+                  <span>💛</span>
+                </label>
+                <label>
+                  <input type="radio" name="reaction" value="🥂" />
+                  <span>🥂</span>
+                </label>
+                <label>
+                  <input type="radio" name="reaction" value="😭" />
+                  <span>😭</span>
+                </label>
+                <label>
+                  <input type="radio" name="reaction" value="🎉" />
+                  <span>🎉</span>
+                </label>
+                <label>
+                  <input type="radio" name="reaction" value="💍" />
+                  <span>💍</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="photo-memory-card">
+              <label class="checkbox-row">
+                <input id="photo-toggle" name="hasPhoto" type="checkbox" />
+                <span>Add a simulated photo memory</span>
+              </label>
+              <label class="field">
+                <span>Photo caption</span>
+                <input
+                  id="photo-caption"
+                  name="photoCaption"
+                  type="text"
+                  maxlength="60"
+                  placeholder="First dance blur, but worth keeping"
+                  disabled
+                />
+              </label>
+            </div>
+
+            <div class="form-footer">
+              <p id="submission-mode" class="submission-mode">New messages go live right away while approval is off.</p>
+              <button class="primary-button" type="submit">Save memory</button>
+            </div>
+            <p id="form-feedback" class="form-feedback" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="panel feed-panel" aria-labelledby="message-feed-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-eyebrow">2. Message feed</p>
+              <h2 id="message-feed-title">Message feed</h2>
+            </div>
+            <div class="feed-stats" aria-label="Message counts">
+              <span><strong id="approved-count">0</strong> public</span>
+              <span><strong id="pending-count">0</strong> pending</span>
+              <span><strong id="total-count">0</strong> saved</span>
+            </div>
+          </div>
+
+          <div class="feed-columns">
+            <div class="feed-column">
+              <div class="column-header">
+                <h3>Public wall</h3>
+                <p>What guests can see on this device now.</p>
+              </div>
+              <div id="approved-feed" class="card-list" aria-live="polite"></div>
+            </div>
+
+            <div class="feed-column">
+              <div class="column-header">
+                <h3>Moderation queue</h3>
+                <p id="pending-intro">Turn on approval mode to hold new messages for review.</p>
+              </div>
+              <div id="pending-feed" class="card-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel admin-panel" aria-labelledby="admin-controls-title">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-eyebrow">3. Admin controls</p>
+              <h2 id="admin-controls-title">Admin controls</h2>
+            </div>
+            <p class="panel-note">For the planner, MC, or one trusted family member.</p>
+          </div>
+
+          <div class="admin-grid">
+            <label class="toggle-card" for="approve-mode">
+              <span class="toggle-copy">
+                <strong>Approve mode</strong>
+                <small>New submissions stay pending until an admin approves them.</small>
+              </span>
+              <span class="toggle-control">
+                <input id="approve-mode" type="checkbox" />
+                <span class="toggle-track" aria-hidden="true"></span>
+              </span>
+            </label>
+
+            <button id="export-button" class="secondary-button" type="button">Export JSON</button>
+
+            <div class="admin-note">
+              <h3>Keepsake handoff</h3>
+              <p>Export packages every saved message with timestamps, reactions, relation labels, and moderation state for later archiving.</p>
+            </div>
+          </div>
+          <p id="admin-feedback" class="admin-feedback" aria-live="polite"></p>
+        </section>
+      </div>
+    </main>
+
+    <template id="message-card-template">
+      <article class="message-card">
+        <div class="message-card-top">
+          <div>
+            <p class="message-author"></p>
+            <p class="message-meta"></p>
+          </div>
+          <span class="status-badge"></span>
+        </div>
+        <p class="message-body"></p>
+        <div class="photo-memory" hidden>
+          <div class="photo-memory-art" aria-hidden="true"></div>
+          <p class="photo-caption"></p>
+        </div>
+        <div class="message-card-bottom">
+          <span class="reaction-pill"></span>
+          <button class="approve-button" type="button" hidden>Approve for wall</button>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>

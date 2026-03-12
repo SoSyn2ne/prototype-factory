@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding RSVP Nudge Composer (Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="pill">2026-03-13-p002</div>
+      <div>
+        <h1>Wedding RSVP Nudge Composer</h1>
+        <p class="muted">Generate RSVP follow-ups with tone + relationship, plus a "too pushy?" risk meter.</p>
+      </div>
+      <div class="lang">
+        <span class="muted">Language</span>
+        <div class="seg" role="group" aria-label="Language toggle">
+          <button type="button" class="seg__btn" data-lang="ko" aria-pressed="true">Korean</button>
+          <button type="button" class="seg__btn" data-lang="en" aria-pressed="false">English</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Inputs</h2>
+        <form id="form" class="form" novalidate>
+          <label>
+            <span>Guest name</span>
+            <input id="guestName" required placeholder="e.g., Minji" />
+          </label>
+
+          <div class="row3">
+            <label>
+              <span>Relationship</span>
+              <select id="relationship" required>
+                <option value="family">Family</option>
+                <option value="friend">Friend</option>
+                <option value="coworker">Coworker</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              <span>RSVP status</span>
+              <select id="status" required>
+                <option value="no_response">No response</option>
+                <option value="maybe">Maybe</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Event date</span>
+              <input id="eventDate" type="date" required />
+            </label>
+          </div>
+
+          <div class="row3">
+            <label>
+              <span>Channel</span>
+              <select id="channel" required>
+                <option value="SMS">SMS</option>
+                <option value="iMessage">iMessage</option>
+                <option value="KakaoTalk">KakaoTalk</option>
+                <option value="Email">Email</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Tone</span>
+              <select id="tone" required>
+                <option value="warm">Warm</option>
+                <option value="neutral">Neutral</option>
+                <option value="funny">Funny</option>
+                <option value="firm">Firm</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Deadline (optional)</span>
+              <input id="deadline" type="date" />
+            </label>
+          </div>
+
+          <label>
+            <span>Personal detail (optional)</span>
+            <input id="detail" placeholder="e.g., 'Hope your new job is going well'" />
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="btn btn--primary">Generate</button>
+            <button type="button" id="example" class="btn">Load example</button>
+            <div id="hint" class="hint" aria-live="polite"></div>
+          </div>
+
+          <div class="note">
+            <p><strong>Pushy risk</strong> is a heuristic (0–100). It increases with firm tone, tight deadlines, repeated question marks, and "ASAP"-style phrasing.</p>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card__head">
+          <h2>Variants</h2>
+          <div id="meta" class="muted">Generate to see 3 options.</div>
+        </div>
+        <div id="variants" class="variants" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="foot muted">Local-only demo · Vanilla HTML/CSS/JS · No external assets</footer>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>

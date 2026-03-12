@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catalyst Conviction Ladder (Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar__id">2026-03-13-p001</div>
+      <div class="topbar__title">
+        <h1>Catalyst Conviction Ladder</h1>
+        <p class="muted">Rank catalysts with a transparent score and generate disconfirming questions.</p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <h2>Add a catalyst</h2>
+        <form id="catalystForm" class="form" novalidate>
+          <div class="grid">
+            <label>
+              <span>Type</span>
+              <select id="type" required>
+                <option value="earnings">Earnings</option>
+                <option value="product">Product</option>
+                <option value="macro">Macro</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Impact (0–5)</span>
+              <input id="impact" type="number" min="0" max="5" step="1" value="3" required />
+            </label>
+
+            <label>
+              <span>Confidence (0–5)</span>
+              <input id="confidence" type="number" min="0" max="5" step="1" value="3" required />
+            </label>
+
+            <label>
+              <span>Horizon (days)</span>
+              <input id="days" type="number" min="1" step="1" value="30" required />
+            </label>
+          </div>
+
+          <label>
+            <span>Note</span>
+            <textarea id="note" rows="3" placeholder="e.g., Q2 guide raised + new product SKU in April" required></textarea>
+          </label>
+
+          <div class="row">
+            <button type="submit" class="btn btn--primary">Add catalyst</button>
+            <button type="button" id="loadExample" class="btn">Load example set</button>
+            <div class="hint" id="formHint" aria-live="polite"></div>
+          </div>
+
+          <div class="formula" aria-label="Conviction formula">
+            <h3>Scoring</h3>
+            <p>
+              <strong>Conviction Score</strong> = (impact × 2 + confidence × 2) − horizonPenalty
+            </p>
+            <p class="muted">
+              horizonPenalty = clamp(floor(days/30), 0, 5). Longer horizons are discounted for near-term prioritization.
+            </p>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel__head">
+          <h2>Conviction ladder</h2>
+          <div class="muted" id="summary">0 catalysts</div>
+        </div>
+        <ol id="ladder" class="ladder" aria-label="Ranked catalysts"></ol>
+      </section>
+
+      <section class="panel" aria-label="Selected catalyst details">
+        <div class="panel__head">
+          <h2>Details</h2>
+          <button class="btn btn--danger" id="removeSelected" type="button" disabled>Remove selected</button>
+        </div>
+
+        <div id="details" class="details muted">Select a catalyst from the ladder.</div>
+
+        <div class="row">
+          <button class="btn btn--primary" id="falsify" type="button" disabled>Falsify</button>
+          <div class="hint" id="falsifyHint" aria-live="polite"></div>
+        </div>
+
+        <div class="card">
+          <h3>Falsification questions</h3>
+          <ul id="questions" class="questions"></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span class="muted">Local-only demo · Vanilla HTML/CSS/JS · No external assets</span>
+    </footer>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>

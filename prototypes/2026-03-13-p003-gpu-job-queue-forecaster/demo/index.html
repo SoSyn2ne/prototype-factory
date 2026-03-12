@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Job Queue Forecaster (Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div class="pill">2026-03-13-p003</div>
+      <div>
+        <h1>GPU Job Queue Forecaster</h1>
+        <p class="muted">Two-lane queue model + thermal-risk heuristic (local-only demo).</p>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="card">
+        <h2>Add a job</h2>
+        <form id="jobForm" class="form" novalidate>
+          <div class="row">
+            <label>
+              <span>Name</span>
+              <input id="name" required placeholder="e.g., finetune-v2" />
+            </label>
+
+            <label>
+              <span>Duration (min)</span>
+              <input id="minutes" type="number" min="1" step="1" value="45" required />
+            </label>
+
+            <label>
+              <span>Power</span>
+              <select id="power" required>
+                <option value="low">low</option>
+                <option value="med" selected>med</option>
+                <option value="high">high</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Priority</span>
+              <select id="priority" required>
+                <option value="P0">P0</option>
+                <option value="P1" selected>P1</option>
+                <option value="P2">P2</option>
+              </select>
+            </label>
+
+            <label class="chk">
+              <input id="parallel" type="checkbox" checked />
+              <span>Can run in parallel</span>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn btn--primary">Add job</button>
+            <button type="button" id="baseline" class="btn">Load baseline</button>
+            <div id="hint" class="hint" aria-live="polite"></div>
+          </div>
+        </form>
+
+        <div class="note">
+          <p><strong>Model:</strong> parallel jobs occupy lane A or B; EXCLUSIVE jobs wait for both lanes and then block both.</p>
+          <p><strong>Thermal risk:</strong> consecutive high-power minutes. OK &lt; 45, WATCH 45–89, HIGH ≥ 90.</p>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="head">
+          <h2>Forecast</h2>
+          <div id="summary" class="muted">No jobs yet.</div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="muted">Estimated finish</div>
+            <div id="finish" class="big">—</div>
+          </div>
+          <div class="kpi">
+            <div class="muted">Thermal risk</div>
+            <div id="risk" class="big">—</div>
+            <div id="riskExplain" class="muted small"></div>
+          </div>
+        </div>
+
+        <h3>Timeline</h3>
+        <ol id="timeline" class="timeline"></ol>
+
+        <h3>Queue</h3>
+        <ul id="queue" class="queue"></ul>
+      </section>
+
+      <section class="card">
+        <h2>What would break this forecast?</h2>
+        <ul class="break" id="breakList"></ul>
+      </section>
+    </main>
+
+    <footer class="foot muted">Local-only demo · Vanilla HTML/CSS/JS · No external assets</footer>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
