@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Timeline Stress Tester</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-14-p002</div>
+        <div>
+          <h1>Wedding Timeline Stress Tester</h1>
+          <p class="sub">Model tasks → inject delay → find collisions and impossible travel.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnReset" class="btn ghost" type="button">Reset</button>
+        <button id="btnExport" class="btn secondary" type="button">Export JSON</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>Schedule</h2>
+        <p class="hint">Times are local day-of. Add a buffer and travel minutes between locations.</p>
+
+        <div class="table-wrap">
+          <table class="table" aria-label="Schedule tasks">
+            <thead>
+              <tr>
+                <th>Task</th>
+                <th class="time">Start</th>
+                <th class="num">Dur (min)</th>
+                <th class="num">Buffer</th>
+                <th>Owner/Vendor</th>
+                <th>Location</th>
+                <th class="num">Travel</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="tasksTbody"></tbody>
+          </table>
+        </div>
+
+        <form id="addForm" class="add">
+          <input id="addName" placeholder="New task name" />
+          <input id="addStart" placeholder="HH:MM" />
+          <input id="addDur" type="number" min="0" placeholder="Dur" />
+          <input id="addOwner" placeholder="Owner" />
+          <input id="addLoc" placeholder="Location" />
+          <button class="btn" type="submit">Add</button>
+        </form>
+      </section>
+
+      <aside class="panel">
+        <h2>Stress test</h2>
+        <p class="hint">Apply a delay to one task. Downstream tasks shift (single-track prototype).</p>
+
+        <div class="stress">
+          <label class="field">
+            <span>Delayed task</span>
+            <select id="delayTask"></select>
+          </label>
+          <label class="field">
+            <span>Delay (minutes)</span>
+            <input id="delayMin" type="number" min="0" value="20" />
+          </label>
+          <button id="btnRun" class="btn" type="button">Run stress test</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Alerts</h3>
+        <div id="alerts" class="alerts"><div class="empty">Run a stress test.</div></div>
+
+        <div class="divider"></div>
+
+        <h3>Timeline</h3>
+        <div id="timeline" class="timeline" aria-label="Timeline visualization"></div>
+      </aside>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

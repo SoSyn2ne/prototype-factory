@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10-K Red Flag Radar</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-14-p001</div>
+        <div>
+          <h1>10-K Red Flag Radar</h1>
+          <p class="sub">Paste excerpts, scan for risk phrases, and copy a due-diligence checklist.</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="btnSample" class="btn ghost" type="button">Load sample</button>
+        <button id="btnScan" class="btn" type="button">Scan</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>Input</h2>
+        <p class="hint">Paste Risk Factors / MD&amp;A excerpts. Nothing leaves your browser.</p>
+        <label class="field">
+          <span>10-K excerpt</span>
+          <textarea id="inputText" rows="14" placeholder="Paste text here…"></textarea>
+        </label>
+
+        <div class="row">
+          <label class="check">
+            <input id="toggleHighlight" type="checkbox" checked />
+            <span>Highlight matches in evidence</span>
+          </label>
+          <button id="btnCopy" class="btn secondary" type="button">Copy checklist</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <h3>Evidence</h3>
+        <div id="evidence" class="evidence" aria-live="polite">
+          <div class="empty">Run a scan to see highlighted evidence.</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Signals</h2>
+        <p class="hint">Edit the phrase library. Keep it strict: phrases should be falsifiable signals.</p>
+
+        <form id="phraseForm" class="phrase-form">
+          <label class="field">
+            <span>Phrase</span>
+            <input id="phraseText" type="text" placeholder="e.g., going concern" />
+          </label>
+          <label class="field">
+            <span>Category</span>
+            <select id="phraseCategory">
+              <option>Liquidity</option>
+              <option>Concentration</option>
+              <option>Accounting</option>
+              <option>Legal/Regulatory</option>
+              <option>Guidance/Outlook</option>
+            </select>
+          </label>
+          <label class="field">
+            <span>Weight</span>
+            <input id="phraseWeight" type="number" step="1" min="1" max="10" value="4" />
+          </label>
+          <button class="btn" type="submit">Add phrase</button>
+        </form>
+
+        <div class="table-wrap">
+          <table class="table" aria-label="Phrase library">
+            <thead>
+              <tr>
+                <th>Phrase</th>
+                <th>Category</th>
+                <th class="num">Weight</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="phrasesTbody"></tbody>
+          </table>
+        </div>
+
+        <div class="divider"></div>
+
+        <h2>Results</h2>
+        <div id="results" class="results">
+          <div class="empty">No scan yet.</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="small">
+        Heuristic tool. Use it to generate questions/checks, not to decide truth.
+      </div>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

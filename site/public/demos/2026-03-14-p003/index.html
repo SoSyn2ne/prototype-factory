@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Power-Cap Experiment Planner</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-14-p003</div>
+        <div>
+          <h1>GPU Power-Cap Experiment Planner</h1>
+          <p class="sub">Estimate efficiency/cost across caps, then log real runs locally.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnClear" class="btn ghost" type="button">Clear logs</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>Baseline</h2>
+        <p class="hint">Enter baseline numbers (rough is fine). This is a planning tool, not telemetry.</p>
+
+        <div class="form">
+          <label class="field">
+            <span>GPU model</span>
+            <input id="gpuModel" value="GTX 1080 Ti" />
+          </label>
+          <label class="field">
+            <span>Baseline power (W)</span>
+            <input id="baseW" type="number" value="200" min="1" />
+          </label>
+          <label class="field">
+            <span>Baseline temp (°C)</span>
+            <input id="baseC" type="number" value="72" min="0" />
+          </label>
+          <label class="field">
+            <span>Baseline throughput (units/hr)</span>
+            <input id="baseUph" type="number" value="100" min="0" step="0.1" />
+          </label>
+          <label class="field">
+            <span>Electricity price (per kWh)</span>
+            <div class="row">
+              <input id="price" type="number" value="200" min="0" step="1" />
+              <select id="currency">
+                <option value="KRW">KRW</option>
+                <option value="USD">USD</option>
+              </select>
+            </div>
+          </label>
+          <label class="field">
+            <span>Job size (units per job)</span>
+            <input id="jobUnits" type="number" value="50" min="0" step="0.1" />
+          </label>
+        </div>
+
+        <div class="divider"></div>
+
+        <label class="field">
+          <span>Efficiency sensitivity</span>
+          <input id="sens" type="range" min="0.6" max="1.4" step="0.05" value="1.0" />
+          <div class="small" id="sensLabel">1.00</div>
+        </label>
+
+        <div class="divider"></div>
+
+        <h2>Plan</h2>
+        <div class="table-wrap">
+          <table class="table" aria-label="Experiment plan">
+            <thead>
+              <tr>
+                <th>Cap (W)</th>
+                <th class="num">Est temp</th>
+                <th class="num">Est throughput</th>
+                <th class="num">Units/kWh</th>
+                <th class="num">Cost/hr</th>
+                <th class="num">Cost/job</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="planTbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <h2>Recent runs</h2>
+        <p class="hint">Logged to localStorage on this browser.</p>
+        <div id="runs" class="runs"><div class="empty">No runs logged yet.</div></div>
+      </aside>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
