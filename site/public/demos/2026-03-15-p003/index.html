@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Thermal Budget Planner (Offline Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <p class="id">2026-03-15-p003</p>
+        <h1>GPU Thermal Budget Planner</h1>
+        <p class="sub">Offline what‑if simulator for power caps + fan presets. Heuristic steady‑state model—validate with real telemetry.</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn--ghost" id="btnClearLogs" type="button">Clear logs</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Inputs</h2>
+        <form id="form" class="form" autocomplete="off">
+          <div class="row">
+            <label class="field">
+              <span>Ambient (°C)</span>
+              <input id="ambient" type="number" step="0.1" value="25" />
+            </label>
+            <label class="field">
+              <span>Target max GPU temp (°C)</span>
+              <input id="target" type="number" step="0.1" value="83" />
+            </label>
+            <label class="field">
+              <span>Baseline power draw (W)</span>
+              <input id="baseline" type="number" step="1" value="250" />
+            </label>
+          </div>
+
+          <div class="divider"></div>
+          <h3>Power-cap scenarios</h3>
+          <div class="caps" id="caps"></div>
+          <div class="row">
+            <label class="field" style="flex:1 1 240px">
+              <span>Add custom cap (W)</span>
+              <input id="customCap" type="number" step="1" placeholder="e.g., 210" />
+            </label>
+            <button class="btn btn--ghost" id="btnAddCap" type="button">Add</button>
+          </div>
+
+          <div class="divider"></div>
+          <div class="row">
+            <label class="field" style="flex:1 1 240px">
+              <span>Fan preset (R_th)</span>
+              <select id="fan">
+                <option value="quiet">Quiet (0.26 °C/W)</option>
+                <option value="balanced" selected>Balanced (0.22 °C/W)</option>
+                <option value="aggressive">Aggressive (0.18 °C/W)</option>
+              </select>
+            </label>
+            <button class="btn" id="btnSim" type="submit">Simulate</button>
+            <span class="hint" id="msg"></span>
+          </div>
+        </form>
+
+        <p class="hint">Model: <code>T_est = T_ambient + (min(P_baseline, P_cap) × R_th)</code>.</p>
+      </section>
+
+      <section class="card">
+        <h2>Results</h2>
+        <div id="results" class="results"></div>
+        <div class="divider"></div>
+        <h2>Experiment log (localStorage)</h2>
+        <div id="logs" class="logs"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>Tip: For calibration, run a stable 15–20 minute load and back-calc <code>R_th = (T_gpu − T_ambient) / P</code>.</p>
+    </footer>
+
+    <script defer src="./assets/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Seating Friction Mapper (Offline Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <div>
+        <p class="id">2026-03-15-p002</p>
+        <h1>Wedding Seating Friction Mapper</h1>
+        <p class="sub">Add guests + pairwise constraints, then click <b>Map friction</b> to surface hotspots and landmines. Offline only.</p>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn--ghost" id="btnExample" type="button">Load example</button>
+        <button class="btn btn--danger" id="btnReset" type="button">Reset</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="card">
+        <h2>Guests</h2>
+        <form id="guestForm" class="form" autocomplete="off">
+          <div class="row">
+            <label class="field">
+              <span>Name</span>
+              <input id="guestName" required placeholder="e.g., Alex Kim" />
+            </label>
+            <label class="field">
+              <span>Side</span>
+              <select id="guestSide">
+                <option value="bride">Bride side</option>
+                <option value="groom">Groom side</option>
+              </select>
+            </label>
+          </div>
+          <label class="field">
+            <span>Notes (optional)</span>
+            <input id="guestNotes" placeholder="e.g., hates loud music" />
+          </label>
+          <div class="row">
+            <button class="btn" type="submit">Add guest</button>
+            <span class="hint" id="guestMsg"></span>
+          </div>
+        </form>
+
+        <div class="divider"></div>
+        <h3>Guest list</h3>
+        <ul id="guestList" class="list" aria-live="polite"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Constraints</h2>
+        <form id="constraintForm" class="form" autocomplete="off">
+          <div class="row">
+            <label class="field">
+              <span>Guest A</span>
+              <select id="aSelect"></select>
+            </label>
+            <label class="field">
+              <span>Guest B</span>
+              <select id="bSelect"></select>
+            </label>
+          </div>
+          <div class="row">
+            <label class="field">
+              <span>Type</span>
+              <select id="cType">
+                <option value="separate">Must-separate</option>
+                <option value="near">Must-sit-near</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Weight</span>
+              <select id="cWeight">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </label>
+          </div>
+          <div class="row">
+            <button class="btn" type="submit">Add constraint</button>
+            <button class="btn btn--ghost" id="btnMap" type="button">Map friction</button>
+            <span class="hint" id="cMsg"></span>
+          </div>
+        </form>
+
+        <div class="divider"></div>
+        <h3>Hotspots (guests)</h3>
+        <ul id="hotspots" class="list"></ul>
+
+        <div class="divider"></div>
+        <h3>Constraints (sorted)</h3>
+        <ul id="constraintList" class="list"></ul>
+      </section>
+
+      <section class="card span">
+        <h2>Matrix (first 12 guests)</h2>
+        <p class="hint">Click a guest to highlight their row/col and related constraints.</p>
+        <div class="matrixWrap" id="matrixWrap"></div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <p>
+        Friction model (prototype): constraintFriction = weight × typeFactor, where separate=2 and near=1. Guest friction is the sum of connected constraint frictions.
+      </p>
+    </footer>
+
+    <script defer src="./assets/app.js"></script>
+  </body>
+</html>

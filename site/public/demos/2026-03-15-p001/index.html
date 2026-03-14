@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Earnings Call Signal Slicer (Offline Demo)</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <p class="proto-id">2026-03-15-p001</p>
+          <h1>Earnings Call Signal Slicer</h1>
+          <p class="subtitle">Offline demo · deterministic keyword heuristics · works via file://</p>
+        </div>
+        <div class="topbar-meta">
+          <div class="badge" title="No network calls, no external URLs.">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span>Offline</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel input-panel" aria-labelledby="transcriptTitle">
+        <div class="panel-head">
+          <h2 id="transcriptTitle">Transcript</h2>
+          <p class="panel-subtitle">Paste an earnings-call transcript. Click <strong>Slice</strong> to extract signal sentences.</p>
+        </div>
+
+        <label class="sr-only" for="transcript">Transcript text</label>
+        <textarea
+          id="transcript"
+          spellcheck="false"
+          placeholder="Paste transcript text here…"
+        >Operator: Good afternoon and welcome to the quarterly earnings call.
+CEO: We are raising our full-year revenue guidance to $3.2 billion and expect gross margin to be around 54%.
+CFO: For Q2, we anticipate EPS of $1.10 to $1.18 and operating margin of 22% to 23%.
+CEO: Demand from enterprise customers remained strong, with bookings up 22% year over year.
+CEO: We saw some softness in consumer demand in Europe, but pipeline activity improved in March.
+COO: Supply constraints eased as lead times improved and production ramped at our main facility.
+COO: Inventory levels are normalizing and shipments will accelerate in May.
+CTO: We are integrating generative AI features into our platform using large language models.
+CTO: AI inference workloads are driving higher GPU utilization in the data center.</textarea
+        >
+
+        <div class="controls" role="group" aria-label="Transcript actions">
+          <button id="sliceBtn" class="btn btn-primary" type="button">Slice</button>
+          <button id="loadSampleBtn" class="btn btn-ghost" type="button">Load sample</button>
+          <button id="clearBtn" class="btn btn-ghost" type="button">Clear</button>
+        </div>
+
+        <p class="hint">
+          Notes: highlights mark matched phrases; confidence is a bounded score (0–100) from keyword anchors + supporting signals.
+        </p>
+        <noscript>
+          <p class="noscript">This demo requires JavaScript enabled.</p>
+        </noscript>
+      </section>
+
+      <section class="panel output-panel" aria-labelledby="signalsTitle">
+        <div class="panel-head output-head">
+          <div>
+            <h2 id="signalsTitle">Signals</h2>
+            <p class="panel-subtitle">Filter by bucket to review the slices.</p>
+          </div>
+          <div class="stats" id="stats" aria-live="polite">Ready.</div>
+        </div>
+
+        <div class="bucket-bar" id="bucketBar" role="toolbar" aria-label="Bucket filters"></div>
+
+        <ol class="results" id="results" aria-label="Matched sentences">
+          <li class="empty">Click <strong>Slice</strong> to analyze the transcript.</li>
+        </ol>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Tip: This is a heuristic slicer (no ML). Edit keywords in <code>assets/app.js</code> for your domain.</small>
+    </footer>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
