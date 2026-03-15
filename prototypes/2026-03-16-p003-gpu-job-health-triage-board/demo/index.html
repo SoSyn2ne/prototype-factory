@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Job Health Triage Board — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="top">
+      <div class="wrap top-inner">
+        <div>
+          <div class="eyebrow">2026-03-16-p003</div>
+          <h1>GPU Job Health Triage Board</h1>
+          <p class="sub">Rule-based first diagnosis → next steps → copyable incident note.</p>
+        </div>
+        <div class="top-actions">
+          <button class="btn" type="button" data-example="oom">Example: OOM</button>
+          <button class="btn" type="button" data-example="thermal">Example: Thermal</button>
+          <button class="btn" type="button" data-example="driver">Example: Driver</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="wrap grid">
+      <section class="card" aria-labelledby="inTitle">
+        <div class="card-h">
+          <h2 id="inTitle">Inputs</h2>
+          <p class="muted">Paste the *few* lines around the failure. Toggle what you observed.</p>
+        </div>
+
+        <div class="pad">
+          <div class="field">
+            <label for="log">Log excerpt</label>
+            <textarea id="log" rows="10" placeholder="Paste error lines here..."></textarea>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend>Observed symptoms</legend>
+            <label class="check"><input type="checkbox" id="symOOM" /> <span>CUDA out of memory / VRAM spike</span></label>
+            <label class="check"><input type="checkbox" id="symThermal" /> <span>Thermal throttle / GPU over temp</span></label>
+            <label class="check"><input type="checkbox" id="symDriver" /> <span>Driver reset / NVML error / CUDA init fail</span></label>
+            <label class="check"><input type="checkbox" id="symData" /> <span>Dataset decode / dataloader crash</span></label>
+            <label class="check"><input type="checkbox" id="symDisk" /> <span>Disk full / write failure</span></label>
+          </fieldset>
+
+          <div class="row">
+            <div class="field">
+              <label for="job">Job name (optional)</label>
+              <input id="job" type="text" placeholder="train-llama2-lora" />
+            </div>
+            <div class="field">
+              <label for="when">When (optional)</label>
+              <input id="when" type="text" placeholder="2026-03-16 05:12 KST" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-primary" id="copyBtn" type="button">Copy incident note</button>
+            <button class="btn" id="tagBtn" type="button">Tag incident</button>
+          </div>
+          <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="outTitle">
+        <div class="card-h">
+          <h2 id="outTitle">Diagnosis</h2>
+          <p class="muted">This is a *first pass*. Treat as a checklist, not truth.</p>
+        </div>
+
+        <div class="pad">
+          <div class="diag">
+            <div>
+              <div class="label">Likely category</div>
+              <div class="value" id="category">Unknown</div>
+            </div>
+            <div>
+              <div class="label">Confidence</div>
+              <div class="value" id="confidence">—</div>
+            </div>
+          </div>
+
+          <div class="box">
+            <h3>Next steps (do these in order)</h3>
+            <ol id="steps" class="steps"></ol>
+          </div>
+
+          <div class="box">
+            <h3>Receipts (why)</h3>
+            <ul id="receipts" class="receipts"></ul>
+          </div>
+
+          <div class="box">
+            <h3>Tagged incidents (session)</h3>
+            <div id="chart" class="chart" aria-label="Incident mix chart"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

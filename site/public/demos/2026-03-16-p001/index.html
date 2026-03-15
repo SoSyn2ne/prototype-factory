@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chip Cycle KPI Snapshot — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div>
+          <div class="eyebrow">2026-03-16-p001</div>
+          <h1 class="title">Chip Cycle KPI Snapshot</h1>
+          <p class="subtitle">Daily semiconductor signal scorecard → stance with receipts.</p>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn" type="button" data-preset="bull">Bull</button>
+          <button class="btn" type="button" data-preset="base">Base</button>
+          <button class="btn" type="button" data-preset="bear">Bear</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <section class="card" aria-labelledby="inputs-title">
+        <div class="card-header">
+          <h2 id="inputs-title">Today’s signals</h2>
+          <p class="muted">Move sliders to match your view. Receipts show what drove the stance.</p>
+        </div>
+
+        <form class="signals" id="signalsForm">
+          <div class="field">
+            <label for="inventory">Inventory (glut → tight)</label>
+            <div class="row">
+              <input id="inventory" name="inventory" type="range" min="-2" max="2" step="1" value="0" />
+              <output id="inventoryOut" for="inventory">0</output>
+            </div>
+            <div class="hint">-2 glut, 0 balanced, +2 tight</div>
+          </div>
+
+          <div class="field">
+            <label for="pricing">Pricing (down → up)</label>
+            <div class="row">
+              <input id="pricing" name="pricing" type="range" min="-2" max="2" step="1" value="0" />
+              <output id="pricingOut" for="pricing">0</output>
+            </div>
+            <div class="hint">-2 falling, 0 flat, +2 rising</div>
+          </div>
+
+          <div class="field">
+            <label for="utilization">Foundry utilization (low → high)</label>
+            <div class="row">
+              <input id="utilization" name="utilization" type="range" min="-2" max="2" step="1" value="0" />
+              <output id="utilizationOut" for="utilization">0</output>
+            </div>
+            <div class="hint">-2 weak, 0 normal, +2 strong</div>
+          </div>
+
+          <div class="field">
+            <label for="macro">Macro risk (high → low)</label>
+            <div class="row">
+              <input id="macro" name="macro" type="range" min="-2" max="2" step="1" value="0" />
+              <output id="macroOut" for="macro">0</output>
+            </div>
+            <div class="hint">-2 very high risk, 0 mixed, +2 calm</div>
+          </div>
+
+          <div class="field checkbox">
+            <label class="checkbox-label">
+              <input id="aiDemand" name="aiDemand" type="checkbox" />
+              <span>AI demand strong (GPU/accelerator pull-through)</span>
+            </label>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="output-title">
+        <div class="card-header">
+          <h2 id="output-title">Stance</h2>
+          <p class="muted">A simple, explainable score—not a forecast.</p>
+        </div>
+
+        <div class="stance" id="stanceBox">
+          <div>
+            <div class="stance-label">Today: <span id="stanceText">Hold</span></div>
+            <div class="stance-sub">
+              Confidence: <strong id="confidenceText">50%</strong>
+              <span class="sep">•</span>
+              Score: <span class="mono" id="scoreText">0.0</span>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="button" id="exportBtn">Export</button>
+        </div>
+
+        <div class="receipts">
+          <h3 class="receipts-title">Receipts</h3>
+          <ol id="receiptsList" class="receipts-list"></ol>
+          <p id="toast" class="toast" role="status" aria-live="polite" hidden></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="muted">Tip: use presets to calibrate, then tweak one signal at a time to see which receipts flip the stance.</p>
+    </footer>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
