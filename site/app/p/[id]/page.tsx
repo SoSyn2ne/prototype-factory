@@ -45,6 +45,8 @@ export function generateStaticParams() {
   return index.items.map((item) => ({ id: item.id }));
 }
 
+const FEATURED_IDS = new Set(['2026-02-27-p001', '2026-03-06-p003']);
+
 export default function PrototypeDetailPage({ params }: { params: { id: string } }) {
   const index = loadIndex();
   const item = index.items.find((candidate) => candidate.id === params.id);
@@ -52,6 +54,7 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
 
   const spec = readSpecFiles(item.repoPath);
   const isExternalDemo = isExternalUrl(item.demoUrl);
+  const isFeatured = FEATURED_IDS.has(item.id);
 
   return (
     <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -70,6 +73,40 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </li>
         </ol>
       </nav>
+
+      {isFeatured ? (
+        <section className="mb-8 rounded-2xl border border-primary/20 bg-primary/10 p-5 shadow-sm dark:border-primary/30 dark:bg-primary/15">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="text-xs font-black uppercase tracking-[0.2em] text-primary dark:text-white">
+                Featured
+              </div>
+              <p className="mt-1 text-sm font-bold text-slate-800 dark:text-slate-100">
+                Launch-ready: built to be shared. Try the demo and send it to a friend.
+              </p>
+            </div>
+            {item.demoUrl ? (
+              isExternalDemo ? (
+                <a
+                  href={item.demoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white shadow-sm transition hover:opacity-95 hover:no-underline"
+                >
+                  Try it now
+                </a>
+              ) : (
+                <Link
+                  href={item.demoUrl}
+                  className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white shadow-sm transition hover:opacity-95 hover:no-underline"
+                >
+                  Try it now
+                </Link>
+              )
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-7 flex flex-col gap-6">

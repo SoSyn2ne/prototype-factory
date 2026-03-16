@@ -13,6 +13,7 @@ type SortMode = 'newest' | 'oldest';
 type Props = {
   updatedAt: string;
   items: PrototypeIndexItem[];
+  featuredIds?: string[];
 };
 
 function uniq(values: string[]) {
@@ -44,7 +45,7 @@ function IconChevronDown(props: { className?: string }) {
   );
 }
 
-export default function GalleryClient({ updatedAt, items }: Props) {
+export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Props) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<string>('all');
   const [tag, setTag] = useState<string>('all');
@@ -52,6 +53,13 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
   const allStatuses = useMemo(() => ['all', ...uniq(items.map((i) => i.status).filter(Boolean))], [items]);
   const allTags = useMemo(() => ['all', ...uniq(items.flatMap((i) => i.tags || []).filter(Boolean))], [items]);
+
+  const featuredSet = useMemo(() => new Set(featuredIds), [featuredIds]);
+
+  const featuredItems = useMemo(() => {
+    const byId = new Map(items.map((i) => [i.id, i] as const));
+    return featuredIds.map((id) => byId.get(id)).filter(Boolean) as PrototypeIndexItem[];
+  }, [items, featuredIds]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -106,6 +114,128 @@ export default function GalleryClient({ updatedAt, items }: Props) {
           </div>
         </div>
       </section>
+
+      {/* Featured */}
+      {featuredItems.length ? (
+        <section className="mb-10">
+          <div className="mb-4 flex items-end justify-between gap-4">
+            <div>
+              <div className="text-xs font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-500">
+                Featured
+              </div>
+              <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-900 dark:text-white">
+                Launch-ready prototypes
+              </h2>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                Two picks worth sharing today.
+              </p>
+            </div>
+            <a
+              href="#grid"
+              className="hidden rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-black text-slate-700 shadow-sm transition hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60 md:inline-flex"
+            >
+              See all
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+            {featuredItems.map((item) => (
+              <article
+                key={item.id}
+                className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900/40"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-[240px_1fr]">
+                  <div className="relative aspect-[16/9] md:aspect-auto md:h-full overflow-hidden bg-slate-900">
+                    <Link
+                      href={`/p/${encodeURIComponent(item.id)}`}
+                      className="block h-full w-full hover:no-underline"
+                    >
+                      {item.previewImage ? (
+                        <img
+                          alt={`${item.title} preview`}
+                          src={item.previewImage}
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center text-xs text-slate-400">
+                          Preview image not available
+                        </div>
+                      )}
+                    </Link>
+                    <div className="absolute left-3 top-3 flex gap-2">
+                      <span className="rounded-full bg-primary px-2.5 py-1 text-[10px] font-black uppercase tracking-widest text-white shadow-sm">
+                        Featured
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-6">
+                    <h3 className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    {item.oneLiner ? (
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                        {item.oneLiner}
+                      </p>
+                    ) : null}
+
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {(item.stack || []).slice(0, 3).map((s) => (
+                        <span
+                          key={s}
+                          className="inline-flex items-center rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700 dark:bg-slate-800/70 dark:text-slate-200"
+                        >
+                          {s}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+                      {item.demoUrl ? (
+                        isExternalUrl(item.demoUrl) ? (
+                          <a
+                            href={item.demoUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex flex-1 items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white transition hover:opacity-95 hover:no-underline"
+                          >
+                            Try it now
+                          </a>
+                        ) : (
+                          <Link
+                            href={item.demoUrl}
+                            className="inline-flex flex-1 items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white transition hover:opacity-95 hover:no-underline"
+                          >
+                            Try it now
+                          </Link>
+                        )
+                      ) : (
+                        <Link
+                          href={`/p/${encodeURIComponent(item.id)}`}
+                          className="inline-flex flex-1 items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white transition hover:opacity-95 hover:no-underline"
+                        >
+                          Open
+                        </Link>
+                      )}
+                      <Link
+                        href={`/p/${encodeURIComponent(item.id)}`}
+                        className="inline-flex flex-1 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-black text-slate-700 shadow-sm transition hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
+                      >
+                        View details
+                      </Link>
+                    </div>
+
+                    <div className="mt-4 text-xs text-slate-500 dark:text-slate-500">
+                      {item.createdAt} · {item.id}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {/* Filters & Search (Stitch-inspired) */}
       <section className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
