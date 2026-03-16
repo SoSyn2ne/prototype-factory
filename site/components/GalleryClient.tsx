@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { PrototypeIndexItem } from '@/lib/index';
 
 function isExternalUrl(url: string) {
@@ -9,6 +9,8 @@ function isExternalUrl(url: string) {
 }
 
 type SortMode = 'newest' | 'oldest';
+
+const PAGE_SIZE = 18;
 
 type Props = {
   updatedAt: string;
@@ -50,6 +52,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
   const [status, setStatus] = useState<string>('all');
   const [tag, setTag] = useState<string>('all');
   const [sort, setSort] = useState<SortMode>('newest');
+  const [page, setPage] = useState(1);
 
   const allStatuses = useMemo(() => ['all', ...uniq(items.map((i) => i.status).filter(Boolean))], [items]);
   const allTags = useMemo(() => ['all', ...uniq(items.flatMap((i) => i.tags || []).filter(Boolean))], [items]);
@@ -60,6 +63,11 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
     const byId = new Map(items.map((i) => [i.id, i] as const));
     return featuredIds.map((id) => byId.get(id)).filter(Boolean) as PrototypeIndexItem[];
   }, [items, featuredIds]);
+
+  useEffect(() => {
+    // Reset paging when filters/search/sort changes.
+    setPage(1);
+  }, [query, status, tag, sort]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -85,6 +93,13 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
 
     return out;
   }, [items, query, status, tag, sort]);
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const paged = useMemo(() => {
+    const start = (safePage - 1) * PAGE_SIZE;
+    return filtered.slice(start, start + PAGE_SIZE);
+  }, [filtered, safePage]);
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -367,9 +382,38 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
         </div>
       </section>
 
+      {/* Paging */}
+      <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="text-xs font-bold text-slate-500 dark:text-slate-500">
+          Showing {(safePage - 1) * PAGE_SIZE + 1}-{Math.min(safePage * PAGE_SIZE, filtered.length)} of{' '}
+          {filtered.length}
+        </div>
+        <div className="flex items-center justify-between gap-2 sm:justify-end">
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={safePage <= 1}
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
+          >
+            Prev
+          </button>
+          <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200">
+            Page {safePage} / {pageCount}
+          </div>
+          <button
+            type="button"
+            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+            disabled={safePage >= pageCount}
+            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+
       {/* Grid */}
       <div id="grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filtered.map((item) => {
+        {paged.map((item) => {
           const category = pickCategory((item.tags || [])[0] || '');
           const stage = (item.status || '').toLowerCase();
           const badge = stage === 'prototype' ? 'Live' : stage === 'spec' ? 'Beta' : stage ? stage : 'Tool';
@@ -478,7 +522,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
       </div>
 
       <div className="mt-10 text-xs text-slate-500">
-        Updated: {new Date(updatedAt).toLocaleString()} · Total: {items.length} · Showing: {filtered.length}
+        Updated: {new Date(updatedAt).toLocaleString()} · Total: {items.length} · Matched: {filtered.length}
       </div>
     </div>
   );
