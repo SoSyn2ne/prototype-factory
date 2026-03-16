@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import './globals.css';
+import { pretendard } from './fonts';
 
 export const metadata = {
   title: 'Prototype Factory — Premium Gallery',
@@ -16,8 +17,8 @@ function Icon({ path, className }: { path: string; className?: string }) {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body>
+    <html lang="en" className={`dark ${pretendard.variable}`}>
+      <body className="font-sans">
         <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
           <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-background-light/80 backdrop-blur-md dark:border-slate-800 dark:bg-background-dark/80">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
