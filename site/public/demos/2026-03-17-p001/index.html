@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semicap Shock Map — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <div class="id">2026-03-17-p001</div>
+          <h1>Semicap Shock Map</h1>
+          <p class="sub">Offline “headline shock” ranking toy for a semicap watchlist.</p>
+        </div>
+        <div class="pill" id="modePill">Baseline</div>
+      </header>
+
+      <section class="panel">
+        <h2>Shock controls</h2>
+        <div class="controls">
+          <label>
+            <span>Shock type</span>
+            <select id="shockType">
+              <option value="capacity">Capacity cut</option>
+              <option value="export">Export restriction</option>
+              <option value="demand">Demand surge</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Shock (%)</span>
+            <div class="rangeRow">
+              <input id="shockPct" type="range" min="0" max="30" value="10" />
+              <output id="shockPctOut">10%</output>
+            </div>
+          </label>
+        </div>
+        <p class="hint">
+          Heuristic model: each ticker has static exposures (equipment-cycle, fab concentration, AI demand). The shock
+          modifies a composite score and re-ranks.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="tableHead">
+          <h2>Ranked watchlist (example)</h2>
+          <button class="btn" id="resetBtn" type="button">Reset to baseline</button>
+        </div>
+        <div class="tableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Ticker</th>
+                <th>Role</th>
+                <th class="num">Score</th>
+                <th>Reason (short)</th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+        <div class="explain">
+          <h3>Why the top moved</h3>
+          <p id="explainText">—</p>
+        </div>
+      </section>
+
+      <footer class="foot">
+        <span>Offline demo • Vanilla HTML/CSS/JS • Deterministic</span>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>

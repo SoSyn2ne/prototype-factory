@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Job Cost & Carbon Meter — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="top">
+        <div>
+          <div class="id">2026-03-17-p003</div>
+          <h1>GPU Job Cost & Carbon Meter</h1>
+          <p class="sub">Offline cost + CO₂ estimator for single-GPU jobs</p>
+        </div>
+      </header>
+
+      <section class="card">
+        <h2>Inputs</h2>
+        <div class="grid">
+          <label>
+            <span>Runtime (minutes)</span>
+            <input id="runtimeMinutes" type="number" min="0" value="60" />
+          </label>
+          <label>
+            <span>Average power (W)</span>
+            <input id="avgPowerW" type="number" min="0" value="220" />
+          </label>
+          <label>
+            <span>Electricity price (KRW / kWh)</span>
+            <input id="priceKrwPerKwh" type="number" min="0" value="200" />
+          </label>
+          <label>
+            <span>Grid factor (kgCO₂ / kWh)</span>
+            <input id="gridKgCo2PerKwh" type="number" min="0" step="0.01" value="0.40" />
+          </label>
+        </div>
+
+        <div class="caps">
+          <span class="capLabel">Power cap what-if</span>
+          <div class="capBtns" role="group" aria-label="power cap">
+            <button class="capBtn" data-cap="0" type="button">None</button>
+            <button class="capBtn" data-cap="-10" type="button">-10%</button>
+            <button class="capBtn" data-cap="-20" type="button">-20%</button>
+          </div>
+          <div class="small" id="capNote">Assumes runtime is unchanged; only watts scale.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Outputs</h2>
+        <div class="outs">
+          <div class="out">
+            <span>Energy</span>
+            <strong id="energyKwh">—</strong>
+            <small>kWh = (W × hours) / 1000</small>
+          </div>
+          <div class="out">
+            <span>Cost</span>
+            <strong id="costKrw">—</strong>
+            <small>KRW = kWh × price</small>
+          </div>
+          <div class="out">
+            <span>CO₂</span>
+            <strong id="co2Kg">—</strong>
+            <small>kg = kWh × grid factor</small>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Effective watts</h3>
+          <p class="mono" id="effectiveW">—</p>
+        </div>
+      </section>
+
+      <footer class="foot">Offline demo • Vanilla HTML/CSS/JS • No external assets</footer>
+    </main>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
