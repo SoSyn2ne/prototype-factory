@@ -31,12 +31,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     <h2 className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Prototype Factory</h2>
                   </Link>
                   <nav className="hidden items-center gap-6 md:flex">
-                    <Link className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary" href="/">
+                    <Link
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                      href="/"
+                    >
                       Gallery
                     </Link>
-                    <span className="text-sm font-medium text-slate-400">Marketplace</span>
-                    <span className="text-sm font-medium text-slate-400">Experiments</span>
-                    <span className="text-sm font-medium text-slate-400">Pricing</span>
+                    <Link
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                      href="/marketplace"
+                    >
+                      Marketplace
+                    </Link>
+                    <Link
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                      href="/experiments"
+                    >
+                      Experiments
+                    </Link>
+                    <Link
+                      className="text-sm font-medium text-slate-600 transition-colors hover:text-primary dark:text-slate-300 dark:hover:text-primary"
+                      href="/pricing"
+                    >
+                      Pricing
+                    </Link>
                   </nav>
                 </div>
 
