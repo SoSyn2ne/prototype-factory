@@ -27,6 +27,23 @@ function pickCategory(tag: string) {
   return 'other';
 }
 
+function IconChevronDown(props: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      className={props.className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 9l6 6 6-6" />
+    </svg>
+  );
+}
+
 export default function GalleryClient({ updatedAt, items }: Props) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<string>('all');
@@ -90,112 +107,135 @@ export default function GalleryClient({ updatedAt, items }: Props) {
         </div>
       </section>
 
-      {/* Filters & Search */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-        <div className="flex gap-2 flex-wrap">
-          <button
-            type="button"
-            onClick={() => setTag('all')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${
-              tag === 'all'
-                ? 'bg-primary text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            All Tools
-          </button>
-          <button
-            type="button"
-            onClick={() => setTag('ai')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              tag === 'ai'
-                ? 'bg-primary text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            AI & ML
-          </button>
-          <button
-            type="button"
-            onClick={() => setTag('investing')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              tag === 'investing'
-                ? 'bg-primary text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            Investing
-          </button>
-          <button
-            type="button"
-            onClick={() => setTag('productivity')}
-            className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-              tag === 'productivity'
-                ? 'bg-primary text-white'
-                : 'bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
-            }`}
-          >
-            Productivity
-          </button>
-
-          <details className="group">
-            <summary className="list-none inline-flex cursor-pointer items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-sm font-medium hover:bg-slate-200 transition-colors dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700">
-              More Filters
-              <span className="text-slate-400 group-open:rotate-180 transition">▾</span>
-            </summary>
-            <div className="mt-2 grid grid-cols-1 gap-2 rounded-xl border border-slate-200 bg-background-light p-3 shadow-sm dark:border-slate-800 dark:bg-background-dark">
-              <label className="text-xs text-slate-500">Status</label>
-              <select
-                value={status}
-                onChange={(e) => setStatus(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-background-light px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-primary dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+      {/* Filters & Search (Stitch-inspired) */}
+      <section className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+            <div className="flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <button
+                type="button"
+                onClick={() => setTag('all')}
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                  tag === 'all'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
+                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                }`}
               >
-                {allStatuses.map((s) => (
-                  <option key={s} value={s}>
-                    {s === 'all' ? 'All status' : s}
-                  </option>
-                ))}
-              </select>
-
-              <label className="mt-1 text-xs text-slate-500">Tag</label>
-              <select
-                value={tag}
-                onChange={(e) => setTag(e.target.value)}
-                className="w-full rounded-lg border border-slate-200 bg-background-light px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-primary dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+                All Tools
+              </button>
+              <button
+                type="button"
+                onClick={() => setTag('ai')}
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                  tag === 'ai'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
+                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                }`}
               >
-                {allTags.map((t) => (
-                  <option key={t} value={t}>
-                    {t === 'all' ? 'All tags' : `#${t}`}
-                  </option>
-                ))}
-              </select>
-
-              <label className="mt-1 text-xs text-slate-500">Sort</label>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as SortMode)}
-                className="w-full rounded-lg border border-slate-200 bg-background-light px-3 py-2 text-sm text-slate-900 focus:ring-2 focus:ring-primary dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+                AI & ML
+              </button>
+              <button
+                type="button"
+                onClick={() => setTag('investing')}
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                  tag === 'investing'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
+                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                }`}
               >
-                <option value="newest">Newest</option>
-                <option value="oldest">Oldest</option>
-              </select>
+                Investing
+              </button>
+              <button
+                type="button"
+                onClick={() => setTag('productivity')}
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                  tag === 'productivity'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
+                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                }`}
+              >
+                Productivity
+              </button>
             </div>
-          </details>
-        </div>
 
-        <div className="w-full md:w-72">
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">⌕</div>
-            <input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="block w-full pl-9 pr-3 py-2 border border-slate-200 dark:border-slate-800 rounded-lg bg-background-light dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-500 focus:ring-2 focus:ring-primary sm:text-sm"
-              placeholder="Filter by name or tech stack..."
-              type="text"
-            />
+            <div className="flex gap-3 lg:ml-auto lg:items-center">
+              <details className="group relative">
+                <summary className="list-none inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 text-sm font-black text-primary transition hover:bg-primary/15 dark:border-primary/30 dark:bg-primary/15 dark:text-white">
+                  <span className="tracking-tight">More Filters</span>
+                  <IconChevronDown className="h-4 w-4 text-current transition group-open:rotate-180" />
+                </summary>
+
+                <div className="mt-3 w-full rounded-2xl border border-slate-200 bg-background-light p-4 shadow-xl dark:border-slate-800 dark:bg-background-dark lg:absolute lg:right-0 lg:mt-3 lg:w-80">
+                  <div className="grid grid-cols-1 gap-3">
+                    <div>
+                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                        Status
+                      </label>
+                      <select
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                      >
+                        {allStatuses.map((s) => (
+                          <option key={s} value={s}>
+                            {s === 'all' ? 'All status' : s}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                        Tag
+                      </label>
+                      <select
+                        value={tag}
+                        onChange={(e) => setTag(e.target.value)}
+                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                      >
+                        {allTags.map((t) => (
+                          <option key={t} value={t}>
+                            {t === 'all' ? 'All tags' : `#${t}`}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">
+                        Sort
+                      </label>
+                      <select
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value as SortMode)}
+                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                      >
+                        <option value="newest">Newest</option>
+                        <option value="oldest">Oldest</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <div className="w-full lg:w-72">
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 grid w-10 place-items-center text-slate-400">
+                    ⌕
+                  </div>
+                  <input
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    className="block h-10 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                    placeholder="Search..."
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Grid */}
       <div id="grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
