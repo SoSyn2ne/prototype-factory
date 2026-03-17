@@ -3,6 +3,7 @@ import path from "node:path";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { loadIndex } from "@/lib/index";
+import DevicePreviewFrame from "@/components/DevicePreviewFrame";
 
 function hasCopiedDemo(id: string) {
   const demoIndexPath = path.join(process.cwd(), "public", "demos", id, "index.html");
@@ -79,14 +80,7 @@ export default function DemoPage({ params }: { params: { id: string } }) {
       </div>
 
       {exists ? (
-        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">
-          <div className="aspect-[16/9] w-full">
-            <iframe src={demoSrc} title={`${item.title} demo`} className="h-full w-full border-0" loading="lazy" />
-          </div>
-          <div className="px-5 py-4 border-t border-slate-200 bg-slate-50 text-center dark:border-slate-800 dark:bg-slate-900/50">
-            <p className="text-slate-500 text-xs font-mono">Built from site/public/prototypes-index.json • PF demo wrapper</p>
-          </div>
-        </div>
+        <DevicePreviewFrame src={demoSrc} title={`${item.title} demo`} fullTabHref={demoSrc} />
       ) : (
         <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
           Demo file is missing for this prototype. Add <code>demo/index.html</code> in the prototype folder and run{' '}
