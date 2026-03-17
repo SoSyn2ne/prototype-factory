@@ -3,7 +3,7 @@
 Goal: Run a lightweight **PM + Dev + QA** team every day.
 
 This runbook assumes:
-- You are inside the repo root: `prototype-factory/`
+- You start from the repo root: `prototype-factory/`
 - You have `omx` installed and `tmux` available
 - Repo rules live in `AGENTS.md` and `CONVENTIONS.md`
 
@@ -51,13 +51,18 @@ Minimum files (design-first):
 
 ## 2) How to run (tmux leader pane)
 
-Start a tmux session in the repo root:
+Create a fresh worktree for the day, then start tmux inside that linked checkout:
 
 ```bash
 cd /home/sy/.openclaw/workspace/prototype-factory
 
-# create or attach
-TMUX_SESSION=pf
+BRANCH="pf/$(date +%F)/daily-run"
+WORKTREE="/home/sy/.openclaw/worktrees/prototype-factory/$BRANCH"
+
+./scripts/worktree-new "$BRANCH" origin/main
+cd "$WORKTREE"
+
+TMUX_SESSION="pf-$(date +%Y%m%d)-daily"
 
 tmux has-session -t "$TMUX_SESSION" 2>/dev/null \
   && tmux attach -t "$TMUX_SESSION" \
@@ -81,6 +86,18 @@ Shutdown when done:
 
 ```bash
 omx team shutdown <team-name>
+```
+
+Squash merge back into `main`, then clean up from the primary checkout:
+
+```bash
+# run this inside the linked worktree
+./scripts/worktree-merge-squash feat "daily PF run: <slug>" main
+
+# then switch back to the primary checkout
+cd /home/sy/.openclaw/workspace/prototype-factory
+./scripts/worktree-rm "$BRANCH"
+git worktree prune
 ```
 
 ---

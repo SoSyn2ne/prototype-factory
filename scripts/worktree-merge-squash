@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $0 <chore|feat> <summary> [target-branch]"
+}
+
+die() {
+  echo "worktree-merge-squash: $*" >&2
+  exit 1
+}
+
+type=${1:-}
+summary=${2:-}
+target_branch=${3:-main}
+
+[[ "${type}" == "chore" || "${type}" == "feat" ]] || {
+  usage
+  die "type must be chore or feat"
+}
+[[ -n "${summary}" ]] || {
+  usage
+  exit 1
+}
+
+source_repo=$(git rev-parse --show-toplevel 2>/dev/null) || die "must be run inside a git checkout"
+git_dir=$(realpath "$(git rev-parse --path-format=absolute --git-dir)")
+common_dir=$(realpath "$(git rev-parse --path-format=absolute --git-common-dir)")
+
+[[ "${git_dir}" != "${common_dir}" ]] || die "run this from a linked worktree, not the primary checkout"
+[[ -z "$(git status --porcelain)" ]] || die "linked worktree is dirty"
+
+source_branch=$(git symbolic-ref --quiet --short HEAD) || die "detached HEAD is not supported"
+main_repo=$(cd -- "${common_dir}/.." && pwd -P)
+
+[[ -z "$(git -C "${main_repo}" status --porcelain)" ]] || die "primary checkout is dirty: ${main_repo}"
+git -C "${main_repo}" rev-parse --verify "${target_branch}^{commit}" >/dev/null 2>&1 || die "target branch not found locally: ${target_branch}"
+
+current_primary_branch=$(git -C "${main_repo}" symbolic-ref --quiet --short HEAD || true)
+if [[ "${current_primary_branch}" != "${target_branch}" ]]; then
+  git -C "${main_repo}" checkout "${target_branch}" >/dev/null
+fi
+
+git -C "${main_repo}" merge --squash "${source_branch}"
+
+diff_stat=$(git -C "${main_repo}" diff --cached --stat)
+[[ -n "${diff_stat}" ]] || die "no staged changes after squash merge"
+
+commit_file=$(mktemp)
+trap 'rm -f "${commit_file}"' EXIT
+
+{
+  printf '%s(worktree): %s\n\n' "${type}" "${summary}"
+  printf 'Source-branch: %s\n' "${source_branch}"
+  printf 'Source-worktree: %s\n' "${source_repo}"
+  printf 'Target-branch: %s\n\n' "${target_branch}"
+  printf 'Changes:\n%s\n' "${diff_stat}"
+} > "${commit_file}"
+
+git -C "${main_repo}" commit --file "${commit_file}"
+
+echo "Committed squash merge on ${target_branch}"
+echo "Source branch: ${source_branch}"

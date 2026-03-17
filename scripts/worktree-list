@@ -1,0 +1,73 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+die() {
+  echo "worktree-list: $*" >&2
+  exit 1
+}
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+repo_hint=$(cd -- "${script_dir}/.." && pwd -P)
+common_dir=$(git -C "${repo_hint}" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || die "must be run from the prototype-factory repo"
+main_repo=$(cd -- "${common_dir}/.." && pwd -P)
+
+print_entry() {
+  local path=${1:-}
+  local branch=${2:-}
+  local flags=${3:-}
+  local dirty="missing"
+
+  [[ -n "${path}" ]] || return 0
+
+  if [[ -d "${path}" ]]; then
+    if [[ -n "$(git -C "${path}" status --porcelain 2>/dev/null)" ]]; then
+      dirty="dirty"
+    else
+      dirty="clean"
+    fi
+  fi
+
+  printf '%-35s %-8s %-18s %s\n' "${branch:-detached}" "${dirty}" "${flags:-linked}" "${path}"
+}
+
+printf '%-35s %-8s %-18s %s\n' "BRANCH" "STATUS" "FLAGS" "PATH"
+
+path=""
+branch=""
+flags=""
+
+while IFS= read -r line || [[ -n "${line}" ]]; do
+  if [[ -z "${line}" ]]; then
+    print_entry "${path}" "${branch}" "${flags}"
+    path=""
+    branch=""
+    flags=""
+    continue
+  fi
+
+  case "${line}" in
+    worktree\ *)
+      path=${line#worktree }
+      if [[ "${path}" == "${main_repo}" ]]; then
+        flags="primary"
+      else
+        flags="linked"
+      fi
+      ;;
+    branch\ refs/heads/*)
+      branch=${line#branch refs/heads/}
+      ;;
+    branch\ *)
+      branch=${line#branch }
+      ;;
+    detached)
+      branch="detached"
+      ;;
+    locked)
+      flags="${flags},locked"
+      ;;
+    prunable)
+      flags="${flags},prunable"
+      ;;
+  esac
+done < <(git -C "${main_repo}" worktree list --porcelain && printf '\n')

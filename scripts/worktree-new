@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $0 <branch> [base]"
+}
+
+die() {
+  echo "worktree-new: $*" >&2
+  exit 1
+}
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+repo_hint=$(cd -- "${script_dir}/.." && pwd -P)
+common_dir=$(git -C "${repo_hint}" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || die "must be run from the prototype-factory repo"
+main_repo=$(cd -- "${common_dir}/.." && pwd -P)
+worktree_root=${PF_WORKTREE_ROOT:-/home/sy/.openclaw/worktrees/prototype-factory}
+
+branch=${1:-}
+base=${2:-origin/main}
+
+[[ -n "${branch}" ]] || {
+  usage
+  exit 1
+}
+
+git -C "${main_repo}" check-ref-format --branch "${branch}" >/dev/null 2>&1 || die "invalid branch name: ${branch}"
+git -C "${main_repo}" rev-parse --verify "${base}^{commit}" >/dev/null 2>&1 || die "base ref not found locally: ${base}"
+
+worktree_path="${worktree_root}/${branch}"
+
+[[ ! -e "${worktree_path}" ]] || die "path already exists: ${worktree_path}"
+mkdir -p -- "$(dirname -- "${worktree_path}")"
+
+if git -C "${main_repo}" show-ref --verify --quiet "refs/heads/${branch}"; then
+  git -C "${main_repo}" worktree add "${worktree_path}" "${branch}"
+else
+  git -C "${main_repo}" worktree add -b "${branch}" "${worktree_path}" "${base}"
+fi
+
+upstream_ref=""
+if git -C "${main_repo}" show-ref --verify --quiet "refs/remotes/${base}"; then
+  upstream_ref="${base}"
+elif git -C "${main_repo}" show-ref --verify --quiet "refs/heads/${base}"; then
+  upstream_ref=$(git -C "${main_repo}" for-each-ref --format='%(upstream:short)' "refs/heads/${base}")
+fi
+
+if [[ -n "${upstream_ref}" ]]; then
+  git -C "${worktree_path}" branch --set-upstream-to="${upstream_ref}" "${branch}" >/dev/null
+fi
+
+echo "Created ${branch}"
+echo "Path: ${worktree_path}"
+if [[ -n "${upstream_ref}" ]]; then
+  echo "Upstream: ${upstream_ref}"
+else
+  echo "Upstream: none"
+fi

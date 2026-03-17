@@ -36,3 +36,12 @@ For any major architectural choice, include:
 - Assumptions
 - Top 3 failure modes
 - A falsification checklist
+
+## 7) Git worktree workflow
+
+- Daily PF runs, cron jobs, one-off fixes, and review tasks must start from a fresh branch named `pf/YYYY-MM-DD/<slug>`.
+- Linked worktrees live at `/home/sy/.openclaw/worktrees/prototype-factory/<branch>`.
+- Keep the primary checkout on `main` clean; use it for orchestration, squash merge-back, and cleanup only.
+- Merge back from the linked worktree with `./scripts/worktree-merge-squash <chore|feat> "<summary>" main`.
+- Remove finished worktrees with `./scripts/worktree-rm <branch>` and prune stale metadata with `git worktree prune`.
+- Reference workflow examples in `WORKTREE.md`.

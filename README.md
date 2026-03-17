@@ -81,12 +81,15 @@ node scripts/new-proto.mjs --title "No demo example" --no-demo
 
 ## 4) n8n 파이프라인(개요)
 1) Cron(평일/매일 원하는 시간)
-2) LLM: 아이디어 3개 생성(제약 거의 없음)
-3) LLM: 1개 선택 + 스펙(화면 1~2장)
-4) Fast-Prototype 실행(스크린샷→Next.js+Tailwind+shadcn 코드)
-5) GitHub 커밋/푸시
-6) Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
-7) Telegram 알림: 오늘의 프로토타입 링크
+2) `scripts/worktree-new "pf/<date>/<slug>" origin/main`으로 새 worktree 생성
+3) LLM: 아이디어 3개 생성(제약 거의 없음)
+4) LLM: 1개 선택 + 스펙(화면 1~2장)
+5) Fast-Prototype 실행(스크린샷→Next.js+Tailwind+shadcn 코드)
+6) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
+7) 필요 시 GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
+8) Telegram 알림: 오늘의 프로토타입 링크
+
+상세 규칙과 예시는 `WORKTREE.md` 참고.
 
 > Fast-Prototype를 n8n에서 쓰려면: (A) 로컬/서버에서 **CLI 실행** 또는 (B) **HTTP endpoint**로 감싸는 방식이 필요.
 

@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  echo "Usage: $0 <branch-or-path>"
+}
+
+die() {
+  echo "worktree-rm: $*" >&2
+  exit 1
+}
+
+prune_empty_dirs() {
+  local path=${1}
+  while [[ "${path}" != "${worktree_root}" && "${path}" != "/" ]]; do
+    rmdir "${path}" 2>/dev/null || break
+    path=$(dirname "${path}")
+  done
+}
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+repo_hint=$(cd -- "${script_dir}/.." && pwd -P)
+common_dir=$(git -C "${repo_hint}" rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || die "must be run from the prototype-factory repo"
+main_repo=$(cd -- "${common_dir}/.." && pwd -P)
+worktree_root=${PF_WORKTREE_ROOT:-/home/sy/.openclaw/worktrees/prototype-factory}
+
+target=${1:-}
+[[ -n "${target}" ]] || {
+  usage
+  exit 1
+}
+
+if [[ -d "${target}" ]]; then
+  worktree_path=$(cd -- "${target}" && pwd -P)
+else
+  worktree_path="${worktree_root}/${target}"
+fi
+
+[[ -d "${worktree_path}" ]] || die "worktree not found: ${worktree_path}"
+[[ "${worktree_path}" != "${main_repo}" ]] || die "refusing to remove the primary checkout"
+
+git -C "${worktree_path}" rev-parse --show-toplevel >/dev/null 2>&1 || die "not a git worktree: ${worktree_path}"
+[[ -z "$(git -C "${worktree_path}" status --porcelain)" ]] || die "worktree is dirty: ${worktree_path}"
+
+branch=$(git -C "${worktree_path}" symbolic-ref --quiet --short HEAD || true)
+
+git -C "${main_repo}" worktree remove "${worktree_path}"
+prune_empty_dirs "$(dirname "${worktree_path}")"
+
+if [[ -n "${branch}" ]] && git -C "${main_repo}" show-ref --verify --quiet "refs/heads/${branch}"; then
+  if git -C "${main_repo}" branch -d "${branch}" >/dev/null 2>&1; then
+    echo "Deleted local branch ${branch}"
+  else
+    echo "Removed worktree but kept local branch ${branch}"
+  fi
+fi
+
+echo "Removed ${worktree_path}"
