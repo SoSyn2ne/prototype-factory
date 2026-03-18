@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wedding Seating Constraint Checker — Demo</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header class="topbar">
+      <div class="brand">
+        <div class="id">2026-03-19-p002</div>
+        <div>
+          <h1>Wedding Seating Constraint Checker</h1>
+          <p class="subtitle">Quickly model table assignments and instantly surface social/constraint conflicts before you finalize seating.</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="loadBtn" class="btn btn-ghost" type="button">Load preset</button>
+        <button id="checkBtn" class="btn" type="button">Check seating</button>
+      </div>
+    </header>
+
+    <main id="main" class="layout">
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Setup</h2>
+          <div class="muted">Draft assignment is deterministic: fill tables in order.</div>
+        </div>
+
+        <div class="grid">
+          <label class="field">
+            <span>Tables</span>
+            <input id="tablesInput" type="number" min="1" max="50" value="8" />
+          </label>
+          <label class="field">
+            <span>Seats per table</span>
+            <input id="seatsInput" type="number" min="2" max="20" value="8" />
+          </label>
+          <label class="field span2">
+            <span>Guests (one per line)</span>
+            <textarea id="guestsInput" spellcheck="false" placeholder="e.g.\nMinji\nJisoo\n...">
+</textarea>
+          </label>
+          <label class="field">
+            <span>Avoid pairs (one per line: A | B)</span>
+            <textarea id="avoidInput" spellcheck="false" placeholder="e.g.\nUncle Kim | Aunt Lee\n...">
+</textarea>
+          </label>
+          <label class="field">
+            <span>Together groups (one per line: A, B, C)</span>
+            <textarea id="togetherInput" spellcheck="false" placeholder="e.g.\nBride Mom, Bride Dad\n...">
+</textarea>
+          </label>
+        </div>
+
+        <div id="capacityNote" class="note" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Tables</h2>
+          <div class="muted">Click a table to focus conflicts.</div>
+        </div>
+        <div id="tables" class="tables"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>Conflicts</h2>
+          <div id="confSummary" class="muted">Load preset and check.</div>
+        </div>
+        <div id="conflicts" class="conflicts" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="./assets/app.js" defer></script>
+  </body>
+</html>
