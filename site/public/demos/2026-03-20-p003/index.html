@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GPU Node Incident Drillboard — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <div class="id">2026-03-20-p003</div>
+          <h1>GPU Node Incident Drillboard</h1>
+          <p class="sub">Inject a node alert → run a checklist → keep a timestamped log.</p>
+        </div>
+        <div class="pill" id="modePill">No incident</div>
+      </header>
+
+      <section class="grid">
+        <section class="panel">
+          <h2>Inject alert</h2>
+          <div class="btnRow">
+            <button class="btn" data-alert="thermal">Thermal throttle</button>
+            <button class="btn" data-alert="disk">Disk pressure</button>
+            <button class="btn" data-alert="oom">CUDA OOM loop</button>
+            <button class="btn" data-alert="net">Network flakiness</button>
+          </div>
+
+          <div class="timer">
+            <div>
+              <div class="k">Stopwatch</div>
+              <div class="t" id="timer">00:00</div>
+            </div>
+            <div class="btnRow">
+              <button class="btn ghost" id="startBtn">Start</button>
+              <button class="btn ghost" id="resetBtn">Reset</button>
+              <button class="btn danger" id="clearBtn">Clear incident</button>
+            </div>
+          </div>
+
+          <h2>Checklist</h2>
+          <div class="hint">Treat this as a drill. Don’t reboot blindly.</div>
+          <ul class="list" id="checklist"></ul>
+
+          <h2>Notes</h2>
+          <textarea id="notes" rows="6" placeholder="Postmortem notes (what happened, what you tried, what worked)…"></textarea>
+        </section>
+
+        <section class="panel">
+          <h2>Incident log</h2>
+          <div class="log" id="log"></div>
+        </section>
+      </section>
+
+      <footer class="foot">
+        <div class="tiny">Offline demo. Vanilla HTML/CSS/JS.</div>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>

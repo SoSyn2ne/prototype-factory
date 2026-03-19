@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Semicap Thesis Stress Tester — Demo</title>
+    <link rel="stylesheet" href="./assets/style.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <div class="id">2026-03-20-p001</div>
+          <h1>Semicap Thesis Stress Tester</h1>
+          <p class="sub">Offline scenario board that stress-tests a semicap thesis and flags broken assumptions.</p>
+        </div>
+        <div class="pill" id="convictionPill">Baseline</div>
+      </header>
+
+      <section class="grid">
+        <section class="panel">
+          <h2>Scenario inputs</h2>
+          <p class="hint">Heuristic model. Use it to ask better questions, not to predict prices.</p>
+
+          <div class="row">
+            <label for="preset">Scenario preset</label>
+            <select id="preset">
+              <option value="baseline">Baseline</option>
+              <option value="export">Export control shock</option>
+              <option value="slump">Demand slump</option>
+              <option value="fx">FX (KRW weakening)</option>
+              <option value="rates">Rates stay higher for longer</option>
+              <option value="combo">Combo: export + slump</option>
+            </select>
+          </div>
+
+          <div class="slider">
+            <div class="sliderTop">
+              <label for="exportSeverity">Export controls severity</label>
+              <output id="exportOut">20</output>
+            </div>
+            <input id="exportSeverity" type="range" min="0" max="100" value="20" />
+            <div class="scale"><span>none</span><span>max</span></div>
+          </div>
+
+          <div class="slider">
+            <div class="sliderTop">
+              <label for="demandSlump">Demand slump (downcycle)</label>
+              <output id="slumpOut">25</output>
+            </div>
+            <input id="demandSlump" type="range" min="0" max="100" value="25" />
+            <div class="scale"><span>mild</span><span>severe</span></div>
+          </div>
+
+          <div class="slider">
+            <div class="sliderTop">
+              <label for="fx">USD/KRW stress</label>
+              <output id="fxOut">30</output>
+            </div>
+            <input id="fx" type="range" min="0" max="100" value="30" />
+            <div class="scale"><span>stable</span><span>volatile</span></div>
+          </div>
+
+          <div class="slider">
+            <div class="sliderTop">
+              <label for="rates">Funding rates level</label>
+              <output id="ratesOut">35</output>
+            </div>
+            <input id="rates" type="range" min="0" max="100" value="35" />
+            <div class="scale"><span>easy</span><span>tight</span></div>
+          </div>
+
+          <button class="btn" id="resetBtn" type="button">Reset to preset</button>
+        </section>
+
+        <section class="panel">
+          <div class="scoreRow">
+            <div>
+              <h2>Thesis risk score</h2>
+              <p class="hint">0 = resilient, 100 = thesis likely broken.</p>
+            </div>
+            <div class="score" aria-label="Risk score">
+              <div class="scoreNum" id="scoreNum">—</div>
+              <div class="scoreBar"><div class="scoreFill" id="scoreFill"></div></div>
+            </div>
+          </div>
+
+          <h3>Assumption cards</h3>
+          <div class="cards" id="assumptionCards" aria-live="polite"></div>
+
+          <h3>Next evidence to check</h3>
+          <ul class="next" id="nextList"></ul>
+        </section>
+      </section>
+
+      <footer class="foot">
+        <div class="tiny">Tip: treat “BROKEN” as “go look for confirming evidence now”.</div>
+        <div class="tiny">No network calls. No tracking. Vanilla HTML/CSS/JS.</div>
+      </footer>
+    </main>
+
+    <script src="./assets/app.js"></script>
+  </body>
+</html>
