@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Atelier | Wedding RSVP Follow-up Triage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#666666",
+                        "surface-container-high": "#f0eee5",
+                        "on-primary-fixed": "#394232",
+                        "surface-bright": "#fffcf7",
+                        "on-surface": "#383831",
+                        "on-background": "#383831",
+                        "surface-tint": "#58614f",
+                        "inverse-on-surface": "#9e9d98",
+                        "inverse-surface": "#0e0e0c",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#fe8b70",
+                        "on-error-container": "#742410",
+                        "tertiary-dim": "#585858",
+                        "outline-variant": "#babab0",
+                        "surface-container": "#f6f4ec",
+                        "surface": "#fffcf7",
+                        "tertiary-container": "#f5f3f3",
+                        "on-secondary-container": "#624d46",
+                        "background": "#fffcf7",
+                        "surface-dim": "#e4e3d7",
+                        "secondary-container": "#fadcd3",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#eae8de",
+                        "primary": "#58614f",
+                        "tertiary-fixed-dim": "#e7e5e4",
+                        "on-secondary-fixed-variant": "#6c5750",
+                        "outline": "#818178",
+                        "secondary-fixed-dim": "#ebcec5",
+                        "tertiary-fixed": "#f5f3f3",
+                        "on-primary": "#f1fbe4",
+                        "on-tertiary-container": "#5c5c5b",
+                        "error-dim": "#5c1202",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#dce6cf",
+                        "tertiary": "#656464",
+                        "primary-dim": "#4c5544",
+                        "secondary-fixed": "#fadcd3",
+                        "secondary": "#756058",
+                        "inverse-primary": "#f3fde5",
+                        "surface-container-highest": "#eae8de",
+                        "on-primary-container": "#4b5543",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#fcf9f3",
+                        "primary-fixed": "#dce6cf",
+                        "on-primary-fixed-variant": "#555e4d",
+                        "primary-fixed-dim": "#ced8c1",
+                        "on-tertiary-fixed": "#4a4949",
+                        "error": "#a54731",
+                        "on-secondary-fixed": "#4e3b35",
+                        "secondary-dim": "#69544d",
+                        "on-surface-variant": "#65655c"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .font-notoSerif { font-family: 'Noto Serif', serif; }
+        .font-manrope { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 z-50 w-full bg-[#fffcf7] dark:bg-stone-900/80 backdrop-blur-md flex justify-between items-center px-8 h-20">
+<div class="font-notoSerif text-2xl italic text-[#58614f] dark:text-[#dce6cf]">The Atelier</div>
+<nav class="hidden md:flex items-center space-x-10">
+<a class="font-manrope tracking-wide uppercase text-xs text-[#756058] dark:text-stone-400 font-medium hover:text-[#58614f] transition-colors duration-300" href="#">Guests</a>
+<a class="font-manrope tracking-wide uppercase text-xs text-[#58614f] dark:text-[#dce6cf] border-b-2 border-[#58614f] pb-1 font-bold" href="#">RSVP Tracker</a>
+<a class="font-manrope tracking-wide uppercase text-xs text-[#756058] dark:text-stone-400 font-medium hover:text-[#58614f] transition-colors duration-300" href="#">Seating</a>
+<a class="font-manrope tracking-wide uppercase text-xs text-[#756058] dark:text-stone-400 font-medium hover:text-[#58614f] transition-colors duration-300" href="#">Schedule</a>
+</nav>
+<div class="flex items-center space-x-6">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="settings">settings</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User profile" data-alt="close-up portrait of a professional wedding planner with a warm smile in a brightly lit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAseFTqXMW331KfWs5pG36nIEz881miF_V3iGRVDZK2TWuoZA--9AroO8Rw8XehLMkCWgJPfHlRE4Rmaktaq3TxABV6psH6L5sDQHoHsAMvfz457gMaP-aFBdiTRqXeBXIdtDJkrXpFl3aoHyR6YSuFi91Gfo6s1VnrKswCeSVRK2x41gkM_zjbX32tCoFSMhVRApEk8lgQiApNZhpM5VM8KwiUvSPdlQT9rVPA_UH130BpZkfXnTqbUIw87__103fQPf0UsTH8m3Q"/>
+</div>
+</div>
+</header>
+<!-- Side Navigation Anchor -->
+<aside class="fixed left-0 top-0 h-full w-72 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-8 px-4 pt-28">
+<div class="mb-10 px-4">
+<h2 class="font-notoSerif text-lg text-[#58614f]">Wedding Planner</h2>
+<p class="font-manrope text-sm text-[#756058]">June 2025 Edition</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center space-x-4 px-4 py-3 text-[#756058] dark:text-stone-400 hover:bg-[#f6f4ec]/50 rounded-r-full hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-manrope font-semibold">Guest List</span>
+</a>
+<a class="flex items-center space-x-4 px-4 py-3 bg-[#f6f4ec] dark:bg-stone-800 text-[#58614f] dark:text-[#dce6cf] rounded-r-full font-bold scale-95 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-manrope font-semibold">RSVP Tracker</span>
+</a>
+<a class="flex items-center space-x-4 px-4 py-3 text-[#756058] dark:text-stone-400 hover:bg-[#f6f4ec]/50 rounded-r-full hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-manrope font-semibold">Table Layout</span>
+</a>
+<a class="flex items-center space-x-4 px-4 py-3 text-[#756058] dark:text-stone-400 hover:bg-[#f6f4ec]/50 rounded-r-full hover:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="font-manrope font-semibold">Speech Drafts</span>
+</a>
+</nav>
+<div class="mt-auto space-y-2 pt-6 border-t border-outline-variant/20">
+<button class="w-full bg-primary text-on-primary py-3 rounded-md font-manrope font-medium mb-4 flex items-center justify-center gap-2">
+                Export Plan
+            </button>
+<a class="flex items-center space-x-4 px-4 py-2 text-[#756058] hover:text-[#58614f]" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span class="font-manrope text-sm">Help</span>
+</a>
+<a class="flex items-center space-x-4 px-4 py-2 text-[#756058] hover:text-[#58614f]" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="archive">archive</span>
+<span class="font-manrope text-sm">Archive</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 pt-20 min-h-screen">
+<div class="max-w-[1400px] mx-auto p-12 space-y-12">
+<!-- (1) Status Hero: 78% Completion -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-end">
+<div class="lg:col-span-2">
+<h1 class="font-notoSerif text-5xl italic text-primary leading-tight mb-4">Final Headcount <br/>Triage &amp; Outreach</h1>
+<p class="font-manrope text-secondary max-w-md text-lg">Your RSVP deadline is in 4 days. We are still waiting for 54 guests to confirm their attendance.</p>
+</div>
+<div class="bg-surface-container p-10 rounded-xl relative overflow-hidden">
+<div class="relative z-10 flex flex-col items-center">
+<span class="font-manrope text-xs tracking-widest uppercase text-secondary mb-2">Completion Rate</span>
+<div class="text-7xl font-notoSerif text-primary italic">78<span class="text-4xl ml-1">%</span></div>
+<div class="w-full bg-surface-variant h-1 mt-6 rounded-full">
+<div class="bg-primary h-full w-[78%] transition-all duration-1000"></div>
+</div>
+<p class="font-manrope text-xs text-on-surface-variant mt-4">196 of 250 responses collected</p>
+</div>
+<div class="absolute -bottom-10 -right-10 opacity-10">
+<span class="material-symbols-outlined text-[120px]" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+</section>
+<!-- Main Dashboard Layout -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-10">
+<!-- (2) Priority/Work Items Panel -->
+<div class="xl:col-span-8 space-y-8">
+<div class="flex justify-between items-end border-b border-outline-variant/10 pb-4">
+<h3 class="font-notoSerif text-2xl italic text-primary">High-Priority Non-Responders</h3>
+<div class="flex gap-4">
+<span class="text-xs font-manrope uppercase tracking-widest text-secondary cursor-pointer border-b border-secondary">Closeness</span>
+<span class="text-xs font-manrope uppercase tracking-widest text-outline cursor-pointer">Alphabetical</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- List Item 1 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-6 flex items-center justify-between group">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-semibold">
+                                    KP
+                                </div>
+<div>
+<h4 class="font-manrope font-bold text-on-surface">김지수 &amp; 박민혁 (가족)</h4>
+<p class="font-manrope text-sm text-on-surface-variant">Closest Family • 신랑측 • Seoul</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<span class="text-[10px] font-manrope uppercase tracking-tighter text-error block mb-1">Overdue 3 days</span>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<button class="bg-primary-container text-on-primary-container px-6 py-2 text-sm font-manrope font-semibold rounded-md">
+                                    Follow-up
+                                </button>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-6 flex items-center justify-between group">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-semibold">
+                                    LY
+                                </div>
+<div>
+<h4 class="font-manrope font-bold text-on-surface">이영희 (베프)</h4>
+<p class="font-manrope text-sm text-on-surface-variant">Close Friend • 신부측 • Busan</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<span class="text-[10px] font-manrope uppercase tracking-tighter text-secondary-dim block mb-1">Waiting</span>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<button class="bg-surface-container-highest text-on-surface px-6 py-2 text-sm font-manrope font-semibold rounded-md">
+                                    Send Nudge
+                                </button>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-6 flex items-center justify-between group">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-semibold">
+                                    CS
+                                </div>
+<div>
+<h4 class="font-manrope font-bold text-on-surface">최성훈 (직장동료)</h4>
+<p class="font-manrope text-sm text-on-surface-variant">Colleague • 신랑측 • Incheon</p>
+</div>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<span class="text-[10px] font-manrope uppercase tracking-tighter text-secondary-dim block mb-1">Unread Link</span>
+<span class="material-symbols-outlined text-secondary opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" data-icon="chat_bubble">chat_bubble</span>
+</div>
+<button class="bg-surface-container-highest text-on-surface px-6 py-2 text-sm font-manrope font-semibold rounded-md">
+                                    Send Nudge
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- (4) Next-Best Action Card -->
+<div class="xl:col-span-4 space-y-10">
+<div class="bg-primary text-on-primary p-8 rounded-xl relative">
+<span class="text-xs font-manrope uppercase tracking-[0.2em] opacity-80 mb-6 block">Suggested Action</span>
+<h3 class="font-notoSerif text-2xl italic mb-4">Gentle Kakao Nudge</h3>
+<p class="font-manrope text-sm opacity-90 leading-relaxed mb-8">
+                            Most guests who haven't responded yet simply forgot. A soft reminder via KakaoTalk is 4x more effective than an email for your demographic.
+                        </p>
+<div class="p-4 bg-primary-dim rounded-lg mb-8 italic text-sm border-l-2 border-primary-container">
+                            "지수님! 결혼식이 벌써 다음 달로 다가왔네요. 바쁘시겠지만 식사 예약 관계상 이번 주말까지 참석 여부 회신 부탁드려도 될까요? 보고 싶어요! ✨"
+                        </div>
+<button class="w-full bg-[#fae100] text-[#3c1e1e] py-4 rounded-md font-bold flex items-center justify-center gap-3">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                            Copy &amp; Open Kakao
+                        </button>
+</div>
+<!-- (5) Summary Rail -->
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+<h4 class="font-manrope font-bold text-sm uppercase tracking-widest text-secondary">Triage Summary</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Confirmed Attending</span>
+<span class="font-bold text-primary">182</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Declined</span>
+<span class="font-bold text-secondary">14</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Estimated Meal Count</span>
+<span class="font-bold text-primary">204 (incl. plus ones)</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/20 flex justify-between items-center">
+<span class="font-manrope font-bold text-sm">Outstanding Debt</span>
+<span class="font-notoSerif italic text-error text-xl">54 guests</span>
+</div>
+</div>
+</div>
+</div>
+<!-- (3) Supporting Analysis Section -->
+<div class="xl:col-span-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+<div class="p-8 bg-surface-container-high rounded-lg">
+<h5 class="text-xs font-manrope font-bold uppercase tracking-widest text-on-surface-variant mb-6">Demographic Split</h5>
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-sm font-manrope">Friends (45%)</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="text-sm font-manrope">Family (30%)</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-on-tertiary-fixed-variant"></div>
+<span class="text-sm font-manrope">Professional (25%)</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-1 lg:col-span-3 bg-surface-container rounded-lg overflow-hidden flex items-center p-8 relative">
+<div class="max-w-md relative z-10">
+<h5 class="font-notoSerif text-2xl italic text-primary mb-2">Venue Constraints</h5>
+<p class="font-manrope text-sm text-on-surface-variant">The Crystal Ballroom has a maximum capacity of 250. With current trends, we anticipate a final count of 236. You have a buffer of 14 seats remaining.</p>
+</div>
+<div class="hidden lg:block absolute right-0 top-0 bottom-0 w-1/3">
+<img alt="Luxury wedding hall interior" class="h-full w-full object-cover" data-alt="interior of an elegant wedding ballroom with ivory floral arrangements, crystal chandeliers, and warm candlelight setting a serene atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEmAuj41TLemMUUe593DXRDqR9tV6Zg2_E4BWNOW7C7Hccd-piG2hXfHMQQjYZdY8Q8luaGTYZS_MqT6rf1iRkhFdY4pgbCam0WzZIfYUDo7UDwp8FQhTRmYKmdXGKNky_U1MwAPGlimQMOfgUppqqfSj_YU0X-AS8AR4uZxBAggJypM5jGWDxrLxVuVtAitQN0HkEH7pUZNKostW6O846GUldRXtVDdmTUlYodUB-FvKf4FY5eP_dgGnIPb2zgSabzTOvjWDkVZg"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Spacing -->
+<div class="h-20"></div>
+</div>
+</main>
+<!-- Navigation Pivot for Mobile -->
+<nav class="md:hidden fixed bottom-0 w-full bg-[#fffcf7] dark:bg-stone-900 flex justify-around items-center h-20 z-50 shadow-lg px-4">
+<div class="flex flex-col items-center gap-1 text-[#756058] dark:text-stone-400">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-[10px] font-manrope uppercase">Guests</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#58614f] dark:text-[#dce6cf]">
+<span class="material-symbols-outlined" data-icon="mail" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="text-[10px] font-manrope uppercase font-bold">RSVP</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#756058] dark:text-stone-400">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="text-[10px] font-manrope uppercase">Tables</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-[#756058] dark:text-stone-400">
+<span class="material-symbols-outlined" data-icon="auto_stories">auto_stories</span>
+<span class="text-[10px] font-manrope uppercase">Drafts</span>
+</div>
+</nav>
+</body></html>

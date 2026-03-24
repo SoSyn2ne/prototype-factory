@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPU Thermal Budget Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#490106",
+                        "surface-container-highest": "#252626",
+                        "on-primary-container": "#d2cfd2",
+                        "on-surface-variant": "#acabaa",
+                        "secondary-dim": "#9f9d9f",
+                        "on-secondary-fixed": "#3f3f41",
+                        "primary-fixed-dim": "#d6d4d6",
+                        "on-tertiary-fixed": "#00440a",
+                        "error": "#ee7d77",
+                        "on-primary-fixed-variant": "#5c5b5d",
+                        "surface-container-low": "#131313",
+                        "primary-fixed": "#e4e2e4",
+                        "error-dim": "#bb5551",
+                        "on-secondary": "#202022",
+                        "on-tertiary-container": "#005a10",
+                        "secondary-fixed-dim": "#d6d4d6",
+                        "tertiary-fixed": "#00fc40",
+                        "on-primary": "#404042",
+                        "outline": "#767575",
+                        "inverse-primary": "#5f5f61",
+                        "secondary-fixed": "#e4e2e4",
+                        "secondary": "#9f9d9f",
+                        "primary-dim": "#bab8ba",
+                        "tertiary": "#9cff93",
+                        "primary-container": "#474649",
+                        "background": "#0e0e0e",
+                        "on-secondary-container": "#c0bfc1",
+                        "surface-container": "#191a1a",
+                        "surface": "#0e0e0e",
+                        "tertiary-container": "#00fc40",
+                        "on-error-container": "#ff9993",
+                        "tertiary-dim": "#00ec3b",
+                        "outline-variant": "#484848",
+                        "error-container": "#7f2927",
+                        "on-secondary-fixed-variant": "#5c5b5d",
+                        "surface-variant": "#252626",
+                        "primary": "#c8c6c8",
+                        "tertiary-fixed-dim": "#00ec3b",
+                        "surface-container-lowest": "#000000",
+                        "secondary-container": "#3b3b3d",
+                        "surface-dim": "#0e0e0e",
+                        "on-primary-fixed": "#3f3f41",
+                        "surface-container-high": "#1f2020",
+                        "on-tertiary-fixed-variant": "#006513",
+                        "surface-tint": "#c8c6c8",
+                        "inverse-on-surface": "#565555",
+                        "on-tertiary": "#006413",
+                        "inverse-surface": "#fcf9f8",
+                        "on-background": "#e7e5e5",
+                        "on-surface": "#e7e5e5",
+                        "surface-bright": "#2b2c2c"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0e0e0e;
+            color: #e7e5e5;
+        }
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden selection:bg-tertiary selection:text-black">
+<!-- Sidebar Navigation (SideNavBar) -->
+<aside class="flex flex-col h-full border-r border-[#1f2020] bg-[#0e0e0e] fixed left-0 top-0 w-64 rounded-none z-50">
+<div class="p-6">
+<h1 class="text-[#e7e5e5] font-space-grotesk font-bold tracking-tight text-xl uppercase">NODE_CLUSTER_01</h1>
+<p class="font-inter text-[10px] tracking-[0.2em] uppercase text-on-surface-variant mt-1">US-EAST-GPU-04</p>
+</div>
+<nav class="flex-1 mt-4 px-2">
+<div class="space-y-1">
+<a class="flex items-center px-4 py-3 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all font-inter text-xs tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">analytics</span> Metrics
+                </a>
+<a class="flex items-center px-4 py-3 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all font-inter text-xs tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">terminal</span> Logs
+                </a>
+<a class="flex items-center px-4 py-3 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all font-inter text-xs tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">memory</span> Jobs
+                </a>
+<a class="flex items-center px-4 py-3 bg-[#252626] text-[#9cff93] border-l-2 border-[#9cff93] font-inter text-xs tracking-widest uppercase" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">thermostat</span> Hardware
+                </a>
+</div>
+</nav>
+<div class="p-4 bg-surface-container-low mt-auto">
+<div class="flex items-center space-x-3 mb-6">
+<div class="w-8 h-8 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-tertiary">monitor_heart</span>
+</div>
+<div>
+<p class="text-[10px] font-bold text-on-surface uppercase tracking-tighter">System Status</p>
+<p class="text-[9px] text-tertiary uppercase">Operational</p>
+</div>
+</div>
+<div class="space-y-1">
+<a class="flex items-center px-2 py-2 text-[#acabaa] hover:text-[#e7e5e5] text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-2 text-sm">help_outline</span> Documentation
+                </a>
+<a class="flex items-center px-2 py-2 text-[#acabaa] hover:text-[#e7e5e5] text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-2 text-sm">support_agent</span> Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 flex flex-col h-full bg-background overflow-y-auto">
+<!-- Top App Bar (TopAppBar) -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-[#191a1a] sticky top-0 z-40">
+<div class="flex items-center space-x-4">
+<span class="text-lg font-bold tracking-tighter text-[#e7e5e5] font-space-grotesk uppercase">GPU_OPERATOR_v1.0</span>
+<span class="text-[10px] bg-surface-container-high px-2 py-0.5 text-on-surface-variant border border-outline-variant uppercase">Planning Mode</span>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<input class="bg-surface-container-lowest border-0 border-b border-outline focus:border-primary focus:ring-0 text-[11px] w-48 font-mono placeholder:text-outline-variant px-0" placeholder="SEARCH SYSTEM..." type="text"/>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-[#acabaa] hover:bg-[#252626] p-1.5 transition-colors"><span class="material-symbols-outlined">settings</span></button>
+<button class="text-[#acabaa] hover:bg-[#252626] p-1.5 transition-colors"><span class="material-symbols-outlined">account_tree</span></button>
+<button class="text-[#acabaa] hover:bg-[#252626] p-1.5 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-1.5 h-1.5 bg-error rounded-full"></span>
+</button>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-6 grid grid-cols-12 gap-4">
+<!-- 1. Status Hero -->
+<section class="col-span-12 bg-surface-container p-6 relative overflow-hidden flex items-center justify-between">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div>
+<h2 class="font-headline text-on-surface-variant text-xs uppercase tracking-[0.3em] mb-2">Primary Analysis</h2>
+<div class="flex items-baseline space-x-4">
+<span class="font-headline text-5xl font-extrabold text-on-surface tracking-tighter">Current Thermal Headroom</span>
+<span class="font-headline text-5xl font-extrabold text-tertiary tracking-tighter">+8°C</span>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-3 uppercase tracking-widest font-mono">Last Recalculation: 0.4ms ago | Core Temp: 72°C | Target: 80°C</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="h-16 w-48 bg-surface-container-high flex items-end justify-between p-1 space-x-1">
+<div class="w-full bg-tertiary/20 h-1/2"></div>
+<div class="w-full bg-tertiary/30 h-2/3"></div>
+<div class="w-full bg-tertiary/40 h-3/4"></div>
+<div class="w-full bg-tertiary/60 h-full"></div>
+<div class="w-full bg-tertiary/40 h-5/6"></div>
+<div class="w-full bg-tertiary/20 h-2/3"></div>
+</div>
+<span class="text-[9px] text-on-surface-variant mt-2 uppercase">Real-time Oscilloscope View</span>
+</div>
+</section>
+<!-- 2. Priority/Work Items Panel: Tune Profiles -->
+<section class="col-span-12 md:col-span-4 bg-surface-container p-4">
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-headline text-sm font-bold uppercase tracking-widest">Tune Profiles</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm cursor-pointer hover:text-on-surface">add_box</span>
+</div>
+<div class="space-y-3">
+<div class="group bg-surface-container-high p-3 flex justify-between items-center border-l-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div>
+<p class="text-xs font-bold text-on-surface">Night Render</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Power: 80% | Fan: 40%</p>
+</div>
+<span class="text-[10px] text-tertiary bg-on-tertiary-container px-2 py-0.5">ACTIVE</span>
+</div>
+<div class="group bg-surface-container-high p-3 flex justify-between items-center border-l-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div>
+<p class="text-xs font-bold text-on-surface">High Performance</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Power: 110% | Fan: 100%</p>
+</div>
+<span class="text-[10px] text-on-surface-variant border border-outline-variant px-2 py-0.5">READY</span>
+</div>
+<div class="group bg-surface-container-high p-3 flex justify-between items-center border-l-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div>
+<p class="text-xs font-bold text-on-surface">Balanced Stability</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Power: 100% | Fan: 70%</p>
+</div>
+<span class="text-[10px] text-on-surface-variant border border-outline-variant px-2 py-0.5">READY</span>
+</div>
+<div class="group bg-surface-container-high p-3 flex justify-between items-center border-l-2 border-transparent hover:border-primary transition-all cursor-pointer">
+<div>
+<p class="text-xs font-bold text-on-surface">Low Noise / Idle</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Power: 50% | Fan: 0%</p>
+</div>
+<span class="text-[10px] text-on-surface-variant border border-outline-variant px-2 py-0.5">READY</span>
+</div>
+</div>
+</section>
+<!-- 3. Supporting Analysis Section -->
+<section class="col-span-12 md:col-span-8 bg-surface-container p-4">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-sm font-bold uppercase tracking-widest">Temp Climb Projections</h3>
+<div class="flex space-x-2">
+<button class="bg-surface-container-highest px-3 py-1 text-[10px] uppercase tracking-tighter hover:bg-primary hover:text-background transition-colors">60m Forecast</button>
+<button class="bg-surface-container-low border border-outline-variant px-3 py-1 text-[10px] uppercase tracking-tighter hover:bg-primary hover:text-background transition-colors">24h Forecast</button>
+</div>
+</div>
+<div class="h-48 w-full bg-surface-container-lowest relative flex items-center justify-center">
+<!-- SVG Chart Representation -->
+<svg class="absolute inset-0 w-full h-full opacity-50" preserveaspectratio="none" viewbox="0 0 400 100">
+<path d="M0,80 L50,75 L100,60 L150,65 L200,40 L250,45 L300,30 L350,35 L400,20" fill="none" stroke="#9cff93" stroke-width="1.5"></path>
+<path d="M0,80 L50,78 L100,75 L150,76 L200,72 L250,73 L300,70 L350,71 L400,68" fill="none" stroke="#acabaa" stroke-dasharray="2,2" stroke-width="1"></path>
+</svg>
+<!-- Triage Grid Overlay -->
+<div class="grid grid-cols-4 w-full h-full pointer-events-none">
+<div class="border-r border-outline-variant/10"></div>
+<div class="border-r border-outline-variant/10"></div>
+<div class="border-r border-outline-variant/10"></div>
+<div></div>
+</div>
+<div class="absolute bottom-2 left-4 text-[10px] text-on-surface-variant uppercase font-mono">Simulated Delta: +1.2°C/min</div>
+</div>
+<div class="grid grid-cols-3 gap-4 mt-6">
+<div class="bg-surface-container-high p-3">
+<p class="text-[10px] text-on-surface-variant uppercase mb-1">Throttling Risk</p>
+<p class="text-lg font-bold text-tertiary">0.02%</p>
+</div>
+<div class="bg-surface-container-high p-3">
+<p class="text-[10px] text-on-surface-variant uppercase mb-1">Fan Lifespan Impact</p>
+<p class="text-lg font-bold text-on-surface">MINIMAL</p>
+</div>
+<div class="bg-surface-container-high p-3">
+<p class="text-[10px] text-on-surface-variant uppercase mb-1">Stability Score</p>
+<p class="text-lg font-bold text-tertiary">99.8</p>
+</div>
+</div>
+</section>
+<!-- 4. Next-Best Action Card -->
+<section class="col-span-12 md:col-span-9 bg-surface-container p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl text-tertiary">bolt</span>
+</div>
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center space-x-2 mb-2">
+<span class="w-2 h-2 bg-tertiary"></span>
+<h3 class="font-headline text-xs font-bold uppercase tracking-[0.2em]">Recommended Optimization</h3>
+</div>
+<p class="text-xl font-headline font-bold text-on-surface mb-2">Increase Fan % to 75</p>
+<p class="text-xs text-on-surface-variant max-w-xl leading-relaxed">
+                            Based on your current work item "Night Render," the ambient room temperature is projected to rise. Increasing fan speed now will pre-emptively cool the VRAM, ensuring 100% stability throughout the 4-hour job without hitting the thermal wall.
+                        </p>
+</div>
+<button class="bg-tertiary text-background px-6 py-3 font-bold text-xs uppercase tracking-widest hover:brightness-110 active:scale-95 transition-all">
+                        Execute Triage
+                    </button>
+</div>
+</section>
+<!-- 5. Summary Rail (Hardware Specs) -->
+<section class="col-span-12 md:col-span-3 flex flex-col space-y-4">
+<div class="bg-surface-container p-4 flex-1">
+<h3 class="font-headline text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4">Hardware Profile</h3>
+<div class="flex flex-col space-y-4">
+<div class="flex items-center space-x-4">
+<div class="w-12 h-12 bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">memory</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">GTX 1080 Ti</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Pascal Architecture</p>
+</div>
+</div>
+<div class="space-y-2 border-t border-outline-variant pt-4">
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">VRAM Total</span>
+<span class="text-[10px] font-mono text-on-surface">11,264 MB</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Core Clock</span>
+<span class="text-[10px] font-mono text-on-surface">1,582 MHz</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Bus Width</span>
+<span class="text-[10px] font-mono text-on-surface">352-bit</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Power Draw</span>
+<span class="text-[10px] font-mono text-tertiary">250W PEAK</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[9px] text-on-surface-variant uppercase">Chassis Airflow</span>
+<span class="text-[9px] text-tertiary uppercase">Positive Pressure</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1">
+<div class="bg-tertiary h-full w-[85%]"></div>
+</div>
+</div>
+</section>
+<!-- Data Density Grid (Background Decor) -->
+<section class="col-span-12 mt-4">
+<div class="border-t border-outline-variant pt-4 grid grid-cols-6 gap-2 opacity-30">
+<div class="h-1 bg-surface-container-highest"></div>
+<div class="h-1 bg-surface-container-highest"></div>
+<div class="h-1 bg-tertiary"></div>
+<div class="h-1 bg-surface-container-highest"></div>
+<div class="h-1 bg-surface-container-highest"></div>
+<div class="h-1 bg-error"></div>
+</div>
+</section>
+</div>
+</main>
+<!-- Severity Ribbons (Floating Decorative) -->
+<div class="fixed right-0 top-0 bottom-0 w-1 flex flex-col">
+<div class="flex-1 bg-tertiary/20"></div>
+<div class="h-20 bg-error/20"></div>
+<div class="flex-1 bg-tertiary/20"></div>
+</div>
+</body></html>

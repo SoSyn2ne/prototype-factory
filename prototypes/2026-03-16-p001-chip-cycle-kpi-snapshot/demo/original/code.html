@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chip Cycle KPI Snapshot - Analyst's Atelier</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error": "#fff7f6",
+              "surface-container-highest": "#d9e4ea",
+              "on-primary-container": "#475269",
+              "on-tertiary-fixed": "#00452d",
+              "primary-fixed-dim": "#c9d4f0",
+              "error": "#9f403d",
+              "primary-fixed": "#d7e2ff",
+              "surface-container-low": "#f0f4f7",
+              "on-primary-fixed-variant": "#515c73",
+              "secondary-dim": "#3c5572",
+              "on-surface-variant": "#566166",
+              "on-secondary-fixed": "#27415d",
+              "secondary-fixed-dim": "#bdd7f9",
+              "tertiary-fixed": "#69f6b8",
+              "on-primary": "#f7f7ff",
+              "outline": "#717c82",
+              "error-dim": "#4e0309",
+              "on-secondary": "#f7f9ff",
+              "on-tertiary-container": "#005a3c",
+              "primary-container": "#d7e2ff",
+              "tertiary": "#006d4a",
+              "inverse-primary": "#d7e2ff",
+              "primary-dim": "#48526a",
+              "secondary": "#48617e",
+              "secondary-fixed": "#d1e4ff",
+              "on-error-container": "#752121",
+              "outline-variant": "#a9b4b9",
+              "tertiary-dim": "#005f40",
+              "error-container": "#fe8983",
+              "on-secondary-container": "#3a5470",
+              "background": "#f7f9fb",
+              "surface-container": "#e8eff3",
+              "surface": "#f7f9fb",
+              "tertiary-container": "#69f6b8",
+              "secondary-container": "#d1e4ff",
+              "surface-container-lowest": "#ffffff",
+              "surface-dim": "#cfdce3",
+              "on-secondary-fixed-variant": "#445d7b",
+              "surface-variant": "#d9e4ea",
+              "primary": "#545e76",
+              "tertiary-fixed-dim": "#58e7ab",
+              "on-tertiary-fixed-variant": "#006544",
+              "on-primary-fixed": "#353f56",
+              "surface-container-high": "#e1e9ee",
+              "on-surface": "#2a3439",
+              "surface-bright": "#f7f9fb",
+              "surface-tint": "#545e76",
+              "inverse-on-surface": "#9a9d9f",
+              "inverse-surface": "#0b0f10",
+              "on-tertiary": "#e6ffee",
+              "on-background": "#2a3439"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #f7f9fb;
+            color: #2a3439;
+        }
+        .glass-panel {
+            background: rgba(240, 244, 247, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Execution -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-900 flex items-center justify-between px-6 h-16 w-full font-manrope text-sm tracking-tight transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">Analyst's Atelier</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">Universe</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">Watchlist</a>
+<a class="text-slate-900 dark:text-white font-semibold border-b-2 border-slate-800 dark:border-slate-100 pb-1" href="#">Signals</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors" href="#">Review</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-low border-none rounded-lg text-xs w-64 focus:ring-1 focus:ring-primary" placeholder="Search signals..." type="text"/>
+</div>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User Analyst Profile" class="w-8 h-8 rounded-full object-cover ml-2" data-alt="Close-up portrait of a professional male financial analyst in a clean studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOzWZNPY021pM0HmbavgJr9wTtHMM09TwpCT1mGLkCMoG8w3rCJiMYZ2913G1MfvDPzaz3mRg7fwEBCQTtZAocI2_ZV-8Ty1IsOy66aamLHZhHj2UojB7fObSW5YQJu9dT_oav87XKEX3lRA1L_flMO9EI4PgWoee9PuJWG69CCjRzjmcN7lR6whqCh-QFhYYl5V2Firt2W5jd9o3DCdn1GNe6HzZFSTrSO8wJ92_-9lNAsr4xL2QaDmCOSvMvTeWj-ExWefvRDS8"/>
+</div>
+</header>
+<div class="fixed top-16 w-full h-[1px] bg-slate-200/50 z-50"></div>
+<!-- SideNavBar Execution (Context: Analysis) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-slate-100 dark:bg-slate-950 flex flex-col p-4 gap-y-2 font-manrope text-xs font-medium uppercase tracking-widest z-40">
+<div class="mb-6 px-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="token">token</span>
+</div>
+<div>
+<div class="text-slate-900 dark:text-white font-bold tracking-tight lowercase first-letter:uppercase">Project Alpha</div>
+<div class="text-[10px] text-slate-500">Institutional Tier</div>
+</div>
+</div>
+</div>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/30 transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Summary</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/30 transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="priority_high">priority_high</span>
+<span>Priority</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 text-slate-900 dark:text-white shadow-sm rounded-md transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800/30 transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+<span>Action</span>
+</a>
+<div class="mt-auto pt-4 border-t border-slate-200 dark:border-slate-800">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:text-slate-800 transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 hover:text-slate-800 transition-transform scale-[0.99] active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Archive</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<!-- (1) Status Hero: Daily Cycle Stance -->
+<section class="relative bg-surface-container-low p-10 rounded-xl overflow-hidden">
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-end md:items-center gap-6">
+<div class="space-y-2">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant font-semibold">Current Market Phase</span>
+<h1 class="font-headline text-5xl text-on-surface tracking-tighter">Daily Cycle Stance: <span class="text-tertiary">Accumulate</span></h1>
+<p class="font-body text-on-surface-variant max-w-xl">Semiconductor lead times are stabilizing while DRAM pricing shows early bottoming patterns. Institutional momentum remains cautious but net-positive.</p>
+</div>
+<div class="flex gap-3">
+<div class="bg-surface-container-lowest p-4 px-6 rounded-lg shadow-sm border border-outline-variant/10 text-center">
+<div class="font-label text-[10px] uppercase text-on-surface-variant">Signal Strength</div>
+<div class="font-headline text-2xl text-on-surface">84%</div>
+</div>
+<div class="bg-surface-container-lowest p-4 px-6 rounded-lg shadow-sm border border-outline-variant/10 text-center">
+<div class="font-label text-[10px] uppercase text-on-surface-variant">Volatility Index</div>
+<div class="font-headline text-2xl text-on-surface">Low</div>
+</div>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+</section>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- (2) Priority/Work Items Panel: Key KPIs -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(42,52,57,0.06)] overflow-hidden">
+<div class="px-6 py-4 bg-surface-container flex justify-between items-center">
+<h2 class="font-label text-xs uppercase tracking-widest font-bold text-on-surface">Critical Cycle KPIs</h2>
+<span class="text-[10px] text-on-surface-variant">Last Updated: 08:45 AM EST</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container">
+<tr>
+<th class="px-6 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Metric</th>
+<th class="px-6 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Current Value</th>
+<th class="px-6 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">W/W Change</th>
+<th class="px-6 py-3 font-label text-[10px] uppercase tracking-wider text-on-surface-variant">Stance</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm divide-y divide-surface-container-low">
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">Inventory Levels</td>
+<td class="px-6 py-4">92 Days</td>
+<td class="px-6 py-4 text-error font-medium">-4.2%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-tertiary-container/30 text-on-tertiary-container text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Improving
+                                            </span>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">Lead Times (Avg)</td>
+<td class="px-6 py-4">18.4 Weeks</td>
+<td class="px-6 py-4 text-tertiary font-medium">+0.5%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-surface-container-highest text-on-surface-variant text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span> Neutral
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">DRAM Pricing (8Gb)</td>
+<td class="px-6 py-4">$1.42</td>
+<td class="px-6 py-4 text-tertiary font-medium">+2.1%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-tertiary-container/30 text-on-tertiary-container text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Bullish
+                                            </span>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">NAND Flash Spot</td>
+<td class="px-6 py-4">$0.065/GB</td>
+<td class="px-6 py-4 text-tertiary font-medium">+1.8%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-tertiary-container/30 text-on-tertiary-container text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span> Bullish
+                                            </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="px-6 py-4 font-semibold text-on-surface">Semicap Backlog</td>
+<td class="px-6 py-4">$42.1B</td>
+<td class="px-6 py-4 text-error font-medium">-1.2%</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-1 rounded bg-error-container/20 text-on-error-container text-xs font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Cautious
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- (3) Supporting Analysis Section: Historical Trend Overlay -->
+<section class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_40px_rgba(42,52,57,0.06)]">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline text-xl text-on-surface">Cycle Comparative Analysis</h3>
+<p class="text-sm text-on-surface-variant">Current lead times vs. 2018 downturn peak (normalized)</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary"></span>
+<span class="font-label text-[10px] uppercase">Current</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-outline-variant"></span>
+<span class="font-label text-[10px] uppercase">Historical</span>
+</div>
+</div>
+</div>
+<!-- Visual Analysis/Graph Placeholders -->
+<div class="h-64 flex items-end justify-between gap-4 px-2">
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[70%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[85%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">JAN</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[65%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[75%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">FEB</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[55%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[60%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">MAR</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[45%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[52%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">APR</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[40%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[38%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">MAY</span>
+</div>
+<div class="w-full bg-surface-container-low rounded-t-sm relative group">
+<div class="absolute bottom-0 w-full bg-outline-variant/30 h-[42%] rounded-t-sm"></div>
+<div class="absolute bottom-0 w-full bg-primary h-[48%] rounded-t-sm transition-all hover:brightness-110"></div>
+<span class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label text-[9px]">JUN</span>
+</div>
+</div>
+<div class="mt-12 flex items-center justify-between p-4 bg-surface-container-low rounded">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="lightbulb">lightbulb</span>
+<p class="text-xs text-on-surface-variant font-medium">Analyst Note: Current divergence in lead times suggests structural supply-chain hardening rather than cyclical overheating.</p>
+</div>
+<button class="text-primary font-label text-[10px] font-bold uppercase tracking-widest hover:underline">Full Context</button>
+</div>
+</section>
+</div>
+<!-- Right Rail Section -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- (4) Next-Best Action Card -->
+<section class="bg-primary p-6 rounded-xl text-white shadow-xl relative overflow-hidden group">
+<div class="relative z-10 space-y-4">
+<span class="font-label text-[10px] uppercase tracking-widest text-primary-fixed opacity-80">Recommended Action</span>
+<h3 class="font-headline text-2xl tracking-tight">Review Weekly Thesis</h3>
+<p class="text-sm text-primary-fixed leading-relaxed">
+                                Three KPIs have crossed their 50-day moving averages. It's time to re-validate the "Early Cycle Recovery" thesis before the Monday open.
+                            </p>
+<button class="w-full bg-white text-primary py-3 rounded font-label text-xs font-bold uppercase tracking-widest transition-all active:scale-95 flex items-center justify-center gap-2">
+                                Start Review <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Glassy overlay -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-2xl"></div>
+</section>
+<!-- (5) Summary Rail: Semicap Performance -->
+<section class="bg-surface-container-lowest rounded-xl shadow-[0_20px_40px_rgba(42,52,57,0.06)] overflow-hidden">
+<div class="px-6 py-4 border-b border-surface-container-low">
+<h3 class="font-label text-xs uppercase tracking-widest font-bold text-on-surface">Key Semicap Watchlist</h3>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-on-surface font-bold text-xs">ASML</div>
+<div>
+<div class="text-sm font-semibold text-on-surface">ASML Holding</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Lithography Dominance</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-on-surface">$942.21</div>
+<div class="text-[10px] text-tertiary font-bold">+2.41%</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-on-surface font-bold text-xs">AMAT</div>
+<div>
+<div class="text-sm font-semibold text-on-surface">Applied Materials</div>
+<div class="text-[10px] text-on-surface-variant font-medium">WFE Leader</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-on-surface">$208.15</div>
+<div class="text-[10px] text-error font-bold">-0.82%</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-on-surface font-bold text-xs">LRCX</div>
+<div>
+<div class="text-sm font-semibold text-on-surface">Lam Research</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Etch &amp; Deposition</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-on-surface">$914.50</div>
+<div class="text-[10px] text-tertiary font-bold">+1.15%</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container flex items-center justify-center text-on-surface font-bold text-xs">KLAC</div>
+<div>
+<div class="text-sm font-semibold text-on-surface">KLA Corp</div>
+<div class="text-[10px] text-on-surface-variant font-medium">Process Control</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-on-surface">$712.30</div>
+<div class="text-[10px] text-tertiary font-bold">+0.94%</div>
+</div>
+</div>
+</div>
+<div class="p-4 pt-0">
+<button class="w-full py-2 bg-surface-container text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-widest hover:bg-surface-container-high transition-colors">View All Watchlist</button>
+</div>
+</section>
+<!-- Market Sentiment Card (Visual Asymmetry Element) -->
+<section class="bg-surface-container rounded-xl p-6 border border-outline-variant/10">
+<h3 class="font-label text-xs uppercase tracking-widest font-bold text-on-surface mb-4">Institutional Flows</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[10px] font-bold uppercase mb-1">
+<span>Net Inflow</span>
+<span>68%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-low rounded-full">
+<div class="h-full bg-primary rounded-full" style="width: 68%"></div>
+</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-container-lowest rounded">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-xs text-on-surface font-medium">Top Flow: NVDA AI Ramping</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPU Job Health Triage Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#490106",
+                        "surface-container-highest": "#252626",
+                        "on-primary-container": "#d2cfd2",
+                        "on-surface-variant": "#acabaa",
+                        "secondary-dim": "#9f9d9f",
+                        "on-secondary-fixed": "#3f3f41",
+                        "primary-fixed-dim": "#d6d4d6",
+                        "on-tertiary-fixed": "#00440a",
+                        "error": "#ee7d77",
+                        "on-primary-fixed-variant": "#5c5b5d",
+                        "surface-container-low": "#131313",
+                        "primary-fixed": "#e4e2e4",
+                        "error-dim": "#bb5551",
+                        "on-secondary": "#202022",
+                        "on-tertiary-container": "#005a10",
+                        "secondary-fixed-dim": "#d6d4d6",
+                        "tertiary-fixed": "#00fc40",
+                        "on-primary": "#404042",
+                        "outline": "#767575",
+                        "inverse-primary": "#5f5f61",
+                        "secondary-fixed": "#e4e2e4",
+                        "secondary": "#9f9d9f",
+                        "primary-dim": "#bab8ba",
+                        "tertiary": "#9cff93",
+                        "primary-container": "#474649",
+                        "background": "#0e0e0e",
+                        "on-secondary-container": "#c0bfc1",
+                        "surface-container": "#191a1a",
+                        "surface": "#0e0e0e",
+                        "tertiary-container": "#00fc40",
+                        "on-error-container": "#ff9993",
+                        "tertiary-dim": "#00ec3b",
+                        "outline-variant": "#484848",
+                        "error-container": "#7f2927",
+                        "on-secondary-fixed-variant": "#5c5b5d",
+                        "surface-variant": "#252626",
+                        "primary": "#c8c6c8",
+                        "tertiary-fixed-dim": "#00ec3b",
+                        "surface-container-lowest": "#000000",
+                        "secondary-container": "#3b3b3d",
+                        "surface-dim": "#0e0e0e",
+                        "on-primary-fixed": "#3f3f41",
+                        "surface-container-high": "#1f2020",
+                        "on-tertiary-fixed-variant": "#006513",
+                        "surface-tint": "#c8c6c8",
+                        "inverse-on-surface": "#565555",
+                        "on-tertiary": "#006413",
+                        "inverse-surface": "#fcf9f8",
+                        "on-background": "#e7e5e5",
+                        "on-surface": "#e7e5e5",
+                        "surface-bright": "#2b2c2c"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0e0e0e; color: #e7e5e5; }
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- TopAppBar from Shared Components JSON -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-[#191a1a] fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold tracking-tighter text-[#e7e5e5] font-space-grotesk uppercase">GPU_OPERATOR_v1.0</span>
+<nav class="hidden md:flex gap-6 ml-8">
+<a class="text-xs font-space-grotesk tracking-tight uppercase text-[#acabaa] hover:bg-[#252626] transition-colors px-2 py-1" href="#">Nodes</a>
+<a class="text-xs font-space-grotesk tracking-tight uppercase text-[#c8c6c8] border-b-2 border-[#c8c6c8] px-2 py-1" href="#">Triage</a>
+<a class="text-xs font-space-grotesk tracking-tight uppercase text-[#acabaa] hover:bg-[#252626] transition-colors px-2 py-1" href="#">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#c8c6c8]">settings</span>
+<span class="material-symbols-outlined text-[#c8c6c8]">account_tree</span>
+<div class="relative">
+<span class="material-symbols-outlined text-[#c8c6c8]">notifications</span>
+<span class="absolute top-0 right-0 w-1.5 h-1.5 bg-error rounded-full"></span>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar from Shared Components JSON -->
+<aside class="hidden md:flex flex-col h-full border-r border-[#1f2020] bg-[#0e0e0e] fixed left-0 top-14 w-64 z-40">
+<div class="p-6 border-b border-[#1f2020]">
+<h2 class="text-[#e7e5e5] font-space-grotesk text-sm font-bold">NODE_CLUSTER_01</h2>
+<p class="text-[10px] text-[#acabaa] tracking-widest uppercase mt-1">US-EAST-GPU-04</p>
+</div>
+<nav class="flex-1 py-4">
+<div class="px-3 mb-2">
+<p class="text-[10px] font-inter tracking-widest uppercase text-[#acabaa] mb-4 px-3">Monitoring</p>
+<a class="flex items-center gap-3 px-3 py-2 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all group active:scale-[0.99] duration-75" href="#">
+<span class="material-symbols-outlined text-sm">analytics</span>
+<span class="text-xs font-inter tracking-widest uppercase">Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all group active:scale-[0.99] duration-75" href="#">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="text-xs font-inter tracking-widest uppercase">Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-[#252626] text-[#9cff93] border-l-2 border-[#9cff93] active:scale-[0.99] duration-75" href="#">
+<span class="material-symbols-outlined text-sm">memory</span>
+<span class="text-xs font-inter tracking-widest uppercase">Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#acabaa] hover:bg-[#1f2020] hover:text-[#e7e5e5] transition-all group active:scale-[0.99] duration-75" href="#">
+<span class="material-symbols-outlined text-sm">thermostat</span>
+<span class="text-xs font-inter tracking-widest uppercase">Hardware</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-[#1f2020]">
+<a class="flex items-center gap-3 px-3 py-2 text-[#acabaa] hover:text-[#e7e5e5] transition-all text-[10px] font-inter uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span> Documentation
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#acabaa] hover:text-[#e7e5e5] transition-all text-[10px] font-inter uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm">support_agent</span> Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-0 md:ml-64 mt-14 p-6 overflow-y-auto h-[calc(100vh-3.5rem)] bg-background no-scrollbar">
+<div class="grid grid-cols-12 gap-4">
+<!-- (1) Status Hero: Incident State -->
+<section class="col-span-12 lg:col-span-9">
+<div class="bg-surface-container p-6 relative flex flex-col md:flex-row justify-between items-start md:items-center overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-[10px] font-label tracking-[0.2em] text-on-error-container uppercase">System Triage Board</span>
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+</div>
+<h1 class="text-3xl font-headline font-bold text-on-surface uppercase tracking-tighter">Incident State: UNSTABLE</h1>
+<p class="text-on-surface-variant text-xs mt-2 max-w-xl">Detected multiple CUDA context failures on Node 04. Training job <code>#8821-alpha</code> has been paused by kernel watchdog.</p>
+</div>
+<div class="mt-4 md:mt-0 flex gap-4">
+<div class="text-right">
+<p class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Duration</p>
+<p class="text-xl font-headline text-on-surface">14m 22s</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Severity</p>
+<p class="text-xl font-headline text-error">CRITICAL</p>
+</div>
+</div>
+</div>
+<!-- (2) Priority/Work Items Panel -->
+<div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-4 flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<h3 class="text-xs font-label text-on-surface font-bold uppercase tracking-widest">Log-Based Error Stack</h3>
+<span class="text-[10px] text-error font-mono px-2 py-0.5 bg-error-container">RuntimeError</span>
+</div>
+<div class="bg-surface-container-lowest p-3 font-mono text-[11px] text-on-surface-variant leading-relaxed h-48 overflow-y-auto border-b border-outline">
+<p class="text-error mb-1">[2023-10-27 14:21:04] CUDA error: out of memory</p>
+<p>[...] line 442, in forward_pass</p>
+<p>[...] line 89, in compute_gradients</p>
+<p class="text-error-dim">Failed to allocate 4.2GB for tensor cluster_id_9</p>
+<p>[...] driver/cuda_allocator.cpp:112</p>
+<p class="mt-2 text-[#9cff93]">&gt; Recommendation: Check tensor fragmentation</p>
+</div>
+</div>
+<div class="bg-surface-container-high p-4 flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<h3 class="text-xs font-label text-on-surface font-bold uppercase tracking-widest">Failure Classification</h3>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">info</span>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between p-2 bg-surface-container-highest">
+<div class="flex items-center gap-3">
+<div class="w-1 h-8 bg-error"></div>
+<div>
+<p class="text-[10px] text-on-surface font-bold uppercase">Memory Leak (OOM)</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Probability: 92%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-1 h-8 bg-on-error-container"></div>
+<div>
+<p class="text-[10px] text-on-surface font-bold uppercase">Thermal Throttling</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Probability: 14%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-error-container">device_thermostat</span>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-container">
+<div class="flex items-center gap-3">
+<div class="w-1 h-8 bg-on-primary-container"></div>
+<div>
+<p class="text-[10px] text-on-surface font-bold uppercase">Driver XID 31</p>
+<p class="text-[9px] text-on-surface-variant uppercase">Probability: 4%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-primary-container">dns</span>
+</div>
+</div>
+</div>
+</div>
+<!-- (3) Supporting Analysis: Telemetry -->
+<div class="mt-4 bg-surface-container p-6">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h3 class="text-xs font-label text-on-surface font-bold uppercase tracking-widest">GPU Telemetry Correlation</h3>
+<p class="text-[10px] text-on-surface-variant uppercase mt-1">NVIDIA A100-SXM4-80GB (Index 0) | Temp vs Load</p>
+</div>
+<div class="flex gap-4 text-[10px] uppercase font-bold">
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-tertiary"></span> Load</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-error"></span> Temp</span>
+</div>
+</div>
+<div class="h-48 w-full relative border-l border-b border-outline-variant">
+<!-- Simulated Chart -->
+<svg class="w-full h-full preserve-aspect-ratio-none overflow-visible" viewbox="0 0 1000 200">
+<!-- Load Line -->
+<path d="M0,180 L100,160 L200,40 L300,50 L400,30 L500,20 L600,10 L700,5 L800,195 L900,195 L1000,195" fill="none" stroke="#9cff93" stroke-width="2"></path>
+<!-- Temp Line -->
+<path d="M0,140 L100,135 L200,110 L300,90 L400,75 L500,60 L600,55 L700,50 L800,60 L900,100 L1000,120" fill="none" stroke="#ee7d77" stroke-dasharray="4" stroke-width="2"></path>
+<!-- Anomaly Marker -->
+<line opacity="0.5" stroke="#ee7d77" stroke-dasharray="2" stroke-width="1" x1="700" x2="700" y1="0" y2="200"></line>
+<text fill="#ee7d77" font-family="Space Grotesk" font-size="10" x="710" y="20">CRASH POINT</text>
+</svg>
+<div class="absolute bottom-[-20px] left-0 w-full flex justify-between text-[8px] text-on-surface-variant uppercase tracking-tighter">
+<span>T-30m</span>
+<span>T-20m</span>
+<span>T-10m</span>
+<span>NOW</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column -->
+<aside class="col-span-12 lg:col-span-3 flex flex-col gap-4">
+<!-- (4) Next-Best Action Card -->
+<div class="bg-surface-container p-5 border-l-2 border-tertiary">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary">auto_fix_high</span>
+<h3 class="text-xs font-label text-on-surface font-bold uppercase tracking-widest">Next Best Action</h3>
+</div>
+<div class="bg-surface-container-highest p-4 mb-4">
+<p class="text-sm font-headline text-on-surface font-bold leading-tight">Flush Driver Cache &amp; Re-Init CUDA</p>
+<p class="text-[10px] text-on-surface-variant mt-2 leading-relaxed">System has identified stale memory handles. Flushing the driver cache will release 8GB of locked VRAM without a full reboot.</p>
+</div>
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary font-space-grotesk font-bold text-[10px] uppercase tracking-widest transition-opacity active:opacity-80">
+                        Execute Flush Command
+                    </button>
+<button class="w-full mt-2 py-2 border border-outline-variant text-on-surface-variant font-space-grotesk font-bold text-[10px] uppercase tracking-widest hover:bg-surface-container-highest transition-colors">
+                        Snooze Alert
+                    </button>
+</div>
+<!-- (5) Summary Rail: Uptime Stats -->
+<div class="bg-surface-container p-5">
+<h3 class="text-xs font-label text-on-surface font-bold uppercase tracking-widest mb-4">Node Vitality</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-[10px] uppercase tracking-widest mb-2">
+<span class="text-on-surface-variant">Uptime (7D)</span>
+<span class="text-tertiary">99.42%</span>
+</div>
+<div class="h-1 bg-surface-container-highest flex">
+<div class="h-full bg-tertiary w-[99.4%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] uppercase tracking-widest mb-2">
+<span class="text-on-surface-variant">Cluster Load</span>
+<span class="text-on-surface">12% (Idle)</span>
+</div>
+<div class="h-1 bg-surface-container-highest flex">
+<div class="h-full bg-primary w-[12%]"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant">
+<p class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest mb-3">Health Events</p>
+<div class="space-y-3">
+<div class="flex gap-3">
+<span class="w-1.5 h-1.5 bg-error shrink-0 mt-1"></span>
+<div>
+<p class="text-[10px] text-on-surface font-bold uppercase">OOM Crash</p>
+<p class="text-[9px] text-on-surface-variant">14 mins ago</p>
+</div>
+</div>
+<div class="flex gap-3">
+<span class="w-1.5 h-1.5 bg-tertiary shrink-0 mt-1"></span>
+<div>
+<p class="text-[10px] text-on-surface font-bold uppercase">System Update</p>
+<p class="text-[9px] text-on-surface-variant">2 days ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Cluster Map View -->
+<div class="bg-surface-container h-48 relative overflow-hidden group">
+<div class="absolute inset-0 bg-cover bg-center grayscale opacity-30 group-hover:opacity-50 transition-opacity" data-alt="Monochrome overhead map view of a modern server farm with glowing data lines and technical grid overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCmbDoQy6jBVnKBWZ_s4QbgDFUL6zHSbSbJjzijNKfzTF4xKg3_bMTjUS-T4Cey_DVIA0j-oj_D47m5gOXbVba6rkMYAm6n_16WNuI4ye3KcV4fEcBv316CfHsXY3HvevGC2MLmCp_BM81YMzsjBLfsjIcScb6Rri_tXd_X4t44y_U7iefLKb_rNN5CtJXSXG7Yq9P6ZTR28cawd9O9VfRx3pgm7QCpKmIK3syYb4HI4xYQjOXPjxLFUqDz4czQrf9jEKaunRf6LOY')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
+<div class="absolute bottom-4 left-4">
+<p class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">Location</p>
+<p class="text-xs font-bold uppercase text-on-surface" data-location="Northern Virginia, USA">VA-DC-04 NORTH</p>
+</div>
+<div class="absolute top-4 right-4 flex flex-col items-end">
+<span class="text-[8px] bg-tertiary text-on-tertiary font-bold px-1 mb-1 uppercase">Live Feed</span>
+<div class="w-12 h-12 border border-outline flex items-center justify-center bg-surface/60 backdrop-blur-sm">
+<span class="material-symbols-outlined text-sm text-tertiary animate-pulse">radar</span>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Command Bar (Floating) -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[600px] hidden md:flex items-center gap-3 bg-surface-container-highest/80 backdrop-blur-xl px-4 py-2 border-b border-outline shadow-2xl z-50">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">terminal</span>
+<input class="bg-transparent border-none text-xs text-on-surface w-full focus:ring-0 placeholder:text-outline italic" placeholder="Type command (e.g. /flush, /restart, /logs)..." type="text"/>
+<div class="flex gap-1">
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container text-[8px] font-bold text-on-surface-variant border border-outline-variant">CTRL</kbd>
+<kbd class="px-1.5 py-0.5 rounded bg-surface-container text-[8px] font-bold text-on-surface-variant border border-outline-variant">K</kbd>
+</div>
+</div>
+</body></html>

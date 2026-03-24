@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPU Job Cost &amp; Carbon Meter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error": "#490106",
+                        "surface-container-highest": "#252626",
+                        "on-primary-container": "#d2cfd2",
+                        "on-surface-variant": "#acabaa",
+                        "secondary-dim": "#9f9d9f",
+                        "on-secondary-fixed": "#3f3f41",
+                        "primary-fixed-dim": "#d6d4d6",
+                        "on-tertiary-fixed": "#00440a",
+                        "error": "#ee7d77",
+                        "on-primary-fixed-variant": "#5c5b5d",
+                        "surface-container-low": "#131313",
+                        "primary-fixed": "#e4e2e4",
+                        "error-dim": "#bb5551",
+                        "on-secondary": "#202022",
+                        "on-tertiary-container": "#005a10",
+                        "secondary-fixed-dim": "#d6d4d6",
+                        "tertiary-fixed": "#00fc40",
+                        "on-primary": "#404042",
+                        "outline": "#767575",
+                        "inverse-primary": "#5f5f61",
+                        "secondary-fixed": "#e4e2e4",
+                        "secondary": "#9f9d9f",
+                        "primary-dim": "#bab8ba",
+                        "tertiary": "#9cff93",
+                        "primary-container": "#474649",
+                        "background": "#0e0e0e",
+                        "on-secondary-container": "#c0bfc1",
+                        "surface-container": "#191a1a",
+                        "surface": "#0e0e0e",
+                        "tertiary-container": "#00fc40",
+                        "on-error-container": "#ff9993",
+                        "tertiary-dim": "#00ec3b",
+                        "outline-variant": "#484848",
+                        "error-container": "#7f2927",
+                        "on-secondary-fixed-variant": "#5c5b5d",
+                        "surface-variant": "#252626",
+                        "primary": "#c8c6c8",
+                        "tertiary-fixed-dim": "#00ec3b",
+                        "surface-container-lowest": "#000000",
+                        "secondary-container": "#3b3b3d",
+                        "surface-dim": "#0e0e0e",
+                        "on-primary-fixed": "#3f3f41",
+                        "surface-container-high": "#1f2020",
+                        "on-tertiary-fixed-variant": "#006513",
+                        "surface-tint": "#c8c6c8",
+                        "inverse-on-surface": "#565555",
+                        "on-tertiary": "#006413",
+                        "inverse-surface": "#fcf9f8",
+                        "on-background": "#e7e5e5",
+                        "on-surface": "#e7e5e5",
+                        "surface-bright": "#2b2c2c"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-tertiary selection:text-on-tertiary">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col border-r border-outline-variant/20 bg-background z-50">
+<div class="p-6">
+<h2 class="text-[#e7e5e5] font-headline text-lg font-bold tracking-tighter uppercase">NODE_CLUSTER_01</h2>
+<p class="text-[10px] text-on-surface-variant tracking-[0.2em] font-body mt-1">US-EAST-GPU-04</p>
+</div>
+<nav class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 bg-surface-container-highest text-tertiary border-l-2 border-tertiary transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-xs font-label tracking-widest uppercase">Metrics</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="text-xs font-label tracking-widest uppercase">Logs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span class="text-xs font-label tracking-widest uppercase">Jobs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="thermostat">thermostat</span>
+<span class="text-xs font-label tracking-widest uppercase">Hardware</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant/10 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+                Documentation
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface transition-colors text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="support_agent">support_agent</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen flex flex-col">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-surface-container">
+<div class="flex items-center gap-4">
+<span class="text-lg font-bold tracking-tighter text-on-surface font-headline uppercase">GPU_OPERATOR_v1.0</span>
+<div class="h-4 w-[1px] bg-outline-variant/30 mx-2"></div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-[10px] font-label tracking-widest text-tertiary uppercase">System Nominal</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-highest p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest p-2 transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
+</button>
+</div>
+<div class="w-8 h-8 bg-primary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+</div>
+</header>
+<!-- Dashboard Body -->
+<div class="p-6 grid grid-cols-12 gap-4 flex-1">
+<!-- (1) Status Hero: Active Job Burn Rate -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container p-0 overflow-hidden flex flex-col relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div class="flex items-center justify-between px-6 py-4 bg-surface-container-high">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" data-icon="bolt">bolt</span>
+<h3 class="text-xs font-label tracking-widest uppercase text-on-surface">Live Telemetry: Active Burn</h3>
+</div>
+<span class="text-[10px] font-mono text-on-surface-variant">NODE_ID: GPU-RTX-6000-ADA-01</span>
+</div>
+<div class="p-8 flex items-baseline gap-6 bg-gradient-to-br from-surface-container-high to-surface-container">
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-label mb-2">Current Hourly Cost</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-headline font-bold text-on-surface tracking-tighter">₩1,480</span>
+<span class="text-xl font-headline text-on-surface-variant">/HR</span>
+</div>
+</div>
+<div class="h-16 w-[1px] bg-outline-variant/20 mx-4"></div>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant font-label mb-2">Carbon Footprint</span>
+<div class="flex items-baseline gap-2">
+<span class="text-5xl font-headline font-bold text-tertiary tracking-tighter">0.24</span>
+<span class="text-xl font-headline text-tertiary-dim">kgCO2e/H</span>
+</div>
+</div>
+</div>
+<!-- Mini Visualization Area -->
+<div class="h-32 w-full bg-surface-container-low/50 relative px-8 flex items-end gap-1">
+<div class="flex-1 bg-surface-container-highest h-[40%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[45%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[42%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[55%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[60%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[65%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[72%]"></div>
+<div class="flex-1 bg-surface-container-highest h-[78%]"></div>
+<div class="flex-1 bg-tertiary/40 h-[82%] border-t-2 border-tertiary"></div>
+<div class="flex-1 bg-tertiary/40 h-[85%] border-t-2 border-tertiary"></div>
+<div class="flex-1 bg-tertiary/40 h-[88%] border-t-2 border-tertiary"></div>
+<div class="flex-1 bg-tertiary/40 h-[84%] border-t-2 border-tertiary"></div>
+<div class="absolute bottom-4 left-10 flex items-center gap-2">
+<span class="w-2 h-2 bg-tertiary animate-pulse"></span>
+<span class="text-[9px] font-mono uppercase text-tertiary">Real-time Load tracking [320W DRAW]</span>
+</div>
+</div>
+</section>
+<!-- (4) Next-Best Action Card -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container p-6 flex flex-col justify-between border-l-2 border-primary">
+<div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="lightbulb">lightbulb</span>
+<h3 class="text-xs font-label tracking-widest uppercase text-on-surface">ECO_RECOMMENDATION</h3>
+</div>
+<p class="text-2xl font-headline leading-tight mb-4">Optimization: Enable Eco-Cap (180W)</p>
+<p class="text-sm text-on-surface-variant leading-relaxed font-body">Current job exhibits marginal performance gains above 180W. Enabling Eco-Cap will reduce carbon intensity by 22% with only <span class="text-on-surface font-bold">1.4% latency increase</span>.</p>
+</div>
+<div class="mt-8 space-y-3">
+<button class="w-full bg-primary text-on-primary py-4 font-label text-xs uppercase tracking-widest font-bold hover:bg-primary-dim transition-colors flex items-center justify-center gap-2">
+                        Apply Power Constraint
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="w-full border border-outline-variant py-4 font-label text-[10px] uppercase tracking-widest text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+                        Ignore for current session
+                    </button>
+</div>
+</section>
+<!-- (2) Priority Work Items Panel -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container flex flex-col">
+<div class="flex items-center justify-between px-6 py-4 bg-surface-container-high border-b border-background">
+<h3 class="text-xs font-label tracking-widest uppercase text-on-surface">Experiment Cost History</h3>
+<div class="flex gap-2">
+<span class="text-[10px] bg-background px-2 py-1 text-on-surface-variant">EXPORT_CSV</span>
+<span class="text-[10px] bg-background px-2 py-1 text-on-surface-variant">FILTER_30D</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-surface-container-low text-[10px] uppercase tracking-widest text-on-surface-variant">
+<tr>
+<th class="px-6 py-3 font-medium">Job Identifier</th>
+<th class="px-6 py-3 font-medium text-right">Duration</th>
+<th class="px-6 py-3 font-medium text-right">Energy (kWh)</th>
+<th class="px-6 py-3 font-medium text-right">Cost (KRW)</th>
+<th class="px-6 py-3 font-medium">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-background font-mono text-[11px]">
+<tr class="hover:bg-surface-container-highest group transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-1 h-3 bg-tertiary"></div>
+<span class="text-on-surface">LLM-FINETUNE-A1</span>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">14:22:05</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">4.82</td>
+<td class="px-6 py-4 text-right text-on-surface">₩18,240</td>
+<td class="px-6 py-4">
+<span class="bg-on-tertiary-container/30 text-tertiary px-2 py-0.5 uppercase text-[9px] font-label">Success</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest group transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-1 h-3 bg-error"></div>
+<span class="text-on-surface">VISION-INF-STRESS</span>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">02:45:12</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">1.12</td>
+<td class="px-6 py-4 text-right text-on-surface">₩4,200</td>
+<td class="px-6 py-4">
+<span class="bg-error-container/30 text-on-error-container px-2 py-0.5 uppercase text-[9px] font-label">Terminated</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-highest group transition-colors">
+<td class="px-6 py-4 flex items-center gap-3">
+<div class="w-1 h-3 bg-outline-variant"></div>
+<span class="text-on-surface">STABLE-DIFF-TEST-9</span>
+</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">00:55:00</td>
+<td class="px-6 py-4 text-right text-on-surface-variant">0.32</td>
+<td class="px-6 py-4 text-right text-on-surface">₩1,120</td>
+<td class="px-6 py-4">
+<span class="bg-surface-container-low text-on-surface-variant px-2 py-0.5 uppercase text-[9px] font-label">Queued</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- (3) Supporting Analysis: Energy Efficiency Curves -->
+<section class="col-span-12 lg:col-span-4 flex flex-col gap-4">
+<div class="bg-surface-container p-6 flex-1">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="query_stats">query_stats</span>
+<h3 class="text-xs font-label tracking-widest uppercase text-on-surface">Energy Curve (P-State)</h3>
+</div>
+<!-- Mock Efficiency Graph -->
+<div class="h-40 border-l border-b border-outline-variant/30 relative mt-4">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<path d="M0,120 Q50,110 100,60 T200,40 T400,10" fill="none" stroke="#9cff93" stroke-width="2"></path>
+<path d="M0,120 Q50,115 100,90 T200,85 T400,80" fill="none" stroke="#acabaa" stroke-dasharray="4" stroke-width="1"></path>
+</svg>
+<div class="absolute -left-8 top-0 text-[8px] text-on-surface-variant uppercase rotate-[-90deg]">Throughput</div>
+<div class="absolute bottom-[-15px] left-1/2 -translate-x-1/2 text-[8px] text-on-surface-variant uppercase">Power Draw (W)</div>
+</div>
+<div class="mt-6 space-y-2">
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-on-surface-variant">OPTIMAL ZONE</span>
+<span class="text-tertiary">145W - 190W</span>
+</div>
+<div class="w-full bg-surface-container-high h-1">
+<div class="bg-tertiary h-full w-[65%]"></div>
+</div>
+</div>
+</div>
+<!-- (5) Summary Rail: Monthly Totals -->
+<div class="bg-surface-container p-6 border-t-2 border-tertiary">
+<h3 class="text-xs font-label tracking-widest uppercase text-on-surface mb-6">M-T-D METRICS (SEPT)</h3>
+<div class="space-y-4">
+<div>
+<span class="text-[9px] text-on-surface-variant uppercase tracking-widest block">Total Infrastructure Cost</span>
+<div class="flex justify-between items-baseline">
+<span class="text-2xl font-headline font-bold">₩1,248,000</span>
+<span class="text-[10px] text-error">↑ 12%</span>
+</div>
+</div>
+<div class="h-[1px] bg-outline-variant/10"></div>
+<div>
+<span class="text-[9px] text-on-surface-variant uppercase tracking-widest block">Accumulated Carbon</span>
+<div class="flex justify-between items-baseline">
+<span class="text-2xl font-headline font-bold">42.5 kg</span>
+<span class="text-[10px] text-tertiary">↓ 4%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer / System Stats Bar -->
+<footer class="h-10 bg-surface-container-lowest border-t border-outline-variant/10 px-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-on-surface-variant font-mono">CORE_TEMP:</span>
+<span class="text-[9px] text-on-surface font-mono">68°C</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-on-surface-variant font-mono">VRAM_USE:</span>
+<span class="text-[9px] text-on-surface font-mono">42.1GB / 48GB</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-on-surface-variant font-mono">PCIE_BW:</span>
+<span class="text-[9px] text-on-surface font-mono">15.2 GB/s</span>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[9px] text-on-surface-variant uppercase font-label">Session ID:</span>
+<span class="text-[9px] text-on-surface font-mono">A7-892-XK1</span>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary ml-2"></div>
+</div>
+</footer>
+</main>
+<!-- Severity Ribbons for Contextual Awareness -->
+<div class="fixed right-0 top-0 h-full w-1 flex flex-col">
+<div class="h-1/3 bg-tertiary/20"></div>
+<div class="h-1/3 bg-primary/20"></div>
+<div class="h-1/3 bg-background"></div>
+</div>
+</body></html>
