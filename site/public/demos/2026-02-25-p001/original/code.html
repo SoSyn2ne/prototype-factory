@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sovereign Analyst | Public Signal Churn Radar</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-low": "#eff4ff",
+                "on-tertiary": "#e6ffee",
+                "tertiary-container": "#69f6b8",
+                "surface-tint": "#565e74",
+                "error-dim": "#4e0309",
+                "surface-container-highest": "#d3e4ff",
+                "on-error": "#fff7f6",
+                "on-error-container": "#752121",
+                "surface-container-lowest": "#ffffff",
+                "tertiary": "#006d4a",
+                "tertiary-fixed-dim": "#58e7ab",
+                "surface": "#f8f9ff",
+                "primary": "#565e74",
+                "inverse-primary": "#dae2fd",
+                "on-primary-container": "#4a5167",
+                "error-container": "#fe8983",
+                "secondary-fixed-dim": "#cad5ed",
+                "on-tertiary-container": "#005a3c",
+                "secondary-fixed": "#d8e3fb",
+                "surface-container-high": "#dce9ff",
+                "surface-container": "#e6eeff",
+                "on-secondary": "#f8f8ff",
+                "background": "#f8f9ff",
+                "on-primary-fixed": "#373f54",
+                "on-primary": "#f7f7ff",
+                "error": "#9f403d",
+                "primary-dim": "#4a5268",
+                "surface-dim": "#c4dcff",
+                "secondary-container": "#d8e3fb",
+                "primary-fixed-dim": "#ccd4ee",
+                "surface-variant": "#d3e4ff",
+                "on-surface": "#00345e",
+                "on-background": "#00345e",
+                "primary-container": "#dae2fd",
+                "inverse-on-surface": "#8f9eb4",
+                "outline-variant": "#87b5f0",
+                "on-secondary-fixed-variant": "#515c70",
+                "on-surface-variant": "#306197",
+                "tertiary-fixed": "#69f6b8",
+                "on-tertiary-fixed-variant": "#006544",
+                "on-secondary-container": "#475266",
+                "on-secondary-fixed": "#354053",
+                "on-primary-fixed-variant": "#535b71",
+                "on-tertiary-fixed": "#00452d",
+                "secondary-dim": "#485367",
+                "inverse-surface": "#010f20",
+                "tertiary-dim": "#005f40",
+                "surface-bright": "#f8f9ff",
+                "outline": "#4f7db5",
+                "secondary": "#545f74",
+                "primary-fixed": "#dae2fd"
+              },
+              fontFamily: {
+                "headline": ["Manrope"],
+                "body": ["Inter"],
+                "label": ["Inter"]
+              },
+              borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar (Shared Component JSON Mapping) -->
+<aside class="h-screen w-64 fixed left-0 top-0 border-r-0 bg-[#f8f9ff] dark:bg-[#1e293b] flex flex-col py-6">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold tracking-tight text-[#1e293b] dark:text-white font-manrope">Sovereign Analyst</h1>
+<p class="font-inter text-xs text-[#565e74] dark:text-[#94a3b8] mt-1">Institutional Research</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<div class="cursor-pointer active:opacity-80 transition-colors duration-200 text-[#545f74] dark:text-[#94a3b8] hover:bg-[#eff4ff] dark:hover:bg-[#334155] flex items-center gap-3 px-3 py-2 rounded-lg group">
+<span class="material-symbols-outlined">radar</span>
+<span class="font-inter text-sm font-medium">Drift Radar</span>
+</div>
+<!-- ACTIVE TAB: Signal Churn (per Task Requirement) -->
+<div class="cursor-pointer active:opacity-80 text-[#1e293b] dark:text-white font-semibold border-r-2 border-[#565e74] bg-[#e6eeff] dark:bg-[#1e293b] flex items-center gap-3 px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-inter text-sm">Signal Churn</span>
+</div>
+<div class="cursor-pointer active:opacity-80 transition-colors duration-200 text-[#545f74] dark:text-[#94a3b8] hover:bg-[#eff4ff] dark:hover:bg-[#334155] flex items-center gap-3 px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined">compare_arrows</span>
+<span class="font-inter text-sm">RivalSignals</span>
+</div>
+<div class="cursor-pointer active:opacity-80 transition-colors duration-200 text-[#545f74] dark:text-[#94a3b8] hover:bg-[#eff4ff] dark:hover:bg-[#334155] flex items-center gap-3 px-3 py-2 rounded-lg">
+<span class="material-symbols-outlined">notification_important</span>
+<span class="font-inter text-sm">Thesis Delta</span>
+</div>
+</nav>
+<div class="px-4 mt-auto space-y-1">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded-md font-inter text-sm font-bold mb-4 shadow-sm hover:bg-primary-dim transition-all">
+                New Analysis
+            </button>
+<div class="cursor-pointer transition-colors duration-200 text-[#545f74] hover:text-[#1e293b] flex items-center gap-3 px-3 py-2">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-inter text-sm">Settings</span>
+</div>
+<div class="cursor-pointer transition-colors duration-200 text-[#545f74] hover:text-[#1e293b] flex items-center gap-3 px-3 py-2">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-inter text-sm">Support</span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/15 px-3 flex items-center gap-3">
+<img class="w-8 h-8 rounded-full object-cover" data-alt="Senior Analyst professional portrait with neutral expression and high-end corporate attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw3wda-buJNS12I3JoFmMj5Odn-lQzEPcQq0x_LQc4dpQKjZb8sRthIZTTAKgnGCljCBl-V0ebjWTu0ZOt8gCK0-F1jrGKQpQB0AQrTvh6UKDZf-URJ6ussuANFyzUy_qCAdIRxvXdPgQIU3OZBn9SzJBmgvC-C_Y1nuwGgIXgIX4djIkwbyh1ZOCzA2awBMizFqwNjowcM3X-thsRuh112GnNHiIB5xY3aWRtKYp_h7a3-rgOTFgu0X9NqkKzfrsgcLNtH74kbBa7"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold text-on-surface truncate">Senior Analyst</p>
+<p class="text-[10px] text-on-surface-variant truncate">Institutional Access</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component JSON Mapping) -->
+<header class="fixed top-0 right-0 left-64 h-16 z-50 bg-[#f8f9ff]/70 backdrop-blur-md border-b border-[#87b5f0]/15 flex justify-between items-center px-8">
+<div class="flex items-center gap-6">
+<div class="relative focus-within:ring-1 focus-within:ring-[#565e74] bg-surface-container-low rounded px-3 py-1.5 flex items-center gap-2 w-80">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">search</span>
+<input class="bg-transparent border-none p-0 text-xs focus:ring-0 placeholder:text-on-surface-variant/60 w-full" placeholder="Search signals or companies..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Research</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#565e74] border-b-2 border-[#565e74] pb-1" href="#">Monitoring</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Portfolio</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">history</span>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded text-xs font-bold uppercase tracking-wider hover:bg-primary-dim transition-all">
+                Execute Trade
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-16 p-8 bg-surface min-h-screen">
+<div class="max-w-[1400px] mx-auto space-y-8">
+<!-- 1. Status Hero (Bento Grid Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container rounded-xl p-8 flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10">
+<p class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant mb-2">Global Watchlist Risk Score</p>
+<h2 class="font-headline text-5xl font-extrabold text-on-surface tracking-tighter">42.8<span class="text-xl text-error ml-2 font-medium">Moderate Risk</span></h2>
+<div class="mt-6 flex gap-4">
+<div class="bg-surface-container-lowest/50 backdrop-blur px-4 py-2 rounded-lg border border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Active Churn Alerts</p>
+<p class="text-xl font-bold text-error">12</p>
+</div>
+<div class="bg-surface-container-lowest/50 backdrop-blur px-4 py-2 rounded-lg border border-outline-variant/10">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant">Critical Drift Hits</p>
+<p class="text-xl font-bold text-on-surface">04</p>
+</div>
+</div>
+</div>
+<!-- Decorative background element -->
+<div class="absolute -right-20 -top-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+<div class="absolute bottom-4 right-8 flex gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+</div>
+</div>
+<!-- Next-Best Action Card -->
+<div class="bg-primary-container/40 rounded-xl p-8 border border-primary-container flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 bg-primary/10 rounded flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary-dim leading-tight">Initiate Thesis Re-Review</h3>
+<p class="font-body text-sm text-on-primary-fixed-variant mt-2">Datadog (DDOG) has triggered 3 simultaneous negative public signals in the last 48 hours.</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-bold text-sm mt-6 flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+                        Launch Review <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- 2. Priority/Work Items Panel -->
+<div class="lg:col-span-8 space-y-4">
+<div class="flex items-center justify-between px-2">
+<h3 class="font-headline text-lg font-bold">Priority Watchlist</h3>
+<div class="flex gap-2">
+<span class="text-[10px] font-bold uppercase py-1 px-2 bg-surface-container-highest text-on-surface-variant rounded">Filter: SaaS</span>
+<span class="text-[10px] font-bold uppercase py-1 px-2 bg-surface-container-low text-on-surface-variant rounded">Sort: Churn Score</span>
+</div>
+</div>
+<div class="space-y-3">
+<!-- Company Row 1 (Active/Selected) -->
+<div class="bg-surface-container-lowest rounded-xl p-5 flex items-center gap-6 border border-outline-variant/10 shadow-sm border-l-4 border-l-error">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg font-bold text-primary">DDOG</div>
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">Datadog, Inc.</h4>
+<span class="text-[10px] px-1.5 py-0.5 bg-error/10 text-error font-bold rounded">HIGH DRIFT</span>
+</div>
+<div class="flex gap-4 mt-1">
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">trending_down</span> Slowing Hires</span>
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">forum</span> Sentiment Dip</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Churn Score</p>
+<p class="text-2xl font-bold text-on-surface">82</p>
+</div>
+</div>
+<!-- Company Row 2 -->
+<div class="bg-surface rounded-xl p-5 flex items-center gap-6 border border-transparent hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-l-primary/30">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg font-bold text-primary">SNOW</div>
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">Snowflake Inc.</h4>
+<span class="text-[10px] px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant font-bold rounded">NEUTRAL</span>
+</div>
+<div class="flex gap-4 mt-1">
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">payments</span> Pricing Shift</span>
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">person_search</span> Key Exec Out</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Churn Score</p>
+<p class="text-2xl font-bold text-on-surface/40">44</p>
+</div>
+</div>
+<!-- Company Row 3 -->
+<div class="bg-surface rounded-xl p-5 flex items-center gap-6 border border-transparent hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-l-tertiary/30">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg font-bold text-primary">CRWD</div>
+<div class="flex-1">
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">CrowdStrike</h4>
+<span class="text-[10px] px-1.5 py-0.5 bg-tertiary/10 text-tertiary font-bold rounded">STABLE</span>
+</div>
+<div class="flex gap-4 mt-1">
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">groups</span> Hiring Surge</span>
+<span class="text-xs text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">add_task</span> New Repo Activity</span>
+</div>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Churn Score</p>
+<p class="text-2xl font-bold text-on-surface/40">18</p>
+</div>
+</div>
+</div>
+<!-- 3. Supporting Analysis Section (Selected: Datadog) -->
+<div class="mt-8 bg-surface-container-low/50 rounded-2xl p-8 border border-outline-variant/10">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">Signal Health Breakdown</h3>
+<p class="text-sm text-on-surface-variant mt-1">Entity: Datadog, Inc. (Public SaaS)</p>
+</div>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-container-lowest rounded border border-outline-variant/10 text-primary hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="p-2 bg-surface-container-lowest rounded border border-outline-variant/10 text-primary hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">share</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Hiring Trend -->
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant/5">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">work</span>
+<span class="text-[10px] text-error font-bold">-22% MoM</span>
+</div>
+<p class="text-xs font-bold text-on-surface-variant uppercase">Hiring Velocity</p>
+<p class="text-xl font-bold mt-1">Slowing</p>
+<div class="mt-4 flex items-end gap-1 h-12">
+<div class="bg-primary/40 w-full h-[100%] rounded-t-sm"></div>
+<div class="bg-primary/40 w-full h-[90%] rounded-t-sm"></div>
+<div class="bg-primary/40 w-full h-[70%] rounded-t-sm"></div>
+<div class="bg-primary/40 w-full h-[65%] rounded-t-sm"></div>
+<div class="bg-error/60 w-full h-[40%] rounded-t-sm"></div>
+<div class="bg-error/60 w-full h-[35%] rounded-t-sm"></div>
+</div>
+</div>
+<!-- Community Engagement -->
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant/5">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">hub</span>
+<span class="text-[10px] text-on-surface-variant font-bold">LTM Peak</span>
+</div>
+<p class="text-xs font-bold text-on-surface-variant uppercase">Community Health</p>
+<p class="text-xl font-bold mt-1">Decentralizing</p>
+<p class="text-[10px] text-on-surface-variant mt-2">DevRel activity on Reddit/StackOverflow decreased significantly in Q3.</p>
+</div>
+<!-- Pricing Shifts -->
+<div class="bg-surface-container-lowest p-5 rounded-lg border border-outline-variant/5">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">sell</span>
+<span class="text-[10px] text-tertiary font-bold">1 Alert</span>
+</div>
+<p class="text-xs font-bold text-on-surface-variant uppercase">Pricing Structure</p>
+<p class="text-xl font-bold mt-1">Legacy Pivot</p>
+<p class="text-[10px] text-on-surface-variant mt-2">New "Enterprise Plus" tier observed on pricing page; moving upmarket.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- 4. Summary Rail -->
+<aside class="lg:col-span-4 space-y-6">
+<div class="bg-surface-container rounded-xl p-6">
+<h4 class="font-headline font-bold text-on-surface mb-4">Market Health Index</h4>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase mb-1">
+<span>SaaS Infrastructure</span>
+<span class="text-error">Stressed</span>
+</div>
+<div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-error w-[75%] h-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-bold text-on-surface-variant uppercase mb-1">
+<span>AI Developer Tools</span>
+<span class="text-tertiary">Expansive</span>
+</div>
+<div class="w-full bg-outline-variant/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary w-[30%] h-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl p-6 border border-outline-variant/10 shadow-sm">
+<h4 class="font-headline font-bold text-on-surface mb-4 flex items-center justify-between">
+                            Signal Trigger Log
+                            <span class="material-symbols-outlined text-sm text-on-surface-variant cursor-pointer">refresh</span>
+</h4>
+<div class="space-y-6">
+<div class="relative pl-6 border-l-2 border-outline-variant/20">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-error"></div>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wide">09:42 AM Today</p>
+<p class="text-xs font-bold text-on-surface">SNOW: Exec Turnover</p>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">VP of Engineering updated LinkedIn profile to "Self-employed".</p>
+</div>
+<div class="relative pl-6 border-l-2 border-outline-variant/20">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-tertiary"></div>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wide">Yesterday</p>
+<p class="text-xs font-bold text-on-surface">PLTR: Repo Expansion</p>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">4 new public GitHub repositories detected under Foundry core.</p>
+</div>
+<div class="relative pl-6 border-l-2 border-outline-variant/20">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-error"></div>
+<p class="text-[10px] text-on-surface-variant font-bold uppercase tracking-wide">2 Days Ago</p>
+<p class="text-xs font-bold text-on-surface">DDOG: Forum Sentiment</p>
+<p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed">Spike in "pricing complexity" mentions on r/sysadmin.</p>
+</div>
+</div>
+<button class="w-full mt-6 py-2 text-xs font-bold text-primary hover:bg-primary/5 transition-colors border border-primary/20 rounded">
+                            View All Historical Triggers
+                        </button>
+</div>
+<!-- Market Context Visual -->
+<div class="rounded-xl overflow-hidden relative group">
+<img class="w-full h-40 object-cover brightness-50 group-hover:scale-105 transition-transform duration-700" data-alt="Abstract network visualization of digital signals and data nodes in deep navy and cyber emerald tones, representing a neural market grid" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEm8KyFECbYID4hXjftR4RbVFvI3rU3_WgmRds-EowNZjf0AkDSrWWt7T4rOXeh0IQ47dkTFr2ZmLwppZyQR8b7ExZIlPBYMSb01GBDA3JYYdDvkBT7c22n3vl0ZCJSCAEq5DuoH3OBtkwmPHtxulpcqmzL4EaLLMQiI0ANpYdTaYv8pP3M7pCWUUsCq78JAWO6SaHbLLJTR6iDBXukeqqBuACw8jnFA8xr0KmPLbU_QIoNtGtK_7ysVgnegPY3YJ8ZOYdsOw77eK2"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent">
+<p class="text-[10px] font-bold text-tertiary-container uppercase">Signal Intelligence</p>
+<h5 class="text-white font-headline text-lg font-bold leading-tight">AI Signal Layer v4.2 Deployment Active</h5>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed for Details/Analyst views but here for global 'New Analysis' trigger per request) -->
+<!-- The instructions say suppress on Details/Profile, but this is a Dashboard-intent screen -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform active:scale-95 group">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">add</span>
+<div class="absolute right-16 bg-on-surface text-surface text-[10px] font-bold px-3 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+            CREATE NEW SIGNAL WATCH
+        </div>
+</button>
+</body></html>

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Thesis Delta Alerts | Sovereign Analyst</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#eff4ff",
+              "on-tertiary": "#e6ffee",
+              "tertiary-container": "#69f6b8",
+              "surface-tint": "#565e74",
+              "error-dim": "#4e0309",
+              "surface-container-highest": "#d3e4ff",
+              "on-error": "#fff7f6",
+              "on-error-container": "#752121",
+              "surface-container-lowest": "#ffffff",
+              "tertiary": "#006d4a",
+              "tertiary-fixed-dim": "#58e7ab",
+              "surface": "#f8f9ff",
+              "primary": "#565e74",
+              "inverse-primary": "#dae2fd",
+              "on-primary-container": "#4a5167",
+              "error-container": "#fe8983",
+              "secondary-fixed-dim": "#cad5ed",
+              "on-tertiary-container": "#005a3c",
+              "secondary-fixed": "#d8e3fb",
+              "surface-container-high": "#dce9ff",
+              "surface-container": "#e6eeff",
+              "on-secondary": "#f8f8ff",
+              "background": "#f8f9ff",
+              "on-primary-fixed": "#373f54",
+              "on-primary": "#f7f7ff",
+              "error": "#9f403d",
+              "primary-dim": "#4a5268",
+              "surface-dim": "#c4dcff",
+              "secondary-container": "#d8e3fb",
+              "primary-fixed-dim": "#ccd4ee",
+              "surface-variant": "#d3e4ff",
+              "on-surface": "#00345e",
+              "on-background": "#00345e",
+              "primary-container": "#dae2fd",
+              "inverse-on-surface": "#8f9eb4",
+              "outline-variant": "#87b5f0",
+              "on-secondary-fixed-variant": "#515c70",
+              "on-surface-variant": "#306197",
+              "tertiary-fixed": "#69f6b8",
+              "on-tertiary-fixed-variant": "#006544",
+              "on-secondary-container": "#475266",
+              "on-secondary-fixed": "#354053",
+              "on-primary-fixed-variant": "#535b71",
+              "on-tertiary-fixed": "#00452d",
+              "secondary-dim": "#485367",
+              "inverse-surface": "#010f20",
+              "tertiary-dim": "#005f40",
+              "surface-bright": "#f8f9ff",
+              "outline": "#4f7db5",
+              "secondary": "#545f74",
+              "primary-fixed": "#dae2fd"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9ff;
+        color: #00345e;
+      }
+      .glass-nav {
+        background: rgba(248, 249, 255, 0.7);
+        backdrop-filter: blur(10px);
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #87b5f044;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (from JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#f8f9ff] flex flex-col py-6 z-[60]">
+<div class="px-6 mb-8">
+<h1 class="text-xl font-bold tracking-tight text-[#1e293b] font-manrope">Sovereign Analyst</h1>
+<p class="font-inter text-xs text-[#565e74] mt-1 font-medium">Institutional Research</p>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="px-6 py-2 flex items-center gap-3 text-[#545f74] hover:bg-[#eff4ff] transition-colors duration-200 cursor-pointer group">
+<span class="material-symbols-outlined text-lg">radar</span>
+<span class="font-inter text-sm font-medium">Drift Radar</span>
+</div>
+<div class="px-6 py-2 flex items-center gap-3 text-[#545f74] hover:bg-[#eff4ff] transition-colors duration-200 cursor-pointer group">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="font-inter text-sm font-medium">Signal Churn</span>
+</div>
+<div class="px-6 py-2 flex items-center gap-3 text-[#545f74] hover:bg-[#eff4ff] transition-colors duration-200 cursor-pointer group">
+<span class="material-symbols-outlined text-lg">compare_arrows</span>
+<span class="font-inter text-sm font-medium">RivalSignals</span>
+</div>
+<!-- ACTIVE: Thesis Delta -->
+<div class="px-6 py-2 flex items-center gap-3 text-[#1e293b] font-semibold border-r-2 border-[#565e74] bg-[#e6eeff] cursor-pointer">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">notification_important</span>
+<span class="font-inter text-sm">Thesis Delta</span>
+</div>
+</nav>
+<div class="px-6 mt-4">
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-lg font-inter text-sm font-semibold shadow-sm hover:opacity-90 active:opacity-80 transition-all">
+                New Analysis
+            </button>
+</div>
+<div class="mt-auto px-6 space-y-1">
+<div class="py-2 flex items-center gap-3 text-[#545f74] hover:text-[#1e293b] cursor-pointer">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="font-inter text-sm">Settings</span>
+</div>
+<div class="py-2 flex items-center gap-3 text-[#545f74] hover:text-[#1e293b] cursor-pointer">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+<span class="font-inter text-sm">Support</span>
+</div>
+<div class="mt-4 pt-4 border-t border-[#87b5f0]/15 flex items-center gap-3">
+<img alt="Senior Analyst Profile" class="w-8 h-8 rounded-full bg-surface-container-high" data-alt="close-up portrait of a professional male analyst in a minimalist office setting, soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_1wdXLCqpMSJ9Jg6o4n7dLesNA7vI9Uy-uikEl40Z7oAO6mUp69KsGa1LF2TqwfoCV36vbwb1ruObaqPAxEAwIT9sQSwo1UoJr-S1PA65eLzqejCbF-zaS0Ztue0i4UZJUQXvaxfdFD0AIwrRC0HDGdybxCHJEkVqtY8DHsxtCXVQ5R20iw3JC23lFg50PisFAW3jnfF0vOQzgg_UUYaJ4SZm4weWa6BfG5PcOrm5bPRbDRWP_5wYQ1xZQvxU5Rhbs-1jlOl4hETh"/>
+<div>
+<p class="font-inter text-xs font-bold text-[#1e293b]">Analyst 042</p>
+<p class="font-inter text-[10px] text-[#565e74]">Premium Tier</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (from JSON) -->
+<header class="fixed top-0 right-0 left-64 h-16 glass-nav border-b border-[#87b5f0]/15 flex justify-between items-center px-8 z-50">
+<div class="flex items-center gap-8">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-lg">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border-none rounded-lg text-xs font-medium focus:ring-1 focus:ring-primary w-64" placeholder="Search Delta History..." type="text"/>
+</div>
+<nav class="flex gap-6">
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Research</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Monitoring</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Portfolio</a>
+<a class="font-inter text-xs font-medium tracking-wide uppercase text-[#306197] hover:text-[#1e293b] transition-all" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">history</span>
+<button class="ml-2 px-4 py-1.5 bg-primary text-on-primary text-xs font-bold rounded uppercase tracking-wider hover:bg-primary-dim transition-all">Execute Trade</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 flex-1 flex flex-col h-screen overflow-hidden">
+<div class="flex-1 overflow-y-auto px-8 py-8 space-y-8">
+<!-- 1. Status Hero -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl flex items-center justify-between border-l-4 border-tertiary shadow-sm">
+<div>
+<h2 class="font-headline text-3xl font-extrabold text-[#1e293b] tracking-tight">Thesis Alignment Score</h2>
+<p class="font-body text-on-surface-variant mt-2 max-w-md">Your 14 active positions show 82% structural integrity. 3 delta alerts require immediate verification of holding premises.</p>
+<div class="mt-6 flex gap-4">
+<div class="flex flex-col">
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Active Alerts</span>
+<span class="font-headline text-2xl font-bold text-error">03</span>
+</div>
+<div class="w-px h-10 bg-outline-variant/30"></div>
+<div class="flex flex-col">
+<span class="font-label text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Last Scan</span>
+<span class="font-headline text-2xl font-bold text-primary">14m Ago</span>
+</div>
+</div>
+</div>
+<div class="relative w-32 h-32 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-tertiary transition-all duration-1000" cx="64" cy="64" fill="transparent" r="58" stroke="currentColor" stroke-dasharray="364.4" stroke-dashoffset="65.6" stroke-width="8"></circle>
+</svg>
+<span class="absolute font-headline text-2xl font-bold text-on-surface">82%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col justify-center border-l-4 border-primary shadow-sm">
+<h3 class="font-headline text-lg font-bold text-on-surface">Portfolio Health</h3>
+<div class="mt-4 space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-body text-sm text-on-surface-variant">Confirmed Growth</span>
+<span class="font-body text-sm font-bold text-tertiary">64%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full">
+<div class="h-full bg-tertiary rounded-full w-[64%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-body text-sm text-on-surface-variant">Thesis Under Pressure</span>
+<span class="font-body text-sm font-bold text-error">18%</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-high rounded-full">
+<div class="h-full bg-error rounded-full w-[18%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Priority/Work Items & 3. Supporting Analysis -->
+<section class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<!-- List of Alerts -->
+<div class="lg:col-span-3 space-y-4">
+<div class="flex justify-between items-end pb-2">
+<h3 class="font-headline text-xl font-bold text-on-surface">Priority Deltas</h3>
+<span class="font-label text-xs font-semibold text-on-surface-variant uppercase tracking-wider">Sort: Recency</span>
+</div>
+<!-- Alert Item 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg group hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-error-container/10 text-error rounded-lg">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">Guidance Miss - NVDA</h4>
+<span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-bold rounded-full uppercase">High Priority</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant mt-1 leading-relaxed">Revenue forecast for H2 adjusted -4.2% below analyst consensus, citing supply chain friction in high-bandwidth memory.</p>
+</div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant font-medium">2H AGO</span>
+</div>
+</div>
+<!-- Alert Item 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg group hover:bg-surface-container transition-all cursor-pointer border-l-4 border-transparent hover:border-primary">
+<div class="flex justify-between items-start">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-surface-container-high text-primary rounded-lg">
+<span class="material-symbols-outlined">compare_arrows</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">Competitor Entry - TSM</h4>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-full uppercase">Monitoring</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant mt-1 leading-relaxed">Intel Foundry announces multi-year partnership with key TSM client for 2nm volume production.</p>
+</div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant font-medium">5H AGO</span>
+</div>
+</div>
+<!-- Alert Item 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-lg group hover:bg-surface-container transition-all cursor-pointer">
+<div class="flex justify-between items-start">
+<div class="flex items-start gap-4">
+<div class="p-2 bg-tertiary/10 text-tertiary rounded-lg">
+<span class="material-symbols-outlined">check_circle</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<h4 class="font-headline font-bold text-on-surface">Regulatory Approval - MSFT</h4>
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-bold rounded-full uppercase">Confirmation</span>
+</div>
+<p class="font-body text-sm text-on-surface-variant mt-1 leading-relaxed">EU regulators grant final approval for cloud infrastructure expansion, removing a key 'Red Flag' identified in Q1 thesis.</p>
+</div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant font-medium">1D AGO</span>
+</div>
+</div>
+</div>
+<!-- Thesis Intersection -->
+<div class="lg:col-span-2 space-y-6">
+<div class="bg-secondary text-on-secondary p-8 rounded-xl shadow-lg flex flex-col h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" style="font-variation-settings: 'wght' 200;">architecture</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-6">Thesis Intersection</h3>
+<div class="space-y-6 relative z-10">
+<div class="bg-white/5 p-5 rounded-lg border border-white/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm text-error-container">error</span>
+<span class="font-label text-[10px] uppercase font-bold tracking-wider text-white/60">Contradiction</span>
+</div>
+<p class="font-body text-sm leading-relaxed text-white">The <span class="font-bold">NVDA Revenue Forecast</span> directly conflicts with your stored 'ASIC Dominance' premise which assumed 20% growth through FY25.</p>
+<div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
+<span class="font-label text-xs text-white/50">Thesis ID: 094-X</span>
+<button class="text-xs font-bold text-white underline underline-offset-4 decoration-white/30 hover:decoration-white">Edit Premise</button>
+</div>
+</div>
+<div class="bg-white/5 p-5 rounded-lg border border-white/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-sm text-tertiary-container">verified</span>
+<span class="font-label text-[10px] uppercase font-bold tracking-wider text-white/60">Confirmation</span>
+</div>
+<p class="font-body text-sm leading-relaxed text-white">The <span class="font-bold">MSFT Expansion</span> validates your 'Infrastructure Moat' reason to hold. Risk weighting should be adjusted down.</p>
+<div class="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
+<span class="font-label text-xs text-white/50">Thesis ID: 112-C</span>
+<button class="text-xs font-bold text-white underline underline-offset-4 decoration-white/30 hover:decoration-white">View Details</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Next-Best Action Card -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="p-8 rounded-xl bg-surface-container-high border border-outline-variant/20 flex gap-6 items-center">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center flex-shrink-0 text-white shadow-md">
+<span class="material-symbols-outlined text-3xl">scale</span>
+</div>
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Action Recommended: Re-size Position</h3>
+<p class="font-body text-sm text-on-surface-variant mt-1">Based on NVDA delta, your risk-adjusted weight is 4% above the new recommended threshold. Re-balancing suggested.</p>
+<div class="mt-4 flex gap-3">
+<button class="px-5 py-2 bg-primary text-on-primary text-xs font-bold rounded-lg hover:bg-primary-dim transition-all">Verify Thesis Point</button>
+<button class="px-5 py-2 bg-surface-container-lowest text-primary text-xs font-bold rounded-lg border border-primary/20 hover:bg-white transition-all">Dismiss Action</button>
+</div>
+</div>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-high border border-outline-variant/20 flex gap-6 items-center">
+<div class="w-16 h-16 rounded-full bg-tertiary flex items-center justify-center flex-shrink-0 text-white shadow-md">
+<span class="material-symbols-outlined text-3xl">update</span>
+</div>
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Update Thesis Repository</h3>
+<p class="font-body text-sm text-on-surface-variant mt-1">New data suggests the 'Competition Blindspot' for TSM should be elevated from low to medium impact.</p>
+<div class="mt-4 flex gap-3">
+<button class="px-5 py-2 bg-tertiary text-on-tertiary text-xs font-bold rounded-lg hover:opacity-90 transition-all">Update Stance</button>
+<button class="px-5 py-2 bg-surface-container-lowest text-tertiary text-xs font-bold rounded-lg border border-tertiary/20 hover:bg-white transition-all">Archive Signal</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- 5. Summary Rail (Right Rail) -->
+<aside class="w-80 bg-surface-container-low border-l border-[#87b5f0]/15 overflow-y-auto hidden xl:block p-8 space-y-8 h-screen fixed top-0 right-0 z-40">
+<div class="pt-16">
+<h3 class="font-headline text-sm font-extrabold uppercase tracking-widest text-on-surface-variant border-b border-[#87b5f0]/30 pb-4 mb-6">Thesis Repository Status</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-white flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-lg">description</span>
+</div>
+<div>
+<p class="font-body text-xs font-bold text-on-surface">Total Stored Premises</p>
+<p class="font-body text-lg font-bold text-primary">42</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-white flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-error text-lg">flag</span>
+</div>
+<div>
+<p class="font-body text-xs font-bold text-on-surface">Active Red Flags</p>
+<p class="font-body text-lg font-bold text-error">07</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-white flex items-center justify-center border border-outline-variant/30">
+<span class="material-symbols-outlined text-tertiary text-lg">stars</span>
+</div>
+<div>
+<p class="font-body text-xs font-bold text-on-surface">High Conviction Core</p>
+<p class="font-body text-lg font-bold text-tertiary">12</p>
+</div>
+</div>
+</div>
+<h3 class="font-headline text-sm font-extrabold uppercase tracking-widest text-on-surface-variant border-b border-[#87b5f0]/30 pb-4 mb-6 mt-12">Delta History</h3>
+<div class="space-y-6">
+<div class="relative pl-6 border-l-2 border-outline-variant/30 pb-2">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-surface-container-low border-2 border-primary"></div>
+<p class="font-label text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">OCT 24, 09:12</p>
+<p class="font-body text-xs text-on-surface font-semibold mt-1">AAPL: Supply Chain Delta Identified</p>
+<p class="font-body text-[10px] text-on-surface-variant mt-0.5">Adjusted premise 08-B to "Cautionary".</p>
+</div>
+<div class="relative pl-6 border-l-2 border-outline-variant/30 pb-2">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-surface-container-low border-2 border-outline"></div>
+<p class="font-label text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">OCT 23, 16:45</p>
+<p class="font-body text-xs text-on-surface font-semibold mt-1">GOOGL: Antitrust Ruling Impact</p>
+<p class="font-body text-[10px] text-on-surface-variant mt-0.5">Thesis 114-A confirmed as "Vulnerable".</p>
+</div>
+<div class="relative pl-6 border-l-2 border-outline-variant/30 pb-2">
+<div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-surface-container-low border-2 border-tertiary"></div>
+<p class="font-label text-[10px] text-on-surface-variant font-bold uppercase tracking-wider">OCT 22, 11:30</p>
+<p class="font-body text-xs text-on-surface font-semibold mt-1">TSLA: Margin Delta Positive</p>
+<p class="font-body text-[10px] text-on-surface-variant mt-0.5">Added new 'Bull' premise regarding FSD v12.</p>
+</div>
+</div>
+<div class="mt-12 bg-surface-container-highest p-5 rounded-lg border border-outline-variant/20">
+<h4 class="font-headline text-xs font-bold text-on-surface uppercase mb-3">Portfolio Distribution</h4>
+<div class="w-full h-48 flex items-center justify-center">
+<img alt="Portfolio distribution radar chart" class="rounded opacity-80 mix-blend-multiply" data-alt="a professional architectural radar chart visualizing portfolio distribution across various market sectors, monochrome blue and grey palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_-SlYsuWpkMU7UYlocuS7g_KqqmCON_Rvtrq0Tw5hJqzYGTWHyU6pyJ9NenCdDRIH9eozU7smbWdWJI73m3csIz1uIQOPvbBC_myzIzRCIn5wfcWO_5TSfVwKeKUciLp-W1aejvI4gAOaSpOmSF2RmDNnnA2Eq07h0LALzhX5POyXLNymm_Tfz7HIptPPDgh2nB2D07i0gwQcyJQfrE9I_1By4ckNHYEHjYtPzQ_ozoA_LFZ-QWgY7nzflm2t016X6DiZDmS6Vg-d"/>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</body></html>
