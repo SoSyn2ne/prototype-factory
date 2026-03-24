@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Wedding Seating Solver Lite</title>
+<!-- Google Fonts: Noto Serif & Manrope -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;0,700;1,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#1c1c19",
+              "inverse-primary": "#c2c9b4",
+              "surface-dim": "#dcdad5",
+              "tertiary-fixed-dim": "#cdc5ba",
+              "outline-variant": "#c6c7be",
+              "surface": "#fcf9f4",
+              "on-error": "#ffffff",
+              "secondary-fixed": "#ffdad9",
+              "on-tertiary-fixed": "#1f1b14",
+              "primary": "#585e4d",
+              "on-surface-variant": "#454840",
+              "surface-variant": "#e5e2dd",
+              "tertiary": "#615b52",
+              "outline": "#767870",
+              "primary-fixed-dim": "#c2c9b4",
+              "primary-fixed": "#dee5cf",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#f3f0eb",
+              "secondary-container": "#fed6d6",
+              "tertiary-container": "#7a746a",
+              "surface-tint": "#5a614f",
+              "surface-container-highest": "#e5e2dd",
+              "on-background": "#1c1c19",
+              "tertiary-fixed": "#eae1d5",
+              "on-primary-fixed-variant": "#424939",
+              "on-primary": "#ffffff",
+              "surface-bright": "#fcf9f4",
+              "secondary": "#745757",
+              "on-error-container": "#93000a",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#f9ffea",
+              "on-secondary-container": "#795b5b",
+              "surface-container-high": "#ebe8e3",
+              "error": "#ba1a1a",
+              "surface-container-low": "#f6f3ee",
+              "on-secondary-fixed": "#2b1616",
+              "primary-container": "#707765",
+              "error-container": "#ffdad6",
+              "on-primary-fixed": "#171d10",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-fixed-variant": "#4b463d",
+              "background": "#fcf9f4",
+              "secondary-fixed-dim": "#e3bebd",
+              "surface-container": "#f0ede8",
+              "on-tertiary-container": "#fffbff",
+              "inverse-surface": "#31302d",
+              "on-secondary-fixed-variant": "#5b4040"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Manrope"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #fcf9f4;
+        color: #1c1c19;
+      }
+      h1, h2, h3, .serif {
+        font-family: 'Noto Serif', serif;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-12 h-20 w-full bg-[#fcf9f4] dark:bg-stone-950 opacity-80 backdrop-blur-xl shadow-sm shadow-black/5">
+<div class="font-['Noto_Serif'] text-2xl italic text-[#585e4d] dark:text-[#a3ad91]">Wedding Seating Solver Lite</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Noto_Serif'] font-semibold text-lg tracking-tight text-[#585e4d] dark:text-[#a3ad91] border-b-2 border-[#585e4d] pb-1" href="#">Dashboard</a>
+<a class="font-['Noto_Serif'] font-semibold text-lg tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#745757] transition-colors" href="#">Guest List</a>
+<a class="font-['Noto_Serif'] font-semibold text-lg tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#745757] transition-colors" href="#">Floor Plan</a>
+<a class="font-['Noto_Serif'] font-semibold text-lg tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#745757] transition-colors" href="#">Reports</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#585e4d] cursor-pointer hover:opacity-80 transition-all duration-300">notifications</span>
+<span class="material-symbols-outlined text-[#585e4d] cursor-pointer hover:opacity-80 transition-all duration-300">settings</span>
+<img alt="User Profile" class="w-10 h-10 rounded-full border-2 border-primary/20 scale-95 active:scale-90 transition-transform cursor-pointer" data-alt="close up professional headshot of a smiling woman with warm lighting and soft cream background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH5AgANoR7lJ-gl0AE8oN0dh1b9cC29MmjQ7qviH2wVZrBowQxqJW22zqxm187c9USjzGmepilJ0GQwtmMfT2oGu3z_gF7kV1nzMvNPCxBo7Bcl9sBYp-r1lkaAglIL3bsBpIqmOp2CJqv1ZQKrGz5_TrmPUdNg5e--08zh3XyY0shlpTavekQBmxoGIqsn6HUX3BDO1AzFcUwVxspZBm4gNNaah17MQeD1lHCXTrajJS4NZt9HGkxvswFm9o-Nxbwxqjiz_gyjf4j"/>
+</div>
+</nav>
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden lg:flex fixed flex-col justify-between border-r border-black/5 h-screen w-72 left-0 top-0 pt-24 bg-[#e5e2dd] dark:bg-stone-900 z-40">
+<div class="px-6 space-y-8">
+<div class="flex items-center gap-4 mb-8">
+<div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">table_restaurant</span>
+</div>
+<div>
+<h3 class="font-['Noto_Serif'] text-xl text-[#1c1c19] dark:text-stone-100">The Grand Ballroom</h3>
+<p class="text-[10px] font-['Manrope'] font-medium uppercase tracking-widest text-stone-500">Capacity: 250 / 180 Seated</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 font-['Manrope'] font-medium uppercase tracking-widest text-xs text-[#585e4d] dark:text-[#a3ad91] font-bold bg-[#fcf9f4]/50 dark:bg-stone-800/50 rounded-l-xl py-4 px-6 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">table_restaurant</span> Table Overview
+                </a>
+<a class="flex items-center gap-3 font-['Manrope'] font-medium uppercase tracking-widest text-xs text-stone-600 dark:text-stone-400 py-4 px-6 hover:bg-[#f6f3ee] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined">group_add</span> Unassigned Guests
+                </a>
+<a class="flex items-center gap-3 font-['Manrope'] font-medium uppercase tracking-widest text-xs text-stone-600 dark:text-stone-400 py-4 px-6 hover:bg-[#f6f3ee] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined">star</span> VIP Seating
+                </a>
+<a class="flex items-center gap-3 font-['Manrope'] font-medium uppercase tracking-widest text-xs text-stone-600 dark:text-stone-400 py-4 px-6 hover:bg-[#f6f3ee] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined">family_restroom</span> Family Clusters
+                </a>
+<a class="flex items-center gap-3 font-['Manrope'] font-medium uppercase tracking-widest text-xs text-stone-600 dark:text-stone-400 py-4 px-6 hover:bg-[#f6f3ee] dark:hover:bg-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined">accessible</span> Accessibility
+                </a>
+</nav>
+<button class="w-full bg-primary text-white py-4 rounded-xl font-['Manrope'] font-bold text-xs uppercase tracking-widest shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+                Add New Table
+            </button>
+</div>
+<div class="p-6 space-y-4">
+<a class="flex items-center gap-3 text-xs font-bold text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">help_outline</span> Help Center
+            </a>
+<a class="flex items-center gap-3 text-xs font-bold text-stone-500 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span> Export PDF
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="lg:ml-72 pt-28 px-8 pb-12">
+<div class="max-w-7xl mx-auto space-y-10">
+<!-- (1) Status Hero: Seating Progress -->
+<section class="relative overflow-hidden rounded-full bg-surface-container-low p-12 flex flex-col md:flex-row items-center gap-12">
+<div class="relative z-10 space-y-6 flex-1">
+<h1 class="text-5xl md:text-6xl font-headline tracking-tight text-on-surface">Hello, Julianne.</h1>
+<p class="text-lg text-on-surface-variant font-body max-w-lg">Your seating plan is taking shape. You have assigned 180 of 200 confirmed guests across 22 active tables.</p>
+<div class="flex items-center gap-8 pt-4">
+<div>
+<span class="block text-4xl font-headline text-primary">90%</span>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-outline">Completion</span>
+</div>
+<div class="h-12 w-px bg-outline-variant/30"></div>
+<div>
+<span class="block text-4xl font-headline text-secondary">20</span>
+<span class="block text-[10px] font-bold uppercase tracking-widest text-outline">Pending</span>
+</div>
+</div>
+</div>
+<div class="relative w-72 h-72 flex-shrink-0">
+<!-- Progress Ring Representation -->
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="144" cy="144" fill="transparent" r="130" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="144" cy="144" fill="transparent" r="130" stroke="currentColor" stroke-dasharray="816" stroke-dashoffset="81" stroke-width="12"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-6xl text-primary-container">event_seat</span>
+</div>
+</div>
+</section>
+<!-- Bento Grid Content -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+<!-- (2) Priority/Work Items Panel: Table List -->
+<div class="xl:col-span-8 space-y-8">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-3xl font-headline text-on-surface">Live Seating Deck</h2>
+<span class="text-xs font-label uppercase tracking-widest text-secondary font-bold">Sort by: Recent Edits</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Table Card 1 -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-sm hover:shadow-md transition-shadow group">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="font-headline text-xl text-on-surface">Table 01: Head Table</h4>
+<p class="text-xs font-label text-outline">10 / 10 Seats Occupied</p>
+</div>
+<span class="material-symbols-outlined text-primary opacity-40 group-hover:opacity-100 transition-opacity">verified</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-body font-semibold">Sarah &amp; Mark (Bridge/Groom)</span>
+<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-2 py-1 rounded-full uppercase">Keep Together</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-body">Elena Vance</span>
+<span class="text-[10px] font-bold bg-primary/10 text-primary px-2 py-1 rounded-full uppercase">VIP</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-body">Arthur Vance</span>
+<span class="text-[10px] font-bold bg-primary/10 text-primary px-2 py-1 rounded-full uppercase">VIP</span>
+</div>
+</div>
+</div>
+<!-- Table Card 2 -->
+<div class="bg-surface-container-lowest p-8 rounded-full shadow-sm hover:shadow-md transition-shadow group border border-primary/10">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="font-headline text-xl text-on-surface">Table 12: College Friends</h4>
+<p class="text-xs font-label text-outline">6 / 8 Seats Occupied</p>
+</div>
+<span class="material-symbols-outlined text-secondary opacity-40 group-hover:opacity-100 transition-opacity">warning</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-body">Derek Miller</span>
+<span class="text-[10px] font-bold bg-error-container text-on-error-container px-2 py-1 rounded-full uppercase">Distance: Table 04</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-sm font-body">Cassie Peters</span>
+<span class="text-xs text-outline">No Flags</span>
+</div>
+<div class="mt-4 p-3 bg-surface-container rounded-lg border-dashed border-2 border-outline-variant flex items-center justify-center gap-2 cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="text-[10px] font-bold uppercase tracking-widest">Assign Remaining 2</span>
+</div>
+</div>
+</div>
+</div>
+<!-- (3) Supporting Analysis: Conflict Map -->
+<div class="bg-surface-container p-8 rounded-full">
+<div class="flex items-center gap-4 mb-8">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<h3 class="font-headline text-2xl">Relational Dynamics</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="space-y-4">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline-variant">Family Clusters</label>
+<div class="p-4 bg-surface rounded-xl">
+<p class="text-sm font-body font-bold text-primary">Vance Family (8)</p>
+<p class="text-xs text-outline">Table 01, 02</p>
+</div>
+<div class="p-4 bg-surface rounded-xl">
+<p class="text-sm font-body font-bold text-primary">Rodriguez Family (12)</p>
+<p class="text-xs text-outline">Table 04, 05, 06</p>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline-variant">Spatial Conflicts</label>
+<div class="p-4 bg-error-container/20 border border-error/10 rounded-xl">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-xs text-error">priority_high</span>
+<p class="text-sm font-body font-bold text-error">High Tension</p>
+</div>
+<p class="text-xs text-outline">L. Thorne &amp; M. Thorne (Keep &gt; 15ft apart)</p>
+</div>
+</div>
+<div class="space-y-4">
+<label class="text-[10px] font-bold uppercase tracking-widest text-outline-variant">Seating Density</label>
+<div class="p-4 bg-surface rounded-xl">
+<div class="flex justify-between items-end">
+<div class="w-2 bg-primary h-8 rounded-t"></div>
+<div class="w-2 bg-primary h-12 rounded-t"></div>
+<div class="w-2 bg-primary h-6 rounded-t"></div>
+<div class="w-2 bg-primary h-16 rounded-t"></div>
+<div class="w-2 bg-primary h-10 rounded-t"></div>
+</div>
+<p class="text-[10px] font-bold uppercase mt-2 text-center text-outline">Traffic Flow: Normal</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Summary -->
+<div class="xl:col-span-4 space-y-8">
+<!-- (4) Next-Best Action Card -->
+<div class="bg-primary-container text-on-primary-container p-8 rounded-full shadow-2xl relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+<div class="relative z-10 space-y-4">
+<span class="inline-block px-3 py-1 bg-white/20 rounded-full text-[10px] font-bold uppercase tracking-widest">Recommended Action</span>
+<h3 class="text-2xl font-headline italic">Finalize VIP Table Seating</h3>
+<p class="text-sm opacity-90 font-body">8 confirmed VIP guests from the Bride's immediate family are still unassigned. Completing this will clear 40% of your remaining workload.</p>
+<button class="w-full mt-4 bg-surface text-primary font-bold text-xs uppercase tracking-widest py-4 rounded-xl shadow-lg hover:bg-white transition-colors flex items-center justify-center gap-2">
+                                Start Auto-Assign <span class="material-symbols-outlined text-sm">auto_fix_high</span>
+</button>
+</div>
+</div>
+<!-- (5) Summary Rail: Venue Constraints -->
+<div class="bg-surface-container-high p-8 rounded-full space-y-8">
+<div>
+<h4 class="font-headline text-xl mb-4">Venue Logistics</h4>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<div>
+<p class="text-sm font-bold">Max 250 Capacity</p>
+<p class="text-[10px] text-outline uppercase tracking-widest">Currently at 80%</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+</div>
+<div>
+<p class="text-sm font-bold">10 Rounds, 5 Rectangles</p>
+<p class="text-[10px] text-outline uppercase tracking-widest">Mixed layout config</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">accessible_forward</span>
+</div>
+<div>
+<p class="text-sm font-bold">ADA Requirements</p>
+<p class="text-[10px] text-outline uppercase tracking-widest">4 Tables near entrance</p>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-8 border-t border-outline-variant/30">
+<h4 class="font-headline text-xl mb-4">Seating Mood</h4>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold text-outline">Intimate</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold text-outline">High-Energy</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-bold text-outline">Legacy</span>
+<span class="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-[10px] font-bold">Floral Centerpieces</span>
+</div>
+</div>
+<!-- Imagery placeholder with descriptive data-alt -->
+<div class="rounded-xl overflow-hidden mt-4">
+<img alt="Venue Setup" class="w-full h-48 object-cover opacity-80" data-alt="Elegant wedding reception hall with round tables, white linens, gold chairs, and warm ambient sunlight streaming through large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA1ZMLIV2zaGI_pL7bDvj7NKkPkvzyfje1_K11DQ2ra5qs6QTJXwdy6C_eEJ81BoIZY__v1bTmuE6s_XIa8H6olIXgH03wxcVLzCb3wsDQOb7W9JXlVNALZn_ldqkBBjNS1AXlvI0N6uEEVLcmYX5cFyvXqco1dPu0Zt6-eniHgzcdB2MigeGJdXWj9NRF4JmQfcoc-oD7h_gRJ_PU5tRrw9DI1CX7O9CliXdXbv76Nn3VC84nvXceZkYXTy8joDmKnqXwKUrY6KdX"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB Suppression: Not rendered on focused dashboard -->
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 w-full bg-surface/90 backdrop-blur-md border-t border-black/5 flex justify-around items-center h-16 z-50 px-6">
+<a class="flex flex-col items-center text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-[10px] font-bold uppercase">Guests</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined">chair</span>
+<span class="text-[10px] font-bold uppercase">Tables</span>
+</a>
+<a class="flex flex-col items-center text-outline" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold uppercase">Menu</span>
+</a>
+</nav>
+</body></html>

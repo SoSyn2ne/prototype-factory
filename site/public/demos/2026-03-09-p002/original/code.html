@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GPU_INCIDENT_CONSOLE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#ff9993",
+                        "secondary": "#81a1c1",
+                        "surface-bright": "#2b2c2c",
+                        "error-dim": "#bb5551",
+                        "on-secondary-fixed": "#20425e",
+                        "error": "#ee7d77",
+                        "on-secondary-container": "#a2c3e4",
+                        "inverse-surface": "#fcf9f8",
+                        "on-tertiary": "#6b202b",
+                        "error-container": "#7f2927",
+                        "on-primary-fixed": "#084a00",
+                        "secondary-fixed": "#cee5ff",
+                        "surface": "#0e0e0e",
+                        "tertiary-dim": "#ec858e",
+                        "inverse-primary": "#106f00",
+                        "on-surface": "#e7e5e5",
+                        "outline": "#767575",
+                        "on-surface-variant": "#acabaa",
+                        "primary": "#2ae500",
+                        "secondary-dim": "#81a1c1",
+                        "primary-dim": "#27d600",
+                        "secondary-container": "#1c3e59",
+                        "tertiary-fixed": "#fc929b",
+                        "on-background": "#e7e5e5",
+                        "on-primary": "#084b00",
+                        "on-primary-fixed-variant": "#0f6b00",
+                        "on-primary-container": "#2cf100",
+                        "on-secondary": "#002239",
+                        "surface-container-low": "#131313",
+                        "surface-container-high": "#1f2020",
+                        "on-secondary-fixed-variant": "#3e5e7b",
+                        "surface-container": "#191a1a",
+                        "on-tertiary-container": "#5d1521",
+                        "secondary-fixed-dim": "#b7d8fa",
+                        "background": "#0e0e0e",
+                        "on-tertiary-fixed-variant": "#691f29",
+                        "primary-container": "#095300",
+                        "on-error": "#490106",
+                        "outline-variant": "#484848",
+                        "surface-dim": "#0e0e0e",
+                        "tertiary-fixed-dim": "#ec858e",
+                        "primary-fixed-dim": "#2df500",
+                        "tertiary": "#ffa6ac",
+                        "surface-variant": "#252626",
+                        "on-tertiary-fixed": "#39000b",
+                        "tertiary-container": "#fc929b",
+                        "inverse-on-surface": "#565555",
+                        "primary-fixed": "#79ff5b",
+                        "surface-container-lowest": "#000000",
+                        "surface-container-highest": "#252626",
+                        "surface-tint": "#2ae500"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 18px;
+        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #484848; }
+        .scanning-line {
+            background: linear-gradient(to right, transparent, #095300, transparent);
+            height: 2px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-14 bg-[#0e0e0e] dark:bg-[#0e0e0e]">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-[#2ae500]">GPU_INCIDENT_CONSOLE</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-xs text-[#2ae500] border-b-2 border-[#2ae500] pb-1" href="#">Timeline</a>
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-xs text-[#acabaa] hover:text-[#2ae500] transition-colors" href="#">Metrics</a>
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-xs text-[#acabaa] hover:text-[#2ae500] transition-colors" href="#">Logs</a>
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-xs text-[#acabaa] hover:text-[#2ae500] transition-colors" href="#">Inventory</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-[#acabaa] hover:bg-[#1f2020] p-2 transition-all cursor-pointer">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-[#acabaa] hover:bg-[#1f2020] p-2 transition-all cursor-pointer">settings</span>
+<span class="material-symbols-outlined text-[#acabaa] hover:bg-[#1f2020] p-2 transition-all cursor-pointer">help</span>
+<div class="h-8 w-8 bg-surface-container-highest border border-outline-variant flex items-center justify-center">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Cyberpunk style minimalist avatar of a system operator in neon green and black silhouettes" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk-GuFnevJbiKaGP3hpydHwJavYu3zni57KgbBH2ScuZRWZ6EfnuVCN67ZYxY9Qwuqz7Bsi1sL81ygEFt2Pm9Y2pSfLjzPrz0VHyRkYaspEpesI3OKvjaob4mdcQ3oRxpKrjpQGaPjomgMFBSsgMwjRaOvUJbFA8wCWcuA4KbrbzzsAYRLLv2JHJw8FTaYvOQtJooXOo9UchSwiMzkpzz5HkMI7RyQoGgY6TBSYND0zhO72u6TUI4yIXMX1HTpkn00Ws9-gQ-kQt19"/>
+</div>
+</div>
+<div class="bg-gradient-to-r from-[#095300] to-[#1f2020] h-[2px] w-full absolute bottom-0"></div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 z-40 flex flex-col bg-[#131313] dark:bg-[#131313] border-r border-[#484848]/15">
+<div class="p-4 border-b border-[#484848]/15 bg-surface-container-lowest">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dns</span>
+<div>
+<div class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase text-white">HOST_SELECTOR</div>
+<div class="text-[10px] text-primary/70 font-mono">Active_Nodes: 142</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 py-2 overflow-y-auto">
+<div class="bg-[#1f2020] text-[#2ae500] border-l-4 border-[#2ae500] py-3 px-4 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined">dns</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Cluster_Alpha</span>
+</div>
+<div class="text-[#acabaa] py-3 px-4 flex items-center gap-3 hover:bg-[#1f2020]/50 cursor-pointer transition-all">
+<span class="material-symbols-outlined">developer_board</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Cluster_Beta</span>
+</div>
+<div class="text-[#acabaa] py-3 px-4 flex items-center gap-3 hover:bg-[#1f2020]/50 cursor-pointer transition-all">
+<span class="material-symbols-outlined">memory</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Node_GPU_01</span>
+</div>
+<div class="text-[#acabaa] py-3 px-4 flex items-center gap-3 hover:bg-[#1f2020]/50 cursor-pointer transition-all">
+<span class="material-symbols-outlined">memory_alt</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Node_GPU_02</span>
+</div>
+<div class="text-[#acabaa] py-3 px-4 flex items-center gap-3 hover:bg-[#1f2020]/50 cursor-pointer transition-all">
+<span class="material-symbols-outlined">lan</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Node_GPU_03</span>
+</div>
+</nav>
+<div class="p-4">
+<button class="w-full bg-primary text-on-primary font-['Space_Grotesk'] font-bold text-xs py-3 uppercase tracking-widest hover:brightness-110 active:scale-[0.98] transition-all">
+                PROVISION_NEW
+            </button>
+</div>
+<div class="mt-auto border-t border-[#484848]/15">
+<div class="text-[#acabaa] py-4 px-4 flex items-center gap-3 hover:bg-error/10 hover:text-error cursor-pointer transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-widest uppercase">Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 mt-14 p-6 min-h-screen">
+<div class="grid grid-cols-12 gap-6">
+<!-- (1) Status Hero: Active incidents -->
+<section class="col-span-12 lg:col-span-9 bg-surface-container-low p-6 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 bg-error h-full"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h1 class="font-headline text-3xl font-extrabold tracking-tighter uppercase mb-1">INCIDENT_ID: X-9902</h1>
+<p class="font-mono text-xs text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 bg-error animate-pulse"></span>
+                            STATUS: ACTIVE_CRITICAL // NODE: GPU_01_PROD_RACK_4
+                        </p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-high px-4 py-2 border-l border-primary">
+<div class="text-[10px] uppercase text-on-surface-variant mb-1">Thermal_Load</div>
+<div class="font-headline text-xl font-bold text-primary">94°C</div>
+</div>
+<div class="bg-surface-container-high px-4 py-2 border-l border-error">
+<div class="text-[10px] uppercase text-on-surface-variant mb-1">Power_Draw</div>
+<div class="font-headline text-xl font-bold text-error">420W</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-4 gap-4 mt-8">
+<div class="col-span-1 border border-outline-variant/20 p-4 bg-surface-container-highest/30">
+<div class="text-[10px] uppercase text-on-surface-variant mb-2">Warnings</div>
+<div class="space-y-2">
+<div class="flex items-center gap-2 text-[11px] text-error font-medium">
+<span class="material-symbols-outlined !text-[14px]">warning</span>
+                                TEMP_THROTTLE_DETECTED
+                            </div>
+<div class="flex items-center gap-2 text-[11px] text-tertiary font-medium">
+<span class="material-symbols-outlined !text-[14px]">bolt</span>
+                                VOLTAGE_FLUCTUATION
+                            </div>
+</div>
+</div>
+<div class="col-span-3 bg-surface-container-lowest p-4 relative h-32 flex items-end">
+<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(42,229,0,0.05)_1px,transparent_1px),linear-gradient(rgba(42,229,0,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<div class="relative w-full h-full flex items-end gap-[2px]">
+<!-- Mock Mini-Chart -->
+<div class="flex-1 bg-primary/20 h-1/2"></div>
+<div class="flex-1 bg-primary/30 h-2/3"></div>
+<div class="flex-1 bg-primary/40 h-3/4"></div>
+<div class="flex-1 bg-primary/20 h-1/2"></div>
+<div class="flex-1 bg-error/40 h-full"></div>
+<div class="flex-1 bg-error/60 h-full"></div>
+<div class="flex-1 bg-error/80 h-[90%]"></div>
+<div class="flex-1 bg-primary/20 h-2/3"></div>
+</div>
+<div class="absolute top-2 right-4 text-[9px] font-mono text-on-surface-variant">REALTIME_TELEMETRY_STREAM</div>
+</div>
+</div>
+</section>
+<!-- (5) Summary Rail -->
+<aside class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-surface-container-high p-4 border-l-2 border-secondary">
+<h3 class="font-headline text-xs font-bold uppercase tracking-widest mb-4">SYSTEM_SUMMARY</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Uptime</span>
+<span class="font-mono text-xs">242:12:04</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Inventory_Health</span>
+<span class="font-mono text-xs text-primary">98.2%</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant uppercase">Critical_Logs</span>
+<span class="font-mono text-xs text-error">12</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="text-[10px] text-on-surface-variant uppercase mb-2">Host_Inventory</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-1 bg-surface-container-lowest text-[9px] border border-outline-variant/30">H-01 [OK]</span>
+<span class="px-2 py-1 bg-surface-container-lowest text-[9px] border border-error/50 text-error">H-02 [X]</span>
+<span class="px-2 py-1 bg-surface-container-lowest text-[9px] border border-outline-variant/30">H-03 [OK]</span>
+</div>
+</div>
+</div>
+</div>
+<!-- (4) Next-Best Action Card -->
+<div class="bg-primary-container p-6 relative group cursor-pointer active:scale-95 transition-all">
+<div class="absolute top-2 right-2 opacity-20">
+<span class="material-symbols-outlined !text-4xl text-on-primary-container">shield_with_heart</span>
+</div>
+<h3 class="font-headline text-xs font-bold uppercase text-on-primary-container mb-2 tracking-tighter">RECOMMENDED_ACTION</h3>
+<p class="text-sm font-bold text-white mb-4 leading-tight">Isolate Node GPU_01 and Run Health Check</p>
+<button class="w-full bg-on-primary-container text-on-primary font-['Space_Grotesk'] font-bold text-[10px] py-2 uppercase tracking-widest">
+                        EXECUTE_QUARANTINE
+                    </button>
+</div>
+</aside>
+<!-- (2) Priority/Work Items Panel: Dense log timeline -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-low flex flex-col min-h-[500px]">
+<div class="p-4 border-b border-outline-variant/15 flex justify-between items-center bg-surface-container-lowest/50">
+<h2 class="font-headline text-xs font-bold uppercase tracking-widest text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined">history</span>
+                        EVENT_TIMELINE_ANNOTATOR
+                    </h2>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container-high text-[9px] border border-outline-variant/30 uppercase cursor-pointer hover:bg-surface-bright transition-colors">Filter: Errors</span>
+<span class="px-2 py-1 bg-surface-container-high text-[9px] border border-outline-variant/30 uppercase cursor-pointer hover:bg-surface-bright transition-colors">Export_Session</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto font-mono text-[11px] p-2 space-y-[2px]">
+<!-- Log Row 1 -->
+<div class="group flex items-start gap-4 p-3 hover:bg-surface-container-high transition-colors bg-surface-container-lowest/20">
+<span class="text-on-surface-variant shrink-0 select-none">14:22:01.032</span>
+<div class="flex-1">
+<span class="text-error font-bold uppercase mr-2">[XID_62]</span>
+<span class="text-on-surface">GPU-ID 0000:01:00.0 - Uncorrectable ECC error detected in Frame Buffer Memory.</span>
+<div class="mt-2 p-3 bg-black border border-outline-variant/20 hidden group-hover:block">
+<div class="text-[9px] text-secondary-dim uppercase mb-1">nvidia-smi --query-gpu=ecc.errors.uncorrectable.aggregate.total</div>
+<div class="text-primary-dim">Value: 124 errors detected. Reset required.</div>
+</div>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold hover:text-primary transition-colors">Annotate</button>
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold hover:text-tertiary transition-colors">Highlight</button>
+</div>
+</div>
+<!-- Log Row 2 - Annotated -->
+<div class="group flex items-start gap-4 p-3 bg-surface-container-high/40 border-l-2 border-primary">
+<span class="text-on-surface-variant shrink-0">14:22:05.110</span>
+<div class="flex-1">
+<span class="text-primary font-bold uppercase mr-2">[DRIVER]</span>
+<span class="text-on-surface">Thermal protection activated. Power limit reduced to 150W (from 450W).</span>
+<div class="mt-2 bg-primary/10 p-2 border border-primary/20 flex items-start gap-2">
+<span class="material-symbols-outlined !text-[12px] text-primary">edit_note</span>
+<span class="italic text-[10px] text-on-surface">SRE_NOTE: Manual override ignored due to hardware safety lock. Investigating cooler failure.</span>
+</div>
+</div>
+<div class="flex gap-2 shrink-0">
+<button class="bg-surface-container-lowest px-2 py-1 text-[9px] uppercase font-bold text-primary">Resolved</button>
+</div>
+</div>
+<!-- Log Row 3 -->
+<div class="group flex items-start gap-4 p-3 hover:bg-surface-container-high transition-colors">
+<span class="text-on-surface-variant shrink-0">14:22:12.884</span>
+<div class="flex-1">
+<span class="text-secondary-dim font-bold uppercase mr-2">[SYSTEM]</span>
+<span class="text-on-surface">Process 'nv_inference_worker' (PID: 44211) terminated with status SIGSEGV.</span>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold">Annotate</button>
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold">Highlight</button>
+</div>
+</div>
+<!-- Log Row 4 -->
+<div class="group flex items-start gap-4 p-3 hover:bg-surface-container-high transition-colors">
+<span class="text-on-surface-variant shrink-0">14:22:15.001</span>
+<div class="flex-1">
+<span class="text-on-surface-variant font-bold uppercase mr-2">[KRNL]</span>
+<span class="text-on-surface">NVRM: GPU at 0000:01:00.0 has fallen off the bus.</span>
+</div>
+<div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold">Annotate</button>
+<button class="bg-surface-bright px-2 py-1 text-[9px] uppercase font-bold">Highlight</button>
+</div>
+</div>
+</div>
+<!-- Command Input Area -->
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant/15">
+<div class="flex items-center gap-3 bg-surface-container-high px-4 py-2">
+<span class="text-primary font-bold font-mono text-sm">&gt;</span>
+<input class="bg-transparent border-none focus:ring-0 text-primary font-mono text-xs w-full placeholder:text-primary/30 uppercase" placeholder="TYPE_COMMAND_OR_ANNOTATION_HERE..." type="text"/>
+</div>
+</div>
+</section>
+<!-- (3) Supporting Analysis: Correlated metrics -->
+<section class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-low p-6 border-l border-outline-variant/15 flex flex-col h-full">
+<h2 class="font-headline text-xs font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">analytics</span>
+                        CORRELATED_ANALYSIS
+                    </h2>
+<div class="space-y-8">
+<div>
+<div class="flex justify-between items-end mb-2">
+<span class="text-[10px] uppercase text-on-surface-variant">Thermal_vs_Clocks</span>
+<span class="text-[10px] font-mono text-error">CRITICAL_DIVERGENCE</span>
+</div>
+<div class="h-32 bg-surface-container-lowest border border-outline-variant/10 relative p-2 overflow-hidden">
+<!-- Mock Graph Visualization -->
+<svg class="w-full h-full" viewbox="0 0 200 80">
+<path d="M0,60 L20,55 L40,58 L60,40 L80,30 L100,70 L120,75 L140,78 L160,79 L180,80" fill="none" stroke="#2ae500" stroke-width="1.5"></path>
+<path d="M0,30 L20,32 L40,35 L60,38 L80,45 L100,20 L120,15 L140,12 L160,10 L180,5" fill="none" stroke="#ee7d77" stroke-width="1.5"></path>
+<line stroke="#484848" stroke-dasharray="2,2" x1="100" x2="100" y1="0" y2="80"></line>
+</svg>
+<div class="absolute bottom-1 right-2 flex gap-3">
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary"></span>
+<span class="text-[8px] uppercase">Clock</span>
+</div>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-error"></span>
+<span class="text-[8px] uppercase">Temp</span>
+</div>
+</div>
+</div>
+<p class="text-[10px] mt-2 text-on-surface-variant leading-relaxed">
+                                High correlation (r=0.92) between core temperature spike and sudden clock frequency collapse at 14:22:05.
+                            </p>
+</div>
+<div class="bg-surface-container-high/50 p-4 border border-outline-variant/10">
+<h4 class="text-[9px] uppercase font-bold text-secondary mb-3">NODE_METADATA</h4>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<div class="text-[8px] uppercase text-on-surface-variant">Driver_Ver</div>
+<div class="text-xs font-mono">535.104.05</div>
+</div>
+<div>
+<div class="text-[8px] uppercase text-on-surface-variant">VBIOS</div>
+<div class="text-xs font-mono">94.02.71.00.01</div>
+</div>
+<div>
+<div class="text-[8px] uppercase text-on-surface-variant">PCI_Bus_ID</div>
+<div class="text-xs font-mono">01:00.0</div>
+</div>
+<div>
+<div class="text-[8px] uppercase text-on-surface-variant">MEM_Type</div>
+<div class="text-xs font-mono">HBM2e</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Global Status Bar (Footer replacement) -->
+<footer class="fixed bottom-0 w-full h-8 bg-surface-container-lowest border-t border-outline-variant/10 flex items-center justify-between px-6 z-50">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-primary rounded-full"></span>
+<span class="text-[9px] uppercase font-bold tracking-widest">System_Ready</span>
+</div>
+<div class="text-[9px] font-mono text-on-surface-variant">
+                SESSION_TOKEN: 4f9e-22a1-bd8c-0092
+            </div>
+</div>
+<div class="flex items-center gap-4 text-[9px] font-mono text-on-surface-variant">
+<span>MEM: 14.2/128 GB</span>
+<span>LATENCY: 12ms</span>
+<span class="text-secondary font-bold">v2.4.0-STABLE</span>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#f8f9ff",
+              "secondary-fixed": "#d8e3fb",
+              "on-surface": "#00345e",
+              "tertiary-dim": "#005f40",
+              "inverse-primary": "#dae2fd",
+              "outline": "#4f7db5",
+              "secondary-dim": "#485367",
+              "primary": "#565e74",
+              "on-surface-variant": "#306197",
+              "secondary-container": "#d8e3fb",
+              "primary-dim": "#4a5268",
+              "tertiary-fixed": "#69f6b8",
+              "on-background": "#00345e",
+              "surface-bright": "#f8f9ff",
+              "secondary": "#545f74",
+              "on-error-container": "#752121",
+              "error-dim": "#4e0309",
+              "on-secondary-fixed": "#354053",
+              "on-secondary-container": "#475266",
+              "error": "#9f403d",
+              "inverse-surface": "#010f20",
+              "on-primary-fixed": "#373f54",
+              "error-container": "#fe8983",
+              "on-tertiary": "#e6ffee",
+              "on-error": "#fff7f6",
+              "tertiary-fixed-dim": "#58e7ab",
+              "surface-dim": "#c4dcff",
+              "outline-variant": "#87b5f0",
+              "surface-variant": "#d3e4ff",
+              "tertiary": "#006d4a",
+              "primary-fixed-dim": "#ccd4ee",
+              "on-tertiary-fixed": "#00452d",
+              "tertiary-container": "#69f6b8",
+              "surface-container-lowest": "#ffffff",
+              "primary-fixed": "#dae2fd",
+              "inverse-on-surface": "#8f9eb4",
+              "surface-tint": "#565e74",
+              "surface-container-highest": "#d3e4ff",
+              "on-primary-fixed-variant": "#535b71",
+              "on-primary": "#f7f7ff",
+              "on-primary-container": "#4a5167",
+              "on-secondary": "#f8f8ff",
+              "surface-container-low": "#eff4ff",
+              "surface-container-high": "#dce9ff",
+              "secondary-fixed-dim": "#cad5ed",
+              "surface-container": "#e6eeff",
+              "on-tertiary-container": "#005a3c",
+              "on-secondary-fixed-variant": "#515c70",
+              "primary-container": "#dae2fd",
+              "on-tertiary-fixed-variant": "#006544",
+              "background": "#f8f9ff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #ccd4ee; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #565e74; }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50 bg-[#f8f9ff] dark:bg-slate-900 border-b-0">
+<div class="flex items-center gap-8">
+<h1 class="text-xl font-bold font-manrope text-[#1E293B] dark:text-white">Variant Forge</h1>
+<nav class="hidden md:flex items-center gap-6">
+<a class="font-inter text-sm text-[#565e74] dark:text-white border-b-2 border-[#565e74] pb-1" href="#">Campaigns</a>
+<a class="font-inter text-sm text-slate-500 dark:text-slate-400 hover:text-[#565e74] transition-colors" href="#">Templates</a>
+<a class="font-inter text-sm text-slate-500 dark:text-slate-400 hover:text-[#565e74] transition-colors" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined text-[#565e74] p-2 hover:bg-[#e6eeff] rounded-md transition-all">notifications</button>
+<button class="material-symbols-outlined text-[#565e74] p-2 hover:bg-[#e6eeff] rounded-md transition-all">help</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<button class="text-sm font-semibold px-4 py-2 bg-primary text-on-primary rounded-md hover:opacity-80 transition-all">Export All</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant/20 object-cover" data-alt="Professional headshot of a creative director in a minimalist studio, neutral tones, high-end editorial photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDroPpgqHoTzcU_T3K8Xnknm1DQHcloRE4E5ujdD-pkjPEG0ggAu3m07PiPnqJkkVZrL1M_3c4V-WMormmd1XqmhRFPtoafCXEK1uGJcKiZAGW1QVZyxxzKiwewBiaxG_eKPeg3VKfrLSb3hpslVOzIBcuAXNwpXCQl_X17k4NbYMXW8XzmG8VCUXxHkmHc_PiIatY0qRqU0quyCA08xVCOTucld4BYRGh2Cs1VkBMA9xFZRd9UWCOS3G1DHwCdGuBiZG0nk7poZuDZ"/>
+</div>
+</header>
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 gap-4 bg-[#f8f9ff] dark:bg-slate-950 w-64 shrink-0 overflow-y-auto">
+<div class="mb-4 px-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">auto_awesome</span>
+</div>
+<div>
+<div class="font-manrope font-extrabold text-[#565e74] text-sm leading-tight">Summer Launch</div>
+<div class="font-inter text-[10px] text-slate-500 uppercase tracking-widest">Q3 Marketing Blitz</div>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-[#e6eeff] dark:bg-slate-800 text-[#565e74] dark:text-white font-semibold rounded-md transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Current Forge</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">edit_note</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Drafts</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">architecture</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">A/B Tests</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">leaderboard</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Performance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">folder_open</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Assets</span>
+</a>
+</nav>
+<button class="mt-4 w-full py-3 bg-primary text-on-primary rounded-md font-bold font-manrope text-sm tracking-wide shadow-sm active:scale-[0.98] transition-all">
+                New Variant
+            </button>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Account</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-500 dark:text-slate-400 hover:bg-[#e6eeff]/50 hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="font-inter text-xs font-medium uppercase tracking-wider">Log Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 overflow-y-auto bg-surface-container-low p-6 space-y-6">
+<!-- (1) Status Hero -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="md:col-span-3 bg-surface-container-lowest p-6 rounded-xl border-l-4 border-tertiary flex items-center justify-between shadow-sm">
+<div class="space-y-1">
+<h2 class="font-headline text-2xl font-extrabold text-on-surface">Summer Launch Forge</h2>
+<p class="font-body text-sm text-on-surface-variant max-w-md leading-relaxed">System has generated <span class="font-bold text-on-surface">1,248</span> variants across 5 template archetypes. Your current approval rate is within target parameters.</p>
+</div>
+<div class="flex gap-8 items-center pr-4">
+<div class="text-center">
+<div class="text-3xl font-headline font-bold text-primary">422</div>
+<div class="font-label text-[10px] uppercase tracking-tighter text-on-surface-variant font-semibold">Approved</div>
+</div>
+<div class="h-10 w-[1px] bg-outline-variant/20"></div>
+<div class="text-center">
+<div class="text-3xl font-headline font-bold text-tertiary">94.2%</div>
+<div class="font-label text-[10px] uppercase tracking-tighter text-on-surface-variant font-semibold">Campaign Health</div>
+</div>
+</div>
+</div>
+<!-- (4) Next-Best Action Card -->
+<div class="bg-primary text-on-primary p-6 rounded-xl flex flex-col justify-between shadow-md relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-8xl">rocket_launch</span>
+</div>
+<div class="z-10">
+<div class="font-label text-[10px] uppercase font-bold text-primary-fixed-dim mb-2 tracking-widest">Priority Action</div>
+<h3 class="font-headline font-bold text-lg leading-tight">Ready for Deployment</h3>
+</div>
+<button class="z-10 mt-4 bg-surface-container-lowest text-primary py-2 px-4 rounded font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-white transition-colors">
+<span>Export 10 to Meta</span>
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- (2) Priority/Work Items Panel -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-sm flex flex-col overflow-hidden h-[600px]">
+<div class="p-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-bright">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">view_list</span>
+<h3 class="font-headline font-bold text-on-surface">Variant Queue</h3>
+<span class="px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">30 PENDING</span>
+</div>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-low rounded-md transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low rounded-md transition-all text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">search</span>
+</button>
+</div>
+</div>
+<div class="overflow-y-auto flex-1">
+<table class="w-full text-left border-separate border-spacing-y-2 px-4">
+<thead class="sticky top-0 bg-surface-container-lowest z-10">
+<tr>
+<th class="py-3 px-4 font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Copy Variant</th>
+<th class="py-3 px-2 font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70">Length</th>
+<th class="py-3 px-2 font-label text-[10px] uppercase tracking-wider text-on-surface-variant opacity-70 text-center">Score</th>
+<th class="py-3 px-4 text-right"></th>
+</tr>
+</thead>
+<tbody>
+<!-- Repeating rows for 12-30 items -->
+<tr class="bg-surface hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-tertiary">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">Scale Your Dreams Fast</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Experience professional growth with our unified platform for modern creators.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-on-surface-variant">24/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-tertiary-container bg-tertiary/5 text-tertiary text-xs font-bold">92</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-primary-dim">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">The Architect's Toolkit</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Precision instruments for the digital workspace, built for durability.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-on-surface-variant">22/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant/30 bg-primary/5 text-primary text-xs font-bold">88</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-error">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">Don't Miss Out! Buy Now</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Last chance to grab our summer special before it's gone for good.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-error">21/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-error-container bg-error/5 text-error text-xs font-bold">45</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+<!-- Fill with more mock data rows to reach 12-30 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-tertiary">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">Effortless Workflow Integration</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Connect your existing tech stack in seconds with our API first approach.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-on-surface-variant">32/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-tertiary-container bg-tertiary/5 text-tertiary text-xs font-bold">91</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-tertiary">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">Institutional Grade Security</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Bank-level encryption for your creative assets and campaign data.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-on-surface-variant">28/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-tertiary-container bg-tertiary/5 text-tertiary text-xs font-bold">95</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer group rounded-lg">
+<td class="py-4 px-4 rounded-l-lg border-l-2 border-primary-dim">
+<div class="font-headline font-bold text-sm text-on-surface mb-0.5">Reimagine Digital Strategy</div>
+<div class="font-body text-xs text-on-surface-variant line-clamp-1">Transform how you reach your audience with data-driven insights.</div>
+</td>
+<td class="py-4 px-2">
+<span class="text-xs font-mono text-on-surface-variant">25/110</span>
+</td>
+<td class="py-4 px-2 text-center">
+<div class="inline-flex items-center justify-center h-8 w-8 rounded-full border border-outline-variant/30 bg-primary/5 text-primary text-xs font-bold">82</div>
+</td>
+<td class="py-4 px-4 rounded-r-lg text-right">
+<button class="opacity-0 group-hover:opacity-100 bg-tertiary text-on-tertiary text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded transition-all">Approve</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- (3) Supporting Analysis + (5) Summary Rail -->
+<div class="lg:col-span-4 space-y-6">
+<!-- (3) Detail Analysis -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant/10 bg-surface-bright flex items-center justify-between">
+<h3 class="font-headline font-bold text-on-surface text-sm">Deep Audit: Variant #082</h3>
+<span class="material-symbols-outlined text-sm text-on-surface-variant">insights</span>
+</div>
+<div class="p-6 space-y-6">
+<!-- Heat Map Prediction -->
+<div class="space-y-3">
+<div class="flex justify-between items-end">
+<div class="font-label text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Predicted Heat Map</div>
+<div class="text-xs font-bold text-tertiary">HIGH CONVERSION</div>
+</div>
+<div class="h-16 w-full rounded-lg relative overflow-hidden flex bg-surface-container">
+<div class="h-full w-1/4 bg-[#e6eeff]"></div>
+<div class="h-full w-1/4 bg-[#ccd4ee]"></div>
+<div class="h-full w-1/4 bg-[#565e74] relative">
+<div class="absolute inset-0 bg-tertiary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-xl" style="font-variation-settings: 'FILL' 1;">visibility</span>
+</div>
+</div>
+<div class="h-full w-1/4 bg-[#ccd4ee]"></div>
+</div>
+<div class="flex justify-between text-[8px] font-label uppercase tracking-widest text-on-surface-variant">
+<span>HOOK</span>
+<span>VALUE PROP</span>
+<span>CTA</span>
+<span>TRUST</span>
+</div>
+</div>
+<!-- Constraint Audit -->
+<div class="space-y-4">
+<div class="font-label text-[10px] uppercase font-bold text-on-surface-variant tracking-widest">Constraint Compliance</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2 rounded bg-tertiary/5 border-l-2 border-tertiary">
+<span class="text-[11px] font-medium">Negative Keyword Check</span>
+<span class="material-symbols-outlined text-tertiary text-sm">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-tertiary/5 border-l-2 border-tertiary">
+<span class="text-[11px] font-medium">Character Limit (Headline)</span>
+<span class="material-symbols-outlined text-tertiary text-sm">check_circle</span>
+</div>
+<div class="flex items-center justify-between p-2 rounded bg-error/5 border-l-2 border-error">
+<span class="text-[11px] font-medium">Brand Tone: Boldness</span>
+<div class="flex items-center gap-1">
+<span class="text-[9px] font-bold text-error">NEEDS EDGE</span>
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- (5) Summary Rail -->
+<div class="bg-surface-container-high rounded-xl p-5 space-y-5">
+<div class="space-y-1">
+<h3 class="font-headline font-bold text-on-surface-variant text-xs uppercase tracking-widest">Campaign Anchors</h3>
+<p class="text-[11px] text-on-secondary-fixed-variant leading-relaxed">Constraints inherited from 'Summer Global' parent campaign.</p>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10">
+<div class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Max Length</div>
+<div class="text-sm font-headline font-bold text-on-surface">40 Chars</div>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/10">
+<div class="text-[10px] text-on-surface-variant font-bold uppercase mb-1">Brand Voice</div>
+<div class="text-sm font-headline font-bold text-on-surface">Bold</div>
+</div>
+</div>
+<div class="p-3 bg-inverse-surface rounded-lg text-white">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm">history</span>
+<div class="text-[10px] font-bold uppercase tracking-widest text-inverse-on-surface">Recent Exports</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-400">2h ago — Meta Ads</span>
+<span class="font-bold">12 Variants</span>
+</div>
+<div class="w-full h-[1px] bg-white/10"></div>
+<div class="flex justify-between items-center text-[10px]">
+<span class="text-slate-400">Yesterday — Google Ads</span>
+<span class="font-bold">24 Variants</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
