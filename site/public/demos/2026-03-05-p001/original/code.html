@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catalyst Calendar Triage | Sovereign Analyst</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-low": "#f2f4ef",
+              "secondary-fixed": "#d1e4ff",
+              "tertiary-dim": "#1f5e44",
+              "surface-bright": "#f9faf5",
+              "secondary-fixed-dim": "#bdd7f9",
+              "on-secondary-fixed-variant": "#445d7b",
+              "on-tertiary-container": "#27654a",
+              "primary": "#545e76",
+              "on-tertiary-fixed": "#105239",
+              "on-secondary": "#f7f9ff",
+              "on-error": "#fff7f6",
+              "surface-dim": "#d3ddd3",
+              "inverse-surface": "#0c0f0d",
+              "primary-container": "#d7e2ff",
+              "surface-container-high": "#e4eae2",
+              "on-primary-fixed-variant": "#515c73",
+              "surface-variant": "#dde5dc",
+              "primary-fixed-dim": "#c9d4f0",
+              "on-primary-fixed": "#353f56",
+              "on-error-container": "#752121",
+              "secondary": "#48617e",
+              "on-tertiary": "#e6ffee",
+              "on-background": "#2d342f",
+              "inverse-on-surface": "#9c9d9a",
+              "background": "#f9faf5",
+              "on-secondary-container": "#3a5470",
+              "surface-container": "#ebefe9",
+              "on-primary-container": "#475269",
+              "error-dim": "#4e0309",
+              "inverse-primary": "#d7e2ff",
+              "surface-container-highest": "#dde5dc",
+              "on-secondary-fixed": "#27415d",
+              "error": "#9f403d",
+              "outline-variant": "#acb4ac",
+              "on-primary": "#f7f7ff",
+              "outline": "#757d76",
+              "on-tertiary-fixed-variant": "#336f54",
+              "secondary-container": "#d1e4ff",
+              "primary-dim": "#48526a",
+              "tertiary-container": "#beffdc",
+              "surface-tint": "#545e76",
+              "primary-fixed": "#d7e2ff",
+              "on-surface": "#2d342f",
+              "tertiary-fixed-dim": "#b1f0ce",
+              "surface": "#f9faf5",
+              "error-container": "#fe8983",
+              "on-surface-variant": "#59615a",
+              "tertiary": "#2d6a4f",
+              "tertiary-fixed": "#beffdc",
+              "secondary-dim": "#3c5572",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-[#f9faf5] dark:bg-[#0c0f0d] fixed top-0 z-50 w-full px-8 h-16 flex justify-between items-center shadow-none border-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#0d1b2a] dark:text-[#f9faf5] tracking-tighter font-headline">Sovereign Analyst</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="font-headline font-semibold tracking-tight text-[#545e76] dark:text-[#f7f7ff] border-b-2 border-[#545e76] dark:border-[#f7f7ff] pb-1 transition-colors duration-150" href="#">Catalyst Calendar</a>
+<a class="font-headline font-semibold tracking-tight text-[#acb4ac] dark:text-[#545e76] hover:text-[#0d1b2a] dark:hover:text-[#ffffff] transition-colors duration-150" href="#">Semiconductor Scoreboard</a>
+<a class="font-headline font-semibold tracking-tight text-[#acb4ac] dark:text-[#545e76] hover:text-[#0d1b2a] dark:hover:text-[#ffffff] transition-colors duration-150" href="#">FalsifyFast</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative flex items-center bg-surface-container-high px-3 py-1.5 rounded-md">
+<span class="material-symbols-outlined text-outline text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-label w-48" placeholder="Quick Ticker Search" type="text"/>
+</div>
+<span class="material-symbols-outlined text-[#545e76] cursor-pointer hover:scale-95 transition-transform duration-150">notifications</span>
+<span class="material-symbols-outlined text-[#545e76] cursor-pointer hover:scale-95 transition-transform duration-150">settings</span>
+<img alt="Analyst Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Close-up professional portrait of a male analyst in a neutral setting with soft natural window lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkpG0trTluwTVIcfP-fb46YY82nhGAyiFdKDseg9-f5i1frK95_ubRO5guBYp1mzE4Q8Qs0DnidQ8HyimOehimK2b592mUQnxA2LZltNiWqT8aGZSvuZQaegC5Sshi_nCVzhESKKDE616_3uuRnxtRCxb5G5GvUMiw6iUsep0mNHbudiiUC7a6Qe8YSbLK3dm2GVmFKwhR7ZNvUSQk4_jI1cHACBaRQyCmUJ13PBky3sANRrvsROG-3_dDhQRztAId3DXv-bk9DxA"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-16 bg-[#f2f4ef] dark:bg-[#141714] flex flex-col py-6 px-4 z-40">
+<div class="mb-8 px-2">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm">terminal</span>
+</div>
+<h2 class="font-headline font-extrabold text-[#0d1b2a] text-lg">Research Terminal</h2>
+</div>
+<p class="text-xs text-on-surface-variant font-medium uppercase tracking-widest opacity-70">Institutional Grade</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 text-[#2d342f] dark:text-[#acb4ac] opacity-70 hover:bg-[#e4eae2] dark:hover:bg-[#1a1d1a]" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="font-body text-sm">Portfolio Overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 text-[#2d342f] dark:text-[#acb4ac] opacity-70 hover:bg-[#e4eae2] dark:hover:bg-[#1a1d1a]" href="#">
+<span class="material-symbols-outlined text-lg">monitoring</span>
+<span class="font-body text-sm">Active Tickers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 bg-[#ffffff] dark:bg-[#0c0f0d] text-[#0d1b2a] dark:text-[#f9faf5] font-bold border-r-4 border-[#545e76]" href="#">
+<span class="material-symbols-outlined text-lg">biotech</span>
+<span class="font-body text-sm">Project Alpha</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 text-[#2d342f] dark:text-[#acb4ac] opacity-70 hover:bg-[#e4eae2] dark:hover:bg-[#1a1d1a]" href="#">
+<span class="material-symbols-outlined text-lg">query_stats</span>
+<span class="font-body text-sm">Risk Models</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-md transition-all duration-150 text-[#2d342f] dark:text-[#acb4ac] opacity-70 hover:bg-[#e4eae2] dark:hover:bg-[#1a1d1a]" href="#">
+<span class="material-symbols-outlined text-lg">history</span>
+<span class="font-body text-sm">Archive</span>
+</a>
+</nav>
+<button class="mt-4 w-full bg-primary text-on-primary py-2.5 rounded-md font-headline font-bold text-sm hover:bg-primary-dim transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+            New Analysis
+        </button>
+<div class="mt-auto space-y-1 pt-6 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-3 py-2 transition-all duration-150 text-[#2d342f] opacity-70 hover:opacity-100" href="#">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+<span class="font-body text-sm">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 transition-all duration-150 text-[#2d342f] opacity-70 hover:opacity-100" href="#">
+<span class="material-symbols-outlined text-lg">description</span>
+<span class="font-body text-sm">Documentation</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="ml-64 mt-16 p-8 min-h-screen bg-surface">
+<div class="max-w-[1400px] mx-auto grid grid-cols-12 gap-8">
+<!-- (1) Status Hero: Triage Momentum -->
+<section class="col-span-12 flex flex-col md:flex-row gap-6 mb-4">
+<div class="flex-1 bg-surface-container-low p-8 rounded-lg relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-8xl">bolt</span>
+</div>
+<div class="relative z-10">
+<h1 class="font-headline text-3xl font-extrabold text-on-surface mb-2 tracking-tight">Triage Momentum</h1>
+<p class="text-on-surface-variant font-body max-w-lg">You are tracking 14 active tickers. Triage completion for next week is at <span class="text-tertiary font-bold">82%</span>.</p>
+<div class="mt-6 flex gap-12">
+<div>
+<span class="block text-4xl font-headline font-bold text-primary">09</span>
+<span class="text-xs font-label uppercase tracking-widest text-outline">Upcoming Events</span>
+</div>
+<div>
+<span class="block text-4xl font-headline font-bold text-error">03</span>
+<span class="text-xs font-label uppercase tracking-widest text-outline">High Impact</span>
+</div>
+<div>
+<span class="block text-4xl font-headline font-bold text-tertiary">02</span>
+<span class="text-xs font-label uppercase tracking-widest text-outline">Promoted Today</span>
+</div>
+</div>
+</div>
+</div>
+<div class="w-full md:w-80 bg-primary p-8 rounded-lg text-on-primary flex flex-col justify-between">
+<div>
+<h3 class="font-headline font-bold text-lg leading-tight mb-2">Promote to Deep Research</h3>
+<p class="text-sm opacity-80 font-body">NVDA Q3 Earnings data suggests a significant shift in enterprise AI spend patterns.</p>
+</div>
+<button class="mt-4 bg-on-primary text-primary px-4 py-2 rounded font-headline font-bold text-xs uppercase tracking-wider hover:bg-secondary-fixed transition-colors">
+                        Open Project Alpha
+                    </button>
+</div>
+</section>
+<!-- (2) Priority/Work Items: Catalyst Queue -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest p-6 rounded-lg shadow-sm">
+<div class="flex justify-between items-end mb-6">
+<div>
+<h2 class="font-headline text-xl font-bold text-on-surface">Catalyst Queue</h2>
+<p class="text-xs font-label text-outline">72-Hour Horizon Analysis</p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 bg-surface-container text-xs font-bold rounded-md hover:bg-surface-container-high transition-colors">Export CSV</button>
+<button class="px-3 py-1.5 bg-surface-container text-xs font-bold rounded-md hover:bg-surface-container-high transition-colors">Filters</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30">
+<th class="pb-3 font-label text-xs uppercase tracking-widest text-outline font-semibold">Event / Date</th>
+<th class="pb-3 font-label text-xs uppercase tracking-widest text-outline font-semibold text-center">Ticker</th>
+<th class="pb-3 font-label text-xs uppercase tracking-widest text-outline font-semibold text-center">Confidence</th>
+<th class="pb-3 font-label text-xs uppercase tracking-widest text-outline font-semibold text-center">Impact Weight</th>
+<th class="pb-3 font-label text-xs uppercase tracking-widest text-outline font-semibold text-right">Triage Status</th>
+</tr>
+</thead>
+<tbody class="font-body text-sm">
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="py-4 align-middle">
+<span class="block font-semibold text-on-surface">NVDA Q3 Earnings Call</span>
+<span class="text-xs text-on-surface-variant">Nov 22, 2023 • 16:30 EST</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label font-bold text-xs">NVDA</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="font-label text-tertiary font-bold">88%</span>
+</td>
+<td class="py-4 text-center align-middle">
+<div class="flex justify-center gap-0.5">
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+</div>
+</td>
+<td class="py-4 text-right align-middle">
+<span class="bg-tertiary-container text-tertiary px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider">Analyzed</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="py-4 align-middle">
+<span class="block font-semibold text-on-surface">ASML New Product Intro</span>
+<span class="text-xs text-on-surface-variant">Nov 23, 2023 • 09:00 CET</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label font-bold text-xs">ASML</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="font-label text-on-surface-variant font-bold">64%</span>
+</td>
+<td class="py-4 text-center align-middle">
+<div class="flex justify-center gap-0.5">
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+</div>
+</td>
+<td class="py-4 text-right align-middle">
+<span class="bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider">Pending</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="py-4 align-middle">
+<span class="block font-semibold text-on-surface">AMD AI Accelerator Summit</span>
+<span class="text-xs text-on-surface-variant">Nov 24, 2023 • 10:00 PST</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label font-bold text-xs">AMD</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="font-label text-error font-bold">42%</span>
+</td>
+<td class="py-4 text-center align-middle">
+<div class="flex justify-center gap-0.5">
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+<div class="w-1 h-3 bg-outline-variant"></div>
+</div>
+</td>
+<td class="py-4 text-right align-middle">
+<span class="bg-error-container text-error px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider">High Risk</span>
+</td>
+</tr>
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="py-4 align-middle">
+<span class="block font-semibold text-on-surface">INTC Foundry Services Day</span>
+<span class="text-xs text-on-surface-variant">Nov 25, 2023 • 13:00 EST</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="bg-surface-container-high px-2 py-1 rounded font-label font-bold text-xs">INTC</span>
+</td>
+<td class="py-4 text-center align-middle">
+<span class="font-label text-tertiary font-bold">92%</span>
+</td>
+<td class="py-4 text-center align-middle">
+<div class="flex justify-center gap-0.5">
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+<div class="w-1 h-3 bg-primary"></div>
+</div>
+</td>
+<td class="py-4 text-right align-middle">
+<span class="bg-tertiary-container text-tertiary px-2 py-0.5 rounded-sm text-[10px] font-bold uppercase tracking-wider">Analyzed</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- (5) Summary Rail -->
+<aside class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Research Capacity -->
+<div class="bg-surface-container-high p-6 rounded-lg">
+<h3 class="font-headline font-bold text-on-surface mb-4">Research Capacity</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-label mb-1.5">
+<span class="text-on-surface-variant">Daily Bandwidth</span>
+<span class="font-bold">4.5 / 8 hrs</span>
+</div>
+<div class="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[56%]"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-2">
+<div class="bg-surface-container-lowest p-3 rounded">
+<span class="block text-xs text-outline font-label uppercase">Backlog</span>
+<span class="text-xl font-headline font-bold">12 items</span>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded">
+<span class="block text-xs text-outline font-label uppercase">Avg. Triage</span>
+<span class="text-xl font-headline font-bold">14 min</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Notes -->
+<div class="bg-surface-container-lowest p-6 rounded-lg border-l-4 border-primary shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline font-bold text-on-surface">Recent Notes</h3>
+<span class="material-symbols-outlined text-outline text-lg">edit_note</span>
+</div>
+<div class="space-y-4">
+<div class="pb-3 border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-primary uppercase">NVDA • Yesterday</span>
+<p class="text-xs text-on-surface leading-relaxed mt-1 italic">"H100 supply chain checks indicate lead times shortening faster than anticipated. Possible margin tailwind."</p>
+</div>
+<div class="pb-3 border-b border-outline-variant/10">
+<span class="text-[10px] font-label font-bold text-primary uppercase">AMD • 2h ago</span>
+<p class="text-xs text-on-surface leading-relaxed mt-1 italic">"MI300 ramp remains the focal point. Triage suggests neutral impact unless multi-year roadmaps shift."</p>
+</div>
+<button class="w-full text-center text-xs font-bold text-primary py-2 hover:underline">View All Research Logs</button>
+</div>
+</div>
+</aside>
+<!-- (3) Impact Clustering Section -->
+<section class="col-span-12">
+<div class="flex items-center gap-4 mb-6">
+<h2 class="font-headline text-xl font-bold text-on-surface">Impact Clustering by Sector</h2>
+<div class="h-px flex-1 bg-outline-variant/20"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Cluster Card: Data Center AI -->
+<div class="bg-surface-container p-5 rounded-lg border border-transparent hover:border-outline-variant/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">hub</span>
+</div>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-2 py-0.5 rounded">High Density</span>
+</div>
+<h4 class="font-headline font-bold text-on-surface mb-1">Data Center &amp; AI</h4>
+<p class="text-xs text-on-surface-variant font-body mb-4">4 catalysts converging in the next 96 hours. Potential for sector-wide volatility.</p>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">NVDA</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">AMD</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">MSFT</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">+1</div>
+</div>
+</div>
+<!-- Cluster Card: Edge Computing -->
+<div class="bg-surface-container p-5 rounded-lg border border-transparent hover:border-outline-variant/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">router</span>
+</div>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] font-bold px-2 py-0.5 rounded">Low Density</span>
+</div>
+<h4 class="font-headline font-bold text-on-surface mb-1">Edge Computing</h4>
+<p class="text-xs text-on-surface-variant font-body mb-4">2 catalysts detected. ARM earnings and AAPL supply chain revisions.</p>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">ARM</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">AAPL</div>
+</div>
+</div>
+<!-- Cluster Card: Automotive Semi -->
+<div class="bg-surface-container p-5 rounded-lg border border-transparent hover:border-outline-variant/40 transition-all">
+<div class="flex justify-between items-start mb-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+</div>
+<span class="bg-tertiary-container text-tertiary text-[10px] font-bold px-2 py-0.5 rounded">Emerging</span>
+</div>
+<h4 class="font-headline font-bold text-on-surface mb-1">Automotive Semi</h4>
+<p class="text-xs text-on-surface-variant font-body mb-4">New regulatory filings for ON and MCHP. Potential breakout signal.</p>
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">ON</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">MCHP</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border-2 border-surface-container flex items-center justify-center text-[10px] font-bold">NXPI</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Suppressed for this specific triage dashboard layout to maintain workbench focus) -->
+<!-- Not rendering FAB per suppression rules for focused transactional/triage views -->
+</body></html>
