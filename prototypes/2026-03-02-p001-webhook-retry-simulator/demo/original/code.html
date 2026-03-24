@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RetrySim - Webhook Retry Simulator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Manrope:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#006f66",
+              "on-tertiary-fixed-variant": "#7d2d00",
+              "primary": "#2a14b4",
+              "tertiary-fixed": "#ffdbcd",
+              "on-primary-container": "#c1beff",
+              "inverse-primary": "#c3c0ff",
+              "on-secondary-fixed-variant": "#005049",
+              "outline-variant": "#c7c4d7",
+              "surface": "#f9f9ff",
+              "on-surface-variant": "#464554",
+              "on-error-container": "#93000a",
+              "on-background": "#111c2d",
+              "on-surface": "#111c2d",
+              "surface-variant": "#d8e3fb",
+              "tertiary-fixed-dim": "#ffb597",
+              "tertiary": "#692400",
+              "inverse-on-surface": "#ecf1ff",
+              "primary-container": "#4338ca",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-container": "#8f3400",
+              "primary-fixed-dim": "#c3c0ff",
+              "on-tertiary": "#ffffff",
+              "surface-container-low": "#f0f3ff",
+              "on-error": "#ffffff",
+              "surface-container-highest": "#d8e3fb",
+              "surface-tint": "#5148d7",
+              "surface-dim": "#cfdaf2",
+              "secondary": "#006a61",
+              "on-primary": "#ffffff",
+              "error": "#ba1a1a",
+              "primary-fixed": "#e3dfff",
+              "secondary-container": "#86f2e4",
+              "on-secondary": "#ffffff",
+              "background": "#f9f9ff",
+              "inverse-surface": "#263143",
+              "outline": "#777586",
+              "surface-bright": "#f9f9ff",
+              "on-primary-fixed": "#100069",
+              "on-primary-fixed-variant": "#372abf",
+              "on-secondary-fixed": "#00201d",
+              "surface-container-high": "#dee8ff",
+              "surface-container": "#e7eeff",
+              "on-tertiary-fixed": "#360f00",
+              "secondary-fixed": "#89f5e7",
+              "secondary-fixed-dim": "#6bd8cb",
+              "error-container": "#ffdad6",
+              "on-tertiary-container": "#ffb393"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Manrope"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .label-text { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="w-full sticky top-0 z-50 bg-slate-50 dark:bg-slate-950 flex justify-between items-center px-6 py-3 w-full font-inter antialiased tracking-tight">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-indigo-900 dark:text-indigo-100">RetrySim</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-indigo-700 dark:text-indigo-400 font-semibold transition-colors" href="#">Simulator</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 px-2 py-1 rounded transition-colors" href="#">Analytics</a>
+<a class="text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 px-2 py-1 rounded transition-colors" href="#">Webhooks</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-200/50 rounded-full transition-all active:scale-95">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-primary-container overflow-hidden">
+<img alt="User Profile Avatar" data-alt="Minimalist professional user avatar with abstract geometric patterns in shades of indigo and teal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMRUm_gQlfmTdEgAn6JYpQofyWgDv_wEsjBtfOCLTDf0ue4WOjpdIH-OXimlOuehrw4elYBQvG-rJKaNiDvoyk1sAX31NZf93YNFBYiiBHlpxkagpwTJd-dHiBX-3xyjPzpNe2ysUg3vxUFer8DmU4HL4zoYKlOiOuUzr30fkLcIiBST3Z8s7m0H5yalEhAkHe9Rxb0LWfe0vp3tlYdR92_NLGu4wt57I8B8dPbWgAEpqH9NUriXizhqGLWO72pH_S4EFHxCs-PW9O"/>
+</div>
+</div>
+</header>
+<div class="flex h-[calc(100vh-56px)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 flex-shrink-0 bg-slate-100 dark:bg-slate-900 border-r border-indigo-100/10 flex flex-col p-4 gap-2 font-manrope text-xs font-semibold tracking-wide uppercase">
+<div class="mb-6 px-2">
+<h2 class="text-indigo-800 dark:text-indigo-200 font-black text-sm">Project Alpha</h2>
+<p class="text-[10px] text-slate-500 tracking-widest mt-1">Production Cluster</p>
+</div>
+<div class="flex flex-col gap-1 mb-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-indigo-700 dark:text-indigo-300 bg-white dark:bg-slate-800 shadow-sm rounded-lg active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-lg">terminal</span>
+<span>Simulator</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-lg">receipt_long</span>
+<span>Live Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-lg">lan</span>
+<span>Endpoints</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-lg">layers</span>
+<span>Environments</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:bg-white/50 dark:hover:bg-slate-800/50 transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span>Settings</span>
+</a>
+</div>
+<div class="flex flex-col gap-1 pt-4 border-t border-slate-200/50">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-indigo-500 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">menu_book</span>
+<span>Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-indigo-500 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">contact_support</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-8 space-y-8 bg-surface">
+<!-- Status Hero (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-gradient-to-br from-primary to-primary-container p-8 rounded-xl text-white shadow-lg relative overflow-hidden">
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<span class="label-text text-[10px] uppercase tracking-[0.2em] text-on-primary-container font-bold">Current Success Rate</span>
+<h1 class="text-6xl font-black mt-2 tracking-tighter">94.2%</h1>
+<p class="text-on-primary-container mt-4 text-sm max-w-md">Checkout Webhook simulation running with 1,240 simulated events. Retry efficiency increased by 12% since last policy update.</p>
+</div>
+<div class="text-right">
+<span class="material-symbols-outlined text-5xl opacity-30">bolt</span>
+</div>
+</div>
+<!-- Abstract Background Graphic -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl flex flex-col justify-between">
+<div>
+<span class="label-text text-[10px] uppercase tracking-[0.2em] text-on-surface-variant font-bold">Simulation Health</span>
+<div class="mt-4 flex items-center gap-4">
+<div class="h-12 w-12 rounded-full border-4 border-secondary/30 border-t-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">sync</span>
+</div>
+<div>
+<p class="text-lg font-bold">Active</p>
+<p class="text-xs text-on-surface-variant">Worker node: cluster-01-a</p>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<button class="w-full py-2 bg-secondary text-on-secondary rounded-md font-bold text-xs label-text uppercase tracking-widest hover:brightness-110 transition-all">
+                            Restart Sim
+                        </button>
+</div>
+</div>
+</section>
+<!-- Simulator Config & Visualization -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Priority/Work Items Panel -->
+<div class="lg:col-span-4 bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="text-sm font-bold flex items-center gap-2 mb-6 uppercase tracking-wider text-primary">
+<span class="material-symbols-outlined text-lg">tune</span>
+                        Retry Policy
+                    </h3>
+<div class="space-y-6">
+<div class="space-y-2">
+<label class="label-text text-xs text-on-surface-variant font-bold">MAX ATTEMPTS</label>
+<input class="w-full accent-primary" max="10" min="1" type="range" value="4"/>
+<div class="flex justify-between text-[10px] font-bold text-slate-400">
+<span>1</span>
+<span>4 Attempts</span>
+<span>10</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="label-text text-xs text-on-surface-variant font-bold">BACKOFF CURVE</label>
+<div class="grid grid-cols-2 gap-2">
+<button class="py-2 px-3 text-[11px] font-bold border-2 border-primary text-primary rounded-md bg-primary-fixed">Exponential</button>
+<button class="py-2 px-3 text-[11px] font-bold border border-outline-variant/30 text-slate-500 rounded-md hover:bg-slate-50">Linear</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="label-text text-xs text-on-surface-variant font-bold">JITTER FACTOR (0.0 - 1.0)</label>
+<div class="bg-surface-container-highest rounded-md px-3 py-2 flex items-center justify-between">
+<span class="text-sm font-mono text-primary">0.15</span>
+<div class="flex gap-1">
+<button class="p-1 hover:bg-white rounded"><span class="material-symbols-outlined text-xs">add</span></button>
+<button class="p-1 hover:bg-white rounded"><span class="material-symbols-outlined text-xs">remove</span></button>
+</div>
+</div>
+</div>
+<div class="pt-4">
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-white py-3 rounded-md font-bold text-sm shadow-md active:scale-[0.98] transition-all">
+                                Apply Policy Update
+                            </button>
+</div>
+</div>
+</div>
+<!-- Analysis Visualization Section -->
+<div class="lg:col-span-8 space-y-6">
+<div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant/10 h-[400px] flex flex-col">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-sm font-bold label-text uppercase tracking-widest text-on-surface-variant">Latency vs. Success Tradeoff</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-1">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-bold text-slate-400">SUCCESS</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="h-2 w-2 rounded-full bg-error"></div>
+<span class="text-[10px] font-bold text-slate-400">FAILURE</span>
+</div>
+</div>
+</div>
+<!-- Visual Mockup of Timing Tradeoff -->
+<div class="flex-1 relative flex items-end gap-1 px-4">
+<div class="absolute inset-0 border-l border-b border-slate-100 flex flex-col justify-between pointer-events-none">
+<span class="text-[9px] text-slate-300 -ml-6">100%</span>
+<span class="text-[9px] text-slate-300 -ml-6">50%</span>
+<span class="text-[9px] text-slate-300 -ml-6">0%</span>
+</div>
+<!-- Bars -->
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative group cursor-help">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[85%] rounded-t-sm"></div>
+<div class="hidden group-hover:block absolute -top-8 left-1/2 -translate-x-1/2 bg-inverse-surface text-white text-[10px] px-2 py-1 rounded">R1: 85%</div>
+</div>
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[60%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[45%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-error/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-error h-[15%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[70%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[92%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-primary/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-primary h-[88%] rounded-t-sm"></div>
+</div>
+<div class="flex-1 h-3/4 bg-error/20 rounded-t-sm relative">
+<div class="absolute bottom-0 inset-x-0 bg-error h-[40%] rounded-t-sm"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 label-text text-[10px] text-slate-400 font-bold px-4">
+<span>T+0s</span>
+<span>T+10s</span>
+<span>T+100s</span>
+<span>T+1000s</span>
+</div>
+</div>
+<!-- Next-Best Action Card -->
+<div class="bg-surface-container-high p-4 rounded-xl flex items-center gap-6 border-l-4 border-primary">
+<div class="h-12 w-12 bg-white rounded-full flex items-center justify-center text-primary shadow-sm flex-shrink-0">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div class="flex-1">
+<h4 class="text-sm font-bold text-indigo-900">Optimization Suggested</h4>
+<p class="text-xs text-on-surface-variant">Increasing backoff from 2s to 5s for the 2nd attempt could reduce failure rate by 4.2% based on current target latency.</p>
+</div>
+<button class="px-4 py-2 bg-primary/10 text-primary text-[11px] font-bold rounded-md hover:bg-primary hover:text-white transition-all">
+                            Apply Suggestion
+                        </button>
+</div>
+</div>
+</section>
+</main>
+<!-- Summary Rail (Live Logs) -->
+<aside class="w-80 bg-white border-l border-outline-variant/10 flex flex-col">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center justify-between mb-2">
+<h3 class="text-xs font-bold label-text tracking-widest text-slate-400 uppercase">Live Stream</h3>
+<div class="h-2 w-2 rounded-full bg-secondary animate-pulse"></div>
+</div>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-slate-400 text-sm">search</span>
+<input class="w-full bg-surface text-xs pl-9 pr-4 py-2 rounded-md border-none focus:ring-1 focus:ring-primary/40" placeholder="Filter by event..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Log Entry 1 -->
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>EVT_0x821...</span>
+<span>14:02:11.432</span>
+</div>
+<div class="bg-slate-50 p-3 rounded-lg border-l-2 border-secondary">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-secondary">SUCCESS</span>
+<span class="text-[9px] bg-secondary/10 text-secondary px-1.5 rounded">Retry #2</span>
+</div>
+<p class="text-[11px] font-mono text-slate-700 leading-relaxed">checkout.session.completed</p>
+<p class="text-[9px] text-slate-400 mt-2">Target: https://api.storefront.com/hooks</p>
+</div>
+</div>
+<!-- Log Entry 2 -->
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>EVT_0x944...</span>
+<span>14:02:08.991</span>
+</div>
+<div class="bg-slate-50 p-3 rounded-lg border-l-2 border-error">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-error">FAILED</span>
+<span class="text-[9px] bg-error/10 text-error px-1.5 rounded">Retry #4</span>
+</div>
+<p class="text-[11px] font-mono text-slate-700 leading-relaxed">customer.subscription.deleted</p>
+<p class="text-[9px] text-slate-400 mt-2">Error: ETIMEDOUT (5000ms exceeded)</p>
+</div>
+</div>
+<!-- Log Entry 3 -->
+<div class="space-y-2">
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>EVT_0x221...</span>
+<span>14:01:59.002</span>
+</div>
+<div class="bg-slate-50 p-3 rounded-lg border-l-2 border-slate-300">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-slate-500">PENDING</span>
+<span class="text-[9px] bg-slate-200 text-slate-500 px-1.5 rounded">Initial</span>
+</div>
+<p class="text-[11px] font-mono text-slate-700 leading-relaxed">payment_intent.succeeded</p>
+<p class="text-[9px] text-slate-400 mt-2">Awaiting worker assignment...</p>
+</div>
+</div>
+<!-- Log Entry 4 -->
+<div class="space-y-2 opacity-60">
+<div class="flex justify-between text-[10px] font-mono text-slate-400">
+<span>EVT_0x771...</span>
+<span>14:01:45.118</span>
+</div>
+<div class="bg-slate-50 p-3 rounded-lg border-l-2 border-secondary">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold text-secondary">SUCCESS</span>
+<span class="text-[9px] bg-secondary/10 text-secondary px-1.5 rounded">Retry #1</span>
+</div>
+<p class="text-[11px] font-mono text-slate-700 leading-relaxed">invoice.paid</p>
+</div>
+</div>
+</div>
+<div class="p-4 bg-slate-50 text-center">
+<button class="text-[11px] font-bold text-primary hover:underline uppercase tracking-widest">
+                    Open Full Logs
+                </button>
+</div>
+</aside>
+</div>
+</body></html>
