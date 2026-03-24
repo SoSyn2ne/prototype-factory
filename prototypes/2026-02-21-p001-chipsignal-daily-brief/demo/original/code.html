@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ChipSignal Daily Brief | SRE Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#b4002b",
+                        "on-secondary-fixed-variant": "#624000",
+                        "on-secondary": "#452b00",
+                        "on-tertiary": "#680014",
+                        "tertiary": "#ffe7e6",
+                        "primary-fixed": "#9cf0ff",
+                        "on-error": "#690005",
+                        "surface-container-high": "#282a2d",
+                        "on-primary": "#00363d",
+                        "inverse-primary": "#006875",
+                        "on-background": "#e2e2e6",
+                        "on-surface": "#e2e2e6",
+                        "tertiary-fixed": "#ffdad9",
+                        "secondary-container": "#feaa00",
+                        "on-tertiary-fixed-variant": "#920021",
+                        "inverse-surface": "#e2e2e6",
+                        "primary-fixed-dim": "#00daf3",
+                        "surface-container-highest": "#333538",
+                        "primary": "#c3f5ff",
+                        "surface-container-lowest": "#0c0e11",
+                        "on-surface-variant": "#bac9cc",
+                        "on-primary-container": "#00626e",
+                        "surface": "#111316",
+                        "surface-bright": "#37393d",
+                        "error-container": "#93000a",
+                        "surface-dim": "#111316",
+                        "on-tertiary-fixed": "#400009",
+                        "on-secondary-fixed": "#291800",
+                        "secondary-fixed-dim": "#ffb950",
+                        "surface-container-low": "#1a1c1f",
+                        "primary-container": "#00e5ff",
+                        "inverse-on-surface": "#2f3034",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#ffb3b3",
+                        "surface-variant": "#333538",
+                        "background": "#111316",
+                        "secondary-fixed": "#ffddb3",
+                        "on-primary-fixed": "#001f24",
+                        "surface-container": "#1e2023",
+                        "on-secondary-container": "#684300",
+                        "on-primary-fixed-variant": "#004f58",
+                        "outline-variant": "#3b494c",
+                        "tertiary-container": "#ffc1c0",
+                        "outline": "#849396",
+                        "surface-tint": "#00daf3",
+                        "secondary": "#ffcf8f",
+                        "on-error-container": "#ffdad6"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #111316;
+            color: #e2e2e6;
+            font-family: 'Inter', sans-serif;
+        }
+        .monospaced {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+        .kinetic-border {
+            box-shadow: inset 0 0 0 1px rgba(132, 147, 150, 0.1);
+        }
+    </style>
+</head>
+<body class="overflow-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-14 bg-[#0c0f0d] border-b border-[#acb4ac]/15">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-[#beffdc] uppercase font-['Manrope']">ChipSignal</span>
+<div class="hidden md:flex gap-6">
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#beffdc] border-b-2 border-[#beffdc] pb-1" href="#">Market</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#acb4ac] hover:text-[#ffffff] transition-colors" href="#">Sectors</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#acb4ac] hover:text-[#ffffff] transition-colors" href="#">Node Data</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-sm text-[#acb4ac] hover:text-[#ffffff] transition-colors" href="#">Supply Chain</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2 mr-4">
+<button class="p-2 text-[#545e76] hover:bg-[#1a2a3a] duration-150 ease-out active:scale-95"><span class="material-symbols-outlined" data-icon="terminal">terminal</span></button>
+<button class="p-2 text-[#545e76] hover:bg-[#1a2a3a] duration-150 ease-out active:scale-95"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<button class="p-2 text-[#545e76] hover:bg-[#1a2a3a] duration-150 ease-out active:scale-95 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-1.5 h-1.5 bg-error rounded-full"></span>
+</button>
+</div>
+<img alt="User SRE profile" class="w-8 h-8 grayscale contrast-125 border border-outline-variant" data-alt="Close-up portrait of a technical operator with sharp lighting and high contrast, cybernetic aesthetic, monochromatic tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCtbVidyK7O1-9TxoQqmAxbZGbTAWY7LbVkpy7vA_LuPfFyXP_cROBhotk8PhVqWGeTes__4Blw3LUGtMCHEehBoXOdbfwYpaxMjZCpgid1qgIDOO_TxfKiDoAlzdHrixfHlQBIeRx1JqqYUnuC6Yn12SyM3gAb1auLFbI61n6T9nZRLCRzXee_fwya54KyX3WJeklYzQWQ5uWCdXOXN6CtoPF9E8zIBIgLi3bIHkoAtsHydYOOMKW4Pqf3xPa1BxQpAj7D1b-rWao"/>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col z-40 bg-[#0c0f0d] border-r border-[#acb4ac]/10 w-64">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-highest flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="account_tree">account_tree</span>
+</div>
+<div>
+<p class="font-headline text-xs font-medium uppercase tracking-widest text-primary">Operator-01</p>
+<p class="font-label text-[10px] text-outline uppercase tracking-tighter">Tier 3 Access</p>
+</div>
+</div>
+</div>
+<div class="flex-1 py-4">
+<nav class="space-y-1">
+<a class="flex items-center gap-4 px-6 py-3 bg-[#1a2a3a] text-[#beffdc] border-l-4 border-[#2d6a4f] font-headline text-xs font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="dashboard">dashboard</span> Dashboard
+                </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:bg-[#13202d] hover:text-white transition-all font-headline text-xs font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="rss_feed">rss_feed</span> Live Feed
+                </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:bg-[#13202d] hover:text-white transition-all font-headline text-xs font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="inventory_2">inventory_2</span> Portfolio
+                </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:bg-[#13202d] hover:text-white transition-all font-headline text-xs font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="security">security</span> Risk Logs
+                </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:bg-[#13202d] hover:text-white transition-all font-headline text-xs font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="analytics">analytics</span> Reports
+                </a>
+</nav>
+</div>
+<div class="p-4 bg-surface-container-lowest/50">
+<button class="w-full bg-primary-container text-on-primary-fixed py-3 font-headline text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                Generate Brief <span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
+</button>
+</div>
+<div class="mt-auto border-t border-outline-variant/10">
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:text-white font-headline text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="lan">lan</span> System Health
+            </a>
+<a class="flex items-center gap-4 px-6 py-3 text-[#acb4ac] hover:text-white font-headline text-[10px] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="contact_support">contact_support</span> Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-14 p-6 h-[calc(100vh-3.5rem)] overflow-y-auto bg-surface">
+<div class="max-w-[1600px] mx-auto grid grid-cols-12 gap-6">
+<!-- Header Section -->
+<header class="col-span-12 flex items-end justify-between mb-2">
+<div>
+<h1 class="font-headline text-4xl font-extrabold tracking-tighter uppercase text-white">Daily Briefing <span class="text-primary-fixed-dim">/ / 0924</span></h1>
+<p class="font-label text-sm text-outline tracking-widest uppercase mt-1">Sector: Global Semiconductor | Region: US/KR | Focus: HBM3e &amp; Logic Foundry</p>
+</div>
+<div class="text-right">
+<div class="monospaced text-[10px] text-primary tracking-widest bg-primary/10 px-2 py-1 inline-block border border-primary/20">SYSTEM_TIME: 2024.09.24_14:30_KST</div>
+</div>
+</header>
+<!-- Status Hero: Daily Signal Score (Bento Main) -->
+<section class="col-span-12 lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-9xl" data-icon="sensors">sensors</span>
+</div>
+<label class="font-label text-[10px] uppercase tracking-[0.2em] text-outline block mb-4">Sentiment Engine Score</label>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-7xl font-bold text-primary tracking-tighter">84</span>
+<span class="font-headline text-xl text-primary/60 font-medium">/ 100</span>
+</div>
+<div class="mt-6 flex items-center gap-4">
+<div class="flex-1 h-2 bg-surface-container-lowest">
+<div class="h-full bg-gradient-to-r from-primary to-primary-fixed-dim w-[84%] relative">
+<div class="absolute right-0 top-0 h-full w-0.5 bg-white shadow-[0_0_10px_#fff]"></div>
+</div>
+</div>
+<span class="font-label text-[10px] uppercase text-primary">Bullish Bias</span>
+</div>
+<p class="mt-6 text-sm text-on-surface-variant leading-relaxed max-w-md">
+                        Institutional inflow for <span class="text-white font-medium">NVDA</span> and <span class="text-white font-medium">SK Hynix</span> remains robust. Machine-learning inference suggests a <span class="text-primary-fixed-dim">12.4% probability</span> of supply chain disruption within 48 hours.
+                    </p>
+</div>
+<!-- Portfolio Summary Rail (Internal) -->
+<div class="bg-surface-container-low p-6 flex flex-col justify-between">
+<div>
+<label class="font-label text-[10px] uppercase tracking-[0.2em] text-outline block mb-4">Active Watchlist Metrics</label>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="monospaced text-xs font-bold text-white">NVDA.NAS</span>
+<span class="monospaced text-xs text-primary-fixed-dim">+2.41%</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="monospaced text-xs font-bold text-white">TSM.NYS</span>
+<span class="monospaced text-xs text-primary-fixed-dim">+1.18%</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="monospaced text-xs font-bold text-white">000660.KS</span>
+<span class="monospaced text-xs text-error">-0.82%</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/10">
+<span class="monospaced text-xs font-bold text-white">ASML.NAS</span>
+<span class="monospaced text-xs text-primary-fixed-dim">+0.54%</span>
+</div>
+</div>
+</div>
+<div class="pt-4 flex justify-between items-center">
+<span class="font-label text-[10px] text-outline uppercase tracking-widest">Portfolio Beta</span>
+<span class="font-headline text-lg font-bold text-white">1.42</span>
+</div>
+</div>
+</section>
+<!-- Summary Rail / Action Card -->
+<section class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-primary-container p-6 flex flex-col justify-between min-h-[220px]">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-on-primary-fixed text-4xl" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label text-[10px] bg-on-primary-fixed text-primary px-2 py-1 uppercase tracking-widest font-bold">Priority Alpha</span>
+</div>
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-primary-fixed leading-tight mb-2">Generate Smart Briefing</h3>
+<p class="text-on-primary-fixed-variant text-sm mb-4">Synthesize 4.2k news items into a single SRE-ready summary for the KR market opening.</p>
+<button class="w-full bg-on-primary-fixed text-primary px-6 py-3 font-headline text-xs font-bold uppercase tracking-widest hover:bg-on-primary-fixed-variant transition-colors">Start Analysis</button>
+</div>
+</div>
+<div class="bg-surface-container p-6 flex-1 border-l-4 border-secondary-container">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary" data-icon="warning">warning</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-secondary font-bold">Severity Alert: Level 2</span>
+</div>
+<h4 class="font-headline text-white text-lg font-bold mb-2">HBM3e Thermal Ceiling Issue</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Early telemetry from Hynix validation labs suggests minor yields issues in the 12-layer stack process. Potential impact on <span class="text-white">Q4 delivery schedules</span>.</p>
+<div class="mt-4 flex gap-2">
+<span class="text-[10px] font-mono bg-surface-container-high px-2 py-1 text-outline">#SUPPLY_CHAIN</span>
+<span class="text-[10px] font-mono bg-surface-container-high px-2 py-1 text-outline">#YIELD_RISK</span>
+</div>
+</div>
+</section>
+<!-- Priority Work Items -->
+<section class="col-span-12 lg:col-span-7">
+<div class="bg-surface-container p-1 mb-1 bg-gradient-to-r from-outline-variant/20 to-transparent">
+<h2 class="font-label text-xs uppercase tracking-[0.3em] text-outline p-2 px-4">Work Queue: High Priority</h2>
+</div>
+<div class="space-y-1">
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-4 flex gap-6 items-center group">
+<div class="monospaced text-[10px] text-outline bg-surface-container-lowest p-2 w-20 text-center">01. ALRT</div>
+<div class="flex-1">
+<h4 class="font-headline text-sm font-bold text-white uppercase tracking-tight group-hover:text-primary-fixed-dim transition-colors">US Commerce Dept Export Control Update</h4>
+<p class="text-xs text-on-surface-variant mt-1">Reviewing potential adjustments to 4090D-class compute export restrictions for SEA region.</p>
+</div>
+<div class="text-right">
+<div class="font-label text-[10px] text-outline uppercase mb-1">Status</div>
+<div class="font-label text-[10px] text-secondary font-bold uppercase tracking-widest">Active Investigation</div>
+</div>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-4 flex gap-6 items-center group">
+<div class="monospaced text-[10px] text-outline bg-surface-container-lowest p-2 w-20 text-center">02. CAPX</div>
+<div class="flex-1">
+<h4 class="font-headline text-sm font-bold text-white uppercase tracking-tight group-hover:text-primary-fixed-dim transition-colors">Foundry Capacity Utilization: Arizona Fab 1</h4>
+<p class="text-xs text-on-surface-variant mt-1">N3P node ramp-up reaching 85% threshold. Equipment lead times extending to 14 months.</p>
+</div>
+<div class="text-right">
+<div class="font-label text-[10px] text-outline uppercase mb-1">Status</div>
+<div class="font-label text-[10px] text-primary font-bold uppercase tracking-widest">Nominal</div>
+</div>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container transition-colors p-4 flex gap-6 items-center group">
+<div class="monospaced text-[10px] text-outline bg-surface-container-lowest p-2 w-20 text-center">03. GEOP</div>
+<div class="flex-1">
+<h4 class="font-headline text-sm font-bold text-white uppercase tracking-tight group-hover:text-primary-fixed-dim transition-colors">Taiwan Energy Grid Resilience Report</h4>
+<p class="text-xs text-on-surface-variant mt-1">Analysis of upcoming maintenance window impact on Science Park power stability.</p>
+</div>
+<div class="text-right">
+<div class="font-label text-[10px] text-outline uppercase mb-1">Status</div>
+<div class="font-label text-[10px] text-outline font-bold uppercase tracking-widest">Queued</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Supporting Analysis: Supply Chain Map -->
+<section class="col-span-12 lg:col-span-5">
+<div class="bg-surface-container-low h-full flex flex-col">
+<div class="p-4 border-b border-outline-variant/10 flex justify-between items-center">
+<h2 class="font-label text-xs uppercase tracking-[0.2em] text-white">Logic Node Geographic Density</h2>
+<span class="material-symbols-outlined text-outline text-lg" data-icon="language">language</span>
+</div>
+<div class="flex-1 relative bg-[#0c0e11] min-h-[300px] overflow-hidden">
+<img alt="World map with data visualization overlays" class="absolute inset-0 w-full h-full object-cover opacity-20 grayscale scale-110" data-alt="Digital world map in dark charcoal tones with glowing neon blue and cyan data points highlighting global semiconductor manufacturing hubs" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfnrzGpUtelobZvcv8h2MykhXbtaiXg7q9-Mszb2iM1DN9CB2qXubTX0i_MYR71B6leZuXz860DjJFHzhXo_hS_tnT25Lcxq_0uS6upDx0EC-EyOOq19-d1ZC5osnKwcwdYfLjoMOhlp7CH1AUS71KBDKnAWDkcRMOXSorDvLTcJyzSYvTJixnndHqk1V1J7MGjAlJEUOuttO4QRr8-mHtS1WAyIsTnTKOk1b2V7X6IXGkluyXfv3rEs2MjM0lq60J5jsopqfskC4"/>
+<div class="absolute inset-0 p-6 flex flex-col justify-end">
+<div class="bg-surface-container/80 backdrop-blur-md p-4 border border-outline-variant/30">
+<div class="flex items-center justify-between mb-2">
+<span class="monospaced text-[10px] text-primary uppercase">Region focus: Taiwan / Korea</span>
+<span class="monospaced text-[10px] text-on-surface-variant">Live Telemetry</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary-fixed-dim shadow-[0_0_8px_#00daf3]"></div>
+<span class="text-[10px] monospaced text-on-surface uppercase">Hsinchu Park: Optimal</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_#ffcf8f]"></div>
+<span class="text-[10px] monospaced text-on-surface uppercase">Pyeongtaek Campus: Maintenance</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Hud Overlays (Glassmorphism Floating Elements) -->
+<div class="fixed bottom-6 right-6 z-50 flex flex-col gap-4">
+<div class="bg-surface-container-highest/60 backdrop-blur-xl p-4 border border-outline-variant/20 shadow-2xl min-w-[280px]">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label text-[10px] text-primary uppercase font-bold tracking-widest">Global Compute Load</span>
+<span class="monospaced text-[10px] text-primary">LIVE</span>
+</div>
+<div class="space-y-3">
+<div>
+<div class="flex justify-between text-[10px] monospaced text-outline mb-1 uppercase">
+<span>L40S Cluster A</span>
+<span>92%</span>
+</div>
+<div class="h-1 bg-surface-container-lowest">
+<div class="h-full bg-primary w-[92%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] monospaced text-outline mb-1 uppercase">
+<span>H100 Node 04-12</span>
+<span>41%</span>
+</div>
+<div class="h-1 bg-surface-container-lowest">
+<div class="h-full bg-secondary w-[41%]"></div>
+</div>
+</div>
+</div>
+</div>
+<button class="bg-surface-bright p-4 flex items-center justify-center gap-3 border border-outline-variant/40 hover:bg-surface-container-highest transition-colors group">
+<span class="material-symbols-outlined text-primary group-hover:rotate-12 transition-transform" data-icon="psychology_alt">psychology_alt</span>
+<span class="font-headline text-[10px] font-bold uppercase tracking-widest text-white">Ask Signal-Bot</span>
+</button>
+</div>
+</body></html>
