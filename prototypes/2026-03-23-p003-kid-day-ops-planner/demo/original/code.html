@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kid Day Ops Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed": "#b3fefe",
+              "on-background": "#37331e",
+              "on-error-container": "#671200",
+              "on-surface": "#37331e",
+              "surface-dim": "#e3dab9",
+              "surface-variant": "#ebe2c4",
+              "surface": "#fff9eb",
+              "on-secondary-fixed": "#005152",
+              "on-tertiary-fixed-variant": "#645100",
+              "secondary": "#146a6b",
+              "primary": "#954b00",
+              "on-tertiary-container": "#594700",
+              "tertiary-fixed-dim": "#ebc31d",
+              "outline": "#817b61",
+              "error": "#aa371c",
+              "error-dim": "#821a01",
+              "error-container": "#fa7150",
+              "on-secondary": "#e0ffff",
+              "primary-container": "#ffaf75",
+              "on-primary-fixed-variant": "#6e3600",
+              "tertiary-dim": "#645100",
+              "tertiary-fixed": "#fbd12f",
+              "on-primary-fixed": "#421e00",
+              "tertiary": "#735d00",
+              "on-secondary-fixed-variant": "#1d6f70",
+              "primary-fixed-dim": "#ff9b4c",
+              "background": "#fff9eb",
+              "inverse-primary": "#f68a2f",
+              "surface-container-lowest": "#ffffff",
+              "surface-tint": "#954b00",
+              "inverse-on-surface": "#a29d8c",
+              "primary-fixed": "#ffaf75",
+              "on-error": "#fff7f6",
+              "on-primary-container": "#612f00",
+              "surface-bright": "#fff9eb",
+              "on-surface-variant": "#655f47",
+              "secondary-fixed-dim": "#a5eff0",
+              "primary-dim": "#834100",
+              "outline-variant": "#b9b296",
+              "secondary-container": "#b3fefe",
+              "surface-container-high": "#f0e8cc",
+              "on-tertiary": "#fff8ee",
+              "on-primary": "#fff7f4",
+              "on-secondary-container": "#096466",
+              "surface-container": "#f5eed5",
+              "on-tertiary-fixed": "#423500",
+              "surface-container-highest": "#ebe2c4",
+              "surface-container-low": "#fbf3dd",
+              "secondary-dim": "#005d5e",
+              "inverse-surface": "#100e05",
+              "tertiary-container": "#fbd12f"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Be Vietnam Pro"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Be Vietnam Pro', sans-serif; background-color: #fff9eb; color: #37331e; }
+        h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .active-pill { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-24 md:pb-0 md:pt-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-full">
+<div class="flex items-center gap-4">
+<span class="text-xl font-extrabold tracking-tight text-slate-800 dark:text-slate-100">Kid Day Ops</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-blue-700 dark:text-blue-400 font-bold border-b-2 border-blue-600" href="#">Dashboard</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 transition-colors duration-300" href="#">Timeline</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 transition-colors duration-300" href="#">Logistics</a>
+<a class="text-slate-500 dark:text-slate-400 hover:text-slate-800 transition-colors duration-300" href="#">Alerts</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800/50 rounded-full transition-colors duration-300">
+<span class="material-symbols-outlined text-slate-600">notifications</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-primary-container">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="Close up of a friendly female user avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG6_uWQj8fTrV8SvC4Oci6TSl45t3JrxwCckVHxH8ksQ1TIwW8SwfFU38PA3h9pB9C-wYgP-4sLfVrf_CFFaSd9cakaNLra8bjuyxvwZ7mZOCZlGVzRJXC65HzJhJuAqf0f1CripaUd2x5gcBCDaMnqiYkfAE5nFkccl7W_Ub9UgTkPWfFNDfXGbWCQpdOFdjMPmxpc0fjIxuJSe6_OO6YsA1SEGJ3h52ePfjcmvWEMde9HF3V9ykXGh7Njz3bTOappeqpJiqIIQg"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex max-w-[1600px] mx-auto min-h-screen">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden lg:flex flex-col p-4 space-y-2 h-screen w-64 border-r border-slate-200 sticky top-0 bg-slate-50 pt-20">
+<div class="px-4 py-6">
+<h2 class="text-lg font-bold text-blue-800">Day Ops Center</h2>
+<p class="text-sm text-on-surface-variant font-medium">Family Logistics Hub</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-blue-700 font-bold shadow-sm rounded-lg hover:translate-x-1 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">event_note</span>
+<span>Daily Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-lg hover:translate-x-1 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Handoff Map</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-lg hover:translate-x-1 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined">lunch_dining</span>
+<span>Meal Prep</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-lg hover:translate-x-1 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span>Transport</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-200/50 rounded-lg hover:translate-x-1 duration-200 transition-transform" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Safety Protocols</span>
+</a>
+</nav>
+<button class="mt-auto mx-4 mb-8 py-3 px-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-bold rounded-xl shadow-md active:scale-95 transition-all">
+                Add New Event
+            </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 p-4 md:p-8 bg-surface">
+<!-- Glance-Bar -->
+<div class="flex items-center justify-between mb-8 bg-surface-container-low/90 backdrop-blur-md px-6 py-3 rounded-xl border border-outline-variant/15">
+<div class="flex items-center gap-4">
+<div class="flex -space-x-3">
+<img alt="Family member" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Young boy profile picture avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRjbNfdcKeb19uH1jJwTTIzn6LX7CxC736hByeUMKdu3Nns--2HPtU_9gOCSD4zqzQ6sidjbfIiH97D2_T6tEuzY8Q8F24BV9ogjgmr0rnSUrsowZyzpkWGmthnF5Qce09obaKmDRFINu3B9opAHqoJsvFM0Nq5uTLTelZjgdXkj3UE1kpuz_qCdCoxv5ZsZmr73VGMmhciuhtsrxbz-ew8kSq4iHa3sddEJGoFURGO6p3wui-DOmJEZY-UFkl7G-ecvl4-2KUyHE"/>
+<img alt="Family member" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Mom profile picture avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRiXyfH8mDyErt4WRLJBDkPBMh-nUEjEZtm3oS76X1-vu3-F88FQjufloGfAdiV0-jrPv-CNhMrHsY7EP_LXKpMVODsAOkHrIYPAxUtBaaWMZVFcU_4-MiayGErPN_NP3qCG8p-bnfqh0X6kVhOLjqkxPOodpaY6XeWU9nQrknQBeiacGbj__VL_zrJVmm3ejF4-TWE96MpGvf_QUXn6ufNv_Y0oDAVI0IZU4pYvd7ZnOZBY1u-hjDJiTCzmu3cbun5R-mwQtJMWE"/>
+<img alt="Family member" class="w-10 h-10 rounded-full border-2 border-white" data-alt="Dad profile picture avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQhLYZTN2TeZvDdv04mlzT2QPhUlYEHZEHtkHOR_68O2NkVN54EpCyd0fh9sKTAt6rNX6NZC26mdxhCUSLRJV4rlsh50FvMRi-kKM5a6vrv8zYYLMQ5A3iyfhedh6CYwiBOrc7_tBw1NFLi7105d21SNv0Tpw1UsxPZNjyqoAwR3o2mcu6FQf7o-76LQhwLcrAm2vCl867ntjoXTv8X--eDWrkt8a-OnQfSGw1Go7V4y-bVq5gQ_lNRYBGEYIL223--in4M9EkFuc"/>
+</div>
+<span class="text-sm font-semibold text-on-surface">3 active today</span>
+</div>
+<h1 class="text-2xl font-bold text-primary tracking-tight">Today: Tuesday, Oct 24</h1>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- 1. Daily Timeline Hero (Large span) -->
+<section class="md:col-span-8 bg-surface-container-lowest rounded-xl p-6 shadow-sm border border-outline-variant/10">
+<h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span>
+                        Daily Ops Timeline
+                    </h3>
+<div class="relative flex flex-col gap-8 ml-4">
+<div class="absolute top-0 bottom-0 left-[11px] w-0.5 border-l-2 border-dotted border-outline-variant/40"></div>
+<!-- Morning -->
+<div class="relative flex items-center gap-6 group">
+<div class="w-6 h-6 rounded-full bg-primary ring-4 ring-primary/20 z-10 flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl group-hover:bg-primary/5 transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-xs font-bold text-primary uppercase tracking-widest">7:00am - 9:00am</span>
+<span class="text-xs bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full">Active</span>
+</div>
+<p class="text-lg font-bold">Morning Routine</p>
+<p class="text-sm text-on-surface-variant">Breakfast, bag check, and school preparation.</p>
+</div>
+</div>
+<!-- School -->
+<div class="relative flex items-center gap-6 group">
+<div class="w-6 h-6 rounded-full bg-secondary ring-4 ring-secondary/20 z-10 flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl group-hover:bg-secondary/5 transition-colors">
+<span class="text-xs font-bold text-secondary uppercase tracking-widest">9:00am - 3:00pm</span>
+<p class="text-lg font-bold">School Hours</p>
+<p class="text-sm text-on-surface-variant">Central Elementary - Classroom 4B.</p>
+</div>
+</div>
+<!-- Soccer -->
+<div class="relative flex items-center gap-6 group">
+<div class="w-6 h-6 rounded-full bg-tertiary ring-4 ring-tertiary/20 z-10 flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl group-hover:bg-tertiary/5 transition-colors">
+<span class="text-xs font-bold text-tertiary uppercase tracking-widest">4:00pm - 5:00pm</span>
+<p class="text-lg font-bold">Soccer Practice</p>
+<p class="text-sm text-on-surface-variant">Community Fields, Field 3. Bring cleats!</p>
+</div>
+</div>
+<!-- Dinner -->
+<div class="relative flex items-center gap-6 group">
+<div class="w-6 h-6 rounded-full bg-outline-variant ring-4 ring-outline-variant/20 z-10 flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-white"></span>
+</div>
+<div class="flex-1 bg-surface-container-low p-4 rounded-xl group-hover:bg-slate-200/50 transition-colors">
+<span class="text-xs font-bold text-on-surface-variant uppercase tracking-widest">6:00pm</span>
+<p class="text-lg font-bold">Dinner</p>
+<p class="text-sm text-on-surface-variant">Home - Family Meal (Pasta Night).</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Owner Map & Responsibilities -->
+<section class="md:col-span-4 bg-surface-container rounded-xl p-6 shadow-sm">
+<h3 class="text-xl font-bold mb-6">Staffing &amp; Handoffs</h3>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 border-l-4 border-primary">
+<img alt="Mom" class="w-12 h-12 rounded-full" data-alt="Profile photo of Mom avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0NnaLin9vOELWzP5wE8KASCdLCwkCap6fqNCwWm5IDNnZ3IA3JKuUMl1j0C22KcaG3HQA1fxT_QJt-oSZM6cXYh5GRlpDEeVqTYwU2Yl2MVNadRLhGgDZ0hdl8QLRQXunV7g1GJcynhmV2cOf67cxtD4rm3H-vUtpWg7erqW7NAKw2WzrgiTSDi74KnOM4YlJUGhRTvabs17Y7QjNvUgAxtxRSVsczNVHEr5iynBoIPWQ68wjI6pTGfQo4rIKee8d3i7Wb8lcZ68"/>
+<div>
+<p class="font-bold">Mom</p>
+<p class="text-sm text-on-surface-variant">Drop-off (8:15am)</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 border-l-4 border-secondary">
+<img alt="Dad" class="w-12 h-12 rounded-full" data-alt="Profile photo of Dad avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcOUOl8wdiM726gwI_1kuNEeh7kW99Tw1OpBuNTRn9x7OzZeXO9TwfQSJnjdSAXjsSwqqSCzi-EnNEOcJHODxxucFmum0t1a7WG46XiIibrlAOXP34gBv0XuExlAQkFkLszz0Lu3baZA_FeLE8z7TpFnVXGiU7tjBUlX0MMVWJ7X3u2OpN-WfJJucx4cWUZb1uSA0J8SoyYNmmTsDWmC1uhxzbJtCwK-2ZlX4jVnvqRbQZIbenlxTFPKMlFr_jz8c1Gz0DgFuD8do"/>
+<div>
+<p class="font-bold">Dad</p>
+<p class="text-sm text-on-surface-variant">Pickup (3:15pm)</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center gap-4 border-l-4 border-tertiary">
+<img alt="Grandparent" class="w-12 h-12 rounded-full" data-alt="Profile photo of Grandparent avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVAkC5gXqw6HsS4q4pRt5xVon2JD4pPsP3DfLKn7fgT2TkbSTqnSUnCvh2sFNsde1FVw6ZsDKF8qTtf0lybzAXnl73tPsWCF93-3Qo_bft3R9wpcM62TdhuVuUmIsAqLeDA5QKnHqWy3-D337VzNZvE22nvWvT4iSRRe-klvVylOMGi2k5_-H97yFWZSxLYZN4r6RpHcg42eA7BRb2scU_OV96bWOyK8awrcu9jMfDCXsRq4aSAeG9mjohDT7TcXzkb9A7SP9i_Oc"/>
+<div>
+<p class="font-bold">Grandparent</p>
+<p class="text-sm text-on-surface-variant">After-school snack</p>
+</div>
+</div>
+</div>
+<!-- Contextual Mini Map -->
+<div class="mt-6 h-32 w-full rounded-xl overflow-hidden grayscale opacity-80 border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="Simple city map showing school and home locations" data-location="Chicago" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQaAecegMoAVwtmD2jgHC13d4jGjn9ca_8dPvMtWX8FuRavQ24o7inIA3U1fx8CKaCJ0_chdBy97qoh_JkfC3TATY5XZoJ2T2eDwlfeF8J6BJewlStyIjPDsseX5eoNPct7ajMNmCixjLayvDHVwUacYaWvl5q4KKfir3tSi5Fs9f8C2NTEkXFgnWvxJYy2GLn4y_SzpT2GVgHbxyKTDlH5Cg3qKT5eKHyE66xAKdi1KKdUQcrsdEd0fgXtM7OtqtjFjEnEOi0SSk"/>
+</div>
+</section>
+<!-- 3. Meal-and-bag Checklist -->
+<section class="md:col-span-4 bg-surface-container-low rounded-xl p-6 border border-outline-variant/10">
+<h3 class="text-lg font-bold mb-4">Gear Checklist</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 bg-white rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium">Lunch packed</span>
+</div>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">YES</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-white rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-green-600" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-medium">Water bottle</span>
+</div>
+<span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">YES</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-secondary-container rounded-lg border border-secondary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">error</span>
+<span class="font-medium text-on-secondary-container">Soccer cleats</span>
+</div>
+<span class="text-xs font-bold text-secondary bg-white px-2 py-1 rounded">MISSING</span>
+</div>
+</div>
+</section>
+<!-- 4. Transport Plan & 5. Risk Alerts -->
+<section class="md:col-span-4 bg-surface-container-high rounded-xl p-6 shadow-sm">
+<h3 class="text-lg font-bold mb-4">Transport Hub</h3>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-white p-3 rounded-xl shadow-sm text-center">
+<p class="text-[10px] font-bold text-primary uppercase">8:15am Drop</p>
+<p class="font-bold text-lg">Dad</p>
+</div>
+<div class="bg-white p-3 rounded-xl shadow-sm text-center">
+<p class="text-[10px] font-bold text-secondary uppercase">3:15pm Pick</p>
+<p class="font-bold text-lg">Mom</p>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3 p-3 bg-error-container/20 rounded-lg border border-error/10">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<p class="text-sm font-bold text-on-error-container">Late pickup possible</p>
+<p class="text-xs text-on-error-container/80">Traffic on Main St is heavy.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-100">
+<span class="material-symbols-outlined text-blue-600" style="font-variation-settings: 'FILL' 1;">umbrella</span>
+<div>
+<p class="text-sm font-bold text-blue-900">Rain forecast</p>
+<p class="text-xs text-blue-800/80">Need umbrella at 3:00pm.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. Contingency Notes -->
+<section class="md:col-span-4 bg-tertiary-container/30 rounded-xl p-6 border border-tertiary/20">
+<h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">assignment_late</span>
+                        Contingency
+                    </h3>
+<div class="p-4 bg-white/60 backdrop-blur-sm rounded-xl italic text-on-tertiary-container font-medium">
+                        "If late, Aunt Sarah can pick up at 3:30pm. Her number is 555-0123."
+                    </div>
+<div class="mt-6">
+<button class="w-full py-2 border-2 border-dashed border-tertiary/40 rounded-lg text-tertiary font-bold text-sm hover:bg-tertiary/10 transition-colors">
+                            + Add Backup Contact
+                        </button>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-white z-50 rounded-t-2xl shadow-[0_-4px_12px_rgba(0,0,0,0.05)] border-t border-slate-100">
+<a class="flex flex-col items-center justify-center bg-blue-50 text-blue-700 rounded-xl px-3 py-1 scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="text-[11px] font-semibold">Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="text-[11px] font-semibold">Map</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors" href="#">
+<span class="material-symbols-outlined">restaurant</span>
+<span class="text-[11px] font-semibold">Meals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 hover:text-blue-500 transition-colors" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="text-[11px] font-semibold">Risks</span>
+</a>
+</footer>
+</body></html>

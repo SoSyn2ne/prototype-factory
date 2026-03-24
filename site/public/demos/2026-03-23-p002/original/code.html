@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TaxPack KR - Rent Tax Credit Packager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=Be+Vietnam+Pro:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed-dim": "#bab7e6",
+              "outline": "#747c81",
+              "on-tertiary-container": "#3f3e66",
+              "primary": "#306290",
+              "secondary": "#526170",
+              "on-tertiary-fixed-variant": "#48476f",
+              "on-secondary-fixed": "#32414f",
+              "surface": "#f7f9fc",
+              "error-dim": "#67040d",
+              "error": "#a83836",
+              "on-background": "#2c3338",
+              "on-error-container": "#6e0a12",
+              "secondary-fixed": "#d5e4f7",
+              "surface-dim": "#d4dbe1",
+              "surface-variant": "#dce3e9",
+              "on-surface": "#2c3338",
+              "on-secondary-fixed-variant": "#4e5d6c",
+              "tertiary": "#5d5b85",
+              "on-primary-fixed": "#002e4f",
+              "inverse-primary": "#9bcbff",
+              "background": "#f7f9fc",
+              "primary-fixed-dim": "#8ebdf0",
+              "on-secondary": "#f6f9ff",
+              "error-container": "#fa746f",
+              "tertiary-fixed": "#c8c4f5",
+              "tertiary-dim": "#514f78",
+              "on-primary-fixed-variant": "#124c79",
+              "primary-container": "#9bcbff",
+              "outline-variant": "#acb3b9",
+              "secondary-container": "#d5e4f7",
+              "inverse-on-surface": "#9a9da0",
+              "primary-fixed": "#9bcbff",
+              "surface-tint": "#306290",
+              "surface-container-lowest": "#ffffff",
+              "on-surface-variant": "#596065",
+              "secondary-fixed-dim": "#c7d6e8",
+              "primary-dim": "#215684",
+              "surface-bright": "#f7f9fc",
+              "on-primary-container": "#00436f",
+              "on-error": "#fff7f6",
+              "inverse-surface": "#0b0f11",
+              "secondary-dim": "#465564",
+              "surface-container-low": "#f0f4f8",
+              "tertiary-container": "#c8c4f5",
+              "on-secondary-container": "#455362",
+              "on-primary": "#f7f9ff",
+              "on-tertiary": "#fbf7ff",
+              "surface-container-high": "#e3e9ee",
+              "surface-container-highest": "#dce3e9",
+              "on-tertiary-fixed": "#2b2a50",
+              "surface-container": "#e9eef3"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fc; color: #2c3338; }
+        h1, h2, h3, .font-headline { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm flex justify-between items-center px-6 py-3 max-w-full mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-orange-600 dark:text-orange-500 font-['Plus_Jakarta_Sans']">TaxPack KR</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-orange-700 dark:text-orange-400 border-b-2 border-orange-600 pb-1 font-semibold" href="#">Dashboard</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-orange-500 font-semibold transition-colors" href="#">My Documents</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-orange-500 font-semibold transition-colors" href="#">Filing Status</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-orange-500 font-semibold transition-colors" href="#">Support</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors rounded-full active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-600" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden ring-2 ring-orange-100">
+<img alt="User profile avatar" data-alt="Professional user profile avatar headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_cAcrFx3aQOPYwQPG2hhB7itUeniEv7vd4WqBZeY-2198rPFnMp2E4UFXDfinnxShYATHBJ9huR_tg1PWYIPH1hk5pRYmpMJt14bVowrT-ySDAvT-JhXXXgWSQOrNw-GaxxS6-SANfDBwydf2URKs0FWW1D5pOyhTVK7l96t4P5kic8HwjP70b8-ki77Ev-PmG2GtaRpjZXdVoRWkqSvuHqNDDVlS9jgGhxW0CtYfi0jQMlEaaIaawkRkqcfUXxpUkCgRwWeMFW0"/>
+</div>
+</div>
+</nav>
+<div class="flex pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col p-4 gap-2 h-screen w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 font-['Be_Vietnam_Pro'] text-sm">
+<div class="px-3 py-6 mb-4 flex flex-col gap-1">
+<div class="w-12 h-12 bg-orange-100 rounded-xl mb-3 flex items-center justify-center">
+<span class="material-symbols-outlined text-orange-600" data-icon="person">person</span>
+</div>
+<h3 class="text-lg font-bold text-slate-900 dark:text-white">Kim Min-jun</h3>
+<p class="text-slate-500 dark:text-slate-400">Filing Year: 2023</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 font-bold rounded-xl transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span>Eligibility</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span>Payments</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-900 rounded-xl transition-all ease-in-out hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span>Submission</span>
+</a>
+</nav>
+<div class="mt-auto pb-8">
+<button class="w-full bg-primary text-white py-3 rounded-xl font-bold shadow-lg shadow-primary/20 hover:bg-primary-dim transition-all active:scale-95">
+                    Start New Claim
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-surface p-6 md:p-10">
+<div class="max-w-6xl mx-auto space-y-10">
+<!-- (1) Filing readiness hero -->
+<section class="relative bg-gradient-to-br from-primary to-primary-dim rounded-2xl p-8 text-on-primary overflow-hidden shadow-xl">
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-center gap-8">
+<div class="space-y-4 max-w-lg">
+<span class="text-primary-fixed-dim font-bold tracking-widest text-xs uppercase">Current Status: 2023 Filing</span>
+<h1 class="text-4xl md:text-5xl font-headline font-extrabold leading-tight">Your Refund is <br/><span class="text-primary-container">75% Complete</span></h1>
+<p class="text-primary-fixed opacity-90 text-lg">We just need your lease agreement to finalize the calculation and maximize your tax credit.</p>
+<button class="inline-flex items-center gap-2 bg-surface-container-lowest text-primary font-bold px-8 py-4 rounded-xl hover:bg-primary-container transition-colors shadow-lg">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+                                Upload Lease Agreement
+                            </button>
+</div>
+<div class="relative flex flex-col items-center">
+<div class="w-48 h-48 rounded-full border-8 border-primary-container/30 flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full -rotate-90">
+<circle class="text-primary-container" cx="96" cy="96" fill="none" r="88" stroke="currentColor" stroke-dasharray="553" stroke-dashoffset="138" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="text-center">
+<span class="text-5xl font-extrabold font-headline">75%</span>
+<p class="text-xs uppercase tracking-widest opacity-70">Ready</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Background abstract texture -->
+<div class="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
+<img alt="Abstract gradient" class="w-full h-full object-cover" data-alt="Abstract soft blue gradient pattern" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeLe7yhfZM5u8xpeYLGjdqwHPEBpMbNyC9H7Jkrp8azgXEFr9AF17Ko07FdNa7ot4lJ-3ec_5f49C_1io2SmCURsyKLH7FdO7HsX46Ebi8FYBNq1NQhQp8mjA4_CtS6KTl0Ru-8Hu2NFJ1J-Up7eBkg5Cn744E5SvARoW_ECS_kGYzhlMPQCrLkdVWBTVqKpnZWHXW0WY1vikkh_DgDB74BawZHRc6Zlefbh4NhWkacFuFNXThsFTeXlN72ExdfwNCQAeH7Od0MIE"/>
+</div>
+</section>
+<!-- (2) & (3) Bento Grid for Eligibility & Checklist -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- (2) Eligibility summary -->
+<div class="md:col-span-5 bg-surface-container-low rounded-2xl p-6 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-headline font-bold">Eligibility Check</h2>
+<span class="material-symbols-outlined text-outline-variant" data-icon="info">info</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="home">home</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">Household Status</p>
+<p class="font-bold">Resident Household Head</p>
+</div>
+</div>
+<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">ELIGIBLE</span>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="payments">payments</span>
+</div>
+<div>
+<p class="text-xs text-on-surface-variant font-medium">Income Threshold</p>
+<p class="font-bold">Annual Income &lt; 70M KRW</p>
+</div>
+</div>
+<span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">PENDING</span>
+</div>
+</div>
+<p class="text-xs text-on-surface-variant italic">Data synced from National Tax Service via Toss Bank OAuth.</p>
+</div>
+<!-- (3) Document checklist -->
+<div class="md:col-span-7 bg-surface-container-low rounded-2xl p-6 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-headline font-bold">Document Checklist</h2>
+<span class="text-xs text-primary font-bold">2/4 Complete</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-xl border-l-4 border-green-500">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-green-600" data-icon="description">description</span>
+<span class="text-[10px] font-bold text-green-600 uppercase">UPLOADED</span>
+</div>
+<p class="mt-2 font-bold text-sm">Lease Agreement</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border-l-4 border-error">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-error" data-icon="badge">badge</span>
+<span class="text-[10px] font-bold text-error uppercase">MISSING</span>
+</div>
+<p class="mt-2 font-bold text-sm">Resident Registration</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border-l-4 border-green-500">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-green-600" data-icon="account_balance">account_balance</span>
+<span class="text-[10px] font-bold text-green-600 uppercase">UPLOADED</span>
+</div>
+<p class="mt-2 font-bold text-sm">Transfer Records</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border-l-4 border-orange-500">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-orange-600" data-icon="receipt_long">receipt_long</span>
+<span class="text-[10px] font-bold text-orange-600 uppercase">PENDING</span>
+</div>
+<p class="mt-2 font-bold text-sm">Payment Proof</p>
+</div>
+</div>
+</div>
+</div>
+<!-- (4) Payment history panel & (5) Exception notes -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- History Panel -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden">
+<div class="px-6 py-5 border-b border-surface-container flex items-center justify-between bg-surface-container-low/30">
+<h2 class="text-xl font-headline font-bold">Payment History (2024)</h2>
+<button class="text-primary text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="add_circle">add_circle</span>
+                                Add Entry
+                            </button>
+</div>
+<div class="divide-y divide-surface-container">
+<div class="px-6 py-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-bold text-secondary">JAN</div>
+<span class="font-medium">Monthly Rent Transfer</span>
+</div>
+<span class="font-headline font-bold">600,000 KRW</span>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-bold text-secondary">FEB</div>
+<span class="font-medium">Monthly Rent Transfer</span>
+</div>
+<span class="font-headline font-bold">600,000 KRW</span>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-bold text-secondary">MAR</div>
+<span class="font-medium">Monthly Rent Transfer</span>
+</div>
+<span class="font-headline font-bold">600,000 KRW</span>
+</div>
+<!-- Highlight April -->
+<div class="px-6 py-4 flex items-center justify-between bg-orange-50/50 hover:bg-orange-50 transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center font-bold text-orange-700">APR</div>
+<div>
+<span class="font-bold text-orange-800">Manual Verification Needed</span>
+<p class="text-xs text-orange-600">Transaction name mismatch (User: 'Kim M.' / Recipient: 'Landlord A')</p>
+</div>
+</div>
+<span class="font-headline font-bold text-orange-800">600,000 KRW</span>
+</div>
+<div class="px-6 py-4 flex items-center justify-between hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center font-bold text-secondary">MAY</div>
+<span class="font-medium">Monthly Rent Transfer</span>
+</div>
+<span class="font-headline font-bold">600,000 KRW</span>
+</div>
+</div>
+</div>
+<!-- (5) Exception notes -->
+<div class="md:col-span-4 space-y-6">
+<div class="bg-tertiary-container text-on-tertiary-container p-6 rounded-2xl shadow-sm border border-tertiary/10">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined" data-icon="warning_amber">warning_amber</span>
+<h3 class="font-bold">Special Considerations</h3>
+</div>
+<p class="text-sm font-medium leading-relaxed">
+<span class="underline decoration-2 decoration-tertiary/30">Roommate split case</span> - Our system detected multiple transfers to the same landlord. This requires an additional form to declare your individual portion of the rent.
+                            </p>
+<button class="mt-6 w-full py-3 bg-tertiary text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-tertiary-dim transition-colors">
+                                Download Form 42-B
+                            </button>
+</div>
+<!-- (6) Submission prep summary -->
+<div class="bg-surface-container-high p-6 rounded-2xl border-2 border-dashed border-outline-variant flex flex-col items-center text-center gap-4">
+<div class="w-14 h-14 bg-error-container/20 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="lock">lock</span>
+</div>
+<div>
+<h3 class="font-headline font-bold text-error">NOT READY</h3>
+<p class="text-sm text-on-surface-variant">2 documents pending</p>
+</div>
+<div class="w-full bg-outline-variant/20 h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[50%]"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tight">Complete the checklist to enable final submission</p>
+</div>
+</div>
+</div>
+<!-- Footer / Legal section -->
+<footer class="pt-10 pb-20 border-t border-surface-container text-on-surface-variant flex flex-col md:flex-row justify-between items-start gap-8">
+<div class="max-w-xs space-y-4">
+<div class="text-xl font-bold text-slate-400 font-['Plus_Jakarta_Sans']">TaxPack KR</div>
+<p class="text-xs leading-loose">Official rent tax credit preparation service compliant with South Korea's Ministry of Economy and Finance guidelines for 2024.</p>
+</div>
+<div class="flex flex-wrap gap-12">
+<div class="space-y-4">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface">Legal</p>
+<ul class="text-xs space-y-2">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Security Standards</a></li>
+</ul>
+</div>
+<div class="space-y-4">
+<p class="text-xs font-bold uppercase tracking-widest text-on-surface">Help</p>
+<ul class="text-xs space-y-2">
+<li><a class="hover:text-primary transition-colors" href="#">FAQ</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Live Chat</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Call Support</a></li>
+</ul>
+</div>
+</div>
+</footer>
+</div>
+</main>
+</div>
+<!-- Floating Action Button (Only for relevant screens) -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-orange-600 text-white rounded-full shadow-2xl flex items-center justify-center hover:bg-orange-700 transition-all active:scale-90 z-[60] lg:hidden">
+<span class="material-symbols-outlined" data-icon="upload">upload</span>
+</button>
+</body></html>
