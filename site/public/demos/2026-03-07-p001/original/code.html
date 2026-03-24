@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Atelier Console | Wedding RSVP Ops</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-background": "#1c1c19",
+              "primary-fixed": "#d5e8d3",
+              "surface-variant": "#e5e2dd",
+              "on-secondary-fixed-variant": "#5a4041",
+              "tertiary-fixed-dim": "#c8c5ce",
+              "on-error-container": "#93000a",
+              "surface-dim": "#dcdad5",
+              "on-tertiary-fixed-variant": "#47464d",
+              "on-tertiary-fixed": "#1c1b21",
+              "primary": "#526353",
+              "background": "#fcf9f4",
+              "on-tertiary-container": "#64626a",
+              "surface-bright": "#fcf9f4",
+              "on-tertiary": "#ffffff",
+              "surface-tint": "#526353",
+              "tertiary-container": "#e3dfe8",
+              "on-secondary-fixed": "#2a1617",
+              "tertiary-fixed": "#e5e1ea",
+              "surface-container": "#f0ede9",
+              "inverse-surface": "#31302d",
+              "surface-container-high": "#ebe8e3",
+              "on-primary-fixed-variant": "#3a4b3c",
+              "on-surface": "#1c1c19",
+              "primary-container": "#d2e5d1",
+              "outline": "#7c766d",
+              "inverse-primary": "#b9cbb8",
+              "on-primary-container": "#566757",
+              "primary-fixed-dim": "#b9cbb8",
+              "secondary": "#735758",
+              "secondary-container": "#fcd7d7",
+              "on-secondary": "#ffffff",
+              "tertiary": "#5f5d65",
+              "surface": "#fcf9f4",
+              "secondary-fixed-dim": "#e2bebe",
+              "surface-container-lowest": "#ffffff",
+              "inverse-on-surface": "#f3f0eb",
+              "on-primary-fixed": "#101f12",
+              "on-primary": "#ffffff",
+              "on-surface-variant": "#4b463e",
+              "surface-container-highest": "#e5e2dd",
+              "outline-variant": "#cdc5bb",
+              "error-container": "#ffdad6",
+              "on-secondary-container": "#785c5c",
+              "surface-container-low": "#f6f3ee",
+              "on-error": "#ffffff",
+              "error": "#ba1a1a",
+              "secondary-fixed": "#ffdada"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for an atelier feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #fcf9f4; }
+        ::-webkit-scrollbar-thumb { background: #cdc5bb; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 w-full z-50 bg-[#fcf9f4] dark:bg-stone-950/80 backdrop-blur-md border-b border-[#cdc5bb]/30 dark:border-stone-800 flex justify-between items-center px-8 h-20 w-full">
+<div class="flex items-center gap-12">
+<span class="text-xl font-serif italic text-[#526353] dark:text-[#d2e5d1] tracking-tight">Atelier Console</span>
+<div class="hidden lg:flex gap-8 items-center h-full">
+<a class="text-[#1c1c19]/60 dark:text-[#fcf9f4]/60 hover:text-[#526353] font-label text-sm tracking-wide" href="#">Dashboard</a>
+<a class="text-[#526353] dark:text-[#d2e5d1] border-b-2 border-[#526353] pb-1 font-medium font-label text-sm tracking-wide" href="#">Guest List</a>
+<a class="text-[#1c1c19]/60 dark:text-[#fcf9f4]/60 hover:text-[#526353] font-label text-sm tracking-wide" href="#">Meals</a>
+<a class="text-[#1c1c19]/60 dark:text-[#fcf9f4]/60 hover:text-[#526353] font-label text-sm tracking-wide" href="#">RSVPs</a>
+<a class="text-[#1c1c19]/60 dark:text-[#fcf9f4]/60 hover:text-[#526353] font-label text-sm tracking-wide" href="#">Timeline</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden xl:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary w-64" placeholder="Search guests..." type="text"/>
+</div>
+<div class="flex gap-4 items-center">
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">notifications</button>
+<button class="material-symbols-outlined text-outline hover:text-primary transition-colors">settings</button>
+<div class="w-8 h-8 rounded-full bg-surface-container overflow-hidden">
+<img alt="Coordinator Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a woman wedding coordinator with a warm smile in a sunlit studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpgpFtXLzyENvQoiif7KzjcqR1W-egvq7km-zxDj0eMBtADSAbVQOeuKzdi94SInA7aThup5Nr_13fBRO2fASPQceuO16GLJkpg1kRSU1NnRVOUZfVwbTcZWBlu3LoXyJhaqVjTsxET9_ayFjcWq4luVSAFB-dUfp8oU0QXVq7ouVTZpp1DNeEsRvUHT9Ac73TqUhH91OdG0owW7FO2yb6vbnRJKfmMhVTISMaZA3TWqF90szYIs3IwZmuRVfwNNMDUMOoI831uZo"/>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex min-h-screen pt-20">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden lg:flex flex-col pt-12 pb-8 h-[calc(100vh-5rem)] w-64 border-r border-[#cdc5bb]/20 bg-[#f6f3ee] sticky top-20">
+<div class="px-8 mb-10">
+<h2 class="text-lg font-serif text-[#1c1c19] dark:text-[#fcf9f4]">RSVP Ops</h2>
+<p class="text-[10px] uppercase tracking-widest text-outline mt-1">June Wedding 2024</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-4 bg-white dark:bg-stone-800 text-[#526353] dark:text-[#d2e5d1] rounded-l-full ml-4 shadow-sm py-3 px-6 transition-all duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+<span class="font-label text-sm tracking-wide">Overview</span>
+</a>
+<a class="flex items-center gap-4 text-[#1c1c19]/70 dark:text-[#fcf9f4]/70 px-8 py-3 hover:translate-x-1 transition-transform hover:text-[#526353]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="restaurant">restaurant</span>
+<span class="font-label text-sm tracking-wide">Dietary</span>
+</a>
+<a class="flex items-center gap-4 text-[#1c1c19]/70 dark:text-[#fcf9f4]/70 px-8 py-3 hover:translate-x-1 transition-transform hover:text-[#526353]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="directions_bus">directions_bus</span>
+<span class="font-label text-sm tracking-wide">Transport</span>
+</a>
+<a class="flex items-center gap-4 text-[#1c1c19]/70 dark:text-[#fcf9f4]/70 px-8 py-3 hover:translate-x-1 transition-transform hover:text-[#526353]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="event_seat">event_seat</span>
+<span class="font-label text-sm tracking-wide">Seating</span>
+</a>
+<a class="flex items-center gap-4 text-[#1c1c19]/70 dark:text-[#fcf9f4]/70 px-8 py-3 hover:translate-x-1 transition-transform hover:text-[#526353]" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="description">description</span>
+<span class="font-label text-sm tracking-wide">Notes</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-lg font-label text-xs uppercase tracking-widest hover:opacity-90 transition-opacity">
+                    Export Report
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 bg-surface-bright p-8 lg:p-12 overflow-y-auto">
+<!-- (1) Status Hero: Total/Confirmed Guests -->
+<section class="mb-12">
+<div class="relative overflow-hidden rounded-xl bg-surface-container-low min-h-[220px] flex items-center p-10 group">
+<div class="absolute inset-0 z-0">
+<img alt="Wedding Table Background" class="w-full h-full object-cover opacity-20 transition-transform duration-700 group-hover:scale-105" data-alt="High-end wedding table setting with crystal glassware, white linens, and soft floral centerpieces in a bright airy room" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn5aoQCyohA9gPjXVijnM_ToQRqU7JO5vBJAb7VljspGozNX9jITk5JPKWaEcQyqrqqllooelKjhtGNoE2Ejlknc955SOUQOii6t9TeWJAUErtdQKSvZBerL4b7x7KnNUFy1nHRBKxbAa1MSENFYZvFuv0Qs6p0zMJxyPI1vNmytO74Jy8y_KCWxmfTK2_WMhXr0fC4Bhh2MtbJUTDCw1EYIg33nNoFA66qLrKUcov5oxTgfwYUEWVwGbbsT6HuOlyN4Hl0yEJ3aQ"/>
+</div>
+<div class="relative z-10 w-full flex flex-col md:flex-row justify-between items-end md:items-center gap-8">
+<div>
+<span class="font-label text-[10px] uppercase tracking-[0.2em] text-primary mb-2 block">Current Occupancy</span>
+<h1 class="text-5xl font-serif text-on-surface mb-4">Evelyn &amp; Julian</h1>
+<p class="text-outline italic max-w-md">The final count is crystallizing. Most guest responses are secured; focus now shifts to fine-tuning the seating arrangements.</p>
+</div>
+<div class="flex gap-12 text-center">
+<div>
+<div class="text-4xl font-serif text-primary">184</div>
+<div class="font-label text-[10px] uppercase tracking-widest text-outline mt-1">Confirmed</div>
+</div>
+<div class="h-12 w-px bg-outline-variant/30"></div>
+<div>
+<div class="text-4xl font-serif text-on-surface-variant">210</div>
+<div class="font-label text-[10px] uppercase tracking-widest text-outline mt-1">Expected</div>
+</div>
+<div class="h-12 w-px bg-outline-variant/30"></div>
+<div>
+<div class="text-4xl font-serif text-secondary">26</div>
+<div class="font-label text-[10px] uppercase tracking-widest text-outline mt-1">Pending</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-10">
+<!-- Left/Center Column (2 & 3) -->
+<div class="xl:col-span-2 flex flex-col gap-10">
+<!-- (2) Priority/Work Items Panel -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-serif text-xl">Pending RSVPs</h3>
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold">HIGH PRIORITY</span>
+</div>
+<ul class="space-y-6">
+<li class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-serif italic text-primary">MH</div>
+<div>
+<p class="text-sm font-medium">The Miller Household</p>
+<p class="text-xs text-outline">Requested: 3 weeks ago</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-all">mail</button>
+</li>
+<li class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-serif italic text-primary">DS</div>
+<div>
+<p class="text-sm font-medium">David Sterling</p>
+<p class="text-xs text-outline">Followed up: yesterday</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-all">mail</button>
+</li>
+<li class="flex items-center justify-between group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-serif italic text-primary">AW</div>
+<div>
+<p class="text-sm font-medium">Anna Wright + 1</p>
+<p class="text-xs text-outline">No response yet</p>
+</div>
+</div>
+<button class="material-symbols-outlined text-outline hover:text-primary opacity-0 group-hover:opacity-100 transition-all">mail</button>
+</li>
+</ul>
+<button class="w-full mt-8 py-2 text-primary font-label text-xs tracking-widest border-t border-outline-variant/20 pt-4 hover:opacity-70 transition-opacity">VIEW ALL PENDING (26)</button>
+</div>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-serif text-xl">Seating Logic</h3>
+<span class="material-symbols-outlined text-outline text-lg">grid_view</span>
+</div>
+<div class="space-y-6">
+<div class="p-4 rounded bg-surface-container-low flex gap-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<p class="text-sm font-medium">Unassigned Guests (14)</p>
+<p class="text-xs text-outline mt-1">Main Ballroom requires finalizing by Friday.</p>
+</div>
+</div>
+<div class="p-4 rounded border border-outline-variant/30 flex gap-4">
+<span class="material-symbols-outlined text-primary">group</span>
+<div>
+<p class="text-sm font-medium">Table 12 Overcapacity</p>
+<p class="text-xs text-outline mt-1">Currently 12/10 seats filled. Move 2 to Table 14?</p>
+</div>
+</div>
+<div class="p-4 rounded border border-outline-variant/30 flex gap-4">
+<span class="material-symbols-outlined text-primary">info</span>
+<div>
+<p class="text-sm font-medium">VIP Proximity Check</p>
+<p class="text-xs text-outline mt-1">Parents' tables are set and verified.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- (3) Analysis Section: Meal Counts & Allergies -->
+<div class="bg-surface-container-lowest p-10 rounded-xl shadow-sm border border-outline-variant/10">
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+<div>
+<h3 class="font-serif text-2xl">Catering Analysis</h3>
+<p class="text-sm text-outline mt-1">Live data based on confirmed RSVPs</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-container text-on-surface-variant rounded text-xs font-label">BY TABLE</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded text-xs font-label">TOTALS</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+<div class="relative pt-6 border-t-2 border-primary">
+<div class="flex justify-between items-end mb-2">
+<span class="font-serif text-lg">Mignon</span>
+<span class="text-2xl font-serif">84</span>
+</div>
+<div class="w-full h-1 bg-surface-container">
+<div class="h-full bg-primary" style="width: 45%;"></div>
+</div>
+<p class="text-[10px] text-outline mt-2 tracking-widest uppercase">Center Cut Filet</p>
+</div>
+<div class="relative pt-6 border-t-2 border-primary-fixed-dim">
+<div class="flex justify-between items-end mb-2">
+<span class="font-serif text-lg">Sea Bass</span>
+<span class="text-2xl font-serif">62</span>
+</div>
+<div class="w-full h-1 bg-surface-container">
+<div class="h-full bg-primary-fixed-dim" style="width: 33%;"></div>
+</div>
+<p class="text-[10px] text-outline mt-2 tracking-widest uppercase">Miso Glazed</p>
+</div>
+<div class="relative pt-6 border-t-2 border-tertiary-fixed-dim">
+<div class="flex justify-between items-end mb-2">
+<span class="font-serif text-lg">Risotto</span>
+<span class="text-2xl font-serif">38</span>
+</div>
+<div class="w-full h-1 bg-surface-container">
+<div class="h-full bg-tertiary-fixed-dim" style="width: 22%;"></div>
+</div>
+<p class="text-[10px] text-outline mt-2 tracking-widest uppercase">Wild Mushroom (V)</p>
+</div>
+</div>
+<div class="bg-secondary-container/30 p-6 rounded-lg border border-secondary/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<h4 class="font-label text-xs font-bold uppercase tracking-widest text-on-secondary-container">Critical Allergy Alerts (6)</h4>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="text-sm p-3 bg-white/50 rounded flex justify-between">
+<span class="font-medium">Severe Peanut (Table 4)</span>
+<span class="text-outline italic">S. Rogers</span>
+</div>
+<div class="text-sm p-3 bg-white/50 rounded flex justify-between">
+<span class="font-medium">Shellfish (Table 12)</span>
+<span class="text-outline italic">L. Thompson</span>
+</div>
+<div class="text-sm p-3 bg-white/50 rounded flex justify-between">
+<span class="font-medium">Celiac/Gluten (Table 1)</span>
+<span class="text-outline italic">B. Wayne</span>
+</div>
+<div class="text-sm p-3 bg-white/50 rounded flex justify-between">
+<span class="font-medium">Dairy Free (Table 9)</span>
+<span class="text-outline italic">M. Parker</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Rail (4 & 5) -->
+<div class="flex flex-col gap-10">
+<!-- (4) Next-Best Action Card -->
+<div class="bg-primary text-on-primary p-8 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl">print</span>
+</div>
+<div class="relative z-10">
+<h3 class="font-serif text-2xl mb-2">Print Catering List</h3>
+<p class="text-on-primary/70 text-sm mb-8 leading-relaxed">Required by the venue chef by Wednesday morning. This includes all final counts, dietary notes, and floor plan mapping.</p>
+<button class="flex items-center gap-2 bg-on-primary text-primary px-6 py-3 rounded font-label text-xs font-bold uppercase tracking-widest group-hover:gap-4 transition-all">
+                                Generate PDF
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- (5) Summary Rail: Key Day-of Stats -->
+<div class="bg-surface-container-low p-8 rounded-xl flex-1 border border-outline-variant/10">
+<h3 class="font-serif text-lg mb-8">Day-of Logistics</h3>
+<div class="space-y-10">
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline">Transport Logic</span>
+<div class="mt-4 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-base">directions_bus</span>
+<span class="text-sm">Hotel Shuttle</span>
+</div>
+<span class="text-sm font-medium">112 Guests</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-base">local_taxi</span>
+<span class="text-sm">Self Parking</span>
+</div>
+<span class="text-sm font-medium">42 Cars</span>
+</div>
+</div>
+</div>
+<div class="h-px bg-outline-variant/30"></div>
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline">Seating Distribution</span>
+<div class="mt-6 flex flex-col items-center">
+<div class="relative w-32 h-32 mb-6">
+<svg class="w-full h-full -rotate-90" viewbox="0 0 36 36">
+<circle class="stroke-surface-container" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="75, 100" stroke-width="3"></circle>
+<circle class="stroke-secondary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="15, 100" stroke-dashoffset="-75" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-xl font-serif">24</span>
+<span class="text-[8px] uppercase text-outline">Tables</span>
+</div>
+</div>
+<div class="w-full space-y-2">
+<div class="flex justify-between items-center text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span>Ballroom</span>
+</div>
+<span>18 Tables</span>
+</div>
+<div class="flex justify-between items-center text-xs">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span>Patio Overflow</span>
+</div>
+<span>6 Tables</span>
+</div>
+</div>
+</div>
+</div>
+<div class="h-px bg-outline-variant/30"></div>
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-outline">Milestone Checklist</span>
+<div class="mt-4 space-y-4">
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm text-outline line-through">Floor plan draft</span>
+</div>
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="text-sm">Final count to Florist</span>
+</div>
+<div class="flex gap-3 items-start">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="text-sm">Print place cards</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Background Decorative Textures -->
+<div class="fixed bottom-0 left-0 -z-10 w-64 h-64 bg-primary-container/10 blur-[100px] pointer-events-none"></div>
+<div class="fixed top-0 right-0 -z-10 w-96 h-96 bg-secondary-container/5 blur-[120px] pointer-events-none"></div>
+</body></html>

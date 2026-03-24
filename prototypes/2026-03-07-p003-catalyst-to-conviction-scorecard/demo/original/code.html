@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catalyst Scorecard | Institutional Research Workbench</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Work+Sans:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#3a5470",
+                        "primary-dim": "#48526a",
+                        "error": "#9f403d",
+                        "surface-container-low": "#f2f4ef",
+                        "tertiary": "#2d6a4f",
+                        "error-dim": "#4e0309",
+                        "primary-fixed-dim": "#c9d4f0",
+                        "inverse-primary": "#d7e2ff",
+                        "outline": "#757d76",
+                        "surface-container-highest": "#dde5dc",
+                        "on-primary": "#f7f7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#bdd7f9",
+                        "surface-tint": "#545e76",
+                        "on-tertiary-container": "#27654a",
+                        "primary-container": "#d7e2ff",
+                        "tertiary-fixed": "#beffdc",
+                        "surface-container": "#ebefe9",
+                        "on-secondary-fixed": "#27415d",
+                        "on-error-container": "#752121",
+                        "surface-dim": "#d3ddd3",
+                        "on-secondary-fixed-variant": "#445d7b",
+                        "primary-fixed": "#d7e2ff",
+                        "on-background": "#2d342f",
+                        "background": "#f9faf5",
+                        "on-tertiary-fixed": "#105239",
+                        "on-tertiary-fixed-variant": "#336f54",
+                        "error-container": "#fe8983",
+                        "secondary-dim": "#3c5572",
+                        "secondary-fixed": "#d1e4ff",
+                        "on-error": "#fff7f6",
+                        "surface": "#f9faf5",
+                        "secondary": "#48617e",
+                        "on-primary-container": "#475269",
+                        "tertiary-dim": "#1f5e44",
+                        "outline-variant": "#acb4ac",
+                        "on-surface-variant": "#59615a",
+                        "inverse-on-surface": "#9c9d9a",
+                        "on-primary-fixed": "#353f56",
+                        "tertiary-container": "#beffdc",
+                        "on-tertiary": "#e6ffee",
+                        "surface-bright": "#f9faf5",
+                        "on-surface": "#2d342f",
+                        "on-primary-fixed-variant": "#515c73",
+                        "surface-container-high": "#e4eae2",
+                        "inverse-surface": "#0c0f0d",
+                        "tertiary-fixed-dim": "#b1f0ce",
+                        "surface-variant": "#dde5dc",
+                        "primary": "#545e76"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Work Sans"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(235, 239, 233, 0.8);
+            backdrop-filter: blur(24px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 z-50 flex justify-between items-center w-full px-8 h-16 bg-[#f9faf5] dark:bg-[#0c0f0d] fixed">
+<div class="flex items-center gap-12">
+<span class="text-xl font-bold text-[#2d342f] dark:text-[#f9faf5] font-['Manrope'] tracking-tight">Catalyst Scorecard</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="font-['Manrope'] font-semibold tracking-tight text-[#545e76] dark:text-[#f7f7ff] border-b-2 border-[#545e76] dark:border-[#f7f7ff] pb-1" href="#">Portfolio</a>
+<a class="font-['Manrope'] font-semibold tracking-tight text-[#2d342f]/60 dark:text-[#f9faf5]/60 hover:text-[#2d342f] dark:hover:text-[#f9faf5] transition-colors duration-150" href="#">Watchlist</a>
+<a class="font-['Manrope'] font-semibold tracking-tight text-[#2d342f]/60 dark:text-[#f9faf5]/60 hover:text-[#2d342f] dark:hover:text-[#f9faf5] transition-colors duration-150" href="#">Research</a>
+<a class="font-['Manrope'] font-semibold tracking-tight text-[#2d342f]/60 dark:text-[#f9faf5]/60 hover:text-[#2d342f] dark:hover:text-[#f9faf5] transition-colors duration-150" href="#">Reports</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="bg-primary text-on-primary px-4 py-2 rounded-md font-label text-sm font-semibold hover:bg-primary-dim transition-all">Generate Report</button>
+<div class="flex gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-low p-1 rounded transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-low p-1 rounded transition-colors">settings</span>
+</div>
+<img alt="Analyst Profile" class="w-8 h-8 rounded-full border border-outline-variant/20" data-alt="professional headshot of a senior financial analyst in a modern office environment with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3pWyqpzBvVJyn-K0j_eM8FJT1aoLhuQXbVng9ku8rRDtEPHS5X-op1ENMw67z2E6tbDmx-iSJ8h3Xa-cqw2lAj84wtiYhDzKcIvMesCB9mPbqwPLDOh5frfwRBhwsWCbZV9P9e3opTm8TCIw1fBweX1Nzze0ItiovYz3pz0Ym-tUPkRSqSuo4KOyZDKkoBqOgw9Uwz-aHhxcbgM7GFn09-bI39_2K2xh9JaEBsCnjAQqrnookNXo5cynXTRpIkgU3VPnHAugA0II"/>
+</div>
+</nav>
+<!-- SideNavBar (Contextual for NVDA) -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-6 bg-[#f2f4ef] dark:bg-[#141714] border-r-0 z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-1">
+<div class="w-8 h-8 bg-surface-container-highest flex items-center justify-center rounded-sm">
+<span class="font-bold text-xs font-label">NVDA</span>
+</div>
+<div>
+<h3 class="font-['Work_Sans'] font-bold text-[#2d342f] dark:text-[#f9faf5] text-sm">NVDA:US</h3>
+<p class="text-[10px] text-primary font-semibold tracking-widest uppercase">High Conviction</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 bg-[#ffffff] dark:bg-[#1a1d1a] text-[#2d342f] dark:text-[#f9faf5] font-bold border-r-4 border-[#545e76] transition-all" href="#">
+<span class="material-symbols-outlined text-xl">analytics</span>
+<span class="font-body text-sm">Overview</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#2d342f]/70 dark:text-[#f9faf5]/70 hover:bg-[#e4eae2] dark:hover:bg-[#252a26] transition-all" href="#">
+<span class="material-symbols-outlined text-xl">bolt</span>
+<span class="font-body text-sm">Catalysts</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#2d342f]/70 dark:text-[#f9faf5]/70 hover:bg-[#e4eae2] dark:hover:bg-[#252a26] transition-all" href="#">
+<span class="material-symbols-outlined text-xl">architecture</span>
+<span class="font-body text-sm">Scoring</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#2d342f]/70 dark:text-[#f9faf5]/70 hover:bg-[#e4eae2] dark:hover:bg-[#252a26] transition-all" href="#">
+<span class="material-symbols-outlined text-xl">table_chart</span>
+<span class="font-body text-sm">Financials</span>
+</a>
+<a class="flex items-center gap-3 px-6 py-3 text-[#2d342f]/70 dark:text-[#f9faf5]/70 hover:bg-[#e4eae2] dark:hover:bg-[#252a26] transition-all" href="#">
+<span class="material-symbols-outlined text-xl">verified</span>
+<span class="font-body text-sm">Conviction</span>
+</a>
+</nav>
+<div class="px-6 mt-auto space-y-4">
+<button class="w-full bg-primary text-on-primary py-2.5 rounded-md font-label text-xs font-bold uppercase tracking-wider hover:bg-primary-dim transition-all">Update Model</button>
+<div class="pt-4 border-t border-outline-variant/20 flex flex-col gap-2">
+<a class="flex items-center gap-3 text-[#2d342f]/60 text-xs hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-lg">archive</span> Archive
+                </a>
+<a class="flex items-center gap-3 text-[#2d342f]/60 text-xs hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-lg">help_outline</span> Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 px-10 pb-12 min-h-screen">
+<!-- (1) Status Hero: Overall Portfolio Conviction Score -->
+<section class="grid grid-cols-12 gap-8 mb-12">
+<div class="col-span-12 lg:col-span-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+<div class="z-10">
+<h1 class="font-headline text-display-lg text-6xl font-extrabold tracking-tighter text-on-surface mb-2">84.2<span class="text-2xl text-primary-dim font-medium">/100</span></h1>
+<p class="font-body text-on-surface-variant max-w-md">Portfolio Conviction Aggregate. Weighted by capital allocation and catalyst proximity.</p>
+<div class="flex gap-4 mt-6">
+<span class="inline-flex items-center px-3 py-1 rounded-sm bg-tertiary-container text-tertiary font-label text-xs font-bold">
+<span class="material-symbols-outlined text-sm mr-1">trending_up</span> +2.4% WEEKLY
+                            </span>
+<span class="inline-flex items-center px-3 py-1 rounded-sm bg-surface-container-high text-on-surface-variant font-label text-xs font-bold">
+                                14 ACTIVE THESES
+                            </span>
+</div>
+</div>
+<div class="mt-8 md:mt-0 z-10 w-full md:w-auto">
+<div class="flex flex-col gap-2 bg-surface-container-low p-4 rounded-lg border-l-4 border-primary">
+<span class="font-label text-[10px] text-primary-dim uppercase font-bold tracking-widest">Core Narrative</span>
+<span class="font-body text-sm font-semibold">AI Infrastructure Cycle - Phase 2</span>
+<div class="w-full bg-outline-variant/20 h-1 rounded-full mt-2">
+<div class="bg-primary h-1 rounded-full w-[78%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- (5) Summary Rail: Top 5 Exposure Tickers (Integrated as Side Widget) -->
+<div class="col-span-12 lg:col-span-4">
+<div class="bg-surface-container-low p-6 rounded-xl h-full">
+<h3 class="font-label text-xs font-bold uppercase tracking-widest text-primary-dim mb-6 flex justify-between">
+                        Top Exposure <span class="material-symbols-outlined text-sm">leaderboard</span>
+</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-surface-container-lowest flex items-center justify-center font-bold font-label text-xs border border-outline-variant/10">NVDA</div>
+<span class="font-body text-sm font-medium">Nvidia Corp</span>
+</div>
+<span class="font-label text-sm font-bold text-on-surface">12.4%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-surface-container-lowest flex items-center justify-center font-bold font-label text-xs border border-outline-variant/10">MSFT</div>
+<span class="font-body text-sm font-medium">Microsoft</span>
+</div>
+<span class="font-label text-sm font-bold text-on-surface">9.1%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-surface-container-lowest flex items-center justify-center font-bold font-label text-xs border border-outline-variant/10">TSMC</div>
+<span class="font-body text-sm font-medium">TSM Semi</span>
+</div>
+<span class="font-label text-sm font-bold text-on-surface">7.8%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-surface-container-lowest flex items-center justify-center font-bold font-label text-xs border border-outline-variant/10">AMZN</div>
+<span class="font-body text-sm font-medium">Amazon</span>
+</div>
+<span class="font-label text-sm font-bold text-on-surface">6.2%</span>
+</div>
+<div class="flex justify-between items-center group cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm bg-surface-container-lowest flex items-center justify-center font-bold font-label text-xs border border-outline-variant/10">ASML</div>
+<span class="font-body text-sm font-medium">ASML NV</span>
+</div>
+<span class="font-label text-sm font-bold text-on-surface">4.5%</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- (2) Priority Items & (4) Next-best Action -->
+<section class="grid grid-cols-12 gap-8 mb-12">
+<div class="col-span-12 md:col-span-8">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Time-Bounded Catalysts</h2>
+<span class="text-xs font-label text-primary-dim font-bold uppercase tracking-widest bg-surface-container-high px-2 py-1 rounded">7 Day Horizon</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 border-l-2 border-primary hover:bg-surface transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label font-bold text-primary px-2 py-0.5 bg-primary-container/30 rounded">EARNINGS</span>
+<span class="text-[10px] font-label text-on-surface-variant">24 OCT • 16:00 ET</span>
+</div>
+<h4 class="font-body font-bold text-base mb-1">MSFT:US Q1 Results</h4>
+<p class="text-xs text-on-surface-variant line-clamp-2">Key Focus: Azure AI capacity expansion and Copilot attach rates in enterprise.</p>
+<div class="mt-4 flex items-center justify-between">
+<span class="text-xs font-bold text-tertiary">BULLISH SKEW</span>
+<span class="material-symbols-outlined text-sm text-outline-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-5 border-l-2 border-error hover:bg-surface transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-4">
+<span class="text-[10px] font-label font-bold text-error px-2 py-0.5 bg-error-container/20 rounded">POLICY</span>
+<span class="text-[10px] font-label text-on-surface-variant">26 OCT • 09:00 ET</span>
+</div>
+<h4 class="font-body font-bold text-base mb-1">EU Digital Markets Act</h4>
+<p class="text-xs text-on-surface-variant line-clamp-2">Final ruling on cross-platform data interoperability for tech gatekeepers.</p>
+<div class="mt-4 flex items-center justify-between">
+<span class="text-xs font-bold text-error">RISK EVENT</span>
+<span class="material-symbols-outlined text-sm text-outline-variant group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4">
+<div class="bg-primary text-on-primary p-6 rounded-xl flex flex-col justify-between h-full relative overflow-hidden shadow-xl shadow-primary/10">
+<div class="absolute -bottom-10 -right-10 opacity-10">
+<span class="material-symbols-outlined text-[160px]" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+</div>
+<div>
+<div class="w-10 h-10 bg-on-primary/10 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-on-primary">history</span>
+</div>
+<h3 class="font-headline text-xl font-bold mb-2">Review Stale Beliefs</h3>
+<p class="text-on-primary/70 text-sm mb-6 leading-relaxed">The thesis for <strong>AAPL:US</strong> has not been updated in 42 days. New supply chain data from TSMC suggests a potential divergence from your base case.</p>
+</div>
+<button class="bg-on-primary text-primary w-full py-3 rounded-md font-label text-sm font-bold uppercase tracking-wider hover:bg-surface-container-lowest transition-all">Re-evaluate Beliefs</button>
+</div>
+</div>
+</section>
+<!-- (3) Analysis Section: Ticker Scoring & Falsification Plans -->
+<section class="bg-surface-container-low p-8 rounded-xl">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Active Scoring Workbench</h2>
+<div class="flex gap-2">
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-on-surface-variant">filter_list</span></button>
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors"><span class="material-symbols-outlined text-on-surface-variant">download</span></button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/15">
+<th class="py-4 font-label text-[11px] font-bold uppercase tracking-widest text-primary-dim">Ticker</th>
+<th class="py-4 font-label text-[11px] font-bold uppercase tracking-widest text-primary-dim">Thesis Strength</th>
+<th class="py-4 font-label text-[11px] font-bold uppercase tracking-widest text-primary-dim">Price Target</th>
+<th class="py-4 font-label text-[11px] font-bold uppercase tracking-widest text-primary-dim">Falsification Signal</th>
+<th class="py-4 font-label text-[11px] font-bold uppercase tracking-widest text-primary-dim text-right">Confidence</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-5">
+<div class="flex flex-col">
+<span class="font-label font-bold text-sm">NVDA:US</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Semiconductors</span>
+</div>
+</td>
+<td class="py-5">
+<div class="flex gap-1">
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+</div>
+</td>
+<td class="py-5">
+<span class="font-label font-bold text-sm">$1,450.00</span>
+</td>
+<td class="py-5">
+<span class="font-body text-xs text-on-surface-variant italic">H100 wait times &lt; 12 weeks</span>
+</td>
+<td class="py-5 text-right">
+<span class="font-label font-bold text-sm text-tertiary">HIGH</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-5">
+<div class="flex flex-col">
+<span class="font-label font-bold text-sm">TSLA:US</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Automotive</span>
+</div>
+</td>
+<td class="py-5">
+<div class="flex gap-1">
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+</div>
+</td>
+<td class="py-5">
+<span class="font-label font-bold text-sm">$220.00</span>
+</td>
+<td class="py-5">
+<span class="font-body text-xs text-on-surface-variant italic">Gross margins below 15.5%</span>
+</td>
+<td class="py-5 text-right">
+<span class="font-label font-bold text-sm text-error">LOW</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-5">
+<div class="flex flex-col">
+<span class="font-label font-bold text-sm">LLY:US</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-medium">Healthcare</span>
+</div>
+</td>
+<td class="py-5">
+<div class="flex gap-1">
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-primary rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+<div class="w-4 h-1.5 bg-outline-variant/30 rounded-full"></div>
+</div>
+</td>
+<td class="py-5">
+<span class="font-label font-bold text-sm">$980.00</span>
+</td>
+<td class="py-5">
+<span class="font-body text-xs text-on-surface-variant italic">Oral GLP-1 trial delay &gt; 6 mo</span>
+</td>
+<td class="py-5 text-right">
+<span class="font-label font-bold text-sm text-primary">MODERATE</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/15 flex justify-end">
+<button class="flex items-center gap-2 text-xs font-label font-bold uppercase tracking-widest text-primary-dim hover:text-primary transition-colors">
+                    View Comprehensive Registry <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed bottom-8 right-8 w-14 h-14 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 group">
+<span class="material-symbols-outlined text-2xl">add</span>
+<span class="absolute right-16 bg-inverse-surface text-on-primary px-3 py-1 text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">New Thesis</span>
+</button>
+</body></html>

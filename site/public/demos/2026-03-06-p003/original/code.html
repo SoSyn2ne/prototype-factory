@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL_GPU_V1 | Prompt Contract Linter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary": "#ffcf8f",
+                        "outline": "#849396",
+                        "on-primary-container": "#00626e",
+                        "primary-fixed-dim": "#00daf3",
+                        "inverse-primary": "#006875",
+                        "surface": "#111316",
+                        "on-secondary": "#452b00",
+                        "secondary-container": "#feaa00",
+                        "tertiary": "#ffe7e6",
+                        "surface-container-lowest": "#0c0e11",
+                        "inverse-on-surface": "#2f3034",
+                        "on-primary-fixed": "#001f24",
+                        "secondary-fixed-dim": "#ffb950",
+                        "surface-container-highest": "#333538",
+                        "outline-variant": "#3b494c",
+                        "on-surface-variant": "#bac9cc",
+                        "on-primary": "#00363d",
+                        "on-secondary-container": "#684300",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1a1c1f",
+                        "secondary-fixed": "#ffddb3",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#333538",
+                        "primary-fixed": "#9cf0ff",
+                        "on-background": "#e2e2e6",
+                        "surface-dim": "#111316",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#624000",
+                        "tertiary-fixed-dim": "#ffb3b3",
+                        "primary": "#c3f5ff",
+                        "background": "#111316",
+                        "on-tertiary-fixed-variant": "#920021",
+                        "on-tertiary-fixed": "#400009",
+                        "on-tertiary": "#680014",
+                        "surface-bright": "#37393d",
+                        "on-tertiary-container": "#b4002b",
+                        "surface-tint": "#00daf3",
+                        "tertiary-container": "#ffc1c0",
+                        "surface-container": "#1e2023",
+                        "tertiary-fixed": "#ffdad9",
+                        "on-secondary-fixed": "#291800",
+                        "surface-container-high": "#282a2d",
+                        "inverse-surface": "#e2e2e6",
+                        "primary-container": "#00e5ff",
+                        "on-surface": "#e2e2e6",
+                        "on-primary-fixed-variant": "#004f58"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .font-mono-data { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+        .glow-bar-fill {
+            background: linear-gradient(90deg, #00daf3 0%, #00e5ff 100%);
+            box-shadow: 0 0 8px #00daf3;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar (Shared Component) -->
+<nav class="fixed top-0 z-50 flex justify-between items-center w-full px-6 h-14 bg-[#111316] border-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-[#00E5FF] tracking-tighter font-headline">SENTINEL_GPU_V1</span>
+<div class="hidden md:flex gap-6">
+<a class="font-headline uppercase tracking-wider text-[0.6875rem] font-bold text-[#849396] hover:bg-[#1e2023] hover:text-[#00daf3] transition-colors duration-150" href="#">Cluster</a>
+<a class="font-headline uppercase tracking-wider text-[0.6875rem] font-bold text-[#849396] hover:bg-[#1e2023] hover:text-[#00daf3] transition-colors duration-150" href="#">Nodes</a>
+<a class="font-headline uppercase tracking-wider text-[0.6875rem] font-bold text-[#00E5FF] border-b-2 border-[#00E5FF] pb-1" href="#">Incidents</a>
+<a class="font-headline uppercase tracking-wider text-[0.6875rem] font-bold text-[#849396] hover:bg-[#1e2023] hover:text-[#00daf3] transition-colors duration-150" href="#">Logs</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-lowest flex items-center px-3 py-1 border-b border-outline-variant/20">
+<span class="material-symbols-outlined text-[18px] text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-[0.75rem] font-mono-data text-primary placeholder-outline/50 w-48" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">settings</span>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:text-primary">notifications</span>
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed-dim">account_circle</span>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Shared Component) -->
+<aside class="fixed left-0 top-14 bottom-0 flex flex-col z-40 w-64 bg-[#0c0e11] shadow-[48px_0_48px_rgba(0,218,243,0.08)]">
+<div class="p-6 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-2xl">terminal</span>
+</div>
+<div>
+<div class="font-headline text-[0.75rem] font-medium text-primary">OPERATOR_01</div>
+<div class="font-headline text-[0.65rem] text-outline uppercase tracking-tighter">NODE_NORTH_04</div>
+</div>
+</div>
+</div>
+<div class="flex-1 py-4">
+<nav class="flex flex-col">
+<a class="flex items-center gap-3 px-6 py-3 font-headline text-[0.75rem] font-medium text-[#849396] opacity-70 hover:bg-[#1a1c1f] hover:text-[#c3f5ff]" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span> Dashboard
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 font-headline text-[0.75rem] font-medium text-[#849396] opacity-70 hover:bg-[#1a1c1f] hover:text-[#c3f5ff]" href="#">
+<span class="material-symbols-outlined text-[20px]">monitoring</span> Telemetry
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 font-headline text-[0.75rem] font-medium bg-[#1e2023] text-[#00E5FF] border-l-4 border-[#00E5FF]" href="#">
+<span class="material-symbols-outlined text-[20px]">memory</span> GPU_Array
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 font-headline text-[0.75rem] font-medium text-[#849396] opacity-70 hover:bg-[#1a1c1f] hover:text-[#c3f5ff]" href="#">
+<span class="material-symbols-outlined text-[20px]">bolt</span> Power_Grid
+                </a>
+<a class="flex items-center gap-3 px-6 py-3 font-headline text-[0.75rem] font-medium text-[#849396] opacity-70 hover:bg-[#1a1c1f] hover:text-[#c3f5ff]" href="#">
+<span class="material-symbols-outlined text-[20px]">shield</span> Security
+                </a>
+</nav>
+</div>
+<div class="p-4 bg-surface-container-lowest/50">
+<a class="flex items-center gap-3 px-2 py-2 font-headline text-[0.7rem] text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span> Documentation
+            </a>
+<a class="flex items-center gap-3 px-2 py-2 font-headline text-[0.7rem] text-outline hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span> Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 mt-14 p-6 min-h-screen">
+<div class="grid grid-cols-12 gap-6">
+<!-- (1) Status Hero: Prompt Safety & Health -->
+<section class="col-span-12 lg:col-span-9 space-y-6">
+<div class="bg-surface-container p-8 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="absolute top-0 right-0 p-4">
+<span class="text-[0.6rem] font-mono-data text-outline/40 uppercase tracking-[0.2em]">System_Ref: LINT_HD_882</span>
+</div>
+<div class="flex items-center gap-10">
+<!-- Neon Circular Score Indicator -->
+<div class="relative flex items-center justify-center">
+<svg class="w-32 h-32 transform -rotate-90">
+<circle class="text-surface-container-lowest" cx="64" cy="64" fill="transparent" r="60" stroke="currentColor" stroke-width="2"></circle>
+<circle class="text-secondary-container" cx="64" cy="64" fill="transparent" r="60" stroke="currentColor" stroke-dasharray="377" stroke-dashoffset="60" stroke-width="4"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-4xl font-black font-headline text-secondary-container">84</span>
+<span class="text-[0.6rem] font-headline text-outline uppercase tracking-wider">Safety_Score</span>
+</div>
+</div>
+<div class="space-y-2">
+<h1 class="text-3xl font-black font-headline tracking-tighter text-on-surface uppercase leading-none">Prompt Contract Linter</h1>
+<p class="text-[0.75rem] font-body text-outline max-w-md">Validation of directive integrity and safety adherence for production deployment of LLM-01 Core.</p>
+<div class="flex gap-4 pt-2">
+<div class="px-3 py-1 bg-secondary-container/10 border-l-2 border-secondary-container">
+<span class="text-[0.65rem] font-headline font-bold text-secondary-container uppercase">Status: Amber_Warning</span>
+</div>
+<div class="px-3 py-1 bg-primary/5 border-l-2 border-primary">
+<span class="text-[0.65rem] font-headline font-bold text-primary uppercase">Uptime: 144:12:08</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 w-full md:w-64">
+<div class="bg-surface-container-lowest p-3">
+<div class="flex justify-between mb-1">
+<span class="text-[0.6rem] font-label font-bold text-outline uppercase">Linting Health</span>
+<span class="text-[0.6rem] font-mono-data text-primary">92%</span>
+</div>
+<div class="h-1.5 bg-surface-container-high overflow-hidden">
+<div class="h-full glow-bar-fill" style="width: 92%"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-3">
+<div class="flex justify-between mb-1">
+<span class="text-[0.6rem] font-label font-bold text-outline uppercase">Validation Depth</span>
+<span class="text-[0.6rem] font-mono-data text-secondary">DEEP_SCAN</span>
+</div>
+<div class="h-1.5 bg-surface-container-high overflow-hidden">
+<div class="h-full bg-secondary shadow-[0_0_8px_#ffcf8f]" style="width: 100%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- (2) Priority Items & Analysis Section -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Priority Items: Vague Terms / Missing Constraints -->
+<div class="bg-surface-container-low space-y-4">
+<div class="bg-surface-container-high px-4 py-2 flex justify-between items-center">
+<span class="text-[0.7rem] font-headline font-bold text-on-surface uppercase tracking-widest">Priority Violations</span>
+<span class="text-[0.6rem] font-mono-data text-tertiary-container uppercase">03 High / 08 Med</span>
+</div>
+<div class="p-4 space-y-3">
+<!-- Critical Item -->
+<div class="flex gap-4 p-3 bg-tertiary-container/5 group hover:bg-tertiary-container/10 transition-colors">
+<span class="material-symbols-outlined text-tertiary-container shrink-0 mt-0.5" data-weight="fill">warning</span>
+<div>
+<div class="text-[0.75rem] font-bold font-headline text-on-surface">Vague Output Directive</div>
+<div class="text-[0.65rem] font-body text-outline mt-1">Found term <span class="bg-tertiary-container/20 px-1 text-tertiary-container">"Be helpful"</span> without quantitative success metrics in line 12.</div>
+</div>
+</div>
+<!-- Warning Item -->
+<div class="flex gap-4 p-3 bg-secondary-container/5 group hover:bg-secondary-container/10 transition-colors">
+<span class="material-symbols-outlined text-secondary-container shrink-0 mt-0.5">report_problem</span>
+<div>
+<div class="text-[0.75rem] font-bold font-headline text-on-surface">Missing PII Constraint</div>
+<div class="text-[0.65rem] font-body text-outline mt-1">Prompt lacks explicit 'No PII Exposure' boundary for user-facing outputs.</div>
+</div>
+</div>
+<!-- Med Item -->
+<div class="flex gap-4 p-3 bg-surface-container group hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-outline shrink-0 mt-0.5">info</span>
+<div>
+<div class="text-[0.75rem] font-bold font-headline text-outline">Ambiguous Context Anchor</div>
+<div class="text-[0.65rem] font-body text-outline/70 mt-1">Instruction "Use previous context" may lead to hallucination without windowing limits.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- (3) Analysis Section: Token Counts & Metrics -->
+<div class="bg-surface-container-low">
+<div class="bg-surface-container-high px-4 py-2 flex justify-between items-center">
+<span class="text-[0.7rem] font-headline font-bold text-on-surface uppercase tracking-widest">Metric Analysis</span>
+<span class="material-symbols-outlined text-[16px] text-outline">query_stats</span>
+</div>
+<div class="p-6 grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-4 space-y-1">
+<div class="text-[0.6rem] font-label font-bold text-outline uppercase tracking-wider">Input Tokens</div>
+<div class="text-2xl font-black font-headline text-primary">1,204</div>
+<div class="text-[0.55rem] font-mono-data text-primary/50">+12% vs v0.9</div>
+</div>
+<div class="bg-surface-container-lowest p-4 space-y-1">
+<div class="text-[0.6rem] font-label font-bold text-outline uppercase tracking-wider">Entropy Score</div>
+<div class="text-2xl font-black font-headline text-secondary-fixed-dim">0.42</div>
+<div class="text-[0.55rem] font-mono-data text-secondary-fixed-dim/50">Optimal: 0.35 - 0.50</div>
+</div>
+<div class="bg-surface-container-lowest p-4 space-y-1">
+<div class="text-[0.6rem] font-label font-bold text-outline uppercase tracking-wider">Constraint Density</div>
+<div class="text-2xl font-black font-headline text-on-surface">0.82</div>
+<div class="text-[0.55rem] font-mono-data text-outline/50">7 Active Directives</div>
+</div>
+<div class="bg-surface-container-lowest p-4 space-y-1">
+<div class="text-[0.6rem] font-label font-bold text-outline uppercase tracking-wider">System Pressure</div>
+<div class="text-2xl font-black font-headline text-error">HIGH</div>
+<div class="text-[0.55rem] font-mono-data text-error/50">Refactoring Recommended</div>
+</div>
+</div>
+<div class="px-6 pb-6">
+<div class="border-t border-outline-variant/10 pt-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[0.65rem] font-headline font-bold text-outline uppercase">Constraint Adherence</span>
+<span class="text-[0.65rem] font-mono-data text-primary">6/8 Passed</span>
+</div>
+<div class="flex gap-1.5">
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-primary"></div>
+<div class="h-2 flex-1 bg-tertiary-container/30"></div>
+<div class="h-2 flex-1 bg-tertiary-container/30"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- (4) Next-Best Action Card -->
+<div class="bg-primary-container p-1 shadow-[0_10px_30px_rgba(0,229,255,0.1)]">
+<div class="bg-surface p-6 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-primary-container/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl">task_alt</span>
+</div>
+<div>
+<h3 class="text-lg font-bold font-headline text-on-surface leading-tight">Preflight Review Required</h3>
+<p class="text-[0.75rem] font-body text-outline mt-1">Manual approval needed for 2 identified ambiguity risks before production push.</p>
+</div>
+</div>
+<button class="bg-primary-container text-on-primary-fixed px-6 py-3 font-headline font-black text-[0.75rem] uppercase hover:bg-primary-fixed-dim transition-all active:scale-95 duration-75">
+                            Launch_Review
+                        </button>
+</div>
+</div>
+</section>
+<!-- (5) Summary Rail: Active System Prompts -->
+<aside class="col-span-12 lg:col-span-3 space-y-6">
+<div class="bg-surface-container-low h-full flex flex-col">
+<div class="p-5 border-b border-outline-variant/20">
+<h4 class="text-[0.7rem] font-headline font-bold text-on-surface uppercase tracking-widest mb-1">Active Contract Stack</h4>
+<p class="text-[0.6rem] font-body text-outline">Monitoring live prompt cycles</p>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Version Item -->
+<div class="bg-surface-container-lowest p-4 border-l-2 border-primary">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[0.65rem] font-mono-data text-primary font-bold">LLM_CORE_V2.4</span>
+<span class="text-[0.55rem] font-label font-bold bg-primary/10 px-1.5 py-0.5 text-primary">LIVE</span>
+</div>
+<div class="text-[0.7rem] font-bold font-headline text-on-surface uppercase mb-1">System_Orchestrator</div>
+<div class="text-[0.6rem] font-body text-outline line-clamp-2">"You are a routing agent responsible for directing high-density GPU requests..."</div>
+<div class="flex items-center gap-3 mt-3 text-[0.6rem] text-outline font-mono-data">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 12m ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">history</span> v122</span>
+</div>
+</div>
+<!-- Version Item -->
+<div class="bg-surface-container-lowest p-4 border-l-2 border-outline-variant/50">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[0.65rem] font-mono-data text-outline font-bold">DATA_EXTRACT_B</span>
+<span class="text-[0.55rem] font-label font-bold bg-outline-variant/20 px-1.5 py-0.5 text-outline">IDLE</span>
+</div>
+<div class="text-[0.7rem] font-bold font-headline text-on-surface uppercase mb-1">Log_Parser_Lambda</div>
+<div class="text-[0.6rem] font-body text-outline line-clamp-2">"Parse the following unstructured trace data into JSON format adhering to..."</div>
+<div class="flex items-center gap-3 mt-3 text-[0.6rem] text-outline font-mono-data">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 1h ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">history</span> v45</span>
+</div>
+</div>
+<!-- Version Item -->
+<div class="bg-surface-container-lowest p-4 border-l-2 border-tertiary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[0.65rem] font-mono-data text-tertiary-container font-bold">AUTH_GATE_V1</span>
+<span class="text-[0.55rem] font-label font-bold bg-tertiary-container/10 px-1.5 py-0.5 text-tertiary-container uppercase">Failing</span>
+</div>
+<div class="text-[0.7rem] font-bold font-headline text-on-surface uppercase mb-1">Security_Middleware</div>
+<div class="text-[0.6rem] font-body text-outline line-clamp-2">"Analyze user intent for injection patterns or unauthorized API..."</div>
+<div class="flex items-center gap-3 mt-3 text-[0.6rem] text-outline font-mono-data">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">schedule</span> 4s ago</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">history</span> v10</span>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-lowest">
+<button class="w-full border border-outline-variant/30 py-3 font-headline font-bold text-[0.65rem] text-outline uppercase hover:bg-surface-container transition-all">
+                            View_All_Versions
+                        </button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Metric Visualization Section -->
+<section class="mt-8">
+<div class="bg-surface-container-low p-6">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-[0.75rem] font-headline font-bold text-on-surface uppercase tracking-[0.2em]">Telemetry: Contract Drift over Time</h4>
+<p class="text-[0.65rem] font-body text-outline">Real-time analysis of prompt safety vs token efficiency</p>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-lowest">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="text-[0.6rem] font-mono-data text-outline">Safety</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container-lowest">
+<span class="w-2 h-2 bg-secondary"></span>
+<span class="text-[0.6rem] font-mono-data text-outline">Efficiency</span>
+</div>
+</div>
+</div>
+<div class="h-48 flex items-end gap-2 px-2">
+<!-- Fake Bar Chart -->
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[40%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[80%]"></div>
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 hidden group-hover:block bg-surface-bright p-1 text-[0.5rem] font-mono-data">0.42</div>
+</div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[55%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[70%]"></div>
+</div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[75%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[90%]"></div>
+</div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[60%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[75%]"></div>
+</div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[85%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[85%]"></div>
+</div>
+<div class="flex-1 bg-primary/20 hover:bg-primary/40 transition-all h-[95%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-primary h-[95%]"></div>
+</div>
+<div class="flex-1 bg-secondary/20 hover:bg-secondary/40 transition-all h-[30%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-secondary h-[50%]"></div>
+</div>
+<div class="flex-1 bg-secondary/20 hover:bg-secondary/40 transition-all h-[45%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-secondary h-[60%]"></div>
+</div>
+<div class="flex-1 bg-secondary/20 hover:bg-secondary/40 transition-all h-[55%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-secondary h-[70%]"></div>
+</div>
+<div class="flex-1 bg-secondary/20 hover:bg-secondary/40 transition-all h-[40%] relative group">
+<div class="absolute inset-x-0 bottom-0 bg-secondary h-[55%]"></div>
+</div>
+</div>
+<div class="flex justify-between mt-2 px-2 text-[0.5rem] font-mono-data text-outline/40 uppercase tracking-widest">
+<span>T-24h</span>
+<span>T-18h</span>
+<span>T-12h</span>
+<span>T-06h</span>
+<span>Now</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Status Bar (Utility Decorator) -->
+<footer class="fixed bottom-0 w-full h-8 bg-surface-container-lowest z-50 px-6 flex items-center justify-between border-t border-outline-variant/10">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+<span class="text-[0.6rem] font-mono-data text-primary uppercase">Engine_Active</span>
+</div>
+<div class="text-[0.6rem] font-mono-data text-outline">LATENCY: 42ms</div>
+<div class="text-[0.6rem] font-mono-data text-outline">LOC: 2,401 SLOC</div>
+</div>
+<div class="text-[0.6rem] font-mono-data text-outline/50 uppercase tracking-widest">Sentinel.OS // Build_8892-A</div>
+</footer>
+</body></html>
