@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LedgerTrust | Marketplace Evidence Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Work+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#2d4f37",
+              "surface-variant": "#e0e4d9",
+              "on-secondary-fixed": "#2b4539",
+              "error-dim": "#4e0309",
+              "secondary-fixed-dim": "#bedbcb",
+              "inverse-primary": "#e0f0fb",
+              "on-error": "#fff7f6",
+              "on-secondary-container": "#3d574b",
+              "primary-fixed-dim": "#c7d7e1",
+              "background": "#faf9f4",
+              "on-surface-variant": "#5c6058",
+              "tertiary-dim": "#385b42",
+              "outline-variant": "#afb3aa",
+              "secondary-container": "#cbe9d9",
+              "on-background": "#2f342d",
+              "on-error-container": "#752121",
+              "error-container": "#fe8983",
+              "tertiary-container": "#d3fbda",
+              "on-tertiary": "#e8ffea",
+              "surface-container-high": "#e7e9e0",
+              "on-primary-fixed": "#324149",
+              "surface-tint": "#516169",
+              "on-secondary-fixed-variant": "#466155",
+              "secondary-dim": "#3e594c",
+              "surface": "#faf9f4",
+              "error": "#9f403d",
+              "secondary-fixed": "#cbe9d9",
+              "secondary": "#4a6558",
+              "primary-container": "#d5e5ef",
+              "surface-dim": "#d7dcd0",
+              "primary-fixed": "#d5e5ef",
+              "on-surface": "#2f342d",
+              "primary-dim": "#45555d",
+              "surface-container-low": "#f4f4ee",
+              "outline": "#787c73",
+              "on-secondary": "#e5fff0",
+              "on-primary-container": "#45545c",
+              "primary": "#516169",
+              "tertiary-fixed": "#d3fbda",
+              "inverse-on-surface": "#9d9d99",
+              "surface-container": "#edefe7",
+              "on-tertiary-container": "#3f6249",
+              "surface-container-highest": "#e0e4d9",
+              "surface-bright": "#faf9f4",
+              "on-primary": "#f0f9ff",
+              "tertiary-fixed-dim": "#c5eccc",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed-variant": "#4e5e66",
+              "on-tertiary-fixed-variant": "#496c53",
+              "tertiary": "#44674d",
+              "inverse-surface": "#0d0f0c"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Work Sans"],
+              "label": ["Work Sans"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Work Sans', sans-serif; background-color: #faf9f4; }
+        .glass-panel {
+            background: rgba(250, 249, 244, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container">
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-6 z-40 bg-[#f4f4ee] dark:bg-[#242923] font-['Work_Sans'] text-sm tracking-wide w-64 border-none shadow-none">
+<div class="text-lg font-black text-[#2f342d] dark:text-[#faf9f4] mb-6">Evidence Builder</div>
+<nav class="flex-1 space-y-1">
+<!-- Overview: Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Active Cases: Active (Target for this screen) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-[#ffffff] dark:bg-[#2f342d] text-[#2f342d] dark:text-[#faf9f4] font-bold rounded-l-lg shadow-sm hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span>Active Cases</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span>Evidence Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10 hover:translate-x-1 transition-transform duration-200 opacity-90 hover:opacity-100" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>History</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 space-y-1">
+<button class="w-full mb-6 bg-primary text-on-primary py-3 px-6 rounded-xl font-bold transition-all active:scale-95 shadow-lg shadow-primary/20">
+                New Response
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#516169] dark:text-[#afb3aa] hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/10" href="#">
+<span class="material-symbols-outlined" data-icon="policy">policy</span>
+<span>Legal</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen bg-background relative">
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-30 flex justify-between items-center w-full px-8 h-16 bg-[#faf9f4] dark:bg-[#2f342d] font-['Manrope'] font-semibold tracking-tight shadow-none border-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#2f342d] dark:text-[#faf9f4]">LedgerTrust</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#516169]/70 dark:text-[#d5e5ef]/70 hover:text-[#2f342d] transition-colors" href="#">Disputes</a>
+<a class="text-[#2f342d] dark:text-[#faf9f4] border-b-2 border-[#516169] pb-1" href="#">Evidence</a>
+<a class="text-[#516169]/70 dark:text-[#d5e5ef]/70 hover:text-[#2f342d] transition-colors" href="#">Analytics</a>
+<a class="text-[#516169]/70 dark:text-[#d5e5ef]/70 hover:text-[#2f342d] transition-colors" href="#">Settlements</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/20 transition-all active:opacity-80">
+<span class="material-symbols-outlined text-[#516169]" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-[#e7e9e0] dark:hover:bg-[#4a6558]/20 transition-all active:opacity-80">
+<span class="material-symbols-outlined text-[#516169]" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img alt="Seller Profile" class="w-full h-full object-cover" data-alt="professional headshot of a small business owner in a clean modern office setting with warm lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCnmOsiDKWSYLlD9kHZ1d-I2IsjNXbOdglzY_RewC1VeY_f3HIkuAQYrNMQrLBmtcrDMsbpmdlDnA17Y2JoDlKnp2odbEwDXZHZcQSKhIR3_JBUQNzBNuM1YVtG4yBGvKaLVxBkJFifCcLfp6TqYm743eEBipaLegFhNhlru2UF1aseyknzL4usHC7MDbvv1nD0ztF01e0PLA_LQli9k1IjEWOXJCQdiID3d7BMifavuHDrd8T2v0D_aIn7AXE_6F7NpcGyFq8z_1Sx"/>
+</div>
+</div>
+</header>
+<div class="p-10 max-w-7xl mx-auto space-y-12">
+<!-- Section 1: Dispute Health Hero (Bento Style) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-lowest p-8 rounded-xl relative overflow-hidden group">
+<div class="relative z-10 flex flex-col h-full justify-between">
+<div>
+<span class="label-sm text-on-surface-variant tracking-widest uppercase text-[10px] font-bold">Executive Oversight</span>
+<h1 class="font-headline text-5xl font-extrabold text-on-surface mt-4 leading-tight">14 Open Disputes <br/><span class="text-primary/60">Awaiting Evidence</span></h1>
+</div>
+<div class="mt-8">
+<button class="bg-primary text-on-primary px-8 py-4 rounded-lg font-bold text-sm tracking-wide transition-all active:scale-95 flex items-center gap-2 group">
+                                Resolve Priority Case
+                                <span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Abstract Background Element -->
+<div class="absolute -right-12 -bottom-12 w-64 h-64 bg-primary-container rounded-full opacity-20 blur-3xl"></div>
+</div>
+<div class="bg-primary bg-gradient-to-br from-primary to-primary-dim p-8 rounded-xl text-on-primary flex flex-col justify-between">
+<div>
+<span class="label-sm text-on-primary/60 tracking-widest uppercase text-[10px] font-bold">Recoverable GMV</span>
+<div class="font-headline text-4xl font-black mt-2 tracking-tight">$12,450.00</div>
+</div>
+<div class="pt-6 border-t border-on-primary/10">
+<div class="flex items-center justify-between text-sm">
+<span class="opacity-70">Win Rate Potential</span>
+<span class="font-bold text-secondary-container">+12% vs LY</span>
+</div>
+<div class="w-full bg-on-primary/10 h-1.5 mt-2 rounded-full overflow-hidden">
+<div class="bg-secondary-container h-full w-[78%]"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Workspace Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- Center Column: Case Queue & Checklist -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Section 2: Case Deadline Queue -->
+<section>
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-headline text-xl font-bold tracking-tight">Case Deadline Queue</h2>
+<button class="text-xs font-bold text-primary hover:underline">View All 14 Cases</button>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-high/50">
+<tr class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant/70">
+<th class="px-6 py-4">Marketplace</th>
+<th class="px-6 py-4">Amount</th>
+<th class="px-6 py-4">Age</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4 text-right">Deadline</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-xs font-bold text-on-surface">AMZ</div>
+<div>
+<div class="font-semibold text-sm">Amazon US</div>
+<div class="text-[10px] text-on-surface-variant">Order #9921-X</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-bold text-sm">$842.00</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">4 Days</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-error-container/20 text-on-error-container uppercase">Critical</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="bg-error text-on-error px-3 py-1 rounded-full text-[10px] font-bold">Today</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-xs font-bold text-[#E53238]">eBay</div>
+<div>
+<div class="font-semibold text-sm">eBay Global</div>
+<div class="text-[10px] text-on-surface-variant">Order #EB-2001</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-bold text-sm">$1,240.50</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">2 Days</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-tertiary-container text-on-tertiary-container uppercase">Drafting</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="bg-surface-container-highest text-on-surface px-3 py-1 rounded-full text-[10px] font-bold">2d Left</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm text-xs font-bold text-[#F1641E]">Etsy</div>
+<div>
+<div class="font-semibold text-sm">Etsy Handmade</div>
+<div class="text-[10px] text-on-surface-variant">Order #ET-5541</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-5 font-bold text-sm">$45.00</td>
+<td class="px-6 py-5 text-sm text-on-surface-variant">12 Days</td>
+<td class="px-6 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold bg-surface-container-high text-on-surface-variant uppercase">New</span>
+</td>
+<td class="px-6 py-5 text-right">
+<span class="bg-surface-container-highest text-on-surface px-3 py-1 rounded-full text-[10px] font-bold">5d Left</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Section 3: Evidence Completeness Checklist -->
+<section>
+<h2 class="font-headline text-xl font-bold tracking-tight mb-6">Evidence Completeness <span class="text-on-surface-variant/50 font-medium">· Case #9921-X</span></h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant/10 p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="local_shipping" data-weight="fill">local_shipping</span>
+</div>
+<div>
+<div class="font-bold text-sm">Proof of Delivery</div>
+<div class="text-[10px] text-secondary">Verified via FedEx API</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/10 p-5 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="forum" data-weight="fill">forum</span>
+</div>
+<div>
+<div class="font-bold text-sm">Customer Messages</div>
+<div class="text-[10px] text-secondary">3 threads attached</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle" data-weight="fill">check_circle</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/10 p-5 rounded-xl flex items-center justify-between outline outline-2 outline-error-container/30">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="receipt_long">receipt_long</span>
+</div>
+<div>
+<div class="font-bold text-sm">Original Invoice</div>
+<div class="text-[10px] text-error">Missing Marketplace SKU</div>
+</div>
+</div>
+<button class="text-[10px] font-bold text-primary underline">Upload</button>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant/10 p-5 rounded-xl flex items-center justify-between opacity-60">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="history">history</span>
+</div>
+<div>
+<div class="font-bold text-sm">Usage History</div>
+<div class="text-[10px] text-on-surface-variant">Optional but recommended</div>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</div>
+</div>
+</section>
+<!-- Section 5: Submission Packet Preview -->
+<section class="bg-white p-8 rounded-xl border border-outline-variant/20 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="text-[10px] font-bold text-on-surface-variant/40 tracking-widest uppercase">Bundle Preview</span>
+</div>
+<div class="max-w-2xl">
+<div class="flex items-center gap-2 mb-4">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-bold text-xs">Narrative Summary.pdf</span>
+</div>
+<div class="space-y-3 text-sm text-on-surface/80 leading-relaxed font-body italic border-l-2 border-primary-container pl-4">
+                                "The customer claims non-receipt of item #9921-X. However, tracking ID 7721839210 shows delivery at the front porch on Oct 12 at 2:14 PM. Photographic evidence provided by the carrier matches the delivery address on record..."
+                            </div>
+<div class="mt-8 flex flex-wrap gap-3">
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded border border-outline-variant/20">
+<span class="material-symbols-outlined text-sm" data-icon="image">image</span>
+<span class="text-[10px] font-semibold">delivery_photo.jpg</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded border border-outline-variant/20">
+<span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+<span class="text-[10px] font-semibold">tracking_log.pdf</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-low px-3 py-2 rounded border border-outline-variant/20">
+<span class="material-symbols-outlined text-sm" data-icon="chat">chat</span>
+<span class="text-[10px] font-semibold">chat_export.csv</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Rail: Contextual Insights -->
+<aside class="lg:col-span-4 space-y-8">
+<!-- Section 4: Reason-Code Guidance Panel -->
+<div class="bg-surface-container-high/40 p-6 rounded-xl border border-outline-variant/10">
+<h3 class="font-headline text-lg font-bold mb-4">Strategy Guide</h3>
+<div class="space-y-6">
+<div class="group cursor-help">
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Fraud</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="info">info</span>
+</div>
+<p class="text-[11px] leading-relaxed text-on-surface-variant">Focus on IP address matches and previous successful order history. Link shipping address to buyer profile.</p>
+</div>
+<div class="group cursor-help">
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Item-not-received</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="info">info</span>
+</div>
+<p class="text-[11px] leading-relaxed text-on-surface-variant">Carrier-signed BOL or photo delivery is mandatory. GPS coordinates of delivery vehicle are high-strength.</p>
+</div>
+<div class="group cursor-help">
+<div class="flex items-center justify-between mb-1">
+<span class="text-xs font-bold uppercase tracking-wider text-primary">Not-as-described</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="info">info</span>
+</div>
+<p class="text-[11px] leading-relaxed text-on-surface-variant">Show SKU-level matches between listing and shipping manifest. Highlight "No Return Started" status.</p>
+</div>
+</div>
+</div>
+<!-- Section 6: Win-Risk Summary Rail -->
+<div class="space-y-6">
+<div>
+<h3 class="font-headline text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant/60 mb-4">Strongest Cases</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border-l-4 border-secondary">
+<span class="text-xs font-semibold">AMZ-9921 (Fraud)</span>
+<span class="text-[10px] font-bold text-secondary">92% WIN</span>
+</div>
+<div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border-l-4 border-secondary">
+<span class="text-xs font-semibold">EB-2001 (INR)</span>
+<span class="text-[10px] font-bold text-secondary">88% WIN</span>
+</div>
+</div>
+</div>
+<div>
+<h3 class="font-headline text-sm font-bold uppercase tracking-[0.2em] text-on-surface-variant/60 mb-4">Weak Spots</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between bg-surface-container-lowest p-3 rounded-lg border-l-4 border-error">
+<span class="text-xs font-semibold">ET-5541 (Missing Info)</span>
+<span class="text-[10px] font-bold text-error">24% WIN</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/5 p-5 rounded-xl border border-primary/10">
+<div class="flex items-center gap-2 text-primary mb-3">
+<span class="material-symbols-outlined text-sm" data-icon="event_note">event_note</span>
+<span class="text-xs font-bold">Today's Deadlines</span>
+</div>
+<ul class="space-y-3">
+<li class="text-[11px] flex justify-between">
+<span>Amazon Dispute #9921-X</span>
+<span class="font-bold text-error">4:00 PM EST</span>
+</li>
+<li class="text-[11px] flex justify-between">
+<span>Mercari Response #M22</span>
+<span class="font-bold">11:59 PM EST</span>
+</li>
+</ul>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Floating Relationship Overlay (Subtle) -->
+<div class="fixed bottom-8 right-8 z-50">
+<div class="glass-panel p-4 rounded-full shadow-2xl border border-white/50 flex items-center gap-4">
+<div class="flex -space-x-2">
+<img alt="Analyst 1" class="w-6 h-6 rounded-full border-2 border-white" data-alt="close-up portrait of a professional business woman in a white blazer smiling" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3pl_5VYVvpk5-x56_i-peRKsWaa4BKiLqrwNcoCLdMJzDZxJy9iab1EcGPs2yMfw2V6j8iEsnTzJyG9NaLUsUEpYqTsRhpPx_nynLfbdEy2hi8OWniDOg15-TBjdHrpwRKuZsxf8ZgAP7So2TjC4IEbuHzD3dyNU8ZsV_Tuj1lAEUIP0ySiRYfIJOw_cEyX3gJR_sPPQ32D4oN6zmjBmZun4wLvKNIUiOWxh3UJ9E0WZwnqq7QJHoHFL1sUe0D2ja3WU9WbPN7CYx"/>
+<img alt="Analyst 2" class="w-6 h-6 rounded-full border-2 border-white" data-alt="close-up portrait of a diverse male executive in a blue dress shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDutMVoHA3BEGKL-hQVHbeM9Vz32lQilgiBpuDHrKegi-ElN136YgYlzj-XVYrt-yF67GjWYPC0jO-rZIC6-rz376bMwUjmi5VIlXuRP4pXdIKXRm07yIQkNutHBWkr4rneO0mP0q6O5Rns3FhnJHUayPnFgbU8ewFF-nUDPP4YcYqPcxhAyM2Q30SWK9CrK0JrXlPjeacY4Nu3IdcwPV4rBgt3-xVxluYy_b-e3ZAsiadmRrfk08w6uhPmuwTyODEuojAQH6yBguU-"/>
+</div>
+<div class="text-[10px]">
+<span class="font-bold block">2 Experts Online</span>
+<span class="text-on-surface-variant">Ready to review bundle</span>
+</div>
+<button class="bg-primary text-on-primary p-2 rounded-full">
+<span class="material-symbols-outlined text-sm" data-icon="chat_bubble">chat_bubble</span>
+</button>
+</div>
+</div>
+</body></html>

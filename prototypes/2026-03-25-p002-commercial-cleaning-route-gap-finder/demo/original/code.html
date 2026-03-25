@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpsFlow: Route Finder | Commercial Cleaning Optimization</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#0b1326",
+              "on-primary": "#263143",
+              "secondary": "#b7c8e1",
+              "secondary-fixed": "#d3e4fe",
+              "error": "#ffb4ab",
+              "tertiary-fixed-dim": "#ffb95f",
+              "on-surface": "#dae2fd",
+              "surface-container-lowest": "#060e20",
+              "on-primary-fixed-variant": "#3c475a",
+              "primary-container": "#0c1829",
+              "surface-dim": "#0b1326",
+              "primary-fixed": "#d8e3fb",
+              "tertiary": "#ffb95f",
+              "inverse-surface": "#dae2fd",
+              "on-tertiary-fixed-variant": "#653e00",
+              "on-primary-fixed": "#111c2d",
+              "tertiary-container": "#251400",
+              "on-tertiary": "#472a00",
+              "surface-container-high": "#222a3d",
+              "surface-tint": "#bcc7de",
+              "on-tertiary-container": "#b47300",
+              "on-secondary-fixed-variant": "#38485d",
+              "surface-container": "#171f33",
+              "surface-bright": "#31394d",
+              "surface-container-highest": "#2d3449",
+              "primary": "#bcc7de",
+              "background": "#0b1326",
+              "on-secondary": "#213145",
+              "on-primary-container": "#768197",
+              "primary-fixed-dim": "#bcc7de",
+              "on-surface-variant": "#c6c6cd",
+              "tertiary-fixed": "#ffddb8",
+              "error-container": "#93000a",
+              "on-error-container": "#ffdad6",
+              "inverse-on-surface": "#283044",
+              "on-background": "#dae2fd",
+              "secondary-container": "#3a4a5f",
+              "outline-variant": "#45464d",
+              "on-tertiary-fixed": "#2a1700",
+              "secondary-fixed-dim": "#b7c8e1",
+              "on-secondary-fixed": "#0b1c30",
+              "surface-variant": "#2d3449",
+              "surface-container-low": "#131b2e",
+              "on-secondary-container": "#a9bad3",
+              "outline": "#909097",
+              "on-error": "#690005",
+              "inverse-primary": "#545f73"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b1326; color: #dae2fd; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .glass-panel { background: rgba(188, 199, 222, 0.05); backdrop-filter: blur(12px); }
+        .headline-lg { font-family: 'Manrope'; font-weight: 800; tracking: -0.025em; color: #dae2fd; }
+        .evidence-block { background-color: #060e20; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-slate-900 text-slate-200 font-manrope text-sm font-semibold tracking-tight bg-slate-800/50 backdrop-blur-md border-b border-slate-700/30 shadow-xl shadow-black/20 flex justify-between items-center px-6 h-16 w-full max-w-none">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-amber-400 tracking-tighter">OpsFlow: Route Finder</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Dashboard</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Schedules</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Crews</a>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Analytics</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-slate-800/80 rounded-full active:scale-95 duration-150">notifications</button>
+<button class="material-symbols-outlined p-2 hover:bg-slate-800/80 rounded-full active:scale-95 duration-150">settings</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-slate-700">
+<img alt="Manager Avatar" data-alt="professional portrait of a operations manager in a dark blue shirt with neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGhQPbCEpjaM41SEAi2wpj2gO1FmCk0YW6y1ntoTzz70O66GSfjrB4Hh8WiZbypXTFieYza3OguY_vVQKAT359wiFpEeob6bgcRGAXeAO4Uy4P070G3dRrrZ-UhsnEuqDsCg1zeLtR6XjHjEziZMqEXxXOifkr-y_LshCVpEU75QrOeQWpJhjksqmQhPX616AS3IrtavgTrDTwNhugA0fBWFVK1rqxrtMP0s_zfmbMM-YK8S3vUjpmZBGUQQWsXzSOp86D05dDyiW"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed left-0 h-full w-64 pt-20 bg-slate-950 text-slate-100 font-inter text-xs font-medium bg-slate-900/80 border-r border-slate-800/50 flex flex-col gap-2 z-40">
+<div class="px-6 py-4 mb-2">
+<p class="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Regional Hub</p>
+<p class="text-sm font-bold text-slate-200">North Sector</p>
+</div>
+<nav class="flex-grow">
+<div class="bg-slate-800 text-amber-400 rounded-lg mx-2 my-1 px-4 py-3 border-l-4 border-amber-500 flex items-center gap-3">
+<span class="material-symbols-outlined">route</span>
+<span>Route Optimization</span>
+</div>
+<div class="text-slate-500 hover:text-slate-300 mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">groups</span>
+<span>Crew Dispatch</span>
+</div>
+<div class="text-slate-500 hover:text-slate-300 mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Site Audit</span>
+</div>
+<div class="text-slate-500 hover:text-slate-300 mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">business_center</span>
+<span>Client Portal</span>
+</div>
+<div class="text-slate-500 hover:text-slate-300 mx-2 my-1 px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">search_insights</span>
+<span>Gap Analysis</span>
+</div>
+</nav>
+<div class="p-4 mt-auto">
+<button class="w-full bg-primary text-on-primary font-bold py-3 rounded-lg flex items-center justify-center gap-2 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                Optimize All Routes
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-20 px-8 w-full">
+<!-- Coverage Summary Hero -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="col-span-2 glass-panel p-8 rounded-xl relative overflow-hidden flex items-center justify-between">
+<div class="relative z-10">
+<h1 class="headline-lg text-4xl mb-2">320 <span class="text-on-surface-variant text-lg font-medium">Booked Hours</span></h1>
+<div class="flex items-center gap-3 mb-6">
+<span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">warning</span>
+                            8 Open Gaps Detected
+                        </span>
+<span class="text-on-surface-variant text-sm">Next shift starts in 2h 15m</span>
+</div>
+<button class="bg-primary hover:bg-primary-fixed-dim text-on-primary font-bold px-6 py-2.5 rounded shadow-lg shadow-primary/20 transition-all">
+                        Fill Highest Gap
+                    </button>
+</div>
+<div class="h-32 w-48 opacity-20 pointer-events-none">
+<div class="w-full h-full bg-gradient-to-br from-tertiary to-transparent rounded-full blur-3xl"></div>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl flex flex-col justify-between border-b border-outline-variant/20">
+<div>
+<p class="text-on-surface-variant text-xs uppercase tracking-wider font-semibold mb-4">Route Efficiency</p>
+<div class="flex items-end gap-2">
+<span class="headline-lg text-3xl">84%</span>
+<span class="text-tertiary text-sm font-bold mb-1">+5.2% vs LW</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-low h-2 rounded-full overflow-hidden mt-4">
+<div class="bg-tertiary h-full w-[84%]"></div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-8">
+<!-- Crew Route Timeline -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<div class="bg-surface-container p-6 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline font-bold text-lg">Crew Route Timeline <span class="text-on-surface-variant font-normal text-sm ml-2">May 24, 2024</span></h2>
+<div class="flex gap-2">
+<button class="p-1 hover:bg-surface-bright rounded"><span class="material-symbols-outlined text-on-surface-variant">chevron_left</span></button>
+<button class="p-1 hover:bg-surface-bright rounded"><span class="material-symbols-outlined text-on-surface-variant">chevron_right</span></button>
+</div>
+</div>
+<div class="space-y-6">
+<!-- Crew Row 1 -->
+<div class="relative">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-secondary">C1</div>
+<div>
+<p class="text-sm font-semibold">Alpha Team (3 members)</p>
+<p class="text-xs text-on-surface-variant">Lead: Roberto M.</p>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-0.5 h-12 bg-surface-container-low rounded-lg overflow-hidden relative">
+<div class="col-span-3 bg-secondary-container/40 border-r border-outline-variant/30 flex items-center px-3 text-[10px] font-bold">STADIUM PLAZA</div>
+<div class="col-span-1 bg-surface-container-highest/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-surface-variant">local_shipping</span>
+</div>
+<div class="col-span-4 bg-secondary-container/40 border-r border-outline-variant/30 flex items-center px-3 text-[10px] font-bold">TECH HUB TOWER</div>
+<div class="col-span-2 bg-tertiary-container/30 border-2 border-dashed border-tertiary/40 flex items-center justify-center">
+<span class="text-[10px] font-bold text-tertiary italic">GAP: 2.5H</span>
+</div>
+<div class="col-span-2 bg-secondary-container/40 flex items-center px-3 text-[10px] font-bold">CITY MALL</div>
+</div>
+</div>
+<!-- Crew Row 2 -->
+<div class="relative">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-secondary">C2</div>
+<div>
+<p class="text-sm font-semibold">Beta Crew (2 members)</p>
+<p class="text-xs text-on-surface-variant">Lead: Sarah J.</p>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-0.5 h-12 bg-surface-container-low rounded-lg overflow-hidden relative">
+<div class="col-span-5 bg-secondary-container/40 border-r border-outline-variant/30 flex items-center px-3 text-[10px] font-bold">GENERAL HOSPITAL</div>
+<div class="col-span-1 bg-surface-container-highest/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-on-surface-variant">local_shipping</span>
+</div>
+<div class="col-span-6 bg-secondary-container/40 flex items-center px-3 text-[10px] font-bold">MARINA APARTMENTS</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Gap Opportunity List -->
+<div class="bg-surface-container p-6 rounded-xl">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline font-bold text-lg">Top Recovery Gaps</h2>
+<span class="text-xs text-on-surface-variant">Ranked by Financial Impact</span>
+</div>
+<div class="space-y-3">
+<!-- Opportunity 1 -->
+<div class="evidence-block p-4 rounded flex items-center justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-tertiary-container rounded">
+<span class="material-symbols-outlined text-tertiary">monetization_on</span>
+</div>
+<div>
+<p class="text-sm font-bold">Midtown Medical (Deep Clean)</p>
+<p class="text-xs text-on-surface-variant">Available Window: 13:00 - 16:30</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-tertiary">$875.00</p>
+<div class="flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-[10px] text-on-surface-variant">timer</span>
+<p class="text-[10px] uppercase text-on-surface-variant font-bold">12m Travel</p>
+</div>
+</div>
+</div>
+<!-- Opportunity 2 -->
+<div class="evidence-block p-4 rounded flex items-center justify-between group hover:bg-surface-container-highest transition-colors cursor-pointer">
+<div class="flex items-center gap-4">
+<div class="p-3 bg-secondary-container rounded">
+<span class="material-symbols-outlined text-secondary">event_repeat</span>
+</div>
+<div>
+<p class="text-sm font-bold">Bayfront Logistics Hub</p>
+<p class="text-xs text-on-surface-variant">Available Window: 22:00 - 02:00</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-bold text-secondary">$500.00</p>
+<div class="flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-[10px] text-on-surface-variant">timer</span>
+<p class="text-[10px] uppercase text-on-surface-variant font-bold">8m Travel</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Widgets -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Travel-Friction Map Card -->
+<div class="bg-surface-container rounded-xl overflow-hidden flex flex-col">
+<div class="p-5">
+<h2 class="font-headline font-bold text-lg mb-1">Traffic Friction</h2>
+<p class="text-xs text-on-surface-variant">Active Impact: High</p>
+</div>
+<div class="relative h-48 w-full bg-slate-800">
+<img alt="Map View" class="w-full h-full object-cover grayscale opacity-50" data-alt="stylized top-down dark city map with neon blue and orange highlighted traffic arteries showing heavy congestion at bridge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM9Hwl7tPvj76HKur63Y-93VgrPP6U2f_bcYC086q_oAwOre9OWJmWOSOEqMoLJjiDI8eG8LzQcOU2oEMLbq5KIKtKUD81yFZfdyfPe_CnJHTm9TlzVFdXu9Um6Xuzh2sZXHNP5HW66SmrXtYeSdfeFbyw7_6z6EOr0zl09v3nYhJogkvepKN9P6BMEmwd59ujgafLF9wl5XPHoO6UVGvZK_8fEkWTugJopo6a7-7yuoTe65Z56xfT4MdICNmuhR6My7AoT7tc0WMF"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+<div class="absolute bottom-4 left-4 right-4 bg-tertiary-container/90 backdrop-blur p-3 rounded-lg border border-tertiary/20">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">traffic</span>
+<p class="text-xs font-bold leading-tight">15% efficiency loss due to bridge traffic (Main St. Closure)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Site Priority Queue -->
+<div class="bg-surface-container p-6 rounded-xl">
+<h2 class="font-headline font-bold text-lg mb-6">Site Risk Queue</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-start border-b border-outline-variant/10 pb-3">
+<div>
+<p class="text-sm font-bold">Westside Data Center</p>
+<p class="text-[10px] text-on-surface-variant">Last Audit: 14 Days Ago</p>
+</div>
+<span class="px-2 py-1 bg-error-container text-on-error-container text-[9px] font-bold rounded uppercase">Churn Risk</span>
+</div>
+<div class="flex justify-between items-start border-b border-outline-variant/10 pb-3">
+<div>
+<p class="text-sm font-bold">The Grove Retail Park</p>
+<p class="text-[10px] text-on-surface-variant">Missed Window: 2x This Week</p>
+</div>
+<span class="px-2 py-1 bg-tertiary-container text-on-tertiary-container text-[9px] font-bold rounded uppercase">SLA Breach</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<p class="text-sm font-bold">Zenith Office Park</p>
+<p class="text-[10px] text-on-surface-variant">Contract Renewal: 30 Days</p>
+</div>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-[9px] font-bold rounded uppercase">Priority</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Recovered-Hours Footer -->
+<footer class="fixed bottom-0 w-full z-40 bg-slate-950 text-amber-400 font-inter text-[10px] tracking-widest uppercase border-t border-amber-500/20 bg-slate-950/90 backdrop-blur-sm shadow-[0_-4px_20px_rgba(0,0,0,0.5)] flex justify-between items-center px-8 py-3 w-full">
+<div class="flex gap-8 items-center">
+<div class="flex items-center gap-2">
+<span class="text-slate-500">Utilization Before:</span>
+<span class="font-bold text-slate-300">78%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-slate-500">Utilization After:</span>
+<span class="font-bold text-amber-400">92%</span>
+</div>
+<div class="h-4 w-px bg-slate-800"></div>
+<div class="flex items-center gap-2 text-slate-500">
+<span class="material-symbols-outlined text-xs">analytics</span>
+<span>Recovered: +$1,450 Potential Revenue</span>
+</div>
+</div>
+<div class="flex gap-6 items-center">
+<span class="hover:text-amber-300 cursor-pointer transition-colors">System Status</span>
+<span class="hover:text-amber-300 cursor-pointer transition-colors">Priority Support</span>
+<span class="hover:text-amber-300 cursor-pointer transition-colors">Route Compliance</span>
+<span class="ml-4 text-slate-600">© 2024 Sovereign Operator Systems</span>
+</div>
+</footer>
+</body></html>
