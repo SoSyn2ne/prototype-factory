@@ -6,14 +6,14 @@ A clinic recovery screen that helps staff rescue unused appointment slots before
 - prototype
 
 ## How to use
-- Phase A scaffold only. Replace the demo stub with a Stitch export after it lands in the drop folder.
-- Expected Stitch drop path: `/home/sy/Downloads/stitch_drop/2026-03-24/p002/`
-- Review the product intent in `spec/`.
+- Review the product framing in `spec/prd.md`.
+- Stitch export has been ingested into `demo/` and preserved in `demo/original/code.html`.
+- Open the PF-safe demo wrapper to review the approved screen locally.
 
 ## Manual checklist
-- Confirm the exported screen matches the required UI sections.
-- Confirm the primary CTA and hierarchy make the next action obvious.
-- Confirm the demo remains stubbed until the 06:30 ingest job.
+- Confirm the exported screen still matches the required clinic recovery workflow.
+- Confirm the primary CTA and hierarchy make the refill action obvious.
+- Confirm the PF-safe demo wrapper and preserved Stitch artifact both open locally.
 
 ## Links
 - Preview: (TBD)
