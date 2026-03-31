@@ -68,10 +68,17 @@ Optional (recommended for UI):
 ## 3) Design-first workflow (recommended)
 
 When the task is “idea + design”:
-1) Write a 1‑page PRD (problem, target user, constraints, success metric)
-2) Create user flow (happy path + 2 edge cases)
-3) Produce UI spec (components, states, events)
-4) Only then code (if requested)
+1) Run an external inspiration sweep first (news, communities, operator pain, adjacent markets)
+2) Write a 1‑page PRD (problem, target user, constraints, success metric)
+3) Create user flow (happy path + 2 edge cases)
+4) Produce UI spec (components, states, events)
+5) Only then code (if requested)
+
+### Idea diversity rule
+- Do not overfit daily ideas to the operator's most visible interests.
+- Using the operator's taste as one signal is fine; mirroring it too closely is not.
+- Default expectation: daily batches should show broader range sourced from external signals and the assistant's own synthesis.
+- If recent batches cluster too tightly around one theme, deliberately widen the next batch.
 
 ---
 
