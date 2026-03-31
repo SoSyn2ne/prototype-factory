@@ -162,7 +162,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
                 <div className="grid grid-cols-1 md:grid-cols-[240px_1fr]">
                   <div className="relative aspect-[16/9] md:aspect-auto md:h-full overflow-hidden bg-slate-900">
                     <Link
-                      href={`/p/${encodeURIComponent(item.id)}`}
+                      href={item.demoUrl && !isExternalUrl(item.demoUrl) ? item.demoUrl : `/d/${encodeURIComponent(item.id)}`}
                       className="block h-full w-full hover:no-underline"
                     >
                       {item.previewImage ? (
@@ -237,7 +237,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
                         href={`/p/${encodeURIComponent(item.id)}`}
                         className="inline-flex flex-1 items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-black text-slate-700 shadow-sm transition hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
                       >
-                        View details
+                        Spec / details
                       </Link>
                     </div>
 

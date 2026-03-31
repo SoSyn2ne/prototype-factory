@@ -32,10 +32,6 @@ export default function DemoPage({ params }: { params: { id: string } }) {
               Gallery
             </Link>
             <span className="text-slate-600">›</span>
-            <Link className="hover:text-primary transition-colors" href={`/p/${encodeURIComponent(item.id)}`}>
-              Details
-            </Link>
-            <span className="text-slate-600">›</span>
             <span className="text-slate-900 dark:text-white">Demo</span>
           </div>
 
@@ -45,7 +41,7 @@ export default function DemoPage({ params }: { params: { id: string } }) {
               className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-primary transition-colors"
             >
               <span aria-hidden="true">←</span>
-              Back to details
+              Spec / details
             </Link>
             {exists ? (
               <a
