@@ -77,8 +77,11 @@ function normalizeMeta(folderName, meta, hasDemoEntry) {
     ? meta.oneLiner.trim()
     : readmeOneLiner;
 
+  const stitchImagePath = path.join(ROOT, repoPath, 'demo', 'assets', 'stitch-screen.png');
   const previewImagePath = path.join(PREVIEWS_DIR, `${id}.png`);
-  const previewImage = fs.existsSync(previewImagePath) ? `/previews/${id}.png` : "";
+  const previewImage = fs.existsSync(stitchImagePath)
+    ? `/demos/${id}/assets/stitch-screen.png`
+    : (fs.existsSync(previewImagePath) ? `/previews/${id}.png` : "");
 
   return {
     id,
