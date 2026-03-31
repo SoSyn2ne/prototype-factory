@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>OpsCommand | Pharmacy Prior-Auth Escape Board</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed": "#004e47",
+              "outline": "#717c82",
+              "primary-container": "#dbe1ff",
+              "primary-fixed": "#dbe1ff",
+              "surface-container-low": "#f0f4f7",
+              "on-primary-fixed-variant": "#0050d4",
+              "background": "#f7f9fb",
+              "tertiary-fixed": "#91feef",
+              "surface-variant": "#d9e4ea",
+              "on-surface": "#2a3439",
+              "surface-container": "#e8eff3",
+              "inverse-surface": "#0b0f10",
+              "on-secondary": "#f7f9ff",
+              "on-background": "#2a3439",
+              "tertiary": "#006b62",
+              "surface-container-high": "#e1e9ee",
+              "surface-dim": "#cfdce3",
+              "secondary-fixed": "#d3e4fe",
+              "tertiary-fixed-dim": "#83efe1",
+              "inverse-on-surface": "#9a9d9f",
+              "primary-dim": "#0048c1",
+              "on-surface-variant": "#566166",
+              "surface-container-highest": "#d9e4ea",
+              "secondary": "#506076",
+              "on-primary-container": "#0048bf",
+              "on-secondary-fixed-variant": "#4d5d73",
+              "tertiary-container": "#91feef",
+              "outline-variant": "#a9b4b9",
+              "primary-fixed-dim": "#c7d3ff",
+              "error": "#9f403d",
+              "on-error-container": "#752121",
+              "on-secondary-container": "#435368",
+              "on-primary-fixed": "#003798",
+              "on-secondary-fixed": "#314055",
+              "on-tertiary-fixed-variant": "#006d64",
+              "primary": "#0053db",
+              "secondary-dim": "#44546a",
+              "on-primary": "#f8f7ff",
+              "on-tertiary-container": "#006259",
+              "error-dim": "#4e0309",
+              "on-tertiary": "#e2fff9",
+              "secondary-container": "#d3e4fe",
+              "surface-tint": "#0053db",
+              "surface-container-lowest": "#ffffff",
+              "on-error": "#fff7f6",
+              "error-container": "#fe8983",
+              "inverse-primary": "#618bff",
+              "secondary-fixed-dim": "#c5d6f0",
+              "surface": "#f7f9fb",
+              "surface-bright": "#f7f9fb",
+              "tertiary-dim": "#005e56"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: #2a3439;
+        background-color: #f7f9fb;
+      }
+      h1, h2, h3, .brand-font {
+        font-family: 'Manrope', sans-serif;
+      }
+      /* Custom scrollbar for high density */
+      ::-webkit-scrollbar { width: 6px; height: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #cfdce3; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #a9b4b9; }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="flex flex-col h-screen p-4 gap-2 sticky left-0 top-0 bg-slate-100 dark:bg-slate-950 w-64 shrink-0 z-50">
+<div class="flex items-center gap-3 px-2 mb-6">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+<div>
+<div class="text-lg font-black text-slate-900 dark:text-white tracking-tight">Workbench</div>
+<div class="text-[10px] font-semibold font-inter uppercase tracking-wider text-slate-500">Executive View</div>
+</div>
+</div>
+<button class="mb-4 flex items-center justify-center gap-2 bg-gradient-to-br from-primary to-primary-dim text-on-primary px-4 py-3 rounded-lg font-bold shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="text-sm">New Case</span>
+</button>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-400 rounded-lg shadow-sm font-bold transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_late">assignment_late</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">Priority Queue</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">Claims Review</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">Fraud Triage</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">Student Records</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">System Health</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-slate-600 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-transform duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="text-xs font-semibold font-inter uppercase tracking-wider">Team Ops</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-slate-500 hover:text-slate-900 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="contact_support">contact_support</span>
+<span class="text-xs font-semibold uppercase tracking-wider">Support</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar (Shared Component) -->
+<header class="flex justify-between items-center w-full px-6 py-3 sticky top-0 z-50 bg-slate-50 dark:bg-slate-900">
+<div class="flex items-center gap-8">
+<span class="text-xl font-extrabold text-blue-900 dark:text-white tracking-tight">OpsCommand</span>
+<div class="relative w-64 group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 bg-slate-200/50 dark:bg-slate-800/50 border-none rounded-lg text-sm focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search claims or patients..." type="text"/>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-sm font-medium font-inter text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Dashboard</a>
+<a class="text-lg font-bold font-manrope text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1" href="#">Worklists</a>
+<a class="text-sm font-medium font-inter text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Analytics</a>
+<a class="text-sm font-medium font-inter text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" href="#">Archive</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border-2 border-slate-50"></span>
+</button>
+<button class="p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-8 w-px bg-slate-200 mx-1"></div>
+<div class="flex items-center gap-3 pl-2">
+<img alt="User profile avatar" class="w-8 h-8 rounded-full object-cover" data-alt="Close up portrait of a professional female doctor in white coat with subtle soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVakRCj0mhfwFBpyyl00AQtYA80a3MFrQsKVcte7oNi9sXqfeowYHbV6JuQCljtehulY7N0-P6p0rWCD2RN68iMqecgzWQPX6mN49rN4KtAhcnLXNTS1qaO4imyZI1SnRW-ut6s0T3YlalvOOqhESxkNfkFE7Rzn85DP-TlY3OS6qfXeVirHTeAoKQ9f0sNuQzZtjgKWpIKNUfkuYGv0UnDgZq3U08hrzk2TDjLvQlha2srStpBwTrvfTMWNiJN0p1p1pZfmyVoTrF"/>
+<div class="hidden lg:block">
+<div class="text-xs font-bold">Dr. Sarah Miller</div>
+<div class="text-[10px] text-slate-500">Chief Pharmacist</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 bg-slate-200/50 dark:bg-slate-800/50 h-px w-full"></div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-8 space-y-8 max-w-[1600px] mx-auto w-full">
+<!-- Hero: Daily Risk Summary -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-primary shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Total Pending PAs</span>
+<span class="material-symbols-outlined text-primary/40">pending_actions</span>
+</div>
+<div class="mt-2">
+<span class="text-3xl font-extrabold tracking-tight">42</span>
+<span class="text-xs text-tertiary font-medium ml-2">+4% from avg</span>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-error shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Expiring Today</span>
+<span class="material-symbols-outlined text-error/40">timer_off</span>
+</div>
+<div class="mt-2 text-error">
+<span class="text-3xl font-extrabold tracking-tight">8</span>
+<span class="text-xs font-bold ml-2">URGENT</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-secondary shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Payer Bottlenecks</span>
+<span class="material-symbols-outlined text-secondary/40">grid_guides</span>
+</div>
+<div class="mt-2">
+<span class="text-3xl font-extrabold tracking-tight">3</span>
+<span class="text-xs text-on-surface-variant font-medium ml-2">Major Issues</span>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl border-l-4 border-tertiary shadow-sm flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="text-label-md font-semibold text-on-surface-variant uppercase tracking-wider text-[11px]">Completed</span>
+<span class="material-symbols-outlined text-tertiary/40">check_circle</span>
+</div>
+<div class="mt-2 text-tertiary">
+<span class="text-3xl font-extrabold tracking-tight">12</span>
+<span class="text-xs font-medium ml-2">Past 24h</span>
+</div>
+</div>
+</section>
+<!-- Main Workbench Layout -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Center: Patient Queue & Payer List -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Patient Prior-Auth Queue -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<div class="px-6 py-5 flex justify-between items-center border-b border-surface-container">
+<h2 class="text-headline-sm font-bold text-on-surface">Patient Prior-Auth Queue</h2>
+<div class="flex gap-2">
+<button class="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">filter_list</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Urgency</th>
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Patient</th>
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Medication</th>
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Payer</th>
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Aging</th>
+<th class="px-6 py-3 text-left text-[11px] font-bold text-on-surface-variant uppercase tracking-wider">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent hover:border-error">
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-error-container/20 text-error uppercase">Critical</span>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-semibold">Jane Doe</div>
+<div class="text-[11px] text-on-surface-variant">ID: 8829-X</div>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-medium">Vyvanse 30mg</div>
+<div class="text-[11px] text-on-surface-variant">ADHD Management</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">BCBS of Texas</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm text-error font-bold">5 Days</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium text-secondary">Awaiting Fax</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent hover:border-primary bg-surface-container-low/30">
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-primary-container text-on-primary-container uppercase">Moderate</span>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-semibold">Robert Smith</div>
+<div class="text-[11px] text-on-surface-variant">ID: 1102-A</div>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-medium">Ozempic 1mg</div>
+<div class="text-[11px] text-on-surface-variant">Diabetes T2</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">UnitedHealthcare</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">3 Days</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium text-secondary">In Review</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-transparent hover:border-tertiary">
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-tertiary-container/30 text-tertiary uppercase">Low</span>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-semibold">Maria Garcia</div>
+<div class="text-[11px] text-on-surface-variant">ID: 4432-B</div>
+</td>
+<td class="px-6 py-4">
+<div class="text-sm font-medium">Humira Pen</div>
+<div class="text-[11px] text-on-surface-variant">Rheumatoid Arthritis</div>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">Aetna Meritain</span>
+</td>
+<td class="px-6 py-4">
+<span class="text-sm">1 Day</span>
+</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-medium text-secondary">Draft</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-3 bg-surface-container-low flex justify-center">
+<button class="text-[11px] font-bold text-primary uppercase tracking-widest hover:underline transition-all">View All 42 Records</button>
+</div>
+</div>
+<!-- Payer Bottleneck Panel -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">warning</span>
+                                Top Payer Bottlenecks
+                            </h3>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div>
+<div class="text-sm font-bold">UnitedHealthcare</div>
+<div class="text-[11px] text-on-surface-variant">14 cases active</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-error">5.2 Days</div>
+<div class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Delay</div>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low">
+<div>
+<div class="text-sm font-bold">Humana</div>
+<div class="text-[11px] text-on-surface-variant">9 cases active</div>
+</div>
+<div class="text-right">
+<div class="text-sm font-bold text-error">4.8 Days</div>
+<div class="text-[10px] text-on-surface-variant uppercase font-bold">Avg Delay</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/10">
+<h3 class="text-sm font-bold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-lg">analytics</span>
+                                Efficiency Metrics
+                            </h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between">
+<span class="text-xs text-on-surface-variant font-medium">Clean Claim Rate</span>
+<span class="text-xs font-bold text-tertiary">92%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-tertiary h-1.5 rounded-full" style="width: 92%"></div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<span class="text-xs text-on-surface-variant font-medium">Avg Resolution Time</span>
+<span class="text-xs font-bold">3.1 Days</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Checklist & Action Drawer -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Next-Best Action Drawer (Static for Demo) -->
+<div class="bg-primary text-on-primary rounded-xl p-6 shadow-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-6xl">bolt</span>
+</div>
+<h3 class="text-xs font-bold uppercase tracking-widest opacity-80 mb-2">Next-Best Action</h3>
+<div class="flex items-center gap-4 mb-6">
+<div class="w-12 h-12 rounded-lg bg-white/20 flex items-center justify-center backdrop-blur-sm">
+<span class="material-symbols-outlined">priority_high</span>
+</div>
+<div>
+<div class="text-lg font-bold leading-tight">Jane Doe - Vyvanse</div>
+<div class="text-xs opacity-80">Requires Immediate Provider Contact</div>
+</div>
+</div>
+<div class="space-y-3">
+<button class="w-full bg-white text-primary py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 shadow-sm hover:bg-slate-50 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-lg">fax</span>
+                                Resend Fax to BCBS
+                            </button>
+<button class="w-full bg-primary-dim text-white border border-white/20 py-3 rounded-lg text-sm font-bold flex items-center justify-center gap-2 hover:bg-white/10 transition-all">
+<span class="material-symbols-outlined text-lg">call</span>
+                                Call Dr. Smith's Office
+                            </button>
+</div>
+</div>
+<!-- Checklist Sidebar -->
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-sm font-extrabold uppercase tracking-tight">Case Checklist</h3>
+<span class="text-[11px] font-bold text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded">3/5 Complete</span>
+</div>
+<div class="space-y-5">
+<div class="flex items-start gap-3 group">
+<div class="w-5 h-5 rounded border-2 border-tertiary bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<div class="text-sm font-medium line-through opacity-50">Patient consent form signed</div>
+<div class="text-[10px] text-on-surface-variant">Logged 2h ago</div>
+</div>
+</div>
+<div class="flex items-start gap-3 group">
+<div class="w-5 h-5 rounded border-2 border-tertiary bg-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'wght' 700;">check</span>
+</div>
+<div>
+<div class="text-sm font-medium line-through opacity-50">ICD-10 Code Verification</div>
+<div class="text-[10px] text-on-surface-variant">Logged 1h ago</div>
+</div>
+</div>
+<div class="flex items-start gap-3 group">
+<div class="w-5 h-5 rounded border-2 border-primary flex items-center justify-center"></div>
+<div>
+<div class="text-sm font-bold">Request missing lab results</div>
+<div class="text-[10px] text-primary font-bold uppercase tracking-wider">Required for Payer</div>
+</div>
+</div>
+<div class="flex items-start gap-3 group opacity-50">
+<div class="w-5 h-5 rounded border-2 border-outline flex items-center justify-center"></div>
+<div>
+<div class="text-sm font-medium">Upload Attestation Letter</div>
+<div class="text-[10px] text-on-surface-variant">Waiting for Doctor</div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-surface-container-high">
+<button class="w-full text-xs font-bold text-on-surface-variant flex items-center justify-center gap-2 py-2 rounded-lg hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-lg">history</span>
+                                View Action Logs
+                            </button>
+</div>
+</div>
+<!-- Evidence Card (Design System Custom) -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-sm border-l-[6px] border-tertiary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary text-lg">verified</span>
+<span class="text-[11px] font-bold text-tertiary uppercase">Approval Prediction</span>
+</div>
+<div class="text-sm font-bold text-on-surface mb-1">94% Confidence Rate</div>
+<p class="text-[11px] text-on-surface-variant leading-relaxed">
+                            Based on previous BCBS Vyvanse approvals for Dr. Smith, this case is likely to be approved within 24 hours once labs are uploaded.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
