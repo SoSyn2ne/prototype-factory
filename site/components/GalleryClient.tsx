@@ -104,7 +104,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Hero */}
-      <section className="mb-10">
+      <section className="mb-6 hidden md:block md:mb-10">
         <div className="relative overflow-hidden rounded-xl aspect-[21/9] lg:aspect-[3/1] bg-slate-900">
           <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent z-10" />
           <div className="absolute inset-0 opacity-90">
@@ -253,7 +253,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
       ) : null}
 
       {/* Filters & Search (Stitch-inspired) */}
-      <section className="mb-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900/40">
+      <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
             <div className="flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -412,7 +412,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
       </div>
 
       {/* Grid */}
-      <div id="grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="grid" className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
         {paged.map((item) => {
           const category = pickCategory((item.tags || [])[0] || '');
           const stage = (item.status || '').toLowerCase();
@@ -451,7 +451,7 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
                 </div>
               </div>
 
-              <div className="p-5 flex flex-col flex-1">
+              <div className="flex flex-1 flex-col p-4 sm:p-5">
                 <div className="flex justify-between items-start gap-3 mb-2">
                   <div className="min-w-0">
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight line-clamp-2">
@@ -459,16 +459,16 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
                     </h3>
                     <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{item.createdAt} · {item.id}</div>
                   </div>
-                  <span className="text-primary font-bold">{category !== 'other' ? category.toUpperCase() : 'PF'}</span>
+                  <span className="shrink-0 text-xs font-bold text-primary sm:text-sm">{category !== 'other' ? category.toUpperCase() : 'PF'}</span>
                 </div>
 
                 {item.oneLiner ? (
-                  <p className="text-slate-500 dark:text-slate-400 text-sm mb-4 line-clamp-2">
+                  <p className="mb-3 text-sm text-slate-500 line-clamp-2 dark:text-slate-400 sm:mb-4">
                     {item.oneLiner}
                   </p>
                 ) : null}
 
-                <div className="flex flex-wrap gap-2 mt-auto mb-6">
+                <div className="mt-auto mb-4 flex flex-wrap gap-2 sm:mb-6">
                   {item.stack?.slice(0, 2).map((s) => (
                     <span
                       key={s}
@@ -498,19 +498,19 @@ export default function GalleryClient({ updatedAt, items, featuredIds = [] }: Pr
                     ) : (
                       <Link
                         href={item.demoUrl}
-                        className="flex items-center justify-center gap-1.5 px-4 py-2 bg-primary text-white rounded-lg text-sm font-bold hover:bg-primary/90 transition-colors hover:no-underline"
+                        className="flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/90 hover:no-underline sm:px-4"
                       >
                         Demo
                       </Link>
                     )
                   ) : (
-                    <div className="flex items-center justify-center px-4 py-2 rounded-lg text-sm font-bold bg-slate-200 text-slate-500 dark:bg-slate-700 dark:text-slate-300">
+                    <div className="flex items-center justify-center rounded-lg bg-slate-200 px-3 py-2 text-sm font-bold text-slate-500 dark:bg-slate-700 dark:text-slate-300 sm:px-4">
                       No demo
                     </div>
                   )}
                   <Link
                     href={`/p/${encodeURIComponent(item.id)}`}
-                    className="flex items-center justify-center gap-1.5 px-4 py-2 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 rounded-lg text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hover:no-underline"
+                    className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 sm:px-4"
                   >
                     View
                   </Link>
