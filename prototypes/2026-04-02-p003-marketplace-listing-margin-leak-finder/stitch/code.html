@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Forensic Architect | Marketplace Listing Margin Leak Finder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-fixed": "#410005",
+              "surface-bright": "#f9f9f9",
+              "outline-variant": "#e2bebc",
+              "primary": "#b3272e",
+              "secondary-fixed": "#e5e2e1",
+              "on-tertiary-fixed": "#002115",
+              "tertiary-container": "#00aa7c",
+              "inverse-primary": "#ffb3af",
+              "primary-container": "#ff5e5e",
+              "on-background": "#1a1c1c",
+              "surface-container-high": "#e8e8e8",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-fixed-dim": "#c8c6c5",
+              "secondary-container": "#e2dfde",
+              "primary-fixed-dim": "#ffb3af",
+              "surface-container": "#eeeeee",
+              "tertiary": "#006c4d",
+              "background": "#f9f9f9",
+              "inverse-on-surface": "#f1f1f1",
+              "on-surface-variant": "#5a413f",
+              "secondary": "#5f5e5e",
+              "inverse-surface": "#2f3131",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "surface-variant": "#e2e2e2",
+              "on-secondary-fixed": "#1c1b1b",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#474746",
+              "on-secondary-container": "#636262",
+              "outline": "#8e706e",
+              "on-tertiary-fixed-variant": "#005139",
+              "on-tertiary": "#ffffff",
+              "on-primary-container": "#63000c",
+              "surface-container-low": "#f3f3f3",
+              "on-error-container": "#93000a",
+              "on-primary-fixed-variant": "#910619",
+              "on-primary": "#ffffff",
+              "surface-tint": "#b3272e",
+              "surface-dim": "#dadada",
+              "on-tertiary-container": "#003625",
+              "primary-fixed": "#ffdad7",
+              "on-secondary": "#ffffff",
+              "error": "#ba1a1a",
+              "surface": "#f9f9f9",
+              "tertiary-fixed": "#77fac6",
+              "tertiary-fixed-dim": "#58ddab",
+              "on-surface": "#1a1c1c"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body { font-family: 'Inter', sans-serif; }
+      h1, h2, h3 { font-family: 'Manrope', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Shell -->
+<nav class="bg-zinc-50/85 dark:bg-zinc-950/85 backdrop-blur-md fixed top-0 w-full z-50 shadow-sm dark:shadow-none">
+<div class="flex justify-between items-center w-full px-8 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black tracking-tighter text-zinc-900 dark:text-zinc-50">Forensic Architect</span>
+<div class="hidden md:flex gap-6">
+<a class="font-['Manrope'] font-bold tracking-tight text-rose-600 dark:text-rose-400 border-b-2 border-rose-500 pb-1" href="#">Dashboard</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" href="#">Watchlist</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" href="#">Profit Recovery</a>
+<a class="font-['Manrope'] font-bold tracking-tight text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">search</button>
+<button class="material-symbols-outlined p-2 hover:bg-zinc-200/50 dark:hover:bg-zinc-800/50 transition-colors">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Operational Manager Profile" data-alt="close-up portrait of a professional operational manager in a modern office setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFD62t8AOEjBhZukzaLtv8T9sfLenm-2qR6DoiCmjTIkJ0wyFPQxNMplt2tdtV9w9UFwb4m2TxMZjvibBUFnkCAgK0kcOU_gk8IssyBLHpocepd5PbNRXYXA6Tb70RJ2Jeg6DIAxqdzIj3535ob634D64isdkHqcmzZ6PxpG_qXf5BWNVOMSsiveC8COcToGkMKHZCNZ1nOJc8EBmhCnnoKMUpqX5XhIqOqq3a9F2eyvk_GOJWthY4OMb1IOCuRzKWijKDFEU5XXc"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- Sidebar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-zinc-100 dark:bg-zinc-900 pt-16 hidden md:block">
+<div class="flex flex-col h-full p-4 space-y-2">
+<div class="mb-6 px-2">
+<h2 class="text-lg font-bold text-zinc-900 dark:text-zinc-50">Commerce-Ops</h2>
+<p class="text-xs text-on-surface-variant">Margin Diagnostic</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 bg-white dark:bg-zinc-800 text-rose-600 dark:text-rose-400 font-bold rounded-lg translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Inter'] text-sm font-medium">Leak Finder</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">storefront</span>
+<span class="font-['Inter'] text-sm font-medium">Marketplaces</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">percent</span>
+<span class="font-['Inter'] text-sm font-medium">Promotions</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">ads_click</span>
+<span class="font-['Inter'] text-sm font-medium">Ads Performance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Inter'] text-sm font-medium">Inventory</span>
+</a>
+<div class="mt-auto pt-4 border-t border-zinc-200 dark:border-zinc-800 space-y-2">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-bold text-sm mb-4 transition-all active:opacity-80">Fix Leaks Now</button>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-['Inter'] text-sm font-medium">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-all" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-['Inter'] text-sm font-medium">Account</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-64 pt-16 min-h-screen">
+<div class="p-8 space-y-10">
+<!-- Margin Leak Hero -->
+<section class="relative overflow-hidden rounded-xl bg-on-surface text-surface-container-lowest p-10 flex flex-col md:flex-row justify-between items-center">
+<div class="z-10 max-w-xl">
+<span class="inline-flex items-center gap-2 px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-widest rounded-full mb-4">
+<span class="material-symbols-outlined text-sm">warning</span> 
+                        Critical Leak Detected
+                    </span>
+<h1 class="text-5xl font-black tracking-tight leading-none mb-6">Recover <span class="text-primary-container">$42,850</span> in lost margins.</h1>
+<p class="text-secondary-fixed-dim text-lg mb-8 font-medium">Our forensic engine identified 12 high-priority SKU leaks across Amazon and Walmart marketplaces. Automated recovery is ready.</p>
+<div class="flex gap-4">
+<button class="bg-primary-container text-on-primary-container px-6 py-3 rounded-md font-bold hover:bg-primary transition-colors">Initiate Full Recovery</button>
+<button class="bg-surface-container-highest/20 text-surface-container-lowest px-6 py-3 rounded-md font-bold backdrop-blur-sm border border-white/10">View Audit Log</button>
+</div>
+</div>
+<!-- Abstract visual representation of "leaks" -->
+<div class="absolute right-0 top-0 w-1/3 h-full opacity-30 mix-blend-screen pointer-events-none">
+<div class="w-full h-full bg-gradient-to-br from-primary-container to-transparent blur-3xl"></div>
+</div>
+<div class="hidden lg:block relative z-10 text-right">
+<div class="text-sm font-bold text-primary-container uppercase tracking-tighter mb-1">Weekly Leak Velocity</div>
+<div class="text-7xl font-black tracking-tighter">+14.2%</div>
+</div>
+</section>
+<!-- Diagnostic Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Listing Watchlist Table -->
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="px-6 py-5 flex justify-between items-center bg-surface-container">
+<h3 class="text-sm font-bold uppercase tracking-wider text-on-surface">Critical Watchlist</h3>
+<div class="flex gap-2">
+<button class="material-symbols-outlined text-sm p-1.5 bg-surface-container-highest rounded">filter_list</button>
+<button class="material-symbols-outlined text-sm p-1.5 bg-surface-container-highest rounded">download</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/10">
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Listing Details</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Target Margin</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-right">Current Leak</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Primary Driver</th>
+<th class="px-6 py-3 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container rounded-md overflow-hidden flex-shrink-0">
+<img alt="Product Thumbnail" data-alt="high-quality commercial product shot of a sleek matte black kitchen appliance on a white minimalist background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGKIXxXPwvm3RoE7uNud_SPj0dIQd9bs_-todLV4hx26ZGEuJ4g_meClaPiTytgQ-jICH1-pkagJc1IwWjrYjN-bZhTFlBOYpM9si5BOWK3h2whP4ygtJCNlEbdzkpIkauSpwrAIoznWH8-JPPJD2DLylgGz_2w9hOFhou3z11C-nYttfHQJn7gSy_N4l39IRoa9nRj1KiiX7kT-U3RZBMu1Pd4Md3tS298qshLdldZq0GcgNywPe8_ImYsg5xLdzB_jUUXfMiSNQ"/>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Black Edition Grinder</div>
+<div class="text-[10px] text-on-surface-variant font-mono">ASIN: B07XYZ01</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-medium">32.0%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-error">-$14.50</span>
+<div class="text-[10px] text-on-surface-variant">per unit sold</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-error-container text-on-error-container text-[10px] font-bold rounded-full">
+<span class="material-symbols-outlined text-[12px]">percent</span> Promo Stack
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:underline font-bold text-xs">Resolve</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container rounded-md overflow-hidden flex-shrink-0">
+<img alt="Product Thumbnail" data-alt="professional photography of a designer leather travel bag in cognac brown with warm spotlighting and deep shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc75RTXwfWY33jGayDS5E871EzmXFKXEsuC9l9si_3bc99L_2I-B-Ka5DWnxkfYgON5ZlYB0amjvOBawlkW04Dp4nbK9P9umVneHxVd6S_6J40EvTgvOPJ678uSXWMHDrj_ffC9wC_AIKjJJtkoIvjUmdZXQrrrCaTQ2c5xC5Y4MI63ayV-mdfHyMNadaIffJdobRNlkofYDJBPvPUsJfuqXH2YlH2oNip97zn8tdLU8WRJaKnqD0aqTg-8a9pIrq4FAK94D3lFuY"/>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Nomad Carry-all</div>
+<div class="text-[10px] text-on-surface-variant font-mono">ASIN: B08ABC12</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-medium">28.5%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-error">-$8.22</span>
+<div class="text-[10px] text-on-surface-variant">per unit sold</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-secondary-container text-on-secondary-container text-[10px] font-bold rounded-full">
+<span class="material-symbols-outlined text-[12px]">local_shipping</span> Fee Drift
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-primary hover:underline font-bold text-xs">Resolve</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container rounded-md overflow-hidden flex-shrink-0">
+<img alt="Product Thumbnail" data-alt="studio lighting setup showing high-end audio headphones in silver and wood finish on a dark reflective surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN39kjjMxckbY2b_wToaEsnZpn-BZCHXRIZ7Zvk25O3_VLOfCv3GhpmjUyiiXRcmv1IexD_rZ0jzL0SMcvLKDgc-6b_eQ-hn5kgZdNDM_pNRp_YIlS-7BWcxU2XLYWKpwhHoQ0yrPhY-HIJKT3DQGficITXdGfb2NDQ4yb5hGoeSpf8YDX2O1Ca5C0xOtWbFoC8kYcQn95gpUD6rh4PPo9xSy9loi1KB3gA3TnfYUHSqr_zSxdmxibZDHwCT2OisF9OqcbKIsvvfs"/>
+</div>
+<div>
+<div class="text-sm font-bold text-on-surface">Audio Pro X1</div>
+<div class="text-[10px] text-on-surface-variant font-mono">ASIN: B09DEF45</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4 text-right text-sm font-medium">40.0%</td>
+<td class="px-6 py-4 text-right">
+<span class="text-sm font-bold text-tertiary">+$2.10</span>
+<div class="text-[10px] text-on-surface-variant">margin surplus</div>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-tertiary-container text-on-tertiary text-[10px] font-bold rounded-full">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> Price Opt.
+                                        </span>
+</td>
+<td class="px-6 py-4 text-center">
+<button class="text-on-surface-variant hover:underline font-bold text-xs">Monitor</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Weekly Profit Recovery Rail -->
+<div class="flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm flex-1">
+<h3 class="text-sm font-bold uppercase tracking-wider mb-6 text-on-surface">Weekly Recovery Velocity</h3>
+<div class="space-y-6">
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-on-surface-variant">Mon</span>
+<div class="flex-1 mx-4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 65%;"></div>
+</div>
+<span class="text-xs font-bold">$1.2k</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-on-surface-variant">Tue</span>
+<div class="flex-1 mx-4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 42%;"></div>
+</div>
+<span class="text-xs font-bold">$0.8k</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-on-surface-variant">Wed</span>
+<div class="flex-1 mx-4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 88%;"></div>
+</div>
+<span class="text-xs font-bold">$2.1k</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-on-surface-variant">Thu</span>
+<div class="flex-1 mx-4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 55%;"></div>
+</div>
+<span class="text-xs font-bold">$1.4k</span>
+</div>
+<div class="flex items-center justify-between">
+<span class="text-xs font-bold text-on-surface-variant">Fri</span>
+<div class="flex-1 mx-4 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 30%;"></div>
+</div>
+<span class="text-xs font-bold">$0.4k</span>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-surface-container">
+<div class="text-[10px] uppercase font-bold text-on-surface-variant mb-1">Total Recovered YTD</div>
+<div class="text-3xl font-black tracking-tight text-tertiary">$184,200.00</div>
+</div>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-6 shadow-md relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-lg font-bold mb-2">Diagnostic Scan Complete</h3>
+<p class="text-sm opacity-80 mb-4">Forensic Architect scanned 4,200 transactions across 4 channels.</p>
+<button class="w-full bg-white text-primary py-2 rounded font-bold text-sm">Download Full Report</button>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10 scale-150 rotate-12">
+<span class="material-symbols-outlined text-[120px]">search_insights</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed Breakdowns -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+<!-- Leakage Driver Breakdown -->
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<h2 class="text-2xl font-black tracking-tight text-on-surface">Leakage Drivers</h2>
+<span class="text-sm font-bold text-primary-container underline underline-offset-4">Configure Thresholds</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-6 rounded-xl border-l-4 border-primary">
+<div class="material-symbols-outlined text-primary-container mb-2">layers</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Coupon Stacking</div>
+<div class="text-2xl font-black text-on-surface">$12,402</div>
+<div class="text-[10px] font-bold text-error mt-1">▲ 8% from last week</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl">
+<div class="material-symbols-outlined text-secondary mb-2">package_2</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">FBA Weight Drift</div>
+<div class="text-2xl font-black text-on-surface">$8,115</div>
+<div class="text-[10px] font-bold text-tertiary mt-1">▼ 2% from last week</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl">
+<div class="material-symbols-outlined text-secondary mb-2">payments</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Referral Fee Errors</div>
+<div class="text-2xl font-black text-on-surface">$5,420</div>
+<div class="text-[10px] font-bold text-tertiary mt-1">Steady</div>
+</div>
+<div class="bg-surface-container-high p-6 rounded-xl border-l-4 border-tertiary">
+<div class="material-symbols-outlined text-tertiary mb-2">ad_group</div>
+<div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider">Ad Spend Leakage</div>
+<div class="text-2xl font-black text-on-surface">$16,913</div>
+<div class="text-[10px] font-bold text-error mt-1">▲ 14% from last week</div>
+</div>
+</div>
+</div>
+<!-- Promo-vs-Ads Comparison Panel -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm p-8 flex flex-col">
+<h3 class="text-sm font-bold uppercase tracking-wider mb-8 text-on-surface">Efficiency Correlation: Promo vs Ads</h3>
+<div class="flex-1 relative flex items-center justify-center">
+<div class="absolute inset-0 flex items-center justify-center opacity-10">
+<div class="w-full h-full bg-gradient-to-r from-primary-container via-surface-container to-tertiary-container blur-2xl"></div>
+</div>
+<div class="relative w-full h-48 flex items-end gap-1">
+<!-- Simulated bar chart -->
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[70%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[85%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[50%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[95%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm h-[35%]"></div>
+<div class="flex-1 bg-primary-container rounded-t-sm h-[75%]"></div>
+</div>
+</div>
+<div class="mt-8 flex justify-between gap-12">
+<div class="flex-1 p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-3 h-3 bg-primary-container rounded-sm"></div>
+<span class="text-xs font-bold text-on-surface-variant">Ad CPA</span>
+</div>
+<div class="text-xl font-black text-on-surface">$4.12</div>
+</div>
+<div class="flex-1 p-4 bg-surface-container-low rounded-lg">
+<div class="flex items-center gap-2 mb-2">
+<div class="w-3 h-3 bg-surface-container-highest rounded-sm"></div>
+<span class="text-xs font-bold text-on-surface-variant">Promo Cost</span>
+</div>
+<div class="text-xl font-black text-on-surface">$2.85</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area / Fix Recommendation Drawer (Semi-expanded view) -->
+<section class="bg-surface-container border-t border-outline-variant/20 pt-10">
+<div class="flex flex-col lg:flex-row gap-10">
+<div class="flex-1 space-y-6">
+<h2 class="text-2xl font-black tracking-tight text-on-surface flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">lightbulb</span>
+                            Diagnostic Recommendations
+                        </h2>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-start justify-between shadow-sm border border-outline-variant/10">
+<div>
+<div class="text-xs font-bold text-tertiary uppercase tracking-widest mb-1">High Impact Recovery</div>
+<h4 class="text-lg font-bold text-on-surface">De-stack "PRIME20" &amp; "SAVEMORE"</h4>
+<p class="text-sm text-on-surface-variant mt-2 max-w-lg">Combined discounts are creating a -12% margin floor on 8 SKUs. Disabling the overlap will recover $4,500 immediately.</p>
+</div>
+<button class="bg-on-surface text-surface py-2 px-6 rounded-md font-bold text-sm hover:bg-zinc-800">Execute Fix</button>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl flex items-start justify-between shadow-sm border border-outline-variant/10">
+<div>
+<div class="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-1">Fee Audit Opportunity</div>
+<h4 class="text-lg font-bold text-on-surface">Re-measure Nomad Carry-all (B08ABC12)</h4>
+<p class="text-sm text-on-surface-variant mt-2 max-w-lg">FBA dimensions changed on June 12th. Current weight billing exceeds actual product weight by 0.4lbs.</p>
+</div>
+<button class="bg-surface-container-highest text-on-surface-variant py-2 px-6 rounded-md font-bold text-sm">Request Audit</button>
+</div>
+</div>
+</div>
+<!-- Quick Stats Sidecar -->
+<div class="w-full lg:w-80 bg-on-surface text-surface rounded-2xl p-8 relative overflow-hidden">
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<h3 class="text-sm font-bold uppercase tracking-widest text-primary-container mb-6">Diagnostic Health</h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="opacity-60">Inventory Health</span>
+<span class="font-bold">94%</span>
+</div>
+<div class="w-full h-1 bg-surface/20 rounded-full">
+<div class="h-full bg-tertiary-container w-[94%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="opacity-60">Margin Purity</span>
+<span class="font-bold">78%</span>
+</div>
+<div class="w-full h-1 bg-surface/20 rounded-full">
+<div class="h-full bg-primary-container w-[78%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-2">
+<span class="opacity-60">Marketplace Compliance</span>
+<span class="font-bold">100%</span>
+</div>
+<div class="w-full h-1 bg-surface/20 rounded-full">
+<div class="h-full bg-white w-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-12">
+<p class="text-[10px] opacity-40 uppercase tracking-widest leading-relaxed">System state: Operational<br/>Last scan: 4 minutes ago</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<div class="md:hidden fixed bottom-0 left-0 w-full bg-zinc-50 dark:bg-zinc-950 backdrop-blur-lg z-50 px-6 py-3 flex justify-around items-center">
+<button class="flex flex-col items-center text-rose-600">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-bold">Dash</span>
+</button>
+<button class="flex flex-col items-center text-zinc-400">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-[10px] font-bold">Leaks</span>
+</button>
+<button class="flex flex-col items-center text-zinc-400">
+<span class="material-symbols-outlined">shopping_bag</span>
+<span class="text-[10px] font-bold">Orders</span>
+</button>
+<button class="flex flex-col items-center text-zinc-400">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-bold">Settings</span>
+</button>
+</div>
+</body></html>
