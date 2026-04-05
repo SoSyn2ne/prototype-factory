@@ -1,11 +1,11 @@
-# proto-app template
+# Prototype app scaffold
 
-Default Next.js App Router template for daily prototypes.
+Minimal Next.js App Router scaffold for this prototype.
 
 ## Pages
 - `/` Home
 - `/demo` Core interaction
-- `/spec` Spec placeholder
+- `/spec` Spec route
 
 ## Run
 ```bash

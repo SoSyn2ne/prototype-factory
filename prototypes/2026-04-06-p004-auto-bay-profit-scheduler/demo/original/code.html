@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PRECISION ENGINE | Bay Profit Scheduler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#1f2020",
+                      "on-primary-container": "#5b000e",
+                      "on-tertiary-container": "#00302c",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "outline-variant": "#5b403f",
+                      "on-background": "#e4e2e1",
+                      "tertiary-fixed": "#8cf4e8",
+                      "on-tertiary": "#003733",
+                      "on-secondary": "#303031",
+                      "inverse-primary": "#bb152c",
+                      "surface-dim": "#131313",
+                      "on-primary": "#680011",
+                      "on-error": "#690005",
+                      "error": "#ffb4ab",
+                      "on-surface": "#e4e2e1",
+                      "tertiary-fixed-dim": "#6fd8cc",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-tint": "#ffb3b1",
+                      "primary-container": "#ff535b",
+                      "primary": "#ffb3b1",
+                      "inverse-surface": "#e4e2e1",
+                      "secondary-fixed-dim": "#c7c6c6",
+                      "on-secondary-fixed-variant": "#464747",
+                      "error-container": "#93000a",
+                      "tertiary": "#6fd8cc",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#ffdad8",
+                      "secondary-fixed": "#e4e2e2",
+                      "on-primary-fixed": "#410007",
+                      "secondary": "#c7c6c6",
+                      "surface-variant": "#353535",
+                      "on-surface-variant": "#e4bebc",
+                      "on-primary-fixed-variant": "#92001c",
+                      "background": "#131313",
+                      "surface-container-high": "#2a2a2a",
+                      "on-secondary-container": "#b6b5b5",
+                      "surface-container-low": "#1b1c1c",
+                      "primary-fixed-dim": "#ffb3b1",
+                      "on-tertiary-fixed": "#00201d",
+                      "outline": "#ab8987",
+                      "on-tertiary-fixed-variant": "#00504a",
+                      "surface-container-highest": "#353535",
+                      "surface-bright": "#393939",
+                      "surface": "#131313",
+                      "secondary-container": "#464747",
+                      "inverse-on-surface": "#303030",
+                      "tertiary-container": "#2fa096"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Space Grotesk"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .glass-panel {
+            background: rgba(31, 32, 32, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-white">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 left-0 top-0 sticky flex flex-col py-6 bg-[#0e0e0e] shadow-[20px_0_40px_rgba(0,0,0,0.4)] border-r border-transparent z-50">
+<div class="px-6 mb-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">precision_manufacturing</span>
+</div>
+<div>
+<h1 class="text-lg font-black text-white font-headline leading-tight">MAIN GARAGE</h1>
+<p class="font-['Inter'] text-[10px] font-bold uppercase tracking-widest text-tertiary">Bay Utilization: 84%</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Dashboard Active -->
+<a class="flex items-center gap-3 px-4 py-3 text-[#E63946] bg-[#1c1c1c] rounded-md border-l-4 border-[#E63946] snap-action transition-all duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Inter'] text-xs font-bold uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-gray-200 hover:bg-[#1c1c1c] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="garage">garage</span>
+<span class="font-['Inter'] text-xs font-bold uppercase tracking-widest">Bay Board</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-gray-200 hover:bg-[#1c1c1c] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="engineering">engineering</span>
+<span class="font-['Inter'] text-xs font-bold uppercase tracking-widest">Tech Load</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-gray-200 hover:bg-[#1c1c1c] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+<span class="font-['Inter'] text-xs font-bold uppercase tracking-widest">Parts Status</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-gray-500 hover:text-gray-200 hover:bg-[#1c1c1c] transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+<span class="font-['Inter'] text-xs font-bold uppercase tracking-widest">Profit Rail</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-1 border-t border-surface-variant pt-6">
+<button class="w-full bg-primary-container text-on-primary-container font-headline font-bold py-3 rounded mb-4 hover:scale-[0.98] transition-transform text-xs uppercase tracking-tighter">
+                    Optimize Schedule
+                </button>
+<a class="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-gray-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help">help</span>
+<span class="font-['Inter'] text-[10px] font-bold uppercase tracking-widest">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-gray-500 hover:text-gray-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span>
+<span class="font-['Inter'] text-[10px] font-bold uppercase tracking-widest">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col bg-surface min-w-0">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-6 py-4 w-full bg-[#131313] sticky top-0 z-50">
+<div class="flex items-center gap-8">
+<div class="text-2xl font-bold tracking-tighter text-[#E63946] font-['Space_Grotesk'] uppercase">PRECISION ENGINE</div>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-[#E63946] border-b-2 border-[#E63946] pb-1 font-['Space_Grotesk'] tracking-tight text-sm" href="#">Operations</a>
+<a class="text-gray-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tight text-sm" href="#">Bays</a>
+<a class="text-gray-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tight text-sm" href="#">Technicians</a>
+<a class="text-gray-400 hover:text-white transition-colors font-['Space_Grotesk'] tracking-tight text-sm" href="#">Inventory</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden xl:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm">search</span>
+<input class="bg-surface-container-lowest border-none rounded py-2 pl-10 pr-4 text-xs w-64 focus:ring-1 focus:ring-primary" placeholder="VIN, Customer, or Part..." type="text"/>
+</div>
+<button class="bg-primary-container text-on-primary-container px-4 py-2 rounded font-headline font-bold text-xs uppercase tracking-tight hover:scale-[0.98] transition-all">
+                        Quick-Add Service
+                    </button>
+<div class="flex gap-2">
+<button class="p-2 text-gray-400 hover:bg-[#353535] rounded-md transition-all">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-gray-400 hover:bg-[#353535] rounded-md transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="w-10 h-10 rounded bg-surface-container-high overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a senior automotive shop manager in a clean dark workshop setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCLyxL1ShzRrzIOYK9nk1O_tDf-CCLCMbeMoV5z5AxsoRlufPCImIfPdmepdKgGDg8YGToSfRGH78bklUvSVlfOmUv4KnQqEZKXRlE4D5EClpXzum4IA3pzUSUgFv6nlKgwU9cacy-ZSlaH3xTaI58YrpBTjxICaD68JJE2UMAgwR5iS1Dk1HkFwkvq1BzTUkbUtbGtm59iXxeaUN8GV8dxgPuUbFtOoY6XtcWgZ_LEKvejbsz3I9lotO14jLwirzZsrj7FFSJ92IPD"/>
+</div>
+</div>
+</header>
+<div class="p-6 space-y-6 flex-1 overflow-y-auto no-scrollbar">
+<!-- Daily Margin Hero -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-2 bg-surface-container-low rounded-lg p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<h2 class="font-label text-xs font-bold uppercase tracking-widest text-tertiary mb-2">Daily Revenue Velocity</h2>
+<div class="flex items-baseline gap-4 mb-4">
+<span class="font-headline text-6xl font-bold tracking-tighter text-white">$12.4k</span>
+<span class="font-headline text-xl text-primary font-medium">/ $18.0k Goal</span>
+</div>
+<div class="w-full h-3 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-tertiary w-[68%]" style="box-shadow: 0 0 15px rgba(255, 179, 177, 0.3)"></div>
+</div>
+<div class="flex justify-between mt-3">
+<span class="font-label text-[10px] font-black uppercase tracking-widest text-on-surface-variant">68% Target Depth</span>
+<span class="font-label text-[10px] font-black uppercase tracking-widest text-tertiary-fixed-dim">+12% vs Yesterday</span>
+</div>
+</div>
+<!-- Background Glow Decoration -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] pointer-events-none"></div>
+</div>
+<div class="bg-surface-container-high rounded-lg p-8 flex flex-col justify-center border-l-4 border-tertiary shadow-xl">
+<h2 class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Recovered Profit Rail</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-medium text-on-surface-variant">Core Credit Recovery</span>
+<span class="font-headline font-bold text-tertiary">$840.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-medium text-on-surface-variant">Labor Efficiency Win</span>
+<span class="font-headline font-bold text-tertiary">$1,210.45</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/20">
+<span class="text-[10px] font-black uppercase tracking-widest text-primary-fixed-dim">Daily Win Total</span>
+<div class="text-3xl font-headline font-bold text-white">$2,050.45</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bay Utilization Board & Tech Load (Bento Layout) -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Left: Bay Board (8 cols) -->
+<section class="col-span-12 xl:col-span-8 space-y-4">
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-3xl font-bold tracking-tighter">BAY BOARD</h2>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Active</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">High Margin</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-surface-container-highest"></div>
+<span class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Idle</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Bay Card -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-primary relative">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 01</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-primary">DUE 2:00PM</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">BMW M4 - Transmission Flush</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...849202 | Tech: Miller</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-tertiary">
+<span>65% Complete</span>
+<span>$450 Margin</span>
+</div>
+</div>
+<!-- Bay Card High Margin -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-tertiary shadow-[0_0_20px_rgba(111,216,204,0.05)]">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 02</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-tertiary">ACTIVE</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Porsche 911 - Brake Service</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...110293 | Tech: Sarah</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-tertiary">
+<span>20% Complete</span>
+<span>$1,200 Margin</span>
+</div>
+</div>
+<!-- Bay Card Overdue -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-[#ff535b]">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 03</span>
+<span class="bg-[#93000a] text-[10px] px-2 py-1 rounded font-black tracking-widest text-white">OVERDUE</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Ford F-150 - Lift Kit</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...228374 | Tech: Rodriguez</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-[#ff535b]">
+<span>90% Complete</span>
+<span>$320 Margin</span>
+</div>
+</div>
+<!-- Bay Card Idle -->
+<div class="bg-surface-container-lowest rounded p-4 border-l-4 border-surface-container-highest">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter text-on-surface-variant/50">BAY 04</span>
+<span class="bg-surface-container-high text-[10px] px-2 py-1 rounded font-black tracking-widest text-on-surface-variant/50">IDLE</span>
+</div>
+<div class="flex flex-col items-center justify-center h-24 border border-dashed border-outline-variant/30 rounded">
+<button class="text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-white transition-colors">Assign Slot</button>
+</div>
+</div>
+<!-- Bay Card Active -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-primary">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 05</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-primary">STAGED</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Audi RS5 - Full Inspection</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...003921 | Tech: Miller</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-on-surface-variant">
+<span>0% Complete</span>
+<span>$180 Margin</span>
+</div>
+</div>
+<!-- Bay Card -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-primary">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 06</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-primary">ACTIVE</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Tesla Model 3 - Battery Check</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...774822 | Tech: Chen</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-tertiary">
+<span>45% Complete</span>
+<span>$290 Margin</span>
+</div>
+</div>
+<!-- Bay Card High Margin -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-tertiary">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 07</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-tertiary">HEAVY</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Chevy Silverado - Eng Swap</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...661022 | Tech: Sarah</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-tertiary">
+<span>10% Complete</span>
+<span>$3,400 Margin</span>
+</div>
+</div>
+<!-- Bay Card -->
+<div class="bg-surface-container-low rounded p-4 border-l-4 border-primary">
+<div class="flex justify-between mb-4">
+<span class="font-headline text-xl font-bold tracking-tighter">BAY 08</span>
+<span class="bg-surface-container-lowest text-[10px] px-2 py-1 rounded font-black tracking-widest text-primary">QC PENDING</span>
+</div>
+<div class="space-y-1 mb-6">
+<div class="text-xs font-bold text-white truncate">Jeep Wrangler - Diff Lock</div>
+<div class="text-[10px] text-on-surface-variant font-medium">VIN: ...991023 | Tech: Rodriguez</div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-tertiary">
+<span>98% Complete</span>
+<span>$540 Margin</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Right: Parts Readiness (4 cols) -->
+<section class="col-span-12 xl:col-span-4 space-y-4">
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-2xl font-bold tracking-tighter">PARTS READINESS</h2>
+<span class="text-[10px] font-black text-tertiary tracking-widest uppercase">92% In-Stock</span>
+</div>
+<div class="bg-surface-container-low rounded-lg divide-y divide-outline-variant/10">
+<!-- Part Item -->
+<div class="p-4 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-white">Transmission Gasket Kit</div>
+<div class="text-[10px] text-on-surface-variant">Job ID: #4401 | Bay 01</div>
+</div>
+<span class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase bg-surface-container-lowest px-2 py-1">In-Bin</span>
+</div>
+<!-- Part Item Pending -->
+<div class="p-4 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="local_shipping">local_shipping</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-white">Brake Rotors (Ceramic)</div>
+<div class="text-[10px] text-on-surface-variant">Job ID: #4402 | Bay 02</div>
+</div>
+<span class="text-[10px] font-black tracking-widest text-tertiary-fixed-dim uppercase bg-surface-container-lowest px-2 py-1">Transit</span>
+</div>
+<!-- Part Item Delay -->
+<div class="p-4 flex items-center gap-4 bg-error-container/10">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[#ff535b]" data-icon="warning">warning</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-white">Full Exhaust System</div>
+<div class="text-[10px] text-on-surface-variant">Job ID: #4410 | Bay 07</div>
+</div>
+<span class="text-[10px] font-black tracking-widest text-[#ff535b] uppercase bg-surface-container-lowest px-2 py-1">Backorder</span>
+</div>
+<div class="p-4 flex items-center gap-4">
+<div class="w-10 h-10 bg-surface-container-highest rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-white">Performance Brake Pads</div>
+<div class="text-[10px] text-on-surface-variant">Job ID: #4412 | Bay 08</div>
+</div>
+<span class="text-[10px] font-black tracking-widest text-on-surface-variant uppercase bg-surface-container-lowest px-2 py-1">In-Bin</span>
+</div>
+</div>
+<button class="w-full py-3 bg-surface-container-high border border-outline-variant/20 rounded font-label text-[10px] font-black uppercase tracking-widest hover:bg-surface-container-highest transition-colors">
+                            Inventory Management
+                        </button>
+</section>
+</div>
+<!-- Technician Load Timeline -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h2 class="font-headline text-3xl font-bold tracking-tighter">TECH LOAD</h2>
+<div class="flex gap-4 font-label text-[10px] font-black uppercase tracking-widest">
+<span class="text-on-surface-variant">08:00</span>
+<span class="text-on-surface-variant">10:00</span>
+<span class="text-on-surface-variant">12:00</span>
+<span class="text-on-surface-variant">14:00</span>
+<span class="text-on-surface-variant">16:00</span>
+<span class="text-on-surface-variant">18:00</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-lg p-6 space-y-6">
+<!-- Tech Row -->
+<div class="grid grid-cols-12 items-center gap-4">
+<div class="col-span-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a focused mechanic in blue work shirt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2jhr0FEAPghudJIenzjUfj9xk7Y7B725F4pCQv6keFF6zRgRLQky5rMTMDhYCoMdts68Gg7HeDekrnys0QurPFV3VpvaXBZA8n4tEWVhkLZsYWBu-OFEGU2f5qSFxnwBSTSo4QDzRxMsgPrY7yg8FUExs9fPTqktRldhTO-rA3yjbGD-drsP238FASKROwhsjLzqJ1dGqHRM_nPJko5c9aus4EvUHsrisBIFnxK1IqKT_0d6K3bTV2LYdpiukRuQfCGPzCadrXdRe"/>
+</div>
+<div>
+<div class="text-xs font-bold text-white">Miller, T.</div>
+<div class="text-[9px] text-tertiary font-black uppercase tracking-widest">Master Tech</div>
+</div>
+</div>
+<div class="col-span-10 h-8 relative bg-surface-container-lowest rounded overflow-hidden">
+<div class="absolute left-[5%] w-[40%] h-full bg-primary/20 border-x border-primary flex items-center px-3">
+<span class="text-[9px] font-black uppercase tracking-widest text-primary">Job #4401</span>
+</div>
+<div class="absolute left-[50%] w-[30%] h-full bg-primary/20 border-x border-primary flex items-center px-3">
+<span class="text-[9px] font-black uppercase tracking-widest text-primary">Job #4412</span>
+</div>
+</div>
+</div>
+<!-- Tech Row -->
+<div class="grid grid-cols-12 items-center gap-4">
+<div class="col-span-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a professional female mechanic in a garage" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGs4nd8JJ8eDP4jYCPIg0c6CrVtbPRhXS5DIQuZvhlZasWEEBBKBFsVK7BcYgR-UMW4G8ovg4e64ezFWAMiMSbbtR4CiVDMUGawaWzlknRfR8R36VFoqeYVX6IqviIYJNmFZPYwQU6YzhfV-tmbUnywIAUz6_52AxhpihZodBOCdewp-1Cp1ybLhdl-mjxUADeL-tmm_joKiIZ13ltofDBFjdF70QG57Ct0QFIeNZQ7-f7VKyO5ZrwOcrGlFJq-Mp84rm525QKwf0k"/>
+</div>
+<div>
+<div class="text-xs font-bold text-white">Sarah, L.</div>
+<div class="text-[9px] text-tertiary font-black uppercase tracking-widest">Diagnostic Expert</div>
+</div>
+</div>
+<div class="col-span-10 h-8 relative bg-surface-container-lowest rounded overflow-hidden">
+<div class="absolute left-[0%] w-[60%] h-full bg-tertiary/20 border-x border-tertiary flex items-center px-3">
+<span class="text-[9px] font-black uppercase tracking-widest text-tertiary">Job #4402 - Brake Service</span>
+</div>
+<div class="absolute left-[65%] w-[35%] h-full bg-primary/20 border-x border-primary flex items-center px-3">
+<span class="text-[9px] font-black uppercase tracking-widest text-primary">Job #4415</span>
+</div>
+</div>
+</div>
+<!-- Tech Row -->
+<div class="grid grid-cols-12 items-center gap-4">
+<div class="col-span-2 flex items-center gap-3 opacity-50">
+<div class="w-8 h-8 rounded bg-surface-container-highest overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="portrait of a man with safety goggles in a workshop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaeKu8OBJC0JAxPQyghUVasIK3HJjaZeUPrjmj0pewjhTeRujAf9_gITCcLWwhglK8woavDoEH6zEaT3kbcIRugtHi1JFk6YBH7WfXdptmhBWWvzkfBA-BCu-Y2FLjvR2S-05IkP2yPS6Efb6oN8pneUhnbZjnirxH4a63Cs7XR0vXUbvZA9qSY32-DvX2csh95G4zVQzTSmrzMVuIUoDd0ckWjurAr6TJJK99Gy-U1CWY7ALufKmtQSRlrPu1dlHFgAzdNKXfx4O3"/>
+</div>
+<div>
+<div class="text-xs font-bold text-white">Rodriguez, P.</div>
+<div class="text-[9px] text-on-surface-variant font-black uppercase tracking-widest">Junior Tech</div>
+</div>
+</div>
+<div class="col-span-10 h-8 relative bg-surface-container-lowest rounded overflow-hidden">
+<div class="absolute left-[10%] w-[85%] h-full bg-[#ff535b]/20 border-x border-[#ff535b] flex items-center px-3">
+<span class="text-[9px] font-black uppercase tracking-widest text-[#ff535b]">Job #4410 - Engine Swap (DELAYED)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Slide-out Schedule Drawer (Always visible on large screens as a sidebar) -->
+<aside class="hidden 2xl:flex flex-col w-80 bg-surface-container-lowest border-l border-outline-variant/10 p-6 space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold tracking-tighter text-white">ADJUSTMENTS</h3>
+<span class="material-symbols-outlined text-gray-500 hover:text-white cursor-pointer">close</span>
+</div>
+<div class="space-y-6">
+<div>
+<h4 class="text-[10px] font-black tracking-widest uppercase text-on-surface-variant mb-4">Urgent Attention (2)</h4>
+<div class="space-y-4">
+<div class="bg-surface-container-high p-4 rounded border-l-4 border-primary">
+<div class="text-xs font-bold text-white mb-1">Unassigned: Oil Change</div>
+<div class="text-[10px] text-on-surface-variant mb-3">Customer: Davenport | Honda Civic</div>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-primary-container text-on-primary-container font-headline font-bold text-[10px] uppercase rounded">Assign</button>
+<button class="px-2 py-1.5 bg-surface-container-highest rounded"><span class="material-symbols-outlined text-sm">more_horiz</span></button>
+</div>
+</div>
+<div class="bg-surface-container-high p-4 rounded border-l-4 border-tertiary">
+<div class="text-xs font-bold text-white mb-1">Expedite: Tire Rotation</div>
+<div class="text-[10px] text-on-surface-variant mb-3">High Margin Premium Client</div>
+<div class="flex gap-2">
+<button class="flex-1 py-1.5 bg-tertiary-container text-on-tertiary-container font-headline font-bold text-[10px] uppercase rounded">Move to Bay 04</button>
+</div>
+</div>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/10">
+<h4 class="text-[10px] font-black tracking-widest uppercase text-on-surface-variant mb-4">Margin Opportunity</h4>
+<div class="p-4 bg-gradient-to-br from-tertiary/10 to-surface-container-high rounded border border-tertiary/20">
+<div class="text-xs font-bold text-tertiary mb-2">Upsell Detected</div>
+<p class="text-[10px] text-on-surface-variant leading-relaxed mb-4">
+                            Bay 01 inspection reveals worn brake pads. Adding to Transmission Flush job adds <span class="font-bold text-white">$145.00</span> in labor profit.
+                        </p>
+<button class="w-full py-2 bg-tertiary-fixed text-on-tertiary-fixed font-headline font-bold text-[10px] uppercase rounded">Send Quote to Client</button>
+</div>
+</div>
+</div>
+<div class="mt-auto p-4 bg-surface-container rounded">
+<div class="text-[10px] font-black tracking-widest uppercase text-on-surface-variant mb-2">Shop Performance</div>
+<div class="flex justify-between items-baseline">
+<span class="text-2xl font-headline font-bold text-white">88%</span>
+<span class="text-[10px] font-black text-tertiary uppercase">On-Time Rate</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest mt-2 rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[88%]"></div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>

@@ -14,10 +14,10 @@ export default function DemoPage() {
       <Card>
         <CardHeader>
           <CardTitle>Micro demo widget</CardTitle>
-          <CardDescription>A placeholder interaction you can replace.</CardDescription>
+          <CardDescription>Minimal scaffold interaction for quick validation.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Input placeholder="Type something…" />
+          <Input placeholder="Enter a test value…" />
           <Button className="w-full">Run</Button>
         </CardContent>
       </Card>
