@@ -1,0 +1,22 @@
+# 2026-04-07 Prototype Ideas
+
+## p001 — Self-Storage Vacancy Recovery Desk
+- **One-liner:** A self-storage revenue console that shows which empty units are most recoverable this week and what leasing friction is blocking occupancy.
+- **Target user:** Self-storage operators, revenue managers, and multi-site property coordinators.
+- **Key UX:** Rank vacancy opportunities by revenue recovery potential, open one unit cluster, and review pricing drift, lead quality, and the fastest next leasing move in one screen.
+- **Required UI sections:** occupancy KPI hero, vacancy recovery queue, pricing and lead timeline, unit-type comparison panel, next-action drawer, recovered-MRR forecast rail.
+- **Stitch prompt:** Design a desktop self-storage revenue operations app called **Self-Storage Vacancy Recovery Desk** for operators managing multiple facilities. It should help teams recover lost occupancy by prioritizing empty units based on revenue value, pricing drift, lead activity, and leasing friction so they can act before another week of vacancy passes. Include an occupancy KPI hero, a vacancy recovery queue, a pricing and lead timeline, a unit-type comparison panel, a next-action drawer, and a recovered-MRR forecast rail. **Design direction: use a disciplined property-ops style with deep navy surfaces, sand and stone neutrals, and sharp emerald accents; keep hierarchy highly scannable, tables and timelines crisp, and the product feel practical, margin-aware, and operationally confident.**
+
+## p002 — Boutique Hotel Upsell Capture Board
+- **One-liner:** A guest-revenue workspace that highlights which upcoming stays are most likely to convert on room upgrades, add-ons, and late checkout offers.
+- **Target user:** Boutique hotel general managers, revenue leads, and guest-experience teams.
+- **Key UX:** Scan arriving reservations by upsell potential, open one guest profile, and see stay context, spend signals, and the best timed offer without switching tools.
+- **Required UI sections:** guest-revenue KPI hero, arrival opportunity queue, stay-context timeline, upgrade and add-on panel, offer action drawer, daily captured-revenue rail.
+- **Stitch prompt:** Design a desktop hospitality revenue dashboard called **Boutique Hotel Upsell Capture Board** for boutique hotels and guest-experience teams. It should help operators identify which upcoming reservations are most likely to convert on room upgrades, add-ons, and late checkout so they can increase per-stay revenue without harming guest experience. Include a guest-revenue KPI hero, an arrival opportunity queue, a stay-context timeline, an upgrade and add-on panel, an offer action drawer, and a daily captured-revenue rail. **Design direction: use a refined hospitality-control aesthetic with warm charcoal, soft cream, and muted brass accents; keep hierarchy elegant but fast to scan, cards editorial yet data-clear, and the product feel premium, composed, and revenue-smart rather than flashy.**
+
+## p003 — Commercial Cleaning Renewal Risk Console
+- **One-liner:** A service-ops dashboard that flags cleaning contracts most likely to churn before renewals, margin erosion, or staffing instability turn into lost accounts.
+- **Target user:** Commercial cleaning owners, account managers, and regional operations leads.
+- **Key UX:** Sort accounts by renewal risk, open one contract, and review quality drift, staffing issues, and the highest-leverage save action in a single workflow.
+- **Required UI sections:** renewal KPI hero, at-risk account queue, service-quality timeline, labor and margin panel, save-action drawer, retained-ARR forecast rail.
+- **Stitch prompt:** Design a desktop service operations dashboard called **Commercial Cleaning Renewal Risk Console** for commercial cleaning businesses. It should help operators prevent contract churn by surfacing accounts with rising renewal risk caused by quality drift, staffing instability, margin pressure, and unresolved issues before renewal dates arrive. Include a renewal KPI hero, an at-risk account queue, a service-quality timeline, a labor and margin panel, a save-action drawer, and a retained-ARR forecast rail. **Design direction: use a modern field-ops visual system with slate-blue surfaces, cool gray neutrals, and vivid cyan accents; keep hierarchy firm and legible, dense panels easy to parse, and the product feel trustworthy, disciplined, and retention-focused.**
