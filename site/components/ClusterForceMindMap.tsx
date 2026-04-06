@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { forceCenter, forceCollide, forceLink, forceManyBody, forceSimulation } from 'd3-force';
 import type { PrototypeIndexItem } from '@/lib/index';
 
@@ -16,6 +16,7 @@ type GraphNode = {
   kind: 'root' | 'tag' | 'idea';
   count?: number;
   href?: string;
+  parentTag?: string;
   fx?: number;
   fy?: number;
   x?: number;
@@ -31,7 +32,7 @@ type GraphLink = {
   strength?: number;
 };
 
-function buildGraph(items: PrototypeIndexItem[]) {
+function buildGraph(items: PrototypeIndexItem[], collapsedTags: Set<string>) {
   const root: GraphNode = {
     id: 'root',
     label: 'PF Brain',
@@ -67,31 +68,36 @@ function buildGraph(items: PrototypeIndexItem[]) {
     nodes.push(tagNode);
     links.push({ source: root.id, target: tagNode.id, strength: 0.95 });
 
-    value.items.forEach((item) => {
-      const ideaId = `idea:${item.id}:${tag}`;
-      nodes.push({
-        id: ideaId,
-        label: item.title,
-        kind: 'idea',
-        href: `/p/${item.id}`,
-        radius: 16,
+    if (!collapsedTags.has(tag)) {
+      value.items.forEach((item) => {
+        const ideaId = `idea:${item.id}:${tag}`;
+        nodes.push({
+          id: ideaId,
+          label: item.title,
+          kind: 'idea',
+          href: `/p/${item.id}`,
+          parentTag: tag,
+          radius: 16,
+        });
+        links.push({ source: tagNode.id, target: ideaId, strength: 0.58 });
       });
-      links.push({ source: tagNode.id, target: ideaId, strength: 0.58 });
-    });
+    }
   }
 
-  return { nodes, links };
+  return { nodes, links, topTags: topTags.map(([tag]) => tag) };
 }
 
 export default function ClusterForceMindMap({ items, fullscreen = false }: Props) {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [collapsedTags, setCollapsedTags] = useState<Set<string>>(new Set());
+  const dragRef = useRef<{ x: number; y: number; panX: number; panY: number } | null>(null);
 
-  const { nodes, links, width, height } = useMemo(() => {
+  const { nodes, links, width, height, tags } = useMemo(() => {
     const width = fullscreen ? 1700 : 1200;
     const height = fullscreen ? 980 : 820;
-    const graph = buildGraph(items);
+    const graph = buildGraph(items, collapsedTags);
 
     const simNodes = graph.nodes.map((node) => ({ ...node }));
     const simLinks = graph.links.map((link) => ({ ...link }));
@@ -122,52 +128,90 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
     for (let i = 0; i < 260; i += 1) simulation.tick();
     simulation.stop();
 
-    return { nodes: simNodes, links: simLinks, width, height };
-  }, [items, fullscreen]);
+    return { nodes: simNodes, links: simLinks, width, height, tags: graph.topTags };
+  }, [items, fullscreen, collapsedTags]);
 
   const hovered = hoveredNodeId ? nodes.find((n) => n.id === hoveredNodeId) : null;
 
+  const toggleTag = (tagLabel: string) => {
+    const raw = tagLabel.replace(/^#/, '');
+    setCollapsedTags((prev) => {
+      const next = new Set(prev);
+      if (next.has(raw)) next.delete(raw);
+      else next.add(raw);
+      return next;
+    });
+  };
+
   return (
-    <div className={fullscreen ? 'relative h-screen w-screen overflow-hidden' : 'space-y-4 p-4 sm:p-6'}>
-      <div className={fullscreen ? 'absolute left-4 top-4 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-3 backdrop-blur-xl' : 'flex flex-wrap items-center justify-between gap-3'}>
+    <div
+      className={fullscreen ? 'relative h-screen w-screen overflow-hidden' : 'space-y-4 p-4 sm:p-6'}
+      onWheel={(e) => {
+        e.preventDefault();
+        setZoom((prev) => {
+          const next = prev + (e.deltaY > 0 ? -0.12 : 0.12);
+          return Math.max(0.55, Math.min(2.8, Number(next.toFixed(2))));
+        });
+      }}
+    >
+      <div className={fullscreen ? 'absolute left-4 top-4 z-20 flex max-w-[80vw] flex-wrap items-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-3 backdrop-blur-xl' : 'flex flex-wrap items-center justify-between gap-3'}>
         {fullscreen ? (
           <>
             <Link href="/" className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800 hover:no-underline">
               Gallery
             </Link>
-            <button type="button" onClick={() => setZoom((z) => Math.max(0.65, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
-            <button type="button" onClick={() => setZoom((z) => Math.min(2.4, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
-            <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x - 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">←</button>
-            <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x + 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">→</button>
-            <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y - 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">↑</button>
-            <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y + 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">↓</button>
+            <button type="button" onClick={() => setZoom((z) => Math.max(0.55, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
+            <button type="button" onClick={() => setZoom((z) => Math.min(2.8, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
             <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Reset</button>
+            <div className="ml-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Wheel zoom · drag move · click tag to collapse</div>
           </>
         ) : (
-          <>
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Controls: zoom / pan / hover / click ideas</div>
-            <div className="flex flex-wrap gap-2">
-              <button type="button" onClick={() => setZoom((z) => Math.max(0.65, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">Zoom -</button>
-              <button type="button" onClick={() => setZoom((z) => Math.min(2.2, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">Zoom +</button>
-              <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x - 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">←</button>
-              <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x + 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">→</button>
-              <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y - 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">↑</button>
-              <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y + 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">↓</button>
-              <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Reset</button>
-            </div>
-          </>
+          <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Wheel zoom · drag move · click tag to collapse</div>
         )}
+      </div>
+
+      <div className={fullscreen ? 'absolute right-4 top-4 z-20 flex max-w-[34rem] flex-wrap gap-2 rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-3 backdrop-blur-xl' : 'flex flex-wrap gap-2'}>
+        {tags.map((tag) => {
+          const collapsed = collapsedTags.has(tag);
+          return (
+            <button
+              key={tag}
+              type="button"
+              onClick={() => toggleTag(`#${tag}`)}
+              className={`rounded-lg border px-3 py-2 text-xs font-black transition ${collapsed ? 'border-amber-500/40 bg-amber-500/10 text-amber-200' : 'border-slate-700 bg-slate-900/60 text-slate-200 hover:bg-slate-800'}`}
+            >
+              {collapsed ? '▶' : '▼'} #{tag}
+            </button>
+          );
+        })}
       </div>
 
       {hovered ? (
         <div className={fullscreen ? 'absolute bottom-4 left-4 z-20 max-w-md rounded-2xl border border-slate-800 bg-slate-950/75 px-4 py-3 text-sm text-slate-200 shadow-sm backdrop-blur-xl' : 'rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200'}>
           <span className="font-black">Hover:</span> {hovered.label}
-          {hovered.kind === 'tag' ? ` · ${hovered.count} ideas` : ''}
+          {hovered.kind === 'tag' ? ` · ${hovered.count} ideas · click to collapse/expand` : ''}
           {hovered.kind === 'idea' ? ' · click to open detail' : ''}
         </div>
       ) : null}
 
-      <div className={fullscreen ? 'h-screen w-screen overflow-hidden' : 'overflow-x-auto'}>
+      <div
+        className={fullscreen ? 'h-screen w-screen overflow-hidden cursor-grab active:cursor-grabbing' : 'overflow-x-auto'}
+        onPointerDown={(e) => {
+          dragRef.current = { x: e.clientX, y: e.clientY, panX: pan.x, panY: pan.y };
+        }}
+        onPointerMove={(e) => {
+          if (!dragRef.current) return;
+          const dx = e.clientX - dragRef.current.x;
+          const dy = e.clientY - dragRef.current.y;
+          setPan({ x: dragRef.current.panX + dx, y: dragRef.current.panY + dy });
+        }}
+        onPointerUp={() => {
+          dragRef.current = null;
+        }}
+        onPointerLeave={() => {
+          dragRef.current = null;
+        }}
+      >
         <svg viewBox={`0 0 ${width} ${height}`} className={fullscreen ? 'h-full w-full' : 'h-auto min-w-[1100px] w-full'}>
           <g transform={`translate(${pan.x} ${pan.y}) scale(${zoom})`}>
             {links.map((link, idx) => {
@@ -205,11 +249,13 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
               }
 
               if (node.kind === 'tag') {
+                const raw = node.label.replace(/^#/, '');
+                const collapsed = collapsedTags.has(raw);
                 return (
-                  <g key={node.id} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)}>
+                  <g key={node.id} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)} onClick={() => toggleTag(node.label)}>
                     <circle cx={node.x} cy={node.y} r={active ? node.radius + 3 : node.radius} fill={active ? 'rgba(59,130,246,0.28)' : 'rgba(59,130,246,0.18)'} stroke={active ? 'rgba(34,197,94,0.85)' : 'rgba(59,130,246,0.78)'} strokeWidth={active ? 4 : 3} />
                     <text x={node.x} y={(node.y || 0) - 2} textAnchor="middle" className="fill-white text-[17px] font-bold">
-                      {node.label}
+                      {collapsed ? `▶ ${node.label}` : `▼ ${node.label}`}
                     </text>
                     <text x={node.x} y={(node.y || 0) + 18} textAnchor="middle" className="fill-slate-300 text-[11px] font-bold">
                       {node.count} ideas
