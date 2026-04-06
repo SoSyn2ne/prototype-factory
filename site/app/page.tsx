@@ -1,8 +1,6 @@
 import { loadIndex } from '@/lib/index';
 import GalleryClient from '@/components/GalleryClient';
 
-const FEATURED_IDS = ['2026-02-27-p001', '2026-03-06-p003'] as const;
-
 export default function Page() {
   const index = loadIndex();
 
@@ -18,7 +16,7 @@ export default function Page() {
 
   return (
     <main>
-      <GalleryClient updatedAt={index.updatedAt} items={index.items} featuredIds={[...FEATURED_IDS]} />
+      <GalleryClient updatedAt={index.updatedAt} items={index.items} />
     </main>
   );
 }

@@ -45,8 +45,6 @@ export function generateStaticParams() {
   return index.items.map((item) => ({ id: item.id }));
 }
 
-const FEATURED_IDS = new Set(['2026-02-27-p001', '2026-03-06-p003']);
-
 export default function PrototypeDetailPage({ params }: { params: { id: string } }) {
   const index = loadIndex();
   const item = index.items.find((candidate) => candidate.id === params.id);
@@ -54,7 +52,6 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
 
   const spec = readSpecFiles(item.repoPath);
   const isExternalDemo = isExternalUrl(item.demoUrl);
-  const isFeatured = FEATURED_IDS.has(item.id);
 
   return (
     <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -62,7 +59,7 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
             <Link className="inline-flex items-center hover:text-white transition-colors" href="/">
-              Gallery
+              Idea Gallery
             </Link>
           </li>
           <li>
@@ -73,40 +70,6 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </li>
         </ol>
       </nav>
-
-      {isFeatured ? (
-        <section className="mb-8 rounded-2xl border border-primary/20 bg-primary/10 p-5 shadow-sm dark:border-primary/30 dark:bg-primary/15">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <div className="text-xs font-black uppercase tracking-[0.2em] text-primary dark:text-white">
-                Featured
-              </div>
-              <p className="mt-1 text-sm font-bold text-slate-800 dark:text-slate-100">
-                Launch-ready: built to be shared. Try the demo and send it to a friend.
-              </p>
-            </div>
-            {item.demoUrl ? (
-              isExternalDemo ? (
-                <a
-                  href={item.demoUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white shadow-sm transition hover:opacity-95 hover:no-underline"
-                >
-                  Try it now
-                </a>
-              ) : (
-                <Link
-                  href={item.demoUrl}
-                  className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white shadow-sm transition hover:opacity-95 hover:no-underline"
-                >
-                  Try it now
-                </Link>
-              )
-            ) : null}
-          </div>
-        </section>
-      ) : null}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
         <div className="lg:col-span-7 flex flex-col gap-6">
@@ -186,14 +149,14 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
                   rel="noreferrer"
                   className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3.5 px-6 rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:no-underline"
                 >
-                  Launch Live Demo
+                  Open Demo
                 </a>
               ) : (
                 <Link
                   href={item.demoUrl}
                   className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3.5 px-6 rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:no-underline"
                 >
-                  Launch Live Demo
+                  Open Demo
                 </Link>
               )
             ) : null}
@@ -202,12 +165,12 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
               href="/"
               className="w-full flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 py-3.5 px-6 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hover:no-underline"
             >
-              Back to Gallery
+              Back to Idea Gallery
             </Link>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Technical Specs</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Build Notes</h3>
             <div className="flex flex-wrap gap-2">
               {item.stack.slice(0, 6).map((s) => (
                 <span
@@ -221,7 +184,7 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Spec Markdown</h3>
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Spec Notes</h3>
             {spec.message ? (
               <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">{spec.message}</p>
             ) : null}
@@ -241,99 +204,6 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </div>
         </div>
       </div>
-
-      {/* Reviews (static mock for now) */}
-      <section className="mt-16 pt-10 border-t border-slate-200 dark:border-slate-800">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">Customer Reviews</h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
-          <div className="md:col-span-4 xl:col-span-3 flex flex-col gap-6">
-            <div className="flex items-center gap-4">
-              <span className="text-5xl font-bold text-slate-900 dark:text-white tracking-tighter">4.8</span>
-              <div className="flex flex-col">
-                <div className="flex text-amber-400" aria-label="Rating 4.5 out of 5">
-                  <span aria-hidden="true">★★★★★</span>
-                </div>
-                <span className="text-sm text-slate-500 dark:text-slate-400 mt-1">Based on 124 reviews</span>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              {[
-                { label: '5 star', pct: 85 },
-                { label: '4 star', pct: 10 },
-                { label: '3 star', pct: 3 },
-                { label: '2 star', pct: 1 },
-                { label: '1 star', pct: 1 },
-              ].map((row) => (
-                <div key={row.label} className="flex items-center gap-3 text-sm">
-                  <span className="w-12 text-slate-600 dark:text-slate-400">{row.label}</span>
-                  <div className="flex-1 h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden" aria-hidden="true">
-                    <div className="h-full bg-amber-400 rounded-full" style={{ width: `${row.pct}%` }} />
-                  </div>
-                  <span className="w-10 text-right text-slate-500 dark:text-slate-400">{row.pct}%</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-2">
-              <a
-                className="block w-full text-center mt-2 py-2.5 px-4 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hover:no-underline"
-                href="#"
-              >
-                Write a Review
-              </a>
-              <p className="text-xs text-slate-500 dark:text-slate-400">
-                (Mock UI) 리뷰 작성 기능은 아직 연결되지 않았습니다.
-              </p>
-            </div>
-          </div>
-
-          <div className="md:col-span-8 xl:col-span-9 flex flex-col gap-6">
-            {[ 
-              {
-                name: 'Alex K.',
-                date: '2026-03-02',
-                rating: 5,
-                title: 'Fast and surprisingly actionable',
-                body: 'The checklist and suggestions are concrete. I used it to tighten our on-call prompt in <10 minutes.',
-              },
-              {
-                name: 'Mina P.',
-                date: '2026-03-01',
-                rating: 4,
-                title: 'Great baseline, needs team policy presets',
-                body: 'Would love preset rules for common org policies. Still very useful as a pre-flight check.',
-              },
-            ].map((r) => (
-              <article
-                key={`${r.name}-${r.date}`}
-                className="p-6 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 shadow-sm"
-              >
-                <div className="flex justify-between items-start mb-4 gap-4">
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-slate-200 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 grid place-items-center text-sm font-bold text-slate-700 dark:text-slate-200">
-                        {r.name.slice(0, 1)}
-                      </div>
-                      <div>
-                        <div className="text-sm font-bold text-slate-900 dark:text-white">{r.name}</div>
-                        <div className="text-xs text-slate-500 dark:text-slate-400">{r.date}</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-amber-400 text-sm" aria-label={`Rating ${r.rating} out of 5`}>
-                    <span aria-hidden="true">{'★'.repeat(r.rating)}{'☆'.repeat(5 - r.rating)}</span>
-                  </div>
-                </div>
-
-                <h3 className="text-base font-bold text-slate-900 dark:text-white">{r.title}</h3>
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{r.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
     </main>
   );
 }
