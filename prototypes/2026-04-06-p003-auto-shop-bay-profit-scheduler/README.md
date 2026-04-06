@@ -24,4 +24,4 @@ A repair-shop ops board that exposes which service bays are leaking margin throu
 - Phase A scaffold complete
 
 ## Links
-- Preview: (TBD)
+- Preview: local app scaffold only (`app/`)
