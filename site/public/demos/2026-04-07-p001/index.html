@@ -1,59 +1,169 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Self-Storage Vacancy Recovery Desk - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-07-p001</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self-Storage Vacancy Recovery Desk</title>
+  <style>
+    :root {
+      --bg: #09111f;
+      --panel: #101b2f;
+      --panel-2: #14233c;
+      --line: #213250;
+      --text: #e7eefb;
+      --muted: #99aac8;
+      --accent: #44d59b;
+      --warn: #ffb84d;
+      --danger: #ff7285;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #07101d 0%, #0c1730 100%);
+      color: var(--text);
+    }
+    .app { max-width: 1400px; margin: 0 auto; padding: 28px; }
+    .topbar, .hero, .grid { display: grid; gap: 18px; }
+    .topbar { grid-template-columns: 1.2fr 1fr auto; align-items: center; margin-bottom: 18px; }
+    .brand small, .eyebrow { color: var(--muted); text-transform: uppercase; letter-spacing: .18em; font-size: 11px; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { font-size: 34px; margin-top: 6px; }
+    .chiprow { display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end; }
+    .chip, .button {
+      border: 1px solid var(--line);
+      background: rgba(16,27,47,.72);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 13px;
+    }
+    .button { background: var(--accent); color: #042318; font-weight: 700; }
+    .hero { grid-template-columns: 2fr 1fr 1fr; }
+    .panel {
+      background: linear-gradient(180deg, rgba(16,27,47,.96), rgba(12,22,38,.96));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.28);
+    }
+    .metric { font-size: 46px; font-weight: 800; margin: 8px 0; }
+    .submetric { color: var(--muted); font-size: 13px; }
+    .positive { color: var(--accent); }
+    .warning { color: var(--warn); }
+    .danger { color: var(--danger); }
+    .progress { margin-top: 18px; height: 10px; background: #06111f; border-radius: 999px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; background: linear-gradient(90deg, #299e75, var(--accent)); width: 84%; }
+    .grid { grid-template-columns: 1.55fr .95fr; margin-top: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 14px; }
+    th, td { padding: 12px 10px; border-bottom: 1px solid rgba(153,170,200,.12); text-align: left; }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
+    .score { font-weight: 700; }
+    .pill {
+      display: inline-block;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(68,213,155,.12);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .stack { display: grid; gap: 16px; }
+    .mini { padding: 18px; border-radius: 20px; background: rgba(20,35,60,.78); border: 1px solid rgba(153,170,200,.12); }
+    .mini ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); }
+    .timeline { display: grid; gap: 12px; margin-top: 14px; }
+    .event {
+      display: grid; grid-template-columns: 72px 1fr auto; gap: 12px; align-items: center;
+      padding: 12px 0; border-bottom: 1px solid rgba(153,170,200,.1);
+    }
+    .event:last-child { border-bottom: 0; }
+    .price { font-size: 13px; color: var(--muted); }
+    .footer-note { margin-top: 16px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 1080px) {
+      .topbar, .hero, .grid { grid-template-columns: 1fr; }
+      .chiprow { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <small>multi-facility revenue ops</small>
         <h1>Self-Storage Vacancy Recovery Desk</h1>
-        <p>A storage revenue console that prioritizes empty units by recovery value so operators can reclaim occupancy faster.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
+      </div>
+      <div class="chiprow">
+        <div class="chip">14 units in recovery queue</div>
+        <div class="chip">42 active leads</div>
+      </div>
+      <div class="button">Finalize recovery playbook</div>
+    </div>
+
+    <div class="hero">
+      <section class="panel">
+        <div class="eyebrow">Occupancy KPI hero</div>
+        <div class="metric">84.2%</div>
+        <div class="submetric">Physical occupancy, <span class="positive">+2.1%</span> vs last week. Recovery target is 90% before month-end.</div>
+        <div class="progress"><span></span></div>
+        <div class="footer-note">Highest drift is in climate-controlled 10x15 units across East Ridge and Brookline.</div>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Vacancy value</div>
+        <div class="metric">$14.3k</div>
+        <div class="submetric">Monthly revenue at risk, <span class="danger">-$1.2k</span> vs last week.</div>
+      </section>
+      <section class="panel">
+        <div class="eyebrow">Recovered MRR forecast rail</div>
+        <div class="metric">$9.8k</div>
+        <div class="submetric">Expected recovery inside 10 days if next-best actions fire on time.</div>
+      </section>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <div class="eyebrow">Vacancy recovery queue</div>
+        <table>
+          <thead>
+            <tr><th>Unit cluster</th><th>Facility</th><th>Recovery score</th><th>Blocker</th><th>Next move</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>10x15 Climate</td><td>East Ridge</td><td class="score positive">91</td><td>Price 7% above lead intent</td><td><span class="pill">Launch 72h promo</span></td></tr>
+            <tr><td>5x10 Drive-up</td><td>Brookline</td><td class="score warning">82</td><td>Calls unanswered after quote</td><td>Auto-send text follow-up</td></tr>
+            <tr><td>10x20 Covered RV</td><td>North Loop</td><td class="score positive">79</td><td>Competitor undercut nearby</td><td>Match for qualified leads</td></tr>
+            <tr><td>10x10 Climate</td><td>East Ridge</td><td class="score warning">74</td><td>Photo set outdated</td><td>Refresh listing creative</td></tr>
+            <tr><td>5x5 Interior</td><td>Brookline</td><td class="score danger">63</td><td>Low intent lead pool</td><td>Bundle insurance credit</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div class="stack">
+        <section class="panel mini">
+          <div class="eyebrow">Unit-type comparison panel</div>
           <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
+            <li>Climate-controlled units recover 1.6x faster when promo + call sequencing are combined.</li>
+            <li>RV inventory has the biggest absolute MRR swing despite lower lead volume.</li>
+            <li>Small-unit occupancy is stable, but upsell-to-insurance is underperforming.</li>
           </ul>
         </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
+        <section class="panel mini">
+          <div class="eyebrow">Next-action drawer</div>
+          <ul>
+            <li>Drop East Ridge 10x15 web rate from $189 to $175 for 72 hours.</li>
+            <li>Trigger SMS recovery sequence on 11 stale quotes older than 48 hours.</li>
+            <li>Escalate Brookline missed-call coverage to central leasing desk today.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="panel" style="margin-top:18px;">
+      <div class="eyebrow">Pricing and lead timeline</div>
+      <div class="timeline">
+        <div class="event"><strong>09:00</strong><div><strong>East Ridge pricing drift alert</strong><div class="price">Competitor moved 10x15 down 6%, conversion rate dipped overnight.</div></div><span class="warning">Needs action</span></div>
+        <div class="event"><strong>11:30</strong><div><strong>Lead surge on Brookline drive-up units</strong><div class="price">7 quote requests arrived but only 2 received human follow-up.</div></div><span class="positive">Recoverable</span></div>
+        <div class="event"><strong>15:00</strong><div><strong>North Loop RV inquiry cluster</strong><div class="price">High-value demand window expected after local event traffic.</div></div><span class="positive">High value</span></div>
+      </div>
+    </section>
+  </div>
+</body>
 </html>

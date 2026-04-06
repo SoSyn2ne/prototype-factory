@@ -1,59 +1,148 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Boutique Hotel Upsell Capture Board - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-07-p002</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boutique Hotel Upsell Capture Board</title>
+  <style>
+    :root {
+      --bg: #171312;
+      --panel: #231c1b;
+      --panel-2: #302623;
+      --line: #4b3c36;
+      --text: #f7f1ea;
+      --muted: #c9b7a8;
+      --accent: #d7a65c;
+      --accent-2: #ffdfb1;
+      --success: #8dd0ad;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Inter, system-ui, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, #31231c 0%, #161111 55%, #120e0d 100%);
+    }
+    .app { max-width: 1400px; margin: 0 auto; padding: 28px; }
+    .top, .hero, .layout { display: grid; gap: 18px; }
+    .top { grid-template-columns: 1.2fr 1fr auto; align-items: center; }
+    .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .18em; }
+    h1, h2, h3, p { margin: 0; }
+    h1 { margin-top: 8px; font-size: 34px; }
+    .toolbar { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+    .tag, .cta {
+      padding: 10px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(35,28,27,.8); font-size: 13px;
+    }
+    .cta { background: linear-gradient(180deg, var(--accent), #bf8948); color: #21160f; font-weight: 800; }
+    .panel {
+      background: linear-gradient(180deg, rgba(35,28,27,.96), rgba(24,18,17,.96));
+      border: 1px solid rgba(201,183,168,.14);
+      border-radius: 26px;
+      padding: 22px;
+      box-shadow: 0 18px 44px rgba(0,0,0,.28);
+    }
+    .hero { grid-template-columns: 1.6fr 1fr 1fr; margin-top: 18px; }
+    .metric { font-size: 46px; font-weight: 800; margin: 8px 0; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .layout { grid-template-columns: 1.45fr 1fr; margin-top: 18px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 14px; }
+    th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid rgba(201,183,168,.12); font-size: 14px; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
+    .pill { display: inline-block; padding: 4px 10px; border-radius: 999px; background: rgba(215,166,92,.12); color: var(--accent-2); font-weight: 700; font-size: 12px; }
+    .stack { display: grid; gap: 18px; }
+    .card { background: rgba(48,38,35,.72); border: 1px solid rgba(201,183,168,.12); border-radius: 20px; padding: 18px; }
+    .card ul { margin: 12px 0 0; padding-left: 18px; color: var(--muted); }
+    .timeline { display: grid; gap: 12px; margin-top: 16px; }
+    .step {
+      display: grid; grid-template-columns: 90px 1fr auto;
+      gap: 12px; align-items: center; padding: 12px 0;
+      border-bottom: 1px solid rgba(201,183,168,.12);
+    }
+    .step:last-child { border-bottom: 0; }
+    .gain { color: var(--success); font-weight: 700; }
+    @media (max-width: 1080px) {
+      .top, .hero, .layout { grid-template-columns: 1fr; }
+      .toolbar { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="top">
+      <div>
+        <div class="label">guest revenue orchestration</div>
         <h1>Boutique Hotel Upsell Capture Board</h1>
-        <p>A hospitality revenue board that spots the highest-converting upgrade and add-on opportunities before guest arrival.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
+      </div>
+      <div class="toolbar">
+        <div class="tag">38 arrivals today</div>
+        <div class="tag">12 offers awaiting send</div>
+      </div>
+      <div class="cta">Launch tonight's offer set</div>
+    </div>
+
+    <div class="hero">
+      <section class="panel">
+        <div class="label">Guest-revenue KPI hero</div>
+        <div class="metric">$6,840</div>
+        <div class="muted">Projected upsell capture for the next 72 hours, tracking <span class="gain">+18%</span> above last week.</div>
+      </section>
+      <section class="panel">
+        <div class="label">Upgrade conversion</div>
+        <div class="metric">27%</div>
+        <div class="muted">Suite and skyline category offers lead the mix.</div>
+      </section>
+      <section class="panel">
+        <div class="label">Late checkout rail</div>
+        <div class="metric">41</div>
+        <div class="muted">Eligible stays with high convenience spend intent.</div>
+      </section>
+    </div>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="label">Arrival opportunity queue</div>
+        <table>
+          <thead>
+            <tr><th>Guest</th><th>Stay</th><th>Signal</th><th>Offer</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Kim, J.</td><td>2 nights, deluxe king</td><td>Anniversary note + premium spend history</td><td><span class="pill">Suite + prosecco</span></td><td>$220</td></tr>
+            <tr><td>Park, M.</td><td>1 night, city queen</td><td>Early arrival request</td><td>Spa access + late checkout</td><td>$95</td></tr>
+            <tr><td>Lee, H.</td><td>3 nights, loft</td><td>Repeat guest, high minibar attach</td><td>Balcony upgrade</td><td>$180</td></tr>
+            <tr><td>Choi, A.</td><td>2 nights, classic queen</td><td>Weekend leisure segment</td><td>Breakfast + rooftop table</td><td>$76</td></tr>
+            <tr><td>Tan, S.</td><td>4 nights, king</td><td>Corporate to leisure extension</td><td>Late checkout + car transfer</td><td>$130</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <div class="stack">
+        <section class="panel card">
+          <div class="label">Upgrade and add-on panel</div>
           <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
+            <li>Suite inventory is 62% open tomorrow, enough to protect walk-in demand while still sending premium offers.</li>
+            <li>Breakfast bundles convert best when paired with rooftop or spa framing.</li>
+            <li>Late checkout demand spikes for one-night business stays checking out on Fridays.</li>
           </ul>
         </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
+        <section class="panel card">
+          <div class="label">Offer action drawer</div>
+          <ul>
+            <li>Send suite offer to Kim by 13:00 with concierge note attached.</li>
+            <li>Auto-trigger late checkout copy for Park and Tan at check-in minus 6 hours.</li>
+            <li>Hold two skyline rooms for repeat guests with spend score above 80.</li>
+          </ul>
+        </section>
+      </div>
+    </div>
+
+    <section class="panel" style="margin-top:18px;">
+      <div class="label">Stay-context timeline</div>
+      <div class="timeline">
+        <div class="step"><strong>10:00</strong><div><strong>High-affinity leisure cluster lands</strong><div class="muted">Three anniversary or birthday stays arrive inside the same two-hour window.</div></div><span class="gain">Premium timing</span></div>
+        <div class="step"><strong>14:00</strong><div><strong>Front desk occupancy gate</strong><div class="muted">If skyline inventory stays above 4 rooms, keep upgrade ladder open.</div></div><span>$1.1k possible</span></div>
+        <div class="step"><strong>18:00</strong><div><strong>Evening F&amp;B offer burst</strong><div class="muted">Restaurant demand is strongest when wine credit copy goes out before local dinner rush.</div></div><span class="gain">Fast attach</span></div>
+      </div>
+    </section>
+  </div>
+</body>
 </html>
