@@ -17,13 +17,6 @@ type Props = {
   items: PrototypeIndexItem[];
 };
 
-type TagCluster = {
-  tag: string;
-  count: number;
-  latestDate: string;
-  sampleTitles: string[];
-};
-
 function uniq(values: string[]) {
   return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
 }
@@ -53,18 +46,6 @@ function IconChevronDown(props: { className?: string }) {
   );
 }
 
-function clusterTone(rank: number) {
-  const tones = [
-    'from-sky-500/20 to-cyan-500/10 border-sky-300/50 dark:border-sky-700/60',
-    'from-violet-500/20 to-fuchsia-500/10 border-violet-300/50 dark:border-violet-700/60',
-    'from-emerald-500/20 to-lime-500/10 border-emerald-300/50 dark:border-emerald-700/60',
-    'from-amber-500/20 to-orange-500/10 border-amber-300/50 dark:border-amber-700/60',
-    'from-rose-500/20 to-pink-500/10 border-rose-300/50 dark:border-rose-700/60',
-    'from-blue-500/20 to-indigo-500/10 border-blue-300/50 dark:border-blue-700/60',
-  ];
-  return tones[rank % tones.length];
-}
-
 export default function GalleryClient({ updatedAt, items }: Props) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState<string>('all');
@@ -74,36 +55,6 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
   const allStatuses = useMemo(() => ['all', ...uniq(items.map((i) => i.status).filter(Boolean))], [items]);
   const allTags = useMemo(() => ['all', ...uniq(items.flatMap((i) => i.tags || []).filter(Boolean))], [items]);
-
-  const tagClusters = useMemo<TagCluster[]>(() => {
-    const map = new Map<string, { count: number; latestDate: string; sampleTitles: string[] }>();
-
-    items.forEach((item) => {
-      (item.tags || []).forEach((rawTag) => {
-        const current = map.get(rawTag) || { count: 0, latestDate: '', sampleTitles: [] };
-        current.count += 1;
-        const createdAt = String(item.createdAt || '');
-        if (createdAt > current.latestDate) current.latestDate = createdAt;
-        if (item.title && !current.sampleTitles.includes(item.title) && current.sampleTitles.length < 3) {
-          current.sampleTitles.push(item.title);
-        }
-        map.set(rawTag, current);
-      });
-    });
-
-    return [...map.entries()]
-      .map(([clusterTag, value]) => ({
-        tag: clusterTag,
-        count: value.count,
-        latestDate: value.latestDate,
-        sampleTitles: value.sampleTitles,
-      }))
-      .sort((a, b) => {
-        if (b.count !== a.count) return b.count - a.count;
-        return b.latestDate.localeCompare(a.latestDate);
-      })
-      .slice(0, 12);
-  }, [items]);
 
   useEffect(() => {
     setPage(1);
@@ -155,6 +106,17 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               이제 랜딩은 쇼케이스보다 아이디어 탐색에 집중합니다. 프로토를 빠르게 훑고, 비슷한 문제군을 묶고,
               다음에 확장할 방향을 찾는 브레인스토밍 허브로 씁니다.
             </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <Link
+                href="/clusters"
+                className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white transition hover:bg-primary/90 hover:no-underline"
+              >
+                Open Cluster Board
+              </Link>
+              <div className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300">
+                마인드맵 기반 탐색은 Cluster Board에서 확인
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:min-w-[420px]">
@@ -175,52 +137,6 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               <div className="mt-1 text-sm font-black text-slate-900 dark:text-white">{String(updatedAt).slice(0, 10)}</div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-6">
-        <div className="mb-4 flex items-center justify-between gap-4">
-          <div>
-            <div className="text-xs font-black uppercase tracking-[0.22em] text-primary">Cluster board</div>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white">한눈에 보는 아이디어 군집</h2>
-            <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-              많이 쌓인 태그부터 보고, 어떤 문제군이 과밀한지/비어있는지 확인하는 보드입니다.
-            </p>
-          </div>
-          <div className="hidden text-right text-xs text-slate-500 dark:text-slate-400 sm:block">
-            상위 {tagClusters.length}개 클러스터
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {tagClusters.map((cluster, index) => (
-            <button
-              key={cluster.tag}
-              type="button"
-              onClick={() => setTag(cluster.tag)}
-              className={`rounded-2xl border bg-gradient-to-br ${clusterTone(index)} p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-lg font-black text-slate-900 dark:text-white">#{cluster.tag}</div>
-                  <div className="mt-1 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                    {cluster.count} ideas · latest {cluster.latestDate || 'n/a'}
-                  </div>
-                </div>
-                <span className="rounded-full bg-white/80 px-2.5 py-1 text-xs font-black text-slate-700 dark:bg-slate-900/70 dark:text-slate-200">
-                  focus
-                </span>
-              </div>
-
-              <div className="mt-4 space-y-2">
-                {cluster.sampleTitles.map((title) => (
-                  <div key={title} className="rounded-xl bg-white/70 px-3 py-2 text-sm text-slate-700 dark:bg-slate-950/50 dark:text-slate-200">
-                    {title}
-                  </div>
-                ))}
-              </div>
-            </button>
-          ))}
         </div>
       </section>
 
