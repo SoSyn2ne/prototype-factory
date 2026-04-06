@@ -7,6 +7,7 @@ import type { PrototypeIndexItem } from '@/lib/index';
 
 type Props = {
   items: PrototypeIndexItem[];
+  fullscreen?: boolean;
 };
 
 type GraphNode = {
@@ -35,7 +36,7 @@ function buildGraph(items: PrototypeIndexItem[]) {
     id: 'root',
     label: 'PF Brain',
     kind: 'root',
-    radius: 44,
+    radius: 52,
   };
 
   const tagMap = new Map<string, { count: number; items: PrototypeIndexItem[] }>();
@@ -43,14 +44,14 @@ function buildGraph(items: PrototypeIndexItem[]) {
     for (const tag of item.tags || []) {
       const current = tagMap.get(tag) || { count: 0, items: [] };
       current.count += 1;
-      if (current.items.length < 4) current.items.push(item);
+      if (current.items.length < 5) current.items.push(item);
       tagMap.set(tag, current);
     }
   }
 
   const topTags = [...tagMap.entries()]
     .sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0]))
-    .slice(0, 10);
+    .slice(0, 12);
 
   const nodes: GraphNode[] = [root];
   const links: GraphLink[] = [];
@@ -61,10 +62,10 @@ function buildGraph(items: PrototypeIndexItem[]) {
       label: `#${tag}`,
       kind: 'tag',
       count: value.count,
-      radius: Math.max(28, Math.min(46, 22 + value.count * 2.2)),
+      radius: Math.max(32, Math.min(52, 24 + value.count * 2.4)),
     };
     nodes.push(tagNode);
-    links.push({ source: root.id, target: tagNode.id, strength: 0.9 });
+    links.push({ source: root.id, target: tagNode.id, strength: 0.95 });
 
     value.items.forEach((item) => {
       const ideaId = `idea:${item.id}:${tag}`;
@@ -73,23 +74,23 @@ function buildGraph(items: PrototypeIndexItem[]) {
         label: item.title,
         kind: 'idea',
         href: `/p/${item.id}`,
-        radius: 14,
+        radius: 16,
       });
-      links.push({ source: tagNode.id, target: ideaId, strength: 0.55 });
+      links.push({ source: tagNode.id, target: ideaId, strength: 0.58 });
     });
   }
 
   return { nodes, links };
 }
 
-export default function ClusterForceMindMap({ items }: Props) {
+export default function ClusterForceMindMap({ items, fullscreen = false }: Props) {
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
 
   const { nodes, links, width, height } = useMemo(() => {
-    const width = 1200;
-    const height = 820;
+    const width = fullscreen ? 1700 : 1200;
+    const height = fullscreen ? 980 : 820;
     const graph = buildGraph(items);
 
     const simNodes = graph.nodes.map((node) => ({ ...node }));
@@ -104,7 +105,7 @@ export default function ClusterForceMindMap({ items }: Props) {
     }
 
     const simulation = forceSimulation(simNodes as any)
-      .force('charge', forceManyBody().strength((node: any) => (node.kind === 'idea' ? -90 : -260)))
+      .force('charge', forceManyBody().strength((node: any) => (node.kind === 'idea' ? -110 : -320)))
       .force('center', forceCenter(width / 2, height / 2))
       .force(
         'link',
@@ -112,92 +113,62 @@ export default function ClusterForceMindMap({ items }: Props) {
           .id((node: any) => node.id)
           .distance((link: any) => {
             const sourceKind = typeof link.source === 'object' ? link.source.kind : 'idea';
-            return sourceKind === 'root' ? 190 : 88;
+            return sourceKind === 'root' ? (fullscreen ? 245 : 190) : (fullscreen ? 118 : 88);
           })
           .strength((link: any) => link.strength ?? 0.5)
       )
-      .force('collide', forceCollide().radius((node: any) => node.radius + (node.kind === 'idea' ? 30 : 18)).iterations(2));
+      .force('collide', forceCollide().radius((node: any) => node.radius + (node.kind === 'idea' ? 38 : 24)).iterations(2));
 
-    for (let i = 0; i < 220; i += 1) simulation.tick();
+    for (let i = 0; i < 260; i += 1) simulation.tick();
     simulation.stop();
 
     return { nodes: simNodes, links: simLinks, width, height };
-  }, [items]);
+  }, [items, fullscreen]);
 
   const hovered = hoveredNodeId ? nodes.find((n) => n.id === hoveredNodeId) : null;
 
   return (
-    <div className="space-y-4 p-4 sm:p-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-          Controls: zoom / pan / hover / click ideas
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onClick={() => setZoom((z) => Math.max(0.65, Number((z - 0.15).toFixed(2))))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            Zoom -
-          </button>
-          <button
-            type="button"
-            onClick={() => setZoom((z) => Math.min(2.2, Number((z + 0.15).toFixed(2))))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            Zoom +
-          </button>
-          <button
-            type="button"
-            onClick={() => setPan((p) => ({ ...p, x: p.x - 60 }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            ←
-          </button>
-          <button
-            type="button"
-            onClick={() => setPan((p) => ({ ...p, x: p.x + 60 }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            →
-          </button>
-          <button
-            type="button"
-            onClick={() => setPan((p) => ({ ...p, y: p.y - 60 }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            ↑
-          </button>
-          <button
-            type="button"
-            onClick={() => setPan((p) => ({ ...p, y: p.y + 60 }))}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-          >
-            ↓
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setZoom(1);
-              setPan({ x: 0, y: 0 });
-            }}
-            className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90"
-          >
-            Reset
-          </button>
-        </div>
+    <div className={fullscreen ? 'relative h-screen w-screen overflow-hidden' : 'space-y-4 p-4 sm:p-6'}>
+      <div className={fullscreen ? 'absolute left-4 top-4 z-20 flex flex-wrap items-center gap-2 rounded-2xl border border-slate-800 bg-slate-950/70 px-3 py-3 backdrop-blur-xl' : 'flex flex-wrap items-center justify-between gap-3'}>
+        {fullscreen ? (
+          <>
+            <Link href="/" className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800 hover:no-underline">
+              Gallery
+            </Link>
+            <button type="button" onClick={() => setZoom((z) => Math.max(0.65, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
+            <button type="button" onClick={() => setZoom((z) => Math.min(2.4, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
+            <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x - 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">←</button>
+            <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x + 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">→</button>
+            <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y - 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">↑</button>
+            <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y + 80 }))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">↓</button>
+            <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Reset</button>
+          </>
+        ) : (
+          <>
+            <div className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Controls: zoom / pan / hover / click ideas</div>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={() => setZoom((z) => Math.max(0.65, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">Zoom -</button>
+              <button type="button" onClick={() => setZoom((z) => Math.min(2.2, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">Zoom +</button>
+              <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x - 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">←</button>
+              <button type="button" onClick={() => setPan((p) => ({ ...p, x: p.x + 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">→</button>
+              <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y - 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">↑</button>
+              <button type="button" onClick={() => setPan((p) => ({ ...p, y: p.y + 60 }))} className="rounded-lg border border-slate-200 px-3 py-2 text-xs font-black text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800">↓</button>
+              <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Reset</button>
+            </div>
+          </>
+        )}
       </div>
 
       {hovered ? (
-        <div className="rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200">
+        <div className={fullscreen ? 'absolute bottom-4 left-4 z-20 max-w-md rounded-2xl border border-slate-800 bg-slate-950/75 px-4 py-3 text-sm text-slate-200 shadow-sm backdrop-blur-xl' : 'rounded-2xl border border-slate-200 bg-white/90 px-4 py-3 text-sm text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900/70 dark:text-slate-200'}>
           <span className="font-black">Hover:</span> {hovered.label}
           {hovered.kind === 'tag' ? ` · ${hovered.count} ideas` : ''}
           {hovered.kind === 'idea' ? ' · click to open detail' : ''}
         </div>
       ) : null}
 
-      <div className="overflow-x-auto">
-        <svg viewBox={`0 0 ${width} ${height}`} className="h-auto min-w-[1100px] w-full">
+      <div className={fullscreen ? 'h-screen w-screen overflow-hidden' : 'overflow-x-auto'}>
+        <svg viewBox={`0 0 ${width} ${height}`} className={fullscreen ? 'h-full w-full' : 'h-auto min-w-[1100px] w-full'}>
           <g transform={`translate(${pan.x} ${pan.y}) scale(${zoom})`}>
             {links.map((link, idx) => {
               const source = typeof link.source === 'object' ? link.source : nodes.find((n) => n.id === link.source);
@@ -224,17 +195,10 @@ export default function ClusterForceMindMap({ items }: Props) {
                 return (
                   <g key={node.id} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)}>
                     <Link href={node.href || '/'}>
-                      <circle
-                        cx={node.x}
-                        cy={node.y}
-                        r={active ? node.radius + 2 : node.radius}
-                        fill={active ? 'rgba(30,41,59,1)' : 'rgba(15,23,42,0.92)'}
-                        stroke={active ? 'rgba(34,197,94,0.8)' : 'rgba(148,163,184,0.5)'}
-                        strokeWidth={active ? 3 : 2}
-                      />
+                      <circle cx={node.x} cy={node.y} r={active ? node.radius + 2 : node.radius} fill={active ? 'rgba(30,41,59,1)' : 'rgba(15,23,42,0.92)'} stroke={active ? 'rgba(34,197,94,0.8)' : 'rgba(148,163,184,0.5)'} strokeWidth={active ? 3 : 2} />
                     </Link>
-                    <text x={(node.x || 0) + 22} y={(node.y || 0) + 4} className="fill-slate-700 dark:fill-slate-200 text-[12px] font-medium">
-                      {node.label.length > 34 ? `${node.label.slice(0, 34)}…` : node.label}
+                    <text x={(node.x || 0) + 24} y={(node.y || 0) + 4} className="fill-slate-200 text-[13px] font-medium">
+                      {node.label.length > 36 ? `${node.label.slice(0, 36)}…` : node.label}
                     </text>
                   </g>
                 );
@@ -243,18 +207,11 @@ export default function ClusterForceMindMap({ items }: Props) {
               if (node.kind === 'tag') {
                 return (
                   <g key={node.id} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)}>
-                    <circle
-                      cx={node.x}
-                      cy={node.y}
-                      r={active ? node.radius + 3 : node.radius}
-                      fill={active ? 'rgba(59,130,246,0.26)' : 'rgba(59,130,246,0.16)'}
-                      stroke={active ? 'rgba(34,197,94,0.85)' : 'rgba(59,130,246,0.74)'}
-                      strokeWidth={active ? 4 : 3}
-                    />
-                    <text x={node.x} y={(node.y || 0) - 2} textAnchor="middle" className="fill-slate-900 dark:fill-white text-[16px] font-bold">
+                    <circle cx={node.x} cy={node.y} r={active ? node.radius + 3 : node.radius} fill={active ? 'rgba(59,130,246,0.28)' : 'rgba(59,130,246,0.18)'} stroke={active ? 'rgba(34,197,94,0.85)' : 'rgba(59,130,246,0.78)'} strokeWidth={active ? 4 : 3} />
+                    <text x={node.x} y={(node.y || 0) - 2} textAnchor="middle" className="fill-white text-[17px] font-bold">
                       {node.label}
                     </text>
-                    <text x={node.x} y={(node.y || 0) + 18} textAnchor="middle" className="fill-slate-500 dark:fill-slate-300 text-[11px] font-bold">
+                    <text x={node.x} y={(node.y || 0) + 18} textAnchor="middle" className="fill-slate-300 text-[11px] font-bold">
                       {node.count} ideas
                     </text>
                   </g>
@@ -263,13 +220,13 @@ export default function ClusterForceMindMap({ items }: Props) {
 
               return (
                 <g key={node.id} onMouseEnter={() => setHoveredNodeId(node.id)} onMouseLeave={() => setHoveredNodeId(null)}>
-                  <circle cx={node.x} cy={node.y} r={node.radius + 18} fill="rgba(14,165,233,0.14)" stroke={active ? 'rgba(34,197,94,0.8)' : 'rgba(14,165,233,0.45)'} strokeWidth="2.5" />
-                  <circle cx={node.x} cy={node.y} r={node.radius} fill="rgba(15,23,42,0.95)" stroke="rgba(125,211,252,0.35)" strokeWidth="2" />
-                  <text x={node.x} y={(node.y || 0) - 4} textAnchor="middle" className="fill-white text-[22px] font-bold">
+                  <circle cx={node.x} cy={node.y} r={node.radius + 26} fill="rgba(14,165,233,0.16)" stroke={active ? 'rgba(34,197,94,0.8)' : 'rgba(14,165,233,0.45)'} strokeWidth="2.5" />
+                  <circle cx={node.x} cy={node.y} r={node.radius} fill="rgba(15,23,42,0.98)" stroke="rgba(125,211,252,0.35)" strokeWidth="2" />
+                  <text x={node.x} y={(node.y || 0) - 4} textAnchor="middle" className="fill-white text-[26px] font-bold">
                     {node.label}
                   </text>
-                  <text x={node.x} y={(node.y || 0) + 18} textAnchor="middle" className="fill-slate-300 text-[12px] font-medium">
-                    force-directed cluster map
+                  <text x={node.x} y={(node.y || 0) + 20} textAnchor="middle" className="fill-slate-300 text-[12px] font-medium">
+                    fullscreen idea map
                   </text>
                 </g>
               );
