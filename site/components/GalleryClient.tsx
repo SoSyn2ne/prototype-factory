@@ -140,6 +140,67 @@ export default function GalleryClient({ updatedAt, items }: Props) {
         </div>
       </section>
 
+      <section className="mb-6 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-5 shadow-sm dark:border-emerald-900/40 dark:from-emerald-950/30 dark:to-slate-900/40 sm:mb-8 sm:p-6">
+        <div className="flex flex-col gap-6">
+          <div className="max-w-4xl">
+            <div className="text-xs font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-300">Reality check</div>
+            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+              이제 PF는 브레인스토밍뿐 아니라 판매 우선순위도 같이 봅니다.
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">
+              현재 판단은 단순 아이디어 누적보다, 누가 사고 왜 돈을 내는지 명확한 영업형 프로토를 먼저 밀어보는 쪽이 더 현실적입니다.
+              아래 5개는 지금 기준에서 바로 세일즈 실험으로 이어가기 좋은 후보들입니다.
+            </p>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-5">
+            {[
+              {
+                rank: '01',
+                title: 'Amazon FBA Fee Drift Detector',
+                buyer: '아마존 셀러 · 운영대행사',
+                why: '수수료·광고·반품으로 새는 마진을 바로 숫자로 설명 가능',
+              },
+              {
+                rank: '02',
+                title: 'Dental Unscheduled Treatment Recovery Board',
+                buyer: '치과 원장 · 상담실장',
+                why: '미예약 치료는 바로 매출 누수라 ROI 설명이 쉬움',
+              },
+              {
+                rank: '03',
+                title: 'HVAC Lost Quote Recovery Radar',
+                buyer: 'HVAC 대표 · 영업팀장',
+                why: '잃어버린 견적 한 건만 회수해도 가치가 큼',
+              },
+              {
+                rank: '04',
+                title: 'Medspa Membership Churn Save Desk',
+                buyer: '메드스파 운영자 · 매니저',
+                why: '재방문/회원권 유지 문제는 돈으로 바로 연결됨',
+              },
+              {
+                rank: '05',
+                title: 'Auto Repair Estimate Approval Delay Board',
+                buyer: '카센터 대표 · 서비스 어드바이저',
+                why: '승인 속도 저하가 회전율과 수익성 악화로 직결됨',
+              },
+            ].map((item) => (
+              <article key={item.rank} className="rounded-2xl border border-emerald-200/70 bg-white/90 p-4 shadow-sm dark:border-emerald-900/50 dark:bg-slate-950/40">
+                <div className="text-[11px] font-black uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">Top {item.rank}</div>
+                <h3 className="mt-2 text-base font-black leading-tight text-slate-900 dark:text-white">{item.title}</h3>
+                <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-400">누가 삼: {item.buyer}</p>
+                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.why}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="rounded-2xl border border-dashed border-emerald-300/80 px-4 py-3 text-sm text-slate-700 dark:border-emerald-800/60 dark:text-slate-200">
+            운영 원칙: <span className="font-black">무한 아이디어 생산보다 영업형 5개씩 검증</span> → 데모 → 아웃바운드 → 반응 좋은 것만 깊게 개발.
+          </div>
+        </div>
+      </section>
+
       <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
