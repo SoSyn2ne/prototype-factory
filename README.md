@@ -2,11 +2,14 @@
 
 목표: **매일 1개 프로토타입 생산 → GitHub에 축적 → 갤러리(랜딩)에서 자동 수집 → 4개 선별해 서비스로 승격**
 
+추가 운영 계약: 일일 아이데이션 단계에서는 기본적으로 **후보 4개 + Stitch 프롬프트 4개 전체 전달**을 표준으로 한다.
+
 ## 0) 운영 원칙
 - 아이디어 생성 단계: 제약 최소(엉뚱함 OK)
 - 출고(QC) 단계: 사실/리스크/구현가능성 체크
 - 결과물은 항상 **Preview URL + README + 스크린샷** 포함
-- 일일 아이디어 배치는 기본적으로 **실전형/상업형만 고집하지 않는다**. 권장 구성은 `실전형 2 + 재미/실험형 1`.
+- 일일 아이디어 배치는 기본적으로 **실전형/상업형만 고집하지 않는다**. 권장 구성은 `실전형 3 + 재미/실험형 1`.
+- 일일 아이데이션 산출물은 기본적으로 **아이디어 4개와 해당 Stitch 프롬프트 4개 전체**를 그대로 전달한다. 축약본만 보내지 않는다.
 - 재미/실험형은 즉시 수익화가 약해도 괜찮지만, 대신 시각적 재미, 스토리, 공유성, 포트폴리오 가치 중 하나는 분명해야 한다.
 
 ## 1) 레포 구조(권장)
@@ -84,8 +87,8 @@ node scripts/new-proto.mjs --title "No demo example" --no-demo
 ## 4) n8n 파이프라인(개요)
 1) Cron(평일/매일 원하는 시간)
 2) `scripts/worktree-new "pf/<date>/<slug>" origin/main`으로 새 worktree 생성
-3) LLM: 아이디어 3개 생성(제약 거의 없음)
-4) LLM: 1개 선택 + 스펙(화면 1~2장)
+3) LLM: 아이디어 4개 생성(제약 거의 없음)
+4) LLM: 4개 전부의 Stitch 프롬프트를 작성하고, 그 뒤 1개 선택 + 스펙(화면 1~2장)
 5) Fast-Prototype 실행(스크린샷→Next.js+Tailwind+shadcn 코드)
 6) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
 7) 필요 시 GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)

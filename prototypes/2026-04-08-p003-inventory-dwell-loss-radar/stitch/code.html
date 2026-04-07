@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SENTINEL LAB | Inventory Dwell Loss Radar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#233144",
+                        "on-primary-fixed": "#0d1c2f",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "error-container": "#93000a",
+                        "surface-tint": "#b9c7e0",
+                        "primary-fixed-dim": "#b9c7e0",
+                        "surface-dim": "#0b1326",
+                        "primary-fixed": "#d5e3fd",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-surface": "#dae2fd",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb95f",
+                        "surface-bright": "#31394d",
+                        "on-background": "#dae2fd",
+                        "on-primary-fixed-variant": "#3a485c",
+                        "surface-container": "#171f33",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-error": "#690005",
+                        "primary-container": "#09182a",
+                        "on-tertiary-container": "#b47300",
+                        "on-secondary": "#213145",
+                        "outline": "#909097",
+                        "tertiary-fixed": "#ffddb8",
+                        "tertiary-container": "#251400",
+                        "inverse-primary": "#515f74",
+                        "on-tertiary": "#472a00",
+                        "surface-container-high": "#222a3d",
+                        "surface-container-lowest": "#060e20",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-container": "#a9bad3",
+                        "on-primary-container": "#738298",
+                        "on-error-container": "#ffdad6",
+                        "secondary": "#b7c8e1",
+                        "surface-container-highest": "#2d3449",
+                        "background": "#0b1326",
+                        "inverse-on-surface": "#283044",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-secondary-fixed": "#0b1c30",
+                        "secondary-container": "#3a4a5f",
+                        "surface-variant": "#2d3449",
+                        "surface-container-low": "#131b2e",
+                        "inverse-surface": "#dae2fd",
+                        "surface": "#0b1326",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "outline-variant": "#45464d",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "primary": "#b9c7e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #0b1326; color: #dae2fd; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #060e20; }
+        ::-webkit-scrollbar-thumb { background: #45464d; }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0b1326] dark:bg-[#0b1326] text-[#b9c7e0] dark:text-[#b9c7e0] flex justify-between items-center px-6 h-16 w-full border-b border-[#45464d]/10">
+<div class="text-xl font-bold tracking-tighter text-[#b9c7e0] font-headline">SENTINEL LAB</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="text-[#c6c6cd] hover:text-[#b9c7e0] transition-colors font-headline tracking-tight" href="#">Inventory</a>
+<a class="text-[#ffb95f] border-b-2 border-[#ffb95f] pb-1 font-headline tracking-tight" href="#">Dwell Risk</a>
+<a class="text-[#c6c6cd] hover:text-[#b9c7e0] transition-colors font-headline tracking-tight" href="#">Pricing</a>
+<a class="text-[#c6c6cd] hover:text-[#b9c7e0] transition-colors font-headline tracking-tight" href="#">Margin</a>
+</nav>
+<div class="flex items-center gap-4">
+<div class="bg-[#171f33] px-3 py-1.5 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-label" placeholder="Search Assets..." type="text"/>
+</div>
+<span class="material-symbols-outlined hover:bg-[#222a3d] p-2 transition-all cursor-pointer">notifications</span>
+<span class="material-symbols-outlined hover:bg-[#222a3d] p-2 transition-all cursor-pointer">settings</span>
+<div class="w-8 h-8 bg-primary-container overflow-hidden">
+<img alt="Analyst Profile" class="w-full h-full object-cover" data-alt="Professional analyst headshot with neutral lighting and corporate dark blue background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVbDIaWZnRBNgEeAB303mzmHUPHJnAnOYGlC94Hy7P0yxefCCE5wN1ALbLqS2yh94hqgtUvsZkyWzu9QueMJrF8xPUjSTaD5o6fIXRxUNJWq6PTHwAwS0IZCrMSBSrDO4o-jBYwajmopcQM1kC9HwoBooA43JYL6eJ8XiOm7_M4SI7zQfUFgk4BMME9P0Y1ltuCF3ef17p6bmpYHsQSOk0qT6dldTIsTelkq5_SfpqQyssfqfND1EL3rQ15EaLKlToAlqy79R3UA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-[#060e20] dark:bg-[#060e20] text-[#b9c7e0] dark:text-[#b9c7e0] flex flex-col py-4 border-r border-[#45464d]/15">
+<div class="px-6 mb-8">
+<div class="font-headline font-bold text-[#ffb95f] text-lg tracking-tight">LOT CONTROL</div>
+<div class="text-[10px] uppercase tracking-[0.2em] text-[#c6c6cd]">Global Inventory</div>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="group px-6 py-3 flex items-center gap-4 hover:bg-[#222a3d] transition-all cursor-pointer text-[#c6c6cd]">
+<span class="material-symbols-outlined text-lg">filter_list</span>
+<span class="font-label text-sm tracking-wide">Lot Filter A</span>
+</div>
+<div class="group px-6 py-3 flex items-center gap-4 hover:bg-[#222a3d] transition-all cursor-pointer text-[#c6c6cd]">
+<span class="material-symbols-outlined text-lg">location_on</span>
+<span class="font-label text-sm tracking-wide">Lot Filter B</span>
+</div>
+<div class="group px-6 py-3 flex items-center gap-4 text-[#ffb95f] font-bold bg-[#171f33] cursor-pointer">
+<span class="material-symbols-outlined text-lg">analytics</span>
+<span class="font-label text-sm tracking-wide">Zone Delta</span>
+</div>
+<div class="group px-6 py-3 flex items-center gap-4 hover:bg-[#222a3d] transition-all cursor-pointer text-[#c6c6cd]">
+<span class="material-symbols-outlined text-lg">warning</span>
+<span class="font-label text-sm tracking-wide">Risk Tier</span>
+</div>
+</nav>
+<div class="mt-auto border-t border-[#45464d]/15 pt-4 space-y-1">
+<div class="px-6 py-3 flex items-center gap-4 hover:bg-[#222a3d] transition-all cursor-pointer text-[#c6c6cd]">
+<span class="material-symbols-outlined text-lg">memory</span>
+<span class="font-label text-sm tracking-wide">System Health</span>
+</div>
+<div class="px-6 py-3 flex items-center gap-4 hover:bg-[#222a3d] transition-all cursor-pointer text-[#c6c6cd]">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+<span class="font-label text-sm tracking-wide">Support</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 p-8 overflow-y-auto">
+<!-- Inventory Loss KPI Hero -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-1 mb-8">
+<div class="bg-surface-container p-6 border-l-4 border-primary">
+<div class="text-[10px] uppercase tracking-[0.1em] text-on-primary-container font-bold mb-2">Total Inventory Value</div>
+<div class="text-3xl font-headline font-bold text-primary">$42.8M</div>
+<div class="mt-2 text-xs text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span>
+<span>+2.4% vs last period</span>
+</div>
+</div>
+<div class="bg-surface-container-high p-6 border-l-4 border-tertiary">
+<div class="text-[10px] uppercase tracking-[0.1em] text-tertiary font-bold mb-2">Unrealized Dwell Loss</div>
+<div class="text-3xl font-headline font-bold text-tertiary">$1.24M</div>
+<div class="mt-2 text-xs text-on-surface-variant">At-risk margin across 42 units</div>
+</div>
+<div class="bg-surface-container p-6">
+<div class="text-[10px] uppercase tracking-[0.1em] text-on-primary-container font-bold mb-2">Dwell Risk %</div>
+<div class="text-3xl font-headline font-bold text-on-surface">18.4%</div>
+<div class="mt-4 h-1.5 w-full bg-surface-container-lowest">
+<div class="h-full bg-tertiary" style="width: 18.4%"></div>
+</div>
+</div>
+<div class="bg-surface-container p-6">
+<div class="text-[10px] uppercase tracking-[0.1em] text-on-primary-container font-bold mb-2">Daily Loss Rate</div>
+<div class="text-3xl font-headline font-bold text-on-surface">$14,200</div>
+<div class="mt-2 text-xs text-on-surface-variant">Aggregated holding costs</div>
+</div>
+</section>
+<!-- Main Analytical Grid -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Dwell-Risk Queue (Left Side) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container">
+<div class="p-4 flex justify-between items-center bg-surface-container-high">
+<h2 class="font-headline font-bold tracking-tight text-lg">Dwell-Risk Queue: Critical Aging Units</h2>
+<div class="flex gap-2">
+<button class="bg-surface-container-lowest px-3 py-1 text-[10px] uppercase tracking-widest text-[#c6c6cd]">Export CSV</button>
+<button class="bg-primary text-on-primary px-3 py-1 text-[10px] uppercase tracking-widest font-bold">Priority View</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-[10px] uppercase tracking-wider text-on-surface-variant bg-surface-container-low/50">
+<th class="p-4 font-medium">Stock / VIN</th>
+<th class="p-4 font-medium">Model Year</th>
+<th class="p-4 font-medium">Days on Lot</th>
+<th class="p-4 font-medium text-right">Current MSRP</th>
+<th class="p-4 font-medium text-right">Daily Cost</th>
+<th class="p-4 font-medium text-right">Risk Score</th>
+<th class="p-4 font-medium">Action</th>
+</tr>
+</thead>
+<tbody class="text-sm font-label">
+<tr class="bg-surface-container hover:bg-surface-container-high border-b border-outline-variant/10 transition-colors">
+<td class="p-4">
+<div class="font-mono text-primary">STK-9821-X</div>
+<div class="text-[10px] text-on-surface-variant">4T1BF1FK...</div>
+</td>
+<td class="p-4">2024 LX Platinum</td>
+<td class="p-4">
+<span class="px-2 py-0.5 bg-tertiary-container text-on-tertiary font-mono text-xs">84 Days</span>
+</td>
+<td class="p-4 text-right font-mono">$82,400</td>
+<td class="p-4 text-right font-mono text-tertiary">$114.50</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<div class="w-16 h-1 bg-surface-container-lowest">
+<div class="h-full bg-error" style="width: 92%"></div>
+</div>
+<span class="text-error font-bold">92%</span>
+</div>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-primary hover:text-white transition-colors">open_in_new</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high border-b border-outline-variant/10 transition-colors">
+<td class="p-4">
+<div class="font-mono text-primary">STK-2204-Q</div>
+<div class="text-[10px] text-on-surface-variant">1GKS2CK...</div>
+</td>
+<td class="p-4">2023 EV Prime</td>
+<td class="p-4">
+<span class="px-2 py-0.5 bg-surface-container-lowest text-on-surface-variant font-mono text-xs">68 Days</span>
+</td>
+<td class="p-4 text-right font-mono">$64,200</td>
+<td class="p-4 text-right font-mono text-tertiary">$88.20</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<div class="w-16 h-1 bg-surface-container-lowest">
+<div class="h-full bg-tertiary" style="width: 74%"></div>
+</div>
+<span class="text-tertiary font-bold">74%</span>
+</div>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-primary hover:text-white transition-colors">open_in_new</button>
+</td>
+</tr>
+<tr class="bg-surface-container hover:bg-surface-container-high border-b border-outline-variant/10 transition-colors">
+<td class="p-4">
+<div class="font-mono text-primary">STK-1193-M</div>
+<div class="text-[10px] text-on-surface-variant">3FA6P0G...</div>
+</td>
+<td class="p-4">2024 Sport S</td>
+<td class="p-4">
+<span class="px-2 py-0.5 bg-surface-container-lowest text-on-surface-variant font-mono text-xs">45 Days</span>
+</td>
+<td class="p-4 text-right font-mono">$38,900</td>
+<td class="p-4 text-right font-mono text-tertiary">$42.10</td>
+<td class="p-4 text-right">
+<div class="flex items-center justify-end gap-2">
+<div class="w-16 h-1 bg-surface-container-lowest">
+<div class="h-full bg-secondary" style="width: 45%"></div>
+</div>
+<span class="text-on-surface-variant font-bold">45%</span>
+</div>
+</td>
+<td class="p-4">
+<button class="material-symbols-outlined text-primary hover:text-white transition-colors">open_in_new</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Per-Vehicle Pricing and Inquiry Trend Panel (Right Side) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container p-6 flex-1">
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-[#b9c7e0] mb-6">Market Inquiry Volatility</h3>
+<div class="h-48 w-full flex items-end justify-between gap-1 mb-4">
+<!-- Simulated Chart -->
+<div class="flex-1 bg-secondary/20 h-[60%]"></div>
+<div class="flex-1 bg-secondary/20 h-[45%]"></div>
+<div class="flex-1 bg-secondary/20 h-[70%]"></div>
+<div class="flex-1 bg-secondary/20 h-[55%]"></div>
+<div class="flex-1 bg-secondary/20 h-[85%]"></div>
+<div class="flex-1 bg-tertiary/40 h-[30%]"></div>
+<div class="flex-1 bg-tertiary/40 h-[15%]"></div>
+</div>
+<div class="text-xs text-on-surface-variant leading-relaxed">
+<span class="text-tertiary font-bold">Signal Alert:</span> Inquiry volume for EV segments has dropped 12% in Zone Delta over the last 72 hours. Price sensitivity is increasing.
+                        </div>
+</div>
+<!-- Financing Cost Module -->
+<div class="bg-surface-container-lowest p-6 border-t border-[#45464d]/30">
+<h3 class="font-headline font-bold text-xs uppercase tracking-[0.2em] mb-4">Financing Cost Baseline</h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs text-on-surface-variant">Floorplan Rate</span>
+<span class="font-mono text-sm">7.42% APR</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs text-on-surface-variant">Daily Accrual Avg</span>
+<span class="font-mono text-sm text-tertiary">$214/Unit</span>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="text-[10px] text-on-surface-variant uppercase mb-2">Cost Optimization Path</div>
+<div class="bg-surface-container p-3 flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary">payments</span>
+<div class="text-xs">Consolidate High-APR units into Batch B liquidation</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Action-Priority Drawer -->
+<section class="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Action priority recommendation -->
+<div class="lg:col-span-2 bg-[#171f33]/80 backdrop-blur-xl p-6 border border-outline-variant/10">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-tertiary">bolt</span>
+<h2 class="font-headline font-bold text-lg">Action Priority: High Recovery Potential</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-highest p-4 hover:brightness-125 transition-all cursor-pointer">
+<div class="text-tertiary text-[10px] font-bold uppercase mb-1">Recommend: Price Drop</div>
+<div class="text-sm font-bold mb-2">STK-9821-X (LX Platinum)</div>
+<p class="text-xs text-on-surface-variant mb-3">Unit is at 112% market value. A 4% correction is predicted to trigger 12 qualified leads within 48h.</p>
+<button class="w-full bg-primary py-2 text-on-primary text-[10px] font-bold uppercase tracking-widest">Execute Adjustment</button>
+</div>
+<div class="bg-surface-container-highest p-4 hover:brightness-125 transition-all cursor-pointer">
+<div class="text-primary text-[10px] font-bold uppercase mb-1">Recommend: Move Lot</div>
+<div class="text-sm font-bold mb-2">EV Inventory Batch</div>
+<p class="text-xs text-on-surface-variant mb-3">Reallocate 12 units from North Zone to Delta Zone where inquiry demand is 2.4x higher for compact electrics.</p>
+<button class="w-full bg-primary/10 border border-primary/20 py-2 text-primary text-[10px] font-bold uppercase tracking-widest">Transfer Order</button>
+</div>
+</div>
+</div>
+<!-- Recoverable Margin Rail -->
+<div class="bg-surface-container p-6 relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline font-bold text-sm uppercase mb-4">Recoverable Margin</h3>
+<div class="text-4xl font-headline font-bold text-primary mb-2">$842k</div>
+<div class="text-xs text-on-surface-variant mb-6">Potential savings if all recommendations are executed by EOD.</div>
+<div class="space-y-3">
+<div class="flex justify-between text-[10px] font-mono">
+<span>Holding Savings</span>
+<span>$142,000</span>
+</div>
+<div class="w-full h-1 bg-surface-container-lowest">
+<div class="h-full bg-secondary" style="width: 40%"></div>
+</div>
+<div class="flex justify-between text-[10px] font-mono">
+<span>Turn Rate Gain</span>
+<span>$700,000</span>
+</div>
+<div class="w-full h-1 bg-surface-container-lowest">
+<div class="h-full bg-primary" style="width: 80%"></div>
+</div>
+</div>
+</div>
+<!-- Decorative background graphic -->
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">monitoring</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Mobile Navigation Suppressed as per Task Intent (Desktop/Control Room Focus) -->
+<!-- Navigation only rendered in TopNavBar for web -->
+</body></html>

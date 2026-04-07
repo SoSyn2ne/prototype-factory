@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CareOps Curator | No-Show Recovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-surface-variant": "#4d4540",
+                        "surface-container-low": "#f4f4f3",
+                        "on-secondary-fixed": "#00201b",
+                        "surface-variant": "#e2e2e2",
+                        "secondary-container": "#6ef9e2",
+                        "inverse-surface": "#2f3130",
+                        "surface": "#f9f9f8",
+                        "outline-variant": "#cfc4bd",
+                        "secondary-fixed-dim": "#4ddcc6",
+                        "primary": "#5f5954",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-tint": "#645d58",
+                        "primary-fixed-dim": "#cec5bf",
+                        "tertiary-fixed-dim": "#c6c6ca",
+                        "on-primary-fixed": "#1f1b17",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#585a5d",
+                        "surface-bright": "#f9f9f8",
+                        "on-background": "#1a1c1c",
+                        "on-primary-fixed-variant": "#4b4641",
+                        "surface-dim": "#dadad9",
+                        "on-surface": "#1a1c1c",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#eae1da",
+                        "on-tertiary-fixed": "#1a1c1f",
+                        "outline": "#7e756f",
+                        "on-secondary": "#ffffff",
+                        "inverse-primary": "#cec5bf",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#717276",
+                        "tertiary-fixed": "#e2e2e6",
+                        "primary-container": "#78716c",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#45474a",
+                        "surface-container": "#eeeeed",
+                        "on-tertiary-container": "#f9f8fc",
+                        "on-primary-container": "#fff7f3",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#007164",
+                        "secondary": "#006b5e",
+                        "surface-container-highest": "#e2e2e2",
+                        "background": "#f9f9f8",
+                        "secondary-fixed": "#6ef9e2",
+                        "surface-container-high": "#e8e8e7",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Manrope', sans-serif; }
+        .editorial-shadow { box-shadow: 0 32px 64px -12px rgba(95, 89, 84, 0.06); }
+        .satin-primary { background: linear-gradient(135deg, #5f5954 0%, #78716c 100%); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 h-20 w-full bg-stone-50/80 backdrop-blur-xl no-border bg-stone-100/50 shadow-sm shadow-stone-200/50">
+<div class="flex items-center gap-8">
+<span class="font-['Newsreader'] font-light text-stone-900 italic text-2xl tracking-tight">CareOps Curator</span>
+<div class="hidden md:flex gap-6 items-center h-full pt-1">
+<a class="text-stone-900 font-medium border-b-2 border-stone-800 px-1 py-2 text-sm" href="#">Dashboard</a>
+<a class="text-stone-500 hover:text-stone-800 transition-colors duration-300 px-1 py-2 text-sm" href="#">Schedule</a>
+<a class="text-stone-500 hover:text-stone-800 transition-colors duration-300 px-1 py-2 text-sm" href="#">Outreach</a>
+<a class="text-stone-500 hover:text-stone-800 transition-colors duration-300 px-1 py-2 text-sm" href="#">Analytics</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-700 hover:bg-stone-200/30 rounded-full transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-700 hover:bg-stone-200/30 rounded-full transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-surface-container overflow-hidden">
+<img alt="Coordinator Profile" class="w-full h-full object-cover" data-alt="professional portrait of a confident healthcare operations coordinator in a bright modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_msaugwPQsUCkDFVYqLX3VPiqS5EQSxf0hINhbv3yq-iShxUl55R3Ufh2BwyscO90i-IRp4qcRk4CxyuT6Agq_1byCSx-MHmo1Y9ivxQH0sJMuMtksDADBazl_27EE9LRq5CF384gsLaZ-D5L7keUj4lFXf8j2M52ABPRangU3F_13aXhLoRbE4QmQ4BCab8OCuk8qK6Z3VJ7Bfwr4u2Z0GNJs-fTN5CIIBaBtJerraMJ0KsUNu716SICvYZ7EwtMwPggdv0t4g"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex flex-col h-screen w-72 left-0 top-0 fixed pt-28 bg-stone-100 py-8 space-y-2 z-40">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">clinical_notes</span>
+</div>
+<div>
+<h3 class="font-['Newsreader'] text-lg italic text-stone-900">Clinical Curator</h3>
+<p class="text-[10px] tracking-widest uppercase font-bold text-stone-500">Recovery Ops</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-4 bg-white text-stone-900 shadow-sm rounded-r-full pl-6 py-3 mr-4 transition-all duration-300 translate-x-1" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-['Manrope'] font-medium text-sm tracking-wide uppercase">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:text-stone-700 hover:bg-stone-200 rounded-r-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Manrope'] font-medium text-sm tracking-wide uppercase">Schedule</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:text-stone-700 hover:bg-stone-200 rounded-r-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-['Manrope'] font-medium text-sm tracking-wide uppercase">Outreach</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:text-stone-700 hover:bg-stone-200 rounded-r-full transition-all duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-['Manrope'] font-medium text-sm tracking-wide uppercase">Recovery Stats</span>
+</a>
+</nav>
+<div class="px-6 py-4">
+<button class="w-full satin-primary text-white py-4 rounded-full font-['Manrope'] font-bold text-xs tracking-widest uppercase shadow-lg shadow-primary/20">
+                New Outreach
+            </button>
+</div>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:text-stone-700 hover:bg-stone-200 rounded-r-full transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-['Manrope'] font-medium text-xs tracking-wide uppercase">Support</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 pl-6 py-3 hover:text-stone-700 hover:bg-stone-200 rounded-r-full transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-['Manrope'] font-medium text-xs tracking-wide uppercase">Archive</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-72 pt-28 pb-12 px-8">
+<!-- Revenue Recovery KPI Hero -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+<div class="lg:col-span-2 bg-surface-container-lowest p-10 rounded-xl editorial-shadow relative overflow-hidden">
+<div class="relative z-10">
+<p class="font-label text-stone-500 text-[10px] tracking-[0.2em] uppercase font-bold mb-4">Daily Performance</p>
+<h2 class="font-headline text-stone-900 text-5xl italic leading-tight mb-2">Recovered Today</h2>
+<div class="flex items-baseline gap-4">
+<span class="font-headline text-7xl text-stone-900 tracking-tighter">$12,450</span>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-xs font-bold">+18% vs avg</span>
+</div>
+<div class="mt-12 flex gap-12">
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400 tracking-widest mb-1">Potential Gain</p>
+<p class="text-2xl font-['Newsreader'] text-stone-800">$4,200 <span class="text-stone-400 text-sm italic">pending</span></p>
+</div>
+<div>
+<p class="text-[10px] uppercase font-bold text-stone-400 tracking-widest mb-1">Missed Rev</p>
+<p class="text-2xl font-['Newsreader'] text-error">$850</p>
+</div>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10">
+<span class="material-symbols-outlined text-[20rem] translate-y-24 translate-x-12">trending_up</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-10 rounded-xl flex flex-col justify-between">
+<div>
+<h3 class="font-headline text-2xl text-stone-900 italic mb-4">Replacement Slot Panel</h3>
+<p class="text-stone-500 text-sm leading-relaxed mb-6">3 critical gaps in the next 4 hours requiring immediate outreach.</p>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-stone-400">schedule</span>
+<div>
+<p class="text-xs font-bold text-stone-800">14:30 - MRI Wing</p>
+<p class="text-[10px] text-stone-500">60 min slot</p>
+</div>
+</div>
+<button class="text-secondary text-xs font-bold uppercase tracking-wider">Fill</button>
+</div>
+<div class="flex items-center justify-between p-4 bg-white rounded-xl shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-stone-400">schedule</span>
+<div>
+<p class="text-xs font-bold text-stone-800">15:15 - Lab A</p>
+<p class="text-[10px] text-stone-500">15 min slot</p>
+</div>
+</div>
+<button class="text-secondary text-xs font-bold uppercase tracking-wider">Fill</button>
+</div>
+</div>
+</div>
+</section>
+<!-- High-Risk Queue & Patient Context -->
+<div class="grid grid-cols-1 xl:grid-cols-7 gap-8">
+<!-- High-Risk Appointment Queue (Asymmetric 4/7) -->
+<div class="xl:col-span-4">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-3xl italic text-stone-900">High-Risk Queue</h3>
+<span class="text-[10px] tracking-widest uppercase font-bold text-stone-500 px-3 py-1 bg-stone-200/50 rounded-full">12 flagged cases</span>
+</div>
+<div class="space-y-6">
+<!-- Patient Card 1 -->
+<div class="bg-white p-6 rounded-xl editorial-shadow hover:bg-surface-bright transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-6">
+<img alt="Patient Context" class="w-16 h-16 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="close-up portrait of an elderly woman with gentle expression and soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7d-ufWKl_c2ebQDYX7RAWPg0sGfdn4WBKctt-yUhVuTNNtzNE26mgw8sL1-hmjmqhlguqmWut-PtPcUymOcDvh5V_5YVlV390P5t--2108BzCUBoyNUQAxr8AwXy6gE1r8Faipi_Qxw4ZVY__s4cLo8drdRW_3WEU5lUz1x92GOtGD5fGsev0g5hsYsghvIJ2YNDWo-Vqp_MKFOh4HwqFnD0gxmt7yc_64wqpqM5N69eAFLVB1rd3tSjb_sBwU4usMZWf9CZxtg"/>
+<div>
+<h4 class="font-headline text-xl text-stone-900 italic">Evelyn Montgomery</h4>
+<div class="flex gap-4 mt-1">
+<span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">ID: #RE-992</span>
+<span class="text-[10px] font-bold text-error uppercase tracking-widest flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">warning</span> 85% No-show risk
+                                        </span>
+</div>
+<p class="text-stone-500 text-sm mt-3 leading-relaxed">Missed 2 previous orthopedics visits. Transportation listed as primary barrier.</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-primary-fixed text-primary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4">Pending Call</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-800 hover:bg-stone-50 transition-all">
+<span class="material-symbols-outlined">call</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-800 hover:bg-stone-50 transition-all">
+<span class="material-symbols-outlined">chat_bubble</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Patient Card 2 -->
+<div class="bg-white p-6 rounded-xl editorial-shadow hover:bg-surface-bright transition-all group">
+<div class="flex items-start justify-between">
+<div class="flex gap-6">
+<img alt="Patient Context" class="w-16 h-16 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="portrait of a middle-aged man with serious but calm expression in neutral studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKOOJkuNINFyGyKXXq3dJL7EkjLRjW1UKEUg0DO6Rbk8pCyJkjltWEMjQyr0ZpXwF_3JKpVDt4YdLUzS-xkNOBR_jb3mW_TJ_5j6JwNNueCGxu86Z5daWrERI2AA_GsFARLkevTT4wThkzAdLk-8w0RUHQtQzwsKaq4kukS-DVtUIfOKjmz2UL-o7mk2b03_fr6L9zt85dFSW22B7QMFVVILrofl9VhIv7OXQS0GUx2FThsEzZ3qNiwYHKvXnuKRI38HE7mh2c9A"/>
+<div>
+<h4 class="font-headline text-xl text-stone-900 italic">Julian Vance</h4>
+<div class="flex gap-4 mt-1">
+<span class="text-[10px] font-bold text-stone-400 uppercase tracking-widest">ID: #RE-441</span>
+<span class="text-[10px] font-bold text-stone-800 uppercase tracking-widest flex items-center gap-1">
+                                            62% Risk
+                                        </span>
+</div>
+<p class="text-stone-500 text-sm mt-3 leading-relaxed">Confirmed via SMS, but historically late. Requires arrival reminder 30m prior.</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider mb-4">Contacted</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-800 hover:bg-stone-50 transition-all">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-stone-100 flex items-center justify-center text-stone-400 hover:text-stone-800 hover:bg-stone-50 transition-all">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Patient Timeline & Daily Rail (Asymmetric 3/7) -->
+<div class="xl:col-span-3 space-y-8">
+<!-- Daily Recovered Revenue Rail -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<h4 class="text-[10px] tracking-[0.2em] uppercase font-bold text-stone-500 mb-8">Hourly Recovery Pulse</h4>
+<div class="flex items-end justify-between h-32 gap-2">
+<div class="w-full bg-stone-300 rounded-t-sm h-[30%] opacity-40"></div>
+<div class="w-full bg-stone-300 rounded-t-sm h-[50%] opacity-40"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[80%]"></div>
+<div class="w-full bg-secondary rounded-t-sm h-[95%]"></div>
+<div class="w-full bg-stone-300 rounded-t-sm h-[60%] opacity-40"></div>
+<div class="w-full bg-stone-300 rounded-t-sm h-[40%] opacity-40"></div>
+<div class="w-full bg-stone-300 rounded-t-sm h-[20%] opacity-40"></div>
+<div class="w-full bg-stone-300 rounded-t-sm h-[45%] opacity-40"></div>
+</div>
+<div class="flex justify-between mt-4 text-[9px] text-stone-400 font-bold uppercase tracking-tighter">
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+</div>
+</div>
+<!-- Patient Context Timeline -->
+<div class="bg-white p-8 rounded-xl editorial-shadow">
+<h4 class="font-headline text-2xl text-stone-900 italic mb-8">Timeline: Montgomery</h4>
+<div class="space-y-0">
+<!-- Timeline Item 1 -->
+<div class="relative pb-8 flex gap-6">
+<div class="absolute left-[7px] top-4 h-full w-[2px] bg-stone-100"></div>
+<div class="w-4 h-4 rounded-full bg-stone-200 mt-1 relative z-10 border-4 border-white"></div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Oct 12, 2023</p>
+<p class="text-sm font-bold text-stone-800">No-Show: General Physical</p>
+<p class="text-xs text-stone-500 mt-1">Provider: Dr. Aris</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pb-8 flex gap-6">
+<div class="absolute left-[7px] top-4 h-full w-[2px] bg-stone-100"></div>
+<div class="w-4 h-4 rounded-full bg-error mt-1 relative z-10 border-4 border-white"></div>
+<div>
+<p class="text-[10px] font-bold text-stone-400 uppercase tracking-widest mb-1">Nov 04, 2023</p>
+<p class="text-sm font-bold text-stone-800">Late Cancel: Specialist Consult</p>
+<p class="text-xs text-stone-500 mt-1">Reported: Transport issues</p>
+</div>
+</div>
+<!-- Timeline Item 3 (Current Focus) -->
+<div class="relative flex gap-6">
+<div class="w-4 h-4 rounded-full bg-secondary mt-1 relative z-10 border-4 border-white"></div>
+<div class="bg-secondary/5 p-4 rounded-xl w-full">
+<p class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">Today 14:00</p>
+<p class="text-sm font-bold text-stone-800">Upcoming: Recovery Outreach</p>
+<p class="text-xs text-stone-500 mt-1">Suggested: Offer Lyft voucher</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Outreach Action Drawer (Floating Desktop/Bottom Mobile) -->
+<div class="fixed bottom-8 right-8 z-50 flex flex-col items-end gap-4">
+<div class="bg-white p-4 rounded-2xl shadow-2xl shadow-primary/30 editorial-shadow max-w-xs border border-stone-100 hidden md:block">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center">
+<span class="material-symbols-outlined text-stone-500 text-sm">bolt</span>
+</div>
+<h5 class="text-xs font-bold uppercase tracking-widest text-stone-900">Quick Actions</h5>
+</div>
+<div class="space-y-2">
+<button class="w-full flex items-center justify-between p-3 hover:bg-stone-50 rounded-xl transition-all">
+<span class="text-xs font-medium text-stone-700">Send "Confirm Path" SMS</span>
+<span class="material-symbols-outlined text-stone-300 text-sm">send</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 hover:bg-stone-50 rounded-xl transition-all">
+<span class="text-xs font-medium text-stone-700">Call "High-Risk" Priority</span>
+<span class="material-symbols-outlined text-stone-300 text-sm">phone_in_talk</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 hover:bg-stone-50 rounded-xl transition-all">
+<span class="text-xs font-medium text-stone-700">Batch Reschedule</span>
+<span class="material-symbols-outlined text-stone-300 text-sm">dynamic_feed</span>
+</button>
+</div>
+</div>
+<button class="w-16 h-16 rounded-full satin-primary text-white flex items-center justify-center shadow-2xl shadow-primary/40 transform hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">chat</span>
+</button>
+</div>
+</body></html>

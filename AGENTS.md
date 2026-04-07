@@ -80,7 +80,8 @@ When the task is “idea + design”:
 - Default expectation: daily batches should show broader range sourced from external signals and the assistant's own synthesis.
 - If recent batches cluster too tightly around one theme, deliberately widen the next batch.
 - Do not optimize only for immediate monetization. A strong PF batch can mix sellable operator tools with one idea that is simply fun, portfolio-worthy, or surprising to make.
-- Default daily mix for 3 ideas: 2 practical/commercial ideas + 1 fun/experimental/portfolio idea, unless the operator explicitly asks for all-commercial.
+- Default daily mix for 4 ideas: 3 practical/commercial ideas + 1 fun/experimental/portfolio idea, unless the operator explicitly asks for all-commercial.
+- Default reporting contract for daily PF ideation: deliver all 4 ideas and all 4 Stitch prompts, not a reduced shortlist.
 
 ---
 

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Forensic Debrief | Interview Risk Workbench</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        /* Custom Risk Meter Quantization */
+        .risk-segment { height: 4px; width: 100%; }
+        /* Scrollbar styling for operator feel */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #eff4ff; }
+        ::-webkit-scrollbar-thumb { background: #5c7da8; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#003798",
+                      "error-container": "#fe8983",
+                      "surface-tint": "#0053db",
+                      "primary-fixed-dim": "#c7d3ff",
+                      "error": "#9f403d",
+                      "on-tertiary-fixed": "#393c55",
+                      "on-background": "#0c335a",
+                      "on-error": "#fff7f6",
+                      "outline": "#5c7da8",
+                      "on-secondary": "#f7f9ff",
+                      "inverse-primary": "#618bff",
+                      "on-tertiary": "#fbf8ff",
+                      "tertiary-fixed": "#dcddfe",
+                      "secondary-fixed": "#d9e3f4",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-high": "#dce9ff",
+                      "on-secondary-container": "#485260",
+                      "surface-container-highest": "#d3e4ff",
+                      "secondary": "#56606e",
+                      "background": "#f8f9ff",
+                      "on-surface-variant": "#40618a",
+                      "secondary-container": "#d9e3f4",
+                      "surface-container-low": "#eff4ff",
+                      "inverse-surface": "#050f1c",
+                      "secondary-fixed-dim": "#cbd5e6",
+                      "primary": "#0053db",
+                      "on-secondary-fixed-variant": "#525c6a",
+                      "tertiary-fixed-dim": "#cecfef",
+                      "on-primary": "#f8f7ff",
+                      "secondary-dim": "#4a5462",
+                      "primary-dim": "#0048c1",
+                      "surface-dim": "#c5dcff",
+                      "on-surface": "#0c335a",
+                      "primary-fixed": "#dbe1ff",
+                      "surface-bright": "#f8f9ff",
+                      "tertiary": "#5b5d78",
+                      "on-primary-fixed-variant": "#0050d4",
+                      "primary-container": "#dbe1ff",
+                      "on-tertiary-fixed-variant": "#555873",
+                      "surface-container": "#e6eeff",
+                      "on-tertiary-container": "#4c4e69",
+                      "tertiary-container": "#dcddfe",
+                      "error-dim": "#4e0309",
+                      "on-primary-container": "#0048bf",
+                      "on-error-container": "#752121",
+                      "inverse-on-surface": "#939daf",
+                      "on-secondary-fixed": "#36404d",
+                      "surface-variant": "#d3e4ff",
+                      "tertiary-dim": "#4f516c",
+                      "surface": "#f8f9ff",
+                      "outline-variant": "#94b4e2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary-container">
+<!-- TopNavBar Implementation -->
+<nav class="bg-slate-50 dark:bg-slate-900 flex justify-between items-center w-full px-6 h-14 fixed top-0 z-50 border-b-0">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tighter text-slate-900 dark:text-slate-100">Forensic Debrief</span>
+<div class="hidden md:flex gap-6 items-center">
+<a class="font-inter tracking-tight font-medium text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors" href="#">Candidates</a>
+<a class="font-inter tracking-tight font-medium text-sm text-blue-700 dark:text-blue-400 border-b-2 border-blue-700 dark:border-blue-400 pb-1" href="#">Debriefs</a>
+<a class="font-inter tracking-tight font-medium text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors" href="#">Competencies</a>
+<a class="font-inter tracking-tight font-medium text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors" href="#">Decisions</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="material-symbols-outlined text-slate-500" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors">
+<span class="material-symbols-outlined text-slate-500" data-icon="settings">settings</span>
+</button>
+<img alt="Hiring Manager Profile" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="Professional portrait of a male hiring manager in a neutral studio setting, wearing a tailored navy blazer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7np7dsYgxG0UJDRu0oO0Db1-lzE2zqswpXWFLYD42Muot5zqPk75z6yDR0UAfB_EjevsDEQTQqybt3FZ6SWW37qzwvSijfqlYhDLUSPCed5q48Gi7CqKEqAYWfq_fuQ2wmqKlijCr-YGWAWF_SNKPjNsoAAk26sRLS5bnc5oamoRPPb7GSZ2t4YvbgU0OZz8Q9ankalMpQClFiL5_W8hu_J6KcoYmDyz2EFzvLV1gG89-Kdjc1s4BdL64CoStMTN1zOlxZxT4PQ"/>
+</div>
+</nav>
+<!-- SideNavBar & Main Content Shell -->
+<div class="flex pt-14 h-screen overflow-hidden">
+<!-- SideNavBar Implementation -->
+<aside class="bg-slate-100 dark:bg-slate-950 w-64 flex flex-col h-full border-r-0 shrink-0 hidden md:flex">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="visibility">visibility</span>
+<div>
+<p class="font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400">Active Roles</p>
+<p class="text-[10px] text-primary font-bold">Queue Status: High Priority</p>
+</div>
+</div>
+<nav class="space-y-1">
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-400 border-l-4 border-blue-700 dark:border-blue-500">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span>Engineering Lead</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span>Senior Researcher</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Product Analyst</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="visibility">visibility</span>
+<span>UX Forensic</span>
+</button>
+</nav>
+</div>
+<div class="mt-auto p-6 space-y-1">
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Audit Log</span>
+</button>
+<button class="w-full flex items-center gap-3 p-3 font-inter text-xs uppercase tracking-widest font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800/80 transition-colors">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Archive</span>
+</button>
+</div>
+</aside>
+<!-- Main Workbench Content -->
+<main class="flex-1 overflow-y-auto bg-surface p-6">
+<!-- KPI Hero Area -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 mb-8 border border-outline-variant/20">
+<div class="bg-surface-container-lowest p-6 border-r border-outline-variant/20">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2">Total Debriefs
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold tracking-tighter">124</span>
+<span class="text-xs text-primary font-bold">+12% vs last cycle</span>
+</div>
+</label></div>
+<div class="bg-surface-container-lowest p-6 border-r border-outline-variant/20">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2">Signal Strength
+<div class="flex items-center gap-4">
+<span class="text-3xl font-bold tracking-tighter">88%</span>
+<div class="flex-1 flex gap-1 h-2">
+<div class="bg-primary flex-1"></div>
+<div class="bg-primary flex-1"></div>
+<div class="bg-primary flex-1"></div>
+<div class="bg-primary flex-1"></div>
+<div class="bg-outline-variant flex-1"></div>
+</div>
+</div>
+</label></div>
+<div class="bg-surface-container-lowest p-6">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-2">Aggregate Risk Score
+<div class="flex items-baseline gap-2">
+<span class="text-3xl font-bold tracking-tighter text-error">4.2</span>
+<span class="text-xs text-on-surface-variant font-medium">MODERATE THREAT</span>
+</div>
+</label></div>
+</div>
+<div class="grid grid-cols-12 gap-6">
+<!-- Left Column: Queue & Matrix -->
+<div class="col-span-12 lg:col-span-8 space-y-6">
+<!-- Candidate Debrief Queue -->
+<section class="bg-surface-container-lowest border border-outline-variant/20">
+<div class="p-4 bg-surface-container-low flex justify-between items-center">
+<h2 class="text-sm font-bold tracking-tight uppercase">Forensic Queue: Engineering Lead</h2>
+<span class="text-[10px] font-bold text-on-surface-variant">4 ANALYSES PENDING</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low text-[10px] uppercase tracking-widest font-bold text-on-surface-variant">
+<tr>
+<th class="px-4 py-3 border-b border-outline-variant/20">Identity</th>
+<th class="px-4 py-3 border-b border-outline-variant/20">Evidence Status</th>
+<th class="px-4 py-3 border-b border-outline-variant/20 text-center">Conflict Count</th>
+<th class="px-4 py-3 border-b border-outline-variant/20 text-right">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="px-4 py-4 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-error rounded-full"></div>
+<span class="text-sm font-bold tracking-tight">Elena Volkov</span>
+</div>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10">
+<span class="px-2 py-0.5 text-[10px] font-bold bg-error-container/20 text-error uppercase">Risk Identified</span>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10 text-center">
+<span class="font-mono text-sm font-bold">03</span>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10 text-right">
+<button class="text-primary text-[10px] font-bold uppercase hover:underline">Execute Debrief</button>
+</td>
+</tr>
+<tr class="bg-surface-container-low/30 hover:bg-surface-container-low transition-colors group">
+<td class="px-4 py-4 border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+<span class="text-sm font-bold tracking-tight">Marcus Thorne</span>
+</div>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10">
+<span class="px-2 py-0.5 text-[10px] font-bold bg-secondary-container text-on-secondary-container uppercase">Baseline Verified</span>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10 text-center">
+<span class="font-mono text-sm font-bold">00</span>
+</td>
+<td class="px-4 py-4 border-b border-outline-variant/10 text-right">
+<button class="text-primary text-[10px] font-bold uppercase hover:underline">Execute Debrief</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Competency Score Matrix -->
+<section class="bg-surface-container-lowest border border-outline-variant/20">
+<div class="p-4 bg-surface-container-low border-b border-outline-variant/20">
+<h2 class="text-sm font-bold tracking-tight uppercase">Competency Matrix Cross-Analysis</h2>
+</div>
+<div class="grid grid-cols-4 gap-0">
+<div class="p-6 border-r border-outline-variant/20 text-center">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-4">Architecture</label>
+<div class="text-2xl font-mono font-bold text-primary">8.5</div>
+<div class="mt-2 text-[9px] text-on-surface-variant font-medium">92nd PERCENTILE</div>
+</div>
+<div class="p-6 border-r border-outline-variant/20 text-center">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-4">Scalability</label>
+<div class="text-2xl font-mono font-bold text-primary">7.2</div>
+<div class="mt-2 text-[9px] text-on-surface-variant font-medium">78th PERCENTILE</div>
+</div>
+<div class="p-6 border-r border-outline-variant/20 text-center bg-error-container/5">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-error mb-4">Leadership</label>
+<div class="text-2xl font-mono font-bold text-error">3.4</div>
+<div class="mt-2 text-[9px] text-error font-bold">SIGNAL DISSONANCE</div>
+</div>
+<div class="p-6 text-center">
+<label class="block text-[10px] uppercase tracking-widest font-bold text-on-surface-variant mb-4">Cultural Fit</label>
+<div class="text-2xl font-mono font-bold text-primary">6.9</div>
+<div class="mt-2 text-[9px] text-on-surface-variant font-medium">AVERAGE STRENGTH</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Contradiction & Decision -->
+<div class="col-span-12 lg:col-span-4 space-y-6">
+<!-- Contradiction and Risk Panel -->
+<section class="bg-surface-container-lowest border border-outline-variant/20">
+<div class="p-4 bg-error-container/10 border-b border-error/20 flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<h2 class="text-sm font-bold tracking-tight uppercase text-error">Dissonance Alerts</h2>
+</div>
+<div class="p-4 space-y-4">
+<div class="border-l-4 border-error pl-4 py-1">
+<p class="text-[11px] font-bold text-error mb-1 uppercase tracking-tighter">Feedback Conflict #09</p>
+<p class="text-xs leading-relaxed text-on-surface font-medium italic">"Candidate claims expertise in distributed systems but failed fundamental CAP theorem queries in Round 2."</p>
+<div class="mt-2 flex gap-4 text-[9px] text-on-surface-variant font-bold uppercase">
+<span>Source: Interv. 01</span>
+<span>vs</span>
+<span>Source: Tech Test</span>
+</div>
+</div>
+<div class="border-l-4 border-outline pl-4 py-1">
+<p class="text-[11px] font-bold text-on-surface-variant mb-1 uppercase tracking-tighter">Ambiguity Alert</p>
+<p class="text-xs leading-relaxed text-on-surface font-medium italic">"Motivation for leaving current role remains statistically inconsistent across 3 sessions."</p>
+</div>
+</div>
+</section>
+<!-- Follow-up Question Drawer -->
+<section class="bg-surface-container-low border border-outline-variant/20">
+<div class="p-4 bg-on-surface text-surface flex justify-between items-center">
+<h2 class="text-xs font-bold tracking-widest uppercase">Targeted Extraction</h2>
+<span class="material-symbols-outlined text-xs" data-icon="keyboard_arrow_up">keyboard_arrow_up</span>
+</div>
+<div class="p-4 space-y-3">
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10">
+<p class="text-[10px] font-bold text-primary uppercase mb-1">Investigation Query 01</p>
+<p class="text-xs text-on-surface font-medium">Can you detail the specific trade-offs made in the last architecture revision?</p>
+</div>
+<div class="bg-surface-container-lowest p-3 border border-outline-variant/10">
+<p class="text-[10px] font-bold text-primary uppercase mb-1">Investigation Query 02</p>
+<p class="text-xs text-on-surface font-medium">Walk through a conflict within your team where your technical decision was overruled.</p>
+</div>
+</div>
+</section>
+<!-- Final Decision Summary Rail -->
+<section class="bg-surface border border-outline-variant/20 p-6">
+<h2 class="text-xs font-bold tracking-widest uppercase mb-4 text-on-surface-variant">Determination Rail</h2>
+<div class="space-y-4">
+<div class="flex justify-between items-end border-b border-outline-variant/20 pb-2">
+<span class="text-[10px] font-bold uppercase">Hire Confidence</span>
+<span class="text-xl font-mono font-extrabold text-primary">62.4%</span>
+</div>
+<div class="flex flex-col gap-2">
+<button class="w-full bg-primary text-on-primary py-3 text-xs font-bold uppercase tracking-widest hover:bg-primary-dim transition-all active:scale-[0.98]">
+                                    Authorize Offer
+                                </button>
+<button class="w-full bg-surface-container-highest text-on-surface py-3 text-xs font-bold uppercase tracking-widest hover:bg-surface-container-high transition-all">
+                                    Flag for Re-Evaluation
+                                </button>
+<button class="w-full bg-transparent text-error py-2 text-[10px] font-bold uppercase tracking-widest hover:bg-error-container/10 transition-all">
+                                    Reject: Negative Forensic Match
+                                </button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>
