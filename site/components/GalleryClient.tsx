@@ -349,7 +349,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
         </div>
       </div>
 
-      <div id="grid" className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
+      <div id="grid" className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-6">
         {paged.map((item) => {
           const category = pickCategory((item.tags || [])[0] || '');
           const stage = (item.status || '').toLowerCase();
