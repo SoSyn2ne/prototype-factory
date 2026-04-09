@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pocket Planet Postcard Composer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#e8deff",
+                        "on-surface-variant": "#5a3f48",
+                        "on-tertiary-container": "#544600",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#fff0f3",
+                        "on-background": "#25181c",
+                        "background": "#fff8f8",
+                        "primary-container": "#ffd9e3",
+                        "on-secondary": "#ffffff",
+                        "outline": "#8e6f78",
+                        "on-secondary-fixed-variant": "#4f00d0",
+                        "surface": "#fff8f8",
+                        "on-primary-container": "#8d004e",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#20005f",
+                        "surface-container-high": "#fbe2e8",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#ffe8ed",
+                        "surface-bright": "#fff8f8",
+                        "outline-variant": "#e2bdc7",
+                        "secondary": "#6833ea",
+                        "surface-container-highest": "#f5dce2",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#ffecf0",
+                        "surface-tint": "#b41567",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#f5dce2",
+                        "on-primary-fixed-variant": "#8d004e",
+                        "surface-dim": "#edd4da",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#ffd9e3",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb0ca",
+                        "tertiary-container": "#ffe170",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "secondary-container": "#e8deff",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "inverse-surface": "#3c2c31",
+                        "tertiary": "#705d00",
+                        "tertiary-fixed": "#ffe170",
+                        "secondary-fixed-dim": "#cdbdff",
+                        "primary": "#b41567",
+                        "on-surface": "#25181c",
+                        "on-primary-fixed": "#3e001f",
+                        "on-secondary-container": "#4f00d0",
+                        "on-tertiary-fixed": "#221b00",
+                        "primary-fixed-dim": "#ffb0ca"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Be Vietnam Pro"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background-color: #fff8f8;
+        }
+        .toy-glow {
+            box-shadow: 0 0 20px rgba(104, 51, 234, 0.15);
+        }
+        .planet-stage-gradient {
+            background: radial-gradient(circle at center, #ffe8ed 0%, #fff8f8 70%);
+        }
+    </style>
+</head>
+<body class="text-on-surface select-none">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f8] dark:bg-[#25181c] w-full h-20 px-8 flex justify-between items-center shadow-[0_40px_40px_rgba(37,24,28,0.06)] fixed top-0 z-50">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black bg-gradient-to-r from-[#6833ea] to-[#b41567] bg-clip-text text-transparent font-headline">Pocket Planet</span>
+</div>
+<nav class="hidden md:flex items-center gap-8 font-['Plus_Jakarta_Sans'] font-bold text-lg uppercase tracking-widest">
+<a class="text-[#b41567] dark:text-[#ffd9e3] hover:scale-105 transition-all" href="#">Stage</a>
+<a class="text-[#e2bdc7] dark:text-[#5e414a] hover:scale-105 hover:bg-[#ffd9e3] transition-all px-3 py-1 rounded-full" href="#">Gallery</a>
+<a class="text-[#e2bdc7] dark:text-[#5e414a] hover:scale-105 hover:bg-[#ffd9e3] transition-all px-3 py-1 rounded-full" href="#">Universe</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#b41567] hover:scale-105 transition-all"><span class="material-symbols-outlined" data-icon="share">share</span></button>
+<button class="p-2 text-[#b41567] hover:scale-105 transition-all"><span class="material-symbols-outlined" data-icon="download">download</span></button>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-white">
+<img alt="User profile" data-alt="a cute 3d stylized avatar of a person with friendly features and vibrant clothing on a soft pink background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1SX6B47mXZm7TtjranUi1iLAMqp3x5iIj8iOCXq5pM_dWtboUJR_zglmLWmg3w8wMhUnShLyGLMOlQMmQijYv6p8iVh2b9vH-zkVabNI2SpSwpT2Fr5VDozOCYY9r9LZmhBm2UNpj5OfnI7SkTP78VPuJuXQamGkTby8cnQaSwRxPmqDe4x3D5xbpnMgeNqlar_FDuPsz_Xf3JAXNvjEDqNC0CIwnEg23MVOuDKaHFNV6cKj98OwEOpv55f1tSUvomDcE4BfUiQQ"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Creator Sidebar) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col items-center py-8 z-40 bg-[#fff8f8]/80 dark:bg-[#25181c]/80 backdrop-blur-xl h-full w-24 rounded-r-[3rem] my-4 ml-4 shadow-2xl pt-24">
+<div class="mb-8 flex flex-col items-center gap-1">
+<span class="text-[#b41567] font-bold text-xs uppercase tracking-tighter font-headline">Creator</span>
+<div class="w-1 h-1 rounded-full bg-secondary"></div>
+</div>
+<div class="flex flex-col gap-6 flex-grow">
+<button class="bg-gradient-to-br from-[#6833ea] to-[#b41567] text-white rounded-full p-4 scale-110 shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined" data-icon="public">public</span>
+</button>
+<button class="text-[#e2bdc7] dark:text-[#5e414a] p-4 hover:text-[#6833ea] hover:bg-[#ffe8ed] rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+</button>
+<button class="text-[#e2bdc7] dark:text-[#5e414a] p-4 hover:text-[#6833ea] hover:bg-[#ffe8ed] rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="toys">toys</span>
+</button>
+<button class="text-[#e2bdc7] dark:text-[#5e414a] p-4 hover:text-[#6833ea] hover:bg-[#ffe8ed] rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="photo_library">photo_library</span>
+</button>
+</div>
+<div class="mt-auto">
+<button class="text-[#e2bdc7] dark:text-[#5e414a] p-4 hover:text-[#6833ea] hover:bg-[#ffe8ed] rounded-full transition-all">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-32 mt-20 p-8 grid grid-cols-12 gap-8 h-[calc(100vh-80px)] overflow-hidden">
+<!-- Left Column: Scene & Mood -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<!-- Stage Header -->
+<div class="flex justify-between items-end">
+<div>
+<h1 class="text-4xl font-headline font-extrabold text-on-surface">Neon Nebula <span class="text-secondary opacity-50">#042</span></h1>
+<p class="font-body text-on-surface-variant font-medium">Currently composing your tiny world</p>
+</div>
+<div class="flex gap-2 bg-surface-container rounded-full p-1">
+<button class="px-6 py-2 bg-white rounded-full text-primary font-headline font-bold text-sm shadow-sm">VIEW</button>
+<button class="px-6 py-2 text-on-surface-variant font-headline font-bold text-sm hover:bg-white/50 rounded-full transition-all">PREVIEW</button>
+</div>
+</div>
+<!-- Postcard Stage (The Hero) -->
+<div class="relative flex-grow bg-surface-container-lowest rounded-xl shadow-2xl border-none overflow-hidden group">
+<div class="absolute inset-0 planet-stage-gradient"></div>
+<!-- 3D Toybox Scene Placeholder -->
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<div class="relative w-full h-full flex items-center justify-center">
+<div class="absolute w-[400px] h-[400px] bg-secondary-container/30 rounded-full blur-[60px]"></div>
+<img alt="Postcard Preview" class="w-80 h-80 object-cover rounded-full shadow-2xl border-8 border-white z-10 hover:scale-105 transition-transform duration-700 cursor-grab active:cursor-grabbing" data-alt="a tiny miniature planet floating in a pastel void with stylized low-poly trees, a small house, and a tiny rings system, soft glowing depth and tilt-shift effect" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO-3x-W1GwR6OXycLahUa80W12XZ0TKw28esYunm5KvXvYL7Z9NivQLr2Xt4Ix1QCJquVENxUeZqwUknRzZGVyMEEoc4G7fJwNSyQyJyyMaeN9jMqCcXDUnyzNVsAzIknAIZQ7rXueWxyQO2oVMgnPfJgAEGIrDw92wTQJdolF0KDGJu-3NjdT_-IgQPGL7zAr-ArygZyGAvLHSzTBYAVx34GWi5fotpo8O7FNBKHOxCozjaPaqnXSy_rwBFWGYtJMzqOwmUxuTpY"/>
+<!-- Floating Sticker Overlap -->
+<div class="absolute top-1/4 right-1/4 bg-tertiary-container rounded-lg p-4 shadow-xl -rotate-12 z-20 hover:rotate-0 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="absolute bottom-1/4 left-1/3 bg-primary-container rounded-lg p-3 shadow-xl rotate-12 z-20 hover:rotate-0 transition-transform cursor-pointer">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+</div>
+<!-- Stage UI Overlay -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4 px-6 py-3 bg-white/80 backdrop-blur-md rounded-full shadow-xl border border-white/20">
+<button class="p-2 hover:bg-secondary-container rounded-full text-secondary transition-all"><span class="material-symbols-outlined" data-icon="videocam">videocam</span></button>
+<div class="w-px h-6 bg-outline-variant/30"></div>
+<button class="p-2 hover:bg-secondary-container rounded-full text-secondary transition-all"><span class="material-symbols-outlined" data-icon="grid_view">grid_view</span></button>
+<div class="w-px h-6 bg-outline-variant/30"></div>
+<button class="p-2 hover:bg-secondary-container rounded-full text-secondary transition-all"><span class="material-symbols-outlined" data-icon="refresh">refresh</span></button>
+</div>
+</div>
+<!-- Mood Rail -->
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col gap-4">
+<h3 class="font-headline font-bold uppercase text-[10px] tracking-widest text-on-surface-variant px-2">Select World Mood</h3>
+<div class="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+<!-- Mood Chips -->
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-4 bg-secondary-container text-on-secondary-container rounded-full shadow-inner font-headline font-bold">
+<span class="material-symbols-outlined" data-icon="nights_stay" style="font-variation-settings: 'FILL' 1;">nights_stay</span>
+                        Dreamy
+                    </button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-4 bg-surface-container-lowest text-on-surface-variant hover:bg-white transition-all rounded-full font-headline font-bold">
+<span class="material-symbols-outlined" data-icon="wb_sunny">wb_sunny</span>
+                        Electric
+                    </button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-4 bg-surface-container-lowest text-on-surface-variant hover:bg-white transition-all rounded-full font-headline font-bold">
+<span class="material-symbols-outlined" data-icon="cloudy_snowing">cloudy_snowing</span>
+                        Cosy
+                    </button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-4 bg-surface-container-lowest text-on-surface-variant hover:bg-white transition-all rounded-full font-headline font-bold">
+<span class="material-symbols-outlined" data-icon="tsunami">tsunami</span>
+                        Aquatic
+                    </button>
+<button class="flex-shrink-0 flex items-center gap-3 px-6 py-4 bg-surface-container-lowest text-on-surface-variant hover:bg-white transition-all rounded-full font-headline font-bold">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Magic
+                    </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Controls & Generation -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6 overflow-y-auto pr-2 pb-12">
+<!-- Planet Customization Panel -->
+<section class="bg-surface-container p-8 rounded-xl flex flex-col gap-8 shadow-sm">
+<div class="flex items-center justify-between">
+<h2 class="font-headline font-extrabold text-xl">Customize</h2>
+<span class="bg-secondary-fixed text-on-secondary-fixed text-[10px] px-2 py-1 rounded-full font-bold uppercase">v2.4</span>
+</div>
+<!-- Sliders (Marble style) -->
+<div class="space-y-8">
+<div class="space-y-4">
+<div class="flex justify-between font-headline font-bold text-sm">
+<span class="text-on-surface">Atmosphere Size</span>
+<span class="text-secondary">72%</span>
+</div>
+<input class="w-full h-3 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary" type="range"/>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between font-headline font-bold text-sm">
+<span class="text-on-surface">Gravity Softness</span>
+<span class="text-secondary">30%</span>
+</div>
+<input class="w-full h-3 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary" type="range"/>
+</div>
+</div>
+<!-- Toggles (Toy style) -->
+<div class="grid grid-cols-2 gap-4">
+<button class="flex flex-col items-center gap-2 p-4 bg-white rounded-lg shadow-sm border-2 border-primary">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="animation" style="font-variation-settings: 'FILL' 1;">animation</span>
+<span class="font-headline font-bold text-[10px] uppercase">Orbit Motion</span>
+</button>
+<button class="flex flex-col items-center gap-2 p-4 bg-surface-container-low rounded-lg hover:bg-white transition-all">
+<span class="material-symbols-outlined text-on-surface-variant text-2xl" data-icon="volume_up">volume_up</span>
+<span class="font-headline font-bold text-[10px] uppercase">Lo-Fi Cues</span>
+</button>
+</div>
+</section>
+<!-- Caption Generator Panel -->
+<section class="bg-secondary-container/50 p-8 rounded-xl flex flex-col gap-6 border-none">
+<div class="flex items-center gap-3">
+<div class="bg-secondary p-2 rounded-full">
+<span class="material-symbols-outlined text-white text-sm" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<h2 class="font-headline font-extrabold text-xl">Caption Magic</h2>
+</div>
+<div class="bg-white/80 rounded-lg p-6 shadow-inner min-h-[120px] relative group">
+<p class="font-body text-on-surface italic leading-relaxed">
+                        "In this tiny corner of the cosmos, the neon rings hum a lullaby to the floating oaks. Send this to someone who needs a little orbit in their day."
+                    </p>
+<button class="absolute bottom-4 right-4 text-secondary hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="content_copy">content_copy</span>
+</button>
+</div>
+<button class="w-full bg-secondary text-white font-headline font-bold py-4 rounded-full shadow-lg hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-lg" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+                    Regenerate Vibe
+                </button>
+</section>
+<!-- Share/Export Tray -->
+<section class="mt-auto pt-6 flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<button class="flex-grow bg-gradient-to-br from-secondary to-primary text-white font-headline font-extrabold py-5 rounded-full shadow-[0_10px_30px_rgba(180,21,103,0.3)] hover:scale-[1.03] transition-transform text-lg uppercase tracking-wider">
+                        Export Postcard
+                    </button>
+<button class="bg-surface-container p-5 rounded-full text-on-surface hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+<p class="text-center font-headline font-bold text-[10px] uppercase text-on-surface-variant opacity-40">Saved as 1080x1080 .mp4</p>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only Logic) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-6 pb-4 bg-white/90 dark:bg-[#25181c]/90 backdrop-blur-2xl rounded-t-[3rem] h-24 shadow-[0_-20px_40px_rgba(37,24,28,0.04)]">
+<button class="flex flex-col items-center justify-center bg-[#e8deff] dark:bg-[#3d2a30] text-[#6833ea] rounded-full px-6 py-2 shadow-inner active:scale-95 duration-150">
+<span class="material-symbols-outlined" data-icon="auto_fix_high" style="font-variation-settings: 'FILL' 1;">auto_fix_high</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase font-bold tracking-wider mt-1">Stage</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e2bdc7] dark:text-[#5e414a] hover:bg-[#fff0f3] rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="filter_vintage">filter_vintage</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase font-bold tracking-wider mt-1">Filters</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e2bdc7] dark:text-[#5e414a] hover:bg-[#fff0f3] rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="add_reaction">add_reaction</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase font-bold tracking-wider mt-1">Stickers</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e2bdc7] dark:text-[#5e414a] hover:bg-[#fff0f3] rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase font-bold tracking-wider mt-1">Trays</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#e2bdc7] dark:text-[#5e414a] hover:bg-[#fff0f3] rounded-full p-2 transition-colors">
+<span class="material-symbols-outlined" data-icon="face_6">face_6</span>
+<span class="font-['Plus_Jakarta_Sans'] text-[10px] uppercase font-bold tracking-wider mt-1">Account</span>
+</button>
+</nav>
+<!-- FAB for Create (Only on Stage) -->
+<button class="fixed bottom-10 right-10 w-16 h-16 bg-primary text-white rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>
