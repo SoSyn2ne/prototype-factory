@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mini Mood Sound Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800;900&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#bff2f2",
+                        "secondary-fixed-dim": "#e6e5b9",
+                        "on-primary-fixed-variant": "#584076",
+                        "surface-dim": "#a4e6e7",
+                        "tertiary-dim": "#953205",
+                        "inverse-primary": "#dbbdfd",
+                        "error-container": "#f76a80",
+                        "surface-container-low": "#d5fbfb",
+                        "secondary-fixed": "#f5f3c7",
+                        "tertiary-fixed-dim": "#ff8b62",
+                        "tertiary-container": "#ffa180",
+                        "on-error-container": "#68001f",
+                        "primary-fixed": "#dbbdfd",
+                        "on-secondary-fixed-variant": "#666643",
+                        "on-tertiary-fixed-variant": "#762300",
+                        "surface-tint": "#6d548c",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffa180",
+                        "outline-variant": "#83bcbd",
+                        "on-secondary-container": "#5c5c3a",
+                        "surface-container": "#caf6f7",
+                        "primary-container": "#dbbdfd",
+                        "secondary-dim": "#555533",
+                        "inverse-on-surface": "#85a2a3",
+                        "error-dim": "#770326",
+                        "on-tertiary": "#fff7f5",
+                        "on-secondary": "#fdfbce",
+                        "on-primary-container": "#4f376c",
+                        "error": "#ac3149",
+                        "on-primary-fixed": "#3a2257",
+                        "on-secondary-fixed": "#4a4a29",
+                        "surface-bright": "#e2ffff",
+                        "secondary-container": "#f5f3c7",
+                        "surface-variant": "#b3edee",
+                        "surface": "#e2ffff",
+                        "primary-dim": "#60487f",
+                        "tertiary": "#a53d12",
+                        "on-background": "#00393a",
+                        "primary-fixed-dim": "#cdafee",
+                        "on-error": "#fff7f7",
+                        "secondary": "#61613e",
+                        "outline": "#4c8485",
+                        "on-tertiary-fixed": "#410f00",
+                        "inverse-surface": "#001111",
+                        "on-tertiary-container": "#671e00",
+                        "on-surface-variant": "#2e6869",
+                        "on-surface": "#00393a",
+                        "on-primary": "#fef6ff",
+                        "surface-container-highest": "#b3edee",
+                        "background": "#e2ffff",
+                        "primary": "#6d548c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Epilogue"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .orb-glow {
+            box-shadow: 0 0 40px rgba(109, 84, 140, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full flex justify-between items-center px-6 py-4 z-50 bg-transparent backdrop-blur-xl">
+<div class="flex items-center gap-3">
+<span class="text-2xl font-black text-[#6d548c] dark:text-[#dbbdfd] font-headline">Mini Mood</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-[#6d548c] hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+</button>
+<button class="p-2 text-[#6d548c] hover:scale-105 transition-transform duration-300">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden border-2 border-primary-container">
+<img alt="Profile" data-alt="close-up portrait of a creative person with soft lighting and a colorful pastel background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANS0-5JbXIM4eLys0s5jOlJpzQhAYzWcj-53TItoLpQjOmBI_olOO3jbzJDTefn-msRKCP1_pQIWGcnhP1WjZx1XKPi2BViAVj1l-St6ixvbtIN3T5K7aBAVYlGWH51wWx9U5rjU5oJE4aYVMuONBFNABMczV15-bKire9bE1_iGfvWKOwqNQhVq4Bkezb9_lJC96FC2bes0i1p2buXHk9Ep0LfL-j-GNDOlz6TKUpnxGc5LunRCO9lSuP9TTYThULpsJVYNLOYJI"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 hidden md:flex flex-col p-6 bg-[#e2ffff] rounded-r-3xl shadow-2xl shadow-[#00393a]/5">
+<div class="mb-10 mt-16">
+<h2 class="text-xl font-bold text-[#6d548c] font-headline">Mini Mood</h2>
+<p class="text-sm opacity-70 text-on-surface">Curated Soundscape</p>
+</div>
+<nav class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-4 px-5 py-3 bg-[#dbbdfd] text-[#6d548c] rounded-full font-semibold transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="graphic_eq">graphic_eq</span>
+<span>Studio</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-3 text-[#00393a] opacity-70 hover:bg-[#caf6f7] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="cloudy_snowing">cloudy_snowing</span>
+<span>Atmospheres</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-3 text-[#00393a] opacity-70 hover:bg-[#caf6f7] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="shelves">shelves</span>
+<span>Library</span>
+</a>
+<a class="flex items-center gap-4 px-5 py-3 text-[#00393a] opacity-70 hover:bg-[#caf6f7] rounded-full transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<button class="mt-auto bg-gradient-to-r from-primary to-primary-container text-on-primary py-4 rounded-full font-bold shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform">
+            Go Premium
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-32 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Hero: Session Preview Canvas -->
+<section class="mb-12 relative">
+<div class="flex flex-col lg:flex-row gap-8 items-end mb-8">
+<div class="flex-grow w-full">
+<h1 class="text-6xl md:text-8xl font-black font-headline text-on-surface tracking-tighter leading-none mb-4">
+                        Midnight <br/><span class="text-primary italic">Lo-Fi Desk</span>
+</h1>
+<p class="text-body-lg text-on-surface-variant max-w-md">
+                        A cozy sanctuary for deep focus. Layered rainfall with soft mechanical keyboard clicks.
+                    </p>
+</div>
+<div class="flex gap-4">
+<button class="bg-tertiary-container text-on-tertiary-container px-6 py-4 rounded-full font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+                        Save Mood
+                    </button>
+</div>
+</div>
+<!-- Main Interactive Canvas -->
+<div class="w-full h-[500px] bg-surface-container rounded-xl overflow-hidden relative group">
+<img alt="Desk Scene" class="w-full h-full object-cover mix-blend-overlay opacity-40" data-alt="A minimalist aesthetic desk setup at night with a single warm desk lamp, a laptop, a small succulent, and soft purple ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDd_Xnd6C9g9cCVdqhk_paks5KD1mlRRzV_gyEwaaYG86mENm24X4r1F634AECYg7dwfakvceO2We3mbxoEbkBdiGSx8S2bb26pKPy-QOSijTbL2Aj7OjtaMNJp-KpsHo6La-fujH4ooN1himXjF984zVWML9MxyOSOd6bEtPfSG1Q51RVVcmhZXMWNqxS32pvuNG3oC3_Kpo8ctfy81XKDFeAEn5lQV6pDzVhz1gXoJaHMTuxpBdrbE2tpY8W2rflB3SFbHli4Bj4"/>
+<!-- Floating Sound Orbs (Interactive Visualizers) -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-64 h-64 rounded-full bg-gradient-to-tr from-surface-bright/40 to-primary-container/40 backdrop-blur-3xl animate-pulse"></div>
+<div class="absolute top-1/4 left-1/3 w-12 h-12 rounded-full bg-tertiary-container orb-glow flex items-center justify-center animate-bounce duration-3000 pointer-events-auto cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="rainy">rainy</span>
+</div>
+<div class="absolute bottom-1/3 right-1/4 w-16 h-16 rounded-full bg-primary orb-glow flex items-center justify-center animate-bounce duration-2000 pointer-events-auto cursor-pointer">
+<span class="material-symbols-outlined text-white" data-icon="keyboard">keyboard</span>
+</div>
+</div>
+<!-- Scene UI Overlay -->
+<div class="absolute top-6 left-6 flex gap-2">
+<span class="bg-surface-container-lowest/80 backdrop-blur px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest text-primary">Live Session</span>
+<span class="bg-on-surface/10 backdrop-blur px-4 py-2 rounded-full text-xs font-bold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Recording
+                    </span>
+</div>
+</div>
+</section>
+<!-- Bento Grid: Controls & Customization -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
+<!-- Sound-Layer Mixer -->
+<div class="md:col-span-7 bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-2xl font-bold font-headline">Mixer</h3>
+<button class="text-primary font-bold text-sm">Reset All</button>
+</div>
+<div class="space-y-8">
+<!-- Slider 1 -->
+<div class="space-y-3">
+<div class="flex justify-between text-sm font-bold">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary" data-icon="water_drop">water_drop</span> Rain on Window</span>
+<span class="text-on-surface-variant">65%</span>
+</div>
+<div class="relative h-4 bg-outline-variant/30 rounded-full">
+<div class="absolute left-0 top-0 h-full w-[65%] bg-primary rounded-full"></div>
+<div class="absolute left-[65%] top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-surface-container-lowest rounded-full shadow-lg border-2 border-primary cursor-pointer"></div>
+</div>
+</div>
+<!-- Slider 2 -->
+<div class="space-y-3">
+<div class="flex justify-between text-sm font-bold">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-tertiary" data-icon="keyboard">keyboard</span> Mechanical Keys</span>
+<span class="text-on-surface-variant">20%</span>
+</div>
+<div class="relative h-4 bg-outline-variant/30 rounded-full">
+<div class="absolute left-0 top-0 h-full w-[20%] bg-tertiary rounded-full"></div>
+<div class="absolute left-[20%] top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-surface-container-lowest rounded-full shadow-lg border-2 border-tertiary cursor-pointer"></div>
+</div>
+</div>
+<!-- Slider 3 -->
+<div class="space-y-3">
+<div class="flex justify-between text-sm font-bold">
+<span class="flex items-center gap-2"><span class="material-symbols-outlined text-primary" data-icon="coffee">coffee</span> Coffee Shop Hum</span>
+<span class="text-on-surface-variant">45%</span>
+</div>
+<div class="relative h-4 bg-outline-variant/30 rounded-full">
+<div class="absolute left-0 top-0 h-full w-[45%] bg-primary-container rounded-full"></div>
+<div class="absolute left-[45%] top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 bg-surface-container-lowest rounded-full shadow-lg border-2 border-primary-container cursor-pointer"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Room Object Picker -->
+<div class="md:col-span-5 bg-secondary-container p-8 rounded-xl flex flex-col">
+<h3 class="text-2xl font-bold font-headline mb-6">Object Picker</h3>
+<div class="grid grid-cols-3 gap-4 flex-grow">
+<div class="aspect-square bg-surface-container-lowest rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary-container transition-colors border-2 border-transparent hover:border-primary">
+<span class="material-symbols-outlined text-3xl" data-icon="potted_plant">potted_plant</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Succulent</span>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary-container transition-colors border-2 border-primary">
+<span class="material-symbols-outlined text-3xl text-primary" data-icon="lamp">table_lamp</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter text-primary">Warm Lamp</span>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="frame_person">frame_person</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Polaroid</span>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="book_2">book_2</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Journals</span>
+</div>
+<div class="aspect-square bg-surface-container-lowest rounded-lg flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-3xl" data-icon="ink_pen">ink_pen</span>
+<span class="text-[10px] font-bold uppercase tracking-tighter">Stationary</span>
+</div>
+<div class="aspect-square bg-on-surface/5 border-2 border-dashed border-outline-variant rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-outline-variant" data-icon="add">add</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Saved-Scene Carousel -->
+<section class="mb-12">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-3xl font-black font-headline tracking-tight">Your Collections</h3>
+<div class="flex gap-2">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center text-on-surface hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="flex gap-6 overflow-x-auto pb-4 no-scrollbar">
+<!-- Card 1 -->
+<div class="min-w-[280px] group cursor-pointer">
+<div class="h-48 rounded-xl overflow-hidden mb-4 relative">
+<img alt="Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="aesthetic minimalist desk with neon blue lighting and clean setup" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCCX6yxN6v3j7t6esLYth_y2xnGqep_1w9hPK1a-3oXi0zNVoIYWzaRWFkfu-HXjUhG97s2rryKxEmGo4_OsO92YgIYmQbhjA4WF4cX4XRMjt4yWn-RC5T2QDgV9L7sGfkn6HH9ScNKqSTy3-E3lx4WYqDExEPviy2F4MIBgXHflgD61XEiLYX9GhROn_zTIwmxKwBLhWS6a6IuLghruhVmmTc02DAiRUtZR_EEfvWFFctaggajl-Wt2s1Ra2LSGt2mdnn516Itpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="text-xs font-bold opacity-80 uppercase">5 Layers</span>
+<h4 class="font-bold">Neon Midnight</h4>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[280px] group cursor-pointer">
+<div class="h-48 rounded-xl overflow-hidden mb-4 relative">
+<img alt="Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="warm cozy desk setup with coffee and open notebook on a sunny morning" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcugqt4pA0FYwk_A5X8ICnbuWW0ssmC5wv41eST9wtN4ZNAcv_vYSqHZRoxmNcJIkc3iX31XcKhOYporCc2l840WNEvb_Sc7bdtB6kO9U9gEAoXSqLuutwJZkGJLjjhO6lBG2QQ9pgABz3KD64jYgnpRAo4jRNAo1qAnLL2OqygGpsUVvh7WewFxu8DhKS7VbRFfaHNU9_U6OLskV9EoYuXLWeQgMcSVrmxa8tm8R9T5vhdJc6QylzbjdqW_XUZGBrYon6HwNh1IY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="text-xs font-bold opacity-80 uppercase">3 Layers</span>
+<h4 class="font-bold">Morning Brew</h4>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[280px] group cursor-pointer">
+<div class="h-48 rounded-xl overflow-hidden mb-4 relative">
+<img alt="Collection" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="rainy window view next to a library desk with old books and soft warm lamp" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCo1HhaytmHhPE7lJdt1jM8KuanOCHgyJIwDJU37-p2GAvlRRNSxV9fGLHj7sFUZvwgrjAlz7iW2uuz3o2TkYCFLQqWIu7CM5lIBr6ypmRjRLRsGrcC4eUb0USXgSKaOosRA1LjghgUBIbGMR3D_mO5rvFJ1GwGTKXEEz3bGG9yx2H92crhxKNPJSlMYU4HzzE2ajD_gVbcUzMHs3Q2I92JJoH3ra71wCwEwfTpcv1UFdYQaqYR2yaK1A520stvkEuDKCpomHtvDwY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-white">
+<span class="text-xs font-bold opacity-80 uppercase">7 Layers</span>
+<h4 class="font-bold">Rainy Library</h4>
+</div>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="min-w-[280px] group cursor-pointer">
+<div class="h-48 rounded-xl overflow-hidden mb-4 relative bg-surface-container-highest flex flex-col items-center justify-center border-2 border-dashed border-outline-variant">
+<span class="material-symbols-outlined text-4xl opacity-40 mb-2" data-icon="add_circle">add_circle</span>
+<span class="text-sm font-bold opacity-60">New Collection</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Share Action Panel (Popup/Overlay Style Section) -->
+<section class="bg-surface-container-highest p-10 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-tertiary/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+<div class="flex-grow text-center md:text-left">
+<h3 class="text-4xl font-black font-headline mb-4 tracking-tight">Share Your Space</h3>
+<p class="text-on-surface-variant max-w-lg mb-6">
+                        Generate a charming snapshot of your current desk setup and sound layers to share with the community or save for inspiration.
+                    </p>
+<div class="flex flex-wrap gap-4 justify-center md:justify-start">
+<button class="bg-on-surface text-surface px-8 py-4 rounded-full font-bold flex items-center gap-3 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                            Download Snapshot
+                        </button>
+<button class="bg-surface text-on-surface px-8 py-4 rounded-full font-bold flex items-center gap-3 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="link">link</span>
+                            Copy Public Link
+                        </button>
+</div>
+</div>
+<div class="w-64 h-80 bg-white p-4 shadow-2xl rounded-lg rotate-3 border-8 border-white">
+<img alt="Snapshot Preview" class="w-full h-full object-cover rounded shadow-inner" data-alt="a vintage looking polaroid photo of a beautiful workspace with plants and soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBG9vgOJbsY0ZNPhKpeaNsj2tjyGiOTcJIY7po5wfvrV8Z2tHGz9w-N0h7Woil77aGOyqkRxXqZq-ArY3T1-pPIawFciQO0d08SHa9qvD1cBFz3qKBUJMoKqEyfWhHZ_4hCg1wgrFD49eaNgZtebHuBPrNnMs0NfNABc1mAvKPXc-QWV1jGv8BeZphi_RJ_GpI0goTzfdn5eJOY3LR-5MDlzvZjEszibmmPHBHki_p1urIBY6W_6VO7OBihqfSYI1CZXUDQxZBUKJ0"/>
+<div class="mt-4 flex justify-between items-center px-1">
+<span class="text-[10px] font-bold text-on-surface/40">MINI MOOD #204</span>
+<span class="material-symbols-outlined text-xs text-on-surface/40" data-icon="qr_code_2">qr_code_2</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/60 dark:bg-[#00393a]/60 backdrop-blur-2xl rounded-t-[2.5rem] shadow-[0_-8px_32px_rgba(0,57,58,0.05)]">
+<button class="flex flex-col items-center justify-center bg-[#dbbdfd] dark:bg-[#6d548c] text-[#6d548c] dark:text-[#dbbdfd] rounded-full px-6 py-2 scale-95 transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="landscape">landscape</span>
+<span class="text-[10px] font-medium font-label">Scene</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#00393a] dark:text-[#caf6f7] px-4 py-2 hover:bg-[#caf6f7]/50">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="text-[10px] font-medium font-label">Mixer</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#00393a] dark:text-[#caf6f7] px-4 py-2 hover:bg-[#caf6f7]/50">
+<span class="material-symbols-outlined" data-icon="auto_awesome_motion">auto_awesome_motion</span>
+<span class="text-[10px] font-medium font-label">Saved</span>
+</button>
+<button class="flex flex-col items-center justify-center text-[#00393a] dark:text-[#caf6f7] px-4 py-2 hover:bg-[#caf6f7]/50">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-[10px] font-medium font-label">Profile</span>
+</button>
+</nav>
+<!-- Global FAB (Suppressed on Detail/Transactional pages, shown here for quick play/pause) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-[60]">
+<span class="material-symbols-outlined text-3xl" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</button>
+</body></html>

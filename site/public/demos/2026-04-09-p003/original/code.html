@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Field-Ops Reset | Vacancy Scheduler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#264043",
+                        "surface-container": "#edefe7",
+                        "primary": "#0f2a2d",
+                        "on-surface-variant": "#43474a",
+                        "on-surface": "#1a1c18",
+                        "on-secondary-container": "#436a60",
+                        "background": "#f9faf2",
+                        "surface-container-highest": "#e2e3db",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-tertiary-fixed-variant": "#7a3000",
+                        "outline": "#73787b",
+                        "surface-tint": "#496366",
+                        "secondary": "#3f665c",
+                        "tertiary-fixed": "#ffdbcc",
+                        "inverse-surface": "#2f312c",
+                        "outline-variant": "#c3c7ca",
+                        "on-tertiary-container": "#ff8544",
+                        "tertiary-container": "#692800",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#c1ebdf",
+                        "tertiary-fixed-dim": "#ffb693",
+                        "primary-fixed": "#cbe8eb",
+                        "on-secondary-fixed-variant": "#274e45",
+                        "on-error": "#ffffff",
+                        "surface": "#f9faf2",
+                        "surface-variant": "#e2e3db",
+                        "primary-fixed-dim": "#b0cccf",
+                        "on-background": "#1a1c18",
+                        "surface-container-low": "#f3f4ec",
+                        "tertiary": "#461800",
+                        "surface-dim": "#d9dbd3",
+                        "surface-bright": "#f9faf2",
+                        "secondary-container": "#bee8dc",
+                        "on-secondary-fixed": "#00201a",
+                        "inverse-primary": "#b0cccf",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#031f22",
+                        "on-primary-fixed-variant": "#314b4e",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#90abaf",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#a6cfc3",
+                        "inverse-on-surface": "#f0f1e9",
+                        "surface-container-high": "#e8e9e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .timeline-rail::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: 0;
+            width: 2px;
+            background-color: rgba(195, 199, 202, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-tertiary-fixed selection:text-on-tertiary-fixed">
+<header class="bg-slate-50 dark:bg-slate-900 flex justify-between items-center w-full px-6 h-16 fixed top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-black text-teal-950 dark:text-teal-50 uppercase tracking-widest font-headline">Field-Ops Reset</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-teal-700 dark:text-teal-400 font-bold font-headline transition-colors duration-200" href="#">Pipeline</a>
+<a class="text-slate-600 dark:text-slate-400 font-headline hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">Timeline</a>
+<a class="text-slate-600 dark:text-slate-400 font-headline hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200" href="#">Vendors</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-high border-none rounded-lg text-sm focus:ring-2 focus:ring-primary" placeholder="Search units or vendors..." type="text"/>
+</div>
+<button class="material-symbols-outlined text-slate-600 dark:text-slate-400 p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200">notifications</button>
+<button class="material-symbols-outlined text-slate-600 dark:text-slate-400 p-2 hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-colors duration-200">settings</button>
+<div class="h-8 w-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Technician profile" class="h-full w-full object-cover" data-alt="Close-up portrait of a professional property technician in a clean utility uniform, outdoor lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnxvD4-vR8Xr3b0DvJcLAMvsbyDegPIjuN58Kd7AeiIRVG_rGisIrY-W6nSwFKCHdBoNYlRryIx4lDbsbOSklrhri8BHOY0WxyFaah1PqkE24JR-8BON7QtRtVzaOpfm7r9Z1TMb9vL7ng82YMwbKLZrCqgYQlsACDSfL6h7ABKKEcC_eS1CIloOWFQ06J7l_RaNQvfD05foSbZw05KCmGOgNeUGipnP44sRnziuWPpNC19kWDl0TJvcGeyPvY2Pa5cnVjVsWSnxw"/>
+</div>
+</div>
+</header>
+<aside class="fixed left-0 top-16 h-[calc(100vh-4rem)] w-64 bg-slate-50 dark:bg-slate-900 border-r-0 hidden md:flex flex-col py-4">
+<div class="px-6 mb-8">
+<h2 class="text-xl font-black text-teal-950 dark:text-teal-50 font-headline">HQ Operations</h2>
+<p class="text-xs text-slate-500 font-medium">Regional Manager</p>
+</div>
+<nav class="flex-1 space-y-1 px-3">
+<a class="flex items-center gap-3 px-3 py-3 text-teal-900 dark:text-teal-50 font-bold border-l-4 border-teal-900 dark:border-teal-400 bg-slate-100 dark:bg-slate-800 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">view_kanban</span>
+<span class="font-medium text-sm">Pipeline</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:text-teal-800 dark:hover:text-teal-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">view_timeline</span>
+<span class="font-medium text-sm">Timeline</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:text-teal-800 dark:hover:text-teal-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">engineering</span>
+<span class="font-medium text-sm">Vendors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:text-teal-800 dark:hover:text-teal-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="font-medium text-sm">Blockers</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-3 text-slate-500 dark:text-slate-400 hover:text-teal-800 dark:hover:text-teal-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-medium text-sm">Checklists</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-3 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-bold rounded-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Reset
+            </button>
+</div>
+</aside>
+<main class="md:ml-64 pt-20 px-6 pb-12">
+<div class="grid grid-cols-12 gap-6">
+<section class="col-span-12 lg:col-span-12">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h1 class="text-4xl font-headline font-extrabold text-primary tracking-tight">Active Turnover Pulse</h1>
+<p class="text-on-surface-variant font-medium">8 Units currently in reset across 3 sites</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-high px-6 py-4 rounded-lg flex flex-col items-end">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-on-surface-variant">Avg Vacancy Days</span>
+<span class="text-4xl font-headline font-black text-primary">4.2</span>
+</div>
+<div class="bg-tertiary-container px-6 py-4 rounded-lg flex flex-col items-end">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-on-tertiary-container">Projected Revenue Loss</span>
+<span class="text-4xl font-headline font-black text-on-tertiary-container">$12,400</span>
+</div>
+</div>
+</div>
+</section>
+<section class="col-span-12 lg:col-span-8 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-lg">
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">view_kanban</span>
+                        Unit Turnover Pipeline
+                    </h3>
+<div class="grid grid-cols-4 gap-4">
+<div class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-on-surface-variant">Notice Given (3)</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-lg border-l-4 border-outline-variant space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-headline font-bold text-primary">#402-B</span>
+<span class="text-[10px] bg-white px-2 py-0.5 rounded font-bold">12 DAYS</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">Move out: Oct 24</p>
+<div class="flex items-center -space-x-2">
+<div class="h-6 w-6 rounded-full border-2 border-surface-container-highest bg-slate-300"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-secondary">Cleaning (2)</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-lg border-l-4 border-secondary space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-headline font-bold text-primary">#115</span>
+<span class="text-[10px] bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-bold">READY</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">Deep clean in progress</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm">east</span>
+<span class="text-[10px] font-bold uppercase text-tertiary">Assign Pro</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-on-tertiary-container">Maintenance (1)</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-lg border-l-4 border-tertiary space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-headline font-bold text-primary">#309</span>
+<span class="text-[10px] bg-error-container text-on-error-container px-2 py-0.5 rounded font-bold">DELAYED</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">HVAC Part Pending</p>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[40%]"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between px-1">
+<span class="text-[0.65rem] font-bold tracking-[0.1em] uppercase text-primary">Listing (2)</span>
+</div>
+<div class="bg-surface-container-highest p-4 rounded-lg border-l-4 border-primary space-y-3">
+<div class="flex justify-between items-start">
+<span class="font-headline font-bold text-primary">#221-A</span>
+<span class="text-[10px] bg-primary text-on-primary px-2 py-0.5 rounded font-bold">LIVE</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">Photos uploaded</p>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-[10px] font-bold uppercase text-on-surface-variant">Screening 4</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">engineering</span>
+                            Vendor Assignment Board
+                        </h3>
+<button class="text-xs font-bold uppercase tracking-widest text-primary hover:underline">View All Pro-Teams</button>
+</div>
+<div class="space-y-3">
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center gap-4 transition-colors hover:bg-white">
+<div class="h-12 w-12 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">imagesmode</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm">Pixel Perfect Staging</h4>
+<p class="text-xs text-on-surface-variant">Real Estate Photography • 4.9 Rating</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] font-bold uppercase text-on-surface-variant">Assigned To</p>
+<p class="font-headline font-bold text-sm">#221-A, #115</p>
+</div>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 rounded font-bold text-xs">RE-BOOK</button>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg flex items-center gap-4 transition-colors hover:bg-white">
+<div class="h-12 w-12 bg-surface-container-high rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">cleaning_services</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm">SwiftScrub Industrial</h4>
+<p class="text-xs text-on-surface-variant">Deep Clean &amp; Sanitization • High Capacity</p>
+</div>
+<div class="text-right text-tertiary">
+<p class="text-[10px] font-bold uppercase">Pending Response</p>
+<p class="font-headline font-bold text-sm">#402-B</p>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 rounded font-bold text-xs">PING</button>
+</div>
+</div>
+</div>
+</section>
+<section class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-low p-6 rounded-lg relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl">task_alt</span>
+</div>
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">move_down</span>
+                        Move-In Readiness Rail
+                    </h3>
+<div class="space-y-6 relative timeline-rail">
+<div class="relative flex gap-4 pl-8">
+<div class="absolute left-0 h-6 w-6 bg-secondary text-on-secondary flex items-center justify-center rounded-full z-10">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<div>
+<h4 class="font-bold text-sm text-secondary">Unit Pre-Inspection</h4>
+<p class="text-[10px] text-on-surface-variant">Completed Oct 12 by Marcus G.</p>
+</div>
+</div>
+<div class="relative flex gap-4 pl-8">
+<div class="absolute left-0 h-6 w-6 bg-tertiary text-on-tertiary flex items-center justify-center rounded-full z-10">
+<span class="material-symbols-outlined text-sm">pending</span>
+</div>
+<div>
+<h4 class="font-bold text-sm text-primary">Repair Logic Routing</h4>
+<p class="text-[10px] text-on-surface-variant">2 work orders triggered for #309</p>
+<div class="mt-2 flex gap-2">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-1 rounded text-[10px] font-bold uppercase">HVAC Fix</span>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-2 py-1 rounded text-[10px] font-bold uppercase">Patch/Paint</span>
+</div>
+</div>
+</div>
+<div class="relative flex gap-4 pl-8">
+<div class="absolute left-0 h-6 w-6 bg-outline-variant flex items-center justify-center rounded-full z-10">
+</div>
+<div>
+<h4 class="font-bold text-sm text-outline">Sanitization Lock</h4>
+<p class="text-[10px] text-on-surface-variant">Waiting on maintenance completion</p>
+</div>
+</div>
+<div class="relative flex gap-4 pl-8">
+<div class="absolute left-0 h-6 w-6 bg-outline-variant flex items-center justify-center rounded-full z-10">
+</div>
+<div>
+<h4 class="font-bold text-sm text-outline">Final Photo-Verify</h4>
+<p class="text-[10px] text-on-surface-variant">Lockbox code to be reset</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-lg border-2 border-dashed border-outline-variant/30">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">report</span>
+                            Blockers &amp; Rework
+                        </h3>
+<span class="bg-error text-on-error px-2 py-0.5 rounded text-[10px] font-bold">2 CRITICAL</span>
+</div>
+<div class="space-y-4">
+<div class="bg-error-container p-4 rounded-lg">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-sm text-on-error-container">Broken Supply Chain</h4>
+<span class="text-[10px] font-black uppercase text-error">Unit #309</span>
+</div>
+<p class="text-xs text-on-error-container opacity-80 leading-relaxed">Compressor backordered until Oct 28. Alternative vendor being sourced by HQ.</p>
+<div class="mt-3 flex justify-end">
+<button class="text-[10px] font-bold uppercase tracking-widest text-on-error-container border-b border-on-error-container/30">Override &amp; Reschedule</button>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-bold text-sm">Failed Inspection</h4>
+<span class="text-[10px] font-black uppercase text-on-surface-variant">Unit #115</span>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">Streaks on kitchen backsplash. SwiftScrub notified for rework at 0 cost.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<section class="mt-8">
+<div class="bg-primary text-on-primary p-8 rounded-lg flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary-container opacity-40"></div>
+<div class="relative z-10 max-w-xl">
+<h2 class="text-3xl font-headline font-black mb-2">Streamline the Hand-off</h2>
+<p class="text-on-primary-container leading-relaxed">The last 10% of a turnover often takes 50% of the time. Use the Field-Ops Mobile app to upload completion photos instantly from the unit.</p>
+</div>
+<div class="relative z-10 flex gap-4 w-full md:w-auto">
+<button class="flex-1 md:flex-none px-8 py-4 bg-tertiary-container text-on-tertiary-container font-headline font-bold rounded-lg border border-on-tertiary-container/20">GET MOBILE LINK</button>
+<button class="flex-1 md:flex-none px-8 py-4 bg-on-primary text-primary font-headline font-bold rounded-lg shadow-xl">VIEW MANUAL</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-slate-50 dark:bg-slate-900 grid grid-cols-5 h-16 items-center shadow-[0_-4px_12px_rgba(0,0,0,0.05)]">
+<button class="flex flex-col items-center gap-1 text-teal-900 dark:text-teal-50">
+<span class="material-symbols-outlined text-xl">view_kanban</span>
+<span class="text-[10px] font-bold">Pipeline</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-xl">view_timeline</span>
+<span class="text-[10px] font-bold">Timeline</span>
+</button>
+<button class="flex flex-col items-center justify-center -mt-8">
+<div class="h-14 w-14 bg-primary text-on-primary rounded-full flex items-center justify-center shadow-lg border-4 border-surface">
+<span class="material-symbols-outlined text-2xl">add</span>
+</div>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-xl">engineering</span>
+<span class="text-[10px] font-bold">Vendors</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400">
+<span class="material-symbols-outlined text-xl">fact_check</span>
+<span class="text-[10px] font-bold">Checklists</span>
+</button>
+</footer>
+</body></html>
