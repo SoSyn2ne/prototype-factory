@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mobile Vet Route Margin Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#1f201b",
+                        "outline-variant": "#474836",
+                        "surface-bright": "#393a34",
+                        "surface-container-highest": "#343530",
+                        "secondary": "#e4beb2",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed": "#2b160f",
+                        "surface-container-high": "#2a2a25",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#92927d",
+                        "on-secondary-fixed-variant": "#5b4137",
+                        "surface": "#13140f",
+                        "on-primary-container": "#4e6600",
+                        "on-tertiary-container": "#ab3409",
+                        "on-surface-variant": "#c8c8b1",
+                        "secondary-fixed": "#ffdbce",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1b1c17",
+                        "primary-container": "#b5ea00",
+                        "on-background": "#e4e3da",
+                        "background": "#13140f",
+                        "on-secondary": "#422b22",
+                        "on-primary-fixed": "#151f00",
+                        "on-secondary-container": "#d5b1a4",
+                        "on-tertiary-fixed": "#3a0a00",
+                        "primary-fixed-dim": "#a6d700",
+                        "secondary-container": "#5d4339",
+                        "inverse-surface": "#e4e3da",
+                        "tertiary": "#fff2ee",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-tertiary-fixed-variant": "#852300",
+                        "primary": "#e5ffa1",
+                        "on-surface": "#e4e3da",
+                        "secondary-fixed-dim": "#e4beb2",
+                        "surface-container-lowest": "#0e0f0a",
+                        "on-tertiary": "#5e1600",
+                        "primary-fixed": "#bef500",
+                        "inverse-primary": "#4e6700",
+                        "tertiary-container": "#ffcdbf",
+                        "tertiary-fixed-dim": "#ffb59f",
+                        "inverse-on-surface": "#30312b",
+                        "on-error": "#690005",
+                        "surface-tint": "#a6d700",
+                        "on-primary-fixed-variant": "#3a4d00",
+                        "on-primary": "#273500",
+                        "surface-variant": "#343530",
+                        "surface-dim": "#13140f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #13140f;
+            color: #e4e3da;
+            font-family: 'Work Sans', sans-serif;
+            overflow: hidden;
+        }
+        .map-overlay {
+            background: radial-gradient(circle at center, transparent 0%, rgba(19, 20, 15, 0.4) 100%);
+            pointer-events: none;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #13140f; }
+        ::-webkit-scrollbar-thumb { background: #393a34; }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+<!-- Left Sidebar: SideNavBar Navigation Shell -->
+<aside class="h-full border-r border-[#e5ffa1]/10 flex flex-col w-64 h-screen hidden lg:flex bg-[#13140f] shrink-0">
+<div class="p-6 flex flex-col gap-1">
+<h1 class="font-['Space_Grotesk'] font-bold text-[#e5ffa1] text-xl tracking-tighter">FIELD OPS</h1>
+<div class="mt-4 flex items-center gap-3">
+<img alt="Unit commander" class="w-10 h-10 rounded-sm object-cover border border-[#e5ffa1]/20" data-alt="close-up portrait of a professional female veterinary dispatcher wearing a headset in a dark tech-focused control room environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvjDudYIn3h-1E8LU4ljrWV4xr9a1bx_JfgiW0BiVtb_JJR7I9gfwZD8QOl6wDi3DZJFz4YiTfHssyRwOXKOT4IbNhTssLBeKVYuTHbdMSAA7NeFWTaIaMijdu-iGDj2I3aNiBXLOqVDjJ4ojLBQq5ldOMr23Om3BKbxzFIhleLmfIFlEGRsXFyQgDRcuym7J07-JxqA93sPAzwO3uM5nMz0mQAkrCcyuQo5Wy36rgR0WWCAc2C4_X7zRRTlTC1K0CpOsOwgqyi2c"/>
+<div>
+<div class="text-[#e5ffa1] font-bold text-sm font-['Work_Sans']">Unit 07</div>
+<div class="text-[#e4e3da]/60 text-[10px] uppercase tracking-widest font-['Space_Grotesk']">Active Route: NW Sector</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<a class="bg-[#e5ffa1] text-[#13140f] rounded-sm m-2 p-3 font-bold flex items-center gap-3 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Map</span>
+</a>
+<a class="text-[#e4e3da] p-3 m-2 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Queue</span>
+</a>
+<a class="text-[#e4e3da] p-3 m-2 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Metrics</span>
+</a>
+<a class="text-[#e4e3da] p-3 m-2 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">pets</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Patients</span>
+</a>
+<a class="text-[#e4e3da] p-3 m-2 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Fleet</span>
+</a>
+</nav>
+<div class="p-4 bg-surface-container-low m-2 rounded-sm border border-outline-variant/30">
+<div class="text-[10px] uppercase font-bold text-primary mb-2 tracking-tighter">AI DISPATCH</div>
+<p class="text-xs text-on-surface-variant mb-3 leading-tight font-body">3 stops are currently at 12% margin deficit due to transit. Reroute suggested.</p>
+<button class="w-full bg-primary text-on-primary py-2 text-xs font-bold rounded-sm uppercase tracking-tighter hover:brightness-110 active:scale-95 transition-all">
+                Reroute Recommendation
+            </button>
+</div>
+<div class="mt-auto border-t border-[#e5ffa1]/10 p-2">
+<a class="text-[#e4e3da] p-3 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Support</span>
+</a>
+<a class="text-[#e4e3da] p-3 flex items-center gap-3 hover:bg-[#e5ffa1]/20 transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">cloud_off</span>
+<span class="font-['Work_Sans'] font-medium text-sm">Offline Mode</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col relative overflow-hidden">
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 left-0 lg:left-64 z-50 bg-[#13140f]/80 backdrop-blur-md shadow-[0_4px_20px_-5px_rgba(166,215,0,0.12)] h-16 flex justify-between items-center px-6">
+<div class="flex items-center gap-8">
+<div class="font-black text-[#e5ffa1] tracking-tighter text-xl uppercase font-headline">FIELD OPS</div>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#e5ffa1] border-b-2 border-[#e5ffa1] h-16 flex items-center font-['Space_Grotesk'] tracking-widest uppercase text-xs" href="#">Route Planner</a>
+<a class="text-[#e4e3da]/60 hover:bg-[#e5ffa1]/10 transition-colors h-16 px-2 flex items-center font-['Space_Grotesk'] tracking-widest uppercase text-xs" href="#">Fleet Analytics</a>
+<a class="text-[#e4e3da]/60 hover:bg-[#e5ffa1]/10 transition-colors h-16 px-2 flex items-center font-['Space_Grotesk'] tracking-widest uppercase text-xs" href="#">Margin Reports</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-[#e4e3da]/60 p-2 hover:bg-[#e5ffa1]/10 rounded-sm cursor-pointer transition-colors">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</div>
+<span class="material-symbols-outlined text-[#e4e3da]/60 p-2 hover:bg-[#e5ffa1]/10 rounded-sm cursor-pointer transition-colors">settings</span>
+<img alt="Vet profile" class="w-8 h-8 rounded-sm ml-2 border border-primary/40" data-alt="profile photo of a senior veterinarian in tactical scrubs looking at the camera with a calm confident expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKiqphAxuL68-aeELLsj51R-jJcd9lDozwN-cG6_IUcg6ZIYlkPPjs3jpbwTGQSAUjDIKFGFU1eh-MjhRPewz0wCgZ-OFI971YQn-2kx6dEBKTXmzdOsn1MkuMNP8EVl3rXRA-pR8m7MGhg1HaMKQajHGb5InsUg6JE9NbE4jXqX2yQIzu4Ar6ePm3kbiOMXdr8Gy1r1SKCKxoEzmexia8g0DMQnOkatP4oXI3q1CwIt39qqYINLrRfoETj8B5q08VWWhnRlhA0Z0"/>
+</div>
+</header>
+<!-- The Map-First Canvas -->
+<div class="absolute inset-0 z-0 bg-surface">
+<!-- Simulated Map Background -->
+<div class="w-full h-full grayscale brightness-50 contrast-125 relative">
+<div class="absolute inset-0 bg-[url('https://replicate.delivery/pbxt/f7jYyqWd8X9CIn0YyS0ZqY9Ue2eRjYyqWd8X9CIn0YyS0ZqY/image.png')] bg-cover bg-center opacity-40" data-alt="detailed dark satellite map of a city grid with glowing green neon lines representing route trajectories and medical icons as markers" data-location="Denver, Colorado" style=""></div>
+<div class="map-overlay absolute inset-0"></div>
+</div>
+<!-- Route HUD (Top) -->
+<div class="absolute top-20 left-6 right-6 flex gap-4 z-10">
+<div class="bg-[#13140f]/90 backdrop-blur-md border border-primary/20 p-4 rounded-sm flex-1 flex items-center justify-between shadow-xl">
+<div class="flex items-center gap-6">
+<div>
+<div class="text-[10px] font-headline text-primary tracking-widest uppercase">System Margin</div>
+<div class="text-3xl font-headline font-bold text-on-surface">32.4<span class="text-primary text-sm ml-1">%</span></div>
+</div>
+<div class="h-10 w-px bg-outline-variant/30"></div>
+<div>
+<div class="text-[10px] font-headline text-secondary tracking-widest uppercase">Drive Leakage</div>
+<div class="text-2xl font-headline font-bold text-on-surface">14.2<span class="text-secondary text-sm ml-1">hr</span></div>
+</div>
+<div class="h-10 w-px bg-outline-variant/30"></div>
+<div>
+<div class="text-[10px] font-headline text-on-surface-variant tracking-widest uppercase">Total Ops Cost</div>
+<div class="text-2xl font-headline font-bold text-on-surface">$4,820</div>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-primary/5 p-2 rounded-sm border border-primary/10">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-[10px] font-bold text-primary uppercase">Optimal Performance</span>
+</div>
+</div>
+</div>
+<!-- Urgent Queue Drawer (Left Over Map) -->
+<div class="absolute top-44 left-6 bottom-6 w-80 z-20 flex flex-col gap-4">
+<div class="bg-surface-container-high/95 backdrop-blur-lg rounded-sm border border-outline-variant/20 flex flex-col h-1/2 shadow-2xl overflow-hidden">
+<div class="p-4 bg-surface-container border-b border-outline-variant/20 flex justify-between items-center">
+<h3 class="text-xs font-headline font-bold uppercase tracking-widest text-on-surface">Urgency Queue</h3>
+<span class="text-[10px] bg-error-container text-on-error-container px-2 py-0.5 rounded-none font-bold">4 HIGH</span>
+</div>
+<div class="overflow-y-auto flex-1 p-2 space-y-2">
+<!-- Queue Item -->
+<div class="bg-surface-container-lowest p-3 border-l-4 border-error hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-error uppercase tracking-tighter">Emergency Housecall</span>
+<span class="text-[10px] text-on-surface-variant">0.4mi away</span>
+</div>
+<h4 class="text-sm font-bold text-on-surface mb-1">Bella (Canine)</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-xs">location_on</span>
+                                1420 Spruce St, Boulder
+                            </div>
+<div class="mt-3 flex gap-2">
+<button class="flex-1 bg-surface-container-highest text-on-surface text-[10px] font-bold uppercase py-1 border border-outline-variant/40 hover:bg-primary hover:text-black transition-all">Assign</button>
+<button class="w-8 h-8 flex items-center justify-center bg-surface-container-highest border border-outline-variant/40"><span class="material-symbols-outlined text-sm">visibility</span></button>
+</div>
+</div>
+<!-- Queue Item Routine -->
+<div class="bg-surface-container-lowest p-3 border-l-4 border-secondary hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-secondary uppercase tracking-tighter">Routine Exam</span>
+<span class="text-[10px] text-on-surface-variant">2.1mi away</span>
+</div>
+<h4 class="text-sm font-bold text-on-surface mb-1">Max (Equine)</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-xs">location_on</span>
+                                High Plains Ranch, Longmont
+                            </div>
+</div>
+<div class="bg-surface-container-lowest p-3 border-l-4 border-primary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-bold text-primary-fixed-dim uppercase tracking-tighter">Follow-up</span>
+<span class="text-[10px] text-on-surface-variant">12.5mi away</span>
+</div>
+<h4 class="text-sm font-bold text-on-surface mb-1">Luna (Feline)</h4>
+<div class="flex items-center gap-2 text-[10px] text-on-surface-variant font-medium">
+<span class="material-symbols-outlined text-xs">location_on</span>
+                                892 Broadway, Denver
+                            </div>
+</div>
+</div>
+</div>
+<!-- Clinician Load Metrics -->
+<div class="bg-surface-container-high/95 backdrop-blur-lg rounded-sm border border-outline-variant/20 flex flex-col flex-1 shadow-2xl overflow-hidden">
+<div class="p-4 bg-surface-container border-b border-outline-variant/20">
+<h3 class="text-xs font-headline font-bold uppercase tracking-widest text-on-surface">Clinician Capacity</h3>
+</div>
+<div class="p-4 space-y-4 overflow-y-auto">
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase">
+<span class="text-on-surface">Dr. Sarah Miller</span>
+<span class="text-primary">88% Load</span>
+</div>
+<div class="h-1 bg-surface-container-lowest w-full overflow-hidden">
+<div class="h-full bg-primary w-[88%]"></div>
+</div>
+<div class="flex justify-between text-[9px] text-on-surface-variant">
+<span>6 / 8 Stops</span>
+<span>Drive: 45m</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase">
+<span class="text-on-surface">Dr. James Chen</span>
+<span class="text-error">115% Load</span>
+</div>
+<div class="h-1 bg-surface-container-lowest w-full overflow-hidden">
+<div class="h-full bg-error w-full"></div>
+</div>
+<div class="flex justify-between text-[9px] text-on-surface-variant">
+<span>9 / 8 Stops</span>
+<span>Drive: 1h 20m</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[10px] font-bold uppercase">
+<span class="text-on-surface">Vet Tech Marcus</span>
+<span class="text-secondary">42% Load</span>
+</div>
+<div class="h-1 bg-surface-container-lowest w-full overflow-hidden">
+<div class="h-full bg-secondary w-[42%]"></div>
+</div>
+<div class="flex justify-between text-[9px] text-on-surface-variant">
+<span>3 / 8 Stops</span>
+<span>Drive: 30m</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Margin Recommendation Drawer (Right Over Map) -->
+<div class="absolute top-44 right-6 bottom-24 w-80 z-20 flex flex-col gap-4">
+<div class="bg-surface-container-high/95 backdrop-blur-lg rounded-sm border border-outline-variant/20 shadow-2xl overflow-hidden flex flex-col">
+<div class="p-4 bg-primary text-on-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<h3 class="text-xs font-headline font-bold uppercase tracking-widest">Reroute Recommended</h3>
+</div>
+<div class="p-4">
+<div class="mb-4 bg-surface-container-lowest p-3 border border-outline-variant/30">
+<div class="text-[10px] font-bold text-primary uppercase mb-1">PROFIT OPTIMIZATION</div>
+<p class="text-xs text-on-surface leading-snug">Swapping Stop 04 with Dr. Chen to Dr. Miller saves <strong>22 mins</strong> transit time and increases route margin by <strong>$145.00</strong>.</p>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-4 text-xs">
+<div class="w-2 h-2 rounded-full bg-error shadow-[0_0_8px_rgba(255,180,171,0.5)]"></div>
+<div class="flex-1">
+<div class="text-[9px] font-bold text-on-surface-variant uppercase">Current Cost</div>
+<div class="font-bold text-on-surface">$128.50 Fuel + Time</div>
+</div>
+</div>
+<div class="flex items-center gap-4 text-xs">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(229,255,161,0.5)]"></div>
+<div class="flex-1">
+<div class="text-[9px] font-bold text-on-surface-variant uppercase">Projected Cost</div>
+<div class="font-bold text-on-surface">$64.20 Fuel + Time</div>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 bg-surface-container-lowest border-2 border-primary text-primary font-headline font-bold uppercase py-3 text-xs tracking-widest hover:bg-primary hover:text-on-primary transition-all active:scale-95">
+                            Execute Dispatch Change
+                        </button>
+</div>
+</div>
+<!-- Live Revenue vs Travel Chart Panel -->
+<div class="bg-surface-container-high/95 backdrop-blur-lg rounded-sm border border-outline-variant/20 shadow-2xl p-4 flex-1 overflow-hidden">
+<h3 class="text-xs font-headline font-bold uppercase tracking-widest text-on-surface mb-4">Revenue vs Transit (Live)</h3>
+<div class="h-32 flex items-end justify-between gap-1 mb-2">
+<!-- Mock Bars -->
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[60%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[40%]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[85%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[15%]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[45%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[55%]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[70%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[30%]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[95%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[5%]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end gap-1 group">
+<div class="bg-primary w-full h-[30%] opacity-40 group-hover:opacity-100 transition-opacity"></div>
+<div class="bg-secondary w-full h-[70%]"></div>
+</div>
+</div>
+<div class="flex justify-between text-[9px] font-bold text-on-surface-variant uppercase">
+<span>08:00</span>
+<span>12:00</span>
+<span>16:00</span>
+<span>20:00</span>
+</div>
+<div class="mt-4 flex gap-4">
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-primary"></div>
+<span class="text-[9px] font-bold uppercase text-on-surface-variant">Revenue</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-secondary"></div>
+<span class="text-[9px] font-bold uppercase text-on-surface-variant">Transit Waste</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating UI Elements: Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 lg:left-64 right-0 flex justify-around items-center h-20 pb-safe px-6 bg-[#13140f]/90 backdrop-blur-xl border-t border-[#e5ffa1]/5 z-50">
+<a class="flex flex-col items-center justify-center text-[#e5ffa1] bg-[#e5ffa1]/10 rounded-sm py-1 px-8 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">route</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e4e3da]/40 py-1 px-8 hover:text-[#e5ffa1] active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Urgency</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e4e3da]/40 py-1 px-8 hover:text-[#e5ffa1] active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Margin</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#e4e3da]/40 py-1 px-8 hover:text-[#e5ffa1] active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Units</span>
+</a>
+</nav>
+<!-- Contextual FAB (Only for Planning Actions) -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-black rounded-sm shadow-[0_4px_12px_rgba(166,215,0,0.4)] flex items-center justify-center group active:scale-90 transition-transform z-50">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform">add</span>
+</button>
+</main>
+</body></html>
