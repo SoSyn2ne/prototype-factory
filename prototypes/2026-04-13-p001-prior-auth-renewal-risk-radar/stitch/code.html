@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SYNTHETIC WATCHTOWER | Prior Auth Renewal Risk Radar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#37393c",
+                    "inverse-on-surface": "#2e3133",
+                    "secondary-fixed-dim": "#ffba38",
+                    "on-secondary": "#432c00",
+                    "surface-container-low": "#191c1e",
+                    "on-background": "#e1e2e5",
+                    "surface": "#111416",
+                    "outline-variant": "#43474a",
+                    "error-container": "#93000a",
+                    "tertiary-fixed-dim": "#ffb3ae",
+                    "on-primary-fixed": "#001e30",
+                    "on-tertiary-fixed-variant": "#930015",
+                    "primary-fixed": "#cae6ff",
+                    "on-error-container": "#ffdad6",
+                    "surface-container-high": "#272a2c",
+                    "on-primary-fixed-variant": "#004b70",
+                    "on-primary-container": "#00a1ea",
+                    "surface-container": "#1d2022",
+                    "outline": "#8d9194",
+                    "secondary-fixed": "#ffdeac",
+                    "on-secondary-fixed-variant": "#604100",
+                    "inverse-primary": "#006493",
+                    "on-tertiary": "#68000c",
+                    "surface-dim": "#111416",
+                    "on-surface-variant": "#c3c7ca",
+                    "primary": "#8dcdff",
+                    "surface-container-highest": "#323537",
+                    "surface-variant": "#323537",
+                    "secondary-container": "#feb300",
+                    "inverse-surface": "#e1e2e5",
+                    "on-tertiary-container": "#ff6561",
+                    "on-surface": "#e1e2e5",
+                    "on-secondary-container": "#6a4800",
+                    "tertiary": "#ffb3ae",
+                    "on-error": "#690005",
+                    "on-tertiary-fixed": "#410004",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-tint": "#8dcdff",
+                    "primary-container": "#00344f",
+                    "tertiary-container": "#68000c",
+                    "on-primary": "#00344f",
+                    "on-secondary-fixed": "#281900",
+                    "primary-fixed-dim": "#8dcdff",
+                    "surface-container-lowest": "#0c0f11",
+                    "secondary": "#ffd799",
+                    "background": "#111416",
+                    "error": "#ffb4ab"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .workflow-pulse-red { border-left: 3px solid #ffb4ab; }
+        .workflow-pulse-amber { border-left: 3px solid #ffd799; }
+        .workflow-pulse-blue { border-left: 3px solid #8dcdff; }
+        .micro-glow-red { box-shadow: 0 0 8px #93000a; }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #111416; }
+        ::-webkit-scrollbar-thumb { background: #37393c; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-primary">
+<!-- Top Navigation -->
+<header class="fixed top-0 z-50 bg-[#111416] text-[#8dcdff] font-['Space_Grotesk'] tracking-tight w-full border-none flex justify-between items-center px-6 h-14">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-widest text-[#8dcdff] uppercase">SYNTHETIC WATCHTOWER</span>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-[#8dcdff] border-b-2 border-[#8dcdff] h-14 flex items-center px-1 text-sm font-medium" href="#">Risk Radar</a>
+<a class="text-[#e1e2e5] opacity-70 hover:bg-[#37393c] transition-colors h-14 flex items-center px-1 text-sm font-medium" href="#">Analytics</a>
+<a class="text-[#e1e2e5] opacity-70 hover:bg-[#37393c] transition-colors h-14 flex items-center px-1 text-sm font-medium" href="#">Ops Audit</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined text-[#8dcdff] cursor-pointer">search</span>
+</div>
+<span class="material-symbols-outlined text-[#e1e2e5] opacity-70 cursor-pointer active:scale-95">notifications</span>
+<span class="material-symbols-outlined text-[#e1e2e5] opacity-70 cursor-pointer active:scale-95">settings</span>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant/30 overflow-hidden">
+<img alt="Operator Profile" data-alt="close-up portrait of a professional healthcare operations lead in a tech-focused dark environment with blue ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe3-hE0hlslxHJ4ACwDMbzs69hkKwNjFpJVKwfLoRtSmmKWa8v-JlYE6n9Apy4hBi_2Vy-ZDDc8gAUzpLqFMSToU1uosfkxkzH-S2UgRJEXYNYOQpa8vSAe4RVVyatQHudpmjVSsZR_aXR0_OrcFxHVYTc-ZkcaEFolkGNi8di9OvpBLboa0MANsRIG_wzlABua9EQauVxty9397XOZnmO0Ci6nZ_yIkUbijsU-UbiXkxoBp4zmUzN_iANmeYtUWUeuCG7DmLf16vR"/>
+</div>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-[#0c0f11] flex flex-col pt-16 z-40 border-r border-outline-variant/10">
+<div class="px-6 py-4 mb-4">
+<div class="text-[0.6875rem] uppercase tracking-wider font-semibold text-[#8dcdff]">Mission Control</div>
+<div class="text-[0.6rem] text-on-surface-variant uppercase tracking-tighter opacity-50">Pharmacy Ops</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="group flex items-center px-6 py-3 bg-gradient-to-r from-[#8dcdff]/10 to-transparent text-[#8dcdff] border-l-2 border-[#8dcdff] transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">radar</span>
+<span class="font-['Inter'] text-[0.6875rem] uppercase tracking-wider font-semibold">Risk Radar</span>
+</a>
+<a class="group flex items-center px-6 py-3 text-[#e1e2e5] opacity-50 hover:bg-[#1d2022] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">sort</span>
+<span class="font-['Inter'] text-[0.6875rem] uppercase tracking-wider font-semibold">Priority Queue</span>
+</a>
+<a class="group flex items-center px-6 py-3 text-[#e1e2e5] opacity-50 hover:bg-[#1d2022] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">event_note</span>
+<span class="font-['Inter'] text-[0.6875rem] uppercase tracking-wider font-semibold">Payer Timelines</span>
+</a>
+<a class="group flex items-center px-6 py-3 text-[#e1e2e5] opacity-50 hover:bg-[#1d2022] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">description</span>
+<span class="font-['Inter'] text-[0.6875rem] uppercase tracking-wider font-semibold">Document Vault</span>
+</a>
+<a class="group flex items-center px-6 py-3 text-[#e1e2e5] opacity-50 hover:bg-[#1d2022] hover:opacity-100 transition-all duration-150" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">group</span>
+<span class="font-['Inter'] text-[0.6875rem] uppercase tracking-wider font-semibold">Cohort Analysis</span>
+</a>
+</nav>
+<div class="p-4 mt-auto">
+<button class="w-full bg-gradient-to-br from-[#8dcdff] to-[#00a1ea] text-[#001e30] py-2.5 rounded-sm font-bold text-[0.6875rem] uppercase tracking-wider shadow-lg active:scale-95 transition-transform">
+                Assign Next Action
+            </button>
+</div>
+<div class="border-t border-outline-variant/10 py-2">
+<a class="flex items-center px-6 py-2 text-[#e1e2e5] opacity-50 hover:opacity-100 text-[0.6rem] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-2 text-xs">help_outline</span> Help
+            </a>
+<a class="flex items-center px-6 py-2 text-[#e1e2e5] opacity-50 hover:opacity-100 text-[0.6rem] uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-2 text-xs">terminal</span> Logs
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pl-64 pt-14 min-h-screen bg-surface-dim">
+<div class="p-6">
+<!-- Therapy At Risk KPI Strip -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+<div class="bg-surface-container p-4 rounded-sm border-l-2 border-error">
+<div class="flex justify-between items-start">
+<span class="text-[0.6rem] uppercase tracking-widest text-on-surface-variant font-semibold">Total Revenue At Risk</span>
+<span class="w-2 h-2 rounded-full bg-error micro-glow-red"></span>
+</div>
+<div class="mt-2 text-2xl font-headline font-bold text-on-surface">$1.24M</div>
+<div class="text-[0.6rem] text-error mt-1 flex items-center">
+<span class="material-symbols-outlined text-xs mr-1">trending_up</span> +12% from last week
+                    </div>
+</div>
+<div class="bg-surface-container p-4 rounded-sm border-l-2 border-secondary">
+<div class="flex justify-between items-start">
+<span class="text-[0.6rem] uppercase tracking-widest text-on-surface-variant font-semibold">Expiring in 7 Days</span>
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+<div class="mt-2 text-2xl font-headline font-bold text-on-surface">42</div>
+<div class="text-[0.6rem] text-on-surface-variant mt-1">18 Payer responses pending</div>
+</div>
+<div class="bg-surface-container p-4 rounded-sm border-l-2 border-primary">
+<div class="flex justify-between items-start">
+<span class="text-[0.6rem] uppercase tracking-widest text-on-surface-variant font-semibold">Renewals Finalized</span>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+</div>
+<div class="mt-2 text-2xl font-headline font-bold text-on-surface">128</div>
+<div class="text-[0.6rem] text-primary mt-1 flex items-center">
+<span class="material-symbols-outlined text-xs mr-1">check_circle</span> 94% success rate
+                    </div>
+</div>
+<div class="bg-surface-container p-4 rounded-sm border-l-2 border-on-surface-variant/30">
+<div class="flex justify-between items-start">
+<span class="text-[0.6rem] uppercase tracking-widest text-on-surface-variant font-semibold">Mean Time to Renewal</span>
+</div>
+<div class="mt-2 text-2xl font-headline font-bold text-on-surface">14.2d</div>
+<div class="text-[0.6rem] text-on-surface-variant mt-1">Target: &lt; 15.0d</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-4">
+<!-- Renewal Priority Queue (Main List) -->
+<div class="col-span-12 lg:col-span-8 space-y-4">
+<div class="bg-surface-container rounded-sm overflow-hidden">
+<div class="px-4 py-3 bg-surface-container-high flex justify-between items-center">
+<h2 class="text-[0.6875rem] font-bold uppercase tracking-widest flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm text-primary">priority_high</span> Priority Renewal Queue
+                            </h2>
+<div class="flex gap-2">
+<button class="px-2 py-1 text-[0.6rem] uppercase font-bold text-on-surface-variant bg-surface-container-highest rounded-sm">Filter</button>
+<button class="px-2 py-1 text-[0.6rem] uppercase font-bold text-primary bg-primary-container rounded-sm">Export</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant/10">
+<tr>
+<th class="px-4 py-2 text-[0.6rem] uppercase tracking-wider text-on-surface-variant font-bold">Patient / Drug ID</th>
+<th class="px-4 py-2 text-[0.6rem] uppercase tracking-wider text-on-surface-variant font-bold">Status</th>
+<th class="px-4 py-2 text-[0.6rem] uppercase tracking-wider text-on-surface-variant font-bold">Payer Deadline</th>
+<th class="px-4 py-2 text-[0.6rem] uppercase tracking-wider text-on-surface-variant font-bold text-right">Therapy Value</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer group workflow-pulse-red">
+<td class="px-4 py-3">
+<div class="text-sm font-bold text-on-surface">PAT-99201 (REMICADE)</div>
+<div class="text-[0.6rem] text-on-surface-variant font-mono">ID: 488219-X</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-block px-1.5 py-0.5 bg-error-container text-on-error-container text-[0.55rem] font-black uppercase rounded-sm tracking-tighter">Missing Charts</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-xs font-medium text-error">Oct 24 (4 days)</div>
+<div class="text-[0.55rem] text-on-surface-variant uppercase">UnitedHealthcare</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-xs font-bold text-on-surface">$18,400</div>
+<div class="text-[0.55rem] text-on-surface-variant">MONTHLY</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer workflow-pulse-amber">
+<td class="px-4 py-3">
+<div class="text-sm font-bold text-on-surface">PAT-88122 (HUMIRA)</div>
+<div class="text-[0.6rem] text-on-surface-variant font-mono">ID: 331002-L</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-block px-1.5 py-0.5 bg-secondary-container text-on-secondary-container text-[0.55rem] font-black uppercase rounded-sm tracking-tighter">Pending MD Sign</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-xs font-medium text-secondary">Oct 29 (9 days)</div>
+<div class="text-[0.55rem] text-on-surface-variant uppercase">Aetna PPO</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-xs font-bold text-on-surface">$6,800</div>
+<div class="text-[0.55rem] text-on-surface-variant">MONTHLY</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer workflow-pulse-blue">
+<td class="px-4 py-3">
+<div class="text-sm font-bold text-on-surface">PAT-77291 (STELARA)</div>
+<div class="text-[0.6rem] text-on-surface-variant font-mono">ID: 221054-P</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-block px-1.5 py-0.5 bg-primary-container text-on-primary-container text-[0.55rem] font-black uppercase rounded-sm tracking-tighter">Payer Review</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-xs font-medium text-on-surface">Nov 05 (16 days)</div>
+<div class="text-[0.55rem] text-on-surface-variant uppercase">Blue Cross</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-xs font-bold text-on-surface">$22,150</div>
+<div class="text-[0.55rem] text-on-surface-variant">QUARTERLY</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors cursor-pointer workflow-pulse-amber">
+<td class="px-4 py-3">
+<div class="text-sm font-bold text-on-surface">PAT-55310 (DUPIXENT)</div>
+<div class="text-[0.6rem] text-on-surface-variant font-mono">ID: 119827-M</div>
+</td>
+<td class="px-4 py-3">
+<span class="inline-block px-1.5 py-0.5 bg-secondary-container text-on-secondary-container text-[0.55rem] font-black uppercase rounded-sm tracking-tighter">Clarification Req</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-xs font-medium text-secondary">Oct 31 (11 days)</div>
+<div class="text-[0.55rem] text-on-surface-variant uppercase">Cigna Health</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-xs font-bold text-on-surface">$3,400</div>
+<div class="text-[0.55rem] text-on-surface-variant">MONTHLY</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Payer Deadline Timeline Visual -->
+<div class="bg-surface-container p-4 rounded-sm">
+<h2 class="text-[0.6875rem] font-bold uppercase tracking-widest mb-4 flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm text-secondary">timeline</span> Payer Deadline Distribution
+                        </h2>
+<div class="flex items-end justify-between h-24 gap-2 px-2">
+<div class="w-full bg-surface-container-highest rounded-t-sm group relative" style="height: 40%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">12 Cases</div>
+</div>
+<div class="w-full bg-error rounded-t-sm group relative" style="height: 90%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">42 Cases</div>
+</div>
+<div class="w-full bg-secondary rounded-t-sm group relative" style="height: 65%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">28 Cases</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm group relative" style="height: 50%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">20 Cases</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm group relative" style="height: 30%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">8 Cases</div>
+</div>
+<div class="w-full bg-surface-container-highest rounded-t-sm group relative" style="height: 45%">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[0.5rem] font-bold text-on-surface-variant opacity-0 group-hover:opacity-100">18 Cases</div>
+</div>
+</div>
+<div class="flex justify-between mt-2 text-[0.55rem] uppercase tracking-tighter text-on-surface-variant font-bold">
+<span>Today</span>
+<span>7 Days</span>
+<span>14 Days</span>
+<span>21 Days</span>
+<span>28 Days</span>
+<span>30+ Days</span>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Contextual Inspector -->
+<div class="col-span-12 lg:col-span-4 space-y-4">
+<!-- Missing Document Checklist -->
+<div class="bg-surface-container rounded-sm overflow-hidden">
+<div class="px-4 py-3 bg-surface-container-high border-b border-outline-variant/10">
+<h2 class="text-[0.6875rem] font-bold uppercase tracking-widest text-on-surface">Critical Gaps</h2>
+</div>
+<div class="p-4 space-y-3">
+<div class="flex items-start gap-3">
+<input class="mt-0.5 rounded-sm bg-surface-container-lowest border-outline text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<div class="flex-1">
+<div class="text-[0.6875rem] font-bold text-on-surface">Missing LFT Lab Results</div>
+<div class="text-[0.6rem] text-error uppercase font-black tracking-widest mt-0.5">Required for PAT-99201</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<input class="mt-0.5 rounded-sm bg-surface-container-lowest border-outline text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<div class="flex-1">
+<div class="text-[0.6875rem] font-bold text-on-surface">Provider Clinical Note (v2)</div>
+<div class="text-[0.6rem] text-secondary uppercase font-black tracking-widest mt-0.5">Due: 48 Hours</div>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<input checked="" class="mt-0.5 rounded-sm bg-surface-container-lowest border-outline text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<div class="flex-1">
+<div class="text-[0.6875rem] font-bold text-on-surface line-through opacity-40">HIPAA Authorization Update</div>
+<div class="text-[0.6rem] text-primary uppercase font-black tracking-widest mt-0.5">Completed</div>
+</div>
+</div>
+</div>
+<div class="p-4 pt-0">
+<button class="w-full py-2 bg-surface-container-lowest border border-outline-variant/20 text-[0.6rem] uppercase tracking-widest font-bold hover:bg-surface-bright transition-colors">Request Records</button>
+</div>
+</div>
+<!-- Patient Cohort Risk Chart -->
+<div class="bg-surface-container p-4 rounded-sm">
+<h2 class="text-[0.6875rem] font-bold uppercase tracking-widest mb-4">Risk Concentration</h2>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[0.6rem] uppercase font-bold text-on-surface-variant mb-1">
+<span>Neurology (MS)</span>
+<span>High Risk (14)</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[0.6rem] uppercase font-bold text-on-surface-variant mb-1">
+<span>Oncology (CAR-T)</span>
+<span>Med Risk (8)</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 45%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[0.6rem] uppercase font-bold text-on-surface-variant mb-1">
+<span>Dermatology</span>
+<span>Low Risk (31)</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 25%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Next-Action Assignment -->
+<div class="bg-surface-container rounded-sm p-4 border border-primary/20 shadow-[0_0_20px_rgba(141,205,255,0.05)]">
+<div class="flex items-center gap-2 mb-4">
+<div class="h-6 w-6 rounded-sm bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-sm text-primary">psychology</span>
+</div>
+<h2 class="text-[0.6875rem] font-bold uppercase tracking-widest text-on-surface">Auto-Action Engine</h2>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-sm mb-3">
+<p class="text-[0.6875rem] text-on-surface italic leading-relaxed">
+                                "Analysis suggests routing <span class="text-primary font-bold">PAT-99201</span> to Appeals Specialist <span class="text-secondary">Sarah M.</span> based on high payer denial probability (82%) for Remicade."
+                            </p>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-sm text-[0.6rem] font-black uppercase tracking-widest hover:brightness-110">Approve Route</button>
+<button class="px-3 bg-surface-container-highest text-on-surface py-2 rounded-sm text-[0.6rem] font-black uppercase tracking-widest">Edit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Quick Actions -->
+<div class="fixed bottom-6 right-6 flex flex-col gap-3">
+<button class="h-12 w-12 bg-surface-container-highest rounded-full flex items-center justify-center shadow-xl border border-outline-variant/30 text-on-surface hover:text-primary transition-colors active:scale-90">
+<span class="material-symbols-outlined">add</span>
+</button>
+<button class="h-12 w-12 bg-primary-container text-on-primary-container rounded-full flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.5)] border border-primary/30 active:scale-90">
+<span class="material-symbols-outlined">support_agent</span>
+</button>
+</div>
+<!-- Hidden Map Context (Data requirement) -->
+<div class="hidden" data-location="Chicago" style=""></div>
+</body></html>
