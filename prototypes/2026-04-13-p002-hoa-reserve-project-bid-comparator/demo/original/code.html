@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HOA Reserve Project Bid Comparator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;0,700;1,400&amp;family=Work+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#304a55",
+                        "inverse-primary": "#b6c8e4",
+                        "secondary-fixed": "#cbe7f5",
+                        "on-surface-variant": "#44474d",
+                        "on-tertiary": "#ffffff",
+                        "surface-dim": "#d7dadc",
+                        "on-primary-fixed-variant": "#36485f",
+                        "surface-container-high": "#e5e9eb",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#d3e4ff",
+                        "outline": "#74777d",
+                        "surface-container": "#ebeef0",
+                        "on-primary-container": "#8294ae",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c4c6cd",
+                        "on-background": "#181c1e",
+                        "surface": "#f7fafc",
+                        "on-tertiary-fixed-variant": "#314d36",
+                        "on-primary-fixed": "#091c32",
+                        "tertiary-fixed-dim": "#afcfb1",
+                        "secondary-fixed-dim": "#afcbd8",
+                        "inverse-on-surface": "#eef1f3",
+                        "surface-bright": "#f7fafc",
+                        "surface-container-low": "#f1f4f6",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "background": "#f7fafc",
+                        "secondary": "#48626e",
+                        "primary-container": "#1a2c42",
+                        "tertiary-container": "#16311c",
+                        "surface-tint": "#4e6078",
+                        "tertiary-fixed": "#caebcc",
+                        "primary-fixed-dim": "#b6c8e4",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#021f29",
+                        "on-secondary-container": "#4e6874",
+                        "tertiary": "#011c09",
+                        "on-surface": "#181c1e",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-container": "#7c9a7e",
+                        "secondary-container": "#cbe7f5",
+                        "on-tertiary-fixed": "#05210d",
+                        "on-error": "#ffffff",
+                        "primary": "#04172c",
+                        "surface-variant": "#e0e3e5",
+                        "surface-container-highest": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Work Sans"],
+                        "label": ["Work Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3, .serif-text { font-family: 'Newsreader', serif; }
+        .glass-panel {
+            background: rgba(247, 250, 252, 0.7);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-slate-50 dark:bg-slate-900 border-none">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="font-['Newsreader'] italic text-2xl text-slate-900 dark:text-white">The Fiduciary Ledger</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="text-slate-500 dark:text-slate-400 font-['Work_Sans'] font-medium hover:text-slate-700 dark:hover:text-slate-200 transition-colors duration-200 ease-in-out" href="#">Reserve Health</a>
+<a class="text-slate-900 dark:text-white border-b-2 border-slate-900 dark:border-white pb-1 font-['Work_Sans'] font-medium hover:text-slate-700 dark:hover:text-slate-200 transition-colors duration-200 ease-in-out" href="#">Bid Matrix</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Work_Sans'] font-medium hover:text-slate-700 dark:hover:text-slate-200 transition-colors duration-200 ease-in-out" href="#">Cashflow</a>
+<a class="text-slate-500 dark:text-slate-400 font-['Work_Sans'] font-medium hover:text-slate-700 dark:hover:text-slate-200 transition-colors duration-200 ease-in-out" href="#">Urgency</a>
+</nav>
+<div class="flex items-center space-x-6">
+<span class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-slate-900 cursor-pointer">settings</span>
+<img alt="Treasurer Profile" class="w-8 h-8 rounded-full border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeT-Cu9FJ7A8zvcVfh1ebjMLfotTaHYfqIQn7c5qnhEb0ckVlaolILdQeh1RrjAyRJ6sb_q_NY4yqUMfohjmMIWn1xDHtHq2dMe11TzxPlYKfUVqxn7kslRBiKpp9AYbWdlpgHQUSrSnMxNqnAxCck5t4hiB_YvHyqIaGgSRZntAPKOBJuIW87IeqkeDAvPUaqjBStgwGJGLjNdSZGbMe2KHGOR-tTjncXsH646-1Y8434PcuGXdiUZdiwLyHq6i415njxd9bXk6Kw"/>
+</div>
+</div>
+</header>
+<div class="flex pt-16 min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col h-screen w-64 py-6 pl-4 fixed left-0 bg-slate-100 dark:bg-slate-950">
+<div class="mb-10 px-4">
+<div class="flex items-center gap-3 mb-2">
+<img alt="HOA Seal" class="w-10 h-10 rounded-lg" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdyGzFV5riZHVKG1YjoSUAANcXzO7-VcGFB4ry1Wwd9t2wr4jcWZZJHR_3sFKxxq4n8aOsrGFCpJtJFPyr_UNHa64RvOSJJiuDbD6t0J6Rwpkydki60dgF1X3H-rj9OTiTUG_I-EIC7HyPtr8soU1ro4Y73b2iNBIsLkj8iPsK67ZmL6xGgp-BzZx60feSPQB2HZTFjc7aqCUs-FvGlFM8DKzBtNVhoBPWcs3kj57cWm0n4qPoowCrgmlXUVT3lRTCAnrMkLmfxO4M"/>
+<div>
+<div class="font-['Newsreader'] text-xl font-bold text-slate-900 dark:text-white leading-tight">Project Fiduciary</div>
+<div class="text-[10px] uppercase tracking-widest text-slate-500 font-medium">Fiscal Year 2024</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1 pr-4">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 font-['Work_Sans'] text-sm uppercase tracking-widest hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-l-lg scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span> Overview
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-900 dark:text-white font-bold bg-white dark:bg-slate-900 rounded-l-lg font-['Work_Sans'] text-sm uppercase tracking-widest scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">compare_arrows</span> Bid Comparator
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 font-['Work_Sans'] text-sm uppercase tracking-widest hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-l-lg scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">insert_chart</span> Timeline
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 font-['Work_Sans'] text-sm uppercase tracking-widest hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-l-lg scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">priority_high</span> Urgency Panel
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 font-['Work_Sans'] text-sm uppercase tracking-widest hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-l-lg scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">grid_view</span> Disruption Map
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-500 dark:text-slate-400 font-['Work_Sans'] text-sm uppercase tracking-widest hover:bg-slate-200/50 dark:hover:bg-slate-800/50 transition-all rounded-l-lg scale-95 active:scale-100 duration-200" href="#">
+<span class="material-symbols-outlined">description</span> Board Summary
+                </a>
+</nav>
+<div class="mt-auto px-4 pr-8">
+<button class="w-full py-4 px-2 bg-gradient-to-br from-primary to-primary-container text-on-primary text-[10px] font-bold uppercase tracking-widest rounded-md shadow-lg">
+                    Approve Selected Bid
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 bg-surface-container-low min-h-screen px-8 py-10">
+<header class="mb-12 flex justify-between items-end">
+<div class="max-w-2xl">
+<h1 class="text-4xl font-bold tracking-tight text-primary mb-2">2024 Roof Replacement &amp; Waterproofing</h1>
+<p class="text-secondary font-body italic leading-relaxed">Fiduciary evaluation of roofing bids for the West Tower complex. Analysis focused on long-term capital preservation and owner disruption minimization.</p>
+</div>
+<div class="text-right">
+<div class="text-xs font-bold uppercase tracking-widest text-secondary mb-1">Decision Deadline</div>
+<div class="text-2xl font-headline text-error">October 15, 2023</div>
+</div>
+</header>
+<!-- Bento Grid Section -->
+<div class="grid grid-cols-12 gap-6">
+<!-- Reserve Health Summary (3 cols) -->
+<section class="col-span-12 lg:col-span-3 bg-surface-container-lowest rounded-xl p-6 border-none shadow-sm flex flex-col justify-between">
+<div>
+<h3 class="text-sm font-bold uppercase tracking-widest text-secondary mb-6">Reserve Health Index</h3>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-end">
+<span class="text-xs text-on-surface-variant font-medium">Current Funding</span>
+<span class="text-xl font-headline text-primary">$1,240,500</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-tertiary-fixed h-full w-[68%]"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-[10px] text-on-surface-variant">68% Funded Ratio</span>
+<span class="text-[10px] text-tertiary font-bold">STABLE</span>
+</div>
+</div>
+</div>
+<div class="mt-8 p-4 bg-tertiary-fixed/20 rounded-lg">
+<p class="text-xs text-on-tertiary-fixed-variant leading-relaxed">
+<span class="font-bold">Fiscal Impact:</span> This project represents 22% of total reserves. Post-repair funding will drop to 54% unless amortized over 18 months.
+                        </p>
+</div>
+</section>
+<!-- Bid Comparison Matrix (9 cols) -->
+<section class="col-span-12 lg:col-span-9 bg-surface-container-lowest rounded-xl p-6 border-none shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Bid Comparison Matrix</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] font-bold text-secondary">3 VENDORS</span>
+<span class="px-3 py-1 bg-tertiary-fixed rounded-full text-[10px] font-bold text-on-tertiary-fixed">FULLY SCOPED</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<!-- Vendor 1: Recommended -->
+<div class="relative p-6 rounded-lg bg-surface-container-low border-2 border-tertiary-fixed/50">
+<div class="absolute -top-3 left-4 px-2 bg-tertiary-fixed text-[10px] font-bold uppercase tracking-tighter text-on-tertiary-fixed">Primary Recommended</div>
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-headline text-xl text-primary leading-tight">Apex Exterior Specialists</h4>
+<span class="text-lg font-body font-bold text-primary">$342,000</span>
+</div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-sm">verified</span>
+                                    25-Year Warranty (Premium)
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-sm">event</span>
+                                    12-Week Execution
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-tertiary text-sm">sentiment_satisfied</span>
+                                    Low Resident Impact
+                                </li>
+</ul>
+<button class="w-full py-2 bg-primary text-on-primary text-[10px] font-bold uppercase tracking-widest rounded transition-all hover:bg-primary-container">Select for Vote</button>
+</div>
+<!-- Vendor 2 -->
+<div class="p-6 rounded-lg bg-white border border-outline-variant/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-headline text-xl text-primary leading-tight">Superior Roofing Group</h4>
+<span class="text-lg font-body font-bold text-secondary">$298,500</span>
+</div>
+<ul class="space-y-3 mb-6">
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">info</span>
+                                    15-Year Warranty (Std)
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">event</span>
+                                    16-Week Execution
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">warning</span>
+                                    High Staging Area Needs
+                                </li>
+</ul>
+<button class="w-full py-2 border border-outline text-secondary text-[10px] font-bold uppercase tracking-widest rounded hover:bg-surface-container-high transition-colors">Compare Details</button>
+</div>
+<!-- Vendor 3 -->
+<div class="p-6 rounded-lg bg-surface-dim/30 border border-outline-variant/10">
+<div class="flex justify-between items-start mb-4">
+<h4 class="font-headline text-xl text-secondary leading-tight">Coastal Shield Inc.</h4>
+<span class="text-lg font-body font-bold text-secondary">$412,000</span>
+</div>
+<ul class="space-y-3 mb-6 opacity-60">
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">verified</span>
+                                    30-Year Industrial Warranty
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">event</span>
+                                    20-Week Execution
+                                </li>
+<li class="flex items-center gap-2 text-xs text-on-surface">
+<span class="material-symbols-outlined text-secondary text-sm">groups</span>
+                                    Union Labor Required
+                                </li>
+</ul>
+<div class="text-center text-[10px] font-bold text-secondary uppercase py-2">Outside Budget Envelope</div>
+</div>
+</div>
+</section>
+<!-- Project Cashflow Timeline (8 cols) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl p-6 border-none shadow-sm">
+<div class="flex justify-between items-center mb-8">
+<div>
+<h3 class="text-sm font-bold uppercase tracking-widest text-secondary">Capital Outlay Timeline</h3>
+<p class="text-xs text-on-surface-variant italic">Projected withdrawal from reserve accounts vs. milestone delivery</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 bg-primary rounded-sm"></div>
+<span class="text-[10px] font-medium text-secondary">PAYMENTS</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-3 h-3 bg-tertiary-fixed rounded-sm"></div>
+<span class="text-[10px] font-medium text-secondary">REPLENISHMENT</span>
+</div>
+</div>
+</div>
+<div class="h-48 flex items-end justify-between gap-4 px-2">
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container h-8 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">OCT</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container h-24 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">NOV</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2 relative">
+<div class="w-full bg-primary h-40 rounded-t-sm shadow-lg"></div>
+<div class="absolute -top-8 text-[10px] font-bold text-primary">$150k</div>
+<span class="text-[10px] text-secondary">DEC</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container h-16 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">JAN</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-container h-12 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">FEB</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-tertiary-fixed h-32 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">MAR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-tertiary-fixed h-36 rounded-t-sm"></div>
+<span class="text-[10px] text-secondary">APR</span>
+</div>
+</div>
+</section>
+<!-- Urgency & Disruption Panel (4 cols) -->
+<section class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Urgency Panel -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm">
+<h3 class="text-sm font-bold uppercase tracking-widest text-secondary mb-4">Component Urgency</h3>
+<div class="space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center text-on-error-container">
+<span class="material-symbols-outlined">report</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-primary">Membrane Leakage</div>
+<div class="text-[10px] text-secondary">Active intrusion in 4 units</div>
+</div>
+<div class="text-[10px] font-bold text-error uppercase">CRITICAL</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined">schedule</span>
+</div>
+<div class="flex-1">
+<div class="text-xs font-bold text-primary">HVAC Staging</div>
+<div class="text-[10px] text-secondary">Coordination with AC vendor</div>
+<div class="w-full h-1 bg-surface-container mt-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[40%]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Disruption Heatmap (Visual Representative) -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-sm relative overflow-hidden">
+<h3 class="text-sm font-bold uppercase tracking-widest text-secondary mb-4">Resident Disruption Map</h3>
+<div class="relative h-32 rounded-lg bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover mix-blend-overlay opacity-40" data-alt="architectural blueprint of a residential complex with glowing red and amber heat zones indicating construction noise and access restriction areas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYPQeXOcBS7E2cwnePFBEBw7BRKL1UKeRZ09h4_sA6Ozt7voF6fBIP0_pEzzwaPbmOB5Xsq-X7O0DjyTJNqyVVJr8T18M8gY-CwtILi_exIUEikmBo9O6K6MRVGqdPehvmcdL4ld2Nwq5nJwreQJ4Xx6Hnml_T2FeRAH124uJGpPn-NB6R6M43AO_2D1RqEGqz_DjXOKCl2qsz_r8JBlIeA7Yc7PvF-Qmx-7RVx7jQFEPqZQzjKxB1QxCBWMdYwPfxMumyhkZbHkFS"/>
+<div class="absolute inset-0 flex flex-col justify-center items-center p-4">
+<div class="grid grid-cols-4 gap-1 w-full max-w-[120px]">
+<div class="h-4 bg-error/40 rounded-sm"></div>
+<div class="h-4 bg-error/60 rounded-sm"></div>
+<div class="h-4 bg-error/20 rounded-sm"></div>
+<div class="h-4 bg-primary/10 rounded-sm"></div>
+<div class="h-4 bg-error/50 rounded-sm"></div>
+<div class="h-4 bg-error/30 rounded-sm"></div>
+<div class="h-4 bg-error/70 rounded-sm"></div>
+<div class="h-4 bg-error/10 rounded-sm"></div>
+</div>
+<div class="mt-2 text-[9px] font-bold text-secondary uppercase">Zone B (Units 400-512) High Noise</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Board Recommendation Summary (Full width) -->
+<section class="col-span-12 bg-primary text-on-primary rounded-xl p-8 flex flex-col lg:flex-row gap-8 items-center shadow-2xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+<div class="lg:w-1/3 z-10">
+<div class="text-[10px] font-bold uppercase tracking-widest text-on-primary-container mb-2">Treasury Recommendation</div>
+<h2 class="text-3xl font-headline italic leading-snug">"Apex Exterior Specialists offers the most defensible long-term fiduciary choice."</h2>
+</div>
+<div class="lg:w-1/3 flex flex-col gap-4 z-10 border-l border-white/10 pl-8">
+<div>
+<span class="text-xs font-bold text-on-primary-container block mb-1">REASONING</span>
+<p class="text-xs leading-relaxed text-on-primary/80">While 15% higher in cost than the low bidder, the 25-year comprehensive warranty mitigates special assessment risk for two decades. Accelerated timeline reduces total disruption costs by $12k.</p>
+</div>
+</div>
+<div class="lg:w-1/3 flex justify-end gap-4 z-10">
+<button class="px-6 py-3 border border-white/20 text-[10px] font-bold uppercase tracking-widest rounded hover:bg-white/10 transition-all">Download Audit Trail</button>
+<button class="px-8 py-3 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-widest rounded shadow-xl hover:scale-105 transition-all">Submit Final Recommendation</button>
+</div>
+</section>
+</div>
+</main>
+</div>
+<!-- Background Decoration -->
+<div class="fixed top-0 right-0 -z-10 w-1/3 h-full bg-gradient-to-l from-slate-200/20 to-transparent pointer-events-none"></div>
+</body></html>
