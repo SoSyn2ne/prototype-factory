@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Moodlight Mixer | Creative Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#000000",
+                        "surface": "#16052a",
+                        "surface-container-low": "#1c0832",
+                        "surface-bright": "#391e58",
+                        "on-tertiary": "#635200",
+                        "surface-dim": "#16052a",
+                        "secondary-fixed": "#26e6ff",
+                        "on-secondary-fixed-variant": "#005964",
+                        "outline": "#826d98",
+                        "surface-container-high": "#2b1345",
+                        "on-primary-fixed-variant": "#5a0f00",
+                        "primary-fixed": "#ff7856",
+                        "on-error-container": "#ffb2b9",
+                        "error-dim": "#d73357",
+                        "on-error": "#490013",
+                        "on-surface": "#f1dfff",
+                        "tertiary": "#ffe483",
+                        "on-secondary-container": "#e8fbff",
+                        "secondary-container": "#006875",
+                        "inverse-surface": "#fff7ff",
+                        "surface-variant": "#32194e",
+                        "primary": "#ff8f73",
+                        "primary-dim": "#dc3300",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed": "#003a42",
+                        "surface-tint": "#ff8f73",
+                        "primary-container": "#ff7856",
+                        "on-tertiary-fixed-variant": "#645300",
+                        "tertiary-fixed-dim": "#edc600",
+                        "outline-variant": "#524067",
+                        "error-container": "#a70138",
+                        "on-background": "#f1dfff",
+                        "on-secondary": "#004d57",
+                        "inverse-on-surface": "#604d75",
+                        "secondary-fixed-dim": "#00d7f0",
+                        "on-surface-variant": "#b9a2d0",
+                        "inverse-primary": "#b52900",
+                        "surface-container": "#240e3b",
+                        "on-primary-container": "#490b00",
+                        "secondary-dim": "#00d4ec",
+                        "on-tertiary-fixed": "#433700",
+                        "on-tertiary-container": "#594a00",
+                        "surface-container-highest": "#32194e",
+                        "error": "#ff6e84",
+                        "secondary": "#00e3fd",
+                        "background": "#16052a",
+                        "tertiary-dim": "#edc600",
+                        "primary-fixed-dim": "#ff5c34",
+                        "on-primary": "#5e1000",
+                        "tertiary-container": "#fdd400",
+                        "tertiary-fixed": "#fdd400"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Plus Jakarta Sans"],
+                        "label": ["Plus Jakarta Sans"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #16052a; color: #f1dfff; overflow-x: hidden; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(50, 25, 78, 0.4); backdrop-filter: blur(24px); }
+        .glow-pulse:active { box-shadow: 0 0 20px rgba(0, 227, 253, 0.4); transition: 0.5s; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-secondary/30">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 w-full bg-transparent backdrop-blur-xl dark:bg-purple-950/40 shadow-[0_60px_60px_-10px_rgba(255,255,255,0.06)]">
+<div class="text-2xl font-bold tracking-tighter text-white font-headline">Moodlight Mixer</div>
+<nav class="hidden md:flex gap-10 font-headline tracking-tight">
+<a class="text-purple-200/60 hover:text-white transition-colors" href="#">Gallery</a>
+<a class="text-orange-400 border-b-2 border-orange-400 pb-1" href="#">Lab</a>
+<a class="text-purple-200/60 hover:text-white transition-colors" href="#">Presets</a>
+<a class="text-purple-200/60 hover:text-white transition-colors" href="#">Export</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-white/10 rounded-full transition-all scale-95 active:scale-90 text-orange-400">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="p-2 hover:bg-white/10 rounded-full transition-all scale-95 active:scale-90 text-orange-400">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-24 flex flex-col items-center py-8 z-40 bg-[#240e3b] dark:bg-[#240e3b] rounded-r-[3rem] my-4 ml-0 mt-20 h-[calc(100vh-6rem)]">
+<div class="mb-8 flex flex-col items-center gap-1">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-secondary p-0.5">
+<img alt="Curator Profile" class="w-full h-full object-cover rounded-full" data-alt="profile portrait of a creative curator with artistic neon lighting and stylized aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB3mG-boGw4coCilsUjAPn1ga9lbb013Ts9QrOcFJj8gwIhT5-tkiiGdKuL3tHu-JKcfo_rXPOEI4T_ZrKYfxaqRs4yG6XEYCQuhWV-jsAuWrgIz03Uft813Yzw-7pudrFnOhproIW-VK9M-dTkxrl9D-PgPGM77s10mR4ciOvUuoRSIC4_oh1niElSGjli-cLfbvmue0Ped4zKM4Z2s3O0QuJeavettVGL7oyTaW73eAeCPS1VasTnPbPzer-FNaUiEazGholQwgJ"/>
+</div>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px] text-white">Lab #42</span>
+</div>
+<div class="flex flex-col gap-6 flex-1">
+<button class="flex flex-col items-center gap-1 text-[#00e3fd] bg-[#391e58] p-3 rounded-full glow-pulse">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px]">Mixer</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-purple-300/40 hover:text-[#ff8f73] transition-all">
+<span class="material-symbols-outlined" data-icon="lightbulb">lightbulb</span>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px]">Lighting</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-purple-300/40 hover:text-[#ff8f73] transition-all">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px]">Placement</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-purple-300/40 hover:text-[#ff8f73] transition-all">
+<span class="material-symbols-outlined" data-icon="audiotrack">audiotrack</span>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px]">Audio</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-purple-300/40 hover:text-[#ff8f73] transition-all">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Plus_Jakarta_Sans'] uppercase tracking-widest text-[8px]">Poster</span>
+</button>
+</div>
+<button class="mt-auto bg-primary text-on-primary-container font-headline font-bold py-3 px-4 rounded-xl text-xs rotate-[-90deg] translate-y-[-1rem]">
+            Save Scene
+        </button>
+</aside>
+<main class="ml-24 pt-24 px-8 pb-12 min-h-screen flex flex-col gap-8">
+<!-- Immersive Preview Stage -->
+<section class="relative w-full h-[614px] rounded-xl overflow-hidden shadow-2xl group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10"></div>
+<img class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-[2000ms]" data-alt="ultra-modern minimalist gallery space with glowing purple and cyan atmospheric lighting and large digital art installation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeOb3OasrT_WchIp3nJAte0IPKgqbuU6EnhLMS5y9lhdXkuhMdV5fCVLtqv6lve7OSsh4bXxFX4oVWObpoGQ6eKGo7sVrUZoDRhA_oj-SHOD3k6tOHBSsgQlroTo7eTwnondbe2CZ97uFqmlEQMjJB8CM1KPNP8QRitlOlemV4tKkMufKZX9qST6-zkFa9qZi8dRCAq8hRMl4vwNaDrrQAPdMTE_i49yOn4RXYQ9d_-jY1zl1-owA9uEGIRkhEMirYStwjMFk7ga2z"/>
+<div class="absolute bottom-8 left-12 z-20">
+<h1 class="text-white font-headline text-5xl font-bold tracking-tight mb-2">Neon Solitude</h1>
+<div class="flex gap-4 items-center">
+<span class="px-3 py-1 bg-secondary/20 backdrop-blur-md rounded-full text-secondary text-xs uppercase font-bold tracking-widest">Active Scene</span>
+<span class="text-on-surface-variant text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="timer">timer</span> 12m since last edit
+                    </span>
+</div>
+</div>
+<div class="absolute top-8 right-8 z-20 flex flex-col gap-3">
+<button class="w-12 h-12 glass-panel rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="fullscreen">fullscreen</span>
+</button>
+<button class="w-12 h-12 glass-panel rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors">
+<span class="material-symbols-outlined text-white" data-icon="videocam">videocam</span>
+</button>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-8">
+<!-- Lighting & Mood Controls -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="surface-container rounded-xl p-8 flex flex-col gap-8 h-full">
+<header class="flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold">Atmospheric Mix</h3>
+<span class="material-symbols-outlined text-secondary" data-icon="flare">flare</span>
+</header>
+<div class="space-y-6">
+<div class="space-y-3">
+<div class="flex justify-between text-xs uppercase tracking-widest text-on-surface-variant">
+<span>Luminance Intensity</span>
+<span class="text-secondary font-bold">74%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-[74%] bg-secondary shadow-[0_0_15px_#00e3fd]"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs uppercase tracking-widest text-on-surface-variant">
+<span>Saturation Depth</span>
+<span class="text-primary font-bold">42%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-[42%] bg-primary shadow-[0_0_15px_#ff8f73]"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between text-xs uppercase tracking-widest text-on-surface-variant">
+<span>Diffusion Radius</span>
+<span class="text-tertiary font-bold">89%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full relative overflow-hidden">
+<div class="absolute left-0 top-0 h-full w-[89%] bg-tertiary shadow-[0_0_15px_#ffe483]"></div>
+</div>
+</div>
+</div>
+<div class="mt-4">
+<h4 class="text-[10px] uppercase tracking-widest text-on-surface-variant mb-4">Quick Palettes</h4>
+<div class="flex gap-3">
+<button class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-600 to-cyan-400 ring-2 ring-white ring-offset-4 ring-offset-surface-container"></button>
+<button class="w-10 h-10 rounded-full bg-gradient-to-tr from-orange-500 to-rose-400 opacity-60 hover:opacity-100 transition-opacity"></button>
+<button class="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-500 to-indigo-600 opacity-60 hover:opacity-100 transition-opacity"></button>
+<button class="w-10 h-10 rounded-full bg-gradient-to-tr from-yellow-400 to-amber-700 opacity-60 hover:opacity-100 transition-opacity"></button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center border border-dashed border-outline-variant text-outline-variant hover:text-white hover:border-white transition-all">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Art & Placement Strip -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-6">
+<div class="surface-container rounded-xl p-8 flex flex-col gap-6">
+<header class="flex justify-between items-center">
+<div>
+<h3 class="font-headline text-xl font-bold">Canvas Curation</h3>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest mt-1">Select assets to place on North Wall</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-surface-bright rounded-full text-xs font-bold hover:bg-surface-container-highest">Sculptures</button>
+<button class="px-4 py-2 bg-secondary text-on-secondary-fixed rounded-full text-xs font-bold">2D Frames</button>
+<button class="px-4 py-2 bg-surface-bright rounded-full text-xs font-bold hover:bg-surface-container-highest">Digital Screens</button>
+</div>
+</header>
+<div class="flex gap-6 overflow-x-auto pb-4 no-scrollbar">
+<div class="flex-none w-48 group cursor-pointer">
+<div class="h-64 rounded-lg overflow-hidden bg-surface-container-lowest mb-3 relative">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="add_circle">add_circle</span>
+</div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="modern abstract painting with bold brushstrokes in a minimalist black frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpYH5G03AtGX6WDwHlt6Q47l6kMyR6Z9rTCgOxtMCqbYmBALqSSqjL_CdlQu_J_PcrUTWneqY-JIr4YctziRptBsTwpsTYcz5HqDoWhofvakgzL05CPNss4xb93SR-3GjnuAOJN1vtDetJTLf1qI_ejTwWmVnsANPxLixUw3-58uwY0KO4K-V3RBDfjvy8bQTth96b9kiKVNQMcZURnEZKUj1_E0xD_gk_eXcHIM4P1lQpkXYFYMe4bSTuAMVDfjCRa82vz1e_Kk33"/>
+</div>
+<span class="text-xs font-bold block">Ether Prism #01</span>
+<span class="text-[10px] text-on-surface-variant uppercase">Matte Glass Frame</span>
+</div>
+<div class="flex-none w-48 group cursor-pointer">
+<div class="h-64 rounded-lg overflow-hidden bg-surface-container-lowest mb-3 relative ring-4 ring-secondary ring-inset">
+<div class="absolute inset-0 bg-secondary/20 flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="check_circle">check_circle</span>
+</div>
+<img class="w-full h-full object-cover" data-alt="vibrant neon glitch art portrait displayed in a sleek aluminum frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGVmgCP41qAmwKfj38UljoYQrh7zdSHahN3NGUz3043XqvUp_e6OY9T5MsG3atLcQXx35Ia8lF4bb9-G7TFOXLi_y30owZDDG50SVbGrBubp8B1PRn9T9BImslIQ1y-KVmYJP2IYvFv4aMZeEH3AR16wy7wTcRK-ga9nPtgMlQNp3XVVktf0_BWKJPA9k_v6koBKwWQnt7dI3XGVfM5lBxhO7JrlbSpuYNqalZ1fWh6DofOcgQHow4wgXCrWBeSyJ1edT1lR-cSCdJ"/>
+</div>
+<span class="text-xs font-bold block text-secondary">Glitch Study A</span>
+<span class="text-[10px] text-on-surface-variant uppercase">Slimline LED Frame</span>
+</div>
+<div class="flex-none w-48 group cursor-pointer">
+<div class="h-64 rounded-lg overflow-hidden bg-surface-container-lowest mb-3 relative">
+<div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="add_circle">add_circle</span>
+</div>
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all" data-alt="minimalist white on white texture painting in a heavy oak wood frame" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBniuq3wqpLGDUv0ImDMvSMgfb7e8qE7h_rbpPJ0PdjzS5C8EmrfSuhERSICzR9oQ0tjqNe6aTI3qMDOrYwKfY1imcNoiDX70OznYWXhB7Nf0ygsCFxaAyDsHhwmvLD7Wi8mZU4DuDEMD4VPk4o6GcvV-XwlWLX9MebJn6zloYBeFXrngXUry9pvkfhUf_A0gk3TPwCs93-cIHvhFsaNHuXYh9OvVWBUf-pqcPeq_LZgkJLwAITtCoCYCiq7Zd88NE8QpJEv8zVTGTF"/>
+</div>
+<span class="text-xs font-bold block">Void Texture</span>
+<span class="text-[10px] text-on-surface-variant uppercase">Heritage Wood Frame</span>
+</div>
+<div class="flex-none w-48 group cursor-pointer">
+<div class="h-64 rounded-lg overflow-hidden bg-surface-container-lowest mb-3 border-2 border-dashed border-outline-variant flex flex-col items-center justify-center gap-2 hover:border-white transition-all">
+<span class="material-symbols-outlined text-4xl text-outline-variant" data-icon="upload_file">upload_file</span>
+<span class="text-[10px] text-on-surface-variant uppercase font-bold">Upload Media</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-8">
+<!-- Wall Treatment & Text Panel -->
+<div class="col-span-12 md:col-span-6 lg:col-span-3">
+<div class="surface-container rounded-xl p-8 flex flex-col gap-6 h-full">
+<h3 class="font-headline text-xl font-bold">Surface Lab</h3>
+<div class="space-y-4">
+<label class="block text-[10px] uppercase tracking-widest text-on-surface-variant">Material Finish</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-surface-container-highest border border-outline-variant p-3 rounded-lg text-xs font-bold flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-gray-400"></span> Matte Concrete
+                            </button>
+<button class="bg-surface-bright border border-secondary p-3 rounded-lg text-xs font-bold flex items-center gap-2 text-secondary">
+<span class="w-3 h-3 rounded-full bg-cyan-400"></span> High Gloss
+                            </button>
+<button class="bg-surface-container-highest p-3 rounded-lg text-xs font-bold flex items-center gap-2 opacity-50">
+<span class="w-3 h-3 rounded-full bg-blue-900"></span> Venetian Plaster
+                            </button>
+<button class="bg-surface-container-highest p-3 rounded-lg text-xs font-bold flex items-center gap-2 opacity-50">
+<span class="w-3 h-3 rounded-full bg-zinc-700"></span> Brutalist Slate
+                            </button>
+</div>
+</div>
+<div class="space-y-4">
+<label class="block text-[10px] uppercase tracking-widest text-on-surface-variant">Wall Narrative</label>
+<textarea class="w-full bg-surface-container-lowest border-none rounded-lg p-4 text-sm text-on-surface focus:ring-2 focus:ring-secondary min-h-[100px] resize-none" placeholder="The silent echoes of a digital past..."></textarea>
+</div>
+</div>
+</div>
+<!-- Soundtrack & Cues -->
+<div class="col-span-12 md:col-span-6 lg:col-span-4">
+<div class="surface-container rounded-xl p-8 flex flex-col gap-6 h-full">
+<h3 class="font-headline text-xl font-bold">Sonics &amp; Cues</h3>
+<div class="flex items-center gap-6 bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/20">
+<button class="w-14 h-14 bg-primary rounded-full flex items-center justify-center text-on-primary shadow-[0_0_20px_rgba(255,143,115,0.4)]">
+<span class="material-symbols-outlined text-3xl" data-icon="pause" style="font-variation-settings: 'FILL' 1;">pause</span>
+</button>
+<div class="flex-1">
+<span class="text-xs font-bold block">Deep Field Resonance</span>
+<span class="text-[10px] text-on-surface-variant uppercase tracking-tighter">Ambient • 120bpm • Low-Pass</span>
+<div class="mt-2 h-1 bg-surface-bright rounded-full w-full">
+<div class="h-full bg-primary w-[35%]"></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-2">
+<button class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-bright group transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary" data-icon="waves">waves</span>
+<span class="text-sm">White Noise Hush</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">04:12</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-bright group transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary" data-icon="stadium">stadium</span>
+<span class="text-sm">Echo Chamber</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">06:45</span>
+</button>
+<button class="flex items-center justify-between p-3 rounded-lg hover:bg-surface-bright group transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-secondary" data-icon="graphic_eq">graphic_eq</span>
+<span class="text-sm">Synthetic Rain</span>
+</div>
+<span class="text-[10px] text-on-surface-variant">03:30</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Export Tray -->
+<div class="col-span-12 lg:col-span-5">
+<div class="surface-container rounded-xl p-8 flex flex-col gap-6 h-full relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16"></div>
+<h3 class="font-headline text-xl font-bold">Export Studio</h3>
+<div class="flex gap-4 items-end flex-1">
+<div class="flex-1 aspect-[3/4] rounded-lg border-2 border-primary/40 p-4 bg-surface-container-lowest relative group cursor-zoom-in">
+<img class="w-full h-full object-cover rounded shadow-lg" data-alt="stylized museum exhibit poster showing minimalist interior with atmospheric lighting and typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBofrDwKR23rVlq70Y7XAgD09pvX12v103DNxq2cyyNzJUUNuVDYtDojs9B6Hxmn8g9bpcfdoX3LaOfkYbGm5AfyyeReEgetnHFgXKKrD9HwHJf5KM5vH1_f82SJAz1xdk7u2h3UqSY_emhfI6hzAwLbpddmhKnlpHbmNd3TAOotiD8b2QGhr7EZZI6Ay3QCJ6IZ-4mbRISxXSdkoAm9hzenJYgGWCO_FXjr7frDO6u9jCsail8Qt5LsJ9Fu9uXYuWdLrvr6sSFJgr"/>
+<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 rounded-lg">
+<span class="material-symbols-outlined text-white" data-icon="preview">preview</span>
+</div>
+</div>
+<div class="flex flex-col gap-4 w-1/2">
+<div class="space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant">Resolution</label>
+<select class="w-full bg-surface-bright border-none rounded-lg text-xs font-bold py-3 focus:ring-secondary">
+<option>4K Exhibition Print</option>
+<option>HD Digital Screen</option>
+<option>Mobile Social Story</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] uppercase tracking-widest text-on-surface-variant">File Type</label>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-bright py-2 rounded-lg text-xs font-bold border border-outline-variant">PNG</button>
+<button class="flex-1 bg-surface-bright py-2 rounded-lg text-xs font-bold border border-outline-variant">PDF</button>
+</div>
+</div>
+<button class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary-container font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(255,143,115,0.3)] hover:scale-[1.02] active:scale-95 transition-all mt-2">
+                                Render Scene
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating UI Helper -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="w-16 h-16 bg-secondary text-on-secondary-fixed rounded-full shadow-[0_10px_40px_rgba(0,227,253,0.4)] flex items-center justify-center hover:scale-110 active:scale-90 transition-all">
+<span class="material-symbols-outlined text-3xl" data-icon="auto_fix">auto_fix</span>
+</button>
+</div>
+</body></html>
