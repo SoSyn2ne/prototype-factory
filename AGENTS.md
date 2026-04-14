@@ -82,6 +82,8 @@ When the task is “idea + design”:
 - Do not optimize only for immediate monetization. A strong PF batch can mix sellable operator tools with one idea that is simply fun, portfolio-worthy, or surprising to make.
 - Default daily mix for 4 ideas: 3 practical/commercial ideas + 1 fun/experimental/portfolio idea, unless the operator explicitly asks for all-commercial.
 - Default reporting contract for daily PF ideation: deliver all 4 ideas and all 4 Stitch prompts, not a reduced shortlist.
+- Default execution contract for daily PF runs: scaffold and publish all 4 slots `p001~p004`; missing `p004` means the batch is incomplete unless the operator explicitly says otherwise.
+- Default `/pf sti` contract: ingest, review, build, commit, and push all same-day `p001~p004` Stitch demos when matching exports exist.
 
 ---
 

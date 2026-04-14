@@ -19,9 +19,9 @@
   - commit / push / report / cleanup
 
 ## Default flow
-1. Phase A: idea + prompt + scaffold
+1. Phase A: idea + prompt + scaffold (`p001~p004` 전부 생성)
 2. Human: Stitch 디자인 개입
-3. PF Generator: ingest/build/index/preview
+3. PF Generator: ingest/build/index/preview (`p001~p004` 전부 반영)
 4. PF Reviewer: pass/fail 판단
 5. PF Finalizer: push/report
 
@@ -30,6 +30,8 @@
 - index 재생성 완료
 - preview 산출 가능
 - report 대상 라우팅 확인
+- 당일 기본 배치는 `p001~p004` 4개가 모두 존재해야 함
+- `/pf sti`는 당일 4개 demo가 모두 ingest되고 review gate를 통과해야 완료
 
 ## Rule
 PF는 단순 생성으로 끝내지 않고, **review 통과 후에만 완료**로 본다.

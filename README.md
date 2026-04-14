@@ -1,6 +1,6 @@
 # Prototype Factory (댕댕봇 x Fast-Prototype)
 
-목표: **매일 1개 프로토타입 생산 → GitHub에 축적 → 갤러리(랜딩)에서 자동 수집 → 4개 선별해 서비스로 승격**
+목표: **매일 4개 프로토타입 생산 → GitHub에 축적 → 갤러리(랜딩)에서 자동 수집 → 4개 선별해 서비스로 승격**
 
 추가 운영 계약: 일일 아이데이션 단계에서는 기본적으로 **후보 4개 + Stitch 프롬프트 4개 전체 전달**을 표준으로 한다.
 
@@ -11,6 +11,11 @@
 - 일일 아이디어 배치는 기본적으로 **실전형/상업형만 고집하지 않는다**. 권장 구성은 `실전형 3 + 재미/실험형 1`.
 - 일일 아이데이션 산출물은 기본적으로 **아이디어 4개와 해당 Stitch 프롬프트 4개 전체**를 그대로 전달한다. 축약본만 보내지 않는다.
 - 재미/실험형은 즉시 수익화가 약해도 괜찮지만, 대신 시각적 재미, 스토리, 공유성, 포트폴리오 가치 중 하나는 분명해야 한다.
+- 사용자가 당일 테마 프레임을 주면, 그날 배치는 그 프레임을 반드시 따른다. 현재 강제 7축은 `성욕 / 외모 / 사교육 / 자산 방어 / 외로움 / 건강 / 역전`이다.
+- 4개 배치에서는 각 후보가 어떤 축을 반영하는지 `theme`로 명시해야 하며, 단순한 일반 B2B ops 아이디어로 흐리면 실패로 본다.
+- 일일 기본 배치는 항상 `p001`부터 `p004`까지 4개를 만든다.
+- 일일 배치는 아이디어 문서의 후보 수, 실제 `prototypes/YYYY-MM-DD-p001~p004-*` 폴더 수, publish된 항목 수가 일치해야 완료로 인정한다.
+- `/pf sti` 완료 기준도 기본적으로 당일 4개 전체 ingest, review gate, build, commit, push까지 포함한다.
 
 ## 1) 레포 구조(권장)
 ```
@@ -88,11 +93,12 @@ node scripts/new-proto.mjs --title "No demo example" --no-demo
 1) Cron(평일/매일 원하는 시간)
 2) `scripts/worktree-new "pf/<date>/<slug>" origin/main`으로 새 worktree 생성
 3) LLM: 아이디어 4개 생성(제약 거의 없음)
-4) LLM: 4개 전부의 Stitch 프롬프트를 작성하고, 그 뒤 1개 선택 + 스펙(화면 1~2장)
-5) Fast-Prototype 실행(스크린샷→Next.js+Tailwind+shadcn 코드)
-6) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
-7) 필요 시 GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
-8) Telegram 알림: 오늘의 프로토타입 링크
+4) LLM: 4개 전부의 Stitch 프롬프트를 작성하고, `p001~p004` 스캐폴드/스펙을 모두 생성
+5) Stitch 결과도 기본적으로 4개 전부 ingest하여 `/d/2026-..-p001~p004`까지 출고
+6) Fast-Prototype 실행(필요 시 선택된 후보를 코드 프로토타입으로 승격)
+7) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
+8) GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
+9) Telegram 알림: 오늘의 4개 프로토타입 링크
 
 상세 규칙과 예시는 `WORKTREE.md` 참고.
 
