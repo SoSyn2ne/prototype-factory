@@ -104,6 +104,9 @@ Choose one:
 3) We structure hypotheses.
 4) We document everything.
 5) We verify via gates, then automate.
+6) When the operator provides a binding human-driver framework, creativity happens inside that frame, not outside it.
+7) A daily batch is incomplete if ideation count, scaffold count, and published count diverge.
+8) A Stitch demo is incomplete if the shipped main experience does not preserve the original environment.
 
 ---
 
