@@ -1,13 +1,7 @@
 # 48-Hour Listing Face-Lift Planner
 
-A pre-sale home styling planner that helps agents and homeowners choose the cheapest visual fixes that most improve listing photos, curb appeal, and first-showing confidence.
-
-## Status
-- prototype
-
-## How to use
-- This folder is a spec-first artifact. See `spec/`.
-
-## Links
-- Preview: (TBD)
-
+- ID: `2026-04-15-p002`
+- Theme: 외모
+- Detail route: `/p/2026-04-15-p002`
+- Demo route: `/d/2026-04-15-p002`
+- Original Stitch export is preserved in `demo/original/code.html`.
