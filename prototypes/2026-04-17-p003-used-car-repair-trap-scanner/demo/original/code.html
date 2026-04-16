@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Trap Scanner - Field-Ops Dashboard</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with custom config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#293235",
+                        "on-surface": "#e2e2e5",
+                        "inverse-surface": "#e2e2e5",
+                        "surface-container-high": "#282a2c",
+                        "on-secondary-fixed": "#051e28",
+                        "primary-fixed-dim": "#ffb693",
+                        "primary": "#ffb693",
+                        "surface-container": "#1e2022",
+                        "surface-dim": "#121416",
+                        "on-surface-variant": "#e2bfb0",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#293235",
+                        "on-primary": "#561f00",
+                        "secondary-fixed-dim": "#b1cad7",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#333537",
+                        "on-background": "#e2e2e5",
+                        "on-error": "#690005",
+                        "outline-variant": "#5a4136",
+                        "surface-tint": "#ffb693",
+                        "on-secondary-container": "#a0b9c5",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "primary-container": "#ff6b00",
+                        "on-secondary": "#1c333e",
+                        "secondary": "#b1cad7",
+                        "background": "#121416",
+                        "tertiary-container": "#919a9e",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1a1c1e",
+                        "tertiary": "#bfc8cc",
+                        "surface": "#121416",
+                        "on-secondary-fixed-variant": "#334a55",
+                        "on-tertiary-fixed": "#141d20",
+                        "on-tertiary-fixed-variant": "#3f484c",
+                        "secondary-fixed": "#cde6f4",
+                        "surface-variant": "#333537",
+                        "tertiary-fixed-dim": "#bfc8cc",
+                        "inverse-on-surface": "#2f3133",
+                        "on-primary-fixed": "#351000",
+                        "inverse-primary": "#a04100",
+                        "outline": "#a98a7d",
+                        "primary-fixed": "#ffdbcc",
+                        "secondary-container": "#334a55",
+                        "surface-bright": "#38393c",
+                        "tertiary-fixed": "#dbe4e8",
+                        "on-primary-container": "#572000",
+                        "surface-container-lowest": "#0c0e10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Space Grotesk", "sans-serif"],
+                        "body": ["Public Sans", "sans-serif"],
+                        "label": ["Public Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        h1, h2, h3, h4, h5, h6, .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        /* Hide scrollbar for cleaner technical look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333537; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5a4136; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased overflow-hidden flex flex-col h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-outline-variant/20 shadow-[0_0_15px_rgba(255,182,147,0.05)] flex items-center justify-between px-6 h-16 w-full">
+<div class="flex items-center gap-4">
+<!-- Brand Logo -->
+<span class="font-headline text-xl font-black text-primary uppercase tracking-widest">TRAP SCANNER</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar (Right aligned per JSON) -->
+<div class="hidden md:flex items-center bg-surface-container-lowest border-b border-outline-variant px-3 py-1 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-secondary text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm text-on-surface placeholder-secondary focus:outline-none w-64 font-body" placeholder="VIN or Make/Model..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-4">
+<button class="text-secondary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button class="text-secondary hover:bg-surface-container-high transition-colors duration-200 p-2 rounded-lg active:scale-95 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16 overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full w-64 border-r border-outline-variant/20 bg-surface-container-low py-4 shrink-0 z-40">
+<!-- Header Group -->
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<img alt="Agent Profile" class="w-10 h-10 rounded-lg object-cover border border-outline-variant/30" data-alt="Close up portrait of a male professional with a serious expression, dark background, cinematic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZPM4Xo7c78tkQI8E5yp7NvIJxVHnMJ6USR2ga4FIhC2dJhXd2qL6zNhbZ3B-oXDvW9P34MX2UZgtBHQihW-4ks62hagSo-uHnD45Nt0Qm17UWsDNEp2zV18Q9sZ-uAXwH0K7UGekiB0zEYp-LI_k20zeI5xzwTY_E-Vhe86d_4yx6IIYyb01It_qmaxLPeFqSs5L1gJGs9yaC0Cuy2Yq-9KkQJjJYYtiB23qjLTpuhtvxLyfaUYmomPSy1RmJr0pQUWv6tXbOxFEN"/>
+<div>
+<h2 class="font-headline text-primary font-black tracking-tight leading-none text-lg">FIELD-OPS</h2>
+<span class="text-[10px] font-label text-secondary uppercase tracking-wider">Protocol v1.0.4</span>
+</div>
+</div>
+<button class="w-full mt-4 py-2 px-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-bold text-sm rounded-lg uppercase tracking-wider shadow-[0_4px_20px_rgba(255,182,147,0.15)] hover:shadow-[0_4px_25px_rgba(255,182,147,0.25)] transition-shadow">
+                    NEW INSPECTION
+                </button>
+</div>
+<!-- Tabs -->
+<div class="flex flex-col gap-1 w-full font-headline text-sm font-medium uppercase">
+<!-- Active Tab -->
+<button class="flex items-center gap-3 px-6 py-3 w-full text-left bg-primary-container/10 text-primary border-l-4 border-primary-container linear-snappy transition-all duration-200">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">radar</span>
+                    Risk Queue
+                </button>
+<!-- Inactive Tabs -->
+<button class="flex items-center gap-3 px-6 py-3 w-full text-left text-secondary opacity-70 border-l-4 border-transparent hover:bg-surface-container-high hover:opacity-100 linear-snappy transition-all duration-200">
+<span class="material-symbols-outlined text-lg">fact_check</span>
+                    Checklist
+                </button>
+<button class="flex items-center gap-3 px-6 py-3 w-full text-left text-secondary opacity-70 border-l-4 border-transparent hover:bg-surface-container-high hover:opacity-100 linear-snappy transition-all duration-200">
+<span class="material-symbols-outlined text-lg">request_quote</span>
+                    Estimator
+                </button>
+<button class="flex items-center gap-3 px-6 py-3 w-full text-left text-secondary opacity-70 border-l-4 border-transparent hover:bg-surface-container-high hover:opacity-100 linear-snappy transition-all duration-200">
+<span class="material-symbols-outlined text-lg">timeline</span>
+                    Horizon
+                </button>
+<button class="flex items-center gap-3 px-6 py-3 w-full text-left text-secondary opacity-70 border-l-4 border-transparent hover:bg-surface-container-high hover:opacity-100 linear-snappy transition-all duration-200">
+<span class="material-symbols-outlined text-lg">forum</span>
+                    Scripts
+                </button>
+</div>
+</nav>
+<!-- Main Content Canvas (Bento Grid Layout) -->
+<main class="flex-1 overflow-y-auto bg-surface p-4 md:p-8 relative">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- Top Row: Subject & Verdict -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Target Vehicle Profile (Asymmetric dominant column) -->
+<div class="lg:col-span-8 bg-surface-container-low rounded-lg overflow-hidden flex flex-col md:flex-row shadow-[0_4px_20px_rgba(0,0,0,0.2)]">
+<div class="md:w-2/5 relative">
+<img alt="Vehicle Target" class="w-full h-full object-cover" data-alt="Dark, moody shot of a silver used sedan parked in an urban garage with harsh overhead industrial lighting, cinematic composition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvRwsaK6Ghuw4tuCZsmYp3Fj-8ggIEgXtcUFecRYQ4uOkjcWwpR8cshN4oyYhcV7ZjKD1F4psuR6OQG1Rt3ftzevUYapva0zojP9LvI3zgOKBzM8olwGJCz2-fVZQR765PVjhrPZyJ1J7_JU0c_ECOGq_vSRli3bqGvpxvBSGvy7hrKdYQq4pzDXflUKKfae5ywhk-Kyjf2LB5zU1N3Uhp-esjc96nrrOl-CEMGAArTQb5XGmVg4R5UXUXDFRmyeSrG9IyhSJBHQVh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent opacity-90"></div>
+<div class="absolute bottom-4 left-4">
+<span class="bg-secondary-container text-on-surface text-xs font-label px-2 py-1 rounded-lg uppercase tracking-wider border border-outline-variant/30 backdrop-blur-md">Target Acquired</span>
+</div>
+</div>
+<div class="p-6 md:w-3/5 flex flex-col justify-between relative">
+<div>
+<h3 class="font-label text-xs text-secondary uppercase tracking-widest mb-1">Subject Vector</h3>
+<h2 class="font-headline text-3xl font-bold text-on-surface mb-2 leading-none">2018 VOLVO XC90</h2>
+<p class="font-body text-on-surface-variant text-sm mb-4">VIN: <span class="font-mono text-secondary bg-surface-container-high px-1 rounded">YV1A22CL4J1234XXX</span></p>
+<div class="grid grid-cols-2 gap-4 mt-6">
+<div class="bg-surface-container-highest p-3 rounded-lg border-l-2 border-outline-variant">
+<span class="block font-label text-[10px] text-secondary uppercase tracking-wider mb-1">Listed Price</span>
+<span class="font-headline text-xl text-on-surface">$28,500</span>
+</div>
+<div class="bg-surface-container-highest p-3 rounded-lg border-l-2 border-outline-variant">
+<span class="block font-label text-[10px] text-secondary uppercase tracking-wider mb-1">Odometer</span>
+<span class="font-headline text-xl text-on-surface">64,210 <span class="text-sm text-secondary">mi</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Risk Verdict Module (Warning State) -->
+<div class="lg:col-span-4 bg-error-container/10 border border-error/20 rounded-lg p-6 flex flex-col items-center justify-center text-center relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-error text-3xl">warning</span>
+</div>
+<h3 class="font-label text-xs text-error uppercase tracking-widest mb-2">Diagnostic Verdict</h3>
+<div class="font-headline text-7xl font-black text-error leading-none mb-2 tracking-tighter">
+                            84<span class="text-3xl text-error/60">/100</span>
+</div>
+<p class="font-headline text-lg text-on-error-container font-bold uppercase tracking-wide">High Risk Trap</p>
+<p class="font-body text-xs text-on-surface-variant mt-3 max-w-[80%]">Transmission fluid degradation and minor frame rust detected. Proceed with extreme caution.</p>
+<button class="mt-6 px-6 py-2 border border-error text-error font-headline text-sm rounded-lg hover:bg-error/10 transition-colors uppercase tracking-wider w-full">
+                            Generate Script
+                        </button>
+</div>
+</div>
+<!-- Middle Row: Checklist & Estimator -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Inspection Checklist Board -->
+<div class="bg-surface-container-low rounded-lg p-6 flex flex-col">
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant/30 pb-4">
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Mechanical Audit</h3>
+<span class="font-label text-xs text-secondary uppercase tracking-widest">12 Modules Scanned</span>
+</div>
+<span class="material-symbols-outlined text-secondary">plumbing</span>
+</div>
+<div class="space-y-2 flex-1">
+<!-- Flagged Item -->
+<div class="bg-surface-container-highest rounded-lg p-4 flex items-start gap-4 border-l-2 border-error">
+<span class="material-symbols-outlined text-error mt-0.5">report</span>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">Transmission Fluid &amp; Pan</h4>
+<p class="font-body text-xs text-on-surface-variant mt-1">Burnt smell detected. Metal shavings present on magnetic drain plug. High probability of internal wear.</p>
+</div>
+</div>
+<!-- Minor Warning Item -->
+<div class="bg-surface-container-high rounded-lg p-4 flex items-start gap-4 border-l-2 border-primary">
+<span class="material-symbols-outlined text-primary mt-0.5">minor_crash</span>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">Lower Control Arm Bushings</h4>
+<p class="font-body text-xs text-secondary mt-1">Visible cracking. Will require replacement within 10,000 miles to prevent alignment issues.</p>
+</div>
+</div>
+<!-- Clear Item -->
+<div class="bg-surface-container rounded-lg p-4 flex items-start gap-4 opacity-70">
+<span class="material-symbols-outlined text-secondary mt-0.5" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="font-headline text-sm font-bold text-on-surface">Timing Belt / Chain</h4>
+<p class="font-body text-xs text-secondary mt-1">Records indicate replacement at 60k miles. Audible check clear.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Cost Exposure Estimator -->
+<div class="bg-surface-container-low rounded-lg p-6">
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant/30 pb-4">
+<div>
+<h3 class="font-headline text-xl font-bold text-on-surface">Exposure Horizon</h3>
+<span class="font-label text-xs text-secondary uppercase tracking-widest">Est. Year 1 Repair Costs</span>
+</div>
+<span class="material-symbols-outlined text-secondary">request_quote</span>
+</div>
+<div class="space-y-6">
+<!-- Graph element -->
+<div class="relative pt-4">
+<div class="flex justify-between font-label text-[10px] text-secondary uppercase tracking-wider mb-2">
+<span>Base List Price</span>
+<span class="text-error">Max Exposure Price</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary opacity-30 w-3/5"></div>
+<div class="h-full bg-gradient-to-r from-primary to-error w-2/5 relative">
+<!-- Marker -->
+<div class="absolute right-1/2 top-1/2 -translate-y-1/2 w-1 h-5 bg-on-surface rounded-full shadow-[0_0_8px_rgba(255,255,255,0.5)]"></div>
+</div>
+</div>
+<div class="flex justify-between font-headline text-sm mt-2 text-on-surface font-bold">
+<span>$28,500</span>
+<span>$34,200</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/20">
+<div>
+<span class="block font-label text-[10px] text-secondary uppercase tracking-wider mb-1">Likely Scenario</span>
+<span class="font-headline text-2xl text-primary font-bold">+$2,400</span>
+<span class="block text-xs text-on-surface-variant mt-1">Immediate fluid service &amp; bushings</span>
+</div>
+<div>
+<span class="block font-label text-[10px] text-secondary uppercase tracking-wider mb-1">Worst Case</span>
+<span class="font-headline text-2xl text-error font-bold">+$5,700</span>
+<span class="block text-xs text-on-surface-variant mt-1">Full transmission rebuild required</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 rounded-t-none border-t border-outline-variant/30 bg-surface/90 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.5)]">
+<div class="fixed bottom-0 left-0 w-full h-16 flex justify-around items-center px-4">
+<!-- Active -->
+<button class="flex flex-col items-center justify-center text-primary bg-surface-container-high rounded-md py-1 px-4 active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">barcode_scanner</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest">Scanner</span>
+</button>
+<!-- Inactive -->
+<button class="flex flex-col items-center justify-center text-secondary/50 hover:text-primary active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">gavel</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest">Verdict</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary/50 hover:text-primary active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">description</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest">Reports</span>
+</button>
+<button class="flex flex-col items-center justify-center text-secondary/50 hover:text-primary active:scale-90 duration-150">
+<span class="material-symbols-outlined mb-1">person</span>
+<span class="font-label text-[10px] font-bold uppercase tracking-widest">Profile</span>
+</button>
+</div>
+</nav>
+</body></html>

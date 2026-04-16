@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chemistry Signal Mirror</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@800;900&amp;family=Manrope:wght@400;500;700&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#ffa8a3",
+                        "surface-container-highest": "#25252a",
+                        "secondary-fixed-dim": "#cabaff",
+                        "on-error": "#490006",
+                        "on-primary-fixed-variant": "#600012",
+                        "on-secondary-container": "#e4daff",
+                        "surface-container-high": "#1f1f23",
+                        "error-dim": "#d7383b",
+                        "surface-container": "#19191d",
+                        "on-surface-variant": "#acaaae",
+                        "error": "#ff716c",
+                        "on-primary-fixed": "#000000",
+                        "primary-fixed": "#ff757a",
+                        "outline": "#767579",
+                        "inverse-primary": "#c0002e",
+                        "tertiary-fixed": "#00e3fd",
+                        "secondary-dim": "#7e51ff",
+                        "surface-container-lowest": "#000000",
+                        "tertiary-dim": "#00d4ec",
+                        "on-secondary": "#25006b",
+                        "tertiary": "#81ecff",
+                        "error-container": "#9f0519",
+                        "tertiary-container": "#00e3fd",
+                        "surface-container-low": "#131316",
+                        "surface": "#0e0e11",
+                        "surface-variant": "#25252a",
+                        "secondary-fixed": "#d8caff",
+                        "primary-dim": "#e9003a",
+                        "on-secondary-fixed-variant": "#591bdc",
+                        "on-tertiary-fixed-variant": "#005762",
+                        "on-background": "#f0edf1",
+                        "outline-variant": "#48474b",
+                        "surface-tint": "#ff8d8f",
+                        "on-tertiary": "#005762",
+                        "on-surface": "#f0edf1",
+                        "inverse-surface": "#fcf8fd",
+                        "primary-fixed-dim": "#ff5964",
+                        "primary": "#ff8d8f",
+                        "on-secondary-fixed": "#3b00a0",
+                        "on-tertiary-container": "#004d57",
+                        "surface-dim": "#0e0e11",
+                        "on-primary": "#640013",
+                        "inverse-on-surface": "#555458",
+                        "tertiary-fixed-dim": "#00d4ec",
+                        "secondary-container": "#591adc",
+                        "surface-bright": "#2c2c30",
+                        "on-primary-container": "#4e000d",
+                        "secondary": "#a68cff",
+                        "background": "#0e0e11",
+                        "primary-container": "#ff757a",
+                        "on-tertiary-fixed": "#003840"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": [
+                            "Epilogue"
+                        ],
+                        "body": [
+                            "Manrope"
+                        ],
+                        "label": [
+                            "Space Grotesk"
+                        ]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0e0e11;
+            color: #f0edf1;
+        }
+        .bg-grain {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+        .gradient-primary {
+            background: linear-gradient(135deg, #ff8d8f 0%, #e9003a 100%);
+        }
+        .gradient-tertiary-secondary {
+            background: linear-gradient(135deg, #81ecff 0%, #a68cff 100%);
+        }
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .glass-floating {
+            background: rgba(37, 37, 42, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .shadow-ambient {
+            box-shadow: 0 0 64px 8px rgba(166, 140, 255, 0.08);
+        }
+        .tonal-lift {
+            transition: background-color 0.3s ease;
+        }
+        .tonal-lift:hover {
+            background-color: #131316;
+        }
+        .pulse-secondary:hover {
+            box-shadow: 0 0 20px rgba(166, 140, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="font-body antialiased bg-background text-on-surface h-screen overflow-hidden flex flex-col md:flex-row">
+<!-- Mobile TopNavBar (Hidden on MD+) -->
+<nav class="md:hidden fixed top-0 w-full z-50 bg-[#0e0e11]/80 backdrop-blur-xl flex justify-between items-center px-6 h-16 shadow-[0px_20px_40px_rgba(166,140,255,0.08)]">
+<div class="text-2xl font-black italic text-[#f0edf1] font-['Epilogue'] tracking-tighter">Signal Mirror</div>
+<div class="flex gap-4 text-[#D81B60]">
+<span class="material-symbols-outlined hover:bg-[#1f1f23] hover:text-[#a68cff] transition-all scale-95 duration-200 cursor-pointer p-2 rounded-full" data-icon="science">science</span>
+<span class="material-symbols-outlined hover:bg-[#1f1f23] hover:text-[#a68cff] transition-all scale-95 duration-200 cursor-pointer p-2 rounded-full" data-icon="flare">flare</span>
+<img alt="Alchemist profile" class="w-8 h-8 rounded-full border border-outline-variant/15 object-cover" data-alt="Portrait of a young woman with pink neon lighting reflecting on her face against a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCgFZegCgbPFbzYeKIO8uwYIkAHkrQDZXEdkoEorKp5ew5qM9Y0fbE_EyQt5WSVPTcqRfiLbrSqXrES9cdx8TbSDLUoylCG_yyWTJtErtAwxwH8HRHE2xpPU8Curf5DPxkDCh-WYGjQGOqEOPrl8ONpQjjaykoza7L1BpraQ4OGIydu-vJrIQuFR2rnqoLwxnnAX9K0wLB1nv3BMr3PxYNexUt0ptEM5KMMxpXo4UmkSWu-vFhMATTe1y25XOo2ZCRNHA--Q_ZIEIF"/>
+</div>
+</nav>
+<!-- Desktop SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-[#48474b]/15 bg-[#0e0e11] py-8 z-40 relative">
+<div class="absolute inset-0 bg-grain pointer-events-none"></div>
+<div class="px-6 mb-12 relative z-10 flex items-center gap-4">
+<img alt="User profile mirror" class="w-12 h-12 rounded-full object-cover shadow-ambient" data-alt="Portrait of a young woman with pink neon lighting reflecting on her face against a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJnkPCJievA0n0rqUF3qsUAJYM3y9rulsJGZL84ychLZ4zCRnI6zdkT24wJGtJmSjJ5zzQzgKEfsiUk_uNmefLD4hZes-bcUF4H6bKxKQbPN6W9kjuc0ugGiTqFPcLOXXlvOPS6iyb8sHVRMIdRmoqEg3XUrh5xpzRhY1yvO-T3VRNah023wVk3AJQu5VGDAedGwdva5-1PpfzdgjMBeLdWvu3RSKXUAUCvS7mwWIYKsTrKHRVTE6EmqOhGZB1sXdf8S9-OZSdBOYt"/>
+<div>
+<h2 class="text-[#f0edf1] font-bold font-headline tracking-tighter text-lg leading-tight">Neon Alchemist</h2>
+<p class="font-label text-xs text-secondary mt-1">Signal Intensity: High</p>
+</div>
+</div>
+<ul class="flex-1 font-['Space_Grotesk'] uppercase tracking-widest text-xs relative z-10">
+<li class="mb-2">
+<a class="flex items-center gap-4 bg-[#D81B60] text-white rounded-r-full py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="lens">lens</span>
+<span>Mirror</span>
+</a>
+</li>
+<li class="mb-2">
+<a class="flex items-center gap-4 text-[#f0edf1]/40 py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300 hover:text-[#a68cff]" href="#">
+<span class="material-symbols-outlined" data-icon="auto_vivid">brightness_auto</span>
+<span>Reactors</span>
+</a>
+</li>
+<li class="mb-2">
+<a class="flex items-center gap-4 text-[#f0edf1]/40 py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300 hover:text-[#a68cff]" href="#">
+<span class="material-symbols-outlined" data-icon="history_toggle_off">history_toggle_off</span>
+<span>Timeline</span>
+</a>
+</li>
+<li class="mb-2">
+<a class="flex items-center gap-4 text-[#f0edf1]/40 py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300 hover:text-[#a68cff]" href="#">
+<span class="material-symbols-outlined" data-icon="security">security</span>
+<span>Vault</span>
+</a>
+</li>
+</ul>
+<div class="px-6 mb-8 relative z-10">
+<button class="w-full gradient-primary rounded-lg py-3 font-headline font-bold text-sm pulse-secondary transition-all">Upgrade Elixir</button>
+</div>
+<ul class="font-['Space_Grotesk'] uppercase tracking-widest text-xs relative z-10">
+<li class="mb-2">
+<a class="flex items-center gap-4 text-[#f0edf1]/40 py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300 hover:text-[#a68cff]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-[#f0edf1]/40 py-3 px-6 hover:bg-[#1f1f23] transition-colors ease-in-out duration-300 hover:text-[#a68cff]" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span>Support</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto relative bg-background pt-20 md:pt-0 pb-24 md:pb-0 z-0">
+<div class="absolute inset-0 bg-grain pointer-events-none opacity-50 z-[-1]"></div>
+<div class="max-w-7xl mx-auto px-6 py-8 md:py-12">
+<!-- Header section -->
+<div class="flex justify-between items-end mb-12">
+<div>
+<h1 class="font-headline font-bold text-display-lg text-4xl md:text-6xl tracking-[-0.04em] leading-none mb-2">Signal <span class="text-secondary italic">Mirror</span></h1>
+<p class="font-label text-on-surface-variant text-sm md:text-base uppercase tracking-widest">Target: <span class="text-tertiary">J. Doe</span> // Encryption: <span class="text-primary">Active</span></p>
+</div>
+<div class="hidden md:flex gap-4">
+<div class="bg-surface-container-high rounded-full px-4 py-2 flex items-center gap-2 border border-outline-variant/15">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="wifi_tethering">wifi_tethering</span>
+<span class="font-label text-xs uppercase text-on-surface">Live Signal</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Main Mirror Area (Left Col - 8 columns) -->
+<div class="md:col-span-8 flex flex-col gap-8">
+<!-- The Mirror Panel -->
+<div class="bg-surface-container-lowest glass-panel rounded-xl border border-outline-variant/15 p-8 relative overflow-hidden shadow-ambient min-h-[400px] flex flex-col items-center justify-center">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-secondary/10 via-surface/0 to-surface/0 pointer-events-none"></div>
+<!-- Visualization Component -->
+<div class="relative w-64 h-64 flex items-center justify-center mb-8">
+<!-- Outer Ring (Theirs) -->
+<div class="absolute inset-0 rounded-full border border-tertiary/30 animate-[spin_10s_linear_infinite]" style="border-width: 1px; border-style: dashed;"></div>
+<div class="absolute inset-4 rounded-full border-2 border-tertiary/50"></div>
+<!-- Inner Ring (Yours) -->
+<div class="absolute inset-8 rounded-full border border-primary/30 animate-[spin_8s_linear_infinite_reverse]" style="border-width: 1px; border-style: dashed;"></div>
+<div class="absolute inset-12 rounded-full border-2 border-primary/80"></div>
+<!-- Center Core -->
+<div class="absolute inset-20 rounded-full gradient-primary blur-md opacity-50 pulse-secondary"></div>
+<div class="absolute inset-20 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant/30 z-10">
+<span class="font-headline font-black text-3xl tracking-tighter text-on-surface">64%</span>
+</div>
+</div>
+<h3 class="font-headline font-bold text-xl mb-2">Reciprocity Meter</h3>
+<p class="font-body text-on-surface-variant text-center max-w-sm mb-6 text-sm">Signals are aligning. Their interest level is mirroring yours. Increase intensity to unlock the next prompt.</p>
+<button class="gradient-primary text-white rounded-full px-8 py-3 font-headline font-bold text-sm tracking-wide pulse-secondary transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add_reaction">add_reaction</span>
+                            Amplify Signal
+                        </button>
+</div>
+<!-- Timeline/Chemistry Log -->
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant/15">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-bold text-lg">Chemistry Log</h3>
+<button class="text-secondary hover:text-primary transition-colors text-sm font-label uppercase tracking-widest"><span class="material-symbols-outlined text-sm align-middle mr-1" data-icon="filter_list">filter_list</span>Filter</button>
+</div>
+<div class="space-y-6">
+<div class="flex gap-4 items-start tonal-lift p-2 rounded-lg -mx-2">
+<div class="bg-surface-container-lowest rounded-full w-10 h-10 flex items-center justify-center border border-tertiary/30 shrink-0">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="visibility">visibility</span>
+</div>
+<div>
+<p class="font-body text-sm"><span class="text-tertiary font-bold">They</span> viewed your "Midnight Thoughts" prompt.</p>
+<p class="font-label text-xs text-on-surface-variant mt-1">10 mins ago</p>
+</div>
+</div>
+<div class="flex gap-4 items-start tonal-lift p-2 rounded-lg -mx-2">
+<div class="bg-surface-container-lowest rounded-full w-10 h-10 flex items-center justify-center border border-primary/30 shrink-0">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="favorite">favorite</span>
+</div>
+<div>
+<p class="font-body text-sm"><span class="text-primary font-bold">You</span> amplified a micro-signal.</p>
+<p class="font-label text-xs text-on-surface-variant mt-1">2 hrs ago</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Control Panel Area (Right Col - 4 columns) -->
+<div class="md:col-span-4 flex flex-col gap-8">
+<!-- Boundaries & Comfort -->
+<div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/15 relative overflow-hidden">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-secondary/10 rounded-full blur-xl"></div>
+<h3 class="font-headline font-bold text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="rule">rule</span>
+                            Boundaries
+                        </h3>
+<div class="space-y-4">
+<div class="flex justify-between items-center bg-surface p-4 rounded-lg">
+<div>
+<p class="font-body font-bold text-sm">Overt Flirting</p>
+<p class="font-label text-xs text-on-surface-variant mt-1">Require 80% mirror</p>
+</div>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative cursor-pointer border border-outline-variant/30">
+<div class="w-4 h-4 bg-tertiary rounded-full absolute left-1 top-0.5 shadow-sm"></div>
+</div>
+</div>
+<div class="flex justify-between items-center bg-surface p-4 rounded-lg">
+<div>
+<p class="font-body font-bold text-sm">Photo Requests</p>
+<p class="font-label text-xs text-error-dim mt-1">Locked</p>
+</div>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative cursor-pointer border border-outline-variant/30">
+<div class="w-4 h-4 bg-on-surface-variant rounded-full absolute left-1 top-0.5 shadow-sm"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Prompt Unlock Carousel (Static Rep) -->
+<div class="bg-surface-container-high rounded-xl p-6 border border-outline-variant/15 flex-1 flex flex-col">
+<h3 class="font-headline font-bold text-lg mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="key">key</span>
+                            Vault Prompts
+                        </h3>
+<p class="font-label text-xs text-on-surface-variant mb-6 uppercase tracking-widest">Next unlock at 75%</p>
+<div class="flex-1 flex flex-col justify-center items-center relative">
+<!-- Stacked Cards Effect -->
+<div class="absolute w-full h-32 bg-surface-container border border-outline-variant/10 rounded-lg -top-4 scale-95 opacity-50"></div>
+<div class="absolute w-full h-32 bg-surface-container border border-outline-variant/20 rounded-lg -top-2 scale-95 opacity-70"></div>
+<div class="w-full bg-surface-container-lowest border border-primary/20 rounded-lg p-6 relative z-10 shadow-ambient text-center">
+<span class="material-symbols-outlined text-secondary/30 text-4xl mb-2" data-icon="lock">lock</span>
+<p class="font-body text-sm font-bold blur-[2px] select-none text-on-surface-variant">"What's a subtle red flag you..."</p>
+<div class="mt-4 flex justify-center">
+<span class="bg-secondary-container text-on-secondary-container font-label text-[10px] uppercase px-3 py-1 rounded-full">Requires High Signal</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile BottomNavBar (Hidden on MD+) -->
+<nav class="md:hidden fixed bottom-0 w-full rounded-t-[2rem] z-50 bg-[#0e0e11]/60 backdrop-blur-2xl shadow-[0_-8px_32px_rgba(166,140,255,0.1)] flex justify-around items-center px-4 pb-6 pt-3 font-['Space_Grotesk'] text-[10px] font-medium">
+<a class="flex flex-col items-center bg-[#D81B60]/20 text-[#D81B60] rounded-full px-4 py-1 active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="bubble_chart">bubble_chart</span>
+<span>Signals</span>
+</a>
+<a class="flex flex-col items-center text-[#f0edf1]/50 hover:text-[#a68cff] active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="biotech">biotech</span>
+<span>Chemistry</span>
+</a>
+<a class="flex flex-col items-center text-[#f0edf1]/50 hover:text-[#a68cff] active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="key">key</span>
+<span>Unlock</span>
+</a>
+<a class="flex flex-col items-center text-[#f0edf1]/50 hover:text-[#a68cff] active:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="rule">rule</span>
+<span>Boundaries</span>
+</a>
+</nav>
+</body></html>
