@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Academy Waitlist Escape Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-container": "#352300",
+                    "tertiary": "#ffba27",
+                    "primary-fixed-dim": "#bac8dc",
+                    "on-primary-fixed": "#0f1c2c",
+                    "on-tertiary-fixed-variant": "#5e4100",
+                    "secondary-container": "#2f4865",
+                    "on-tertiary": "#422c00",
+                    "tertiary-fixed-dim": "#ffba27",
+                    "secondary-fixed": "#d1e4ff",
+                    "secondary": "#afc9ea",
+                    "surface-container-highest": "#31353c",
+                    "on-tertiary-fixed": "#271900",
+                    "surface-container-high": "#262a31",
+                    "on-secondary": "#17324d",
+                    "error": "#ffb4ab",
+                    "primary-container": "#1a2736",
+                    "on-tertiary-container": "#b98400",
+                    "outline": "#8f9097",
+                    "secondary-fixed-dim": "#afc9ea",
+                    "inverse-primary": "#525f71",
+                    "on-error-container": "#ffdad6",
+                    "surface-dim": "#10141a",
+                    "primary": "#bac8dc",
+                    "tertiary-fixed": "#ffdea9",
+                    "surface-variant": "#31353c",
+                    "background": "#10141a",
+                    "on-surface": "#dfe2eb",
+                    "outline-variant": "#45474d",
+                    "surface-container-low": "#181c22",
+                    "primary-fixed": "#d6e4f9",
+                    "surface-tint": "#bac8dc",
+                    "surface-bright": "#353940",
+                    "error-container": "#93000a",
+                    "on-secondary-fixed-variant": "#2f4865",
+                    "on-secondary-fixed": "#001d36",
+                    "on-secondary-container": "#9eb7d8",
+                    "on-surface-variant": "#c5c6cd",
+                    "on-error": "#690005",
+                    "on-primary-container": "#818ea1",
+                    "on-primary": "#243141",
+                    "surface-container-lowest": "#0a0e14",
+                    "on-primary-fixed-variant": "#3a4859",
+                    "inverse-surface": "#dfe2eb",
+                    "surface-container": "#1c2026",
+                    "inverse-on-surface": "#2d3137",
+                    "surface": "#10141a",
+                    "on-background": "#dfe2eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0px",
+                    "lg": "0px",
+                    "xl": "0px",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-headline { font-family: 'Space Grotesk', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #10141a; }
+        ::-webkit-scrollbar-thumb { background: #45474d; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface select-none">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-[#10141a] border-b border-[#45474d]/15 flex justify-between items-center px-6 py-3 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#ffba27] uppercase font-headline">ESCAPE PLANNER</span>
+<div class="hidden md:flex items-center bg-surface-container-highest px-3 py-1.5 border-b border-tertiary/30">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs font-label tracking-widest uppercase text-on-surface placeholder:text-on-surface-variant/50 w-64" placeholder="SEARCH OPERATIONAL DATA..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#353940] transition-colors text-[#9eb7d8]">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-[#353940] transition-colors text-[#9eb7d8]">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-8 bg-tertiary-container border border-tertiary/20 flex items-center justify-center">
+<span class="text-[10px] font-bold text-tertiary">OP-1</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-[#181c22] border-r border-[#45474d]/15 flex flex-col py-4 z-40">
+<div class="px-6 mb-8">
+<h2 class="text-amber-500 font-bold font-label text-xs tracking-widest uppercase">OPERATOR HUD</h2>
+<p class="text-[10px] text-on-surface-variant opacity-70 mt-1 uppercase">Active Deadlines: 3</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 bg-[#262a31] text-[#ffba27] border-l-4 border-[#ffba27] font-label text-sm font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-sm font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3">grid_view</span>
+                Academy Matrix
+            </a>
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-sm font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3">hourglass_empty</span>
+                Waitlist HUD
+            </a>
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-sm font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3">map</span>
+                Commute Planner
+            </a>
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-sm font-medium uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+                Budget Panel
+            </a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/10 space-y-1">
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-xs uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">help</span>
+                Support
+            </a>
+<a class="flex items-center px-6 py-3 text-[#9eb7d8] opacity-70 hover:bg-[#262a31] hover:opacity-100 transition-colors font-label text-xs uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">logout</span>
+                Sign Out
+            </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-6 min-h-screen">
+<!-- Registration Deadline Strip -->
+<div class="relative bg-tertiary-container overflow-hidden mb-6 group border-l-4 border-tertiary">
+<div class="absolute inset-0 bg-gradient-to-r from-tertiary/10 to-transparent"></div>
+<div class="relative px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="animate-pulse flex items-center justify-center w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-headline font-bold text-tertiary tracking-wider text-sm uppercase">CRITICAL SYSTEM ALERT: WINTER TERM REGISTRATION</span>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<span class="block text-[10px] text-tertiary/60 font-label uppercase tracking-tighter">Time Remaining</span>
+<span class="text-xl font-headline font-black text-tertiary tracking-widest">72:14:08</span>
+</div>
+<button class="bg-tertiary text-on-tertiary px-6 py-2 font-label font-bold text-xs uppercase tracking-widest hover:brightness-110 transition-all">
+                        EXECUTE ENROLLMENT
+                    </button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-6">
+<!-- Academy Comparison Matrix -->
+<section class="col-span-8 bg-surface-container-low border border-outline-variant/10">
+<div class="bg-primary-container h-8 flex items-center px-4 justify-between">
+<h3 class="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-on-primary-fixed">Academy Comparison Matrix // v.2.4</h3>
+<span class="text-[8px] font-label text-primary-fixed-dim/50 uppercase">DATA_SYNC_ACTIVE</span>
+</div>
+<div class="p-0 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-outline-variant/10">
+<th class="p-4 text-[10px] font-label uppercase text-on-surface-variant tracking-widest">Academy Name</th>
+<th class="p-4 text-[10px] font-label uppercase text-on-surface-variant tracking-widest text-center">Price/Term</th>
+<th class="p-4 text-[10px] font-label uppercase text-on-surface-variant tracking-widest text-center">Distance</th>
+<th class="p-4 text-[10px] font-label uppercase text-on-surface-variant tracking-widest text-center">Waitlist</th>
+<th class="p-4 text-[10px] font-label uppercase text-on-surface-variant tracking-widest text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="p-4">
+<span class="block font-headline font-bold text-sm text-on-surface">NORTHERN TACTICAL ACADEMY</span>
+<span class="text-[9px] text-on-surface-variant/60 font-mono">ID: NTA-4022</span>
+</td>
+<td class="p-4 text-center font-label text-xs text-secondary">$4,200</td>
+<td class="p-4 text-center font-label text-xs text-on-surface-variant">1.2 KM</td>
+<td class="p-4 text-center">
+<div class="inline-flex items-center bg-error-container/20 px-2 py-0.5 border border-error/20">
+<span class="text-[10px] font-bold text-error uppercase">RANK 42</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-tertiary">open_in_new</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-4">
+<span class="block font-headline font-bold text-sm text-on-surface">ZENITH FOUNDATION</span>
+<span class="text-[9px] text-on-surface-variant/60 font-mono">ID: ZF-9912</span>
+</td>
+<td class="p-4 text-center font-label text-xs text-secondary">$3,850</td>
+<td class="p-4 text-center font-label text-xs text-on-surface-variant">4.8 KM</td>
+<td class="p-4 text-center">
+<div class="inline-flex items-center bg-tertiary-container/40 px-2 py-0.5 border border-tertiary/40">
+<span class="text-[10px] font-bold text-tertiary uppercase">RANK 03</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-tertiary">open_in_new</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-4">
+<span class="block font-headline font-bold text-sm text-on-surface">THE VAULT INSTITUTE</span>
+<span class="text-[9px] text-on-surface-variant/60 font-mono">ID: TVI-1102</span>
+</td>
+<td class="p-4 text-center font-label text-xs text-secondary">$5,100</td>
+<td class="p-4 text-center font-label text-xs text-on-surface-variant">0.4 KM</td>
+<td class="p-4 text-center">
+<div class="inline-flex items-center bg-secondary-container/40 px-2 py-0.5 border border-secondary/40">
+<span class="text-[10px] font-bold text-secondary uppercase">OPEN</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-tertiary">open_in_new</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Waitlist Probability Board -->
+<section class="col-span-4 bg-surface-container-low border border-outline-variant/10 flex flex-col">
+<div class="bg-primary-container h-8 flex items-center px-4 justify-between">
+<h3 class="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-on-primary-fixed">Probability Board</h3>
+</div>
+<div class="p-6 flex flex-col flex-1 items-center justify-center text-center">
+<div class="relative w-40 h-40 mb-4">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-tertiary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="154" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-4xl font-headline font-black text-on-surface">65%</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant tracking-widest uppercase">Success Rate</span>
+</div>
+</div>
+<div class="w-full space-y-3 text-left">
+<div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-label">
+<span class="text-on-surface-variant">Historical Match</span>
+<span class="text-secondary">High</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest">
+<div class="w-[85%] h-full bg-secondary"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] uppercase tracking-widest font-label">
+<span class="text-on-surface-variant">System Confidence</span>
+<span class="text-tertiary">Optimal</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest">
+<div class="w-[65%] h-full bg-tertiary"></div>
+</div>
+</div>
+<p class="mt-6 text-[10px] text-on-surface-variant italic leading-relaxed">
+                        "Probability calculated based on previous 24-month churn rate at Zenith Foundation."
+                    </p>
+</div>
+</section>
+<!-- Commute & Calendar Conflict Map -->
+<section class="col-span-7 bg-surface-container-low border border-outline-variant/10">
+<div class="bg-primary-container h-8 flex items-center px-4 justify-between">
+<h3 class="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-on-primary-fixed">Strategic Commute Map</h3>
+<div class="flex gap-2">
+<span class="text-[8px] bg-secondary/20 text-secondary px-1 py-0.5 border border-secondary/20 font-bold">ROUTE_A: ACTIVE</span>
+</div>
+</div>
+<div class="p-4 grid grid-cols-2 gap-4 h-[300px]">
+<div class="relative bg-surface-container-highest border border-outline-variant/10 overflow-hidden">
+<img alt="commute map" class="w-full h-full object-cover opacity-60 grayscale brightness-50" data-alt="top-down high-contrast dark satellite map of an urban grid with highlighted tactical routes in glowing blue and amber lines" data-location="Metropolis" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6ZDXZ_Ic8r2xo94c4nhJCFo9yJXit008Tv-Z1PVL_V5owrkI6RL9UTZhfxp7KxJXTZmcEj7GELs-MLQsX346W1uoOgB-f5OuUXWIUw3g4-3WJTFSIFcwlNX9Qr8kHUxQkvx3Kzg5cr1h2QLaGW4rlyXMmEWh6-H0bb7DVDgoPwSYNuG6k_eVy29krNqCCiVzZYj-oUXGOwT3rZ38hw0zxjt3nNM4wQamFNp9Paz0b09B4VONa-6gmHRn8VIQ6TB8-CoqRcCu7CS_4"/>
+<div class="absolute top-4 left-4 bg-surface/90 px-2 py-1 border border-outline-variant/30">
+<span class="text-[8px] font-bold text-on-surface uppercase font-label">Satellite Feed // 24.08N</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-highest p-4 border border-outline-variant/10">
+<h4 class="text-[10px] font-bold font-label uppercase text-tertiary mb-3 tracking-widest">Temporal Conflict Log</h4>
+<div class="space-y-2">
+<div class="flex items-center justify-between border-l-2 border-error pl-3 py-1">
+<div>
+<span class="block text-[10px] font-bold text-on-surface">TUESDAY // 08:30</span>
+<span class="text-[9px] text-on-surface-variant uppercase">Academy Drop-off</span>
+</div>
+<span class="text-[9px] font-bold text-error uppercase">Conflict</span>
+</div>
+<div class="flex items-center justify-between border-l-2 border-secondary pl-3 py-1">
+<div>
+<span class="block text-[10px] font-bold text-on-surface">THURSDAY // 15:00</span>
+<span class="text-[9px] text-on-surface-variant uppercase">Pickup window</span>
+</div>
+<span class="text-[9px] font-bold text-secondary uppercase">Clear</span>
+</div>
+<div class="flex items-center justify-between border-l-2 border-secondary pl-3 py-1">
+<div>
+<span class="block text-[10px] font-bold text-on-surface">FRIDAY // 08:30</span>
+<span class="text-[9px] text-on-surface-variant uppercase">Academy Drop-off</span>
+</div>
+<span class="text-[9px] font-bold text-secondary uppercase">Clear</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex-1 bg-surface-container-highest p-3 border border-outline-variant/10 text-center">
+<span class="block text-xl font-headline font-bold text-on-surface">18M</span>
+<span class="text-[8px] font-label font-bold text-on-surface-variant uppercase tracking-widest">Avg Transit</span>
+</div>
+<div class="flex-1 bg-surface-container-highest p-3 border border-outline-variant/10 text-center">
+<span class="block text-xl font-headline font-bold text-on-surface">2</span>
+<span class="text-[8px] font-label font-bold text-on-surface-variant uppercase tracking-widest">Congestion Nodes</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Monthly Spend Pressure Panel -->
+<section class="col-span-5 bg-surface-container-low border border-outline-variant/10 flex flex-col">
+<div class="bg-primary-container h-8 flex items-center px-4 justify-between">
+<h3 class="text-[10px] font-label font-bold uppercase tracking-[0.2em] text-on-primary-fixed">Monthly Spend Pressure</h3>
+</div>
+<div class="p-6 space-y-6 flex-1">
+<div class="flex items-end gap-2">
+<span class="text-3xl font-headline font-black text-on-surface">$2,450.00</span>
+<span class="text-[10px] font-label text-error font-bold mb-1 uppercase">+12.4% SURGE</span>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">
+<span>Tuition Burn Rate</span>
+<span class="text-on-surface">75%</span>
+</div>
+<div class="w-full h-3 bg-surface-container-highest">
+<div class="w-[75%] h-full bg-gradient-to-r from-secondary-container to-secondary"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-2">
+<span>Transit Overhead</span>
+<span class="text-on-surface">15%</span>
+</div>
+<div class="w-full h-3 bg-surface-container-highest">
+<div class="w-[15%] h-full bg-surface-bright"></div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant/10">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm">warning</span>
+<span class="text-[10px] font-bold font-label uppercase text-on-surface">Escalation Threshold</span>
+</div>
+<span class="text-[10px] font-mono font-bold text-on-surface-variant">$3,000.00 MAX</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4">
+<button class="w-full bg-surface-container-highest border border-outline-variant/30 py-3 text-[10px] font-bold font-label uppercase tracking-widest hover:bg-surface-bright transition-colors">
+                            ADJUST BUDGET PARAMETERS
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Enrollment Action Plan Drawer (Static position for this layout) -->
+<div class="fixed right-6 bottom-6 w-96 bg-surface-container-high border-2 border-tertiary/20 shadow-2xl z-50">
+<div class="bg-tertiary p-3 flex justify-between items-center">
+<h4 class="text-[11px] font-bold font-label uppercase text-on-tertiary tracking-[0.2em]">Deployment Action Plan</h4>
+<span class="material-symbols-outlined text-on-tertiary cursor-pointer text-sm">keyboard_arrow_down</span>
+</div>
+<div class="p-5 space-y-4">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-6 h-6 border-2 border-tertiary flex items-center justify-center">
+<span class="text-[10px] font-bold text-tertiary">01</span>
+</div>
+<div class="w-0.5 flex-1 bg-tertiary/20 my-1"></div>
+<div class="w-6 h-6 border-2 border-on-surface-variant/30 flex items-center justify-center">
+<span class="text-[10px] font-bold text-on-surface-variant/30">02</span>
+</div>
+<div class="w-0.5 flex-1 bg-tertiary/20 my-1"></div>
+<div class="w-6 h-6 border-2 border-on-surface-variant/30 flex items-center justify-center">
+<span class="text-[10px] font-bold text-on-surface-variant/30">03</span>
+</div>
+</div>
+<div class="flex-1 space-y-6">
+<div class="opacity-100">
+<span class="block text-[10px] font-bold font-label uppercase text-tertiary tracking-widest mb-1">STABILIZE DEPOSIT</span>
+<p class="text-[11px] text-on-surface-variant leading-tight">Secure Zenith Foundation position with $500.00 holding credit before T-48h.</p>
+</div>
+<div class="opacity-50">
+<span class="block text-[10px] font-bold font-label uppercase text-on-surface-variant tracking-widest mb-1">VALIDATE TRANSCRIPTS</span>
+<p class="text-[11px] text-on-surface-variant leading-tight">Digital packet ready for delivery via SECURE_DROP protocols.</p>
+</div>
+<div class="opacity-50">
+<span class="block text-[10px] font-bold font-label uppercase text-on-surface-variant tracking-widest mb-1">FINAL EXTRACTION</span>
+<p class="text-[11px] text-on-surface-variant leading-tight">Close current waitlist applications to prevent duplicate billing.</p>
+</div>
+</div>
+</div>
+<button class="w-full py-4 bg-tertiary text-on-tertiary font-headline font-black uppercase text-sm tracking-[0.3em] hover:brightness-110 transition-all">
+                ENGAGE PROTOCOL
+            </button>
+</div>
+</div>
+</body></html>
