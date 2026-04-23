@@ -60,6 +60,17 @@
 ## Rule
 PF는 단순 생성으로 끝내지 않고, **review 통과 후에만 완료**로 본다.
 
+## Execution ownership
+- `/pf sti`의 기본 실행 담당은 **멍멍이(Hermes)** 로 둔다.
+- 이유: `/pf sti`는 zip 탐색, ingest, 검수, build, commit, push, cleanup까지 이어지는 반복 실행형 작업이라 전담 executor lane이 더 안전하다.
+- 현재 채팅 세션은 기본적으로 다음 역할을 우선한다.
+  - harness 규칙 보강
+  - failure pattern 기록
+  - review 기준 강화
+  - operator-facing 보고와 예외 판단
+- 예외적으로 현재 세션이 `/pf sti`를 직접 실행하더라도, Hermes executor가 수행한다고 가정한 수준의 hard gate를 반드시 그대로 적용해야 한다.
+- 운영 원칙: `sti 실행`과 `sti 정책/검수 기준 관리`를 가능하면 분리한다.
+
 ## Ideation mix rule
 - 기본 일일 배치(4개)는 `실전형/상업형 3개 + 재미/실험형 1개`를 권장한다.
 - 4개 프롬프트는 요약/추리기 없이 전부 운영자에게 전달하는 것을 기본 계약으로 한다.
