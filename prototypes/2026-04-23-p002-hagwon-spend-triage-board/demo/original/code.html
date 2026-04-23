@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hagwon Spend Triage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#dae2fd",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "surface-container-low": "#131b2e",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "secondary-container": "#3a4a5f",
+                      "surface-container": "#171f33",
+                      "error-container": "#93000a",
+                      "tertiary": "#ffb2b7",
+                      "surface-container-lowest": "#060e20",
+                      "on-primary-container": "#003751",
+                      "error": "#ffb4ab",
+                      "secondary-fixed-dim": "#b7c8e1",
+                      "on-secondary": "#213145",
+                      "background": "#0b1326",
+                      "secondary": "#b7c8e1",
+                      "secondary-fixed": "#d3e4fe",
+                      "on-tertiary-container": "#6c001d",
+                      "surface-variant": "#2d3449",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#40000d",
+                      "on-primary-fixed": "#001e2f",
+                      "surface-container-highest": "#2d3449",
+                      "outline": "#88929b",
+                      "surface-container-high": "#222a3d",
+                      "surface": "#0b1326",
+                      "on-secondary-fixed-variant": "#38485d",
+                      "outline-variant": "#3e4850",
+                      "surface-dim": "#0b1326",
+                      "on-primary": "#00344d",
+                      "primary": "#89ceff",
+                      "tertiary-fixed": "#ffdadb",
+                      "on-secondary-fixed": "#0b1c30",
+                      "inverse-on-surface": "#283044",
+                      "tertiary-container": "#ff697b",
+                      "primary-container": "#0ea5e9",
+                      "on-tertiary": "#67001b",
+                      "primary-fixed": "#c9e6ff",
+                      "surface-tint": "#89ceff",
+                      "on-secondary-container": "#a9bad3",
+                      "primary-fixed-dim": "#89ceff",
+                      "on-surface-variant": "#bec8d2",
+                      "inverse-primary": "#006591",
+                      "on-background": "#dae2fd",
+                      "inverse-surface": "#dae2fd",
+                      "on-error": "#690005",
+                      "surface-bright": "#31394d",
+                      "on-primary-fixed-variant": "#004c6e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "row-height-standard": "44px",
+                      "row-height-dense": "32px",
+                      "container-padding": "1.5rem",
+                      "element-gap": "0.5rem",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Space Grotesk"
+                      ],
+                      "metric-xl": [
+                              "Space Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "metric-xl": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen font-body-sm text-body-sm">
+<!-- TopNavBar -->
+<nav class="bg-slate-950 font-['Space_Grotesk'] tracking-tighter fixed top-0 w-full z-50 border-b border-slate-800 flex justify-between items-center px-6 h-12 w-full">
+<div class="flex items-center gap-6">
+<span class="text-xl font-black tracking-tighter text-sky-500 uppercase">HAGWON SPEND TRIAGE</span>
+<div class="hidden md:flex gap-4">
+<a class="text-slate-400 font-medium hover:text-sky-400 hover:bg-slate-900 transition-colors duration-150 ease-in-out px-2 py-1 rounded" href="#">Dashboard</a>
+<a class="text-sky-500 border-b-2 border-sky-500 pb-1 hover:text-sky-400 hover:bg-slate-900 transition-colors duration-150 ease-in-out px-2 py-1" href="#">Spend Board</a>
+<a class="text-slate-400 font-medium hover:text-sky-400 hover:bg-slate-900 transition-colors duration-150 ease-in-out px-2 py-1 rounded" href="#">Confidence Grid</a>
+<a class="text-slate-400 font-medium hover:text-sky-400 hover:bg-slate-900 transition-colors duration-150 ease-in-out px-2 py-1 rounded" href="#">Timetable</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1.5 text-slate-500 text-sm">search</span>
+<input class="bg-slate-900 border border-slate-800 text-on-surface rounded pl-8 pr-3 py-1 text-xs focus:outline-none focus:border-sky-500 transition-colors w-48" placeholder="Search..." type="text"/>
+</div>
+<button class="bg-sky-500/10 text-sky-500 border border-sky-500/30 px-3 py-1 rounded text-xs font-bold hover:bg-sky-500/20 transition-colors">NEW_MEMO</button>
+<div class="flex gap-2">
+<button class="text-slate-400 hover:text-sky-400 transition-colors"><span class="material-symbols-outlined text-sm">notifications</span></button>
+<button class="text-slate-400 hover:text-sky-400 transition-colors"><span class="material-symbols-outlined text-sm">settings</span></button>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="bg-slate-900 font-['Space_Grotesk'] text-xs font-bold uppercase fixed left-0 top-12 h-screen w-64 border-r border-slate-800 flex flex-col py-4 gap-1 z-40 hidden md:flex">
+<div class="px-4 mb-6">
+<h2 class="text-lg font-black text-slate-100">TRIAGE COMMAND</h2>
+<p class="text-[10px] text-slate-500 tracking-widest mt-1">FY24 Q3 ACADEMIC</p>
+</div>
+<a class="text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 active:translate-x-1 transition-transform flex items-center gap-3 px-4 py-2 mx-2 rounded" href="#">
+<span class="material-symbols-outlined text-base">dashboard_customize</span> OPERATIONS
+        </a>
+<a class="bg-slate-800 text-sky-400 border-l-2 border-sky-500 hover:bg-slate-800/50 active:translate-x-1 transition-transform flex items-center gap-3 px-4 py-2 mx-2" href="#">
+<span class="material-symbols-outlined text-base">payments</span> FINANCIALS
+        </a>
+<a class="text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 active:translate-x-1 transition-transform flex items-center gap-3 px-4 py-2 mx-2 rounded" href="#">
+<span class="material-symbols-outlined text-base">analytics</span> METRICS
+        </a>
+<a class="text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 active:translate-x-1 transition-transform flex items-center gap-3 px-4 py-2 mx-2 rounded" href="#">
+<span class="material-symbols-outlined text-base">menu_book</span> RESOURCES
+        </a>
+<a class="text-slate-500 hover:text-slate-300 hover:bg-slate-800/50 active:translate-x-1 transition-transform flex items-center gap-3 px-4 py-2 mx-2 rounded mt-auto" href="#">
+<span class="material-symbols-outlined text-base">inventory_2</span> ARCHIVE
+        </a>
+</aside>
+<!-- Main Content Area -->
+<main class="pt-[48px] md:pl-64 h-screen overflow-hidden flex bg-surface">
+<!-- Center Canvas (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-container-padding pb-32">
+<!-- Dashboard Header / Scoreboard -->
+<div class="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-end justify-between border-b border-surface-container-high pb-4">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Q3 Spend Board</h1>
+<p class="text-on-surface-variant mt-1">Reviewing 14 active enrollments across 3 dependents.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container-low border border-surface-container-high rounded p-3 min-w-[120px]">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">MTH BURN RATE</div>
+<div class="font-metric-xl text-metric-xl text-error">₩3.8M</div>
+<div class="font-data-mono text-data-mono text-error flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +12% YoY
+                        </div>
+</div>
+<div class="bg-surface-container-low border border-surface-container-high rounded p-3 min-w-[120px]">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-1">TARGET CAP</div>
+<div class="font-metric-xl text-metric-xl text-primary">₩3.2M</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Over by ₩600K
+                        </div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<!-- Keep/Cut/Replace Kanban -->
+<div class="lg:col-span-2 bg-surface-container rounded border border-surface-container-high p-4 flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-display-lg text-[16px] text-on-surface">Triage Pipeline</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors text-xs font-bold uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> Filter
+                        </button>
+</div>
+<div class="grid grid-cols-3 gap-3 flex-1">
+<!-- Column: Essential -->
+<div class="bg-surface-container-low border border-surface-container-high rounded p-2 flex flex-col gap-2">
+<div class="font-label-caps text-label-caps text-primary uppercase px-2 py-1 bg-primary/10 rounded w-fit mb-2">ESSENTIAL (KEEP)</div>
+<div class="bg-surface border border-surface-container-highest rounded p-3 cursor-pointer hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-sm text-on-surface">Math Olympiad Prep</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">₩800K</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-full border border-outline-variant text-[10px] text-on-surface-variant">Minjun</span>
+<span class="material-symbols-outlined text-primary text-[14px]">verified</span>
+</div>
+</div>
+<div class="bg-surface border border-surface-container-highest rounded p-3 cursor-pointer hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-sm text-on-surface">Advanced English</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">₩650K</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-full border border-outline-variant text-[10px] text-on-surface-variant">Jiwoo</span>
+<span class="material-symbols-outlined text-primary text-[14px]">verified</span>
+</div>
+</div>
+</div>
+<!-- Column: Probation -->
+<div class="bg-surface-container-low border border-surface-container-high rounded p-2 flex flex-col gap-2">
+<div class="font-label-caps text-label-caps text-tertiary uppercase px-2 py-1 bg-tertiary/10 rounded w-fit mb-2">PROBATION (REPLACE)</div>
+<div class="bg-surface border border-surface-container-highest rounded p-3 cursor-pointer hover:border-tertiary transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-sm text-on-surface">Coding Academy</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">₩450K</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-full border border-outline-variant text-[10px] text-on-surface-variant">Minjun</span>
+<span class="material-symbols-outlined text-tertiary text-[14px]">error</span>
+</div>
+</div>
+</div>
+<!-- Column: Cut -->
+<div class="bg-surface-container-low border border-surface-container-high rounded p-2 flex flex-col gap-2">
+<div class="font-label-caps text-label-caps text-error uppercase px-2 py-1 bg-error/10 rounded w-fit mb-2">ELIMINATE (CUT)</div>
+<div class="bg-surface border border-error/30 rounded p-3 opacity-75 cursor-pointer hover:border-error transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="font-bold text-sm text-on-surface line-through decoration-error">Violin Private</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">₩500K</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-2 py-0.5 rounded-full border border-outline-variant text-[10px] text-on-surface-variant">Jiwoo</span>
+<span class="material-symbols-outlined text-error text-[14px]">cancel</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Confidence Grid & Fatigue -->
+<div class="flex flex-col gap-4">
+<!-- Confidence Grid -->
+<div class="bg-surface-container rounded border border-surface-container-high p-4 h-64 flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-display-lg text-[16px] text-on-surface">ROI Confidence Grid</h3>
+</div>
+<div class="flex-1 relative border-l border-b border-surface-container-highest">
+<!-- Y axis label -->
+<div class="absolute -left-8 top-1/2 -rotate-90 font-label-caps text-label-caps text-on-surface-variant transform -translate-y-1/2">PERFORMANCE</div>
+<!-- X axis label -->
+<div class="absolute bottom-[-24px] left-1/2 font-label-caps text-label-caps text-on-surface-variant transform -translate-x-1/2">COST</div>
+<!-- Quadrant lines -->
+<div class="absolute top-1/2 left-0 w-full h-[1px] border-t border-dashed border-surface-container-highest"></div>
+<div class="absolute top-0 left-1/2 w-[1px] h-full border-l border-dashed border-surface-container-highest"></div>
+<!-- Plot Points -->
+<div class="absolute top-[20%] left-[80%] w-3 h-3 bg-primary rounded-full ring-2 ring-background cursor-pointer" title="Math Olympiad"></div>
+<div class="absolute top-[80%] left-[70%] w-3 h-3 bg-error rounded-full ring-2 ring-background cursor-pointer" title="Violin Private"></div>
+<div class="absolute top-[40%] left-[30%] w-3 h-3 bg-tertiary rounded-full ring-2 ring-background cursor-pointer" title="Coding Academy"></div>
+</div>
+</div>
+<!-- Fatigue Timeline -->
+<div class="bg-surface-container rounded border border-surface-container-high p-4 flex-1">
+<h3 class="font-display-lg text-[16px] text-on-surface mb-4">Student Load (Hrs/Wk)</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-bold">Minjun</span>
+<span class="font-data-mono text-error">42h (High)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5">
+<div class="bg-error h-1.5 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="font-bold">Jiwoo</span>
+<span class="font-data-mono text-tertiary">34h (Med)</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-1.5">
+<div class="bg-tertiary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Table (Inline Editing) -->
+<div class="mt-6 bg-surface-container rounded border border-surface-container-high overflow-hidden">
+<div class="p-4 border-b border-surface-container-highest flex justify-between items-center bg-surface-container-low">
+<h3 class="font-display-lg text-[16px] text-on-surface">Detailed Allocation</h3>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors"><span class="material-symbols-outlined text-[18px]">more_horiz</span></button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-surface-container-highest">
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-3 w-1/4">Program</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-3 w-1/6">Cost/Mo</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-3 w-1/6">Student</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-3 w-1/4">Status</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant uppercase p-3 w-1/6 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-surface-container-highest hover:bg-surface-container-highest/30 transition-colors h-[32px]">
+<td class="p-3 text-on-surface font-body-sm font-medium">Math Olympiad Prep</td>
+<td class="p-3 text-on-surface-variant">₩800K</td>
+<td class="p-3 text-on-surface-variant">Minjun</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full border border-primary text-primary text-[10px] uppercase font-bold tracking-wider">Essential</span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+</td>
+</tr>
+<tr class="border-b border-surface-container-highest hover:bg-surface-container-highest/30 transition-colors h-[32px]">
+<td class="p-3 text-on-surface font-body-sm font-medium">Violin Private</td>
+<td class="p-3 text-on-surface-variant">₩500K</td>
+<td class="p-3 text-on-surface-variant">Jiwoo</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full border border-error text-error text-[10px] uppercase font-bold tracking-wider">Eliminate</span>
+</td>
+<td class="p-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+</td>
+</tr>
+<tr class="border-b border-surface-container-highest hover:bg-surface-container-highest/30 transition-colors h-[32px] bg-surface-container-highest/10">
+<td class="p-3 text-on-surface font-body-sm font-medium">Coding Academy</td>
+<td class="p-3 text-on-surface-variant">
+<!-- Inline Edit State Example -->
+<input class="bg-transparent border-b border-primary text-on-surface w-16 focus:outline-none p-0 h-auto font-data-mono text-data-mono" type="text" value="₩450K"/>
+</td>
+<td class="p-3 text-on-surface-variant">Minjun</td>
+<td class="p-3">
+<span class="px-2 py-0.5 rounded-full border border-tertiary text-tertiary text-[10px] uppercase font-bold tracking-wider">Probation</span>
+</td>
+<td class="p-3 text-right">
+<button class="text-primary hover:text-primary-fixed transition-colors"><span class="material-symbols-outlined text-[16px]">check</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- NavigationDrawer (Right Side) -->
+<aside class="bg-slate-900 font-['Space_Grotesk'] text-sm fixed right-0 top-12 h-screen w-80 border-l border-slate-800 shadow-2xl flex flex-col p-4 ease-in duration-200 z-50 transform translate-x-0 hidden xl:flex">
+<div class="mb-6">
+<h2 class="text-sm font-bold text-slate-200">DECISION MEMO</h2>
+<p class="text-[10px] text-slate-500 tracking-widest mt-1 uppercase">DRAFT: Q4 REALLOCATION</p>
+</div>
+<div class="flex gap-2 border-b border-slate-800 mb-4 pb-2">
+<button class="text-sky-500 font-bold border-b-2 border-sky-500 pb-1 px-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">description</span> Context
+            </button>
+<button class="text-slate-500 hover:text-slate-300 px-2 flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">warning</span> Risk
+            </button>
+<button class="text-slate-500 hover:text-slate-300 px-2 flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Approval
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 scrollbar-hide text-body-sm font-body-sm text-on-surface-variant space-y-4">
+<p>Rationale for cutting <strong class="text-error font-medium">Violin Private (₩500K)</strong>:</p>
+<div class="bg-surface-container-low border border-surface-container-high rounded p-3">
+<p class="text-xs mb-2">Jiwoo's engagement has dropped over the last 3 months. Redirecting funds to cover Math Olympiad overage.</p>
+<div class="flex items-center gap-2 text-[10px] text-outline">
+<span class="material-symbols-outlined text-[12px]">history</span> Last updated 2h ago
+                </div>
+</div>
+<p>Action needed for <strong class="text-tertiary font-medium">Coding Academy (₩450K)</strong>:</p>
+<textarea class="w-full bg-surface-container-low border border-surface-container-high text-on-surface rounded p-2 text-xs focus:outline-none focus:border-sky-500 transition-colors h-24 resize-none" placeholder="Enter terms of probation..."></textarea>
+</div>
+<div class="mt-4 pt-4 border-t border-slate-800 flex flex-col gap-3">
+<button class="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 rounded text-xs transition-colors uppercase tracking-wider">
+                COMMIT DECISION
+            </button>
+<div class="flex justify-between">
+<button class="text-slate-500 hover:text-slate-300 hover:bg-slate-800 px-3 py-1.5 rounded text-xs transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">picture_as_pdf</span> Export PDF
+                </button>
+<button class="text-slate-500 hover:text-error hover:bg-error/10 px-3 py-1.5 rounded text-xs transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">delete</span> Discard
+                </button>
+</div>
+</div>
+</aside>
+</body></html>

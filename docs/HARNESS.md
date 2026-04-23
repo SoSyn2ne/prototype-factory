@@ -33,6 +33,30 @@
 - 당일 기본 배치는 `p001~p004` 4개가 모두 존재해야 함
 - `/pf sti`는 당일 4개 demo가 모두 ingest되고 review gate를 통과해야 완료
 
+## /pf sti hard gate
+- `build 성공`만으로 review pass 처리하면 안 된다.
+- 오늘 배치의 각 `p001~p004`에 대해 아래를 전부 확인해야 한다.
+  - `prototypes/<id-...>/demo/index.html` 존재
+  - `site/public/demos/<id>/index.html` 존재
+  - public demo 파일이 prototype demo 파일과 byte-level로 동일하거나, 의도된 wrapper 구조인지 명시적으로 확인
+  - demo 내용이 공용 placeholder/dashboard 템플릿이 아닌지 확인
+  - Stitch ingest 배치라면 `demo/original/code.html` 또는 이에 준하는 원본 보존 artifact 존재 확인
+  - Stitch ingest 배치라면 `assets/stitch-screen.png` 또는 동등한 preview artifact 존재 확인
+  - `/d/<id>`와 `/p/<id>`에서 실제로 기대한 데모가 뜨는지 확인
+- 아래 문자열/패턴이 보이면 무조건 fail로 본다.
+  - `Realtime Snapshot`
+  - `Active users`
+  - `Conversion`
+  - `Blockers`
+  - 그날 4개 demo html이 서로 거의 동일한 공용 대시보드 템플릿인 경우
+- `demo/index.html exists`만 보고 pass 처리하면 안 된다.
+- zip 삭제는 위 hard gate가 모두 통과한 뒤에만 가능하다.
+- push 보고 전에 반드시 `원본 보존 여부`와 `데모가 진짜로 맞는지`를 따로 한 줄로 명시한다.
+
+## Incident memory
+- 2026-04-23 incident: 오늘자 Stitch 배치가 정상 ingest처럼 보였지만, 실제로는 `p001~p004` 모두 공용 대시보드 placeholder html이 들어간 상태였다.
+- 재발 방지 원칙: 파일 존재, build 성공, 경로 일치만으로 review pass를 내리지 않는다. 반드시 demo 내용 자체와 원본 보존 artifact까지 확인한다.
+
 ## Rule
 PF는 단순 생성으로 끝내지 않고, **review 통과 후에만 완료**로 본다.
 

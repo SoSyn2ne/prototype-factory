@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Glow Gap Routine Console</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ccc5be",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#fff4ee",
+                      "error-container": "#ffdad6",
+                      "tertiary": "#595954",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f4ede8",
+                      "background": "#fff8f4",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#1e1b18",
+                      "surface-container-low": "#faf2ed",
+                      "tertiary-fixed-dim": "#c9c6c1",
+                      "secondary-container": "#e6ded6",
+                      "on-tertiary-fixed-variant": "#474743",
+                      "on-tertiary-fixed": "#1c1c18",
+                      "on-primary-fixed": "#231a11",
+                      "surface-container-highest": "#e8e1dc",
+                      "surface-container-high": "#eee7e2",
+                      "outline": "#7f756e",
+                      "on-tertiary-container": "#f9f6f0",
+                      "secondary-fixed": "#e9e1d9",
+                      "secondary": "#625e57",
+                      "surface-variant": "#e8e1dc",
+                      "on-error-container": "#93000a",
+                      "tertiary-container": "#72716c",
+                      "inverse-on-surface": "#f7efea",
+                      "surface-tint": "#6a5c51",
+                      "primary-fixed": "#f3dfd1",
+                      "primary-container": "#7d6e63",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#e0d9d4",
+                      "outline-variant": "#d1c4bc",
+                      "surface": "#fff8f4",
+                      "on-secondary-fixed-variant": "#4a4640",
+                      "on-secondary-fixed": "#1e1b16",
+                      "on-primary": "#ffffff",
+                      "primary": "#64564b",
+                      "tertiary-fixed": "#e5e2dc",
+                      "on-primary-fixed-variant": "#51443b",
+                      "surface-bright": "#fff8f4",
+                      "on-surface-variant": "#4e453f",
+                      "on-secondary-container": "#67625b",
+                      "primary-fixed-dim": "#d6c3b6",
+                      "inverse-surface": "#33302d",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#d6c3b6",
+                      "on-background": "#1e1b18"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "element-gap": "16px",
+                      "unit": "8px",
+                      "container-padding": "40px",
+                      "section-gap": "80px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Newsreader"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ],
+                      "body-lg": [
+                              "Manrope"
+                      ],
+                      "headline-sm": [
+                              "Newsreader"
+                      ],
+                      "label-caps": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+      </style>
+</head>
+<body class="antialiased min-h-screen relative overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-12 py-6 h-20 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-100 dark:border-stone-900">
+<div class="font-serif italic text-2xl tracking-tighter text-stone-800 dark:text-stone-200">
+            Glow Gap Routine Console
+        </div>
+<nav class="flex items-center gap-8">
+<a class="font-serif uppercase tracking-[0.2em] text-xs text-stone-400 dark:text-stone-600 hover:text-stone-600 hover:opacity-70 transition-opacity duration-300" href="#">Rituals</a>
+<a class="font-serif uppercase tracking-[0.2em] text-xs text-stone-400 dark:text-stone-600 hover:text-stone-600 hover:opacity-70 transition-opacity duration-300" href="#">Inventory</a>
+<a class="font-serif uppercase tracking-[0.2em] text-xs text-stone-400 dark:text-stone-600 hover:text-stone-600 hover:opacity-70 transition-opacity duration-300" href="#">Timeline</a>
+</nav>
+<div class="flex items-center gap-6 text-stone-900 dark:text-stone-100">
+<button class="hover:opacity-70 transition-opacity duration-300"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:opacity-70 transition-opacity duration-300"><span class="material-symbols-outlined">person_outline</span></button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-20 h-[calc(100vh-5rem)] flex flex-col py-8 w-72 border-r border-stone-100 dark:border-stone-900 bg-stone-50 dark:bg-stone-950">
+<div class="px-6 mb-8">
+<div class="w-12 h-12 rounded-full bg-surface-variant overflow-hidden mb-4" data-alt="Close up portrait of a serene woman with flawless glowing skin in soft natural light">
+<img alt="User profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzUvHnpuJBnBYX3YbyMpOd-JnqGQKPmVDWrBKwq8aDyrWwileZUCTDgWAZROQslXHfnyx2CNzGB_AobKwaAytkDiPEBUaz2q3FkC5-LTh4mDhXBNWpPVsXcumTc8a8UoAwne16vOS7RR--J883LEhRP-LZ16Tch6_ud-pX0teaQJ2uFgSDc4Z8pyElAMHOHTwf-lmZAtUIlpEu0Rv561l99e-G-ruUYzY1GhjwsCCbKFqt08EjXx5xtxQnR3Ja42tIdh4hNlkUIMy"/>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-stone-800 dark:text-stone-200">The Routine</h2>
+<p class="font-label-caps text-label-caps text-stone-500 mt-2">Glow Progress: 82%</p>
+</div>
+<nav class="flex-1 flex flex-col font-sans text-xs font-medium tracking-widest uppercase">
+<a class="flex items-center gap-4 text-stone-900 dark:text-stone-50 bg-stone-100 dark:bg-stone-900 rounded-none border-l-4 border-stone-800 dark:border-stone-200 px-6 py-4 Active: translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">face</span>
+                Readiness
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+                Timeline
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+                Gap Matrix
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+                Priority Ladder
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">payments</span>
+                Budget Planner
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">medical_services</span>
+                Emergency Fixes
+            </a>
+</nav>
+<div class="mt-auto flex flex-col font-sans text-xs font-medium tracking-widest uppercase border-t border-stone-200/50 dark:border-stone-800/50 pt-4">
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-4 text-stone-500 dark:text-stone-500 px-6 py-4 hover:bg-stone-100/50 dark:hover:bg-stone-900/50 transition-colors duration-300" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-72 mt-20 mb-16 p-container-padding">
+<div class="mb-section-gap">
+<h1 class="font-display-lg text-display-lg text-on-background mb-4">Current Readiness</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A holistic overview of your preparation journey. Focus on hydration and rest in the coming days.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Core Content Column (Cols 1-8) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Top Row: Snapshot & Countdown -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Face Readiness Snapshot -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Face Readiness</h3>
+<span class="material-symbols-outlined text-outline">auto_awesome</span>
+</div>
+<div class="flex items-end gap-4">
+<span class="font-display-lg text-display-lg text-primary tracking-tighter">82%</span>
+<span class="font-body-md text-body-md text-on-surface-variant mb-2">/ 100% Goal</span>
+</div>
+</div>
+<div class="mt-8">
+<div class="h-px w-full bg-outline-variant mb-4 relative">
+<div class="absolute left-0 top-0 h-full bg-primary" style="width: 82%;"></div>
+<div class="absolute left-[82%] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary border-2 border-surface-container-lowest"></div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Texture and tone are stabilizing. Primary focus: Barrier support.</p>
+</div>
+</div>
+<!-- Event Countdown -->
+<div class="bg-surface-container-low border border-outline-variant rounded-DEFAULT p-8 flex flex-col justify-center items-center text-center relative overflow-hidden group">
+<div class="absolute inset-0 bg-secondary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase tracking-[0.2em] mb-4 relative z-10">Target Event</p>
+<h2 class="font-headline-md text-headline-md text-primary mb-2 relative z-10">Bridesmaid Duty</h2>
+<div class="font-display-lg text-[64px] leading-none text-on-background tracking-tighter mt-4 relative z-10">12</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 relative z-10">Days Remaining</p>
+</div>
+</div>
+<!-- Gap Matrix -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-8">
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-8">Vital Gap Matrix</h3>
+<div class="grid grid-cols-3 gap-8">
+<!-- Skin -->
+<div class="flex flex-col items-center text-center border-r border-outline-variant pr-8 last:border-0 last:pr-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined">spa</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-2 uppercase">Skin</h4>
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container border border-outline-variant font-label-caps text-[10px] text-on-surface mb-3">Optimal</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Hydration levels peaked. Maintain current serum rotation.</p>
+</div>
+<!-- Hair -->
+<div class="flex flex-col items-center text-center border-r border-outline-variant pr-8 last:border-0 last:pr-0">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined">face_retouching_natural</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-2 uppercase">Hair</h4>
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container border border-outline-variant font-label-caps text-[10px] text-on-surface mb-3">Deficit</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Ends require deep conditioning. Schedule gloss treatment.</p>
+</div>
+<!-- Sleep -->
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined">bedtime</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-on-surface mb-2 uppercase">Sleep</h4>
+<span class="inline-block px-3 py-1 rounded-full bg-surface-container border border-outline-variant font-label-caps text-[10px] text-on-surface mb-3">Critical</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Averaging 5.5hrs. Mandatory early rest protocol tonight.</p>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Priority & Budget -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Priority Ladder -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-8">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline-sm text-headline-sm text-on-background">Priority Ladder</h3>
+<button class="font-label-caps text-label-caps text-primary uppercase hover:opacity-70 transition-opacity">View All</button>
+</div>
+<div class="space-y-6">
+<div class="flex items-start gap-4 pb-6 border-b border-outline-variant/50">
+<div class="w-2 h-2 mt-2 rounded-full bg-primary shrink-0"></div>
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-1">Do Today</h4>
+<p class="font-body-md text-body-md text-on-background">Exfoliation Protocol B + Intense Hydration Mask</p>
+</div>
+</div>
+<div class="flex items-start gap-4 pb-6 border-b border-outline-variant/50 opacity-70">
+<div class="w-2 h-2 mt-2 rounded-full bg-outline shrink-0"></div>
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-1">Wait (T-5 Days)</h4>
+<p class="font-body-md text-body-md text-on-background">Dermaplaning session (Do not execute early)</p>
+</div>
+</div>
+<div class="flex items-start gap-4 opacity-50">
+<div class="w-2 h-2 mt-2 rounded-full bg-outline-variant shrink-0"></div>
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-1">Monitor</h4>
+<p class="font-body-md text-body-md text-on-background">Stress-induced breakout zones</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Budget vs Payoff Planner -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-8 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-background mb-8">Investment &amp; Payoff</h3>
+<div class="flex-1 flex flex-col justify-center space-y-8">
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface uppercase mb-2">
+<span>Allocated Budget</span>
+<span>$450 / $600</span>
+</div>
+<div class="h-[2px] w-full bg-surface-container-highest">
+<div class="h-full bg-secondary" style="width: 75%;"></div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-4 border-t border-outline-variant/50">
+<div>
+<p class="font-label-caps text-label-caps text-outline uppercase mb-1">High Yield</p>
+<p class="font-body-md text-body-md text-on-background">Esthetician Visit</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-outline uppercase mb-1">Low Yield</p>
+<p class="font-body-md text-body-md text-on-background text-opacity-60">Extra sheet masks</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Emergency Drawer (Col 9-12) -->
+<div class="lg:col-span-4">
+<div class="sticky top-28 bg-surface-container border border-outline-variant rounded-DEFAULT p-8 min-h-[600px] flex flex-col shadow-sm">
+<div class="flex items-center gap-3 mb-8 pb-6 border-b border-outline-variant">
+<span class="material-symbols-outlined text-error">emergency</span>
+<h3 class="font-headline-sm text-headline-sm text-on-background">Emergency Fixes</h3>
+</div>
+<div class="flex-1 space-y-6">
+<!-- Note 1 -->
+<div class="bg-surface-container-lowest p-5 border border-outline-variant border-l-2 border-l-error">
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-2">Sudden Breakout</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Do not extract. Apply hydrocolloid patch immediately. Use ice wrapped in silk for 5 mins to reduce inflammation.</p>
+</div>
+<!-- Note 2 -->
+<div class="bg-surface-container-lowest p-5 border border-outline-variant border-l-2 border-l-primary">
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-2">Puffy Eyes</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Caffeine serum application. Keep jade roller in fridge and utilize upward strokes only.</p>
+</div>
+<!-- Note 3 -->
+<div class="bg-surface-container-lowest p-5 border border-outline-variant border-l-2 border-l-secondary">
+<h4 class="font-label-caps text-label-caps text-on-surface uppercase mb-2">Redness Flare</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Cease all active acids. Switch to pure Centella Asiatica ampoule and barrier repair cream.</p>
+</div>
+</div>
+<button class="mt-8 w-full py-4 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary-container hover:text-on-primary-container transition-colors duration-300">
+                        Add Protocol
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-72 right-0 flex justify-between items-center px-12 py-4 border-t border-stone-100 dark:border-stone-900 bg-stone-50 dark:bg-stone-950 z-40">
+<div class="font-sans text-[10px] tracking-[0.15em] uppercase text-stone-400 dark:text-stone-600">
+            © 2024 GLOW GAP SERVICES. ALL RIGHTS RESERVED.
+        </div>
+<nav class="flex gap-6">
+<a class="font-sans text-[10px] tracking-[0.15em] uppercase text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors Standard clickable" href="#">Privacy Policy</a>
+<a class="font-sans text-[10px] tracking-[0.15em] uppercase text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors Standard clickable" href="#">Terms of Service</a>
+<a class="font-sans text-[10px] tracking-[0.15em] uppercase text-stone-400 dark:text-stone-600 hover:text-stone-900 dark:hover:text-stone-100 transition-colors Standard clickable" href="#">Routine Disclaimer</a>
+</nav>
+</footer>
+</body></html>
