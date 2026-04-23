@@ -1,59 +1,412 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parent Panic Cutline - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-24-p003</p>
-        <h1>Parent Panic Cutline</h1>
-        <p>A private education triage board that helps parents decide which classes to keep, pause, or replace when monthly hagwon costs are rising faster than confidence scores.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Parent Panic - Triage Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "tertiary-fixed-dim": "#bec6e0",
+                        "on-background": "#d4e4fa",
+                        "inverse-primary": "#b02f00",
+                        "surface-container-low": "#0d1c2d",
+                        "secondary-container": "#3e495d",
+                        "on-error": "#690005",
+                        "surface": "#051424",
+                        "tertiary-container": "#8990a8",
+                        "background": "#051424",
+                        "surface-container-high": "#1c2b3c",
+                        "on-tertiary-container": "#22293d",
+                        "on-secondary": "#263143",
+                        "secondary-fixed": "#d8e3fb",
+                        "surface-dim": "#051424",
+                        "surface-variant": "#273647",
+                        "primary-fixed": "#ffdbd1",
+                        "surface-container-lowest": "#010f1f",
+                        "surface-container-highest": "#273647",
+                        "on-tertiary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-fixed-variant": "#862200",
+                        "surface-tint": "#ffb5a0",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#131b2e",
+                        "tertiary-fixed": "#dae2fd",
+                        "secondary": "#bcc7de",
+                        "on-primary-container": "#531200",
+                        "primary-fixed-dim": "#ffb5a0",
+                        "on-primary": "#5f1500",
+                        "error": "#ffb4ab",
+                        "tertiary": "#bec6e0",
+                        "on-surface-variant": "#e3beb5",
+                        "outline-variant": "#5a4139",
+                        "surface-bright": "#2c3a4c",
+                        "on-surface": "#d4e4fa",
+                        "surface-container": "#122131",
+                        "inverse-surface": "#d4e4fa",
+                        "primary-container": "#fa5b2a",
+                        "on-secondary-container": "#aeb9d0",
+                        "outline": "#aa8980",
+                        "primary": "#ffb5a0",
+                        "on-tertiary": "#283044",
+                        "on-primary-fixed": "#3b0a00",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "inverse-on-surface": "#233143",
+                        "error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "8px",
+                        "margin": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-caps": ["Inter"],
+                        "mono-data": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-lg": ["20px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["16px", { "lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "mono-data": ["12px", { "lineHeight": "14px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Strict Grid Utilities */
+        .baseline-grid {
+            background-image: linear-gradient(to bottom, transparent 3px, rgba(51, 65, 85, 0.1) 4px);
+            background-size: 100% 4px;
+        }
+        .cutline {
+            border-top: 2px solid #ffb5a0;
+            position: relative;
+        }
+        .cutline::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px;
+            width: 8px;
+            height: 8px;
+            background-color: #ffb5a0;
+            border-radius: 50%;
+            cursor: ns-resize;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col font-body-md overflow-hidden">
+<!-- TopNavBar -->
+<nav class="bg-slate-950 flex justify-between items-center w-full px-4 h-14 fixed top-0 z-50 border-b-2 border-slate-800 flat no shadows">
+<div class="flex items-center gap-6 h-full">
+<span class="text-xl font-black text-[#F05423] tracking-widest uppercase">PARENT PANIC</span>
+<div class="hidden md:flex h-full gap-4 items-end">
+<a class="text-[#F05423] border-b-2 border-[#F05423] pb-1 font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-sm h-full flex items-end" href="#">Triage</a>
+<a class="text-slate-500 hover:text-slate-300 transition-colors hover:bg-slate-800/50 transition-all font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-sm h-full flex items-end pb-1 px-2" href="#">Schedule</a>
+<a class="text-slate-500 hover:text-slate-300 transition-colors hover:bg-slate-800/50 transition-all font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-sm h-full flex items-end pb-1 px-2" href="#">Alignment</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-slate-500 hover:text-slate-300 transition-colors scale-95 active:bg-[#F05423] active:text-black p-1 rounded">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="flex items-center gap-2 border-l border-slate-800 pl-4">
+<button class="text-slate-500 hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button class="text-slate-500 hover:text-slate-300 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="bg-[#F05423] text-black font-['Space_Grotesk'] tracking-tighter uppercase font-bold text-xs px-3 py-1.5 ml-2 hover:bg-slate-800/50 transition-all scale-95 active:bg-[#F05423] active:text-black">
+                    Deploy Changes
+                </button>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-slate-800 ml-2 object-cover" data-alt="Portrait of a young professional woman looking determined with dramatic rim lighting on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFHfCsUyZNlKasGiKjQk5mnmv12wLD7G0Fztn-71CcryK69-6E_Am0XGaItfleOmp4OXqP4q4TSFLpDxbK7dyge_EWXvJEMgego-xKqfhxLpLjpORMUf7G_saMF-d22DglWIpFEqZsgacFe55p3hgB8eA7lGsZBmvJot_DUwOx-gnk4MXco2PQ5uT9200qe8YT1o8OLXLBM-GDPoeaY7zZE37Y1J211N7wkuFIK4xO4iDKIW46p0eW6Wb9tB0NK9kkn0KC3n_HLH8"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<nav class="bg-slate-900 fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-16 border-r border-slate-800 flex flex-col items-center py-4 gap-2 z-40 flat no shadows">
+<div class="mb-6 flex flex-col items-center border-b border-slate-800 w-full pb-4 px-2">
+<img alt="Child profile" class="w-10 h-10 rounded-full border border-[#F05423] mb-2 object-cover" data-alt="Close up of serious child looking off camera with studio lighting on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_UqQpfMmCxfB2xnBjjj-SrgnPdF-Zkxt89z3muFgZbdlEPh-KKz7EuELXMFV2ppum8b2WD_Gm9Gyba86yS-q4876UE9FFTrnvrn_f5RnI0kMtnVCLSsZ8sdZ5moQJiv0TTXp4HIzLCdAW385vQwpqTmw_Ix7_WRtaZ8sEXg6VZmKofEkZvIreVfWp_gTzlCSnc0YPQmeJ4Sfych_liMBSId-mbGtF-nrY0VRMEThJRiA7Mta3eHm_J0MrtTZ0aouP9adwcHuCZco"/>
+<span class="text-on-surface font-headline-md text-[11px] leading-tight text-center">Unit 01</span>
+<span class="text-tertiary-container font-label-caps text-[8px] text-center uppercase">Hagwon Phase IV</span>
+<button class="mt-4 bg-transparent border border-[#F05423] text-[#F05423] text-[9px] uppercase font-bold w-full py-1 hover:bg-[#F05423] hover:text-black transition-colors duration-75 ease-in-out">
+                Emergency Rebuild
+            </button>
+</div>
+<div class="flex-1 w-full flex flex-col gap-1">
+<a class="bg-[#F05423] text-black w-full flex flex-col items-center py-3 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined icon-fill">terminal</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Command</span>
+</a>
+<a class="text-slate-500 w-full flex flex-col items-center py-3 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Costs</span>
+</a>
+<a class="text-slate-500 w-full flex flex-col items-center py-3 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Grid</span>
+</a>
+<a class="text-slate-500 w-full flex flex-col items-center py-3 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined">thermostat</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Heatmap</span>
+</a>
+<a class="text-slate-500 w-full flex flex-col items-center py-3 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-['Space_Grotesk'] text-[10px] font-bold uppercase tracking-tighter mt-1">Memo</span>
+</a>
+</div>
+<div class="w-full flex flex-col gap-1 mt-auto border-t border-slate-800 pt-2">
+<a class="text-slate-500 w-full flex flex-col items-center py-2 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+<span class="font-['Space_Grotesk'] text-[8px] font-bold uppercase tracking-tighter mt-1">Archive</span>
+</a>
+<a class="text-slate-500 w-full flex flex-col items-center py-2 hover:bg-slate-800 hover:text-slate-100 duration-75 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[18px]">help_center</span>
+<span class="font-['Space_Grotesk'] text-[8px] font-bold uppercase tracking-tighter mt-1">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-16 mt-14 p-unit h-[calc(100vh-3.5rem)] overflow-y-auto bg-surface-container-low">
+<div class="grid grid-cols-12 gap-unit h-full">
+<!-- Column 1: Command & Costs (4 cols) -->
+<div class="col-span-4 flex flex-col gap-unit h-full">
+<!-- Monthly Tuition Burn Meter -->
+<div class="bg-surface border border-surface-variant p-margin flex flex-col">
+<div class="flex justify-between items-end mb-unit">
+<h2 class="font-label-caps text-on-surface-variant uppercase tracking-widest text-xs">Monthly Burn Rate</h2>
+<span class="font-mono-data text-primary text-sm">$4,250<span class="text-tertiary-container text-xs">/mo</span></span>
+</div>
+<div class="h-2 bg-surface-container-high w-full rounded-none overflow-hidden flex">
+<div class="bg-primary h-full w-[65%] border-r border-background"></div>
+<div class="bg-error h-full w-[15%]"></div>
+</div>
+<div class="flex justify-between mt-unit font-mono-data text-[9px] text-tertiary-container uppercase">
+<span>Safe</span>
+<span>Threshold ($5k)</span>
+</div>
+</div>
+<!-- Keep-Pause-Replace Command Board -->
+<div class="bg-surface border border-surface-variant flex-1 flex flex-col overflow-hidden">
+<div class="p-gutter border-b border-surface-variant bg-surface-container-highest flex justify-between items-center">
+<h2 class="font-headline-md text-on-surface text-sm uppercase">Triage Stack</h2>
+<span class="font-mono-data text-[10px] bg-secondary-container text-on-surface px-1 py-0.5">8 ACTIVE</span>
+</div>
+<div class="flex-1 overflow-y-auto p-unit flex flex-col gap-unit">
+<!-- Keep Item -->
+<div class="bg-surface-container-high border border-surface-variant p-gutter flex justify-between items-center group hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-gutter">
+<div class="w-2 h-2 bg-primary"></div>
+<div>
+<div class="font-headline-md text-on-surface text-sm">Math Olympiad Prep</div>
+<div class="font-mono-data text-tertiary-container text-[10px] uppercase">Tues/Thurs • $800/mo</div>
+</div>
+</div>
+<span class="font-label-caps bg-surface text-primary border border-primary px-1.5 py-0.5 text-[9px]">KEEP</span>
+</div>
+<!-- Keep Item -->
+<div class="bg-surface-container-high border border-surface-variant p-gutter flex justify-between items-center group hover:border-primary transition-colors cursor-pointer">
+<div class="flex items-center gap-gutter">
+<div class="w-2 h-2 bg-primary"></div>
+<div>
+<div class="font-headline-md text-on-surface text-sm">Violin Masterclass</div>
+<div class="font-mono-data text-tertiary-container text-[10px] uppercase">Saturday • $600/mo</div>
+</div>
+</div>
+<span class="font-label-caps bg-surface text-primary border border-primary px-1.5 py-0.5 text-[9px]">KEEP</span>
+</div>
+<div class="cutline my-2">
+<span class="absolute -top-3 left-2 font-mono-data text-primary bg-background px-1 text-[8px] uppercase">Discard Threshold</span>
+</div>
+<!-- Pause Item -->
+<div class="bg-surface-container-low border border-surface-variant p-gutter flex justify-between items-center opacity-70 hover:opacity-100 transition-opacity cursor-pointer">
+<div class="flex items-center gap-gutter">
+<div class="w-2 h-2 bg-tertiary-container"></div>
+<div>
+<div class="font-headline-md text-tertiary-fixed-dim text-sm line-through">Coding Bootcamp Level 1</div>
+<div class="font-mono-data text-surface-variant text-[10px] uppercase">Wednesday • $450/mo</div>
+</div>
+</div>
+<span class="font-label-caps bg-surface text-tertiary-container border border-surface-variant px-1.5 py-0.5 text-[9px]">PAUSED</span>
+</div>
+<!-- Replace Item -->
+<div class="bg-surface-container-low border border-error-container p-gutter flex justify-between items-center cursor-pointer">
+<div class="flex items-center gap-gutter">
+<div class="w-2 h-2 bg-error"></div>
+<div>
+<div class="font-headline-md text-error text-sm">Debate Club</div>
+<div class="font-mono-data text-error-container text-[10px] uppercase">Monday • $300/mo</div>
+</div>
+</div>
+<span class="font-label-caps bg-surface text-error border border-error px-1.5 py-0.5 text-[9px]">REPLACE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Grid & Heatmap (5 cols) -->
+<div class="col-span-5 flex flex-col gap-unit h-full">
+<!-- Child Fatigue Heatmap -->
+<div class="bg-surface border border-surface-variant flex flex-col h-1/3">
+<div class="p-gutter border-b border-surface-variant flex justify-between items-center bg-surface-container-highest">
+<h2 class="font-label-caps text-on-surface-variant uppercase tracking-widest text-xs">Fatigue Index</h2>
+<span class="material-symbols-outlined text-error text-sm">warning</span>
+</div>
+<div class="p-gutter flex-1 grid grid-cols-7 gap-1">
+<!-- Mon -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">MON</span>
+<div class="w-full flex-1 bg-error-container/20 border border-surface-variant rounded-none"></div>
+</div>
+<!-- Tue -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">TUE</span>
+<div class="w-full flex-1 bg-error border border-error rounded-none relative">
+<span class="absolute bottom-1 w-full text-center font-mono-data text-[8px] text-on-error">MAX</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">WED</span>
+<div class="w-full flex-1 bg-surface-container-high border border-surface-variant rounded-none"></div>
+</div>
+<!-- Thu -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">THU</span>
+<div class="w-full flex-1 bg-error-container border border-error-container rounded-none"></div>
+</div>
+<!-- Fri -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">FRI</span>
+<div class="w-full flex-1 bg-error-container border border-error-container rounded-none"></div>
+</div>
+<!-- Sat -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-tertiary-container">SAT</span>
+<div class="w-full flex-1 bg-error border border-error rounded-none"></div>
+</div>
+<!-- Sun -->
+<div class="flex flex-col gap-1 items-center">
+<span class="font-mono-data text-[9px] text-primary">SUN</span>
+<div class="w-full flex-1 bg-surface border border-surface-variant border-dashed rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined text-surface-variant text-[14px]">bed</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Subject Confidence Grid -->
+<div class="bg-surface border border-surface-variant flex-1 flex flex-col">
+<div class="p-gutter border-b border-surface-variant bg-surface-container-highest flex justify-between items-center">
+<h2 class="font-headline-md text-on-surface text-sm uppercase">Subject Confidence</h2>
+<div class="flex gap-2">
+<span class="w-2 h-2 bg-primary"></span>
+<span class="w-2 h-2 bg-surface-variant"></span>
+<span class="w-2 h-2 bg-error"></span>
+</div>
+</div>
+<div class="p-unit grid grid-cols-2 gap-unit flex-1 content-start">
+<!-- Metric Card -->
+<div class="bg-surface-container border border-surface-variant p-gutter flex flex-col gap-1">
+<span class="font-mono-data text-[10px] text-tertiary-container uppercase">Advanced Math</span>
+<div class="flex justify-between items-end">
+<span class="font-headline-lg text-primary">94%</span>
+<span class="material-symbols-outlined text-primary text-[14px]">trending_up</span>
+</div>
+</div>
+<!-- Metric Card -->
+<div class="bg-surface-container border border-surface-variant p-gutter flex flex-col gap-1">
+<span class="font-mono-data text-[10px] text-tertiary-container uppercase">Physics II</span>
+<div class="flex justify-between items-end">
+<span class="font-headline-lg text-on-surface">82%</span>
+<span class="material-symbols-outlined text-surface-variant text-[14px]">trending_flat</span>
+</div>
+</div>
+<!-- Metric Card -->
+<div class="bg-surface-container border border-error-container p-gutter flex flex-col gap-1">
+<span class="font-mono-data text-[10px] text-error uppercase">Literature Analys.</span>
+<div class="flex justify-between items-end">
+<span class="font-headline-lg text-error">61%</span>
+<span class="material-symbols-outlined text-error text-[14px]">trending_down</span>
+</div>
+</div>
+<!-- Metric Card -->
+<div class="bg-surface-container border border-surface-variant p-gutter flex flex-col gap-1">
+<span class="font-mono-data text-[10px] text-tertiary-container uppercase">Mandarin</span>
+<div class="flex justify-between items-end">
+<span class="font-headline-lg text-primary">88%</span>
+<span class="material-symbols-outlined text-primary text-[14px]">trending_up</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Memo & Schedule (3 cols) -->
+<div class="col-span-3 flex flex-col gap-unit h-full">
+<!-- Caregiver Alignment Memo Drawer -->
+<div class="bg-surface border border-surface-variant flex flex-col h-1/2">
+<div class="p-gutter border-b border-surface-variant bg-surface-container-highest flex justify-between items-center">
+<h2 class="font-label-caps text-on-surface-variant uppercase tracking-widest text-xs">Alignment Memo</h2>
+<span class="material-symbols-outlined text-tertiary-container text-sm">mail</span>
+</div>
+<div class="p-gutter flex-1 overflow-y-auto text-body-sm text-on-surface-variant leading-relaxed font-mono-data text-[11px] bg-surface-container-lowest border-inner">
+<p class="mb-2">&gt;[SYSTEM]: Weekly sync notes generated.</p>
+<p class="mb-2 text-primary">&gt; ALERT: Conflicting pickup times on Tuesday for Math and Violin.</p>
+<p class="mb-2">&gt; Caregiver 1 (Dad): Proposes dropping Coding Bootcamp to ease Tuesday load.</p>
+<p class="mb-2">&gt; Caregiver 2 (Mom): Disagrees, suggests moving Violin to Sunday.</p>
+<div class="mt-4 border-t border-surface-variant pt-2">
+<button class="w-full bg-surface-variant hover:bg-primary hover:text-black text-on-surface text-[10px] font-bold uppercase py-1 transition-colors">Acknowledge Conflict</button>
+</div>
+</div>
+</div>
+<!-- Quick Actions / Mini Schedule -->
+<div class="bg-surface border border-surface-variant flex-1 flex flex-col">
+<div class="p-gutter border-b border-surface-variant bg-surface-container-highest flex justify-between items-center">
+<h2 class="font-label-caps text-on-surface-variant uppercase tracking-widest text-xs">Next 24H</h2>
+</div>
+<div class="p-unit flex flex-col gap-1 flex-1 overflow-y-auto">
+<div class="border-l-2 border-primary pl-2 py-1">
+<span class="block font-mono-data text-[9px] text-primary">14:00 - 15:30</span>
+<span class="block font-body-sm text-on-surface">Advanced Math Session</span>
+</div>
+<div class="border-l-2 border-surface-variant pl-2 py-1 opacity-70">
+<span class="block font-mono-data text-[9px] text-tertiary-container">16:00 - 17:00</span>
+<span class="block font-body-sm text-on-surface">Transit (Subway line B)</span>
+</div>
+<div class="border-l-2 border-error pl-2 py-1">
+<span class="block font-mono-data text-[9px] text-error">17:30 - 19:00</span>
+<span class="block font-body-sm text-error">Violin Masterclass (Delayed)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

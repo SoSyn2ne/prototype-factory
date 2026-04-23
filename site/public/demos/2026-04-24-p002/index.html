@@ -1,59 +1,312 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Face Score Deadline Planner - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-24-p002</p>
-        <h1>Face Score Deadline Planner</h1>
-        <p>A glow-up scheduling planner that helps users choose the cheapest high-payoff skin, hair, and styling moves before interviews, blind dates, or reunion photos.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Face Score - Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#faf9f6",
+                        "tertiary-container": "#2c2924",
+                        "surface": "#faf9f6",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#ebe1d7",
+                        "surface-container-low": "#f4f3f1",
+                        "inverse-primary": "#cdc5c0",
+                        "tertiary-fixed-dim": "#ccc5be",
+                        "on-background": "#1a1c1a",
+                        "on-secondary-fixed-variant": "#4c463f",
+                        "surface-tint": "#635d5a",
+                        "on-secondary-fixed": "#1f1b15",
+                        "on-primary-fixed-variant": "#4b4642",
+                        "on-tertiary-fixed-variant": "#4a4640",
+                        "surface-container-highest": "#e3e2e0",
+                        "primary-fixed": "#e9e1dc",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-variant": "#e3e2e0",
+                        "surface-dim": "#dbdad7",
+                        "secondary-fixed": "#ebe1d7",
+                        "on-tertiary-container": "#969089",
+                        "surface-container-high": "#e9e8e5",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#faf9f6",
+                        "on-surface": "#1a1c1a",
+                        "outline-variant": "#cfc4bd",
+                        "on-surface-variant": "#4d4540",
+                        "tertiary": "#181510",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#96908b",
+                        "primary-fixed-dim": "#cdc5c0",
+                        "secondary": "#645d56",
+                        "tertiary-fixed": "#e9e1d9",
+                        "on-tertiary-fixed": "#1e1b16",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f2f1ee",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#1e1b18",
+                        "secondary-fixed-dim": "#cec5bc",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#181512",
+                        "outline": "#7e756f",
+                        "on-secondary-container": "#6a635c",
+                        "primary-container": "#2d2926",
+                        "inverse-surface": "#2f312f",
+                        "surface-container": "#efeeeb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "element-gap": "16px",
+                        "container-max": "1120px",
+                        "margin-page": "64px"
+                    },
+                    "fontFamily": {
+                        "display": ["Newsreader"],
+                        "label-caps": ["Manrope"],
+                        "headline-md": ["Newsreader"],
+                        "headline-lg": ["Newsreader"],
+                        "body-lg": ["Manrope"],
+                        "interactive": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "display": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "interactive": ["14px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #faf9f6; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-surface-variant selection:text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-stone-50/90 dark:bg-zinc-950/90 backdrop-blur-md sticky w-full top-0 z-50 border-b border-stone-200 dark:border-zinc-800 flex justify-between items-center px-8 py-6">
+<div class="text-2xl font-serif tracking-widest uppercase text-zinc-900 dark:text-stone-50">
+            Face Score
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex items-center gap-6">
+<button class="scale-95 transition-transform duration-200 hover:text-zinc-600 dark:hover:text-stone-300 transition-colors duration-300">
+<span class="material-symbols-outlined text-zinc-900 dark:text-stone-100" data-icon="calendar_today">calendar_today</span>
+</button>
+<button class="scale-95 transition-transform duration-200 hover:text-zinc-600 dark:hover:text-stone-300 transition-colors duration-300">
+<span class="material-symbols-outlined text-zinc-900 dark:text-stone-100" data-icon="face_6">face_6</span>
+</button>
+</div>
+</header>
+<main class="max-w-container-max mx-auto px-gutter md:px-margin-page pt-12 pb-[120px] md:pb-section-gap flex flex-col gap-section-gap">
+<!-- Deadline Glamour Snapshot -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-5 flex flex-col gap-element-gap">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">The Objective</span>
+<h1 class="font-display text-display text-on-background">Gala Readiness</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">
+                    A curated six-week progression focusing on epidermal clarity, structural hydration, and subtle enhancements.
+                </p>
+</div>
+<div class="md:col-span-7 h-[400px] md:h-[500px] w-full relative bg-surface-container-low overflow-hidden">
+<img alt="Editorial close up of a woman's face with flawless glowing skin, neutral makeup, soft natural lighting, elegant minimalist aesthetic" class="w-full h-full object-cover object-center grayscale-[20%] contrast-125 mix-blend-multiply opacity-90" data-alt="Editorial close up of a woman's face with flawless glowing skin, neutral makeup, soft natural lighting, elegant minimalist aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAiJ6v7YwOR_jLZ4ricFgpNekqBRPI68lTzcPRCmrzbV4EX9WvtM4I-zA6I08JYxMRcbEA2-hVRVhXq-Gq7k8lQQfJL1CKM7WK6dPqUcMIsLCciGBG36F_erUFXNSCqE2idTK9ZSJq8--IXAg--n3fdhQdhyQlHkY-EBHxDUI58KF5VWFHjw9Q80yvvwux2T0UjJid-QAztjgB0cHS7ipqmToRCx52JffFc11jj8rayApTj35sWwmzwxgZfYju49XPSt_wqPu6ZRe0"/>
+<div class="absolute bottom-6 left-6 right-6 p-6 bg-surface/90 backdrop-blur-sm border-[0.5px] border-outline-variant flex justify-between items-end">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Target Date</span>
+<span class="font-headline-md text-headline-md text-on-background">November 12th</span>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-2">Status</span>
+<span class="font-interactive text-interactive text-primary">On Track</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Event Countdown Strip ("Deadline Track") -->
+<section class="border-y-[0.5px] border-outline-variant py-8 overflow-x-auto no-scrollbar">
+<div class="flex items-center min-w-max px-4">
+<div class="flex flex-col items-center px-8 border-r-[0.5px] border-outline-variant opacity-40">
+<span class="font-display text-display text-on-background">W-6</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-2">Peels</span>
+</div>
+<div class="flex flex-col items-center px-8 border-r-[0.5px] border-outline-variant opacity-40">
+<span class="font-display text-display text-on-background">W-4</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-2">Injectables</span>
+</div>
+<div class="flex flex-col items-center px-8 border-r-[0.5px] border-outline-variant relative">
+<div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-10 w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-display text-display text-on-background">W-2</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-2">Hydration</span>
+</div>
+<div class="flex flex-col items-center px-8 border-r-[0.5px] border-outline-variant">
+<span class="font-display text-display text-on-background">W-1</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-2">Hair/Brows</span>
+</div>
+<div class="flex flex-col items-center px-8">
+<span class="font-display text-display text-on-background">Day 0</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-2">The Event</span>
+</div>
+</div>
+</section>
+<!-- Skin-Hair-Style Payoff Matrix -->
+<section class="flex flex-col gap-element-gap">
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-4">Payoff Matrix</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-outline-variant bg-opacity-50">
+<!-- Skin -->
+<div class="bg-surface p-8 flex flex-col gap-6 h-full">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">01 / Skin</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="face_retouching_natural">face_retouching_natural</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-background">Glass-like clarity and structural firmness.</p>
+<ul class="mt-auto pt-6 flex flex-col gap-3 border-t-[0.5px] border-outline-variant">
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">CO2 Laser Recovery (Complete)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Daily Lipid Barrier Repair</span>
+</li>
+</ul>
+</div>
+<!-- Hair -->
+<div class="bg-surface-container-low p-8 flex flex-col gap-6 h-full">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">02 / Hair</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="content_cut">content_cut</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-background">High-gloss finish with controlled volume.</p>
+<ul class="mt-auto pt-6 flex flex-col gap-3 border-t-[0.5px] border-outline-variant">
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Color Gloss (Pending: W-1)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Weekly Bonding Treatment</span>
+</li>
+</ul>
+</div>
+<!-- Style -->
+<div class="bg-surface p-8 flex flex-col gap-6 h-full">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">03 / Form</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="checkroom">checkroom</span>
+</div>
+<p class="font-headline-md text-headline-md text-on-background">Sculpted silhouette and precise tailoring.</p>
+<ul class="mt-auto pt-6 flex flex-col gap-3 border-t-[0.5px] border-outline-variant">
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Final Fitting (Scheduled)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-1 h-1 rounded-full bg-on-surface-variant"></span>
+<span class="font-body-md text-body-md text-on-surface-variant">Lymphatic Drainage Series</span>
+</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Budgeted Routine Ladder -->
+<section class="flex flex-col gap-element-gap">
+<div class="flex justify-between items-end mb-6 border-b-[0.5px] border-outline-variant pb-4">
+<h2 class="font-headline-lg text-headline-lg text-on-background">Current Routine</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Phase 3: Hydration</span>
+</div>
+<div class="flex flex-col">
+<div class="flex justify-between items-center py-6 border-b-[0.5px] border-outline-variant">
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant w-8">AM</span>
+<span class="font-body-lg text-body-lg text-on-background">Vitamin C + Peptide Complex</span>
+</div>
+<button class="font-interactive text-interactive text-on-surface-variant border-[0.5px] border-outline-variant px-4 py-2 hover:bg-surface-container-low transition-colors">Log</button>
+</div>
+<div class="flex justify-between items-center py-6 border-b-[0.5px] border-outline-variant">
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant w-8">PM</span>
+<span class="font-body-lg text-body-lg text-on-background">Tretinoin 0.05% Alternating</span>
+</div>
+<button class="font-interactive text-interactive text-on-surface-variant border-[0.5px] border-outline-variant px-4 py-2 hover:bg-surface-container-low transition-colors">Log</button>
+</div>
+<div class="flex justify-between items-center py-6 border-b-[0.5px] border-outline-variant">
+<div class="flex items-center gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant w-8">WK</span>
+<span class="font-body-lg text-body-lg text-on-background">At-Home LED Therapy (20 mins)</span>
+</div>
+<button class="font-interactive text-interactive text-on-surface-variant border-[0.5px] border-outline-variant px-4 py-2 hover:bg-surface-container-low transition-colors">Log</button>
+</div>
+</div>
+</section>
+<!-- Before-Photo Confidence Notes & Last-Minute Rescue -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter mt-8">
+<section class="bg-surface-container-low p-8 md:p-12 border-[0.5px] border-outline-variant flex flex-col gap-6">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Confidence Notes</span>
+<p class="font-display text-display text-on-background text-[32px] leading-snug italic">
+                    "Jawline definition is tracking beautifully. Focus next week on deep moisture retention to avoid any base makeup separation."
+                </p>
+<div class="mt-auto pt-6 flex items-center gap-4">
+<img alt="Small black and white polaroid style photo of a side profile" class="w-12 h-12 object-cover grayscale" data-alt="Small black and white polaroid style photo of a side profile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1_QaUuAAj_8cMZQ-LDPdf-CtVRgipqXvKNPyNpmjXWL9WfpjoE81gjJU38oDDayA2NWXmngirRquZayGtRE2zI6ynOlfRSYLMUaFyadak8ujvn8dMuYkRo85vavyvdLAYjQTcbNCqcxJj1W0aowRwCbl3vAwze_IMrqR3IqFbpHEiwL6QtRnBY6scXP3t7ZvSVCo-3HxBrm5_Hbw9DEvIoAMW1l3MkQ64fnDYEQEW2yJRSrGWkerPg40VfJTu7wNjDwXm0SYgpog"/>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Log Note: Oct 28</span>
+</div>
+</section>
+<section class="bg-tertiary-container p-8 md:p-12 flex flex-col gap-6">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-tertiary-container">The Contingency</span>
+<span class="material-symbols-outlined text-on-tertiary-container" data-icon="medical_services">medical_services</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-primary">Rescue Drawer</h3>
+<p class="font-body-md text-body-md text-on-tertiary-container mb-6">
+                    Protocols for sudden inflammation, unexpected breakouts, or severe dehydration in the final 48 hours.
+                </p>
+<button class="mt-auto w-full bg-surface text-tertiary-container font-interactive text-interactive py-4 px-6 hover:bg-surface-container-low transition-colors">
+                    Access Protocols
+                </button>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only based on platform layout rule, though json says full-width bottom-0. Rule: "On MOBILE... use BottomNavBar. On WEB... hide BottomNavBar") -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 bg-stone-50 dark:bg-zinc-950 border-t border-stone-200 dark:border-zinc-800">
+<!-- Active Tab: Prep -->
+<div class="flex flex-col items-center justify-center text-zinc-900 dark:text-stone-50 border-t-2 border-zinc-900 dark:border-stone-50 -mt-[1px] pt-4 pb-6 w-full cursor-pointer hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all Active: opacity-80 duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="auto_fix_high">auto_fix_high</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.2em]">Prep</span>
+</div>
+<!-- Inactive Tab: Timeline -->
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-zinc-600 pt-4 pb-6 w-full cursor-pointer hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all Active: opacity-80 duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="hourglass_top">hourglass_top</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.2em]">Timeline</span>
+</div>
+<!-- Inactive Tab: Refine -->
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-zinc-600 pt-4 pb-6 w-full cursor-pointer hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all Active: opacity-80 duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="flare">flare</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.2em]">Refine</span>
+</div>
+<!-- Inactive Tab: Profile -->
+<div class="flex flex-col items-center justify-center text-stone-400 dark:text-zinc-600 pt-4 pb-6 w-full cursor-pointer hover:bg-stone-100 dark:hover:bg-zinc-900 transition-all Active: opacity-80 duration-150">
+<span class="material-symbols-outlined mb-1" data-icon="person_2">person_2</span>
+<span class="font-sans text-[10px] uppercase tracking-[0.2em]">Profile</span>
+</div>
+</nav>
+</body></html>

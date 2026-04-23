@@ -1,59 +1,408 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Refund Rescue Coach - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-24-p001</p>
-        <h1>Refund Rescue Coach</h1>
-        <p>A household refund recovery desk that helps renters spot deposit leak risks, stage evidence, and choose the fastest negotiation path before moving day turns into cash damage.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Refund Rescue Coach - Audit Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;900&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface": "#fcf8fa",
+                        "tertiary-container": "#0d1c2d",
+                        "background": "#fcf8fa",
+                        "secondary-container": "#d5e3fd",
+                        "on-background": "#1b1b1d",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container-low": "#f6f3f5",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "surface-tint": "#565e74",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-highest": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "surface-variant": "#e4e2e4",
+                        "on-tertiary-container": "#768599",
+                        "surface-container-high": "#eae7e9",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed": "#d5e3fd",
+                        "surface-dim": "#dcd9db",
+                        "tertiary": "#000000",
+                        "on-surface-variant": "#45464d",
+                        "outline-variant": "#c6c6cd",
+                        "surface-bright": "#fcf8fa",
+                        "on-surface": "#1b1b1d",
+                        "secondary": "#515f74",
+                        "on-primary-container": "#7c839b",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "tertiary-fixed": "#d4e4fa",
+                        "inverse-on-surface": "#f3f0f2",
+                        "error-container": "#ffdad6",
+                        "primary": "#000000",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#131b2e",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "inverse-surface": "#303032",
+                        "primary-container": "#131b2e",
+                        "on-secondary-container": "#57657b",
+                        "outline": "#76777d",
+                        "surface-container": "#f0edef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "body-tabular": ["Work Sans"],
+                        "body-base": ["Work Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "label-caps": ["Work Sans"]
+                    },
+                    "fontSize": {
+                        "body-tabular": ["13px", { "lineHeight": "1.4", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-base": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base text-body-base antialiased">
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center w-full px-4 h-14 z-50 fixed docked full-width top-0 border-b border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 font-['Public_Sans'] font-medium tracking-tight">
+<div class="flex items-center gap-4">
+<div class="hidden md:flex text-lg font-black uppercase tracking-widest text-slate-900 dark:text-slate-100">
+                Refund Rescue Coach
+            </div>
+<!-- Search Bar (on_left) -->
+<div class="flex items-center bg-surface-container-low rounded-DEFAULT border border-outline-variant px-3 py-1.5 focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span>
+<input class="bg-transparent border-none p-0 focus:ring-0 text-body-tabular text-body-tabular placeholder-on-surface-variant w-48 outline-none" placeholder="Search audit trail..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<div class="ml-2 w-8 h-8 rounded-full bg-tertiary-fixed overflow-hidden border border-outline-variant flex-shrink-0">
+<img alt="CFO User Profile" class="w-full h-full object-cover" data-alt="professional headshot of a corporate financial analyst in a modern office setting, bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI-NilamVnCkndzbrPxBh5gnfHcv_6_6w4X5aRhKvErKTFQmcFXc5zdpnXC5RuGEhd7bWilSdlDrPH6moyEbPvA4NJeUg--xdWhqUW_xxR9bih74VtRlkT6GTwFEn6DL5OiaBB7VId3N2M_pW0C9N3sWzmFp7WVDagzVPxRbCeXT3MNs0BlzSkqV5TjDzyHDA-8hIR9rYMMQ7K9L9WwlIpbQ9Mu_tbTgeRzF9pfBMQkhtWyQBvWyew2iQ73jnC-gyjX3HE3DZCJI8"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Web) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-screen z-40 h-full border-r w-64 border-r border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 pt-14 flex-shrink-0">
+<div class="p-4 border-b border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded-DEFAULT bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md">
+                RR
+            </div>
+<div>
+<h1 class="font-bold text-slate-900 dark:text-slate-100 font-headline-md text-[16px] leading-tight">Refund Rescue</h1>
+<p class="font-['Public_Sans'] text-sm antialiased text-on-surface-variant text-[12px]">Tenant Defense System</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1 font-['Public_Sans'] text-sm antialiased">
+<a class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white font-semibold border-l-4 border-slate-900 dark:border-slate-100 px-4 py-3 flex items-center gap-3 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Audit Dashboard
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-4 py-3 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">schedule</span>
+                Deadline Timeline
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-4 py-3 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">rule</span>
+                Risk Checklist
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-4 py-3 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Evidence Locker
+            </a>
+<a class="text-slate-500 dark:text-slate-400 px-4 py-3 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-3 transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">balance</span>
+                Negotiation Path
+            </a>
+</div>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-2 rounded-DEFAULT uppercase tracking-widest hover:bg-tertiary-container transition-colors flex items-center justify-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                Export Audit Log
+            </button>
+<div class="flex flex-col gap-1 font-['Public_Sans'] text-sm antialiased">
+<a class="text-slate-500 dark:text-slate-400 px-2 py-2 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="text-slate-500 dark:text-slate-400 px-2 py-2 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-14 md:pl-64 pb-16 md:pb-0 min-h-screen bg-surface">
+<div class="max-w-[1280px] mx-auto p-margin flex flex-col gap-gutter">
+<!-- Page Header -->
+<header class="flex justify-between items-end mb-2">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Audit Dashboard</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Terminal view for capital recovery and deduction defense.</p>
+</div>
+<div class="hidden sm:flex items-center gap-2 font-label-caps text-label-caps text-on-surface-variant bg-surface-container-low px-3 py-1 rounded-DEFAULT border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+                    AUDIT ACTIVE
+                </div>
+</header>
+<!-- Row 1: Deposit Recovery Snapshot -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Metric 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2">Original Deposit</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">$4,500.00</span>
+<span class="font-body-tabular text-body-tabular text-on-surface-variant">USD</span>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-variant flex items-center justify-between">
+<span class="font-body-tabular text-body-tabular text-on-surface-variant">Escrow Hold</span>
+<span class="material-symbols-outlined text-outline text-[16px]">lock</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-4 flex flex-col relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2 pl-2">Claimed Deductions</span>
+<div class="flex items-baseline gap-2 pl-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">$1,250.00</span>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-variant flex items-center justify-between pl-2">
+<div class="flex items-center gap-1 bg-error-container text-on-error-container px-2 py-0.5 rounded-DEFAULT font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            HIGH RISK
+                        </div>
+<span class="font-body-tabular text-body-tabular text-on-surface-variant">3 Items Pending</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-4 flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-2">Target Recovery</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg text-on-surface">$4,200.00</span>
+<span class="font-body-tabular text-body-tabular text-primary font-bold bg-primary-fixed text-on-primary-fixed px-1.5 rounded-DEFAULT">+ $950</span>
+</div>
+<div class="mt-4 pt-3 border-t border-surface-variant flex items-center justify-between">
+<span class="font-body-tabular text-body-tabular text-on-surface-variant">Negotiation Delta</span>
+<span class="material-symbols-outlined text-outline text-[16px]">trending_up</span>
+</div>
+</div>
+</section>
+<!-- Row 2: Compare Panel & Checklist -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Negotiation Path Compare Panel (Spans 2 cols) -->
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center rounded-t-DEFAULT">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Negotiation Path Compare Panel</h3>
+<button class="font-label-caps text-label-caps border border-outline-variant px-2 py-1 rounded-DEFAULT hover:bg-surface-variant transition-colors">SYNC DATA</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-highest">
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold">LINE ITEM</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold border-l border-outline-variant">LANDLORD CLAIM</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-primary font-semibold border-l border-outline-variant bg-primary-fixed/20">AUDITED REALITY</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold border-l border-outline-variant">DELTA</th>
+</tr>
+</thead>
+<tbody class="font-body-tabular text-body-tabular text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container-low">
+<td class="py-3 px-4">Deep Cleaning Fee</td>
+<td class="py-3 px-4 border-l border-surface-variant text-on-surface-variant">$350.00</td>
+<td class="py-3 px-4 border-l border-surface-variant font-medium bg-primary-fixed/10">$0.00</td>
+<td class="py-3 px-4 border-l border-surface-variant text-primary font-semibold">-$350.00</td>
+</tr>
+<tr class="border-b border-surface-variant bg-surface-container-low/50 hover:bg-surface-container-low relative">
+<td class="py-3 px-4 relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<span class="pl-2">Paint Touch-ups</span>
+</td>
+<td class="py-3 px-4 border-l border-surface-variant text-on-surface-variant">$600.00</td>
+<td class="py-3 px-4 border-l border-surface-variant font-medium bg-primary-fixed/10">$150.00</td>
+<td class="py-3 px-4 border-l border-surface-variant text-primary font-semibold">-$450.00</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low">
+<td class="py-3 px-4">Carpet Replacement (Living)</td>
+<td class="py-3 px-4 border-l border-surface-variant text-on-surface-variant">$300.00</td>
+<td class="py-3 px-4 border-l border-surface-variant font-medium bg-primary-fixed/10">$150.00</td>
+<td class="py-3 px-4 border-l border-surface-variant text-primary font-semibold">-$150.00</td>
+</tr>
+<tr class="bg-surface-container-low font-bold">
+<td class="py-3 px-4 text-right">TOTAL EXPOSURE</td>
+<td class="py-3 px-4 border-l border-outline-variant">$1,250.00</td>
+<td class="py-3 px-4 border-l border-outline-variant text-primary bg-primary-fixed/20">$300.00</td>
+<td class="py-3 px-4 border-l border-outline-variant text-primary">-$950.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Deduction Risk Checklist -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col h-full">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center rounded-t-DEFAULT">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Deduction Risk Checklist</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">rule</span>
+</div>
+<div class="p-4 flex flex-col gap-3 overflow-y-auto max-h-[300px]">
+<!-- Item -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-low border border-surface-variant rounded-DEFAULT relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error rounded-l-DEFAULT"></div>
+<input class="mt-1 border-outline-variant text-primary focus:ring-primary rounded-sm bg-surface-container-lowest h-4 w-4" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-base text-body-base font-semibold text-on-surface leading-tight">Review Paint Proration</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant mt-1 text-[12px]">Landlord claimed full cost; lease indicates 3-year lifespan.</p>
+</div>
+</div>
+<!-- Item -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-lowest border border-surface-variant rounded-DEFAULT">
+<input checked="" class="mt-1 border-outline-variant text-primary focus:ring-primary rounded-sm bg-surface-container-lowest h-4 w-4" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-base text-body-base font-semibold text-on-surface-variant line-through leading-tight">Upload Move-in Photos</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant mt-1 text-[12px]">12 files secured in Locker.</p>
+</div>
+</div>
+<!-- Item -->
+<div class="flex items-start gap-3 p-3 bg-surface-container-lowest border border-surface-variant rounded-DEFAULT">
+<input class="mt-1 border-outline-variant text-primary focus:ring-primary rounded-sm bg-surface-container-lowest h-4 w-4" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-base text-body-base font-semibold text-on-surface leading-tight">Draft Demand Letter v1</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant mt-1 text-[12px]">Requires completion of Compare Panel.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Row 3: Timeline & Evidence -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+<!-- Deadline Timeline -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col p-4">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px] mb-4">Move-out Deadline Timeline</h3>
+<div class="relative pl-4 border-l-2 border-surface-variant ml-2 flex flex-col gap-6">
+<!-- Node Past -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-primary rounded-full border-2 border-surface-container-lowest"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">OCT 15</span>
+<p class="font-body-base text-body-base text-on-surface font-medium">Lease Termination</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant">Keys handed over, final walkthrough complete.</p>
+</div>
+<!-- Node Active -->
+<div class="relative bg-surface-container-low p-3 rounded-DEFAULT border border-primary-fixed-dim -ml-2">
+<div class="absolute -left-[18px] top-4 w-3 h-3 bg-primary rounded-full border-2 border-surface-container-lowest shadow-[0_0_0_2px_rgba(0,0,0,0.1)]"></div>
+<span class="font-label-caps text-label-caps text-primary block mb-1">NOV 05 (TODAY)</span>
+<p class="font-body-base text-body-base text-on-surface font-bold">Statutory Limit (21 Days)</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant">Deadline for landlord to provide itemized deductions or full refund.</p>
+</div>
+<!-- Node Future -->
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-3 h-3 bg-surface-variant rounded-full border-2 border-surface-container-lowest"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">NOV 15</span>
+<p class="font-body-base text-body-base text-on-surface-variant font-medium">Initiate Small Claims Prep</p>
+<p class="font-body-tabular text-body-tabular text-on-surface-variant">If no response received, begin legal filing process.</p>
+</div>
+</div>
+</div>
+<!-- Evidence Locker Board (Mini) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col p-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Evidence Locker Board</h3>
+<button class="font-label-caps text-label-caps text-primary hover:underline">VIEW ALL</button>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<!-- Thumbnail -->
+<div class="aspect-square bg-surface-container-low border border-surface-variant rounded-DEFAULT p-2 flex flex-col items-center justify-center gap-2 hover:border-primary cursor-pointer transition-colors group">
+<span class="material-symbols-outlined text-outline text-[32px] group-hover:text-primary transition-colors">description</span>
+<span class="font-body-tabular text-body-tabular text-on-surface-variant text-center text-[11px] truncate w-full px-1">Lease_Agreement.pdf</span>
+</div>
+<!-- Thumbnail Image -->
+<div class="aspect-square bg-surface-container-low border border-surface-variant rounded-DEFAULT relative overflow-hidden group hover:border-primary cursor-pointer transition-colors">
+<img alt="Living room wall" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="close up photo of a clean white living room wall showing no damage, bright natural light, sharp focus" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDclhpaeRu_-5jP6ChKMEzq2KbjuwtLtKN1SpyfpLru_2RQK3T8Njwy6MjDrIokX_lFbCAVg_qTBb7rbfNKmqjrP7M2dkwYS6rGkXhqEy3meO51UZ-Qo6uZcGqymCDCw1dwONq08fU9VedI0b4Ci3ZnMg-xTPSWZQgaSpLROepFArfa5C-KzhTmufWwWrZEVrvwbChXBBYIyo-27-vnsmwEJgvsa9__xCQ60woOBIX4APwUcCyoSayvuDc2H-3Yl-I2zUMiLTlVrwY"/>
+<div class="absolute bottom-0 left-0 right-0 bg-background/90 border-t border-surface-variant p-1">
+<span class="font-body-tabular text-body-tabular text-on-surface-variant text-center block text-[10px] truncate">wall_condition_1.jpg</span>
+</div>
+</div>
+<!-- Thumbnail Image -->
+<div class="aspect-square bg-surface-container-low border border-surface-variant rounded-DEFAULT relative overflow-hidden group hover:border-primary cursor-pointer transition-colors">
+<img alt="Clean Carpet" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="close up macro shot of clean beige living room carpet texture, soft lighting, pristine condition" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBg0v0cm-9gYYvEG7j7GIPTPuV-GNVZUAZHSEznGxl_I6DmVLLtdo-wZVGqe4c5SmpsrGQ7_kRDZc_KzpE7mWmkuIwlzuoHjC2QaM6A0wh7hGIgUaFdSDjPMlzYG2YF_5tr5MoAYXijMiewshRYdzx-V3NZri3o5Neu4lNPxPBcRH6dAukKvY3P2__19BXmq_wzxtG77RsaPdR731bUjlB8m1LFTdIGg9JP1k9YZ-IEDlOx2dpQUAH7djH5OP6QXH1w-IIk1VIa-Zk"/>
+<div class="absolute bottom-0 left-0 right-0 bg-background/90 border-t border-surface-variant p-1">
+<span class="font-body-tabular text-body-tabular text-on-surface-variant text-center block text-[10px] truncate">carpet_macro.jpg</span>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full border border-dashed border-outline-variant text-on-surface-variant font-label-caps text-label-caps py-2 rounded-DEFAULT hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">upload</span>
+                        UPLOAD EVIDENCE
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-1 py-2 md:hidden docked full-width border-t border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+<!-- Active Tab: Audit -->
+<a class="flex flex-col items-center justify-center text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800 rounded-sm p-2 active:bg-slate-50 dark:active:bg-slate-900 scale-95 duration-100 font-['Public_Sans'] text-[10px] font-bold uppercase tracking-tighter w-16" href="#">
+<span class="material-symbols-outlined mb-1">query_stats</span>
+            Audit
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 active:bg-slate-50 dark:active:bg-slate-900 scale-95 duration-100 font-['Public_Sans'] text-[10px] font-bold uppercase tracking-tighter w-16" href="#">
+<span class="material-symbols-outlined mb-1">history</span>
+            Deadlines
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 active:bg-slate-50 dark:active:bg-slate-900 scale-95 duration-100 font-['Public_Sans'] text-[10px] font-bold uppercase tracking-tighter w-16" href="#">
+<span class="material-symbols-outlined mb-1">grid_view</span>
+            Locker
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 active:bg-slate-50 dark:active:bg-slate-900 scale-95 duration-100 font-['Public_Sans'] text-[10px] font-bold uppercase tracking-tighter w-16" href="#">
+<span class="material-symbols-outlined mb-1">compare_arrows</span>
+            Compare
+        </a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 p-2 active:bg-slate-50 dark:active:bg-slate-900 scale-95 duration-100 font-['Public_Sans'] text-[10px] font-bold uppercase tracking-tighter w-16" href="#">
+<span class="material-symbols-outlined mb-1">receipt_long</span>
+            Log
+        </a>
+</nav>
+</body></html>
