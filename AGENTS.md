@@ -75,9 +75,12 @@ When the task is “idea + design”:
 5) Only then code (if requested)
 
 ### Idea diversity rule
+- PF ideation is now search-first by default. Before producing `/pf idea` or daily cron candidates, perform a live external sweep when available and write the raw signals into `daily/YYYY-MM-DD/ideas.md`.
+- Minimum evidence for each daily batch: 5–10 raw market/problem signals from at least 3 buckets (news/business/tech, communities/forums, niche workflows, trend/policy shifts, weird consumer behavior). Each final candidate should cite the signal(s) that inspired it.
 - Do not overfit daily ideas to the operator's most visible interests.
 - Using the operator's taste as one signal is fine; mirroring it too closely is not.
 - Default expectation: daily batches should show broader range sourced from external signals and the assistant's own synthesis.
+- Before finalizing candidates, compare against at least the last 7 PF daily batches and reject near-duplicates unless the user/trigger/data source/interaction mechanic is genuinely new.
 - If recent batches cluster too tightly around one theme, deliberately widen the next batch.
 - Do not optimize only for immediate monetization. A strong PF batch can mix sellable operator tools with one idea that is simply fun, portfolio-worthy, or surprising to make.
 - Default daily mix for 4 ideas: 3 practical/commercial ideas + 1 fun/experimental/portfolio idea, unless the operator explicitly asks for all-commercial.

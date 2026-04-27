@@ -5,7 +5,8 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 ## Inputs
 - Problem area (1 sentence)
 - Constraints (time, budget, user, platform)
-- External inspiration sweep (at least 3): current news, internet communities, niche operator workflows, trend shifts, weird edge-case behaviors, or overlooked boring problems
+- External inspiration sweep (required, search-backed): current news, internet communities, niche operator workflows, trend shifts, weird edge-case behaviors, or overlooked boring problems
+- Evidence notes: for every daily batch, record at least 5 raw market/problem signals with source names or URLs before proposing candidates.
 - Novelty target: ensure the output is not just a variation of the operator's recent interests
 - Batch mix target: do not optimize only for monetization. A daily batch should usually mix revenue-adjacent ideas with at least one idea that is simply delightful, surprising, or creatively interesting to build.
 - If the operator has supplied a fixed desire/anxiety framework, treat it as binding input rather than soft inspiration.
@@ -20,14 +21,16 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 
 ## Procedure (20–40 minutes)
 
-1) **External sweep first (required)**
+1) **External search sweep first (required)**
 - Start outside the user's immediate taste profile.
+- Use live web/search when available. If search is unavailable, explicitly mark the run as degraded and use saved sources only as a fallback.
 - Pull signals from at least 3 external buckets such as:
   - broad news / business / tech headlines
   - internet communities (forums, Reddit-like discussion patterns, creator/operator complaints)
   - niche operational workflows or industry pain points
   - strange consumer behaviors, policy shifts, compliance changes, or edge-case routines
-- Write down 5–10 raw opportunity seeds before narrowing.
+- Write down 5–10 raw opportunity seeds before narrowing. Each seed should capture: source, observed complaint/desire, who feels it, why now, and possible willingness-to-pay or shareability.
+- Do not generate final PF candidates until this sweep is written into `daily/YYYY-MM-DD/ideas.md` under a `Search signals` or `External signals` section.
 
 2) **Anchor (similar)**
 - Identify the closest existing solution pattern.
@@ -39,6 +42,7 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 
 4) **Novelty check (required)**
 - Reject ideas that are too close to the recent local pattern (for example: another minor variation of investing / wedding / GPU dashboards) unless there is a genuinely new mechanism, user, or market trigger.
+- Compare against at least the last 7 PF daily batches. Reject candidates that only rename the same dashboard/rescue/planner pattern without a new user, new trigger, new data source, or new interaction mechanic.
 - Prefer at least 1 idea per batch that would surprise the operator.
 - Prefer ideas where the assistant's independent synthesis is doing more work than mirroring the user's known interests.
 
@@ -46,6 +50,7 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 - Produce 1–3 hypotheses.
 - Each hypothesis must include: user value, mechanism, and a minimal test.
 - Across a daily batch, optimize for range: different users, different urgency levels, different markets.
+- Each final candidate must cite 1–2 raw external signals that inspired it. Do not cite sources as proof of market size; use them as problem evidence only.
 - If a binding theme framework was provided, every output candidate must map cleanly to one of those themes. If it does not map, reject it.
 - Default batch composition for daily PF runs:
   - daily standard run: generate 4 ideas and scaffold `p001` through `p004`
