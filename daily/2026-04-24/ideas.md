@@ -50,3 +50,39 @@ Revenge Body Quest
 - **Design profile:** playful-experimental
 - **Stitch prompt:** Design a bold desktop self-reinvention gameboard called Revenge Body Quest for people turning rejection, embarrassment, or a rough slump into a dramatic comeback. It should make progress feel like a stylish campaign with streaks, boss fights, aura milestones, and a final-form recap that is fun to share. Include a comeback identity card, an aura level timeline, a mission streak board, a boss-fight obstacle panel, a confidence loot gallery, and a final form recap drawer. Design direction: use a playful-experimental aesthetic with glossy dark gradients, neon victory accents, theatrical motion cues, and one unmistakably cinematic primary flow so the product feels cheeky, high-energy, and portfolio-worthy.
 
+## Backlog Seeds — LLM Unconventional Use Cases
+
+Source reference reviewed on 2026-04-24: KDnuggets “7 Specific Unconventional Things to Do with Language Models”. These are not today’s batch winners, but they are worth keeping in the PF backlog because they map well to strong anxiety/decision-driven UX.
+
+### Seed A
+### Title
+Thesis Breaker Desk
+
+- **Theme:** 자산 방어
+- **One-liner:** Turn a stock thesis or investment idea into an adversarial breakdown that shows the hidden assumptions, missing evidence, and top reasons not to buy.
+- **Why it fits PF:** Converts generic AI chat into a tense, high-value “talk me out of this mistake” interface that matches money-protection psychology.
+
+### Seed B
+### Title
+Clause Trap Scanner
+
+- **Theme:** 자산 방어
+- **One-liner:** A red-flag scanner for rental agreements, service contracts, and membership terms that highlights hidden fees, unfair exits, and liability shifts in plain Korean.
+- **Why it fits PF:** Strong fear-of-loss hook; much easier to demo than full legal AI because the UX can focus on warning cards and follow-up questions.
+
+### Seed C
+### Title
+Logic Hole Inspector
+
+- **Theme:** 역전
+- **One-liner:** A plan debugger that takes a business, automation, or life plan and points out the missing steps, broken dependencies, and weakest assumptions before execution starts.
+- **Why it fits PF:** Good internal tool and public prototype candidate; easy to make visually legible with flow gaps, blockers, and next-step cards.
+
+### Seed D
+### Title
+Deadline Face ROI Judge
+
+- **Theme:** 외모
+- **One-liner:** A deadline beauty decision board that argues against low-payoff treatments and ranks only the fastest visible upgrades before a date, interview, or photo day.
+- **Why it fits PF:** Pairs well with today’s Face Score Deadline Planner but sharpens the LLM angle into contrarian decision support instead of generic scheduling.
+
