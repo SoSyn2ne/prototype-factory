@@ -6,7 +6,7 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 - Problem area (1 sentence)
 - Constraints (time, budget, user, platform)
 - External inspiration sweep (required, search-backed): current news, internet communities, niche operator workflows, trend shifts, weird edge-case behaviors, or overlooked boring problems
-- Evidence notes: for every daily batch, record at least 5 raw market/problem signals with source names or URLs before proposing candidates.
+- Evidence notes: for every daily batch, record at least 5 raw market/problem signals with source names or URLs before proposing candidates. At least 2 signals should come from community-style sources when available.
 - Novelty target: ensure the output is not just a variation of the operator's recent interests
 - Batch mix target: do not optimize only for monetization. A daily batch should usually mix revenue-adjacent ideas with at least one idea that is simply delightful, surprising, or creatively interesting to build.
 - If the operator has supplied a fixed desire/anxiety framework, treat it as binding input rather than soft inspiration.
@@ -26,10 +26,11 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
 - Use live web/search when available. If search is unavailable, explicitly mark the run as degraded and use saved sources only as a fallback.
 - Pull signals from at least 3 external buckets such as:
   - broad news / business / tech headlines
-  - internet communities (forums, Reddit-like discussion patterns, creator/operator complaints)
+  - internet communities (forums, Reddit-like discussion patterns, HN/Product Hunt comments, Discord/Telegram-style public chatter, Naver Cafe/Blind-like Korean community patterns, creator/operator complaints)
   - niche operational workflows or industry pain points
   - strange consumer behaviors, policy shifts, compliance changes, or edge-case routines
-- Write down 5–10 raw opportunity seeds before narrowing. Each seed should capture: source, observed complaint/desire, who feels it, why now, and possible willingness-to-pay or shareability.
+- Community roam requirement: do not only search polished articles. Skim community posts/comments for repeated complaints, hacks, screenshots, embarrassment, jealousy, budget anxiety, “what should I do?” questions, and workaround behavior. Prefer lived pain over generic trend summaries.
+- Write down 5–10 raw opportunity seeds before narrowing. Each seed should capture: source, observed complaint/desire, who feels it, why now, possible willingness-to-pay or shareability, and whether it came from community chatter or formal/news sources.
 - Do not generate final PF candidates until this sweep is written into `daily/YYYY-MM-DD/ideas.md` under a `Search signals` or `External signals` section.
 
 2) **Anchor (similar)**
