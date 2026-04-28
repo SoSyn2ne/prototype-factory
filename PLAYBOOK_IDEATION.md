@@ -30,6 +30,7 @@ Use this playbook to generate *high‑leverage* ideas quickly without becoming s
   - niche operational workflows or industry pain points
   - strange consumer behaviors, policy shifts, compliance changes, or edge-case routines
 - Community roam requirement: do not only search polished articles. Skim community posts/comments for repeated complaints, hacks, screenshots, embarrassment, jealousy, budget anxiety, “what should I do?” questions, and workaround behavior. Prefer lived pain over generic trend summaries.
+- Tavily/Scrapling helper path: use Tavily to find candidate URLs; optionally run `python3 scripts/extract-signals.py --file <urls.txt>` to extract or stub body/comment notes with Scrapling. See `docs/EXTERNAL_SIGNALS.md`.
 - Write down 5–10 raw opportunity seeds before narrowing. Each seed should capture: source, observed complaint/desire, who feels it, why now, possible willingness-to-pay or shareability, and whether it came from community chatter or formal/news sources.
 - Do not generate final PF candidates until this sweep is written into `daily/YYYY-MM-DD/ideas.md` under a `Search signals` or `External signals` section.
 
