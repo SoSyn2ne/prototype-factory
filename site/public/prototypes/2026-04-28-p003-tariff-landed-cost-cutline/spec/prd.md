@@ -1,0 +1,49 @@
+# PRD — Tariff Landed-Cost Cutline
+
+## Candidate type
+- Practical / Commercial
+
+## Theme
+- 자산 방어
+
+## Design profile
+- operator-dense
+
+## Problem
+- An e-commerce margin defense desk that helps small sellers reprice, bundle, or pause SKUs when de minimis and tariff shocks wreck unit economics.
+
+## Target user
+- Etsy, Shopify, and marketplace sellers importing or shipping low-value goods into the US who need fast SKU-level decisions without a trade-law department.
+
+## Key UX
+- Upload a SKU list, add origin/shipping assumptions, see landed-cost shock by product, then choose reprice, bundle, swap supplier, or pause before selling at a loss.
+
+## Required UI sections
+- tariff shock banner
+- SKU landed-cost table
+- margin break-even slider
+- bundle rescue builder
+- supplier/origin scenario cards
+- pause/reprice action queue
+
+## External/community signal references
+- Reddit r/EtsySellers de minimis thread: https://www.reddit.com/r/EtsySellers/comments/1msru7x/uk_to_us_de_minimus_tips_and_resources/
+- Google News RSS tariff/de minimis coverage: https://news.google.com/rss/search?q=de%20minimis%20tariffs%20small%20sellers%202026
+
+## Stitch prompt
+Design a desktop e-commerce margin defense desk called Tariff Landed-Cost Cutline for Etsy, Shopify, and marketplace sellers whose low-value import economics are changing because of de minimis and tariff shocks. It should let users upload a SKU list, model origin and shipping assumptions, compare landed-cost changes, and decide whether to reprice, bundle, swap supplier, or pause a product before selling at a loss. Include a tariff shock banner, SKU landed-cost table, margin break-even slider, bundle rescue builder, supplier/origin scenario cards, and pause/reprice action queue. Design direction: use an operator-dense aesthetic with compact high-signal panels, spreadsheet-like SKU clarity, amber margin warnings, dense action queues, and no decorative fluff so the product feels built for urgent commercial decisions.
+
+## Constraints
+- Phase A only: spec/scaffold, no custom demo implementation.
+- Preserve the assigned design profile in Stitch output.
+- Use external signals as problem evidence, not market-size proof.
+
+## Non-goals
+- No external LLM API calls.
+- No production backend.
+- No payment flow implementation in Phase A.
+
+## Success metrics
+- A user can understand the core pain and next action within 10 seconds.
+- The main UI exposes all required sections without placeholder text.
+- Stitch output can be dropped into `/home/sy/Downloads/stitch_drop/2026-04-28/p003/`.
