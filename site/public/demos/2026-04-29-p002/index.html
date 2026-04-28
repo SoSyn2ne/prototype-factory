@@ -1,59 +1,400 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agent Review Fatigue Meter - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-29-p002</p>
-        <h1>Agent Review Fatigue Meter</h1>
-        <p>A code-review command desk that tells teams when AI-agent output is getting too large, too trusted, or too repetitive for humans to review safely.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AGENT_REVIEW_FATIGUE - System Operator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#393939",
+                        "on-background": "#e5e2e1",
+                        "inverse-on-surface": "#313030",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffffff",
+                        "on-primary": "#2f3131",
+                        "secondary": "#44e2cd",
+                        "on-surface": "#e5e2e1",
+                        "secondary-fixed": "#62fae3",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "inverse-primary": "#5d5f5f",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-secondary-container": "#004d44",
+                        "background": "#131313",
+                        "on-primary-fixed": "#1a1c1c",
+                        "surface": "#131313",
+                        "on-secondary-fixed-variant": "#005047",
+                        "primary-fixed": "#e2e2e2",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#353534",
+                        "on-tertiary-container": "#636565",
+                        "outline-variant": "#444748",
+                        "primary-container": "#e2e2e2",
+                        "surface-container-low": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-high": "#2a2a2a",
+                        "primary": "#ffffff",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-container": "#636565",
+                        "surface-container": "#201f1f",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "on-error": "#690005",
+                        "tertiary-container": "#e2e2e2",
+                        "on-secondary-fixed": "#00201c",
+                        "on-secondary": "#003731",
+                        "surface-tint": "#c6c6c7",
+                        "secondary-fixed-dim": "#3cddc7",
+                        "on-surface-variant": "#c4c7c8",
+                        "on-tertiary": "#2f3131",
+                        "surface-variant": "#353534",
+                        "outline": "#8e9192",
+                        "surface-dim": "#131313",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03c6b2",
+                        "on-primary-fixed-variant": "#454747"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "panel-gap": "8px",
+                        "margin-compact": "4px",
+                        "unit": "4px",
+                        "container-padding": "16px",
+                        "table-cell-padding": "6px 12px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Space Grotesk"],
+                        "mono-data": ["Space Grotesk"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-md": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "mono-data": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "400" }],
+                        "body-sm": ["11px", { lineHeight: "14px", fontWeight: "400" }],
+                        "headline-md": ["18px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "label-caps": ["10px", { lineHeight: "12px", letterSpacing: "0.08em", fontWeight: "700" }],
+                        "body-md": ["13px", { lineHeight: "18px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #131313; color: #e5e2e1; }
+        .grid-bg { background-image: radial-gradient(circle at 1px 1px, #2a2a2a 1px, transparent 0); background-size: 16px 16px; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444748; }
+    </style>
+</head>
+<body class="font-body-md text-body-md flex h-screen overflow-hidden bg-background">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[280px] border-r border-zinc-800 bg-zinc-950 dark:bg-zinc-900 flex flex-col z-20 hidden md:flex">
+<div class="p-6 border-b border-zinc-800">
+<h1 class="font-headline-lg text-headline-lg text-xl font-black text-white">SYSTEM_OPERATOR</h1>
+<p class="font-label-caps text-label-caps text-secondary mt-1 tracking-wider">STATUS: ANALYZING</p>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1">
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-3 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="input">input</span>
+                        Agent Intake
+                    </a>
+</li>
+<li>
+<a class="bg-zinc-900 text-white border-l-2 border-white flex items-center gap-3 px-4 py-3 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="speed" style="font-variation-settings: 'FILL' 1;">speed</span>
+                        Fatigue Gauge
+                    </a>
+</li>
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-3 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span>
+                        Risky Clusters
+                    </a>
+</li>
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-3 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                        Attention Budget
+                    </a>
+</li>
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-3 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined" data-icon="group_work">group_work</span>
+                        Reviewer Queue
+                    </a>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-zinc-800 mt-auto">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-3 rounded hover:bg-tertiary-fixed transition-colors mb-4 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">edit_document</span>
+                DECISION_MEMO
+            </button>
+<ul class="space-y-1">
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-2 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="text-zinc-500 flex items-center gap-3 px-4 py-2 hover:bg-zinc-900 hover:text-zinc-200 transition-all duration-150 ease-in-out font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="menu_book">menu_book</span>
+                        Documentation
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Canvas -->
+<div class="flex-1 md:ml-[280px] flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full h-12 px-4 border-b border-zinc-800 bg-zinc-950 dark:bg-zinc-950 z-10 docked full-width top-0">
+<div class="flex items-center gap-4">
+<span class="text-sm font-black tracking-tighter text-white uppercase font-headline-lg text-headline-lg">AGENT_REVIEW_FATIGUE</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-[16px]">search</span>
+<input class="bg-zinc-900 border border-zinc-800 text-white font-mono-data text-mono-data py-1 pl-8 pr-3 w-64 focus:outline-none focus:border-outline focus:ring-0 placeholder-zinc-600" placeholder="QUERY PR_ID OR AGENT..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-zinc-500 hover:bg-zinc-900 transition-colors p-1.5 rounded cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+</button>
+<button class="text-zinc-500 hover:bg-zinc-900 transition-colors p-1.5 rounded cursor-pointer active:scale-95 relative">
+<span class="material-symbols-outlined text-[18px]" data-icon="notifications_paused">notifications_paused</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border border-zinc-950"></span>
+</button>
+<button class="text-zinc-500 hover:bg-zinc-900 transition-colors p-1.5 rounded cursor-pointer active:scale-95">
+<span class="material-symbols-outlined text-[18px]" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<main class="flex-1 overflow-y-auto p-panel-gap grid-bg flex flex-col gap-panel-gap">
+<!-- Top Row: Gauge & Budget -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-panel-gap min-h-[320px]">
+<!-- Review Fatigue Gauge -->
+<div class="bg-surface-container-low border border-surface-variant p-container-padding flex flex-col col-span-1 lg:col-span-1 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-error via-surface-variant to-surface-variant"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Review Fatigue Gauge</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">SYSTEM_WIDE_SCORE</p>
+</div>
+<span class="material-symbols-outlined text-outline">speed</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center relative">
+<!-- Simulated Gauge -->
+<div class="relative w-48 h-24 overflow-hidden">
+<div class="absolute top-0 left-0 w-48 h-48 rounded-full border-[16px] border-surface-container-high border-b-transparent border-r-transparent transform -rotate-45"></div>
+<div class="absolute top-0 left-0 w-48 h-48 rounded-full border-[16px] border-error border-b-transparent border-l-transparent border-t-transparent transform rotate-[15deg]"></div>
+</div>
+<div class="absolute bottom-4 flex flex-col items-center">
+<span class="font-headline-lg text-[48px] leading-none font-black text-error">87</span>
+<span class="font-label-caps text-label-caps text-error bg-error/10 px-2 py-0.5 rounded mt-2">CRITICAL LOAD</span>
+</div>
+</div>
+<div class="flex justify-between mt-4 border-t border-surface-variant pt-4">
+<div class="text-center">
+<p class="font-mono-data text-mono-data text-on-surface-variant">PRs / HR</p>
+<p class="font-headline-md text-headline-md text-on-surface">42.5</p>
+</div>
+<div class="text-center">
+<p class="font-mono-data text-mono-data text-on-surface-variant">AVG DWELL</p>
+<p class="font-headline-md text-headline-md text-on-surface">1.2m</p>
+</div>
+<div class="text-center">
+<p class="font-mono-data text-mono-data text-on-surface-variant">APPROVAL %</p>
+<p class="font-headline-md text-headline-md text-error">94% <span class="material-symbols-outlined text-[14px] align-middle">trending_up</span></p>
+</div>
+</div>
+</div>
+<!-- Risky Diff Cluster Map (Placeholder for complex viz) -->
+<div class="bg-surface-container-low border border-surface-variant p-container-padding flex flex-col col-span-1 lg:col-span-2">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Risky Diff Clusters</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">TOPOLOGICAL_CHANGE_MAP</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-highest px-3 py-1 font-mono-data text-mono-data text-on-surface hover:bg-surface-bright transition-colors border border-outline-variant">1H</button>
+<button class="bg-zinc-900 px-3 py-1 font-mono-data text-mono-data text-on-surface-variant hover:bg-surface-bright transition-colors border border-zinc-800">24H</button>
+</div>
+</div>
+<div class="flex-1 bg-surface-container-lowest border border-surface-variant relative overflow-hidden group">
+<!-- Simulated Node Map / Bento styling inside -->
+<div class="absolute inset-0 p-4 flex flex-wrap gap-4 content-start">
+<!-- Cluster 1 -->
+<div class="bg-error/10 border border-error/30 p-3 w-48 hover:border-error transition-colors cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-error">AUTH_BYPASS</span>
+<span class="font-mono-data text-mono-data text-error">.98 RISK</span>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant truncate">src/middleware/auth.ts</div>
+<div class="mt-2 text-error flex items-center gap-1 font-mono-data text-[10px]">
+<span class="material-symbols-outlined text-[12px]">warning</span> 14 PRs Linked
+                                </div>
+</div>
+<!-- Cluster 2 -->
+<div class="bg-surface-container border border-outline-variant p-3 w-40 hover:border-outline transition-colors cursor-pointer">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-secondary">DB_SCHEMA</span>
+<span class="font-mono-data text-mono-data text-secondary">.42 RISK</span>
+</div>
+<div class="font-mono-data text-mono-data text-on-surface-variant truncate">prisma/schema.prisma</div>
+<div class="mt-2 text-on-surface-variant flex items-center gap-1 font-mono-data text-[10px]">
+<span class="material-symbols-outlined text-[12px]">info</span> 3 PRs Linked
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Row: Table & Queue -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-panel-gap flex-1 min-h-[400px]">
+<!-- Agent Output Intake (Dense Table) -->
+<div class="bg-surface-container-low border border-surface-variant flex flex-col col-span-1 lg:col-span-3 overflow-hidden">
+<div class="p-4 border-b border-surface-variant flex justify-between items-center bg-surface-container-highest">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Agent Output Intake</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">RECENT_GENERATIVE_PRS</p>
+</div>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-zinc-500 text-[14px]">filter_list</span>
+<input class="bg-surface-container border border-outline-variant text-on-surface font-mono-data text-mono-data py-1 pl-7 pr-2 w-32 focus:outline-none focus:border-outline" placeholder="Filter IDs..." type="text"/>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container sticky top-0 z-10">
+<tr>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap">PR_ID</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap">AGENT</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap w-full">SUMMARY</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap">LINES</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap">FATIGUE_IMPACT</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-table-cell-padding font-bold border-b border-surface-variant whitespace-nowrap">STATUS</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data divide-y divide-surface-variant">
+<tr class="hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<td class="p-table-cell-padding text-secondary">#A92-F1</td>
+<td class="p-table-cell-padding text-on-surface">Codex-v4</td>
+<td class="p-table-cell-padding text-on-surface-variant truncate max-w-xs group-hover:text-on-surface transition-colors">Refactor payment gateway webhook handler for idempotency</td>
+<td class="p-table-cell-padding text-error">+412/-18</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-variant rounded overflow-hidden"><div class="bg-error h-full w-[85%]"></div></div>
+<span class="text-error">HIGH</span>
+</div>
+</td>
+<td class="p-table-cell-padding"><span class="bg-surface-variant text-on-surface px-2 py-0.5 border border-outline-variant uppercase text-[10px] tracking-wider">PENDING</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<td class="p-table-cell-padding text-secondary">#A92-E8</td>
+<td class="p-table-cell-padding text-on-surface">Copilot-X</td>
+<td class="p-table-cell-padding text-on-surface-variant truncate max-w-xs group-hover:text-on-surface transition-colors">Update internal UI components to new design tokens</td>
+<td class="p-table-cell-padding text-secondary">+12/-4</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-variant rounded overflow-hidden"><div class="bg-secondary h-full w-[15%]"></div></div>
+<span class="text-secondary">LOW</span>
+</div>
+</td>
+<td class="p-table-cell-padding"><span class="bg-surface-variant text-on-surface px-2 py-0.5 border border-outline-variant uppercase text-[10px] tracking-wider">PENDING</span></td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors cursor-pointer group">
+<td class="p-table-cell-padding text-secondary">#A92-D3</td>
+<td class="p-table-cell-padding text-on-surface">Claude-Eng</td>
+<td class="p-table-cell-padding text-on-surface-variant truncate max-w-xs group-hover:text-on-surface transition-colors">Implement rate limiting on public API endpoints</td>
+<td class="p-table-cell-padding text-error">+205/-45</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-variant rounded overflow-hidden"><div class="bg-error h-full w-[70%]"></div></div>
+<span class="text-error">HIGH</span>
+</div>
+</td>
+<td class="p-table-cell-padding"><span class="bg-surface-variant text-on-surface px-2 py-0.5 border border-outline-variant uppercase text-[10px] tracking-wider">PENDING</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Reviewer Queue & Budget -->
+<div class="flex flex-col gap-panel-gap col-span-1 lg:col-span-1">
+<!-- Fresh-Context Reviewer Queue -->
+<div class="bg-surface-container-low border border-surface-variant p-container-padding flex-1">
+<div class="flex justify-between items-center mb-4 border-b border-surface-variant pb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Reviewer Queue</h2>
+<span class="font-label-caps text-label-caps text-secondary">FRESH CONTEXT</span>
+</div>
+<ul class="space-y-3">
+<li class="flex items-center justify-between p-2 hover:bg-surface-container-highest transition-colors border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-full flex items-center justify-center font-mono-data text-on-surface">JS</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface leading-tight">J. Smith</p>
+<p class="font-mono-data text-[10px] text-secondary">CAPACITY: 80%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">assignment_add</span>
+</li>
+<li class="flex items-center justify-between p-2 hover:bg-surface-container-highest transition-colors border border-transparent hover:border-outline-variant cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant rounded-full flex items-center justify-center font-mono-data text-on-surface">AL</div>
+<div>
+<p class="font-body-md text-body-md text-on-surface leading-tight">A. Lin</p>
+<p class="font-mono-data text-[10px] text-error">CAPACITY: 15%</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant text-[18px]">assignment_add</span>
+</li>
+</ul>
+</div>
+<!-- Human Attention Budget -->
+<div class="bg-surface-container-low border border-surface-variant p-container-padding">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-3">HUMAN_ATTENTION_BUDGET</h2>
+<div class="flex items-end justify-between mb-2">
+<span class="font-headline-md text-headline-md text-on-surface">14.2<span class="text-sm text-on-surface-variant">HRS</span></span>
+<span class="font-mono-data text-mono-data text-error">OVERFLOW: +2.1H</span>
+</div>
+<div class="w-full h-2 bg-surface-variant overflow-hidden flex">
+<div class="bg-secondary h-full w-[40%]" title="Assigned"></div>
+<div class="bg-surface-tint h-full w-[30%]" title="Processing"></div>
+<div class="bg-error h-full w-[30%]" title="Deficit"></div>
+</div>
+<div class="flex justify-between mt-2 font-mono-data text-[10px] text-on-surface-variant">
+<span>UTILIZED</span>
+<span>DEFICIT</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

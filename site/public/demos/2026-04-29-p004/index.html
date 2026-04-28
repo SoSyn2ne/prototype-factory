@@ -1,59 +1,312 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Surveillance Price Doppelganger - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-29-p004</p>
-        <h1>Surveillance Price Doppelganger</h1>
-        <p>A playful paranoia machine that compares two shopper personas and shows when the same cart appears to get a different algorithmic price.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Surveillance Price Doppelganger Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed-variant": "#3f465c",
+                        "secondary-container": "#3c4a5e",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#040e1f",
+                        "surface-dim": "#081425",
+                        "outline": "#909097",
+                        "surface-variant": "#2a3548",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-tertiary": "#233143",
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "on-secondary": "#233144",
+                        "surface-tint": "#bec6e0",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "tertiary-container": "#081828",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container": "#152031",
+                        "on-primary-container": "#798098",
+                        "inverse-surface": "#d8e3fb",
+                        "primary": "#bec6e0",
+                        "surface-container-high": "#1f2a3c",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "surface-container-low": "#111c2d",
+                        "primary-container": "#0f172a",
+                        "outline-variant": "#45464d",
+                        "on-tertiary-container": "#738296",
+                        "surface-container-highest": "#2a3548",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "surface": "#081425",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#081425",
+                        "on-secondary-container": "#abb9d2",
+                        "tertiary-fixed": "#d4e4fa",
+                        "inverse-primary": "#565e74",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "on-surface": "#d8e3fb",
+                        "secondary-fixed": "#d5e3fd",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "secondary": "#b9c7e0",
+                        "on-primary": "#283044",
+                        "tertiary": "#b9c8de",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#263143",
+                        "on-background": "#d8e3fb",
+                        "surface-bright": "#2f3a4c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "xl": "32px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "edge_margin": "24px",
+                        "md": "16px",
+                        "xs": "8px",
+                        "lg": "24px"
+                    },
+                    fontFamily: {
+                        "header-md": ["Inter"],
+                        "data-point": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-fixed": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    fontSize: {
+                        "header-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-point": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "display-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-fixed": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-fixed antialiased selection:bg-primary-container selection:text-primary">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-14 bg-[#020617] border-b border-slate-800">
+<div class="flex items-center gap-6">
+<span class="text-lg font-black tracking-tighter text-slate-50 font-display-lg uppercase">SURVEILLANCE PRICE DOPPELGANGER</span>
+<nav class="hidden md:flex items-center gap-4 h-full pt-1">
+<a class="font-inter tracking-tight uppercase text-xs font-bold text-slate-50 border-b-2 border-slate-400 pb-1 h-full flex items-center" href="#">Analysis</a>
+<a class="font-inter tracking-tight uppercase text-xs font-bold text-slate-500 hover:text-slate-300 transition-colors h-full flex items-center" href="#">Live Feeds</a>
+<a class="font-inter tracking-tight uppercase text-xs font-bold text-slate-500 hover:text-slate-300 transition-colors h-full flex items-center" href="#">Audit Log</a>
+<a class="font-inter tracking-tight uppercase text-xs font-bold text-slate-500 hover:text-slate-300 transition-colors h-full flex items-center" href="#">Archive</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 text-slate-200">
+<button aria-label="settings" class="hover:text-slate-300 transition-colors opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button aria-label="notifications_active" class="hover:text-slate-300 transition-colors opacity-80">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="Analyst Profile" class="h-full w-full object-cover" data-alt="close up professional portrait of a male data analyst in dark clothing, dramatic cinematic lighting, deep shadows, objective neutral expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc4Y4aQOgqJxbki4OlpPljE-ikTLSixuLjyT4ORXWVks_kXeo5NOhK0fpvF32UeLlq1N2b0VKHPEKnabS-w6lFngmSP-vnj0k_f1ioD2LpKKxbDj6S9FnGicSJjD5HwL-kDOgRy0Ia8bWEoNk4KWxqqThDY8NwcrdsM0qxXxfejKFsP9VfFwaq_YlIGq_PscR_ncbDQ7xXiuiWq8s30MUfXxwZwMvtx3Vl_f8svzgS8JIwgS_enbNw_zTayqjBSgWw3kmLD34G3T9D"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex flex-col justify-between py-4 bg-[#0F172A] w-64 border-r border-slate-800 z-40 hidden md:flex">
+<div>
+<div class="px-4 mb-6 flex items-center gap-3">
+<div class="h-10 w-10 rounded bg-surface-variant flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+</div>
+<div>
+<div class="font-header-md text-header-md text-slate-50">OPERATOR_042</div>
+<div class="font-label-caps text-label-caps text-slate-400">Level 4 Clearance</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="bg-slate-800/50 text-slate-50 border-l-2 border-slate-400 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 translate-x-1" href="#">
+<span class="material-symbols-outlined text-lg">person_add</span> Persona Builder
+                </a>
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">monitoring</span> Price Board
+                </a>
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">detector_status</span> Suspicion Meter
+                </a>
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">receipt_long</span> Receipt Timeline
+                </a>
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">assessment</span> Risk Reports
+                </a>
+</nav>
+</div>
+<div class="flex flex-col gap-1 mt-auto">
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">help</span> Documentation
+            </a>
+<a class="text-slate-500 px-4 py-3 font-inter text-[11px] font-medium tracking-wide uppercase flex items-center gap-3 hover:bg-slate-800 hover:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined text-lg">gavel</span> Legal
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-14 md:pl-64 min-h-screen">
+<div class="p-edge_margin max-w-[1600px] mx-auto grid grid-cols-12 gap-gutter">
+<!-- Persona Pair Builder (Split Screen) -->
+<div class="col-span-12 bg-surface-container rounded border border-outline-variant p-md flex flex-col gap-sm">
+<div class="flex justify-between items-center pb-sm border-b border-slate-800">
+<h2 class="font-header-md text-header-md text-on-surface">Persona Pair Builder</h2>
+<div class="flex gap-2">
+<span class="bg-primary-container/20 text-primary border border-primary/30 px-2 py-1 rounded-full font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync</span> SYNCHRONIZED
+                        </span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter h-full">
+<!-- Target A (Affluent) -->
+<div class="bg-surface-container-high rounded p-sm border border-outline-variant/50 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex items-center justify-between mb-sm relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">devices</span> TARGET ALPHA (AFFLUENT)
+                            </h3>
+<span class="font-data-point text-data-point text-outline">NYC_IP_742</span>
+</div>
+<div class="space-y-sm relative z-10">
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">Device</span>
+<span class="font-data-point text-data-point text-on-surface">MacBook Pro M2 (Safari)</span>
+</div>
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">Location</span>
+<span class="font-data-point text-data-point text-on-surface">Manhattan, NY (10001)</span>
+</div>
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">History</span>
+<span class="font-data-point text-data-point text-on-surface">Luxury retail, frequent flyer</span>
+</div>
+</div>
+</div>
+<!-- Target B (Budget) -->
+<div class="bg-surface-container-high rounded p-sm border border-outline-variant/50 relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-error/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+<div class="flex items-center justify-between mb-sm relative z-10">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">android</span> TARGET BETA (BUDGET)
+                            </h3>
+<span class="font-data-point text-data-point text-outline">OMA_IP_118</span>
+</div>
+<div class="space-y-sm relative z-10">
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">Device</span>
+<span class="font-data-point text-data-point text-on-surface">Mid-range Android (Chrome)</span>
+</div>
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">Location</span>
+<span class="font-data-point text-data-point text-on-surface">Omaha, NE (68102)</span>
+</div>
+<div class="flex justify-between items-center border-b border-slate-800 pb-xs">
+<span class="font-body-fixed text-body-fixed text-on-surface-variant">History</span>
+<span class="font-data-point text-data-point text-on-surface">Discount sites, public transit</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Same-Cart Price Board -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container rounded border border-outline-variant p-md">
+<div class="flex justify-between items-center pb-sm border-b border-slate-800 mb-sm">
+<h2 class="font-header-md text-header-md text-on-surface">Same-Cart Price Board</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">LIVE MONITORING</span>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="font-label-caps text-label-caps text-on-surface-variant pb-xs border-b border-slate-800 w-1/3">ITEM (SKU)</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant pb-xs border-b border-slate-800 text-right">ALPHA PRICE</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant pb-xs border-b border-slate-800 text-right">BETA PRICE</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant pb-xs border-b border-slate-800 text-right">VARIANCE</th>
+</tr>
+</thead>
+<tbody class="font-data-point text-data-point">
+<tr class="hover:bg-surface-container-high transition-colors group border-b border-slate-800/50">
+<td class="py-sm pr-sm text-on-surface group-hover:text-primary transition-colors">Premium Widget (W-992)</td>
+<td class="py-sm px-sm text-right text-on-surface">$24.50</td>
+<td class="py-sm px-sm text-right text-on-surface">$19.99</td>
+<td class="py-sm pl-sm text-right">
+<span class="inline-flex items-center gap-1 bg-error/15 text-error px-2 py-0.5 rounded-full font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span> $4.51
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors group border-b border-slate-800/50">
+<td class="py-sm pr-sm text-on-surface group-hover:text-primary transition-colors">Subscription Pro (Mo)</td>
+<td class="py-sm px-sm text-right text-on-surface">$14.99</td>
+<td class="py-sm px-sm text-right text-on-surface">$9.99</td>
+<td class="py-sm pl-sm text-right">
+<span class="inline-flex items-center gap-1 bg-error/15 text-error px-2 py-0.5 rounded-full font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span> $5.00
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="py-sm pr-sm text-on-surface group-hover:text-primary transition-colors">Digital Fast Track</td>
+<td class="py-sm px-sm text-right text-on-surface">$8.00</td>
+<td class="py-sm px-sm text-right text-on-surface">$8.00</td>
+<td class="py-sm pl-sm text-right">
+<span class="inline-flex items-center gap-1 bg-outline/15 text-outline px-2 py-0.5 rounded-full font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[12px]">horizontal_rule</span> $0.00
+                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Data-Trigger Suspicion Meter -->
+<div class="col-span-12 lg:col-span-4 bg-surface-container rounded border border-outline-variant p-md flex flex-col">
+<div class="flex justify-between items-center pb-sm border-b border-slate-800 mb-sm">
+<h2 class="font-header-md text-header-md text-on-surface">Suspicion Meter</h2>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div class="flex-grow flex flex-col justify-center">
+<!-- Gauge Graphic -->
+<div class="mb-lg relative h-6 rounded bg-surface-container-lowest overflow-hidden flex border border-outline-variant/30">
+<div class="h-full bg-slate-700 w-[20%]"></div>
+<div class="h-full bg-slate-600 w-[20%]"></div>
+<div class="h-full bg-slate-500 w-[20%]"></div>
+<div class="h-full bg-error/50 w-[20%]"></div>
+<div class="h-full bg-error w-[20%] relative">
+<!-- Marker -->
+<div class="absolute right-[10%] top-[-4px] bottom-[-4px] w-1 bg-slate-50 shadow-[0_0_8px_rgba(255,255,255,0.8)] z-10"></div>
+</div>
+</div>
+<div class="space-y-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">location_on</span> Location Bias</span>
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full overflow-hidden"><div class="h-full bg-error w-[90%]"></div></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">devices</span> Device Tax</span>
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full overflow-hidden"><div class="h-full bg-error/70 w-[60%]"></div></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2"><span class="material-symbols-outlined text-[14px]">history</span> History Profile</span>
+<div class="w-24 h-1 bg-surface-container-lowest rounded-full overflow-hidden"><div class="h-full bg-slate-500 w-[40%]"></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,59 +1,342 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Consent Leak Replay - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-29-p001</p>
-        <h1>Consent Leak Replay</h1>
-        <p>A privacy-ops self-test that records what a cookie banner actually does after opt-out, so small teams can catch broken consent before regulators or clients do.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Consent Leak Replay Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&amp;family=Epilogue:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#00e639",
+                        "on-secondary": "#5c0058",
+                        "secondary-fixed-dim": "#ffabef",
+                        "on-tertiary": "#00363f",
+                        "on-surface-variant": "#b9ccb2",
+                        "surface-variant": "#353436",
+                        "outline": "#84967e",
+                        "surface-dim": "#131314",
+                        "surface-container-lowest": "#0e0e0f",
+                        "secondary-container": "#ff0df5",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#00530e",
+                        "surface-container-high": "#2a2a2b",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "surface-container-low": "#1c1b1c",
+                        "primary-container": "#00ff41",
+                        "inverse-surface": "#e5e2e3",
+                        "primary": "#ebffe2",
+                        "on-primary-container": "#007117",
+                        "on-error": "#690005",
+                        "primary-fixed-dim": "#00e639",
+                        "surface-container": "#201f20",
+                        "tertiary-container": "#8ceaff",
+                        "on-secondary-fixed": "#390036",
+                        "surface": "#131314",
+                        "on-secondary-fixed-variant": "#82007d",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#72ff70",
+                        "on-tertiary-container": "#006a7a",
+                        "surface-container-highest": "#353436",
+                        "outline-variant": "#3b4b37",
+                        "on-background": "#e5e2e3",
+                        "surface-bright": "#3a393a",
+                        "on-primary": "#003907",
+                        "tertiary": "#eefbff",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#313031",
+                        "secondary": "#ffabef",
+                        "inverse-primary": "#006e16",
+                        "tertiary-fixed-dim": "#00daf8",
+                        "on-surface": "#e5e2e3",
+                        "secondary-fixed": "#ffd7f3",
+                        "on-tertiary-fixed": "#001f25",
+                        "on-secondary-container": "#51004d",
+                        "tertiary-fixed": "#a5eeff",
+                        "background": "#131314",
+                        "on-primary-fixed": "#002203"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "persona-split": "50vw",
+                        "unit": "8px",
+                        "gutter": "24px",
+                        "meter-height": "12px",
+                        "margin": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Space Grotesk"],
+                        "display-xl": ["Space Grotesk"],
+                        "body-md": ["Epilogue"],
+                        "body-lg": ["Epilogue"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "110%", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "display-xl": ["96px", { "lineHeight": "90%", "letterSpacing": "-0.05em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "150%", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "160%", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "120%", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "100%", "letterSpacing": "0.15em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .scanline-overlay {
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 1px,
+                rgba(0, 255, 65, 0.05) 1px,
+                rgba(0, 255, 65, 0.05) 2px
+            );
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-x-hidden min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#0A0A0B]/80 backdrop-blur-xl docked full-width border-b border-[#00FF41]/30 border-b border-[#00FF41]/20 shadow-[0_0_15px_rgba(0,255,65,0.1)] flex justify-between items-center px-10 py-4 font-['Space_Grotesk'] tracking-tighter uppercase text-[#00FF41]">
+<div class="flex items-center gap-4">
+<!-- search_bar: on_left -->
+<div class="flex items-center bg-surface-container-high border border-outline-variant px-3 py-1.5 rounded-DEFAULT">
+<span class="material-symbols-outlined text-surface-variant text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-xs focus:ring-0 text-on-surface w-48 font-label-caps placeholder-surface-variant outline-none" placeholder="QUERY_LOGS..." type="text"/>
+</div>
+</div>
+<div class="text-2xl font-black text-[#00FF41] drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]">
+            CONSENT_LEAK_REPLAY
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-slate-500 hover:text-[#00FF41]/70 hover:bg-[#00FF41]/10 hover:text-[#00FF41] transition-all duration-150 cursor-pointer" data-icon="security">security</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-[#00FF41]/70 hover:bg-[#00FF41]/10 hover:text-[#00FF41] transition-all duration-150 cursor-pointer" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-slate-500 hover:text-[#00FF41]/70 hover:bg-[#00FF41]/10 hover:text-[#00FF41] transition-all duration-150 cursor-pointer" data-icon="download">download</span>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-screen z-40 bg-[#0A0A0B] docked border-r border-magenta-500/30 w-64 border-r border-[#FF00FF]/20 shadow-[5px_0_15px_rgba(255,0,255,0.05)] flex flex-col pt-20 font-['Space_Grotesk'] text-xs font-bold tracking-widest text-[#00FF41]">
+<div class="px-6 py-6 mb-4 border-b border-surface-variant/50">
+<div class="text-on-surface font-headline-md text-headline-md truncate text-lg">OPERATOR_ID</div>
+<div class="text-secondary text-[10px] mt-1 tracking-widest opacity-80">LEAK_DETECT_MODE_ON</div>
+</div>
+<div class="flex flex-col flex-1 gap-1">
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 grayscale hover:grayscale-0 hover:bg-[#FF00FF]/5 hover:text-[#FF00FF] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Workspace</span>
+</a>
+<!-- Active State: Replay_Engine -->
+<a class="bg-[#00FF41]/10 text-[#00FF41] border-l-4 border-[#00FF41] flex items-center gap-4 px-6 py-4 shadow-[inset_0_0_10px_rgba(0,255,65,0.2)]" href="#">
+<span class="material-symbols-outlined" data-icon="play_circle">play_circle</span>
+<span>Replay_Engine</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 grayscale hover:grayscale-0 hover:bg-[#FF00FF]/5 hover:text-[#FF00FF] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span>Tracker_Audit</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 grayscale hover:grayscale-0 hover:bg-[#FF00FF]/5 hover:text-[#FF00FF] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span>Risk_Matrix</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-slate-600 grayscale hover:grayscale-0 hover:bg-[#FF00FF]/5 hover:text-[#FF00FF] transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Evidence_Vault</span>
+</a>
+</div>
+<div class="p-6 mt-auto">
+<button class="w-full border border-[#00FF41]/50 text-[#00FF41] hover:bg-[#00FF41]/10 hover:text-[#00FF41] transition-all py-3 flex justify-center items-center gap-2 font-label-caps uppercase tracking-widest shadow-[0_0_10px_rgba(0,255,65,0.1)]">
+<span class="material-symbols-outlined text-sm">rocket_launch</span>
+                START_NEW_TEST
+            </button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-64 pt-[80px] p-margin min-h-screen relative scanline-overlay">
+<!-- URL Test Launcher -->
+<section class="mb-gutter w-full">
+<div class="bg-surface-container-high/80 backdrop-blur-md border border-primary-container/30 p-1 flex items-center">
+<div class="px-4 text-primary font-label-caps text-label-caps opacity-70">TARGET_URL &gt;</div>
+<input class="flex-1 bg-transparent border-none text-on-surface font-body-lg focus:outline-none focus:ring-0 h-12 px-2" readonly="" type="text" value="https://example-publisher.com/article/123"/>
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-8 h-12 hover:bg-primary-fixed transition-colors flex items-center gap-2 border border-primary-container">
+<span class="material-symbols-outlined text-sm">play_arrow</span>
+                    EXECUTE_REPLAY
+                </button>
+</div>
+</section>
+<!-- Dramatic Split-Screen Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- LEFT: The Self (Intended Privacy / Audit Trail) -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-gutter">
+<!-- Consent Journey Replay Timeline -->
+<div class="bg-surface-container/50 border border-outline-variant p-6 rounded-lg backdrop-blur-sm">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-dim mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">timeline</span>
+                        Consent Journey Replay
+                    </h2>
+<div class="relative pl-6 border-l border-surface-variant space-y-8">
+<!-- Event 1 -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-surface-variant border-2 border-background"></div>
+<div class="text-label-caps font-label-caps text-surface-variant mb-1">T+0.00s</div>
+<div class="bg-surface border border-outline-variant p-4">
+<div class="font-body-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">public</span>
+                                    Page Load Init
+                                </div>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-secondary-fixed-dim border-2 border-background shadow-[0_0_8px_#ffabef]"></div>
+<div class="text-label-caps font-label-caps text-secondary-fixed-dim mb-1">T+1.24s</div>
+<div class="bg-surface border border-secondary/30 p-4 relative overflow-hidden">
+<div class="absolute right-0 top-0 h-full w-1 bg-secondary"></div>
+<div class="font-body-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary">touch_app</span>
+                                    Banner Click (Reject All)
+                                </div>
+<div class="text-sm text-on-surface-variant mt-2 font-mono">Payload: { consent_status: 'denied', dnt: 1 }</div>
+</div>
+</div>
+<!-- Event 3 (Leak) -->
+<div class="relative">
+<div class="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-error border-2 border-background shadow-[0_0_10px_#ffb4ab]"></div>
+<div class="text-label-caps font-label-caps text-error mb-1">T+2.10s</div>
+<div class="bg-error-container/10 border border-error/50 p-4 relative">
+<div class="font-body-lg text-error flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                    Tracker Fired Post-Rejection
+                                </div>
+<div class="text-sm text-on-error-container mt-2 font-mono opacity-80">Target: analytics.shadow-domain.net/collect</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tracker Audit Table -->
+<div class="bg-surface-container/50 border border-outline-variant p-6 rounded-lg backdrop-blur-sm">
+<h2 class="font-headline-md text-headline-md text-primary-fixed-dim mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">data_object</span>
+                        Tracker Audit Log
+                    </h2>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-label-caps font-label-caps text-surface-variant">
+<th class="py-3 px-2 font-normal">STATUS</th>
+<th class="py-3 px-2 font-normal">TRACKER_NAME</th>
+<th class="py-3 px-2 font-normal">DATA_COLLECTED</th>
+<th class="py-3 px-2 font-normal">RISK_LVL</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-on-surface">
+<tr class="border-b border-surface-variant/30 hover:bg-surface/50">
+<td class="py-3 px-2">
+<span class="inline-flex items-center justify-center bg-primary-container/20 text-primary-container border border-primary-container/50 px-2 py-0.5 text-[10px] font-label-caps uppercase">Blocked</span>
+</td>
+<td class="py-3 px-2 font-mono text-sm">Google Analytics</td>
+<td class="py-3 px-2 text-on-surface-variant text-sm">Session ID, Page URL</td>
+<td class="py-3 px-2">
+<div class="w-16 h-1 bg-surface-variant"><div class="h-full bg-primary" style="width: 20%"></div></div>
+</td>
+</tr>
+<tr class="border-b border-error/20 bg-error/5 hover:bg-error/10 relative">
+<td class="py-3 px-2">
+<span class="inline-flex items-center justify-center bg-error/20 text-error border border-error px-2 py-0.5 text-[10px] font-label-caps uppercase animate-pulse shadow-[0_0_8px_rgba(255,180,171,0.4)]">Leaked</span>
+</td>
+<td class="py-3 px-2 font-mono text-sm text-error-container">Criteo Pixel</td>
+<td class="py-3 px-2 text-on-surface-variant text-sm">User Agent, IP (Partial), Hashed Email</td>
+<td class="py-3 px-2">
+<div class="w-16 h-1 bg-surface-variant"><div class="h-full bg-error" style="width: 90%"></div></div>
+</td>
+</tr>
+<tr class="border-b border-surface-variant/30 hover:bg-surface/50">
+<td class="py-3 px-2">
+<span class="inline-flex items-center justify-center bg-primary-container/20 text-primary-container border border-primary-container/50 px-2 py-0.5 text-[10px] font-label-caps uppercase">Blocked</span>
+</td>
+<td class="py-3 px-2 font-mono text-sm">Meta Pixel</td>
+<td class="py-3 px-2 text-on-surface-variant text-sm">fbp, click_id</td>
+<td class="py-3 px-2">
+<div class="w-16 h-1 bg-surface-variant"><div class="h-full bg-primary" style="width: 20%"></div></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- RIGHT: The Doppelganger (Risk / Infractions) -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-gutter border-l border-secondary/20 pl-gutter relative">
+<!-- Glitch line decoration -->
+<div class="absolute left-0 top-1/4 w-px h-32 bg-secondary shadow-[0_0_10px_#ff0df5] mix-blend-screen"></div>
+<!-- State-Law Risk Badges -->
+<div class="bg-surface-dim border border-secondary/30 p-6 shadow-[inset_0_0_20px_rgba(255,13,245,0.02)]">
+<h3 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest">Compliance Infractions</h3>
+<div class="flex flex-col gap-3">
+<!-- Red/Critical Risk -->
+<div class="flex items-center justify-between p-3 border border-error/40 bg-error/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-error">gavel</span>
+<span class="font-body-md text-error-container font-semibold">GDPR</span>
+</div>
+<span class="text-xs bg-error text-on-error px-2 py-1 font-mono">VIOLATION</span>
+</div>
+<!-- Amber/Warning Risk (using tertiary-container for contrast in this palette as warning proxy, or just custom inline for amber feel) -->
+<div class="flex items-center justify-between p-3 border border-[#ffb300]/40 bg-[#ffb300]/5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#ffb300]">policy</span>
+<span class="font-body-md text-[#ffb300] font-semibold">CCPA</span>
+</div>
+<span class="text-xs border border-[#ffb300] text-[#ffb300] px-2 py-1 font-mono">AT_RISK</span>
+</div>
+<!-- Neutral/Pass -->
+<div class="flex items-center justify-between p-3 border border-outline-variant bg-surface">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-surface-variant">verified_user</span>
+<span class="font-body-md text-on-surface-variant font-semibold">CPRA</span>
+</div>
+<span class="text-xs text-surface-variant font-mono">CLEARED</span>
+</div>
+</div>
+</div>
+<!-- Dark-Pattern Copy Flags -->
+<div class="bg-surface-dim border border-secondary/30 p-6 flex-1">
+<h3 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest">UI Dark Patterns Detected</h3>
+<div class="space-y-4">
+<div class="p-4 bg-background border border-surface-variant relative">
+<div class="absolute top-0 right-0 bg-secondary-container text-on-secondary-container text-[9px] font-label-caps px-1 py-0.5 m-1">MISDIRECTION</div>
+<p class="font-body-md text-on-surface text-sm">
+                                "By clicking <span class="bg-secondary/20 text-secondary border-b border-secondary border-dashed px-1">Accept All</span>, you agree to our terms. Manage options below."
+                            </p>
+<div class="mt-2 text-xs text-on-surface-variant font-mono">
+                                &gt; Analysis: Asymmetric button emphasis.
+                            </div>
+</div>
+<div class="p-4 bg-background border border-surface-variant relative">
+<div class="absolute top-0 right-0 bg-error-container text-on-error-container text-[9px] font-label-caps px-1 py-0.5 m-1">HIDDEN_ACTION</div>
+<p class="font-body-md text-on-surface text-sm">
+                                Link to reject cookies is obscured within <span class="bg-error/20 text-error border-b border-error border-dashed px-1">paragraph 4 of the privacy policy</span>.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB): Evidence Memo -->
+<button class="fixed bottom-8 right-8 z-50 bg-primary-container text-on-primary-container h-14 px-6 rounded-full shadow-[0_0_20px_rgba(0,255,65,0.4)] hover:scale-105 transition-transform flex items-center justify-center gap-2 border border-primary font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined">edit_document</span>
+        Draft Evidence Memo
+    </button>
+</body></html>
