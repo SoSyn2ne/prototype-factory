@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Spend Seatbelt</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@500;700&amp;family=Work+Sans:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "tertiary": "#88d982",
+                        "on-tertiary-fixed-variant": "#005312",
+                        "on-primary-fixed": "#181c20",
+                        "tertiary-fixed-dim": "#88d982",
+                        "tertiary-fixed": "#a3f69c",
+                        "primary-fixed-dim": "#c3c7cc",
+                        "on-surface": "#dbe3ed",
+                        "surface-bright": "#323a41",
+                        "secondary-fixed": "#e2e2e5",
+                        "secondary-container": "#454749",
+                        "secondary-fixed-dim": "#c6c6c9",
+                        "inverse-surface": "#dbe3ed",
+                        "surface-container-low": "#151c23",
+                        "inverse-on-surface": "#293138",
+                        "surface-tint": "#c3c7cc",
+                        "surface-dim": "#0c141b",
+                        "on-secondary-fixed-variant": "#454749",
+                        "background": "#0c141b",
+                        "on-primary-fixed-variant": "#43474b",
+                        "tertiary-container": "#003a0a",
+                        "surface": "#0c141b",
+                        "surface-variant": "#2e363d",
+                        "inverse-primary": "#5b5f63",
+                        "on-primary": "#2d3135",
+                        "on-surface-variant": "#c5c6ca",
+                        "outline-variant": "#44474a",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-highest": "#2e363d",
+                        "primary": "#c3c7cc",
+                        "surface-container": "#192027",
+                        "on-background": "#dbe3ed",
+                        "on-secondary": "#2f3133",
+                        "on-primary-container": "#95999d",
+                        "on-tertiary-fixed": "#002204",
+                        "on-secondary-fixed": "#1a1c1e",
+                        "on-tertiary": "#003909",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#e0e3e8",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#070f15",
+                        "on-secondary-container": "#b4b5b7",
+                        "surface-container-high": "#232b32",
+                        "outline": "#8f9194",
+                        "primary-container": "#2d3135",
+                        "secondary": "#c6c6c9",
+                        "on-tertiary-container": "#5baa59"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin": "24px",
+                        "stack-loose": "32px",
+                        "panel-padding": "20px",
+                        "stack-tight": "8px"
+                    },
+                    fontFamily: {
+                        "body-standard": ["Inter"],
+                        "headline-panel": ["Inter"],
+                        "mono-data": ["Space Grotesk"],
+                        "display-data": ["Space Grotesk"],
+                        "label-caps": ["Work Sans"]
+                    },
+                    fontSize: {
+                        "body-standard": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-panel": ["18px", { lineHeight: "24px", letterSpacing: "0.01em", fontWeight: "600" }],
+                        "mono-data": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }],
+                        "display-data": ["36px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.08em", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Grid specific overrides for brutalist feel */
+        .brutalist-panel {
+            @apply bg-[#2D3135] border border-[#3F444A] p-panel-padding;
+        }
+        .brutalist-ghost-border {
+            @apply border border-white/10;
+        }
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1A1C1E;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3F444A;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-standard text-body-standard overflow-hidden h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#1A1C1E] text-white font-inter uppercase tracking-tighter text-xs font-bold docked full-width top-0 border-b border-[#3F444A] flat no shadows flex justify-between items-center h-12 px-6 w-full z-50 shrink-0">
+<div class="flex items-center">
+<span class="text-sm font-black tracking-widest text-white border-r border-[#3F444A] pr-4 mr-4">SEATBELT_V1.0</span>
+<nav class="hidden md:flex space-x-6">
+<!-- Navigation derived from SideNav to show how TopApp might adapt, though rules say hide BottomNav. Using a generic 'DASHBOARD' state -->
+<a class="text-white font-bold border-b-2 border-white pb-[14px] mt-[14px]" href="#">DASHBOARD</a>
+<a class="text-[#8E9196] hover:bg-[#2D3135] transition-colors pb-[14px] mt-[14px] px-2" href="#">USAGE_METRICS</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<button class="hover:bg-[#2D3135] transition-colors p-2 rounded-DEFAULT scale-98 active:opacity-80 transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-[#2D3135] transition-colors p-2 rounded-DEFAULT scale-98 active:opacity-80 transition-all">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-6 h-6 bg-[#3F444A] rounded-full overflow-hidden border border-[#8E9196]">
+<img alt="Analyst Profile" class="w-full h-full object-cover" data-alt="professional headshot of an analyst with a serious expression, dramatic lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAx6s0EuKh0vmfmFzRtXCSjv_4Mu2D4WWRg3fM_AvNBzdUEiYyeH7HS5_n5ddBryk40eFU4BlhN2nl8Pa01WBcZpZH2apEb7lStKAgcNag7bISBm0TCXRA_m_q0Ppp_CdEwyCx1yti49RcOwkxXqqP-k_Gv53K6LMfmuY77vSgzUyG2CG8MGakBP-9NIvj_CWNG-toC_42qKU3T8DvI-q_9bhjw00ggvwkm_Au1TKWAFg1gxsDOps2v_LUOYk_KbfX_uHAD1VkTQ8U"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full border-r border-[#3F444A] bg-[#1A1C1E] text-white font-inter label-caps text-[11px] tracking-widest docked left-0 w-64 flat tonal layering shrink-0">
+<div class="p-6 border-b border-[#3F444A]">
+<div class="text-lg font-black text-white mb-1">TERMINAL_OPS</div>
+<div class="text-[#8E9196] text-[10px]">VIGILANCE_ACTIVE</div>
+</div>
+<div class="flex-1 py-4 flex flex-col space-y-1">
+<a class="bg-[#2D3135] text-white border-l-4 border-[#2196F3] pl-4 py-3 flex items-center cursor-crosshair transition-all duration-100" href="#">
+<span class="material-symbols-outlined mr-3">query_stats</span>
+                    DASHBOARD
+                </a>
+<a class="text-[#8E9196] hover:text-white pl-5 py-3 flex items-center hover:bg-[#2D3135] hover:text-white transition-all cursor-crosshair duration-100" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+                    USAGE_METRICS
+                </a>
+<a class="text-[#8E9196] hover:text-white pl-5 py-3 flex items-center hover:bg-[#2D3135] hover:text-white transition-all cursor-crosshair duration-100" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+                    TOOL_AUDIT
+                </a>
+<a class="text-[#8E9196] hover:text-white pl-5 py-3 flex items-center hover:bg-[#2D3135] hover:text-white transition-all cursor-crosshair duration-100" href="#">
+<span class="material-symbols-outlined mr-3">speed</span>
+                    FORECAST
+                </a>
+<a class="text-[#8E9196] hover:text-white pl-5 py-3 flex items-center hover:bg-[#2D3135] hover:text-white transition-all cursor-crosshair duration-100" href="#">
+<span class="material-symbols-outlined mr-3">request_quote</span>
+                    RENEGOTIATE
+                </a>
+</div>
+<div class="p-4 border-t border-[#3F444A]">
+<button class="w-full bg-[#3F444A] text-white font-label-caps text-label-caps py-2 px-4 hover:bg-[#454749] transition-colors mb-4 border border-[#8E9196]/30">
+                    NEW_MEMO
+                </button>
+<div class="flex flex-col space-y-2">
+<a class="text-[#8E9196] hover:text-white flex items-center text-[10px]" href="#">
+<span class="material-symbols-outlined text-[14px] mr-2">help_outline</span>
+                        SUPPORT
+                    </a>
+<a class="text-[#8E9196] hover:text-white flex items-center text-[10px]" href="#">
+<span class="material-symbols-outlined text-[14px] mr-2">logout</span>
+                        LOGOUT
+                    </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto bg-background p-margin">
+<!-- Seatbelt Indicator (Top) -->
+<div class="mb-gutter">
+<div class="flex justify-between items-end mb-unit">
+<h1 class="font-headline-panel text-headline-panel text-on-surface">HARD CEILING TRAJECTORY</h1>
+<span class="font-mono-data text-mono-data text-primary">78% ALLOCATED</span>
+</div>
+<div class="h-2 w-full bg-[#1A1C1E] rounded-none border border-[#3F444A] flex overflow-hidden">
+<div class="h-full bg-[#2196F3] w-[60%]"></div>
+<div class="h-full bg-[#4CAF50] w-[18%]"></div>
+<!-- Remaining 22% is empty/dark -->
+</div>
+<div class="flex justify-between mt-unit font-mono-data text-[10px] text-outline">
+<span>$0</span>
+<span>$15,000 (LIMIT)</span>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column (Wider for main data) -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-gutter">
+<!-- Top Row: Burn Meter & Forecast -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Burn Meter -->
+<div class="brutalist-panel flex flex-col justify-between">
+<div class="flex justify-between items-start mb-4">
+<h2 class="font-label-caps text-label-caps text-outline-variant uppercase">Monthly Burn Rate</h2>
+<span class="bg-[#1A2633] text-[#2196F3] px-2 py-1 font-label-caps text-[10px] uppercase border border-[#2196F3]/30">NOMINAL</span>
+</div>
+<div class="flex items-baseline space-x-2">
+<span class="font-display-data text-display-data text-on-surface">$11,450</span>
+<span class="font-mono-data text-mono-data text-outline">/mo</span>
+</div>
+<div class="mt-4 pt-4 border-t border-[#3F444A] flex justify-between items-center">
+<span class="font-body-standard text-[12px] text-outline">Projected EOM</span>
+<span class="font-mono-data text-[12px] text-on-surface">$14,200</span>
+</div>
+</div>
+<!-- Forecast Chart Placeholder -->
+<div class="brutalist-panel relative overflow-hidden min-h-[160px] flex flex-col">
+<div class="flex justify-between items-start mb-2 z-10">
+<h2 class="font-label-caps text-label-caps text-outline-variant uppercase">Token Overage Vector</h2>
+<span class="bg-[#331A1A] text-[#D32F2F] px-2 py-1 font-label-caps text-[10px] uppercase border border-[#D32F2F]/30">WARNING</span>
+</div>
+<!-- Abstract chart representation using borders/blocks -->
+<div class="flex-1 flex items-end space-x-1 mt-4 opacity-70">
+<div class="w-1/6 bg-[#3F444A] h-[20%]"></div>
+<div class="w-1/6 bg-[#3F444A] h-[35%]"></div>
+<div class="w-1/6 bg-[#3F444A] h-[50%]"></div>
+<div class="w-1/6 bg-[#2196F3]/50 h-[70%] border-t border-[#2196F3]"></div>
+<div class="w-1/6 bg-[#D32F2F]/50 h-[95%] border-t border-[#D32F2F]"></div>
+<div class="w-1/6 bg-[#D32F2F] h-full"></div>
+</div>
+</div>
+</div>
+<!-- Duplicate Tool Cluster Map -->
+<div class="brutalist-panel">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-label-caps text-label-caps text-outline-variant uppercase">Redundancy Matrix</h2>
+<button class="text-[10px] uppercase text-[#2196F3] hover:text-white transition-colors">View Audit</button>
+</div>
+<div class="grid grid-cols-3 gap-unit">
+<!-- Cluster 1 -->
+<div class="border border-[#D32F2F]/50 bg-[#331A1A]/20 p-3">
+<div class="text-[10px] text-[#D32F2F] mb-2 uppercase">Copywriting AI</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-on-surface">Jasper</span><span class="text-outline">$99</span></div>
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-on-surface">Copy.ai</span><span class="text-outline">$49</span></div>
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-[#D32F2F]">*ChatGPT+</span><span class="text-outline">$20</span></div>
+</div>
+</div>
+<!-- Cluster 2 -->
+<div class="border border-[#3F444A] bg-[#1A1C1E] p-3">
+<div class="text-[10px] text-outline mb-2 uppercase">Image Gen</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-on-surface">Midjourney</span><span class="text-outline">$30</span></div>
+</div>
+</div>
+<!-- Cluster 3 -->
+<div class="border border-[#3F444A] bg-[#1A1C1E] p-3">
+<div class="text-[10px] text-outline mb-2 uppercase">Code Assist</div>
+<div class="space-y-1">
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-on-surface">Copilot</span><span class="text-outline">$19</span></div>
+<div class="flex justify-between text-[11px] font-mono-data"><span class="text-on-surface">Cursor</span><span class="text-outline">$20</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Accountability Table -->
+<div class="brutalist-panel overflow-hidden flex flex-col">
+<h2 class="font-label-caps text-label-caps text-outline-variant uppercase mb-4">Seat-Owner Liability</h2>
+<div class="w-full">
+<div class="flex w-full text-[10px] font-label-caps text-outline uppercase border-b border-[#3F444A] pb-2 mb-2">
+<div class="w-1/3">Operative</div>
+<div class="w-1/4">Seats</div>
+<div class="w-1/4">Burn Allocation</div>
+<div class="w-1/6 text-right">Status</div>
+</div>
+<!-- Rows -->
+<div class="flex w-full items-center py-2 hover:bg-[#1A1C1E] transition-colors border-b border-[#3F444A]/50">
+<div class="w-1/3 font-body-standard text-[12px] text-on-surface flex items-center">
+<div class="w-4 h-4 bg-[#4CAF50] rounded-none mr-2"></div> Sarah J.
+                                </div>
+<div class="w-1/4 font-mono-data text-[12px] text-outline">4 Active</div>
+<div class="w-1/4 font-mono-data text-[12px] text-on-surface">$340/mo</div>
+<div class="w-1/6 text-right"><span class="bg-[#1B2E1C] text-[#4CAF50] px-1 py-[2px] font-mono-data text-[9px] uppercase border border-[#4CAF50]/30">STABLE</span></div>
+</div>
+<div class="flex w-full items-center py-2 hover:bg-[#1A1C1E] transition-colors">
+<div class="w-1/3 font-body-standard text-[12px] text-on-surface flex items-center">
+<div class="w-4 h-4 bg-[#D32F2F] rounded-none mr-2"></div> Mike T.
+                                </div>
+<div class="w-1/4 font-mono-data text-[12px] text-outline">7 Active</div>
+<div class="w-1/4 font-mono-data text-[12px] text-[#D32F2F]">$890/mo</div>
+<div class="w-1/6 text-right"><span class="bg-[#331A1A] text-[#D32F2F] px-1 py-[2px] font-mono-data text-[9px] uppercase border border-[#D32F2F]/30">AUDIT REQ</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Narrower for actions/queues) -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-gutter">
+<!-- Cancel/Renegotiate Queue -->
+<div class="brutalist-panel bg-[#3F444A]/20">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase">Action Queue</h2>
+<span class="text-[10px] font-mono-data text-outline">3 Pending</span>
+</div>
+<div class="space-y-unit">
+<!-- Action Item 1 -->
+<div class="bg-[#1A1C1E] border-l-2 border-[#D32F2F] p-3 flex justify-between items-center group cursor-pointer hover:bg-[#2D3135] transition-colors">
+<div>
+<div class="text-[11px] font-label-caps text-on-surface uppercase mb-1">Cancel: Jasper AI</div>
+<div class="text-[10px] font-mono-data text-outline">Save $99/mo • Redundant</div>
+</div>
+<button class="text-[#D32F2F] opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+<!-- Action Item 2 -->
+<div class="bg-[#1A1C1E] border-l-2 border-[#2196F3] p-3 flex justify-between items-center group cursor-pointer hover:bg-[#2D3135] transition-colors">
+<div>
+<div class="text-[11px] font-label-caps text-on-surface uppercase mb-1">Renegotiate: OpenAI</div>
+<div class="text-[10px] font-mono-data text-outline">Tier limits reached</div>
+</div>
+<button class="text-[#2196F3] opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">mail</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Finance-Safe Memo Drawer (Collapsed state) -->
+<div class="brutalist-panel flex-1 flex flex-col">
+<h2 class="font-label-caps text-label-caps text-outline-variant uppercase mb-4">Secure Memos</h2>
+<div class="flex-1 border border-[#3F444A] bg-[#1A1C1E] p-4 flex flex-col relative">
+<!-- Decorative background to look like a secure folder -->
+<div class="absolute top-0 right-0 w-8 h-8 border-l border-b border-[#3F444A] bg-[#2D3135]"></div>
+<div class="text-[11px] font-mono-data text-on-surface mb-2 border-b border-[#3F444A] pb-2">MEMO_ID: 049-B</div>
+<p class="text-[12px] font-body-standard text-outline leading-relaxed flex-1">
+                                Approaching API limits on primary model. Recommend migrating non-critical tasks to secondary cheaper models by Q3.
+                            </p>
+<div class="mt-4 flex justify-between items-center">
+<span class="text-[9px] font-mono-data text-outline uppercase">Auth: Admin</span>
+<button class="uppercase text-[9px] font-label-caps text-white bg-[#3F444A] px-2 py-1 hover:bg-[#454749]">Open</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
