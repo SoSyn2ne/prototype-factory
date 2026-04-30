@@ -1,59 +1,411 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Invoice Fraud Fire Drill - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-04-30-p003</p>
-        <h1>Invoice Fraud Fire Drill</h1>
-        <p>A small-business rehearsal desk that turns AI phishing, fake invoices, and voice-clone payment scares into a 10-minute team drill with approval rules.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FRAUD_DRILL_CMD_v1.0 - Rehearsal Desk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#4f5a6e",
+                        "on-primary-fixed-variant": "#574500",
+                        "on-tertiary-fixed": "#111c2d",
+                        "on-secondary-container": "#abb9d1",
+                        "primary": "#ffecb9",
+                        "secondary-fixed": "#d5e3fc",
+                        "outline": "#9a9078",
+                        "inverse-surface": "#dae2fd",
+                        "tertiary": "#e6edff",
+                        "outline-variant": "#4d4632",
+                        "tertiary-container": "#c6d1e9",
+                        "secondary": "#b9c7df",
+                        "surface-variant": "#2d3449",
+                        "tertiary-fixed": "#d8e3fb",
+                        "surface-container-high": "#222a3d",
+                        "surface-dim": "#0b1326",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "inverse-primary": "#735c00",
+                        "surface-tint": "#eec200",
+                        "on-primary": "#3c2f00",
+                        "secondary-container": "#3c4a5e",
+                        "primary-fixed": "#ffe083",
+                        "primary-container": "#facc15",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "surface-container-lowest": "#060e20",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-primary-fixed": "#231b00",
+                        "on-surface": "#dae2fd",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#283044",
+                        "surface": "#0b1326",
+                        "primary-fixed-dim": "#eec200",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "on-surface-variant": "#d1c6ab",
+                        "on-primary-container": "#6c5700",
+                        "surface-container": "#171f33",
+                        "error-container": "#93000a",
+                        "surface-bright": "#31394d",
+                        "surface-container-low": "#131b2e",
+                        "surface-container-highest": "#2d3449",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#233144",
+                        "background": "#0b1326",
+                        "on-tertiary": "#263143",
+                        "on-background": "#dae2fd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "margin": "24px",
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "container-padding": "20px",
+                        "stack-md": "16px",
+                        "stack-sm": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Space Grotesk"],
+                        "data-mono": ["Space Grotesk"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "data-mono": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-slate-900 dark:bg-slate-950 flex justify-between items-center w-full px-4 h-14 z-50 fixed top-0 border-b-2 border-slate-600">
+<div class="flex items-center gap-6">
+<span class="text-xl font-black text-yellow-400 italic font-['Space_Grotesk'] tracking-tight uppercase">FRAUD_DRILL_CMD_v1.0</span>
+<nav class="hidden md:flex gap-4 h-full items-center">
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-yellow-400 border-b-2 border-yellow-400 px-2 py-1" href="#">SCENARIOS</a>
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-slate-400 hover:bg-yellow-400 hover:text-black transition-none px-2 py-1" href="#">EVIDENCE</a>
+<a class="font-['Space_Grotesk'] font-bold tracking-tight uppercase text-slate-400 hover:bg-yellow-400 hover:text-black transition-none px-2 py-1" href="#">METRICS</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-slate-800 border border-slate-600 px-3 py-1">
+<span class="material-symbols-outlined text-slate-400 text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-xs font-data-mono uppercase text-yellow-400 placeholder-slate-500 w-48" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-yellow-400">settings</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-yellow-400">notifications_active</span>
+<span class="material-symbols-outlined text-slate-400 cursor-pointer hover:text-yellow-400">account_circle</span>
+</div>
+<button class="bg-primary-container text-on-primary-container font-['Space_Grotesk'] font-bold px-4 py-1 hover:bg-yellow-500 active:scale-95 transition-none uppercase text-xs">END_DRILL</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 bottom-0 w-64 bg-slate-900 dark:bg-slate-950 flex flex-col border-r-2 border-slate-600 z-40">
+<div class="p-6 border-b border-slate-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-slate-800 border border-yellow-400 flex items-center justify-center">
+<span class="material-symbols-outlined text-yellow-400">shield</span>
+</div>
+<div>
+<h3 class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase text-slate-200">UNIT: BRAVO-6</h3>
+<p class="font-['Space_Grotesk'] font-bold text-[10px] tracking-widest uppercase text-yellow-400">OP_STATUS: SIM_ACTIVE</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto custom-scrollbar">
+<div class="bg-yellow-400 text-black border-l-4 border-yellow-600 p-3 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="target">target</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">SCENARIOS</span>
+</div>
+<div class="text-slate-400 p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-800 hover:text-yellow-400 transition-none">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">EVIDENCE</span>
+</div>
+<div class="text-slate-400 p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-800 hover:text-yellow-400 transition-none">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">ROLES</span>
+</div>
+<div class="text-slate-400 p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-800 hover:text-yellow-400 transition-none">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">PROTOCOLS</span>
+</div>
+<div class="text-slate-400 p-3 flex items-center gap-3 cursor-pointer hover:bg-slate-800 hover:text-yellow-400 transition-none">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">METRICS</span>
+</div>
+</nav>
+<div class="p-4 border-t border-slate-800">
+<div class="text-slate-400 p-3 flex items-center gap-3 cursor-pointer hover:bg-red-900/20 hover:text-red-400 transition-none">
+<span class="material-symbols-outlined" data-icon="power_settings_new">power_settings_new</span>
+<span class="font-['Space_Grotesk'] font-bold text-xs tracking-widest uppercase">SYSTEM_LOGOUT</span>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 mt-14 p-6 h-[calc(100vh-3.5rem)] overflow-y-auto custom-scrollbar bg-[#0f172a]">
+<div class="grid grid-cols-12 gap-gutter max-w-[1600px] mx-auto">
+<!-- Dashboard Top: Operational Status & Role Assignment -->
+<section class="col-span-12 grid grid-cols-12 gap-gutter">
+<!-- Operational Status Card -->
+<div class="col-span-12 lg:col-span-4 bg-slate-800 border-2 border-slate-600 p-0 flex flex-col">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">OPERATIONAL_STATUS</span>
+<span class="font-data-mono text-[10px] text-slate-400">REF: 8842-TS</span>
+</div>
+<div class="p-4 flex justify-between items-center gap-4 bg-slate-900/50">
+<div class="flex flex-col">
+<span class="text-[10px] font-label-caps text-slate-400 uppercase">MISSION_TIMER</span>
+<span class="text-4xl font-data-mono text-yellow-400">00:14:42</span>
+</div>
+<div class="flex-1 flex flex-col items-end">
+<span class="text-[10px] font-label-caps text-slate-400 uppercase text-right w-full">SAFETY_RATING</span>
+<div class="flex gap-1 mt-1">
+<div class="w-6 h-2 bg-yellow-400"></div>
+<div class="w-6 h-2 bg-yellow-400"></div>
+<div class="w-6 h-2 bg-yellow-400"></div>
+<div class="w-6 h-2 bg-slate-600"></div>
+<div class="w-6 h-2 bg-slate-600"></div>
+</div>
+<span class="text-xs font-data-mono text-yellow-400 mt-1">62%_RELIABILITY</span>
+</div>
+</div>
+</div>
+<!-- Role Assignment Strip -->
+<div class="col-span-12 lg:col-span-8 bg-slate-800 border-2 border-slate-600 p-0">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">COMMAND_ROLES_ASSIGNMENT</span>
+<span class="font-data-mono text-[10px] text-slate-400">AUTH: LVL_4</span>
+</div>
+<div class="p-4 grid grid-cols-3 gap-4">
+<div class="border border-yellow-400 bg-yellow-400/10 p-3 flex flex-col items-center justify-center cursor-pointer group">
+<span class="material-symbols-outlined text-yellow-400 group-hover:scale-110">verified_user</span>
+<span class="font-label-caps text-yellow-400 mt-2">THE_APPROVER</span>
+<span class="text-[10px] text-slate-400 mt-1">S. MILLER (CMD)</span>
+</div>
+<div class="border border-slate-600 p-3 flex flex-col items-center justify-center cursor-pointer hover:border-yellow-400 transition-none group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-yellow-400">person_search</span>
+<span class="font-label-caps text-slate-400 mt-2 group-hover:text-yellow-400 uppercase">THE_VERIFIER</span>
+<span class="text-[10px] text-slate-500 mt-1 uppercase">UNASSIGNED</span>
+</div>
+<div class="border border-slate-600 p-3 flex flex-col items-center justify-center cursor-pointer hover:border-yellow-400 transition-none group">
+<span class="material-symbols-outlined text-slate-400 group-hover:text-yellow-400">payments</span>
+<span class="font-label-caps text-slate-400 mt-2 group-hover:text-yellow-400 uppercase">THE_PAYER</span>
+<span class="text-[10px] text-slate-500 mt-1 uppercase">UNASSIGNED</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout Grid -->
+<!-- Left Column: Scenarios & Rule Builder -->
+<div class="col-span-12 xl:col-span-3 flex flex-col gap-gutter">
+<!-- Scenario Picker -->
+<div class="bg-slate-800 border-2 border-slate-600 flex flex-col">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">DRILL_SCENARIOS</span>
+<span class="material-symbols-outlined text-slate-400 text-sm">info</span>
+</div>
+<div class="p-3 space-y-3">
+<div class="border-l-4 border-yellow-400 bg-slate-900 p-3 hover:bg-slate-700 cursor-pointer">
+<h4 class="font-headline-sm text-yellow-400 uppercase text-xs">The Urgent Vendor Update</h4>
+<p class="text-[10px] text-slate-400 mt-1">Scenario: Long-term vendor 'CloudSystems Inc' sends invoice via new banking details.</p>
+</div>
+<div class="border-l-4 border-slate-600 bg-slate-900/50 p-3 hover:border-yellow-400 hover:bg-slate-700 cursor-pointer transition-none opacity-60 grayscale hover:grayscale-0 hover:opacity-100">
+<h4 class="font-headline-sm text-slate-300 uppercase text-xs">The CEO Wire Request</h4>
+<p class="text-[10px] text-slate-500 mt-1">Scenario: High-pressure email from executive account requesting off-cycle wire.</p>
+</div>
+<div class="border-l-4 border-slate-600 bg-slate-900/50 p-3 hover:border-yellow-400 hover:bg-slate-700 cursor-pointer transition-none opacity-60 grayscale hover:grayscale-0 hover:opacity-100">
+<h4 class="font-headline-sm text-slate-300 uppercase text-xs">The Fake Utility Cutoff</h4>
+<p class="text-[10px] text-slate-500 mt-1">Scenario: Automated threat from 'Regional Grid' regarding immediate service suspension.</p>
+</div>
+</div>
+</div>
+<!-- Rule Builder -->
+<div class="bg-slate-800 border-2 border-slate-600 flex flex-col">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">PAYMENT_RULE_GEN</span>
+<span class="font-data-mono text-[10px] text-slate-400">v.0.9</span>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<p class="text-[10px] text-slate-400 uppercase tracking-tighter">Drag rules to active policy:</p>
+<div class="border-2 border-dashed border-slate-600 p-4 min-h-[120px] bg-slate-900/30 flex flex-col gap-2">
+<div class="bg-primary-container text-on-primary-container px-2 py-1 text-[10px] font-bold uppercase flex justify-between items-center">
+                                2-person Voice Verification
+                                <span class="material-symbols-outlined text-sm">close</span>
+</div>
+<div class="bg-slate-700 text-slate-300 px-2 py-1 text-[10px] font-bold uppercase flex justify-between items-center opacity-50">
+                                Domain Whitelist Only
+                             </div>
+</div>
+<button class="w-full border-2 border-slate-600 py-2 text-xs font-label-caps text-slate-400 hover:border-yellow-400 hover:text-yellow-400 transition-none uppercase">PUBLISH_PROTOCOL</button>
+</div>
+</div>
+</div>
+<!-- Center Column: Evidence Board -->
+<div class="col-span-12 xl:col-span-6 flex flex-col gap-gutter">
+<div class="bg-slate-800 border-2 border-slate-600 flex-1 flex flex-col">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="font-label-caps text-on-background uppercase">CENTRAL_EVIDENCE_BOARD</span>
+<span class="bg-red-500 text-white px-2 text-[10px] font-bold animate-pulse">ACTIVE_THREAT</span>
+</div>
+<span class="font-data-mono text-[10px] text-slate-400">OBJ_ID: SC-7721-B</span>
+</div>
+<div class="p-6 flex flex-col gap-gutter">
+<!-- Fake Email Area -->
+<div class="bg-slate-900 border border-slate-600 p-4 relative">
+<div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-2">
+<div class="flex flex-col">
+<span class="text-[10px] text-slate-500 font-bold uppercase">FROM: billing@cloud-systms-inc.com</span>
+<span class="text-[10px] text-slate-500 font-bold uppercase">TO: ap-team@globalcorp.net</span>
+</div>
+<span class="text-xs text-slate-400 font-data-mono">14 OCT 2023 - 09:42 EST</span>
+</div>
+<h2 class="font-headline-sm text-on-background mb-4 text-sm">Subject: IMMEDIATE ACTION REQUIRED: Updated Bank Information for Inv #49201</h2>
+<p class="text-xs text-slate-300 leading-relaxed mb-4">
+                                Dear Accounts Payable Team,
+                                <br/><br/>
+                                Please be advised that <span class="bg-red-500/20 border border-red-500/40 text-red-400 px-1 hover:bg-red-500 hover:text-white cursor-help" title="CRITICAL: Look at the domain 'cloud-systms-inc.com' - Missing 'e' in 'systems'">CloudSystems Inc</span> has migrated our treasury operations. Effective immediately, all outstanding and future payments must be directed to our new account at <span class="bg-red-500/20 border border-red-500/40 text-red-400 px-1 hover:bg-red-500 hover:text-white cursor-help" title="SUSPICIOUS: Bank branch located in a jurisdiction outside normal vendor operations">Mid-Atlantic Credit Trust</span>.
+                                <br/><br/>
+                                Failure to update these records by EOD will result in <span class="bg-red-500/20 border border-red-500/40 text-red-400 px-1 hover:bg-red-500 hover:text-white cursor-help" title="RED FLAG: Artificial sense of urgency to bypass standard verification">late fees and service interruption</span>.
+                                <br/><br/>
+                                Best regards,<br/>
+<span class="font-bold">Mark Venson</span><br/>
+                                Senior Controller
+                            </p>
+</div>
+<!-- Attachments Row -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- Invoice PDF Preview -->
+<div class="bg-slate-900 border border-slate-600 p-0 overflow-hidden group">
+<div class="bg-slate-800 px-3 py-1 border-b border-slate-600 flex justify-between items-center">
+<span class="text-[10px] font-label-caps text-slate-400">INV_49201.PDF</span>
+<span class="material-symbols-outlined text-sm text-slate-400">download</span>
+</div>
+<div class="h-40 bg-white/5 flex items-center justify-center p-4">
+<img class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-none" data-alt="A highly detailed technical drawing of a commercial invoice on a digital screen. The document is seen at an angle with crisp black text and red stamps. The lighting is cool and clinical, typical of a cybersecurity command center dashboard. The overall mood is utilitarian and high-stakes, focusing on forensic detail and professional clarity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlLcTK7c3l8jQZDuwjFZ5Zdtc8dAWj1Ef09ftSA-hCVBaOzg7LvI9Qd6Yjm1_it7EuWV2wqELEb34xHBOX4xdO4PrF5Oe2o2FUUSHd1u_XrsedSuGMUtlFuzBp2Nz6VpA0l0xk4m7h2NOcyys9UNnu7v3kTzfpxhwNCA-H2tenLa5GnZ090uhVocW0Kt-UNsDA_naxuNKXCzN60238NRuqUxRykpspk4u4Y8aWKd4eCLxpOFQkLRmus6N36fOQ-4MBmGSCIzvMPYg0"/>
+</div>
+</div>
+<!-- Voice Note Transcript -->
+<div class="bg-slate-900 border border-slate-600 p-0 flex flex-col">
+<div class="bg-slate-800 px-3 py-1 border-b border-slate-600 flex justify-between items-center">
+<span class="text-[10px] font-label-caps text-slate-400">VOICEMAIL_X42.AUDIO</span>
+<span class="material-symbols-outlined text-sm text-yellow-400">play_arrow</span>
+</div>
+<div class="p-3 flex-1">
+<div class="w-full h-8 bg-slate-800 mb-2 flex items-center justify-around px-2">
+<div class="h-4 w-1 bg-yellow-400/50"></div><div class="h-6 w-1 bg-yellow-400"></div><div class="h-3 w-1 bg-yellow-400/30"></div><div class="h-5 w-1 bg-yellow-400"></div><div class="h-2 w-1 bg-yellow-400/50"></div><div class="h-6 w-1 bg-yellow-400"></div>
+<div class="h-4 w-1 bg-yellow-400/50"></div><div class="h-6 w-1 bg-yellow-400"></div><div class="h-3 w-1 bg-yellow-400/30"></div><div class="h-5 w-1 bg-yellow-400"></div><div class="h-2 w-1 bg-yellow-400/50"></div><div class="h-6 w-1 bg-yellow-400"></div>
+</div>
+<p class="text-[10px] text-slate-400 font-data-mono italic">
+                                        "[Static]...just calling to follow up on the email Mark sent. The bank switch is critical for our new quarter. Call me back if you— [End of Message]"
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Verification Checklist & Metrics -->
+<div class="col-span-12 xl:col-span-3 flex flex-col gap-gutter">
+<!-- Verification Checklist -->
+<div class="bg-slate-800 border-2 border-slate-600 flex flex-col">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">VERIFICATION_PROTOCOL</span>
+<span class="font-data-mono text-[10px] text-slate-400">CHK_LST: ALPHA</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="flex items-start gap-4 group cursor-pointer">
+<div class="w-6 h-6 border-2 border-slate-600 bg-slate-900 flex items-center justify-center shrink-0 group-hover:border-yellow-400">
+<span class="material-symbols-outlined text-green-500 text-lg font-bold">check</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-slate-500 line-through">Check sender email metadata</span>
+<span class="text-[9px] text-slate-600 uppercase">VERIFIED: 09:44</span>
+</div>
+</div>
+<div class="flex items-start gap-4 group cursor-pointer">
+<div class="w-6 h-6 border-2 border-yellow-400 bg-slate-900 flex items-center justify-center shrink-0">
+<span class="text-yellow-400 font-bold text-xs uppercase"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-background">Call known phone number on file</span>
+<span class="text-[9px] text-yellow-400 uppercase">PENDING_ACTION</span>
+</div>
+</div>
+<div class="flex items-start gap-4 group cursor-pointer opacity-50">
+<div class="w-6 h-6 border-2 border-slate-600 bg-slate-900 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-red-500 text-lg font-bold">close</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-background">Cross-verify with procurement portal</span>
+<span class="text-[9px] text-slate-400 uppercase">NOT_ATTEMPTED</span>
+</div>
+</div>
+<div class="flex items-start gap-4 group cursor-pointer opacity-50">
+<div class="w-6 h-6 border-2 border-slate-600 bg-slate-900 flex items-center justify-center shrink-0">
+<span class="text-yellow-400 font-bold text-xs uppercase"></span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-background">Manual approval by CFO level 2</span>
+<span class="text-[9px] text-slate-400 uppercase">LOCKED_BY_PREVIOUS</span>
+</div>
+</div>
+</div>
+</div>
+<!-- High-Priority Actions -->
+<div class="bg-slate-800 border-2 border-slate-600 flex flex-col flex-1">
+<div class="bg-slate-700 px-4 py-2 border-b-2 border-slate-600 flex justify-between items-center">
+<span class="font-label-caps text-on-background uppercase">FIELD_DECISIONS</span>
+</div>
+<div class="p-4 flex flex-col gap-4 justify-center flex-1">
+<button class="w-full bg-red-600 text-white font-headline-md py-4 hover:bg-red-700 transition-none border-b-4 border-red-900 active:translate-y-1 active:border-b-0 uppercase">REPORT_FRAUD</button>
+<button class="w-full border-2 border-slate-600 text-slate-400 font-headline-md py-4 hover:border-yellow-400 hover:text-yellow-400 transition-none uppercase">REQUEST_DATA</button>
+<button class="w-full border-2 border-slate-600 text-slate-400 font-headline-md py-4 hover:border-yellow-400 hover:text-yellow-400 transition-none uppercase">WHITE_FLAG_SAFE</button>
+</div>
+<div class="p-2 bg-slate-900 border-t border-slate-700">
+<div class="flex justify-between text-[10px] font-data-mono text-slate-500 uppercase">
+<span>SESSION_ID: 99482-TX</span>
+<span>ENCRYPTION: AES-256</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Emergency Info (Suppressing contextually as requested in standard patterns but keeping for drill utility if needed) -->
+<!-- Not rendering FAB on Detail/Drill screen as per instruction: "You MUST suppress the FAB on Settings, Profile, Details, and Transactional screens." -->
+</body></html>

@@ -79,15 +79,21 @@ function normalizeMeta(folderName, meta, hasDemoEntry) {
 
   const stitchImagePath = path.join(ROOT, repoPath, 'demo', 'assets', 'stitch-screen.png');
   const demoScreenshotPath = path.join(ROOT, repoPath, 'demo', 'screenshot.png');
+  const demoScreenPath = path.join(ROOT, repoPath, 'demo', 'screen.png');
   const rootScreenshotPath = path.join(ROOT, repoPath, 'screenshot.png');
+  const rootScreenPath = path.join(ROOT, repoPath, 'screen.png');
   const previewImagePath = path.join(PREVIEWS_DIR, `${id}.png`);
   const previewImage = fs.existsSync(stitchImagePath)
     ? `/demos/${id}/assets/stitch-screen.png`
     : fs.existsSync(demoScreenshotPath)
       ? `/demos/${id}/screenshot.png`
-      : fs.existsSync(rootScreenshotPath)
-        ? `/demos/${id}/screenshot.png`
-        : (fs.existsSync(previewImagePath) ? `/previews/${id}.png` : "");
+      : fs.existsSync(demoScreenPath)
+        ? `/demos/${id}/screen.png`
+        : fs.existsSync(rootScreenshotPath)
+          ? `/demos/${id}/screenshot.png`
+          : fs.existsSync(rootScreenPath)
+            ? `/demos/${id}/screen.png`
+            : (fs.existsSync(previewImagePath) ? `/previews/${id}.png` : "");
 
   return {
     id,
