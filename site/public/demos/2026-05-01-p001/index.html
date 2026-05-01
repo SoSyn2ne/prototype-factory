@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIGNAL_ROOM - Revenue Control Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131313",
+                        "outline": "#88919d",
+                        "tertiary-container": "#d48e23",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#2a1800",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001d33",
+                        "outline-variant": "#3f4852",
+                        "primary": "#98cbff",
+                        "tertiary-fixed-dim": "#ffb95a",
+                        "on-surface-variant": "#bec7d4",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-container": "#4b2e00",
+                        "tertiary-fixed": "#ffddb6",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-container": "#00375a",
+                        "inverse-primary": "#00629d",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#004a77",
+                        "on-secondary": "#68000b",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed": "#410004",
+                        "background": "#131313",
+                        "surface-container-highest": "#353534",
+                        "secondary-fixed-dim": "#ffb3ae",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#462a00",
+                        "secondary-container": "#ad031a",
+                        "on-surface": "#e5e2e1",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#ffb95a",
+                        "primary-fixed-dim": "#98cbff",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#cfe5ff",
+                        "surface-container": "#201f1f",
+                        "primary-container": "#00a3ff",
+                        "surface-dim": "#131313",
+                        "on-secondary-container": "#ffb8b2",
+                        "on-secondary-fixed-variant": "#930014",
+                        "secondary": "#ffb3ae",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "on-primary": "#003354",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed": "#ffdad7",
+                        "surface-tint": "#98cbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "100%",
+                        "margin": "16px",
+                        "gutter": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "data-mono": ["monospace"],
+                        "label-caps": ["Inter"],
+                        "headline-xl": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-xl": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["18px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .dot-grid {
+            background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-black text-on-surface font-body-sm selection:bg-primary-container selection:text-on-primary-container dot-grid min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-12 bg-black border-b border-white/10">
+<div class="flex items-center gap-6">
+<span class="text-xl font-black text-[#00A3FF] tracking-tighter font-['Space_Grotesk']">SIGNAL_ROOM</span>
+<div class="hidden md:flex gap-4">
+<span class="text-[#00A3FF] font-black font-['Space_Grotesk'] uppercase tracking-widest text-xs">CONTROL</span>
+<span class="text-zinc-500 font-['Space_Grotesk'] uppercase tracking-widest text-xs hover:bg-white/5 cursor-pointer px-2 transition-transform active:scale-[0.98]">TRIAGE</span>
+<span class="text-zinc-500 font-['Space_Grotesk'] uppercase tracking-widest text-xs hover:bg-white/5 cursor-pointer px-2 transition-transform active:scale-[0.98]">PRIORITY</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-white/5 px-3 py-1 flex items-center gap-2 border border-white/10">
+<span class="text-[10px] text-zinc-500 font-label-caps">LIVE_REVENUE_AT_RISK</span>
+<span class="font-data-mono text-[#FF4B4B] text-sm tracking-tight">$14,288.50</span>
+</div>
+<button class="bg-[#00A3FF] text-black px-3 py-1 text-[10px] font-black tracking-widest font-['Space_Grotesk'] hover:bg-white/90 transition-transform active:scale-[0.98]">RECOVER_NOW</button>
+<div class="flex items-center gap-2 ml-2">
+<span class="material-symbols-outlined text-zinc-400 hover:text-white cursor-pointer" data-icon="notifications_active">notifications_active</span>
+<span class="material-symbols-outlined text-zinc-400 hover:text-white cursor-pointer" data-icon="account_circle">account_circle</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-12 bottom-0 flex flex-col pt-6 pb-4 bg-[#121212] border-r border-white/10 w-64 hidden md:flex">
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 bg-[#00A3FF] flex items-center justify-center rounded-sm">
+<span class="material-symbols-outlined text-black text-sm" data-icon="terminal">terminal</span>
+</div>
+<div>
+<h2 class="font-label-caps text-white leading-none">STATION_01</h2>
+<p class="text-[10px] text-[#00A3FF] font-data-mono mt-1">MONEY_AT_RISK: $14.2K</p>
+</div>
+</div>
+<button class="w-full bg-white/5 border border-white/10 text-[#00A3FF] font-label-caps py-2 hover:bg-white/10 transition-all text-center">GO_LIVE</button>
+</div>
+<nav class="flex-1 space-y-1">
+<div class="bg-white/5 text-[#00A3FF] border-r-2 border-[#00A3FF] flex items-center px-4 py-2 gap-3 cursor-pointer">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight">CONTROL</span>
+</div>
+<div class="text-zinc-500 hover:text-white hover:bg-white/5 flex items-center px-4 py-2 gap-3 cursor-pointer transition-all active:bg-white/10">
+<span class="material-symbols-outlined text-lg" data-icon="call_missed_outgoing">call_missed_outgoing</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight">TRIAGE</span>
+</div>
+<div class="text-zinc-500 hover:text-white hover:bg-white/5 flex items-center px-4 py-2 gap-3 cursor-pointer transition-all active:bg-white/10">
+<span class="material-symbols-outlined text-lg" data-icon="format_list_numbered">format_list_numbered</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight">PRIORITY</span>
+</div>
+<div class="text-zinc-500 hover:text-white hover:bg-white/5 flex items-center px-4 py-2 gap-3 cursor-pointer transition-all active:bg-white/10">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight">ROI_WAR_ROOM</span>
+</div>
+</nav>
+<div class="mt-auto space-y-1 border-t border-white/5 pt-4">
+<div class="text-zinc-500 hover:text-white hover:bg-white/5 flex items-center px-4 py-2 gap-3 cursor-pointer transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase">SETTINGS</span>
+</div>
+<div class="text-zinc-500 hover:text-white hover:bg-white/5 flex items-center px-4 py-2 gap-3 cursor-pointer transition-all">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase">HELP</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="pt-16 pb-8 md:pl-72 pr-6 min-h-screen">
+<div class="max-w-[1400px] mx-auto space-y-6">
+<!-- Metrics Cards Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-[#121212] border border-white/10 p-4 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="phone_missed">phone_missed</span>
+</div>
+<span class="font-label-caps text-zinc-500 mb-1">TOTAL_MISSED_CALLS</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-[#FF4B4B] font-headline-xl">142</span>
+<span class="text-[10px] text-[#FF4B4B] font-label-caps px-1 bg-[#FF4B4B]/10 border border-[#FF4B4B]/20">+12% vs LW</span>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="text-[10px] text-zinc-600 font-label-caps">UNATTENDED_SINCE_08:00</span>
+<span class="text-[10px] text-white font-data-mono">28</span>
+</div>
+</div>
+<div class="bg-[#121212] border border-white/10 p-4 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="attach_money">attach_money</span>
+</div>
+<span class="font-label-caps text-zinc-500 mb-1">ESTIMATED_LOSS_VALUE</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-tertiary font-headline-xl tracking-tighter">$42,105</span>
+<span class="text-[10px] text-tertiary font-label-caps px-1 bg-tertiary/10 border border-tertiary/20">CRITICAL</span>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="text-[10px] text-zinc-600 font-label-caps">AVG_LEAD_VAL</span>
+<span class="text-[10px] text-white font-data-mono">$296.50</span>
+</div>
+</div>
+<div class="bg-[#121212] border border-white/10 p-4 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-6xl" data-icon="energy_savings_leaf">energy_savings_leaf</span>
+</div>
+<span class="font-label-caps text-zinc-500 mb-1">RECOVERY_EFFICIENCY</span>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-black text-[#2ECC71] font-headline-xl">38.4%</span>
+<span class="text-[10px] text-[#2ECC71] font-label-caps px-1 bg-[#2ECC71]/10 border border-[#2ECC71]/20">UP 5.1%</span>
+</div>
+<div class="mt-4 pt-4 border-t border-white/5 flex justify-between items-center">
+<span class="text-[10px] text-zinc-600 font-label-caps">RECOVERED_TODAY</span>
+<span class="text-[10px] text-white font-data-mono">$12,400</span>
+</div>
+</div>
+</section>
+<!-- Revenue Heatmap & Save-the-Leads Sprint -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+<!-- Missed-Call Revenue Heatmap -->
+<section class="xl:col-span-2 bg-[#121212] border border-white/10 flex flex-col">
+<div class="p-4 border-b border-white/10 flex justify-between items-center">
+<h3 class="font-headline-md text-sm text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="grid_view">grid_view</span>
+                            REVENUE_LOSS_HEATMAP
+                        </h3>
+<div class="flex gap-2">
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-white/5 border border-white/10"></div>
+<span class="text-[9px] text-zinc-500 font-label-caps">LOW</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-primary/40"></div>
+<span class="text-[9px] text-zinc-500 font-label-caps">MED</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-[#FF4B4B]"></div>
+<span class="text-[9px] text-zinc-500 font-label-caps">CRITICAL</span>
+</div>
+</div>
+</div>
+<div class="p-4 overflow-x-auto scrollbar-hide">
+<div class="min-w-[600px]">
+<div class="grid grid-cols-25 gap-1">
+<!-- Hour Labels -->
+<div class="col-span-1"></div>
+<div class="col-span-24 grid grid-cols-24">
+<span class="text-[8px] text-zinc-600 font-data-mono text-center">00</span>
+<span class="text-[8px] text-zinc-600 font-data-mono text-center col-start-4">04</span>
+<span class="text-[8px] text-zinc-600 font-data-mono text-center col-start-8">08</span>
+<span class="text-[8px] text-zinc-600 font-data-mono text-center col-start-12 text-[#FF4B4B]">12</span>
+<span class="text-[8px] text-zinc-600 font-data-mono text-center col-start-16 text-[#FF4B4B]">16</span>
+<span class="text-[8px] text-zinc-600 font-data-mono text-center col-start-20">20</span>
+</div>
+<!-- Heatmap Rows (M-S) -->
+<div class="col-span-25 grid grid-cols-25 gap-1 mt-2">
+<span class="text-[10px] text-zinc-500 font-label-caps pr-2 text-right">MON</span>
+<div class="col-span-24 grid grid-cols-24 gap-1">
+<!-- Simulating Heatmap Grid -->
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-primary/20 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B]/60 border border-white/5"></div><div class="h-6 bg-[#FF4B4B] border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B] border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/80 border border-white/5"></div>
+<div class="h-6 bg-primary/40 border border-white/5"></div><div class="h-6 bg-primary/20 border border-white/5"></div>
+<div class="h-6 bg-primary/20 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B]/40 border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/60 border border-white/5"></div>
+<div class="h-6 bg-primary/20 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+</div>
+</div>
+<div class="col-span-25 grid grid-cols-25 gap-1 mt-1">
+<span class="text-[10px] text-zinc-500 font-label-caps pr-2 text-right">TUE</span>
+<div class="col-span-24 grid grid-cols-24 gap-1">
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-primary/10 border border-white/5"></div>
+<div class="h-6 bg-primary/30 border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/80 border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B] border border-white/5"></div><div class="h-6 bg-[#FF4B4B] border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B] border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/90 border border-white/5"></div>
+<div class="h-6 bg-primary/60 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-primary/30 border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/60 border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B]/90 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+</div>
+</div>
+<div class="col-span-25 grid grid-cols-25 gap-1 mt-1">
+<span class="text-[10px] text-zinc-500 font-label-caps pr-2 text-right">WED</span>
+<div class="col-span-24 grid grid-cols-24 gap-1">
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-primary/10 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B]/60 border border-white/5"></div><div class="h-6 bg-[#FF4B4B] border border-white/5"></div>
+<div class="h-6 bg-[#FF4B4B] border border-white/5"></div><div class="h-6 bg-primary/80 border border-white/5"></div>
+<div class="h-6 bg-primary/60 border border-white/5"></div><div class="h-6 bg-primary/40 border border-white/5"></div>
+<div class="h-6 bg-primary/30 border border-white/5"></div><div class="h-6 bg-primary/20 border border-white/5"></div>
+<div class="h-6 bg-primary/30 border border-white/5"></div><div class="h-6 bg-primary/50 border border-white/5"></div>
+<div class="h-6 bg-primary/60 border border-white/5"></div><div class="h-6 bg-[#FF4B4B]/80 border border-white/5"></div>
+<div class="h-6 bg-primary/20 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+<div class="h-6 bg-white/5 border border-white/5"></div><div class="h-6 bg-white/5 border border-white/5"></div>
+</div>
+</div>
+<!-- ... truncated for demo ... -->
+</div>
+</div>
+</div>
+</section>
+<!-- 7-Day Save-the-Leads Sprint -->
+<section class="bg-[#121212] border border-white/10 flex flex-col">
+<div class="p-4 border-b border-white/10">
+<h3 class="font-headline-md text-sm text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="sprint">sprint</span>
+                            RECOVERY_SPRINT_STATUS
+                        </h3>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="flex flex-col">
+<div class="flex justify-between items-baseline mb-2">
+<span class="text-[10px] font-label-caps text-zinc-500 tracking-widest">SPRINT_PROGRESS</span>
+<span class="text-sm font-data-mono text-[#2ECC71]">64%</span>
+</div>
+<div class="h-2 bg-white/5 rounded-none overflow-hidden flex">
+<div class="h-full bg-[#2ECC71]" style="width: 64%"></div>
+</div>
+</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<div class="flex flex-col items-center">
+<div class="w-4 h-4 rounded-full border-2 border-[#2ECC71] flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-[#2ECC71] rounded-full"></div>
+</div>
+<div class="w-[1px] h-6 bg-white/10"></div>
+</div>
+<div>
+<p class="text-[11px] font-label-caps text-white leading-none">DAY_04: CALL_BACK_BLITZ</p>
+<p class="text-[10px] text-zinc-500 font-body-sm mt-1">42/60 leads contacted. Focus on high-value priority.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="flex flex-col items-center">
+<div class="w-4 h-4 rounded-full border-2 border-primary flex items-center justify-center">
+</div>
+<div class="w-[1px] h-6 bg-white/10"></div>
+</div>
+<div>
+<p class="text-[11px] font-label-caps text-zinc-400 leading-none">DAY_05: SMS_RE-ENGAGEMENT</p>
+<p class="text-[10px] text-zinc-600 font-body-sm mt-1 italic">Pending... Automated sequence triggers at 09:00.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 opacity-40">
+<div class="flex flex-col items-center">
+<div class="w-4 h-4 rounded-full border-2 border-white/20 flex items-center justify-center">
+</div>
+</div>
+<div>
+<p class="text-[11px] font-label-caps text-zinc-500 leading-none">DAY_06: ROI_CONSOLIDATION</p>
+</div>
+</div>
+</div>
+<button class="mt-auto w-full py-2 bg-white/5 border border-white/10 text-[10px] font-label-caps text-white hover:bg-white/10 transition-all uppercase tracking-widest">
+                            VIEW_SPRINT_BOARD
+                        </button>
+</div>
+</section>
+</div>
+<!-- Operator Data Table -->
+<section class="bg-[#121212] border border-white/10">
+<div class="p-4 border-b border-white/10 flex justify-between items-center">
+<h3 class="font-headline-md text-sm text-white flex items-center gap-2 uppercase tracking-tight">
+<span class="material-symbols-outlined text-[#FF4B4B] text-sm" data-icon="list_alt">list_alt</span>
+                        HIGH_VALUE_LEAD_TRIAGE
+                    </h3>
+<div class="flex gap-2">
+<span class="bg-white/5 px-2 py-1 text-[9px] font-label-caps text-zinc-400 border border-white/10 cursor-pointer hover:border-primary">FILTER: PRIORITY_DESC</span>
+<span class="bg-white/5 px-2 py-1 text-[9px] font-label-caps text-zinc-400 border border-white/10 cursor-pointer hover:border-primary">EXPORT_CSV</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-white/5 text-[9px] font-label-caps text-zinc-500 border-b border-white/10">
+<th class="px-4 py-2 font-bold tracking-widest border-r border-white/5">TIMESTAMP</th>
+<th class="px-4 py-2 font-bold tracking-widest border-r border-white/5">SOURCE_CONTACT</th>
+<th class="px-4 py-2 font-bold tracking-widest border-r border-white/5 text-center">STATUS</th>
+<th class="px-4 py-2 font-bold tracking-widest border-r border-white/5 text-right">EST_REVENUE</th>
+<th class="px-4 py-2 font-bold tracking-widest text-right">ACTION</th>
+</tr>
+</thead>
+<tbody class="text-[11px] font-data-mono">
+<tr class="border-b border-white/5 hover:bg-white/5 group">
+<td class="px-4 py-2 border-r border-white/5 text-zinc-500">2023-11-24 14:22:10</td>
+<td class="px-4 py-2 border-r border-white/5 text-white">+1 (555) 0192-332</td>
+<td class="px-4 py-2 border-r border-white/5 text-center">
+<span class="bg-[#FF4B4B]/10 text-[#FF4B4B] px-2 py-0.5 border border-[#FF4B4B]/20 text-[9px]">UNATTENDED</span>
+</td>
+<td class="px-4 py-2 border-r border-white/5 text-right font-black">$2,450.00</td>
+<td class="px-4 py-2 text-right">
+<button class="bg-[#00A3FF] text-black px-2 py-0.5 text-[9px] font-bold tracking-tighter hover:bg-white transition-all">DIAL_NOW</button>
+</td>
+</tr>
+<tr class="bg-white/[0.02] border-b border-white/5 hover:bg-white/5 group">
+<td class="px-4 py-2 border-r border-white/5 text-zinc-500">2023-11-24 14:18:45</td>
+<td class="px-4 py-2 border-r border-white/5 text-white">+1 (555) 0821-440</td>
+<td class="px-4 py-2 border-r border-white/5 text-center">
+<span class="bg-tertiary/10 text-tertiary px-2 py-0.5 border border-tertiary/20 text-[9px]">IN_QUEUE</span>
+</td>
+<td class="px-4 py-2 border-r border-white/5 text-right font-black">$845.00</td>
+<td class="px-4 py-2 text-right">
+<button class="bg-[#00A3FF] text-black px-2 py-0.5 text-[9px] font-bold tracking-tighter hover:bg-white transition-all">DIAL_NOW</button>
+</td>
+</tr>
+<tr class="border-b border-white/5 hover:bg-white/5 group">
+<td class="px-4 py-2 border-r border-white/5 text-zinc-500">2023-11-24 13:55:12</td>
+<td class="px-4 py-2 border-r border-white/5 text-white">+1 (555) 0110-291</td>
+<td class="px-4 py-2 border-r border-white/5 text-center">
+<span class="bg-[#2ECC71]/10 text-[#2ECC71] px-2 py-0.5 border border-[#2ECC71]/20 text-[9px]">RECOVERED</span>
+</td>
+<td class="px-4 py-2 border-r border-white/5 text-right font-black text-zinc-500">$1,200.00</td>
+<td class="px-4 py-2 text-right">
+<button class="bg-white/10 text-white/40 px-2 py-0.5 text-[9px] font-bold tracking-tighter cursor-not-allowed">ARCHIVED</button>
+</td>
+</tr>
+<tr class="bg-white/[0.02] border-b border-white/5 hover:bg-white/5 group">
+<td class="px-4 py-2 border-r border-white/5 text-zinc-500">2023-11-24 13:42:01</td>
+<td class="px-4 py-2 border-r border-white/5 text-white">+44 7700 900122</td>
+<td class="px-4 py-2 border-r border-white/5 text-center">
+<span class="bg-[#FF4B4B]/10 text-[#FF4B4B] px-2 py-0.5 border border-[#FF4B4B]/20 text-[9px]">UNATTENDED</span>
+</td>
+<td class="px-4 py-2 border-r border-white/5 text-right font-black">$5,900.00</td>
+<td class="px-4 py-2 text-right">
+<button class="bg-[#00A3FF] text-black px-2 py-0.5 text-[9px] font-bold tracking-tighter hover:bg-white transition-all">DIAL_NOW</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- Map View Preview (Floating) -->
+<div class="fixed bottom-6 right-6 w-72 h-48 bg-[#1E1E1E] border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,163,255,1)] hidden md:block group overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-full">
+<img class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" data-alt="A high-contrast monochrome satellite map showing dense urban grid patterns with glowing blue digital nodes indicating missed call locations. The visual style is inspired by tactical mission control interfaces with razor-sharp lines and minimal text overlays. The scene is illuminated by the cold blue light of a command center monitor." data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjigC_tjxxclPJ3greGEOC4EL0gPMUeaoSRgykfpmVRC7HWp8qmGvGY6vtWrceU5iySKCCElmAme0tzQ8yj_rfmKVkomVdS0NHt9_UMzvnXveATHViWF0bG6rRPig287KSVBQBoo1VdgXMImkgr0ZOE-1NtYo0fcvhOlB4HmE7392S0uxI2poZdmbZiDNMuHfTfETE6CiGb3MeK2Sgj2BpCaABe12FuynlkRQj81ozMiy-isu8Mm2amK7SIsd3p2sRvUsYO9DuLnc"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-[#1E1E1E] via-transparent to-transparent"></div>
+<div class="absolute bottom-2 left-2 right-2 flex justify-between items-end">
+<div>
+<p class="text-[9px] font-label-caps text-primary">LIVE_GEOMAP</p>
+<p class="text-[10px] text-white font-data-mono">NYC_SUB_DISTRICT_04</p>
+</div>
+<div class="text-[8px] text-[#FF4B4B] animate-pulse">● SIGNAL_ACTIVE</div>
+</div>
+</div>
+<!-- Mobile Bottom Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-black border-t border-white/10 flex justify-around items-center h-16 z-50">
+<div class="flex flex-col items-center gap-1 text-[#00A3FF]">
+<span class="material-symbols-outlined text-xl" data-icon="dashboard">dashboard</span>
+<span class="text-[9px] font-label-caps">CONTROL</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined text-xl" data-icon="call_missed_outgoing">call_missed_outgoing</span>
+<span class="text-[9px] font-label-caps">TRIAGE</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined text-xl" data-icon="format_list_numbered">format_list_numbered</span>
+<span class="text-[9px] font-label-caps">PRIORITY</span>
+</div>
+<div class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined text-xl" data-icon="analytics">analytics</span>
+<span class="text-[9px] font-label-caps">WAR_ROOM</span>
+</div>
+</nav>
+</body></html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ROI War Room - SIGNAL_ROOM</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .dot-grid {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .hard-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+        .gauge-clip {
+            clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#131313",
+                        "outline": "#88919d",
+                        "tertiary-container": "#d48e23",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#2a1800",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001d33",
+                        "outline-variant": "#3f4852",
+                        "primary": "#98cbff",
+                        "tertiary-fixed-dim": "#ffb95a",
+                        "on-surface-variant": "#bec7d4",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#353534",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-container": "#4b2e00",
+                        "tertiary-fixed": "#ffddb6",
+                        "surface-container-low": "#1c1b1b",
+                        "on-primary-container": "#00375a",
+                        "inverse-primary": "#00629d",
+                        "on-error": "#690005",
+                        "on-primary-fixed-variant": "#004a77",
+                        "on-secondary": "#68000b",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed": "#410004",
+                        "background": "#131313",
+                        "surface-container-highest": "#353534",
+                        "secondary-fixed-dim": "#ffb3ae",
+                        "surface-container-high": "#2a2a2a",
+                        "on-tertiary": "#462a00",
+                        "secondary-container": "#ad031a",
+                        "on-surface": "#e5e2e1",
+                        "on-background": "#e5e2e1",
+                        "tertiary": "#ffb95a",
+                        "primary-fixed-dim": "#98cbff",
+                        "error-container": "#93000a",
+                        "primary-fixed": "#cfe5ff",
+                        "surface-container": "#201f1f",
+                        "primary-container": "#00a3ff",
+                        "surface-dim": "#131313",
+                        "on-secondary-container": "#ffb8b2",
+                        "on-secondary-fixed-variant": "#930014",
+                        "secondary": "#ffb3ae",
+                        "on-tertiary-fixed-variant": "#643f00",
+                        "on-primary": "#003354",
+                        "surface-container-lowest": "#0e0e0e",
+                        "secondary-fixed": "#ffdad7",
+                        "surface-tint": "#98cbff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "100%",
+                        "margin": "16px",
+                        "gutter": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "data-mono": ["monospace"],
+                        "label-caps": ["Inter"],
+                        "headline-xl": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "data-mono": ["14px", {"lineHeight": "1", "fontWeight": "500"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-xl": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["18px", {"lineHeight": "1.2", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-on-background font-body-sm selection:bg-primary-container selection:text-white dot-grid min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-12 bg-black border-b border-white/10">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black text-[#00A3FF] tracking-tighter font-['Space_Grotesk']">SIGNAL_ROOM</span>
+<nav class="hidden md:flex gap-6 ml-8">
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs font-bold text-zinc-500 hover:bg-white/5 transition-transform active:scale-[0.98]" href="#">CONTROL</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs font-bold text-zinc-500 hover:bg-white/5 transition-transform active:scale-[0.98]" href="#">TRIAGE</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs font-bold text-zinc-500 hover:bg-white/5 transition-transform active:scale-[0.98]" href="#">PRIORITY</a>
+<a class="font-['Space_Grotesk'] uppercase tracking-widest text-xs font-bold text-[#00A3FF] font-black hover:bg-white/5 transition-transform active:scale-[0.98]" href="#">ROI_WAR_ROOM</a>
+</nav>
+</div>
+<div class="flex items-center gap-2">
+<button class="bg-primary-container text-on-primary-container px-3 py-1 font-['Space_Grotesk'] text-[10px] font-bold tracking-tighter active:scale-[0.98] transition-transform">RECOVER_NOW</button>
+<span class="material-symbols-outlined text-zinc-500 cursor-pointer hover:text-white transition-colors" data-icon="notifications_active">notifications_active</span>
+<span class="material-symbols-outlined text-zinc-500 cursor-pointer hover:text-white transition-colors" data-icon="account_circle">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-12 bottom-0 flex flex-col pt-6 pb-4 bg-[#121212] border-r border-white/10 w-64 hidden md:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-container-high flex items-center justify-center border border-white/10">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="operator_profile">account_circle</span>
+</div>
+<div>
+<p class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-white">STATION_01</p>
+<p class="font-['Space_Grotesk'] text-[10px] font-medium tracking-tight text-[#FF4B4B]">MONEY_AT_RISK: $14.2K</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-6 py-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-zinc-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+                CONTROL
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-zinc-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="call_missed_outgoing">call_missed_outgoing</span>
+                TRIAGE
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-zinc-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="format_list_numbered">format_list_numbered</span>
+                PRIORITY
+            </a>
+<a class="flex items-center gap-3 px-6 py-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight bg-white/5 text-[#00A3FF] border-r-2 border-[#00A3FF] transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+                ROI_WAR_ROOM
+            </a>
+</nav>
+<div class="px-4 mb-4">
+<button class="w-full py-2 bg-primary-container text-on-primary-container font-['Space_Grotesk'] text-[11px] font-black tracking-widest active:bg-white/10 transition-all">GO_LIVE</button>
+</div>
+<div class="border-t border-white/5 pt-4">
+<a class="flex items-center gap-3 px-6 py-2 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-zinc-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+                SETTINGS
+            </a>
+<a class="flex items-center gap-3 px-6 py-2 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight text-zinc-500 hover:bg-white/5 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="help">help</span>
+                HELP
+            </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="md:ml-64 pt-16 p-6 min-h-screen">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4 border-b border-white/10 pb-6">
+<div>
+<span class="font-label-caps text-primary mb-2 block uppercase tracking-widest">MISSION_CRITICAL_ANALYSIS</span>
+<h1 class="font-headline-xl text-on-surface uppercase tracking-tighter">ROI_WAR_ROOM_v2.4</h1>
+</div>
+<div class="flex gap-2">
+<div class="bg-surface-container px-4 py-2 border border-white/10">
+<p class="font-label-caps text-zinc-500 uppercase">Current_Leads_At_Risk</p>
+<p class="font-data-mono text-xl text-[#FF4B4B]">$14,240.00</p>
+</div>
+<div class="bg-surface-container px-4 py-2 border border-white/10">
+<p class="font-label-caps text-zinc-500 uppercase">Projected_Recovery</p>
+<p class="font-data-mono text-xl text-[#2ECC71]">$9,850.20</p>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+<!-- Comparison Card: AI vs Human -->
+<div class="md:col-span-8 bg-[#121212] border border-white/10 p-1 flex flex-col">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+<span class="font-label-caps text-on-surface uppercase">Comparison: AI_Receptionist_vs_Human_Agent</span>
+<span class="bg-primary/10 text-primary px-2 py-0.5 font-label-caps text-[9px]">LIVE_FEED</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 flex-1">
+<!-- Human Agent Side -->
+<div class="p-6 border-r border-white/10 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-8xl" data-icon="person">person</span>
+</div>
+<h3 class="font-headline-md text-zinc-400 mb-6 uppercase tracking-tight">Standard_Human_Answering</h3>
+<div class="space-y-6">
+<div>
+<p class="font-label-caps text-zinc-500 uppercase mb-1">Cost_Per_Lead</p>
+<p class="font-data-mono text-2xl text-white">$14.50</p>
+</div>
+<div>
+<p class="font-label-caps text-zinc-500 uppercase mb-1">Monthly_Fixed_Cost</p>
+<p class="font-data-mono text-2xl text-white">$3,200.00</p>
+</div>
+<div>
+<p class="font-label-caps text-zinc-500 uppercase mb-1">Avg_Response_Time</p>
+<p class="font-data-mono text-2xl text-[#FF4B4B]">4.2 MIN</p>
+</div>
+</div>
+</div>
+<!-- AI Side -->
+<div class="p-6 bg-primary/5 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 text-primary opacity-20">
+<span class="material-symbols-outlined text-8xl" data-icon="smart_toy">smart_toy</span>
+</div>
+<h3 class="font-headline-md text-primary mb-6 uppercase tracking-tight">Signal_AI_Automated</h3>
+<div class="space-y-6">
+<div>
+<p class="font-label-caps text-primary/70 uppercase mb-1">Cost_Per_Lead</p>
+<p class="font-data-mono text-2xl text-white">$0.85</p>
+</div>
+<div>
+<p class="font-label-caps text-primary/70 uppercase mb-1">Monthly_Fixed_Cost</p>
+<p class="font-data-mono text-2xl text-white">$499.00</p>
+</div>
+<div>
+<p class="font-label-caps text-primary/70 uppercase mb-1">Avg_Response_Time</p>
+<p class="font-data-mono text-2xl text-[#2ECC71]">0.2 SEC</p>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-primary/20">
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-caps text-primary uppercase">Monthly_Savings_Projected</p>
+<p class="font-data-mono text-3xl text-white">$2,701.00</p>
+</div>
+<span class="bg-[#2ECC71] text-black px-2 py-1 font-label-caps text-[10px] animate-pulse">84%_DECREASE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Decision Engine Gauge -->
+<div class="md:col-span-4 bg-[#121212] border border-white/10 flex flex-col">
+<div class="p-4 border-b border-white/10 bg-black/40">
+<span class="font-label-caps text-on-surface uppercase tracking-widest">BUY_VS_HIRE_DECISION_ENGINE</span>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center p-8 text-center">
+<div class="relative w-48 h-24 mb-6 overflow-hidden">
+<!-- Gauge Background -->
+<div class="absolute inset-0 border-[12px] border-zinc-800 rounded-t-full"></div>
+<!-- Gauge Value (AI Favor) -->
+<div class="absolute inset-0 border-[12px] border-primary border-b-0 rounded-t-full rotate-[140deg] origin-bottom"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rounded-full z-10"></div>
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-16 bg-white origin-bottom rotate-[60deg]"></div>
+</div>
+<p class="font-headline-md text-white mb-2">STRATEGIC_PIVOT_REQUIRED</p>
+<p class="font-body-sm text-zinc-500 mb-6">Internal data suggests hiring a human agent will yield -12.4% ROI compared to AI automation at current lead volume.</p>
+<div class="w-full bg-black/50 border border-white/5 p-4 flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-zinc-400">HIRING_FEASIBILITY</span>
+<span class="font-data-mono text-[#FF4B4B]">LOW</span>
+</div>
+<div class="w-full bg-zinc-800 h-1">
+<div class="bg-[#FF4B4B] h-full w-[20%]"></div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-label-caps text-zinc-400">AUTOMATION_YIELD</span>
+<span class="font-data-mono text-[#2ECC71]">OPTIMAL</span>
+</div>
+<div class="w-full bg-zinc-800 h-1">
+<div class="bg-[#2ECC71] h-full w-[94%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Cost Projections Chart -->
+<div class="md:col-span-12 lg:col-span-7 bg-[#121212] border border-white/10">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-black/40">
+<span class="font-label-caps text-on-surface uppercase">6_MONTH_PROJECTED_COST_EXPOSURE</span>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-zinc-600"></div>
+<span class="font-label-caps text-[9px] text-zinc-500 uppercase">TRADITIONAL</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-primary"></div>
+<span class="font-label-caps text-[9px] text-primary uppercase">SIGNAL_AI</span>
+</div>
+</div>
+</div>
+<div class="p-6 h-[300px] flex items-end gap-1 relative">
+<!-- Vertical Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between p-6 opacity-10 pointer-events-none">
+<div class="border-t border-white"></div>
+<div class="border-t border-white"></div>
+<div class="border-t border-white"></div>
+<div class="border-t border-white"></div>
+</div>
+<!-- Month 1 -->
+<div class="flex-1 flex flex-col items-center gap-2 group cursor-crosshair">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[60%] group-hover:bg-zinc-500 transition-colors"></div>
+<div class="w-1/3 bg-primary h-[15%] group-hover:brightness-110 transition-all"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">JAN</span>
+</div>
+<!-- Month 2 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[65%]"></div>
+<div class="w-1/3 bg-primary h-[18%]"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">FEB</span>
+</div>
+<!-- Month 3 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[72%]"></div>
+<div class="w-1/3 bg-primary h-[20%]"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">MAR</span>
+</div>
+<!-- Month 4 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[80%]"></div>
+<div class="w-1/3 bg-primary h-[22%]"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">APR</span>
+</div>
+<!-- Month 5 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[88%]"></div>
+<div class="w-1/3 bg-primary h-[25%]"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">MAY</span>
+</div>
+<!-- Month 6 -->
+<div class="flex-1 flex flex-col items-center gap-2 group">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-zinc-700 h-[95%]"></div>
+<div class="w-1/3 bg-primary h-[28%]"></div>
+</div>
+<span class="font-label-caps text-[9px] text-zinc-500">JUN</span>
+</div>
+</div>
+<div class="p-4 border-t border-white/5 bg-black/20">
+<p class="font-body-sm text-zinc-500 italic">"Scaling volume without AI infrastructure results in exponential human-resource debt." — System Analyst</p>
+</div>
+</div>
+<!-- ROI Memo -->
+<div class="md:col-span-12 lg:col-span-5 bg-white text-black p-8 hard-shadow flex flex-col">
+<div class="flex justify-between items-start border-b-2 border-black pb-4 mb-6">
+<div>
+<p class="font-label-caps text-[10px] tracking-widest font-black uppercase">INTERNAL_MEMO</p>
+<h2 class="font-headline-xl uppercase tracking-tighter">OPERATOR_ROI_SUMMARY</h2>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-[9px]">REF: SIG-24-091</p>
+<p class="font-label-caps text-[9px]">DATE: 20 OCT 2024</p>
+</div>
+</div>
+<div class="flex-1 space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="border-l-2 border-black pl-3">
+<p class="font-label-caps text-[9px] text-zinc-600 uppercase">Total_Yearly_Exposure</p>
+<p class="font-data-mono text-xl font-bold">$170,880.00</p>
+</div>
+<div class="border-l-2 border-black pl-3">
+<p class="font-label-caps text-[9px] text-zinc-600 uppercase">Automation_Offset</p>
+<p class="font-data-mono text-xl font-bold text-primary-container">-$132,400.00</p>
+</div>
+</div>
+<div class="bg-zinc-100 p-4 border border-black/10">
+<p class="font-label-caps text-[10px] font-black mb-2 uppercase">Executive_Assessment</p>
+<p class="font-body-sm leading-relaxed text-zinc-800">
+                            Current lead processing indicates a 32% leakage rate due to human latency. By deploying the SIGNAL_AI Receptionist, we eliminate the $3.2k fixed monthly cost and transition to a performance-based model. Total payback period is estimated at <span class="font-bold">14 days</span>.
+                        </p>
+</div>
+<div class="pt-4 mt-auto">
+<div class="bg-black text-white p-4">
+<p class="font-label-caps text-[10px] text-zinc-400 mb-1">FINAL_RECOMMENDATION</p>
+<div class="flex justify-between items-center">
+<p class="font-headline-md font-black tracking-tight text-primary">DEPLOY_AI_INFRASTRUCTURE</p>
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-between items-center pt-4 border-t border-black/10">
+<div class="flex gap-2">
+<button class="border border-black px-3 py-1 font-label-caps text-[9px] hover:bg-black hover:text-white transition-colors">EXPORT_PDF</button>
+<button class="border border-black px-3 py-1 font-label-caps text-[9px] hover:bg-black hover:text-white transition-colors">SHARE_DECK</button>
+</div>
+<img class="h-8 grayscale contrast-125" data-alt="A clean, minimalist digital signature in black ink on a white background, representing the authorization of a high-ranking corporate executive. The signature is sharp and professional, fitting the aesthetic of a high-stakes financial terminal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSgw33m_13FuScpQs1Y8j6ims19tIiPXN01OvisaTXhe4Ao6k4W_U15yUzdYAEJ_c9hVmiknUL_m4zZv7yID_gbo_6p-EDUb9G1RrmBFd0012sAfG10Afe6mGjzXzA10-caxEMTffOl70riHNtAWu0W5N73EEfoqekFWQtYtLYtbs7YpD_l5eu45AV7RmEYNe86_5hrV6par23OmyMQagnUPa0cCW_iA8d9kPTrCYybmWJEoQqhoSi8AO61MbD6dpO7n1xcwS5uYY"/>
+</div>
+</div>
+<!-- Terminal Leads Feed -->
+<div class="md:col-span-12 bg-[#121212] border border-white/10 overflow-x-auto">
+<table class="w-full text-left font-data-mono text-[11px]">
+<thead class="bg-black/60 border-b border-white/10">
+<tr>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase">Timestamp</th>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase">Lead_Source</th>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase">Status</th>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase">Valuation</th>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase">Processing_Cost</th>
+<th class="px-4 py-3 font-label-caps text-zinc-500 uppercase text-right">Potential_Savings</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-4 py-2 text-zinc-400">14:22:01</td>
+<td class="px-4 py-2">FACEBOOK_ADS_01</td>
+<td class="px-4 py-2">
+<span class="bg-[#FF4B4B]/10 text-[#FF4B4B] px-2 py-0.5 border border-[#FF4B4B]/20">MISSED_CALL</span>
+</td>
+<td class="px-4 py-2 text-white">$1,250.00</td>
+<td class="px-4 py-2 text-zinc-500">$14.50 (H)</td>
+<td class="px-4 py-2 text-right text-[#2ECC71]">+$13.65</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-4 py-2 text-zinc-400">14:19:45</td>
+<td class="px-4 py-2">GOOGLE_LSA</td>
+<td class="px-4 py-2">
+<span class="bg-primary/10 text-primary px-2 py-0.5 border border-primary/20 text-[10px]">AI_HANDLED</span>
+</td>
+<td class="px-4 py-2 text-white">$450.00</td>
+<td class="px-4 py-2 text-zinc-500">$0.85 (A)</td>
+<td class="px-4 py-2 text-right text-[#2ECC71]">+$13.65</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="px-4 py-2 text-zinc-400">14:15:33</td>
+<td class="px-4 py-2">YELP_INQUIRY</td>
+<td class="px-4 py-2">
+<span class="bg-[#FFB347]/10 text-[#FFB347] px-2 py-0.5 border border-[#FFB347]/20">IN_TRIAGE</span>
+</td>
+<td class="px-4 py-2 text-white">$890.00</td>
+<td class="px-4 py-2 text-zinc-500">$14.50 (H)</td>
+<td class="px-4 py-2 text-right text-[#2ECC71]">+$13.65</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Mobile Navigation -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-black border-t border-white/10 flex justify-around items-center h-16 z-50">
+<button class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-[9px]">CONTROL</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined" data-icon="call_missed_outgoing">call_missed_outgoing</span>
+<span class="font-label-caps text-[9px]">TRIAGE</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined font-black" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-[9px]">ROI</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-zinc-500">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-caps text-[9px]">PROFILE</span>
+</button>
+</nav>
+<!-- Background Decoration -->
+<div class="fixed inset-0 pointer-events-none opacity-[0.03] z-[-1] overflow-hidden">
+<div class="absolute top-0 right-0 p-12 text-[12vw] font-black leading-none opacity-10">SIGNAL</div>
+<div class="absolute bottom-0 left-0 p-12 text-[12vw] font-black leading-none opacity-10">ROOM</div>
+</div>
+</body></html>

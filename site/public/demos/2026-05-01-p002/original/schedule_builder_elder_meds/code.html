@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Elder Meds - Schedule Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#fcf9f8",
+                        "inverse-primary": "#abd0a9",
+                        "inverse-surface": "#303030",
+                        "primary-container": "#5b7d5b",
+                        "on-background": "#1b1c1c",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#436444",
+                        "tertiary-fixed": "#e5e2dd",
+                        "surface-dim": "#dcd9d9",
+                        "secondary-fixed-dim": "#f9bb72",
+                        "primary-fixed": "#c6edc4",
+                        "on-primary-fixed": "#012108",
+                        "primary-fixed-dim": "#abd0a9",
+                        "tertiary": "#5d5c58",
+                        "secondary": "#835415",
+                        "tertiary-fixed-dim": "#c9c6c2",
+                        "on-tertiary-container": "#fcffe3",
+                        "surface-tint": "#456646",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f3f0f0",
+                        "surface-container": "#f0eded",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c2c8be",
+                        "on-primary-container": "#f7fff2",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "secondary-fixed": "#ffddb9",
+                        "surface-container-highest": "#e4e2e1",
+                        "surface": "#fcf9f8",
+                        "on-surface": "#1b1c1c",
+                        "tertiary-container": "#767471",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "surface-container-low": "#f6f3f2",
+                        "surface-variant": "#e4e2e1",
+                        "on-error": "#ffffff",
+                        "background": "#fcf9f8",
+                        "on-primary-fixed-variant": "#2e4e30",
+                        "secondary-container": "#ffc077",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "on-secondary-fixed": "#2b1700",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#424841",
+                        "surface-container-high": "#eae7e7",
+                        "outline": "#737970",
+                        "on-secondary-container": "#794c0c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "stack-sm": "8px",
+                        "unit": "8px",
+                        "container-padding": "24px",
+                        "gutter": "16px",
+                        "stack-md": "16px",
+                        "stack-lg": "32px"
+                    },
+                    fontFamily: {
+                        "headline-lg": ["Public Sans"],
+                        "label-caps": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "action-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"]
+                    },
+                    fontSize: {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-caps": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "action-lg": ["20px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar (Web) -->
+<header class="hidden md:flex fixed top-0 w-full z-50 justify-between items-center px-6 py-3 bg-stone-50 text-emerald-800 font-public-sans text-base tracking-tight docked full-width top-0 border-b border-stone-200 shadow-sm">
+<div class="text-xl font-bold text-emerald-900">Elder Meds</div>
+<nav class="flex gap-6">
+<a class="text-stone-500 hover:bg-stone-100 transition-colors px-3 py-2 rounded-lg flex items-center gap-2" href="#"><span class="material-symbols-outlined">calendar_today</span> Today</a>
+<a class="text-emerald-700 font-semibold hover:bg-stone-100 transition-colors px-3 py-2 rounded-lg flex items-center gap-2" href="#"><span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">medication</span> Schedule</a>
+<a class="text-stone-500 hover:bg-stone-100 transition-colors px-3 py-2 rounded-lg flex items-center gap-2" href="#"><span class="material-symbols-outlined">family_history</span> Team</a>
+<a class="text-stone-500 hover:bg-stone-100 transition-colors px-3 py-2 rounded-lg flex items-center gap-2" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
+</nav>
+<div class="flex gap-4">
+<button class="hover:bg-stone-100 transition-colors p-2 rounded-full"><span class="material-symbols-outlined">account_circle</span></button>
+<button class="hover:bg-stone-100 transition-colors p-2 rounded-full"><span class="material-symbols-outlined">group</span></button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-safe pb-[100px] md:pt-[80px] md:pb-container-padding px-4 md:px-container-padding max-w-7xl mx-auto w-full">
+<div class="mb-stack-lg mt-stack-md">
+<h1 class="font-headline-lg text-headline-lg text-on-background">Schedule Builder</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-stack-sm">Manage medications, set timings, and coordinate care.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Med List & Timeline -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Medication List Bento Box -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-container-padding border-b border-surface-variant flex justify-between items-center bg-surface-container-low">
+<h2 class="font-headline-md text-headline-md text-on-surface">Current Medications</h2>
+<button class="bg-primary text-on-primary font-action-lg text-action-lg px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined">add</span> Add Med
+                        </button>
+</div>
+<div class="p-container-padding">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-surface-variant text-on-surface-variant font-label-caps text-label-caps uppercase">
+<th class="py-3 px-4 font-semibold">Medication</th>
+<th class="py-3 px-4 font-semibold">Dosage</th>
+<th class="py-3 px-4 font-semibold">Frequency</th>
+<th class="py-3 px-4 font-semibold text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-surface-variant">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">pill</span>
+<div>
+<span class="font-semibold text-on-surface block">Lisinopril</span>
+<span class="text-sm text-on-surface-variant">Blood Pressure</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface">10mg (1 tablet)</td>
+<td class="py-4 px-4 text-on-surface">Daily, Morning</td>
+<td class="py-4 px-4 text-right">
+<button class="text-tertiary hover:text-primary transition-colors p-2"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-4 px-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">water_drop</span>
+<div>
+<span class="font-semibold text-on-surface block">Metformin</span>
+<span class="text-sm text-on-surface-variant">Diabetes</span>
+</div>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface">500mg (2 tablets)</td>
+<td class="py-4 px-4 text-on-surface">Twice Daily w/ Meals</td>
+<td class="py-4 px-4 text-right">
+<button class="text-tertiary hover:text-primary transition-colors p-2"><span class="material-symbols-outlined">edit</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Visual Timeline Bento Box -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-container-padding border-b border-surface-variant bg-surface-container-low">
+<h2 class="font-headline-md text-headline-md text-on-surface">Daily Timeline Preview</h2>
+</div>
+<div class="p-container-padding">
+<div class="relative border-l-2 border-outline-variant ml-4 pl-8 space-y-stack-lg py-4">
+<!-- Morning -->
+<div class="relative">
+<span class="absolute -left-[43px] top-1 bg-surface-container-lowest border-2 border-primary-fixed-dim text-primary rounded-full p-1"><span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">light_mode</span></span>
+<h3 class="font-action-lg text-action-lg text-on-surface mb-stack-sm">8:00 AM - Morning Block</h3>
+<div class="bg-surface-bright border-l-4 border-primary rounded-r-lg p-4 shadow-sm">
+<p class="font-body-md text-body-md text-on-surface"><span class="font-semibold">Lisinopril</span> (10mg) + <span class="font-semibold">Metformin</span> (500mg)</p>
+<div class="flex items-center gap-2 mt-2 text-sm text-on-surface-variant">
+<span class="bg-surface-container px-2 py-1 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">restaurant</span> With Breakfast</span>
+</div>
+</div>
+</div>
+<!-- Evening -->
+<div class="relative">
+<span class="absolute -left-[43px] top-1 bg-surface-container-lowest border-2 border-secondary-fixed-dim text-secondary rounded-full p-1"><span class="material-symbols-outlined filled" style="font-variation-settings: 'FILL' 1;">dark_mode</span></span>
+<h3 class="font-action-lg text-action-lg text-on-surface mb-stack-sm">6:00 PM - Evening Block</h3>
+<div class="bg-surface-bright border-l-4 border-secondary rounded-r-lg p-4 shadow-sm">
+<p class="font-body-md text-body-md text-on-surface"><span class="font-semibold">Metformin</span> (500mg)</p>
+<div class="flex items-center gap-2 mt-2 text-sm text-on-surface-variant">
+<span class="bg-surface-container px-2 py-1 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">restaurant</span> With Dinner</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Add/Edit & Assignment -->
+<div class="lg:col-span-4 space-y-gutter">
+<!-- Quick Add Form -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-container-padding border-b border-surface-variant bg-primary-container text-on-primary-container">
+<h2 class="font-headline-md text-headline-md">Add Medication</h2>
+</div>
+<form class="p-container-padding space-y-stack-md">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-unit">Medication Name</label>
+<input class="w-full border-outline-variant rounded-lg p-3 bg-surface text-on-surface focus:ring-primary focus:border-primary" placeholder="e.g. Aspirin" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-unit">Dosage</label>
+<input class="w-full border-outline-variant rounded-lg p-3 bg-surface text-on-surface focus:ring-primary focus:border-primary" placeholder="e.g. 81mg" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-unit">Frequency</label>
+<select class="w-full border-outline-variant rounded-lg p-3 bg-surface text-on-surface focus:ring-primary focus:border-primary">
+<option>Once Daily</option>
+<option>Twice Daily</option>
+<option>As Needed (PRN)</option>
+</select>
+</div>
+<button class="w-full bg-primary text-on-primary font-action-lg text-action-lg py-3 rounded-lg hover:bg-surface-tint transition-colors" type="button">
+                            Save Medication
+                        </button>
+</form>
+</section>
+<!-- Team Assignment -->
+<section class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_12px_rgba(0,0,0,0.05)] overflow-hidden">
+<div class="p-container-padding border-b border-surface-variant bg-surface-container-low">
+<h2 class="font-headline-md text-headline-md text-on-surface">Assign Caregiver</h2>
+</div>
+<div class="p-container-padding space-y-stack-sm">
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Assign specific medication blocks to team members.</p>
+<label class="flex items-center p-3 border border-outline-variant rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input checked="" class="text-primary focus:ring-primary" name="caregiver" type="radio"/>
+<div class="ml-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">SM</div>
+<div>
+<span class="block font-semibold text-on-surface">Sarah (Primary)</span>
+<span class="block text-sm text-on-surface-variant">Morning Blocks</span>
+</div>
+</div>
+</label>
+<label class="flex items-center p-3 border border-outline-variant rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="text-primary focus:ring-primary" name="caregiver" type="radio"/>
+<div class="ml-3 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">JD</div>
+<div>
+<span class="block font-semibold text-on-surface">John (Son)</span>
+<span class="block text-sm text-on-surface-variant">Evening Blocks</span>
+</div>
+</div>
+</label>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-safe pt-2 bg-white/95 backdrop-blur-md font-public-sans text-[11px] font-medium uppercase tracking-wider docked full-width bottom-0 rounded-t-2xl border-t border-stone-100 shadow-[0_-4px_12px_rgba(0,0,0,0.05)] text-emerald-700">
+<a class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-600" href="#">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span>Today</span>
+</a>
+<a class="flex flex-col items-center justify-center text-emerald-700 bg-emerald-50 rounded-xl px-3 py-1 Active: scale-90 duration-150" href="#">
+<span class="material-symbols-outlined filled mb-1" style="font-variation-settings: 'FILL' 1;">medication</span>
+<span>Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-600" href="#">
+<span class="material-symbols-outlined mb-1">family_history</span>
+<span>Team</span>
+</a>
+<a class="flex flex-col items-center justify-center text-stone-400 hover:text-emerald-600" href="#">
+<span class="material-symbols-outlined mb-1">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+</body></html>

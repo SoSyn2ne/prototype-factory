@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Dashboard - Delivery Surgeon</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0c1322; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e3545; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3d494c; 
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#dce2f7",
+                        "surface-bright": "#323949",
+                        "surface-container-low": "#141b2b",
+                        "on-primary-fixed": "#001f26",
+                        "surface-container-high": "#232a3a",
+                        "on-surface-variant": "#bcc9cd",
+                        "primary-container": "#06b6d4",
+                        "error-container": "#93000a",
+                        "primary": "#4cd7f6",
+                        "surface-tint": "#4cd7f6",
+                        "outline-variant": "#3d494c",
+                        "primary-fixed-dim": "#4cd7f6",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb3ad",
+                        "tertiary-container": "#ff817a",
+                        "inverse-surface": "#dce2f7",
+                        "inverse-primary": "#00687a",
+                        "surface-variant": "#2e3545",
+                        "surface-dim": "#0c1322",
+                        "surface-container": "#191f2f",
+                        "background": "#0c1322",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "on-tertiary-container": "#7e000f",
+                        "on-primary-container": "#00424f",
+                        "surface-container-lowest": "#070e1d",
+                        "inverse-on-surface": "#293040",
+                        "on-error": "#690005",
+                        "on-tertiary": "#68000a",
+                        "on-tertiary-fixed": "#410004",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#acedff",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "secondary-container": "#eec200",
+                        "on-secondary-container": "#645000",
+                        "on-secondary-fixed-variant": "#574500",
+                        "on-secondary": "#3c2f00",
+                        "secondary-fixed": "#ffe083",
+                        "surface-container-highest": "#2e3545",
+                        "on-primary-fixed-variant": "#004e5c",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-background": "#dce2f7",
+                        "outline": "#869397",
+                        "on-secondary-fixed": "#231b00",
+                        "secondary": "#ffe083",
+                        "surface": "#0c1322",
+                        "secondary-fixed-dim": "#eec200",
+                        "on-primary": "#003640"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-tablet": "24px",
+                        "card-padding": "20px",
+                        "gutter": "16px",
+                        "touch-target": "48px",
+                        "base": "8px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-bold": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-bold": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar (From JSON) -->
+<header class="flex justify-between items-center w-full px-6 h-16 bg-slate-950 dark:bg-black docked full-width top-0 border-b-2 border-slate-800 dark:border-slate-700 flat no shadows z-50 fixed md:hidden">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black text-cyan-500 dark:text-cyan-400 tracking-widest font-black uppercase tracking-tighter">DELIVERY SURGEON</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-12 h-12 flex items-center justify-center text-slate-500 hover:bg-slate-900 transition-colors active:translate-y-0.5 transition-all duration-75">
+<span class="material-symbols-outlined text-cyan-500 dark:text-cyan-400" data-icon="warning">warning</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-slate-500 hover:bg-slate-900 transition-colors active:translate-y-0.5 transition-all duration-75">
+<span class="material-symbols-outlined text-cyan-500 dark:text-cyan-400" data-icon="error">error</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-slate-500 hover:bg-slate-900 transition-colors active:translate-y-0.5 transition-all duration-75">
+<span class="material-symbols-outlined text-cyan-500 dark:text-cyan-400" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="flex h-screen pt-16 md:pt-0">
+<!-- SideNavBar (From JSON) -->
+<nav class="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 pt-16 bg-slate-950 dark:bg-neutral-950 docked h-full border-r-2 border-slate-800 dark:border-slate-700 flat no shadows z-40">
+<!-- Header -->
+<div class="p-6 border-b-2 border-slate-800 dark:border-slate-700 mb-4">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 rounded-none bg-surface-variant border-2 border-primary flex items-center justify-center overflow-hidden">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a serious logistics operator wearing a tactical headset, illuminated by cold blue screen light. The aesthetic is industrial brutalist with deep charcoal shadows and high-contrast cyan accents, reflecting a high-stakes command center environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZBZtez8O3yqPZTdbzFtiFscIe8oYZNY8H10BF9VG41m3S1tskn806fJjRNezPAIHSrVYPUwSspjI4u-TNZqeieOGgXBb8tcY8j2SgYERPzrC6MeLBjpze8M62TsApvdc4QdxrVxA4uHKAdpeTlWbkZzdhfKZ4P1raxQGCtTSpEvuWnMhHtO5VLgO0yh-g4Jt_QMgiL4L3XqM1DwavDiGrlfXnRNiWv2Z82l-jS7RIEHFF5gdlr8rjvLeIjFPZ7v1k9EaqRLmodbE"/>
+</div>
+<div>
+<h2 class="text-cyan-500 font-black font-headline-md text-headline-md tracking-tight">UNIT-01</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant tracking-widest uppercase">SECTOR: OPS</p>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col gap-1 px-4 overflow-y-auto">
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 bg-cyan-500 text-black rounded-none border-2 border-black m-1 py-3 px-4">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                    Dashboard
+                </button>
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 text-slate-400 hover:text-white p-4 hover:bg-slate-800 py-3 px-4 rounded-none border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                    Surgery Board
+                </button>
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 text-slate-400 hover:text-white p-4 hover:bg-slate-800 py-3 px-4 rounded-none border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="precision_manufacturing">precision_manufacturing</span>
+                    Op Lab
+                </button>
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 text-slate-400 hover:text-white p-4 hover:bg-slate-800 py-3 px-4 rounded-none border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                    Evidence Brief
+                </button>
+</div>
+<!-- Footer Tabs -->
+<div class="p-4 border-t-2 border-slate-800 dark:border-slate-700 flex flex-col gap-2">
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 text-slate-400 hover:text-white p-4 hover:bg-slate-800 py-3 px-4 rounded-none">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                    Support
+                </button>
+<button class="flex items-center gap-4 w-full text-left font-bold uppercase text-xs tracking-widest active:scale-95 transition-transform duration-100 text-slate-400 hover:text-white p-4 hover:bg-slate-800 py-3 px-4 rounded-none">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Logs
+                </button>
+<button class="mt-4 w-full min-h-[48px] bg-primary text-on-primary font-label-bold text-label-bold border-2 border-transparent hover:bg-primary-container active:scale-95 transition-all duration-100 flex items-center justify-center tracking-widest">
+                    DEPLOY CHANGES
+                </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-tablet overflow-y-auto">
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter max-w-[1600px] mx-auto">
+<!-- Urgency Banner (Spans Full) -->
+<div class="col-span-1 lg:col-span-12 bg-error-container border-2 border-error p-card-padding flex items-start sm:items-center justify-between gap-4 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, #ffb4ab 10px, #ffb4ab 20px);"></div>
+<div class="flex items-center gap-4 relative z-10">
+<span class="material-symbols-outlined text-error text-3xl" data-icon="warning" data-weight="fill">warning</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-error tracking-tight uppercase">CRITICAL MARGIN LOSS DETECTED</h3>
+<p class="font-body-md text-body-md text-on-error-container mt-1">4 items in 'Appetizers' category are yielding &lt; 5% net margin on DoorDash.</p>
+</div>
+</div>
+<button class="relative z-10 min-h-[48px] px-6 bg-error text-on-error font-label-bold text-label-bold border-2 border-black hover:bg-tertiary-container active:scale-95 transition-all duration-100 uppercase tracking-widest whitespace-nowrap">
+                        TRIAGE NOW
+                    </button>
+</div>
+<!-- Recovery Target Gauge (Col 1-4) -->
+<div class="col-span-1 lg:col-span-4 bg-surface-container border-2 border-surface-variant p-card-padding flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest">Weekly Recovery</h3>
+<span class="material-symbols-outlined text-primary" data-icon="track_changes">track_changes</span>
+</div>
+<div class="flex-1 flex flex-col justify-center items-center">
+<!-- Abstract Gauge Visualization -->
+<div class="relative w-48 h-48 rounded-full border-8 border-surface-variant flex items-center justify-center mb-4">
+<!-- Progress Arc (Simulated with SVG) -->
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="transition-all duration-1000" cx="50" cy="50" fill="none" r="46" stroke="#06b6d4" stroke-dasharray="289" stroke-dashoffset="100" stroke-width="8"></circle>
+</svg>
+<div class="text-center z-10">
+<span class="font-headline-lg text-headline-lg text-primary block">$1,250</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mt-1 block">/ $2,000 TGT</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-4 mt-4 border border-outline-variant overflow-hidden">
+<div class="bg-primary h-full w-[62.5%]"></div>
+</div>
+<div class="flex justify-between w-full mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>0%</span>
+<span>62.5%</span>
+<span>100%</span>
+</div>
+</div>
+</div>
+<!-- Channel Margin Table (Col 5-12) -->
+<div class="col-span-1 lg:col-span-8 bg-surface-container border-2 border-surface-variant flex flex-col overflow-hidden">
+<div class="p-card-padding border-b-2 border-surface-variant flex justify-between items-center bg-surface-container-high">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest">Channel Diagnostics</h3>
+<button class="min-h-[48px] px-4 border-2 border-outline-variant text-on-surface hover:bg-surface-variant active:scale-95 transition-all font-label-sm text-label-sm uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                            Export
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b-2 border-surface-variant">
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Channel</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest text-right">Volume (7d)</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest text-right">Comm. %</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest text-right">Net Margin</th>
+<th class="p-4 font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-container-highest transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-red-900 border border-red-500 flex items-center justify-center text-white font-bold text-xs">DD</div>
+<span class="font-bold">DoorDash</span>
+</td>
+<td class="p-4 text-right">1,420</td>
+<td class="p-4 text-right text-error font-bold">30.0%</td>
+<td class="p-4 text-right text-error font-bold">12.4%</td>
+<td class="p-4 text-center">
+<span class="inline-block px-2 py-1 bg-red-600 text-white font-label-sm text-label-sm border border-red-400 uppercase tracking-wider">DELIST WARN</span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-highest transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-green-900 border border-green-500 flex items-center justify-center text-white font-bold text-xs">UE</div>
+<span class="font-bold">UberEats</span>
+</td>
+<td class="p-4 text-right">980</td>
+<td class="p-4 text-right">20.0%</td>
+<td class="p-4 text-right text-primary">22.8%</td>
+<td class="p-4 text-center">
+<span class="inline-block px-2 py-1 bg-green-600 text-black font-label-sm text-label-sm border border-green-400 uppercase tracking-wider">STABLE</span>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-highest transition-colors">
+<td class="p-4 flex items-center gap-3">
+<div class="w-8 h-8 bg-orange-900 border border-orange-500 flex items-center justify-center text-white font-bold text-xs">GH</div>
+<span class="font-bold">Grubhub</span>
+</td>
+<td class="p-4 text-right">450</td>
+<td class="p-4 text-right">25.0%</td>
+<td class="p-4 text-right text-secondary">18.2%</td>
+<td class="p-4 text-center">
+<span class="inline-block px-2 py-1 bg-yellow-500 text-black font-label-sm text-label-sm border border-yellow-300 uppercase tracking-wider">REPRICE</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Sensitivity Sliders (Col 1-6) -->
+<div class="col-span-1 lg:col-span-6 bg-surface-container border-2 border-surface-variant p-card-padding">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="tune">tune</span>
+                            Live Sensitivity
+                        </h3>
+</div>
+<div class="space-y-8">
+<!-- Slider 1 -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Comm. Increase Offset</label>
+<span class="font-headline-md text-headline-md text-primary">+4.5%</span>
+</div>
+<input class="w-full h-2 bg-surface-variant rounded-none appearance-none cursor-pointer accent-primary" max="15" min="0" step="0.5" type="range" value="4.5"/>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-outline">
+<span>0%</span>
+<span>15%</span>
+</div>
+</div>
+<!-- Slider 2 -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Promo Discount Absorption</label>
+<span class="font-headline-md text-headline-md text-secondary">-10.0%</span>
+</div>
+<input class="w-full h-2 bg-surface-variant rounded-none appearance-none cursor-pointer accent-secondary" max="0" min="-25" step="1" type="range" value="-10"/>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-outline">
+<span>-25%</span>
+<span>0%</span>
+</div>
+</div>
+<!-- Projected Impact -->
+<div class="mt-6 p-4 border-2 border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest">Proj. Margin Impact</span>
+<span class="font-headline-md text-headline-md text-error">-5.5%</span>
+</div>
+</div>
+</div>
+<!-- Action Required List (Col 7-12) -->
+<div class="col-span-1 lg:col-span-6 bg-surface-container border-2 border-surface-variant flex flex-col h-[400px]">
+<div class="p-card-padding border-b-2 border-surface-variant flex justify-between items-center bg-surface-container-high">
+<h3 class="font-label-bold text-label-bold text-on-surface uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-error" data-icon="medical_services">medical_services</span>
+                            Action Required (&lt; 5% Margin)
+                        </h3>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-3">
+<!-- Item 1 -->
+<div class="bg-surface-container-low border border-surface-variant p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-primary transition-colors">
+<div>
+<h4 class="font-label-bold text-label-bold text-on-surface uppercase">Spicy Tuna Roll</h4>
+<p class="font-label-sm text-label-sm text-error mt-1">Margin: 2.1% (DD)</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none min-h-[48px] px-4 bg-yellow-500 text-black font-label-bold text-label-bold border border-yellow-300 hover:bg-yellow-400 active:scale-95 uppercase tracking-wider">REPRICE</button>
+<button class="flex-1 sm:flex-none min-h-[48px] px-4 bg-red-600 text-white font-label-bold text-label-bold border border-red-400 hover:bg-red-500 active:scale-95 uppercase tracking-wider">DELIST</button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-low border border-surface-variant p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-primary transition-colors">
+<div>
+<h4 class="font-label-bold text-label-bold text-on-surface uppercase">Truffle Fries</h4>
+<p class="font-label-sm text-label-sm text-error mt-1">Margin: 4.5% (GH)</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none min-h-[48px] px-4 bg-blue-600 text-white font-label-bold text-label-bold border border-blue-400 hover:bg-blue-500 active:scale-95 uppercase tracking-wider">BUNDLE</button>
+<button class="flex-1 sm:flex-none min-h-[48px] px-4 bg-yellow-500 text-black font-label-bold text-label-bold border border-yellow-300 hover:bg-yellow-400 active:scale-95 uppercase tracking-wider">REPRICE</button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-low border border-surface-variant p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:border-primary transition-colors">
+<div>
+<h4 class="font-label-bold text-label-bold text-on-surface uppercase">Avocado Toast</h4>
+<p class="font-label-sm text-label-sm text-error mt-1">Margin: 1.0% (DD)</p>
+</div>
+<div class="flex gap-2 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none min-h-[48px] px-4 bg-red-600 text-white font-label-bold text-label-bold border border-red-400 hover:bg-red-500 active:scale-95 uppercase tracking-wider w-full">DELIST</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
