@@ -1,0 +1,46 @@
+# PRD — Budget Shame Goblin
+
+## Problem
+- A playful overspending confessional that turns subscription guilt, tiny impulse buys, and budget drop-off into one shareable weekly boss fight.
+- Inspired by external problem signals: Signal 7 — Reddit r/Startup_Ideas budgeting complaints synthesis: https://www.reddit.com/r/Startup_Ideas/comments/1t1y4pf/i_read_250_reddit_budgeting_complaints_they_were/; Signal 8 — Reddit r/startupideas practical app ideas and low bar for better bill tools: https://www.reddit.com/r/startupideas/comments/1t0vg1u/30_more_mobile_app_ideas_worth_building_in_2026/
+
+## Target user
+- Budget-anxious consumers, students, young workers, and couples who repeatedly abandon serious budget apps because they feel judgmental, boring, or too much work.
+
+## Key UX
+- Import or manually confess recent “why did I buy this?” spends; the goblin groups them into guilt monsters, shows the smallest next save, lets users fight one weekly boss, and exports a funny but useful money confession card.
+
+## Required UI sections
+- weekly goblin mood board
+- spend confession inbox
+- guilt monster clusters
+- tiny save move picker
+- subscription trap arena
+- shareable boss-fight recap
+- gentle next-week pledge
+
+## Design profile
+- playful-experimental
+
+## Theme
+- 자산 방어
+
+## Stitch prompt
+Design a playful consumer finance web prototype called Budget Shame Goblin for people who quit serious budgeting apps but still feel guilty about subscriptions, impulse buys, and tiny leaks. Users should manually enter or import recent questionable spends, confess what happened, watch the goblin cluster them into guilt monsters, pick one tiny save move, fight a weekly subscription or impulse boss, and export a funny money confession recap. Include a weekly goblin mood board, spend confession inbox, guilt monster clusters, tiny save move picker, subscription trap arena, shareable boss-fight recap, and gentle next-week pledge. Design direction: use a playful-experimental aesthetic with bold goblin-game metaphors, punchy color, expressive cards, sticker-like rewards, and comic microcopy while keeping the money math readable and the next action emotionally low-pressure.
+
+## Constraints
+- Time: Phase A scaffold only; Stitch export expected later.
+- Budget: Keep prototype static and fast to review.
+- Platform: Web demo imported from Stitch in later phase.
+
+## Non-goals
+- No full custom implementation in Phase A.
+- No external LLM/API calls.
+
+## Success metrics
+- User understands the core pain within 5 seconds.
+- Main workflow has one obvious next action.
+- Stitch output can preserve the original environment for `/d/2026-05-04-p004` in Phase B/C.
+
+## Notes
+- Expected drop folder: `/home/sy/Downloads/stitch_drop/2026-05-04/p004/`
