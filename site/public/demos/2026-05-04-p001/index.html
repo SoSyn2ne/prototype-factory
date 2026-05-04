@@ -1,59 +1,280 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Automation Mess Backtrace - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-04-p001</p>
-        <h1>Automation Mess Backtrace</h1>
-        <p>A small-company repair console that maps broken AI automations back to owners, data sources, risks, and rollback steps before workflows silently lose money.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automation Mess Backtrace Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#273647",
+                        "secondary-container": "#464c55",
+                        "secondary": "#c1c7d2",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#c3c6cf",
+                        "surface-bright": "#2c3a4c",
+                        "surface-dim": "#051424",
+                        "primary": "#ffb693",
+                        "on-tertiary-container": "#2d3138",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "primary-fixed": "#ffdbcc",
+                        "error-container": "#93000a",
+                        "outline-variant": "#5a4136",
+                        "on-tertiary-fixed-variant": "#43474e",
+                        "surface-tint": "#ffb693",
+                        "on-secondary-container": "#b6bcc7",
+                        "on-tertiary-fixed": "#181c22",
+                        "secondary-fixed": "#dde3ee",
+                        "on-primary-fixed": "#351000",
+                        "outline": "#a98a7d",
+                        "surface": "#051424",
+                        "on-surface-variant": "#e2bfb0",
+                        "inverse-on-surface": "#233143",
+                        "on-primary-container": "#572000",
+                        "on-tertiary": "#2d3137",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "surface-container-high": "#1c2b3c",
+                        "background": "#051424",
+                        "primary-container": "#ff6b00",
+                        "surface-container-lowest": "#010f1f",
+                        "surface-container-highest": "#273647",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#dfe2eb",
+                        "surface-container": "#122131",
+                        "tertiary-container": "#9699a1",
+                        "on-primary": "#561f00",
+                        "on-secondary": "#2b3139",
+                        "on-secondary-fixed-variant": "#414750",
+                        "tertiary-fixed-dim": "#c3c6cf",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed": "#161c24",
+                        "inverse-primary": "#a04100",
+                        "on-error": "#690005",
+                        "inverse-surface": "#d4e4fa",
+                        "on-background": "#d4e4fa",
+                        "surface-container-low": "#0d1c2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-unit": "4px",
+                        "gutter": "1px",
+                        "container-margin": "16px",
+                        "data-density": "tight",
+                        "element-gap": "8px"
+                    },
+                    "fontFamily": {
+                        "display-mono": ["JetBrains Mono"],
+                        "data-table": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-mono": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-table": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+        .tech-glow {
+            box-shadow: 0 0 8px 0 theme('colors.primary-container');
+        }
+        .severity-critical { border-left-color: theme('colors.error'); }
+        .severity-high { border-left-color: theme('colors.primary-container'); }
+        .severity-medium { border-left-color: theme('colors.tertiary'); }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden font-body-md text-body-md">
+<!-- SideNavBar -->
+<nav class="bg-slate-950 flex flex-col h-full overflow-y-auto docked left-0 h-screen border-r w-64 border-slate-800 border-r z-40 relative">
+<div class="p-6 border-b border-slate-800">
+<div class="text-orange-500 font-black tracking-widest text-lg mb-2">OPERATOR_01</div>
+<div class="text-slate-500 font-mono text-[10px] uppercase">NOC_COMMAND</div>
+</div>
+<div class="flex-1 py-4 flex flex-col gap-1">
+<a class="bg-orange-500/10 text-orange-500 border-l-2 border-orange-500 font-bold px-4 py-3 flex items-center gap-3 active:ring-inset active:ring-1 active:ring-orange-500/50" href="#">
+<span class="material-symbols-outlined text-[18px]">inbox</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Inbox</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">account_tree</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Dependency Map</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">history_toggle_off</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Backtrace</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Trust Meter</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment_ind</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Assignments</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">event_repeat</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Sprint Brief</span>
+</a>
+</div>
+<div class="mt-auto border-t border-slate-800 py-4 flex flex-col gap-1">
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Settings</span>
+</a>
+<a class="text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors flex items-center gap-3 hover:bg-slate-900" href="#">
+<span class="material-symbols-outlined text-[18px]">support_agent</span>
+<span class="font-mono uppercase tracking-tighter text-xs">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen relative overflow-hidden ml-0">
+<!-- TopNavBar -->
+<header class="bg-slate-950/90 backdrop-blur-md docked top-0 w-full border-b border-slate-800 border-b flat no shadows fixed top-0 right-0 left-64 z-50 flex justify-between items-center px-6 h-12">
+<div class="flex items-center">
+<div class="text-orange-500 font-black border-r border-slate-800 pr-4 mr-4">BACKTRACE_CMD</div>
+<nav class="flex gap-6">
+<a class="font-mono text-[11px] uppercase tracking-widest text-slate-400 hover:text-orange-400 transition-colors h-12 flex items-center" href="#">LIVE_FEED</a>
+<a class="font-mono text-[11px] uppercase tracking-widest text-orange-500 border-b border-orange-500 h-12 flex items-center active:opacity-80" href="#">INCIDENTS</a>
+<a class="font-mono text-[11px] uppercase tracking-widest text-slate-400 hover:text-orange-400 transition-colors h-12 flex items-center" href="#">ROLLBACKS</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-3 text-slate-400">
+<button class="hover:text-orange-400 transition-colors"><span class="material-symbols-outlined text-[16px]">notifications_active</span></button>
+<button class="hover:text-orange-400 transition-colors"><span class="material-symbols-outlined text-[16px]">terminal</span></button>
+<button class="hover:text-orange-400 transition-colors"><span class="material-symbols-outlined text-[16px]">sensors</span></button>
+</div>
+<button class="bg-orange-500 text-black px-3 py-1 font-mono text-[10px] uppercase font-bold border border-orange-500 hover:bg-transparent hover:text-orange-500 transition-colors">
+                    DEPLOY_REPAIR
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto mt-12 p-6 bg-surface-dim">
+<div class="grid grid-cols-12 gap-grid-unit max-w-7xl mx-auto h-full">
+<!-- Left Column: Inbox -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-grid-unit">
+<div class="bg-surface-container-high border border-surface-variant p-4 flex justify-between items-center">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">System Health &amp; Error Overview</h1>
+<span class="font-label-caps text-label-caps text-primary-container bg-surface-variant px-2 py-1 rounded-sm border border-surface-variant">ENV:PROD</span>
+</div>
+<!-- Inbox List -->
+<div class="bg-surface border border-surface-variant flex-1 overflow-hidden flex flex-col">
+<div class="bg-surface-container border-b border-surface-variant p-2 flex text-on-surface-variant font-data-table text-data-table">
+<div class="w-24 pl-2">SEVERITY</div>
+<div class="flex-1">SYMPTOM</div>
+<div class="w-32">SOURCE</div>
+<div class="w-24 text-right pr-2">TIME_T-MINUS</div>
+</div>
+<div class="flex-1 overflow-y-auto p-2 flex flex-col gap-gutter">
+<!-- Item 1 -->
+<div class="bg-surface-container-low border-l-4 severity-critical border border-surface-variant p-3 flex items-center hover:bg-surface-variant transition-colors cursor-pointer">
+<div class="w-24 flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-data-table text-data-table">CRIT</span>
+</div>
+<div class="flex-1 font-data-table text-data-table text-on-surface">Auth Token Sync Failure - API Gateway timeout</div>
+<div class="w-32 font-label-caps text-label-caps text-on-secondary-container">SVC_AUTH</div>
+<div class="w-24 text-right font-data-table text-data-table text-on-surface-variant">00:02:14</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container-low border-l-4 severity-high border border-surface-variant p-3 flex items-center hover:bg-surface-variant transition-colors cursor-pointer">
+<div class="w-24 flex items-center gap-2 text-primary-container">
+<span class="material-symbols-outlined text-[14px]">error</span>
+<span class="font-data-table text-data-table">HIGH</span>
+</div>
+<div class="flex-1 font-data-table text-data-table text-on-surface">Payment Webhook Missed Payload</div>
+<div class="w-32 font-label-caps text-label-caps text-on-secondary-container">SVC_BILLING</div>
+<div class="w-24 text-right font-data-table text-data-table text-on-surface-variant">00:15:42</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container-low border-l-4 severity-medium border border-surface-variant p-3 flex items-center hover:bg-surface-variant transition-colors cursor-pointer">
+<div class="w-24 flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-[14px]">info</span>
+<span class="font-data-table text-data-table">WARN</span>
+</div>
+<div class="flex-1 font-data-table text-data-table text-on-surface">Cache Read Latency Spike (&gt;50ms)</div>
+<div class="w-32 font-label-caps text-label-caps text-on-secondary-container">REDIS_CLUSTER</div>
+<div class="w-24 text-right font-data-table text-data-table text-on-surface-variant">01:04:11</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Trust Meter & Metrics -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-grid-unit">
+<!-- Trust Meter -->
+<div class="bg-surface-container border border-surface-variant p-4">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">DATA-SOURCE TRUST METER</div>
+<div class="flex flex-col gap-4">
+<!-- Gauge 1 -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border-2 border-surface-variant flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="22" cy="22" fill="none" r="20" stroke="currentColor" stroke-width="2"></circle>
+<circle class="text-error" cx="22" cy="22" fill="none" r="20" stroke="currentColor" stroke-dasharray="125" stroke-dashoffset="40" stroke-width="2"></circle>
+</svg>
+<span class="font-data-table text-[10px] text-error font-bold">68%</span>
+</div>
+<div>
+<div class="font-data-table text-data-table text-on-surface">Primary DB Replica</div>
+<div class="font-label-caps text-[9px] text-error mt-1">DEGRADED_TRUST</div>
+</div>
+</div>
+<!-- Gauge 2 -->
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full border-2 border-surface-variant flex items-center justify-center relative">
+<svg class="absolute inset-0 w-full h-full transform -rotate-90">
+<circle class="text-surface-variant" cx="22" cy="22" fill="none" r="20" stroke="currentColor" stroke-width="2"></circle>
+<circle class="text-tertiary" cx="22" cy="22" fill="none" r="20" stroke="currentColor" stroke-dasharray="125" stroke-dashoffset="10" stroke-width="2"></circle>
+</svg>
+<span class="font-data-table text-[10px] text-tertiary font-bold">92%</span>
+</div>
+<div>
+<div class="font-data-table text-data-table text-on-surface">Event Stream Kafka</div>
+<div class="font-label-caps text-[9px] text-tertiary mt-1">NOMINAL</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Telemetry -->
+<div class="bg-surface-container border border-surface-variant p-4 flex-1 flex flex-col">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">GLOBAL ERROR RATE (1H)</div>
+<div class="flex-1 relative flex items-end">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzI3MzY0NyIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2UtZGFzaGFycmF5PSIyLDQiPjxwYXRoIGQ9Ik0wIDEwaDEwMDBNMSAxMHYxMDAwIi8+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+<!-- Mock Chart Line -->
+<svg class="w-full h-full preserve-aspect-ratio-none" viewbox="0 0 100 40">
+<polyline fill="none" points="0,35 10,32 20,38 30,25 40,30 50,15 60,20 70,5 80,10 90,8 100,12" stroke="theme('colors.primary-container')" stroke-width="1.5" vector-effect="non-scaling-stroke"></polyline>
+</svg>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,59 +1,440 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Payroll Rule Tripwire - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-04-p002</p>
-        <h1>Payroll Rule Tripwire</h1>
-        <p>A small-employer compliance workbench that turns wage, leave, posting, and remote-work rule changes into a location-specific action queue.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>[p002] Payroll Rule Tripwire - Compliance Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface-variant": "#45464d",
+                      "inverse-primary": "#bec6e0",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "surface": "#fcf8fa",
+                      "surface-container-highest": "#e4e2e4",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-container": "#f0edef",
+                      "secondary-fixed-dim": "#ffb690",
+                      "primary-fixed-dim": "#bec6e0",
+                      "error-container": "#ffdad6",
+                      "secondary": "#9d4300",
+                      "on-background": "#1b1b1d",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "tertiary": "#000000",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed": "#002113",
+                      "on-secondary-fixed-variant": "#783200",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#000000",
+                      "secondary-fixed": "#ffdbca",
+                      "surface-bright": "#fcf8fa",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#dcd9db",
+                      "surface-variant": "#e4e2e4",
+                      "on-tertiary-container": "#009668",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "tertiary-container": "#002113",
+                      "on-secondary-fixed": "#341100",
+                      "error": "#ba1a1a",
+                      "outline-variant": "#c6c6cd",
+                      "surface-container-low": "#f6f3f5",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#dae2fd",
+                      "secondary-container": "#fd761a",
+                      "surface-tint": "#565e74",
+                      "on-primary-container": "#7c839b",
+                      "on-secondary-container": "#5c2400",
+                      "primary-container": "#131b2e",
+                      "tertiary-fixed": "#6ffbbe",
+                      "inverse-on-surface": "#f3f0f2",
+                      "outline": "#76777d",
+                      "background": "#fcf8fa",
+                      "surface-container-high": "#eae7e9",
+                      "inverse-surface": "#303032",
+                      "on-surface": "#1b1b1d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "unit": "4px",
+                      "container-margin": "24px",
+                      "cell-padding-x": "12px",
+                      "cell-padding-y": "8px",
+                      "stack-gap": "20px"
+              },
+              "fontFamily": {
+                      "display-xl": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "table-data": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "display-xl": [
+                              "36px",
+                              {
+                                      "lineHeight": "44px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "table-data": [
+                              "13px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (WEB ONLY) -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-slate-200 bg-slate-50 fixed left-0 top-0 pt-16 z-40">
+<div class="px-6 py-4 flex flex-col gap-2">
+<!-- Brand Placeholder, visually hidden as it's in TopNav -->
+</div>
+<ul class="flex flex-col gap-1 px-4 mt-4 flex-grow">
+<!-- Active Tab -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 bg-white border-l-4 border-slate-900 text-slate-900 transition-all duration-150 ease-in-out font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Compliance Dashboard</span>
+</a>
+</li>
+<!-- Inactive Tabs -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all duration-150 ease-in-out font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="rule">rule</span>
+<span>Risk Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all duration-150 ease-in-out font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span>Rule Analysis</span>
+</a>
+</li>
+</ul>
+<div class="px-4 pb-6 mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-slate-100 transition-all duration-150 ease-in-out font-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0 md:ml-64">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-6 w-full docked full-width top-0 border-b border-slate-200 bg-white font-sans antialiased text-sm z-50 sticky">
+<div class="flex items-center gap-4">
+<span class="text-lg font-black tracking-tight text-slate-900">[p002] Payroll Rule Tripwire</span>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<div class="relative hidden sm:block mr-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 border border-slate-300 rounded-DEFAULT bg-slate-50 focus:bg-white focus:border-slate-900 focus:ring-1 focus:ring-slate-900 transition-colors text-sm w-64 placeholder-slate-400 text-slate-900" placeholder="Search rules..." type="text"/>
+</div>
+<button aria-label="Notifications" class="hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Settings" class="hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button aria-label="Help" class="hover:bg-slate-50 transition-colors cursor-pointer active:opacity-80 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-slate-200 overflow-hidden ml-2 border border-slate-300 cursor-pointer">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate employee in a well-lit office setting. The lighting is soft and neutral, enhancing the Corporate Modern aesthetic. The subject is wearing business casual attire, conveying an authoritative yet approachable demeanor. The background is slightly blurred, focusing attention on the individual, fitting perfectly within a high-stakes financial dashboard environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCd4KPuZsz9fU-01j3w9FuN7Y_4Zu1jp2IT4G0Zs4-XZ9cDp4o_r0M1biqBh8gWAiUKxNF5GOSznfwnDxCR1lrN7FL6TGJpkjK95vqefUVc_DdmUvMHplqxCqCuMLftcprveQaXOjLs0El7xtqWqH1dY8IzYJKMn-JSFGfFbLBf0xyQ3D82XUf1qg7HXEBJUnUDJdp47T1l6RNlVr5fYC9Pr6S8Y2J7pmRFYXvgpIXu-W-RQJLTHIFr9a1Q4yowENwsD-I2y6hCud-h"/>
+</div>
+</div>
+</header>
+<!-- Canvas Area -->
+<main class="flex-1 p-container-margin overflow-y-auto bg-surface-container-lowest">
+<!-- Dashboard Header -->
+<div class="mb-stack-gap">
+<h1 class="font-headline-lg text-headline-lg text-primary mb-1">Compliance Overview</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Real-time monitoring of jurisdictional rule changes and urgent action items.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- KPI Strip (Top) -->
+<div class="lg:col-span-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-gutter mb-2">
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Active Tripwires</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-xl text-display-xl text-error">12</span>
+<span class="font-body-sm text-body-sm text-error flex items-center"><span class="material-symbols-outlined text-[16px]">trending_up</span> +3 this week</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Pending Actions</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-xl text-display-xl text-secondary-container">8</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Requires Review</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Upcoming Deadlines</span>
+<div class="flex items-baseline gap-2">
+<span class="font-display-xl text-display-xl text-primary">5</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Next 14 Days</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Overall Status</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-md text-headline-md text-on-tertiary-container mt-1">Elevated Risk</span>
+</div>
+<div class="w-full bg-surface-variant h-1.5 rounded-full mt-auto mb-1">
+<div class="bg-error h-1.5 rounded-full" style="width: 30%"></div>
+</div>
+</div>
+</div>
+<!-- Location Rule-Change Map (Left Main) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col min-h-[400px]">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-headline-md text-headline-md text-primary">Location Rule-Change Map</h2>
+<div class="flex gap-2">
+<button class="p-1 border border-outline-variant bg-surface-container-lowest rounded-DEFAULT hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
+<button class="p-1 border border-outline-variant bg-surface-container-lowest rounded-DEFAULT hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</div>
+<div class="flex-1 relative bg-surface-container-low p-2">
+<!-- Map Image Placeholder -->
+<div class="w-full h-full bg-slate-200 border border-outline-variant rounded-DEFAULT relative overflow-hidden" style="min-height: 350px;">
+<img alt="Map visualization" class="w-full h-full object-cover opacity-70 grayscale" data-alt="A highly detailed, desaturated geographical map visualization focused on North America. The map uses a sophisticated Corporate Modern aesthetic, primarily utilizing cool slate and gray tones to create a neutral, objective background. Several distinct regions are highlighted with glowing 'Tripwire Orange' hotspots, indicating areas of critical compliance risk. The lighting is flat and clinical, ensuring the data density remains legible and authoritative without decorative distraction." data-location="United States" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4PVtEkdOBXibm4FiGgNSaYC87Mm63M0qpHlT71cMtsjGJ-uaJhTplaH6K09Fr6XSVhbmMsdWQqO62mbXxbjnSVxquWVgoZrCZqBW1sRZZzqqf6lcU1pAFEmBqr6y8DQ-3lmMmk-2D46Y1yhU_j8OXJ_S47ppVcEI8ir7voOUSLGVbcERRpY6ZAqt1lbCMnoT9qLG-PypA6Zv8fGR8aaciwbvCWVVF_NSqRG9cMCYB4TfqroGnG-bs5DjP69yELunkXpF1F0c_rMtu"/>
+<!-- Hotspot Overlays -->
+<div class="absolute top-[30%] left-[20%] w-4 h-4 bg-error rounded-full border-2 border-white shadow-[0_0_0_4px_rgba(186,26,26,0.2)] cursor-pointer animate-pulse"></div>
+<div class="absolute top-[45%] left-[75%] w-3 h-3 bg-secondary-container rounded-full border-2 border-white shadow-[0_0_0_4px_rgba(253,118,26,0.2)] cursor-pointer"></div>
+<div class="absolute top-[60%] left-[40%] w-3 h-3 bg-secondary-container rounded-full border-2 border-white cursor-pointer"></div>
+<!-- Map Legend Card -->
+<div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm border border-outline-variant p-3 rounded-DEFAULT shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-2">Risk Level</span>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 bg-error rounded-full"></div>
+<span class="font-body-sm text-body-sm text-primary">Critical Update</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 bg-secondary-container rounded-full"></div>
+<span class="font-body-sm text-body-sm text-primary">Pending Review</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 bg-tertiary-fixed-dim rounded-full"></div>
+<span class="font-body-sm text-body-sm text-primary">Compliant</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Deadline Calendar (Right Side) -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-headline-md text-headline-md text-primary">Deadline Calendar</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">OCT 2023</span>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<!-- Mini Calendar Header -->
+<div class="grid grid-cols-7 gap-1 text-center font-label-caps text-label-caps text-on-surface-variant mb-2">
+<div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+</div>
+<!-- Next 7 days list -->
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3 p-3 bg-error-container border border-error/20 rounded-DEFAULT">
+<div class="flex flex-col items-center min-w-[40px] text-error">
+<span class="font-label-caps text-label-caps uppercase">Oct</span>
+<span class="font-headline-lg text-headline-lg font-bold leading-none">12</span>
+</div>
+<div class="flex-1">
+<h3 class="font-table-data text-table-data text-on-error-container">CA Sick Leave Posting</h3>
+<p class="font-body-sm text-body-sm text-on-error-container/80 line-clamp-1 mt-0.5">Mandatory workplace poster update.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 border border-outline-variant rounded-DEFAULT hover:shadow-[0px_4px_6px_-1px_rgba(15,23,42,0.1)] transition-shadow">
+<div class="flex flex-col items-center min-w-[40px] text-primary">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Oct</span>
+<span class="font-headline-lg text-headline-lg font-bold leading-none">15</span>
+</div>
+<div class="flex-1">
+<h3 class="font-table-data text-table-data text-primary">NY Paid Family Leave Rate</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Acknowledge new 2024 deduction rate.</p>
+</div>
+</div>
+<div class="flex items-start gap-3 p-3 border border-outline-variant rounded-DEFAULT hover:shadow-[0px_4px_6px_-1px_rgba(15,23,42,0.1)] transition-shadow">
+<div class="flex flex-col items-center min-w-[40px] text-primary">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant">Oct</span>
+<span class="font-headline-lg text-headline-lg font-bold leading-none">18</span>
+</div>
+<div class="flex-1">
+<h3 class="font-table-data text-table-data text-primary">IL Bereavement Leave</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1 mt-0.5">Review policy expansion draft.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-auto py-2 border border-outline-variant text-primary font-table-data text-table-data rounded-DEFAULT hover:bg-surface-container-high transition-colors">View Full Calendar</button>
+</div>
+</div>
+<!-- Leave and Posting Action Cards (Bottom Left Span) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-headline-md text-headline-md text-primary">Leave &amp; Posting Action Items</h2>
+<span class="bg-error text-white font-label-caps text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider">3 Urgent</span>
+</div>
+<div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Action Card 1 -->
+<div class="border border-outline-variant p-4 rounded-DEFAULT flex flex-col bg-surface-container-lowest hover:shadow-[0px_4px_6px_-1px_rgba(15,23,42,0.1)] transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-error"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="bg-error text-white font-label-caps text-[10px] px-2 py-0.5 rounded-sm uppercase tracking-wider">Critical</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ID: L-882</span>
+</div>
+<h3 class="font-headline-md text-[16px] text-primary mb-1">California Prop 22 Update</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex-grow">Minimum earnings guarantee calculation adjustments required for Q4 processing.</p>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-primary-container text-on-primary-fixed font-table-data text-table-data py-1.5 px-3 rounded-DEFAULT border border-primary-container hover:bg-primary-fixed transition-colors">Review Logic</button>
+<button class="p-1.5 border border-outline-variant rounded-DEFAULT text-primary hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined text-[18px]">assignment_turned_in</span></button>
+</div>
+</div>
+<!-- Action Card 2 -->
+<div class="border border-outline-variant p-4 rounded-DEFAULT flex flex-col bg-surface-container-lowest hover:shadow-[0px_4px_6px_-1px_rgba(15,23,42,0.1)] transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary-container"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="bg-secondary-container text-white font-label-caps text-[10px] px-2 py-0.5 rounded-sm uppercase tracking-wider">Pending</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ID: P-104</span>
+</div>
+<h3 class="font-headline-md text-[16px] text-primary mb-1">Colorado FAMLI Poster</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex-grow">Distribute updated physical and digital workplace posters to all CO locations.</p>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant text-primary font-table-data text-table-data py-1.5 px-3 rounded-DEFAULT hover:bg-surface-container-high transition-colors">Generate Notice</button>
+</div>
+</div>
+<!-- Action Card 3 -->
+<div class="border border-outline-variant p-4 rounded-DEFAULT flex flex-col bg-surface-container-lowest hover:shadow-[0px_4px_6px_-1px_rgba(15,23,42,0.1)] transition-shadow relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-slate-300"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="bg-surface-container-high text-on-surface-variant font-label-caps text-[10px] px-2 py-0.5 rounded-sm uppercase tracking-wider border border-outline-variant">Review</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">ID: L-890</span>
+</div>
+<h3 class="font-headline-md text-[16px] text-primary mb-1">Maine PTO Accrual Shift</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 flex-grow">Evaluate impact of proposed local ordinance on current state-wide accrual rules.</p>
+<div class="flex gap-2 mt-auto">
+<button class="flex-1 bg-surface-container-lowest border border-outline-variant text-primary font-table-data text-table-data py-1.5 px-3 rounded-DEFAULT hover:bg-surface-container-high transition-colors">Start Analysis</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Owner-ready Compliance Memo (Bottom Right) -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-headline-md text-headline-md text-primary">Compliance Memo</h2>
+<span class="material-symbols-outlined text-on-surface-variant">article</span>
+</div>
+<div class="p-4 flex flex-col flex-1">
+<div class="bg-surface-container-low border border-outline-variant rounded-DEFAULT p-4 flex-1 mb-4 flex flex-col">
+<div class="flex justify-between items-start mb-4 border-b border-outline-variant pb-2">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block uppercase mb-1">To: Executive Board</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant block uppercase">Subject: Q4 Regulatory Adjustments</span>
+</div>
+<span class="bg-tertiary-fixed-dim/20 text-on-tertiary-container font-label-caps text-[10px] px-2 py-0.5 rounded-sm uppercase tracking-wider border border-tertiary-fixed-dim">Ready for Review</span>
+</div>
+<div class="space-y-3 font-body-sm text-body-sm text-primary">
+<p><strong>Executive Summary:</strong></p>
+<p class="text-on-surface-variant">This memo details three critical payroll logic updates required prior to Nov 1st to maintain multi-state compliance...</p>
+<div class="bg-surface-container border-l-2 border-primary-container p-2 text-[12px] italic text-on-surface-variant">
+                                    Auto-generated based on resolved tripwires L-882, L-885, and P-101.
+                                </div>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="flex-1 bg-primary-container text-on-primary-fixed font-table-data text-table-data py-2 px-4 rounded-DEFAULT border border-primary-container hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">send</span> Route for Sign-off
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

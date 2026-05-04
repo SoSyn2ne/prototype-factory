@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Automation Dependency Map &amp; Backtrace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Inter:wght@400;600&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#273647",
+                        "secondary-container": "#464c55",
+                        "secondary": "#c1c7d2",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#c3c6cf",
+                        "surface-bright": "#2c3a4c",
+                        "surface-dim": "#051424",
+                        "primary": "#ffb693",
+                        "on-tertiary-container": "#2d3138",
+                        "secondary-fixed-dim": "#c1c7d2",
+                        "primary-fixed": "#ffdbcc",
+                        "error-container": "#93000a",
+                        "outline-variant": "#5a4136",
+                        "on-tertiary-fixed-variant": "#43474e",
+                        "surface-tint": "#ffb693",
+                        "on-secondary-container": "#b6bcc7",
+                        "on-tertiary-fixed": "#181c22",
+                        "secondary-fixed": "#dde3ee",
+                        "on-primary-fixed": "#351000",
+                        "outline": "#a98a7d",
+                        "surface": "#051424",
+                        "on-surface-variant": "#e2bfb0",
+                        "inverse-on-surface": "#233143",
+                        "on-primary-container": "#572000",
+                        "on-tertiary": "#2d3137",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "surface-container-high": "#1c2b3c",
+                        "background": "#051424",
+                        "primary-container": "#ff6b00",
+                        "surface-container-lowest": "#010f1f",
+                        "surface-container-highest": "#273647",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#dfe2eb",
+                        "surface-container": "#122131",
+                        "tertiary-container": "#9699a1",
+                        "on-primary": "#561f00",
+                        "on-secondary": "#2b3139",
+                        "on-secondary-fixed-variant": "#414750",
+                        "tertiary-fixed-dim": "#c3c6cf",
+                        "primary-fixed-dim": "#ffb693",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed": "#161c24",
+                        "inverse-primary": "#a04100",
+                        "on-error": "#690005",
+                        "inverse-surface": "#d4e4fa",
+                        "on-background": "#d4e4fa",
+                        "surface-container-low": "#0d1c2d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "grid-unit": "4px",
+                        "gutter": "1px",
+                        "container-margin": "16px",
+                        "data-density": "tight",
+                        "element-gap": "8px"
+                    },
+                    "fontFamily": {
+                        "display-mono": ["JetBrains Mono"],
+                        "data-table": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-mono": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-table": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "12px", "letterSpacing": "0.08em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tech-pattern {
+            background-image: radial-gradient(rgba(212, 228, 250, 0.05) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        .glow-active {
+            box-shadow: 0 0 8px 2px rgba(255, 107, 0, 0.2);
+        }
+        .glow-error {
+            box-shadow: 0 0 8px 2px rgba(255, 180, 171, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-screen overflow-hidden flex bg-surface-dim tech-pattern">
+<!-- SideNavBar -->
+<nav class="docked left-0 h-screen border-r w-64 border-slate-800 border-r bg-slate-950 flex flex-col h-full overflow-y-auto flat no shadows z-40 hidden md:flex">
+<div class="p-6 border-b border-slate-800">
+<h2 class="text-orange-500 font-black tracking-widest text-lg font-label-caps text-label-caps uppercase mb-2">OPERATOR_01</h2>
+<p class="font-data-table text-data-table text-on-surface-variant uppercase">NOC_COMMAND</p>
+</div>
+<div class="flex-grow py-4">
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inbox</span>
+                Inbox
+            </a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+                Dependency Map
+            </a>
+<a class="flex items-center gap-3 bg-orange-500/10 text-orange-500 border-l-2 border-orange-500 font-bold px-4 py-3 font-mono uppercase tracking-tighter text-xs Active: ring-inset ring-1 ring-orange-500/50" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">history_toggle_off</span>
+                Backtrace
+            </a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">verified_user</span>
+                Trust Meter
+            </a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">assignment_ind</span>
+                Assignments
+            </a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">event_repeat</span>
+                Sprint Brief
+            </a>
+</div>
+<div class="border-t border-slate-800 py-4">
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 text-slate-500 hover:text-slate-300 px-4 py-3 transition-colors hover:bg-slate-900 font-mono uppercase tracking-tighter text-xs" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">support_agent</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="fixed top-0 right-0 left-0 md:left-64 z-50 flex justify-between items-center px-6 h-12 bg-slate-950/90 backdrop-blur-md border-b border-slate-800 flat no shadows font-mono text-[11px] uppercase tracking-widest text-orange-600 w-full md:w-auto">
+<div class="flex items-center">
+<span class="text-orange-500 font-black border-r border-slate-800 pr-4 mr-4">BACKTRACE_CMD</span>
+<nav class="hidden md:flex gap-6">
+<a class="text-slate-400 hover:text-orange-400 transition-colors" href="#">LIVE_FEED</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors" href="#">INCIDENTS</a>
+<a class="text-slate-400 hover:text-orange-400 transition-colors" href="#">ROLLBACKS</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-8 h-8 rounded text-slate-400 hover:text-orange-400 transition-colors bg-surface-container-high border border-outline-variant">
+<span class="material-symbols-outlined text-data-table" style="font-variation-settings: 'FILL' 0;">notifications_active</span>
+</button>
+<button class="flex items-center justify-center w-8 h-8 rounded text-slate-400 hover:text-orange-400 transition-colors bg-surface-container-high border border-outline-variant">
+<span class="material-symbols-outlined text-data-table" style="font-variation-settings: 'FILL' 0;">terminal</span>
+</button>
+<button class="flex items-center justify-center w-8 h-8 rounded text-slate-400 hover:text-orange-400 transition-colors bg-surface-container-high border border-outline-variant">
+<span class="material-symbols-outlined text-data-table" style="font-variation-settings: 'FILL' 0;">sensors</span>
+</button>
+<button class="bg-primary-container text-on-primary-container px-3 py-1 rounded border border-primary-container font-label-caps text-label-caps hover:bg-orange-500 transition-colors">
+                    DEPLOY_REPAIR
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-12 p-container-margin grid grid-cols-12 gap-element-gap overflow-hidden">
+<!-- Dependency Map Area (Left) -->
+<section class="col-span-12 lg:col-span-7 bg-surface-container-low border border-surface-variant rounded-DEFAULT flex flex-col h-full overflow-hidden relative">
+<div class="p-element-gap border-b border-surface-variant bg-surface-container flex justify-between items-center z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Automation Topology</h3>
+</div>
+<div class="flex gap-2">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded font-label-caps text-label-caps border border-outline-variant">env:prod</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded font-label-caps text-label-caps border border-outline-variant">region:us-east</span>
+</div>
+</div>
+<!-- Map Canvas (Simulated with nodes) -->
+<div class="flex-1 relative p-container-margin overflow-hidden bg-[#0A0E14] tech-pattern flex items-center justify-center">
+<!-- SVG Lines (Simulated Connections) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 1;">
+<path d="M 200 150 C 300 150, 200 300, 300 300" fill="none" stroke="#464c55" stroke-width="2"></path>
+<path d="M 300 300 C 400 300, 350 150, 450 150" fill="none" stroke="#464c55" stroke-dasharray="4" stroke-width="2"></path>
+<path class="glow-error" d="M 300 300 C 400 300, 350 450, 450 450" fill="none" stroke="#ffb4ab" stroke-width="2"></path>
+<path d="M 450 450 C 550 450, 500 300, 600 300" fill="none" stroke="#ffb4ab" stroke-dasharray="4" stroke-width="2"></path>
+</svg>
+<!-- Nodes -->
+<div class="absolute top-[130px] left-[150px] bg-surface-container-high border border-outline-variant p-2 rounded flex items-center gap-2 z-10 w-32 shadow-lg">
+<div class="w-2 h-2 rounded-full bg-[#c1c7d2]"></div>
+<span class="font-data-table text-data-table text-on-surface">api-gateway</span>
+</div>
+<div class="absolute top-[280px] left-[250px] bg-surface-container-high border border-primary p-2 rounded flex items-center gap-2 z-10 w-32 shadow-lg glow-active">
+<div class="w-2 h-2 rounded-full bg-primary glow-active"></div>
+<span class="font-data-table text-data-table text-on-surface">auth-service</span>
+</div>
+<div class="absolute top-[130px] left-[400px] bg-surface-container-high border border-outline-variant p-2 rounded flex items-center gap-2 z-10 w-32 shadow-lg">
+<div class="w-2 h-2 rounded-full bg-[#c1c7d2]"></div>
+<span class="font-data-table text-data-table text-on-surface">user-db</span>
+</div>
+<div class="absolute top-[430px] left-[400px] bg-error-container border-l-4 border-error p-2 rounded flex items-center gap-2 z-10 w-40 shadow-lg glow-error">
+<span class="material-symbols-outlined text-error text-[14px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-data-table text-data-table text-on-error-container">payment-proc</span>
+</div>
+<div class="absolute top-[280px] left-[550px] bg-surface-container-high border border-outline-variant p-2 rounded flex items-center gap-2 z-10 w-32 shadow-lg">
+<div class="w-2 h-2 rounded-full bg-[#c1c7d2]"></div>
+<span class="font-data-table text-data-table text-on-surface">ledger-db</span>
+</div>
+</div>
+<!-- Zoom Controls -->
+<div class="absolute bottom-4 right-4 flex flex-col gap-1 z-20">
+<button class="w-8 h-8 bg-surface-container-high border border-outline-variant rounded flex items-center justify-center text-on-surface hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+<button class="w-8 h-8 bg-surface-container-high border border-outline-variant rounded flex items-center justify-center text-on-surface hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+</button>
+<button class="w-8 h-8 bg-surface-container-high border border-outline-variant rounded flex items-center justify-center text-on-surface hover:border-primary transition-colors mt-2">
+<span class="material-symbols-outlined text-[16px]">fit_screen</span>
+</button>
+</div>
+</section>
+<!-- Backtrace Area (Right) -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-element-gap h-full overflow-hidden">
+<!-- Incident Header Card -->
+<div class="bg-surface-container border border-surface-variant border-l-4 border-l-error rounded-DEFAULT p-container-margin flex flex-col gap-2 shrink-0">
+<div class="flex justify-between items-start">
+<h2 class="font-display-mono text-display-mono text-error">ERR_PAYMENT_TIMEOUT</h2>
+<span class="bg-error-container text-on-error-container px-2 py-1 rounded font-label-caps text-label-caps">SEV-1</span>
+</div>
+<p class="font-data-table text-data-table text-on-surface-variant">Handoff failure detected between auth-service and payment-proc. Transaction aborted after 5000ms.</p>
+<div class="flex gap-2 mt-2">
+<span class="bg-[#0A0E14] border border-outline-variant text-tertiary px-2 py-1 rounded font-data-table text-data-table">Trace ID: x9f82a-4b</span>
+<span class="bg-[#0A0E14] border border-outline-variant text-tertiary px-2 py-1 rounded font-data-table text-data-table">Node: payment-proc-04</span>
+</div>
+</div>
+<!-- Sequence / Stack Trace -->
+<div class="flex-1 bg-[#121820] border border-surface-variant rounded-DEFAULT overflow-hidden flex flex-col relative">
+<div class="p-element-gap border-b border-surface-variant bg-surface-container-high flex justify-between items-center shrink-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface text-[14px]">Sequence Backtrace</h3>
+<div class="flex gap-2">
+<button class="text-primary hover:text-primary-fixed font-data-table text-data-table underline">View Raw Logs</button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-container-margin font-data-table text-data-table flex flex-col gap-2">
+<!-- Log Entry -->
+<div class="flex gap-4 items-start p-2 hover:bg-surface-container transition-colors rounded">
+<span class="text-secondary w-20 shrink-0">14:02:11.00</span>
+<span class="text-tertiary w-24 shrink-0">[auth-service]</span>
+<span class="text-on-surface">Initiating token exchange for user_id: 88472</span>
+</div>
+<div class="flex gap-4 items-start p-2 hover:bg-surface-container transition-colors rounded">
+<span class="text-secondary w-20 shrink-0">14:02:11.15</span>
+<span class="text-tertiary w-24 shrink-0">[auth-service]</span>
+<span class="text-[#a3defe]">INFO:</span>
+<span class="text-on-surface">Token validated. Handoff to payment-proc.</span>
+</div>
+<!-- Error Block -->
+<div class="flex gap-4 items-start p-2 bg-error-container/20 border-l-2 border-error rounded">
+<span class="text-error w-20 shrink-0">14:02:16.15</span>
+<span class="text-tertiary w-24 shrink-0">[payment-proc]</span>
+<span class="text-error font-bold">FATAL:</span>
+<div class="flex flex-col gap-1 w-full">
+<span class="text-on-error-container">Connection timeout waiting for upstream db lock.</span>
+<pre class="bg-[#051424] p-2 rounded border border-outline-variant text-error mt-1 overflow-x-auto text-[10px]">at PaymentProc.acquireLock (/app/services/payment.js:42:15)
+at async processTransaction (/app/controllers/tx.js:88:5)
+at async /app/routes/v1/checkout.js:22:12
+-- Caused by: SequelizeTimeoutError
+                                </pre>
+</div>
+</div>
+<div class="flex gap-4 items-start p-2 hover:bg-surface-container transition-colors rounded">
+<span class="text-secondary w-20 shrink-0">14:02:16.16</span>
+<span class="text-tertiary w-24 shrink-0">[auth-service]</span>
+<span class="text-error">WARN:</span>
+<span class="text-on-surface">Received 504 Gateway Timeout from payment-proc.</span>
+</div>
+<div class="flex gap-4 items-start p-2 hover:bg-surface-container transition-colors rounded">
+<span class="text-secondary w-20 shrink-0">14:02:16.20</span>
+<span class="text-tertiary w-24 shrink-0">[api-gateway]</span>
+<span class="text-error">ERROR:</span>
+<span class="text-on-surface">Returning 500 to client. Transaction marked failed.</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
