@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Partner Access Whitelist</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004883",
+                        "surface-dim": "#0f141a",
+                        "tertiary-container": "#e56f03",
+                        "inverse-on-surface": "#2c3138",
+                        "inverse-primary": "#0060ab",
+                        "on-tertiary-fixed": "#321300",
+                        "tertiary-fixed": "#ffdbc8",
+                        "inverse-surface": "#dfe2ec",
+                        "secondary": "#40e39a",
+                        "on-secondary": "#003921",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001c39",
+                        "on-surface-variant": "#c0c7d5",
+                        "secondary-container": "#00c681",
+                        "surface-container": "#1c2027",
+                        "on-surface": "#dfe2ec",
+                        "primary-fixed": "#d3e3ff",
+                        "on-primary": "#00315d",
+                        "on-secondary-container": "#004c2e",
+                        "surface-variant": "#31353c",
+                        "background": "#0f141a",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "error-container": "#93000a",
+                        "surface": "#0f141a",
+                        "primary": "#a3c9ff",
+                        "outline": "#8a919f",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "surface-container-highest": "#31353c",
+                        "tertiary": "#ffb689",
+                        "on-secondary-fixed-variant": "#005232",
+                        "on-tertiary-container": "#471e00",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#002a51",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-background": "#dfe2ec",
+                        "outline-variant": "#404753",
+                        "surface-container-low": "#181c22",
+                        "surface-container-lowest": "#0a0e15",
+                        "on-tertiary": "#512300",
+                        "secondary-fixed-dim": "#3ce098",
+                        "primary-container": "#1493ff",
+                        "surface-bright": "#353941",
+                        "on-secondary-fixed": "#002111",
+                        "on-error": "#690005",
+                        "surface-tint": "#a3c9ff",
+                        "secondary-fixed": "#61fdb2",
+                        "surface-container-high": "#262a31"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "16px",
+                        "gutter": "12px",
+                        "unit": "4px",
+                        "panel-padding": "8px"
+                    },
+                    "fontFamily": {
+                        "display-mono": ["monospace"],
+                        "body-compact": ["inter"],
+                        "data-table": ["inter"],
+                        "label-caps": ["inter"],
+                        "headline-sm": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-compact": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "data-table": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for brutalist aesthetic */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f141a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #31353c;
+            border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #404753;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-compact text-body-compact selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen w-screen">
+<!-- SideNavBar (JSON Configured) -->
+<aside class="fixed left-0 top-0 flex flex-col h-full overflow-y-auto w-64 border-r border-[#1A1C1E] bg-[#0A0A0B] dark:bg-[#0A0A0B] z-50">
+<!-- Header -->
+<div class="h-12 border-b border-[#1A1C1E] flex items-center px-4 gap-3 shrink-0">
+<span class="material-symbols-outlined text-[#0091FF] text-[16px]" data-icon="trip_origin" data-weight="fill" style="font-variation-settings: 'FILL' 1;">trip_origin</span>
+<div class="flex flex-col">
+<span class="text-[#0091FF] font-black font-['Space_Grotesk'] text-[11px] leading-tight tracking-tight uppercase">NODE_01</span>
+<span class="text-[#2C2E33] font-['Space_Grotesk'] text-[9px] font-medium leading-tight tracking-tight uppercase">ACTIVE_SESSION</span>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="flex-1 py-4 flex flex-col font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase">
+<!-- Inactive -->
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="dashboard">dashboard</span>
+                Operation Center
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="dataset">dataset</span>
+                Traffic Inbox
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="security">security</span>
+                The Classifier
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="payments">payments</span>
+                Economics
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="policy">policy</span>
+                Policy Simulator
+            </a>
+<!-- Active -->
+<a class="bg-[#1A1C1E] text-[#0091FF] border-r-2 border-[#0091FF] py-3 px-4 flex items-center gap-3 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="handshake" data-weight="fill" style="font-variation-settings: 'FILL' 1;">handshake</span>
+                Partner Whitelist
+            </a>
+<!-- Inactive -->
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+                Board Memo
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+                Infrastructure
+            </a>
+</nav>
+<!-- CTA -->
+<div class="p-4 border-t border-[#1A1C1E] shrink-0">
+<button class="w-full bg-transparent border border-[#0091FF] text-[#0091FF] py-2 px-4 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:bg-[#0091FF] hover:text-[#0A0A0B] transition-colors rounded-none">
+                DECODE_TRAFFIC
+            </button>
+</div>
+</aside>
+<!-- Main Workspace -->
+<div class="ml-64 flex flex-col h-full bg-surface-container-lowest">
+<!-- TopAppBar (JSON Configured) -->
+<header class="flex justify-between items-center w-full px-4 h-12 sticky top-0 z-40 bg-[#0A0A0B] dark:bg-[#0A0A0B] border-b border-[#1A1C1E] flat no-shadows shrink-0">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-tighter text-[#0091FF] font-['Space_Grotesk'] uppercase">TOLLBOOTH_OPS</span>
+<!-- Search on left -->
+<div class="flex items-center bg-[#1A1C1E] border border-[#2C2E33] px-2 h-8 w-64 rounded-none focus-within:border-[#0091FF] transition-colors duration-75">
+<span class="material-symbols-outlined text-[#2C2E33] text-[16px]" data-icon="search">search</span>
+<input class="bg-transparent border-none text-[#2C2E33] font-['Space_Grotesk'] text-xs font-bold tracking-tighter uppercase w-full focus:ring-0 placeholder-[#2C2E33]" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-2">
+<button class="text-[#2C2E33] hover:text-[#0091FF] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 flex items-center justify-center Active: opacity-80 cursor-crosshair">
+<span class="material-symbols-outlined text-[18px]" data-icon="notifications_active">notifications_active</span>
+</button>
+<button class="text-[#2C2E33] hover:text-[#0091FF] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 flex items-center justify-center Active: opacity-80 cursor-crosshair">
+<span class="material-symbols-outlined text-[18px]" data-icon="help_outline">help_outline</span>
+</button>
+<button class="text-[#2C2E33] hover:text-[#0091FF] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 flex items-center justify-center Active: opacity-80 cursor-crosshair">
+<span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span>
+</button>
+</div>
+<!-- Trailing Primary Action -->
+<button class="bg-[#93000a] text-[#ffdad6] border border-[#ffb4ab] font-['Space_Grotesk'] text-xs font-bold tracking-tighter uppercase px-3 py-1 rounded-none hover:bg-[#ffb4ab] hover:text-[#690005] transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+                    Emergency Stop
+                </button>
+<!-- Profile -->
+<div class="w-8 h-8 bg-[#1A1C1E] border border-[#2C2E33] flex items-center justify-center overflow-hidden rounded-none">
+<span class="material-symbols-outlined text-[#2C2E33]" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Canvas Content -->
+<main class="flex-1 p-margin flex flex-col gap-gutter overflow-y-auto">
+<!-- Dashboard Header -->
+<div class="flex items-end justify-between border-b border-surface-variant pb-margin shrink-0">
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-widest text-primary">Partner Access Whitelist</h1>
+<p class="font-body-compact text-body-compact text-outline uppercase mt-1">Management console for verified commercial nodes.</p>
+</div>
+<div class="flex gap-gutter">
+<div class="border border-surface-variant bg-surface-container p-panel-padding flex flex-col items-end w-32 rounded-none">
+<span class="font-label-caps text-label-caps text-outline">ACTIVE KEYS</span>
+<span class="font-display-mono text-display-mono text-secondary">2,104</span>
+</div>
+<div class="border border-surface-variant bg-surface-container p-panel-padding flex flex-col items-end w-32 rounded-none">
+<span class="font-label-caps text-label-caps text-outline">PENDING REQ</span>
+<span class="font-display-mono text-display-mono text-tertiary">08</span>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter flex-1 min-h-0">
+<!-- Left Panel: Partner Requests (4 cols) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col border border-surface-variant bg-surface-container-low rounded-none overflow-hidden h-full">
+<div class="bg-surface-variant border-b border-surface-variant p-panel-padding flex justify-between items-center shrink-0">
+<span class="font-label-caps text-label-caps text-on-surface uppercase">Partner Request Queue</span>
+<span class="w-2 h-2 bg-tertiary rounded-none animate-pulse"></span>
+</div>
+<div class="flex-1 overflow-y-auto p-panel-padding flex flex-col gap-unit">
+<!-- Request Item -->
+<div class="border border-outline-variant bg-surface-container p-panel-padding flex flex-col gap-unit rounded-none hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<span class="font-data-table text-data-table text-on-surface uppercase font-bold group-hover:text-primary">Nexus Logistics</span>
+<span class="font-display-mono text-[10px] text-outline">10m ago</span>
+</div>
+<div class="font-body-compact text-[11px] text-on-surface-variant leading-tight">
+                                Requires Tier 2 API access for real-time freight routing optimization.
+                            </div>
+<div class="flex justify-between items-center mt-2 border-t border-surface-variant pt-unit">
+<span class="font-display-mono text-[10px] text-tertiary">REQ: 50K/sec</span>
+<div class="flex gap-2">
+<button class="text-error hover:text-on-error hover:bg-error border border-transparent hover:border-error px-1 flex items-center transition-colors rounded-none">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+<button class="text-secondary hover:text-on-secondary hover:bg-secondary border border-transparent hover:border-secondary px-1 flex items-center transition-colors rounded-none">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Request Item -->
+<div class="border border-outline-variant bg-surface-container p-panel-padding flex flex-col gap-unit rounded-none hover:border-primary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start">
+<span class="font-data-table text-data-table text-on-surface uppercase font-bold group-hover:text-primary">AeroFleet Systems</span>
+<span class="font-display-mono text-[10px] text-outline">1h ago</span>
+</div>
+<div class="font-body-compact text-[11px] text-on-surface-variant leading-tight">
+                                Drone telemetry data ingestion port access.
+                            </div>
+<div class="flex justify-between items-center mt-2 border-t border-surface-variant pt-unit">
+<span class="font-display-mono text-[10px] text-tertiary">REQ: 120K/sec</span>
+<div class="flex gap-2">
+<button class="text-error hover:text-on-error hover:bg-error border border-transparent hover:border-error px-1 flex items-center transition-colors rounded-none">
+<span class="material-symbols-outlined text-[16px]" data-icon="close">close</span>
+</button>
+<button class="text-secondary hover:text-on-secondary hover:bg-secondary border border-transparent hover:border-secondary px-1 flex items-center transition-colors rounded-none">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Active Partners Data Table (8 cols) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col border border-surface-variant bg-surface-container-low rounded-none overflow-hidden h-full">
+<div class="bg-surface-variant border-b border-surface-variant p-panel-padding flex justify-between items-center shrink-0">
+<span class="font-label-caps text-label-caps text-on-surface uppercase">Verified Partners Registry</span>
+<div class="flex gap-2">
+<button class="border border-outline bg-transparent text-outline hover:text-on-surface hover:border-on-surface px-2 py-0.5 font-label-caps text-[10px] uppercase rounded-none transition-colors">Export CSV</button>
+<button class="border border-primary bg-primary/10 text-primary hover:bg-primary hover:text-on-primary px-2 py-0.5 font-label-caps text-[10px] uppercase rounded-none transition-colors">Add Override</button>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-highest border-b border-surface-variant font-label-caps text-label-caps text-outline z-10">
+<tr>
+<th class="p-panel-padding border-r border-surface-variant w-8 text-center">ST</th>
+<th class="p-panel-padding border-r border-surface-variant">ENTITY ID</th>
+<th class="p-panel-padding border-r border-surface-variant">API KEY (MASKED)</th>
+<th class="p-panel-padding border-r border-surface-variant text-right">USAGE QUOTA</th>
+<th class="p-panel-padding border-r border-surface-variant text-right">RATE LIMIT</th>
+<th class="p-panel-padding text-center w-24">MONETIZATION</th>
+</tr>
+</thead>
+<tbody class="font-data-table text-data-table text-on-surface">
+<!-- Table Row 1 -->
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8">
+<td class="p-1 border-r border-surface-variant text-center">
+<span class="w-2 h-2 rounded-none bg-secondary inline-block"></span>
+</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary">Stark Industries</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-on-surface-variant">sk_live_8f92...a1b2</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-primary-fixed">UNLIMITED</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right">100K/S</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<!-- Brutalist Toggle Active -->
+<div class="w-10 h-4 border border-secondary bg-secondary/20 relative cursor-pointer group-hover:border-primary">
+<div class="absolute right-0 top-0 h-full w-4 bg-secondary"></div>
+</div>
+</td>
+</tr>
+<!-- Table Row 2 -->
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8">
+<td class="p-1 border-r border-surface-variant text-center">
+<span class="w-2 h-2 rounded-none bg-secondary inline-block"></span>
+</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary">Wayne Enterprises</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-on-surface-variant">sk_live_c3d4...e5f6</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-primary-fixed">50TB/MO</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right">25K/S</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<!-- Brutalist Toggle Active -->
+<div class="w-10 h-4 border border-secondary bg-secondary/20 relative cursor-pointer group-hover:border-primary">
+<div class="absolute right-0 top-0 h-full w-4 bg-secondary"></div>
+</div>
+</td>
+</tr>
+<!-- Table Row 3 -->
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8">
+<td class="p-1 border-r border-surface-variant text-center">
+<span class="w-2 h-2 rounded-none bg-error inline-block animate-pulse"></span>
+</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary text-error">Oscorp Global</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-error">sk_live_9a8b...7c6d</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-error">EXCEEDED</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-error">THROTTLED</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<!-- Brutalist Toggle Inactive -->
+<div class="w-10 h-4 border border-outline-variant bg-surface-container relative cursor-pointer group-hover:border-outline">
+<div class="absolute left-0 top-0 h-full w-4 bg-outline-variant"></div>
+</div>
+</td>
+</tr>
+<!-- Table Row 4 -->
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8 opacity-75">
+<td class="p-1 border-r border-surface-variant text-center">
+<span class="w-2 h-2 rounded-none bg-outline inline-block"></span>
+</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary">Tyrell Corp</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-on-surface-variant">sk_test_1x2y...3z4w</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-outline">10GB/MO</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-outline">1K/S</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<!-- Brutalist Toggle Inactive -->
+<div class="w-10 h-4 border border-outline-variant bg-surface-container relative cursor-pointer group-hover:border-outline">
+<div class="absolute left-0 top-0 h-full w-4 bg-outline-variant"></div>
+</div>
+</td>
+</tr>
+<!-- Filler rows to show density -->
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8">
+<td class="p-1 border-r border-surface-variant text-center"><span class="w-2 h-2 rounded-none bg-secondary inline-block"></span></td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary">Cyberdyne Systems</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-on-surface-variant">sk_live_5v6u...7t8s</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-primary-fixed">25TB/MO</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right">10K/S</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<div class="w-10 h-4 border border-secondary bg-secondary/20 relative cursor-pointer group-hover:border-primary"><div class="absolute right-0 top-0 h-full w-4 bg-secondary"></div></div>
+</td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container transition-colors group h-8">
+<td class="p-1 border-r border-surface-variant text-center"><span class="w-2 h-2 rounded-none bg-secondary inline-block"></span></td>
+<td class="px-panel-padding py-1 border-r border-surface-variant uppercase font-bold group-hover:text-primary">Omni Consumer Products</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-on-surface-variant">sk_live_9r0q...1p2o</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right text-primary-fixed">100TB/MO</td>
+<td class="px-panel-padding py-1 border-r border-surface-variant font-display-mono text-right">50K/S</td>
+<td class="p-1 text-center flex items-center justify-center h-full">
+<div class="w-10 h-4 border border-secondary bg-secondary/20 relative cursor-pointer group-hover:border-primary"><div class="absolute right-0 top-0 h-full w-4 bg-secondary"></div></div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Policy Simulator | TOLLBOOTH_OPS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004883",
+                        "surface-dim": "#0f141a",
+                        "tertiary-container": "#e56f03",
+                        "inverse-on-surface": "#2c3138",
+                        "inverse-primary": "#0060ab",
+                        "on-tertiary-fixed": "#321300",
+                        "tertiary-fixed": "#ffdbc8",
+                        "inverse-surface": "#dfe2ec",
+                        "secondary": "#40e39a",
+                        "on-secondary": "#003921",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001c39",
+                        "on-surface-variant": "#c0c7d5",
+                        "secondary-container": "#00c681",
+                        "surface-container": "#1c2027",
+                        "on-surface": "#dfe2ec",
+                        "primary-fixed": "#d3e3ff",
+                        "on-primary": "#00315d",
+                        "on-secondary-container": "#004c2e",
+                        "surface-variant": "#31353c",
+                        "background": "#0f141a",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "error-container": "#93000a",
+                        "surface": "#0f141a",
+                        "primary": "#a3c9ff",
+                        "outline": "#8a919f",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "surface-container-highest": "#31353c",
+                        "tertiary": "#ffb689",
+                        "on-secondary-fixed-variant": "#005232",
+                        "on-tertiary-container": "#471e00",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#002a51",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-background": "#dfe2ec",
+                        "outline-variant": "#404753",
+                        "surface-container-low": "#181c22",
+                        "surface-container-lowest": "#0a0e15",
+                        "on-tertiary": "#512300",
+                        "secondary-fixed-dim": "#3ce098",
+                        "primary-container": "#1493ff",
+                        "surface-bright": "#353941",
+                        "on-secondary-fixed": "#002111",
+                        "on-error": "#690005",
+                        "surface-tint": "#a3c9ff",
+                        "secondary-fixed": "#61fdb2",
+                        "surface-container-high": "#262a31"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "16px",
+                        "gutter": "12px",
+                        "unit": "4px",
+                        "panel-padding": "8px"
+                    },
+                    "fontFamily": {
+                        "display-mono": ["monospace"],
+                        "body-compact": ["Inter", "sans-serif"],
+                        "data-table": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "headline-sm": ["Space Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-compact": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "data-table": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        /* Custom thin scrollbar */
+        .thin-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .thin-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .thin-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #2C2E33;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-[#0A0A0B] text-on-background font-body-compact text-body-compact h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="docked left-0 h-screen w-64 border-r border-[#1A1C1E] bg-[#0A0A0B] dark:bg-[#0A0A0B] text-[#0091FF] dark:text-[#0091FF] font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase flat no-shadows fixed flex flex-col h-full overflow-y-auto z-40 hidden md:flex">
+<!-- Header -->
+<div class="flex items-center gap-3 p-4 border-b border-[#1A1C1E] sticky top-0 bg-[#0A0A0B] z-10">
+<div class="relative w-8 h-8 rounded-full border border-primary overflow-hidden flex-shrink-0">
+<img alt="System Status LED" class="w-full h-full object-cover grayscale opacity-80" data-alt="A macro shot of a sleek, glowing blue LED indicator light set against a dark brushed metal surface. The image should be highly detailed, showcasing the texture of the metal and the sharp, technical glow of the light. The style is industrial, high-tech, and moody, fitting a modern command center interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCF5Qzws8md-LxN8ahecVireb1Uh8ZTI0E0TN2S0jTncTj3Z_OnFX8bsrs1nxn-YC7gl5wL8405xW-aXmCvzcAMhuBTg1TvQi5xZ8dl0IgAUwNhHNuFxVqwbNnB0O10-_TXjYrl3SYf7ZhXBDXr8lrCm4IaygWHG_OlDoerG1dQmr5y9hzl2vJzgc7bC1K3WDfWbZFkAwYntXfbDbO9sApoAynbZ1QwbwFiiffLnuzgGP69F5WfZAsOAQg3VcRZOEmIqotOTSBhpRUz"/>
+</div>
+<div>
+<div class="text-[#0091FF] font-black text-sm tracking-tighter">NODE_01</div>
+<div class="text-[#8a919f] text-[9px] tracking-widest mt-0.5">ACTIVE_SESSION</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-4 flex flex-col gap-1 px-2">
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span>Operation Center</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dataset</span>
+<span>Traffic Inbox</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">security</span>
+<span>The Classifier</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">payments</span>
+<span>Economics</span>
+</a>
+<a class="bg-[#1A1C1E] text-[#0091FF] border-r-2 border-[#0091FF] py-3 px-4 flex items-center gap-3 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">policy</span>
+<span>Policy Simulator</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">handshake</span>
+<span>Partner Whitelist</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">description</span>
+<span>Board Memo</span>
+</a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 Press: scale-95 duration-75 rounded-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span>Infrastructure</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="p-4 mt-auto border-t border-[#1A1C1E] sticky bottom-0 bg-[#0A0A0B]">
+<button class="w-full border border-primary text-primary hover:bg-[#1A1C1E] transition-colors py-2 px-4 flex items-center justify-center gap-2 font-label-caps text-label-caps uppercase">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+                DECODE_TRAFFIC
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<div class="flex-1 flex flex-col md:ml-64 h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 border-b border-[#1A1C1E] bg-[#0A0A0B] dark:bg-[#0A0A0B] text-[#0091FF] dark:text-[#0091FF] font-['Space_Grotesk'] text-xs font-bold tracking-tighter uppercase flat no-shadows flex justify-between items-center w-full px-4 h-12 sticky top-0 z-50">
+<div class="flex items-center gap-4">
+<div class="text-xl font-black tracking-tighter text-[#0091FF] flex items-center gap-2 md:hidden">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<div class="text-xl font-black tracking-tighter text-[#0091FF]">TOLLBOOTH_OPS</div>
+</div>
+<!-- Search Bar (on_left context relative to actions) -->
+<div class="flex-1 max-w-md mx-8 hidden md:flex items-center bg-[#1A1C1E] border border-[#2C2E33] px-3 h-8 focus-within:border-[#0091FF] transition-colors">
+<span class="material-symbols-outlined text-[#8a919f] text-[16px] mr-2">search</span>
+<input class="bg-transparent border-none w-full text-white placeholder-[#8a919f] font-body-compact text-body-compact focus:ring-0 px-0 h-full" placeholder="Search parameters, nodes..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3">
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1.5 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+</button>
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1.5 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+</button>
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1.5 rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</button>
+</div>
+<div class="w-[1px] h-4 bg-[#1A1C1E]"></div>
+<button class="bg-[#1A1C1E] text-error border border-error px-3 h-8 hover:bg-error/10 transition-colors flex items-center gap-2 font-label-caps text-label-caps">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                    Emergency Stop
+                </button>
+<div class="w-8 h-8 border border-[#2C2E33] rounded overflow-hidden">
+<img alt="Operator Avatar" class="w-full h-full object-cover grayscale" data-alt="A black and white, high-contrast portrait of a serious male network operator wearing a headset. The lighting is dramatic and directional, fitting a high-stakes command center environment. The image should be cropped tightly on the face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcmMr6dzhDYbIgR6HtpeVYMzNIDG-QeE5_XlhbVqn96AbCebEhHStRRu-x-jdObQa4qqQl1rRuxdfqnCmlYCWHEnvnMary_-5GZmaqCpanw2wGZO8qbv7UK95S7LvYNLKTgpvTUQaIUsKgomeJqR_IbC728OIoDcQgFCPRDGPoz4_3Kaotm2-n4Gy_O9-TemzDUrx9ZwcJrCf8Ljss0bgCEa7bOuJoky_6gyGSZ07D1D62F1V5o_3d4KZ_Kvxg5Te5oUqZHc9aLWwy"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<main class="flex-1 overflow-y-auto thin-scrollbar p-margin bg-background">
+<div class="max-w-7xl mx-auto flex flex-col gap-gutter">
+<!-- Header / Controls Row -->
+<div class="flex justify-between items-end mb-2">
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">science</span>
+                            Sandbox Environment
+                        </h1>
+<p class="font-body-compact text-body-compact text-outline">Configure and test traffic policies against historical log data.</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="border border-outline-variant text-on-surface hover:border-primary hover:text-primary px-3 py-1.5 flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">history</span>
+<span class="font-label-caps text-label-caps">Load Preset</span>
+</button>
+<button class="bg-primary text-[#000] border border-primary px-4 py-1.5 flex items-center gap-2 hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span class="font-label-caps text-label-caps font-bold">Run Simulation</span>
+</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Policy Configuration Panel (Left Col) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter">
+<!-- Policy Editor -->
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding flex flex-col gap-3">
+<div class="flex justify-between items-center border-b border-surface-container-highest pb-2 mb-1">
+<h2 class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Policy Ruleset</h2>
+<span class="px-2 py-0.5 border border-tertiary-container text-tertiary-container font-display-mono text-[10px] uppercase">Draft</span>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-[10px] text-outline uppercase">Rule Name</label>
+<input class="bg-surface-container border border-outline-variant text-on-surface font-display-mono text-display-mono p-2 focus:border-primary focus:ring-0 w-full h-8" type="text" value="Rate Limit: Non-Verified Bots"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-[10px] text-outline uppercase">Target Condition</label>
+<div class="bg-surface-container border border-outline-variant p-2 flex items-center justify-between">
+<span class="font-display-mono text-display-mono text-on-surface">Header: User-Agent</span>
+<span class="material-symbols-outlined text-outline text-[16px]">arrow_drop_down</span>
+</div>
+<input class="bg-surface-container border border-outline-variant text-on-surface font-display-mono text-display-mono p-2 focus:border-primary focus:ring-0 w-full h-8" type="text" value="contains 'Scraper'"/>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<label class="font-label-caps text-[10px] text-outline uppercase">Action</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="border border-surface-container-highest bg-surface-container text-outline py-1.5 font-label-caps text-[10px] hover:border-primary transition-colors">ALLOW</button>
+<button class="border border-error text-error bg-error/10 py-1.5 font-label-caps text-[10px]">BLOCK</button>
+<button class="border border-surface-container-highest bg-surface-container text-outline py-1.5 font-label-caps text-[10px] hover:border-primary transition-colors">PAYWALL</button>
+</div>
+</div>
+<button class="mt-2 border border-surface-container-highest border-dashed text-outline hover:text-primary hover:border-primary py-2 flex items-center justify-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span class="font-label-caps text-[10px]">ADD CONDITION</span>
+</button>
+</div>
+<!-- Data Source -->
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding">
+<div class="flex justify-between items-center border-b border-surface-container-highest pb-2 mb-3">
+<h2 class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Simulation Data</h2>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="font-body-compact text-body-compact text-outline">Dataset</span>
+<span class="font-display-mono text-[11px] text-on-surface border border-surface-container-highest px-1.5 py-0.5 bg-surface-container">LOGS_LAST_7D</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-compact text-body-compact text-outline">Sample Size</span>
+<span class="font-display-mono text-[11px] text-primary">12,405,992 reqs</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Output & Analysis (Right Col) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter">
+<!-- Top KPI Row -->
+<div class="grid grid-cols-3 gap-gutter">
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding relative overflow-hidden">
+<div class="absolute right-0 top-0 w-16 h-16 bg-primary/5 rounded-bl-full"></div>
+<h3 class="font-label-caps text-[10px] text-outline uppercase mb-2">Predicted Traffic Impact</h3>
+<div class="flex items-end gap-2">
+<span class="font-display-mono text-xl font-bold text-on-surface">-14.2%</span>
+<span class="font-display-mono text-[10px] text-error mb-1 flex items-center">
+<span class="material-symbols-outlined text-[12px]">arrow_downward</span> 1.8M
+                                    </span>
+</div>
+</div>
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding relative overflow-hidden">
+<div class="absolute right-0 top-0 w-16 h-16 bg-secondary/5 rounded-bl-full"></div>
+<h3 class="font-label-caps text-[10px] text-outline uppercase mb-2">Est. Cost Savings</h3>
+<div class="flex items-end gap-2">
+<span class="font-display-mono text-xl font-bold text-secondary">+$4,250</span>
+<span class="font-display-mono text-[10px] text-secondary mb-1 flex items-center">
+                                        / month
+                                    </span>
+</div>
+</div>
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding relative overflow-hidden">
+<div class="absolute right-0 top-0 w-16 h-16 bg-tertiary/5 rounded-bl-full"></div>
+<h3 class="font-label-caps text-[10px] text-outline uppercase mb-2">Paywall Conversion</h3>
+<div class="flex items-end gap-2">
+<span class="font-display-mono text-xl font-bold text-tertiary">2.1%</span>
+<span class="font-display-mono text-[10px] text-outline mb-1 flex items-center">
+                                        Est. Yield
+                                    </span>
+</div>
+</div>
+</div>
+<!-- Main Chart Area -->
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding flex-1 min-h-[240px] flex flex-col">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Volume Comparison: Baseline vs Predicted</h2>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-outline-variant"></div>
+<span class="font-display-mono text-[9px] text-outline">Baseline</span>
+</div>
+<div class="flex items-center gap-1">
+<div class="w-2 h-2 bg-primary"></div>
+<span class="font-display-mono text-[9px] text-primary">Predicted</span>
+</div>
+</div>
+</div>
+<!-- Simulated Chart -->
+<div class="flex-1 border-b border-l border-surface-container-highest relative mt-2 mb-4 mx-2">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between">
+<div class="border-t border-surface-container-highest w-full h-0 opacity-50"></div>
+<div class="border-t border-surface-container-highest w-full h-0 opacity-50"></div>
+<div class="border-t border-surface-container-highest w-full h-0 opacity-50"></div>
+<div class="border-t border-surface-container-highest w-full h-0 opacity-50"></div>
+</div>
+<!-- Chart Lines (Simulated with div polygons) -->
+<div class="absolute inset-0 w-full h-full">
+<!-- Baseline Area -->
+<div class="absolute bottom-0 w-full h-3/4 bg-gradient-to-t from-outline-variant/10 to-transparent" style="clip-path: polygon(0 100%, 0 40%, 20% 30%, 40% 60%, 60% 20%, 80% 50%, 100% 10%, 100% 100%);"></div>
+<!-- Baseline Line -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,60 L20,70 L40,40 L60,80 L80,50 L100,90" fill="none" stroke="#404753" stroke-width="1" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- Predicted Area -->
+<div class="absolute bottom-0 w-full h-3/4 bg-gradient-to-t from-primary/20 to-transparent" style="clip-path: polygon(0 100%, 0 50%, 20% 45%, 40% 70%, 60% 35%, 80% 65%, 100% 40%, 100% 100%);"></div>
+<!-- Predicted Line -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,50 L20,55 L40,30 L60,65 L80,35 L100,60" fill="none" stroke="#0091FF" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+<!-- X Axis -->
+<div class="flex justify-between px-2">
+<span class="font-display-mono text-[9px] text-outline">Mon</span>
+<span class="font-display-mono text-[9px] text-outline">Tue</span>
+<span class="font-display-mono text-[9px] text-outline">Wed</span>
+<span class="font-display-mono text-[9px] text-outline">Thu</span>
+<span class="font-display-mono text-[9px] text-outline">Fri</span>
+<span class="font-display-mono text-[9px] text-outline">Sat</span>
+<span class="font-display-mono text-[9px] text-outline">Sun</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Policy History -->
+<div class="bg-surface-dim border border-surface-container-highest p-panel-padding">
+<div class="flex justify-between items-center border-b border-surface-container-highest pb-2 mb-2">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Policy History</h2>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest border-b border-surface-container-highest">
+<th class="p-2 font-label-caps text-[9px] text-outline uppercase font-medium">Status</th>
+<th class="p-2 font-label-caps text-[9px] text-outline uppercase font-medium">Name</th>
+<th class="p-2 font-label-caps text-[9px] text-outline uppercase font-medium">Modified</th>
+<th class="p-2 font-label-caps text-[9px] text-outline uppercase font-medium text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-data-table text-data-table text-on-surface">
+<tr class="border-b border-surface-container-highest hover:bg-surface-container transition-colors">
+<td class="p-2 w-24">
+<div class="flex items-center gap-1.5 border border-secondary text-secondary px-1.5 py-0.5 text-[9px] font-display-mono w-max">
+<div class="w-1.5 h-1.5 bg-secondary rounded-full"></div>
+                                            ACTIVE
+                                        </div>
+</td>
+<td class="p-2 font-display-mono text-[11px]">Rate Limit: Aggressive Scrapers</td>
+<td class="p-2 text-outline text-[11px]">2 hours ago</td>
+<td class="p-2 text-right">
+<button class="text-primary hover:text-primary-fixed text-[11px] font-medium mr-2">Duplicate</button>
+</td>
+</tr>
+<tr class="border-b border-surface-container-highest hover:bg-surface-container transition-colors">
+<td class="p-2 w-24">
+<div class="flex items-center gap-1.5 border border-outline-variant text-outline px-1.5 py-0.5 text-[9px] font-display-mono w-max">
+<div class="w-1.5 h-1.5 bg-outline rounded-full"></div>
+                                            DRAFT
+                                        </div>
+</td>
+<td class="p-2 font-display-mono text-[11px]">Geo-Block: Region Alpha</td>
+<td class="p-2 text-outline text-[11px]">1 day ago</td>
+<td class="p-2 text-right">
+<button class="text-primary hover:text-primary-fixed text-[11px] font-medium mr-2">Load</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors opacity-60">
+<td class="p-2 w-24">
+<div class="flex items-center gap-1.5 border border-outline-variant text-outline px-1.5 py-0.5 text-[9px] font-display-mono w-max">
+<div class="w-1.5 h-1.5 bg-transparent border border-outline rounded-full"></div>
+                                            ARCHIVED
+                                        </div>
+</td>
+<td class="p-2 font-display-mono text-[11px]">Temp: Holiday Spike Rules</td>
+<td class="p-2 text-outline text-[11px]">4 weeks ago</td>
+<td class="p-2 text-right">
+<button class="text-primary hover:text-primary-fixed text-[11px] font-medium mr-2">View</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

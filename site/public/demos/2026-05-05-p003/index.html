@@ -1,59 +1,352 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Camp Slot Panic Board - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-05-p003</p>
-        <h1>Camp Slot Panic Board</h1>
-        <p>A working-parent command board that compares summer camp slots, true weekly cost, deadlines, waitlist risk, and coverage gaps before school breaks explode.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard &amp; Coverage Calendar - Camp Slot Panic Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#496455",
+                        "inverse-primary": "#afcebb",
+                        "on-primary-container": "#f5fff6",
+                        "background": "#faf9f5",
+                        "on-primary": "#ffffff",
+                        "secondary": "#356668",
+                        "on-primary-fixed-variant": "#314c3e",
+                        "primary-fixed": "#cbead6",
+                        "on-tertiary-container": "#fffbff",
+                        "on-surface": "#1b1c1a",
+                        "surface-container": "#efeeea",
+                        "tertiary": "#894b33",
+                        "surface-variant": "#e3e2df",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#5f7b6b",
+                        "surface-bright": "#faf9f5",
+                        "tertiary-fixed": "#ffdbce",
+                        "on-surface-variant": "#424844",
+                        "secondary-fixed": "#b9ecee",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e3e2df",
+                        "inverse-surface": "#2f312e",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary": "#466253",
+                        "secondary-fixed-dim": "#9ecfd1",
+                        "on-tertiary-fixed": "#380d00",
+                        "inverse-on-surface": "#f2f1ed",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#b9ecee",
+                        "on-tertiary-fixed-variant": "#6f3720",
+                        "on-background": "#1b1c1a",
+                        "on-secondary-container": "#3c6c6e",
+                        "surface-dim": "#dbdad6",
+                        "outline": "#727973",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#a66349",
+                        "on-primary-fixed": "#052014",
+                        "surface-container-high": "#e9e8e4",
+                        "on-secondary-fixed": "#002021",
+                        "tertiary-fixed-dim": "#ffb59a",
+                        "surface": "#faf9f5",
+                        "outline-variant": "#c2c8c2",
+                        "surface-container-low": "#f4f4f0",
+                        "on-secondary-fixed-variant": "#1a4e50",
+                        "primary-fixed-dim": "#afcebb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "gutter": "16px",
+                        "container-padding": "24px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "unit": "4px",
+                        "xl": "40px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "button": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "h3": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "h2": ["Plus Jakarta Sans"],
+                        "body-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "button": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "h3": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "h1": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "h2": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-6 h-16 sticky top-0 z-50 bg-stone-50/90 dark:bg-stone-950/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800 shadow-sm shadow-[#769382]/5 hidden md:flex">
+<div class="text-xl font-bold text-[#769382] dark:text-[#a3b8ac] font-['Plus_Jakarta_Sans'] tracking-tight">Camp Slot Panic Board</div>
+<nav class="flex gap-6">
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-[#769382] dark:text-[#a3b8ac] font-semibold border-b-2 border-[#769382] pb-1 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors opacity-80 scale-[0.99] transition-all" href="#">Calendar</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#769382] hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors" href="#">Watchlist</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#769382] hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors" href="#">Calculator</a>
+<a class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#769382] hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors" href="#">SOS Plan</a>
+</nav>
+<div class="flex items-center gap-4">
+<span class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-[#769382] dark:text-[#a3b8ac] font-semibold">Deadline: 2d 04h</span>
+<button class="font-['Plus_Jakarta_Sans'] text-sm tracking-tight text-stone-500 dark:text-stone-400 hover:text-[#769382]">Switch Sibling</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Parent Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a relaxed, smiling parent in a soft, naturally lit environment. The lighting is warm and reassuring, reinforcing a sense of calm. The background is softly blurred to keep the focus on the reassuring facial expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMZoKtk08RM-Ll6xC5WEM7bnonHr7J0yNwirJvWjED-RaUK07nNkYZ6Yz5DbW2X5b3VgW5LusMcPog4r8qL7oA2y8jMxSaOdgO9IjB2grRtzabz50aAEAE5dmZpjoKNp3G3LeG_P8FbdI2FQluTPx8uw8W2SFQp3J5c-jRYyyYNYwVP8hC9xun_UibhZQNJPNAGLjCyy_Tx7bTp7bOZOjPZ3dnH4bdF8YaQYu6k6XNP5Blv-X0IY76XZ7C1FZM3a1kq-5KSjJ9FJ0"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 w-full max-w-[1600px] mx-auto relative">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 hidden lg:flex flex-col p-4 gap-2 h-screen w-64 border-r rounded-r-lg border-stone-100 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-lg shadow-[#769382]/5 z-40 pt-24">
+<div class="mb-6 px-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Family Filter" class="w-full h-full object-cover" data-alt="A soft, overhead shot of a family planner notebook open on a clean, light wood desk. The lighting is bright and even, highlighting the organized layout. The overall tone is calm, structured, and reassuring." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJpoA58t3azuARgYLOXmfLUf3MJDmoE5ZNdQjrucndS8ZqAYlnoqHsE3V3nW3yLFBLqBWW7h355yXxt8qNcsy3A3-phIA-AxEqESPXiqzuQN_NFk3wCJF2UamYvbew_6a9EeR-EDQvsuZOG6C4sS0jUVdAUr0ExkmvNoRxlABjJzVDneSKoQRS81jWJ25WZx9w8vfwSTxJondyOembL6xHQ5uzFGUu30_88jYnCXuD4dDENG4r0VbR61YOB2GbiIg1dT0nK8baAH4"/>
+</div>
+<div>
+<h2 class="font-['Plus_Jakarta_Sans'] text-base font-bold text-on-surface">Sibling View</h2>
+<p class="font-['Plus_Jakarta_Sans'] text-xs text-on-surface-variant">All Children</p>
+</div>
+</div>
+</div>
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base bg-stone-50 dark:bg-stone-800/50 text-[#769382] dark:text-[#a3b8ac] font-bold rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+                Coverage Calendar
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/30 rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">visibility</span>
+                Watchlist
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/30 rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">calculate</span>
+                Cost Calculator
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/30 rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">emergency_home</span>
+                SOS Plan
+            </a>
+<button class="mt-4 mx-4 bg-primary text-on-primary font-button py-3 px-4 rounded-xl shadow-sm hover:opacity-90 transition-opacity">Add New Camp</button>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/30 rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 font-['Plus_Jakarta_Sans'] text-base text-stone-600 dark:text-stone-400 hover:bg-stone-50 dark:hover:bg-stone-800/30 rounded-xl hover:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-container-padding lg:p-xl w-full flex flex-col lg:flex-row gap-lg">
+<!-- Center Canvas: Calendar Grid -->
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Dashboard Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-4">
+<div>
+<h1 class="font-h1 text-on-surface mb-2">Summer Coverage 2024</h1>
+<p class="font-body-lg text-on-surface-variant">9 weeks left to plan. You've got this.</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-body-sm">
+<span class="w-2 h-2 rounded-full bg-primary mr-2"></span> Covered
+                        </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant font-body-sm">
+<span class="w-2 h-2 rounded-full bg-error mr-2"></span> Gap
+                        </span>
+</div>
+</div>
+<!-- Bento Grid Calendar -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+<!-- Week Card: Booked -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_10px_rgba(118,147,130,0.05)] border border-surface-variant flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">WEEK 1</div>
+<div class="font-h3 text-on-surface">Jun 24 - 28</div>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Child 1 Slot -->
+<div class="bg-secondary-fixed/30 rounded-lg p-3 border border-secondary-fixed-dim">
+<div class="font-label-caps text-on-secondary-container mb-1">LEO</div>
+<div class="font-body-md text-on-surface font-semibold">Wilderness Explorer Camp</div>
+<div class="font-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 9:00 AM - 3:00 PM
+                                </div>
+</div>
+<!-- Child 2 Slot -->
+<div class="bg-tertiary-fixed/30 rounded-lg p-3 border border-tertiary-fixed-dim">
+<div class="font-label-caps text-on-tertiary-container mb-1">MIA</div>
+<div class="font-body-md text-on-surface font-semibold">Art &amp; Pottery Studio</div>
+<div class="font-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 9:00 AM - 1:00 PM
+                                </div>
+</div>
+</div>
+</div>
+<!-- Week Card: Gap -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_10px_rgba(118,147,130,0.05)] border border-error-container bg-gradient-to-br from-surface-container-lowest to-error-container/10 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-caps text-error mb-1">WEEK 2 • ACTION NEEDED</div>
+<div class="font-h3 text-on-surface">Jul 1 - 5</div>
+</div>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<div class="flex-1 flex flex-col gap-2 justify-center items-center py-6">
+<span class="material-symbols-outlined text-error text-[40px] mb-2">event_busy</span>
+<div class="font-body-md text-on-surface font-semibold">Coverage Gap</div>
+<p class="font-body-sm text-on-surface-variant text-center px-4">No camps booked for this week yet.</p>
+<button class="mt-2 font-button text-sm text-primary border border-primary px-4 py-2 rounded-full hover:bg-primary-fixed/20 transition-colors">Find Options</button>
+</div>
+</div>
+<!-- Week Card: Partial Booking -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_10px_rgba(118,147,130,0.05)] border border-surface-variant flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">WEEK 3</div>
+<div class="font-h3 text-on-surface">Jul 8 - 12</div>
+</div>
+<span class="material-symbols-outlined text-tertiary">error_outline</span>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Child 1 Slot -->
+<div class="bg-secondary-fixed/30 rounded-lg p-3 border border-secondary-fixed-dim">
+<div class="font-label-caps text-on-secondary-container mb-1">LEO</div>
+<div class="font-body-md text-on-surface font-semibold">Tech Wizards Coding</div>
+<div class="font-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 9:00 AM - 4:00 PM
+                                </div>
+</div>
+<!-- Child 2 Gap -->
+<div class="bg-surface-container rounded-lg p-3 border border-dashed border-outline-variant flex items-center justify-between">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">MIA</div>
+<div class="font-body-sm text-error">Needs coverage</div>
+</div>
+<button class="p-2 rounded-full bg-surface-container-high hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">add</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Week Card: Booked -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_10px_rgba(118,147,130,0.05)] border border-surface-variant flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<div class="font-label-caps text-on-surface-variant mb-1">WEEK 4</div>
+<div class="font-h3 text-on-surface">Jul 15 - 19</div>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Shared Slot -->
+<div class="bg-primary-fixed/30 rounded-lg p-3 border border-primary-fixed-dim h-full flex flex-col justify-center">
+<div class="font-label-caps text-on-primary-container mb-1">LEO &amp; MIA</div>
+<div class="font-body-md text-on-surface font-semibold">Grandma's House</div>
+<div class="font-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[16px]">house</span> Full Week
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sidebar: Deadline Sprint -->
+<aside class="w-full lg:w-[320px] flex flex-col gap-6">
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_2px_10px_rgba(118,147,130,0.05)] border border-surface-variant">
+<h2 class="font-h2 text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary">timer</span>
+                        Deadline Sprint
+                    </h2>
+<div class="flex flex-col gap-4">
+<!-- Urgent Deadline -->
+<div class="relative pl-4 border-l-2 border-error">
+<div class="font-label-caps text-error mb-1">TODAY • 11:59 PM</div>
+<div class="font-body-md font-semibold text-on-surface">City Parks Recreation</div>
+<p class="font-body-sm text-on-surface-variant mb-2">Registration closes for Summer sessions.</p>
+<button class="font-button text-sm bg-error text-on-error px-3 py-1 rounded-lg w-full hover:bg-error/90 transition-colors">Register Now</button>
+</div>
+<!-- Upcoming Deadline -->
+<div class="relative pl-4 border-l-2 border-tertiary">
+<div class="font-label-caps text-tertiary mb-1">IN 2 DAYS</div>
+<div class="font-body-md font-semibold text-on-surface">YMCA Swim Camp</div>
+<p class="font-body-sm text-on-surface-variant">Early bird pricing ends.</p>
+</div>
+<!-- Safe Deadline -->
+<div class="relative pl-4 border-l-2 border-primary">
+<div class="font-label-caps text-primary mb-1">NEXT WEEK</div>
+<div class="font-body-md font-semibold text-on-surface">Zoo Explorers</div>
+<p class="font-body-sm text-on-surface-variant">General registration opens.</p>
+</div>
+</div>
+</div>
+<!-- Mini Cost Calculator Teaser -->
+<div class="bg-primary-container rounded-xl p-md text-on-primary-container">
+<h3 class="font-h3 mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                        Budget Overview
+                    </h3>
+<div class="flex justify-between items-end mb-4">
+<div>
+<div class="font-label-caps opacity-80">SPENT SO FAR</div>
+<div class="font-h2">$1,250</div>
+</div>
+<div class="text-right">
+<div class="font-label-caps opacity-80">REMAINING</div>
+<div class="font-h2 opacity-90">$750</div>
+</div>
+</div>
+<div class="w-full bg-black/10 rounded-full h-2 mb-2">
+<div class="bg-on-primary-container h-2 rounded-full" style="width: 62%"></div>
+</div>
+<button class="w-full font-button text-sm py-2 bg-on-primary-container text-primary-container rounded-lg mt-2 hover:opacity-90 transition-opacity">Open Calculator</button>
+</div>
+</aside>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-stone-200 dark:border-stone-800 mt-auto bg-stone-50 dark:bg-stone-950 flex flex-col md:flex-row justify-between items-center px-8 py-6 max-w-7xl mx-auto">
+<p class="font-['Plus_Jakarta_Sans'] text-xs text-stone-400">© 2024 Camp Slot Panic Board - Calm Planning for Busy Parents</p>
+<div class="flex gap-4 mt-4 md:mt-0">
+<a class="font-['Plus_Jakarta_Sans'] text-xs text-stone-400 hover:text-stone-600 hover:text-[#769382] transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs text-stone-400 hover:text-stone-600 hover:text-[#769382] transition-colors" href="#">Terms of Service</a>
+<a class="font-['Plus_Jakarta_Sans'] text-xs text-stone-400 hover:text-stone-600 hover:text-[#769382] transition-colors" href="#">Export Data</a>
+</div>
+</footer>
+</body></html>

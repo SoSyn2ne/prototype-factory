@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tollbooth Ops - Leakage &amp; Economics</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed-variant": "#004883",
+                      "surface-dim": "#0f141a",
+                      "tertiary-container": "#e56f03",
+                      "inverse-on-surface": "#2c3138",
+                      "inverse-primary": "#0060ab",
+                      "on-tertiary-fixed": "#321300",
+                      "tertiary-fixed": "#ffdbc8",
+                      "inverse-surface": "#dfe2ec",
+                      "secondary": "#40e39a",
+                      "on-secondary": "#003921",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#001c39",
+                      "on-surface-variant": "#c0c7d5",
+                      "secondary-container": "#00c681",
+                      "surface-container": "#1c2027",
+                      "on-surface": "#dfe2ec",
+                      "primary-fixed": "#d3e3ff",
+                      "on-primary": "#00315d",
+                      "on-secondary-container": "#004c2e",
+                      "surface-variant": "#31353c",
+                      "background": "#0f141a",
+                      "on-tertiary-fixed-variant": "#743500",
+                      "error-container": "#93000a",
+                      "surface": "#0f141a",
+                      "primary": "#a3c9ff",
+                      "outline": "#8a919f",
+                      "tertiary-fixed-dim": "#ffb689",
+                      "surface-container-highest": "#31353c",
+                      "tertiary": "#ffb689",
+                      "on-secondary-fixed-variant": "#005232",
+                      "on-tertiary-container": "#471e00",
+                      "error": "#ffb4ab",
+                      "on-primary-container": "#002a51",
+                      "primary-fixed-dim": "#a3c9ff",
+                      "on-background": "#dfe2ec",
+                      "outline-variant": "#404753",
+                      "surface-container-low": "#181c22",
+                      "surface-container-lowest": "#0a0e15",
+                      "on-tertiary": "#512300",
+                      "secondary-fixed-dim": "#3ce098",
+                      "primary-container": "#1493ff",
+                      "surface-bright": "#353941",
+                      "on-secondary-fixed": "#002111",
+                      "on-error": "#690005",
+                      "surface-tint": "#a3c9ff",
+                      "secondary-fixed": "#61fdb2",
+                      "surface-container-high": "#262a31"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin": "16px",
+                      "gutter": "12px",
+                      "unit": "4px",
+                      "panel-padding": "8px"
+              },
+              "fontFamily": {
+                      "display-mono": [
+                              "monospace"
+                      ],
+                      "body-compact": [
+                              "inter"
+                      ],
+                      "data-table": [
+                              "inter"
+                      ],
+                      "label-caps": [
+                              "inter"
+                      ],
+                      "headline-sm": [
+                              "spaceGrotesk"
+                      ]
+              },
+              "fontSize": {
+                      "display-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-compact": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-table": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        /* Custom ultra-thin scrollbar */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f141a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #31353c; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a919f; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-hidden font-body-compact text-body-compact">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex fixed left-0 top-0 flex-col h-full overflow-y-auto bg-[#0A0A0B] dark:bg-[#0A0A0B] border-r border-[#1A1C1E] h-screen w-64 z-40">
+<div class="p-4 border-b border-[#1A1C1E] flex flex-col gap-1">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[#0091FF] text-lg" style="font-variation-settings: 'FILL' 1;">trip_origin</span>
+<span class="font-['Space_Grotesk'] text-xs font-bold tracking-tighter uppercase text-[#0091FF]">NODE_01</span>
+</div>
+<span class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase text-[#2C2E33]">ACTIVE_SESSION</span>
+</div>
+<div class="flex-1 py-4 flex flex-col">
+<!-- Tabs -->
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">dashboard</span>
+                Operation Center
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">dataset</span>
+                Traffic Inbox
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">security</span>
+                The Classifier
+            </a>
+<!-- Active Tab -->
+<a class="bg-[#1A1C1E] text-[#0091FF] border-r-2 border-[#0091FF] py-3 px-4 flex items-center gap-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase opacity-80 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">payments</span>
+                Economics
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">policy</span>
+                Policy Simulator
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">handshake</span>
+                Partner Whitelist
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">description</span>
+                Board Memo
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+                Infrastructure
+            </a>
+</div>
+<div class="p-4 border-t border-[#1A1C1E]">
+<button class="w-full bg-transparent border border-[#1A1C1E] text-[#0091FF] font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase py-2 hover:bg-[#1A1C1E] transition-colors">
+                DECODE_TRAFFIC
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-[#0A0A0B] dark:bg-[#0A0A0B] flex justify-between items-center w-full px-4 h-12 sticky top-0 z-50 border-b border-[#1A1C1E] flat no-shadows">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-tighter text-[#0091FF]">TOLLBOOTH_OPS</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="text-[#2C2E33] hover:text-[#0091FF] transition-colors p-1">
+<span class="material-symbols-outlined text-sm">notifications_active</span>
+</button>
+<button class="text-[#2C2E33] hover:text-[#0091FF] transition-colors p-1">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+</button>
+<button class="text-[#2C2E33] hover:text-[#0091FF] transition-colors p-1">
+<span class="material-symbols-outlined text-sm">terminal</span>
+</button>
+</div>
+<button class="bg-[#0A0A0B] border border-[#1A1C1E] text-error font-['Space_Grotesk'] text-xs font-bold tracking-tighter uppercase px-3 py-1 hover:bg-[#1A1C1E] transition-colors">
+                    Emergency Stop
+                </button>
+<img alt="Operator Avatar" class="w-8 h-8 bg-[#1A1C1E] border border-[#1A1C1E]" data-alt="A small, stylized avatar profile picture of a robotic operator, used in a dark mode top navigation bar. The aesthetic is digital and sharp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc8w4kYu8Hz0n96-4N5MWk5nR2Rx4CiWacqxgDcPK4PEzABReJ5Nlb5OLfemvgcSKCLPxLptbpUEDNhYUJWoOFfypg_F_zn8j7qOQuoQA98VyK16dICp25m4Vrnyzg_UIUFWzGvQ_yMMIROh8ukmF5YYiciIzCO28ETeayX-KY4dYjW0sLFbXy9ZBYhlstR98WB6t9asmG_XGQznN0thkgHWnSjBarZfP-3SjSq97NeLUxMdQbOk0uxYbCeFXJ2uk6J4dG03q6l_jB"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-margin flex flex-col gap-gutter">
+<!-- Header -->
+<div class="flex justify-between items-end border-b border-surface-variant pb-unit">
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight">Leakage &amp; Economics Panel</h1>
+<p class="font-body-compact text-body-compact text-on-surface-variant mt-1">Real-time financial impact of infrastructure utilization vs revenue capture.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container border border-outline-variant px-2 py-1 rounded-DEFAULT">
+<span class="w-2 h-2 bg-secondary rounded-none"></span>
+<span class="font-display-mono text-display-mono text-secondary text-[10px]">SYNC: ACTIVE</span>
+</div>
+</div>
+<!-- Top Row: Key Financial Metrics -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Wasted Spend -->
+<div class="bg-surface-container-highest border border-error rounded-DEFAULT p-panel-padding flex flex-col gap-unit shadow-[inset_0_0_20px_rgba(255,180,171,0.05)]">
+<div class="flex justify-between items-start">
+<h2 class="font-label-caps text-label-caps text-error">WASTED INFRASTRUCTURE SPEND</h2>
+<span class="material-symbols-outlined text-error text-sm">trending_up</span>
+</div>
+<div class="font-display-mono text-display-mono text-error text-2xl tracking-tighter mt-2">
+                        $12,450.80 <span class="text-xs text-error/70">/ hr</span>
+</div>
+<p class="font-body-compact text-body-compact text-error-container text-[10px]">Attributed to non-monetizable scraper traffic.</p>
+</div>
+<!-- Revenue Leakage -->
+<div class="bg-surface-container border border-tertiary-container rounded-DEFAULT p-panel-padding flex flex-col gap-unit">
+<div class="flex justify-between items-start">
+<h2 class="font-label-caps text-label-caps text-tertiary-container">EST. REVENUE LEAKAGE</h2>
+<span class="material-symbols-outlined text-tertiary-container text-sm">water_drop</span>
+</div>
+<div class="font-display-mono text-display-mono text-tertiary-container text-2xl tracking-tighter mt-2">
+                        $45,200.00 <span class="text-xs text-tertiary-container/70">/ day</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant text-[10px]">Uncaptured value from unknown agents.</p>
+</div>
+<!-- Opportunity -->
+<div class="bg-surface-container border border-secondary rounded-DEFAULT p-panel-padding flex flex-col gap-unit">
+<div class="flex justify-between items-start">
+<h2 class="font-label-caps text-label-caps text-secondary">MONETIZATION OPPORTUNITY</h2>
+<span class="material-symbols-outlined text-secondary text-sm">account_balance_wallet</span>
+</div>
+<div class="font-display-mono text-display-mono text-secondary text-2xl tracking-tighter mt-2">
+                        +$8,500.00 <span class="text-xs text-secondary/70">/ day</span>
+</div>
+<p class="font-body-compact text-body-compact text-on-surface-variant text-[10px]">Potential yield from identified partner whitelisting.</p>
+</div>
+</div>
+<!-- Middle Row: Visualizations -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Chart Area -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT flex flex-col lg:col-span-2">
+<div class="bg-surface-container-high border-b border-outline-variant px-panel-padding py-2 flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-primary">CONVERSION-COST ASSUMPTIONS</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-1"><span class="w-2 h-2 bg-error"></span><span class="font-body-compact text-body-compact text-[10px] text-on-surface-variant">Cost</span></div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 bg-primary"></span><span class="font-body-compact text-body-compact text-[10px] text-on-surface-variant">Revenue</span></div>
+</div>
+</div>
+<div class="p-panel-padding flex-1 relative min-h-[200px]">
+<!-- Simulated Chart Grid & Area using CSS -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(138,145,159,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(138,145,159,0.1)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" data-alt="A highly detailed, brutalist data visualization chart displaying financial metrics within a dark mode network operations center interface. The chart features sharp, neon blue and harsh red intersecting lines representing revenue leakage and infrastructure spend over time, plotted against a stark, deep slate background with a fine 4px fluid grid overlay. The aesthetic is heavily technical and industrial, avoiding any soft gradients or rounded elements in favor of absolute precision and high-contrast tonal layering to evoke a high-stakes, real-time command environment."></div>
+<!-- Simulated SVG Chart Lines -->
+<svg class="w-full h-full absolute inset-0 pt-4 px-4 overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Cost Line (Red) -->
+<path class="text-error" d="M0,80 L20,75 L40,85 L60,40 L80,30 L100,10" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"></path>
+<!-- Revenue Line (Blue) -->
+<path class="text-primary" d="M0,90 L20,88 L40,80 L60,75 L80,60 L100,50" fill="none" stroke="currentColor" stroke-width="0.5" vector-effect="non-scaling-stroke"></path>
+<!-- Intersection Highlight -->
+<circle class="text-error" cx="60" cy="40" fill="currentColor" r="1.5"></circle>
+</svg>
+</div>
+</div>
+<!-- Traffic Impact Breakdown -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="bg-surface-container-high border-b border-outline-variant px-panel-padding py-2">
+<h3 class="font-label-caps text-label-caps text-on-surface">ECONOMIC IMPACT BY CLASSIFICATION</h3>
+</div>
+<div class="p-panel-padding flex flex-col gap-4 flex-1 justify-center">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between">
+<span class="font-body-compact text-body-compact text-error text-[11px] uppercase">Costly Scrapers</span>
+<span class="font-display-mono text-display-mono text-error text-[11px]">68%</span>
+</div>
+<div class="h-4 bg-surface-container-highest border border-outline-variant w-full overflow-hidden">
+<div class="h-full bg-error" style="width: 68%;"></div>
+</div>
+<span class="font-display-mono text-display-mono text-on-surface-variant text-[10px]">-$8.4k direct compute cost</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between">
+<span class="font-body-compact text-body-compact text-secondary text-[11px] uppercase">Monetizable Partners</span>
+<span class="font-display-mono text-display-mono text-secondary text-[11px]">22%</span>
+</div>
+<div class="h-4 bg-surface-container-highest border border-outline-variant w-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 22%;"></div>
+</div>
+<span class="font-display-mono text-display-mono text-on-surface-variant text-[10px]">+$4.1k realized yield</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between">
+<span class="font-body-compact text-body-compact text-surface-tint text-[11px] uppercase">Unknown / Null Void</span>
+<span class="font-display-mono text-display-mono text-surface-tint text-[11px]">10%</span>
+</div>
+<div class="h-4 bg-surface-container-highest border border-outline-variant w-full overflow-hidden">
+<div class="h-full bg-surface-tint" style="width: 10%;"></div>
+</div>
+<span class="font-display-mono text-display-mono text-on-surface-variant text-[10px]">Pending classification</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Partner Opportunity Table -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT flex flex-col flex-1 min-h-[250px]">
+<div class="bg-surface-container-high border-b border-outline-variant px-panel-padding py-2 flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface">PARTNER OPPORTUNITY MATRIX</h3>
+<button class="font-label-caps text-label-caps text-primary border border-primary px-2 py-0.5 hover:bg-primary/10 transition-colors">EXPORT_CSV</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant">
+<th class="py-2 px-panel-padding font-normal">ENTITY_ID</th>
+<th class="py-2 px-panel-padding font-normal">CLASSIFICATION</th>
+<th class="py-2 px-panel-padding font-normal text-right">REQ/SEC</th>
+<th class="py-2 px-panel-padding font-normal text-right">INFRA_COST</th>
+<th class="py-2 px-panel-padding font-normal text-right">POTENTIAL_REV</th>
+<th class="py-2 px-panel-padding font-normal text-center">ACTION</th>
+</tr>
+</thead>
+<tbody class="font-data-table text-data-table text-on-surface">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-panel-padding font-display-mono text-primary">0x8F2...9A1</td>
+<td class="py-2 px-panel-padding">
+<span class="border border-error text-error px-1 text-[10px] uppercase">Aggressive Scraper</span>
+</td>
+<td class="py-2 px-panel-padding text-right font-display-mono">4,250</td>
+<td class="py-2 px-panel-padding text-right font-display-mono text-error">-$1.24/m</td>
+<td class="py-2 px-panel-padding text-right font-display-mono text-surface-variant">$0.00</td>
+<td class="py-2 px-panel-padding text-center">
+<button class="text-[10px] border border-error text-error px-2 py-0.5 hover:bg-error hover:text-on-error">BLOCK</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors bg-surface-container-highest/30">
+<td class="py-2 px-panel-padding font-display-mono text-primary">0x1B4...7C2</td>
+<td class="py-2 px-panel-padding">
+<span class="border border-secondary text-secondary px-1 text-[10px] uppercase">Search Indexer</span>
+</td>
+<td class="py-2 px-panel-padding text-right font-display-mono">1,100</td>
+<td class="py-2 px-panel-padding text-right font-display-mono">-$0.32/m</td>
+<td class="py-2 px-panel-padding text-right font-display-mono text-secondary">+$2.50/m</td>
+<td class="py-2 px-panel-padding text-center">
+<button class="text-[10px] border border-secondary text-secondary px-2 py-0.5 hover:bg-secondary hover:text-on-secondary">WHITELIST</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-panel-padding font-display-mono text-primary">0x9E3...4D8</td>
+<td class="py-2 px-panel-padding">
+<span class="border border-tertiary text-tertiary px-1 text-[10px] uppercase">AI Training Bot</span>
+</td>
+<td class="py-2 px-panel-padding text-right font-display-mono">8,900</td>
+<td class="py-2 px-panel-padding text-right font-display-mono text-error">-$4.80/m</td>
+<td class="py-2 px-panel-padding text-right font-display-mono text-secondary">+$15.00/m</td>
+<td class="py-2 px-panel-padding text-center">
+<button class="text-[10px] border border-primary text-primary px-2 py-0.5 hover:bg-primary hover:text-on-primary">NEGOTIATE</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+</body></html>

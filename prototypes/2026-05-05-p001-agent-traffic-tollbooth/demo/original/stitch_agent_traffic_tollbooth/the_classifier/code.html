@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Classifier</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800;900&amp;family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004883",
+                        "surface-dim": "#0f141a",
+                        "tertiary-container": "#e56f03",
+                        "inverse-on-surface": "#2c3138",
+                        "inverse-primary": "#0060ab",
+                        "on-tertiary-fixed": "#321300",
+                        "tertiary-fixed": "#ffdbc8",
+                        "inverse-surface": "#dfe2ec",
+                        "secondary": "#40e39a",
+                        "on-secondary": "#003921",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#001c39",
+                        "on-surface-variant": "#c0c7d5",
+                        "secondary-container": "#00c681",
+                        "surface-container": "#1c2027",
+                        "on-surface": "#dfe2ec",
+                        "primary-fixed": "#d3e3ff",
+                        "on-primary": "#00315d",
+                        "on-secondary-container": "#004c2e",
+                        "surface-variant": "#31353c",
+                        "background": "#0f141a",
+                        "on-tertiary-fixed-variant": "#743500",
+                        "error-container": "#93000a",
+                        "surface": "#0f141a",
+                        "primary": "#a3c9ff",
+                        "outline": "#8a919f",
+                        "tertiary-fixed-dim": "#ffb689",
+                        "surface-container-highest": "#31353c",
+                        "tertiary": "#ffb689",
+                        "on-secondary-fixed-variant": "#005232",
+                        "on-tertiary-container": "#471e00",
+                        "error": "#ffb4ab",
+                        "on-primary-container": "#002a51",
+                        "primary-fixed-dim": "#a3c9ff",
+                        "on-background": "#dfe2ec",
+                        "outline-variant": "#404753",
+                        "surface-container-low": "#181c22",
+                        "surface-container-lowest": "#0a0e15",
+                        "on-tertiary": "#512300",
+                        "secondary-fixed-dim": "#3ce098",
+                        "primary-container": "#1493ff",
+                        "surface-bright": "#353941",
+                        "on-secondary-fixed": "#002111",
+                        "on-error": "#690005",
+                        "surface-tint": "#a3c9ff",
+                        "secondary-fixed": "#61fdb2",
+                        "surface-container-high": "#262a31"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "16px",
+                        "gutter": "12px",
+                        "unit": "4px",
+                        "panel-padding": "8px"
+                    },
+                    "fontFamily": {
+                        "display-mono": [
+                            "monospace"
+                        ],
+                        "body-compact": [
+                            "inter"
+                        ],
+                        "data-table": [
+                            "inter"
+                        ],
+                        "label-caps": [
+                            "inter"
+                        ],
+                        "headline-sm": [
+                            "spaceGrotesk"
+                        ]
+                    },
+                    "fontSize": {
+                        "display-mono": [
+                            "14px",
+                            {
+                                "lineHeight": "20px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "body-compact": [
+                            "13px",
+                            {
+                                "lineHeight": "18px",
+                                "fontWeight": "400"
+                            }
+                        ],
+                        "data-table": [
+                            "12px",
+                            {
+                                "lineHeight": "16px",
+                                "fontWeight": "500"
+                            }
+                        ],
+                        "label-caps": [
+                            "11px",
+                            {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "700"
+                            }
+                        ],
+                        "headline-sm": [
+                            "18px",
+                            {
+                                "lineHeight": "24px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "600"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-compact text-body-compact selection:bg-primary-container selection:text-on-primary-container h-screen overflow-hidden flex">
+<!-- SideNavBar (JSON Integration) -->
+<nav class="hidden md:flex flex-col h-screen w-64 bg-[#0A0A0B] dark:bg-[#0A0A0B] border-r border-[#1A1C1E] z-40 fixed left-0 top-0 overflow-y-auto">
+<div class="p-4 border-b border-[#1A1C1E] flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center border border-outline-variant overflow-hidden">
+<img alt="Operator Avatar" class="w-full h-full object-cover" data-alt="Close up macro photography of a glowing cyan LED status light on a matte black textured metal computer server rack panel. Cinematic lighting, sharp focus, technical industrial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8H-Zr8dv-T8-8USqCSHk73He5ul8Hw2bD4QTPS9QF1SYoi_jly7UL8N1AInwWi7dP99jL9F5hsbJxURZJnCSCHqxu4OndIpG_Xb95B0gJDx-RON8pUP2v8m-ZGfUrJk8dQC89RfsxZ6q4w7JENMFqfWTWiNEioMjvFECfef5nsFhCW7uYY-v6AzyD0YMOZZ6BSZyfoWq2v-CVp-ywBOz0-g1zyo9ZBPt_oHy1Zao5YI6aZJINzi0_Ms-VCa6j03TWlF-EszVSoqB4"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-[#0091FF] font-black tracking-tighter">NODE_01</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">ACTIVE_SESSION</p>
+</div>
+</div>
+<button class="mt-4 w-full bg-primary text-on-primary border border-primary font-label-caps text-label-caps py-2 px-4 uppercase hover:bg-primary-container hover:text-on-primary-container transition-colors duration-75 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+                DECODE_TRAFFIC
+            </button>
+</div>
+<ul class="flex-1 py-4 flex flex-col gap-1">
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                    Operation Center
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">dataset</span>
+                    Traffic Inbox
+                </a>
+</li>
+<li>
+<a class="bg-[#1A1C1E] text-[#0091FF] border-r-2 border-[#0091FF] py-3 px-4 flex items-center gap-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">security</span>
+                    The Classifier
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                    Economics
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+                    Policy Simulator
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">handshake</span>
+                    Partner Whitelist
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                    Board Memo
+                </a>
+</li>
+<li>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 hover:text-white transition-all duration-100 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                    Infrastructure
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-64 flex flex-col h-screen overflow-hidden bg-background relative">
+<!-- TopAppBar (JSON Integration) -->
+<header class="flex justify-between items-center w-full px-4 h-12 sticky top-0 z-50 bg-[#0A0A0B] dark:bg-[#0A0A0B] border-b border-[#1A1C1E]">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-[#2C2E33] hover:text-white transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="text-xl font-black tracking-tighter text-[#0091FF]">TOLLBOOTH_OPS</div>
+</div>
+<div class="flex-1 max-w-md mx-8 hidden md:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-[#2C2E33] text-[18px]">search</span>
+<input class="w-full bg-[#1A1C1E] border border-[#2C2E33] text-[#0091FF] font-display-mono text-display-mono pl-8 pr-4 py-1 focus:outline-none focus:border-[#0091FF] focus:bg-[#0A0A0B] transition-colors placeholder:text-[#2C2E33]" placeholder="QUERY_LOGS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1 border-r border-[#1A1C1E] pr-3 mr-1">
+<button class="w-8 h-8 flex items-center justify-center text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</button>
+</div>
+<button class="bg-error text-on-error border border-error hover:bg-error-container hover:text-on-error-container font-['Space_Grotesk'] text-[11px] font-bold tracking-tighter uppercase px-3 py-1.5 transition-colors duration-75 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                    Emergency Stop
+                </button>
+</div>
+</header>
+<!-- Command Panel Grid -->
+<div class="flex-1 overflow-y-auto p-margin custom-scrollbar">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter h-full pb-8">
+<!-- Left Column: Packet Stream & Selection -->
+<div class="lg:col-span-4 flex flex-col gap-gutter h-full">
+<!-- Filters Module -->
+<section class="border border-[#1A1C1E] bg-[#0A0A0B] flex flex-col">
+<header class="bg-[#1A1C1E] px-3 py-2 flex items-center justify-between border-b border-[#1A1C1E]">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+                                Stream Filters
+                            </h3>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+</div>
+</header>
+<div class="p-panel-padding flex flex-col gap-2">
+<div class="flex gap-2">
+<input class="flex-1 bg-[#1A1C1E] border border-[#2C2E33] font-display-mono text-display-mono px-2 py-1 focus:border-[#0091FF] focus:outline-none text-[#0091FF]" placeholder="ASN / IP Range" type="text"/>
+<select class="bg-[#1A1C1E] border border-[#2C2E33] font-label-caps text-label-caps px-2 py-1 focus:border-[#0091FF] focus:outline-none text-on-surface uppercase">
+<option>All Verdicts</option>
+<option>Verified</option>
+<option>Spoofed</option>
+<option>Suspicious</option>
+</select>
+</div>
+<div class="flex items-center gap-2 mt-1">
+<label class="flex items-center gap-1 font-label-caps text-label-caps text-on-surface-variant cursor-pointer">
+<input class="bg-[#1A1C1E] border-[#2C2E33] text-[#0091FF] rounded-none focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+                                     Strict TLS Match
+                                 </label>
+<label class="flex items-center gap-1 font-label-caps text-label-caps text-on-surface-variant cursor-pointer ml-4">
+<input checked="" class="bg-[#1A1C1E] border-[#2C2E33] text-[#0091FF] rounded-none focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+                                     Auto-Scroll
+                                 </label>
+</div>
+</div>
+</section>
+<!-- Active Stream List -->
+<section class="border border-[#1A1C1E] bg-[#0A0A0B] flex-1 flex flex-col min-h-0">
+<header class="bg-[#1A1C1E] px-3 py-2 flex items-center justify-between border-b border-[#1A1C1E]">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">rss_feed</span>
+                                Ingress Queue
+                            </h3>
+<span class="font-display-mono text-[10px] text-on-surface-variant">42.1k req/s</span>
+</header>
+<div class="flex-1 overflow-y-auto custom-scrollbar bg-[#0A0A0B]">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#1A1C1E] sticky top-0 border-b border-[#2C2E33]">
+<tr>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal w-8">Sts</th>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal">Source IP</th>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal">Agent Def</th>
+</tr>
+</thead>
+<tbody class="font-display-mono text-[11px]">
+<!-- Spoofed Row (Selected) -->
+<tr class="border-b border-[#1A1C1E] bg-[#1A1C1E] border-l-2 border-l-error cursor-pointer">
+<td class="px-2 py-1"><span class="w-2 h-2 inline-block bg-error"></span></td>
+<td class="px-2 py-1 text-on-surface">192.168.4.102</td>
+<td class="px-2 py-1 text-on-surface truncate max-w-[120px]">Googlebot/2.1</td>
+</tr>
+<!-- Verified Row -->
+<tr class="border-b border-[#1A1C1E] hover:bg-[#1A1C1E]/50 cursor-pointer">
+<td class="px-2 py-1"><span class="w-2 h-2 inline-block bg-secondary"></span></td>
+<td class="px-2 py-1 text-on-surface-variant">66.249.66.1</td>
+<td class="px-2 py-1 text-on-surface-variant truncate max-w-[120px]">Googlebot/2.1</td>
+</tr>
+<!-- Spoofed Row -->
+<tr class="border-b border-[#1A1C1E] hover:bg-[#1A1C1E]/50 cursor-pointer">
+<td class="px-2 py-1"><span class="w-2 h-2 inline-block bg-error"></span></td>
+<td class="px-2 py-1 text-on-surface-variant">45.22.19.88</td>
+<td class="px-2 py-1 text-on-surface-variant truncate max-w-[120px]">Bingbot/2.0</td>
+</tr>
+<!-- Suspicious Row -->
+<tr class="border-b border-[#1A1C1E] hover:bg-[#1A1C1E]/50 cursor-pointer">
+<td class="px-2 py-1"><span class="w-2 h-2 inline-block bg-tertiary-container"></span></td>
+<td class="px-2 py-1 text-on-surface-variant">104.28.14.9</td>
+<td class="px-2 py-1 text-on-surface-variant truncate max-w-[120px]">Applebot/0.1</td>
+</tr>
+<!-- Verified Row -->
+<tr class="border-b border-[#1A1C1E] hover:bg-[#1A1C1E]/50 cursor-pointer">
+<td class="px-2 py-1"><span class="w-2 h-2 inline-block bg-secondary"></span></td>
+<td class="px-2 py-1 text-on-surface-variant">157.55.39.12</td>
+<td class="px-2 py-1 text-on-surface-variant truncate max-w-[120px]">Bingbot/2.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Middle & Right Columns: Deep Inspection -->
+<div class="lg:col-span-8 flex flex-col gap-gutter h-full">
+<!-- Top Inspection Panel: Verdict & High-Level Identity -->
+<section class="border border-[#1A1C1E] bg-[#0A0A0B] flex flex-col relative overflow-hidden">
+<!-- Alert Background Accent -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-error/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+<header class="bg-[#1A1C1E]/80 backdrop-blur-sm px-4 py-3 flex items-center justify-between border-b border-[#1A1C1E] z-10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px] text-error">policy</span>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface uppercase tracking-tight">Inspection Verdict: <span class="text-error font-black">SPOOFED_AGENT</span></h2>
+<p class="font-display-mono text-[11px] text-on-surface-variant mt-0.5">REQ_ID: 0x8F9A2B4C-991 • TIMESTAMP: 2023-10-27T14:32:01Z</p>
+</div>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Confidence Score</span>
+<div class="flex items-center gap-2">
+<span class="font-display-mono text-[20px] text-error font-bold">98.4%</span>
+<div class="w-24 h-2 bg-surface-container border border-[#2C2E33]">
+<div class="h-full bg-error" style="width: 98.4%"></div>
+</div>
+</div>
+</div>
+</header>
+<div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-4 z-10">
+<!-- Claimed Identity -->
+<div class="border border-[#1A1C1E] bg-[#1A1C1E]/30 p-3 flex flex-col gap-2">
+<h4 class="font-label-caps text-[10px] text-on-surface-variant uppercase border-b border-[#2C2E33] pb-1">Claimed Identity</h4>
+<div class="font-display-mono text-[12px] text-on-surface break-all">
+<span class="text-primary">User-Agent:</span> Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)
+                                </div>
+<div class="font-display-mono text-[12px] text-on-surface">
+<span class="text-primary">IP Address:</span> 192.168.4.102
+                                </div>
+<div class="font-display-mono text-[12px] text-on-surface">
+<span class="text-primary">ASN:</span> AS13335 (Cloudflare, Inc.)
+                                </div>
+</div>
+<!-- Verdict Reasoning -->
+<div class="border border-error/30 bg-error/5 p-3 flex flex-col gap-2">
+<h4 class="font-label-caps text-[10px] text-error uppercase border-b border-error/20 pb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">gavel</span>
+                                    Violation Flags
+                                </h4>
+<ul class="font-display-mono text-[11px] text-error space-y-1 mt-1">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[14px] shrink-0">close</span>
+                                        Reverse DNS lookup failed. IP does not resolve to googlebot.com or google.com.
+                                    </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[14px] shrink-0">close</span>
+                                        ASN mismatch. Expected AS15169 (Google LLC), found AS13335.
+                                    </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[14px] shrink-0">close</span>
+                                        TLS ClientHello fingerprint deviates from known Googlebot signatures.
+                                    </li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Bottom Modules: Deep Packet & Behavioral -->
+<div class="flex-1 grid grid-cols-1 md:grid-cols-2 gap-gutter min-h-0">
+<!-- TLS Fingerprint Module -->
+<section class="border border-[#1A1C1E] bg-[#0A0A0B] flex flex-col">
+<header class="bg-[#1A1C1E] px-3 py-2 flex items-center justify-between border-b border-[#1A1C1E]">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">fingerprint</span>
+                                    TLS Fingerprint (JA3)
+                                </h3>
+<button class="text-[#2C2E33] hover:text-[#0091FF]"><span class="material-symbols-outlined text-[14px]">content_copy</span></button>
+</header>
+<div class="p-3 flex-1 flex flex-col gap-3 overflow-y-auto custom-scrollbar">
+<div class="bg-[#1A1C1E]/50 border border-[#2C2E33] p-2 font-display-mono text-[11px] text-primary break-all">
+                                    771,4865-4866-4867-49195-49199-49196-49200-52393-52392-49171-49172-156-157-47-53,0-23-65281-10-11-35-16-5-13-18-51-45-43-27-17513,29-23-24,0
+                                </div>
+<table class="w-full text-left border-collapse mt-2">
+<thead class="bg-[#1A1C1E]">
+<tr>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal">Component</th>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal">Observed Value</th>
+<th class="font-label-caps text-[10px] text-on-surface-variant px-2 py-1 uppercase font-normal">Expected (Google)</th>
+</tr>
+</thead>
+<tbody class="font-display-mono text-[10px]">
+<tr class="border-b border-[#1A1C1E]">
+<td class="px-2 py-1.5 text-on-surface-variant">Version</td>
+<td class="px-2 py-1.5 text-on-surface">771 (TLS 1.2)</td>
+<td class="px-2 py-1.5 text-secondary">771</td>
+</tr>
+<tr class="border-b border-[#1A1C1E] bg-error/5">
+<td class="px-2 py-1.5 text-on-surface-variant">Ciphers</td>
+<td class="px-2 py-1.5 text-error truncate max-w-[100px]">4865-4866-4867...</td>
+<td class="px-2 py-1.5 text-secondary truncate max-w-[100px]">49195-49199...</td>
+</tr>
+<tr class="border-b border-[#1A1C1E] bg-error/5">
+<td class="px-2 py-1.5 text-on-surface-variant">Extensions</td>
+<td class="px-2 py-1.5 text-error truncate max-w-[100px]">0-23-65281...</td>
+<td class="px-2 py-1.5 text-secondary truncate max-w-[100px]">0-23-65281-10-11...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Behavioral Analysis Module -->
+<section class="border border-[#1A1C1E] bg-[#0A0A0B] flex flex-col">
+<header class="bg-[#1A1C1E] px-3 py-2 flex items-center justify-between border-b border-[#1A1C1E]">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">timeline</span>
+                                    Behavioral Metrics
+                                </h3>
+<span class="font-label-caps text-[10px] text-tertiary-container uppercase border border-tertiary-container/30 bg-tertiary-container/10 px-1 py-0.5">Anomalous</span>
+</header>
+<div class="p-3 flex-1 overflow-y-auto custom-scrollbar flex flex-col gap-4">
+<div class="grid grid-cols-2 gap-3">
+<div class="border border-[#1A1C1E] p-2 flex flex-col">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Req Rate (1m)</span>
+<div class="flex items-end gap-1 mt-1">
+<span class="font-display-mono text-[16px] text-error">45.2</span>
+<span class="font-display-mono text-[10px] text-on-surface-variant mb-0.5">req/s</span>
+</div>
+</div>
+<div class="border border-[#1A1C1E] p-2 flex flex-col">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Target Path Var</span>
+<div class="flex items-end gap-1 mt-1">
+<span class="font-display-mono text-[16px] text-on-surface">Low</span>
+</div>
+</div>
+<div class="border border-[#1A1C1E] p-2 flex flex-col col-span-2">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Observed Target Pattern</span>
+<span class="font-display-mono text-[11px] text-on-surface mt-1 truncate">/wp-login.php, /admin, /.env</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-auto">
+<div class="flex justify-between font-label-caps text-[9px] uppercase">
+<span class="text-on-surface-variant">Bot Net Probability</span>
+<span class="text-tertiary-container">89%</span>
+</div>
+<div class="w-full h-1 bg-surface-container">
+<div class="h-full bg-tertiary-container" style="width: 89%"></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Action Bar -->
+<div class="bg-[#1A1C1E] border border-[#1A1C1E] p-2 flex justify-end gap-2 shrink-0">
+<button class="bg-transparent text-on-surface border border-[#2C2E33] font-label-caps text-label-caps py-1.5 px-4 uppercase hover:bg-[#2C2E33] transition-colors duration-75">
+                            Export Pcap
+                        </button>
+<button class="bg-transparent text-error border border-error/50 font-label-caps text-label-caps py-1.5 px-4 uppercase hover:bg-error/10 transition-colors duration-75">
+                            Add to Blacklist
+                        </button>
+<button class="bg-[#0091FF] text-[#0A0A0B] border border-[#0091FF] font-label-caps text-label-caps py-1.5 px-6 uppercase hover:bg-[#0091FF]/80 transition-colors duration-75 font-bold">
+                            Enforce Rule
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<style>
+        /* Custom Ultra-thin Scrollbar for dark command center aesthetic */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #0A0A0B;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #2C2E33;
+            border-radius: 0px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #0091FF;
+        }
+    </style>
+</body></html>

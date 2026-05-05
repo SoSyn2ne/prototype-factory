@@ -1,59 +1,497 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Agent Traffic Tollbooth - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-05-p001</p>
-        <h1>Agent Traffic Tollbooth</h1>
-        <p>A website-operator console that separates useful AI agents, spoofed crawlers, and costly invisible traffic before margins and analytics get polluted.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Operation Center - TOLLBOOTH_OPS</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=Space+Grotesk:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#004883",
+                    "surface-dim": "#0f141a",
+                    "tertiary-container": "#e56f03",
+                    "inverse-on-surface": "#2c3138",
+                    "inverse-primary": "#0060ab",
+                    "on-tertiary-fixed": "#321300",
+                    "tertiary-fixed": "#ffdbc8",
+                    "inverse-surface": "#dfe2ec",
+                    "secondary": "#40e39a",
+                    "on-secondary": "#003921",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#001c39",
+                    "on-surface-variant": "#c0c7d5",
+                    "secondary-container": "#00c681",
+                    "surface-container": "#1c2027",
+                    "on-surface": "#dfe2ec",
+                    "primary-fixed": "#d3e3ff",
+                    "on-primary": "#00315d",
+                    "on-secondary-container": "#004c2e",
+                    "surface-variant": "#31353c",
+                    "background": "#0f141a",
+                    "on-tertiary-fixed-variant": "#743500",
+                    "error-container": "#93000a",
+                    "surface": "#0f141a",
+                    "primary": "#a3c9ff",
+                    "outline": "#8a919f",
+                    "tertiary-fixed-dim": "#ffb689",
+                    "surface-container-highest": "#31353c",
+                    "tertiary": "#ffb689",
+                    "on-secondary-fixed-variant": "#005232",
+                    "on-tertiary-container": "#471e00",
+                    "error": "#ffb4ab",
+                    "on-primary-container": "#002a51",
+                    "primary-fixed-dim": "#a3c9ff",
+                    "on-background": "#dfe2ec",
+                    "outline-variant": "#404753",
+                    "surface-container-low": "#181c22",
+                    "surface-container-lowest": "#0a0e15",
+                    "on-tertiary": "#512300",
+                    "secondary-fixed-dim": "#3ce098",
+                    "primary-container": "#1493ff",
+                    "surface-bright": "#353941",
+                    "on-secondary-fixed": "#002111",
+                    "on-error": "#690005",
+                    "surface-tint": "#a3c9ff",
+                    "secondary-fixed": "#61fdb2",
+                    "surface-container-high": "#262a31"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin": "16px",
+                    "gutter": "12px",
+                    "unit": "4px",
+                    "panel-padding": "8px"
+            },
+            "fontFamily": {
+                    "display-mono": [
+                            "monospace"
+                    ],
+                    "body-compact": [
+                            "inter"
+                    ],
+                    "data-table": [
+                            "inter"
+                    ],
+                    "label-caps": [
+                            "inter"
+                    ],
+                    "headline-sm": [
+                            "spaceGrotesk"
+                    ]
+            },
+            "fontSize": {
+                    "display-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-compact": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "data-table": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar to match industrial aesthetic */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f141a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #31353c; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8a919f; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-compact text-body-compact selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- SideNavBar Shell Component -->
+<nav class="fixed left-0 top-0 flex flex-col h-full overflow-y-auto bg-[#0A0A0B] w-64 border-r border-[#1A1C1E] z-40">
+<!-- Header -->
+<div class="p-4 border-b border-[#1A1C1E] flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-none border border-[#0091FF] bg-[#1A1C1E] flex items-center justify-center relative">
+<!-- Fake LED Image representation -->
+<div class="w-2 h-2 bg-[#0091FF] shadow-[0_0_8px_#0091FF] animate-pulse"></div>
+<span class="sr-only">System Status LED</span>
+</div>
+<div>
+<h1 class="font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase text-[#0091FF] font-black">NODE_01</h1>
+<p class="font-display-mono text-display-mono text-[#2C2E33] text-[10px]">ACTIVE_SESSION</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-4 flex flex-col gap-1">
+<a class="bg-[#1A1C1E] text-[#0091FF] border-r-2 border-[#0091FF] py-3 px-4 flex items-center gap-3 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase opacity-80 cursor-crosshair" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                Operation Center
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">dataset</span>
+                Traffic Inbox
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                The Classifier
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                Economics
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+                Policy Simulator
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">handshake</span>
+                Partner Whitelist
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                Board Memo
+            </a>
+<a class="text-[#2C2E33] py-3 px-4 flex items-center gap-3 hover:bg-[#1A1C1E]/50 font-['Space_Grotesk'] text-[11px] font-medium tracking-tight uppercase hover:text-white transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Infrastructure
+            </a>
+</div>
+<!-- CTA -->
+<div class="p-4 border-t border-[#1A1C1E]">
+<button class="w-full bg-transparent border border-[#0091FF] text-[#0091FF] py-2 px-4 font-['Space_Grotesk'] text-[11px] font-bold tracking-tight uppercase hover:bg-[#0091FF] hover:text-[#0A0A0B] transition-colors duration-100">
+                DECODE_TRAFFIC
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper to offset fixed sidebar -->
+<div class="ml-64 flex flex-col h-screen">
+<!-- TopAppBar Shell Component -->
+<header class="flex justify-between items-center w-full px-4 h-12 sticky top-0 z-50 bg-[#0A0A0B] border-b border-[#1A1C1E]">
+<div class="flex items-center gap-4">
+<span class="text-xl font-black tracking-tighter text-[#0091FF]">TOLLBOOTH_OPS</span>
+<!-- Search Bar (on_left) -->
+<div class="relative flex items-center border border-[#1A1C1E] bg-[#0A0A0B] px-2 py-1 w-64 focus-within:border-[#0091FF]">
+<span class="material-symbols-outlined text-[#2C2E33] text-[16px] mr-2">search</span>
+<input class="bg-transparent border-none outline-none text-[#0091FF] font-display-mono text-[11px] w-full placeholder:text-[#2C2E33] p-0 focus:ring-0" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-2 border-r border-[#1A1C1E] pr-4">
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+</button>
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">help_outline</span>
+</button>
+<button class="text-[#2C2E33] hover:bg-[#1A1C1E] transition-colors duration-75 p-1 rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+</button>
+</div>
+<!-- Trailing Primary Action -->
+<button class="bg-[#1A1C1E] border border-red-900 text-red-500 font-['Space_Grotesk'] text-[10px] font-bold tracking-tighter uppercase px-3 py-1 hover:bg-red-900/50 transition-colors">
+                    Emergency Stop
+                </button>
+<!-- Profile Image -->
+<div class="w-7 h-7 border border-[#1A1C1E] overflow-hidden bg-[#1A1C1E]">
+<img alt="Operator Avatar" class="w-full h-full object-cover grayscale opacity-80" data-alt="A highly stylized, low-fidelity digital portrait of an operator wearing a headset, rendered in a brutalist, high-contrast monochrome aesthetic. The image features dense scanlines, digital noise, and stark lighting reminiscent of a retro-futuristic security camera feed within a sterile, dark infrastructure facility." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0re3nrL4wQx3LGeHLVxiBNyQhVJXvrDmWA8Jq2v6hivz6G52mtCacg7oQoRHfIolfmqpiJ1gXnjrbWtDcowhVbSUk-nA_7hLv2t5a1aNlE017TPikYYWt3LowBL52LM-f6TSFMVv60hQe9-bdqGvgUTSVFiZQKNVkwXfbXuZWMs_TwRgAOMNR4lqOwf3D2K-j2hhpKeIliioZh303Uf064FN1O0jK2F_pg8iGGIoeVdMeyUvS3GSfRJeOknvI-8A5wRxmmb4sOKmW"/>
+</div>
+</div>
+</header>
+<!-- Canvas Area -->
+<main class="flex-1 overflow-y-auto p-margin flex flex-col gap-gutter bg-background">
+<!-- Top Row: Cost & Conversion Leakage (Dense Bento) -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Warning Card -->
+<div class="bg-surface border border-error p-panel-padding flex flex-col justify-between h-24 relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-8 h-8 bg-error-container/20 border-l border-b border-error flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[16px]">warning</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-error uppercase">Latency Cost Leakage</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-display-mono text-[24px] font-medium leading-none text-error tracking-tight">-$14,204</span>
+<span class="font-data-table text-data-table text-error">+2.4% /hr</span>
+</div>
+</div>
+<!-- Alert Card -->
+<div class="bg-surface border border-tertiary p-panel-padding flex flex-col justify-between h-24">
+<h3 class="font-label-caps text-label-caps text-tertiary uppercase">Dropped Sessions</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-display-mono text-[24px] font-medium leading-none text-tertiary tracking-tight">4,192</span>
+<span class="font-data-table text-data-table text-tertiary">+8.1% /hr</span>
+</div>
+</div>
+<!-- Nominal Card -->
+<div class="bg-surface border border-outline-variant p-panel-padding flex flex-col justify-between h-24">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Bot Mitigation Savings</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-display-mono text-[24px] font-medium leading-none text-secondary tracking-tight">+$82,011</span>
+<span class="font-data-table text-data-table text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+                            Optimal
+                        </span>
+</div>
+</div>
+<!-- System Load -->
+<div class="bg-surface border border-outline-variant p-panel-padding flex flex-col justify-between h-24">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Compute Load (Global)</h3>
+<div class="flex items-end justify-between mt-auto">
+<span class="font-display-mono text-[24px] font-medium leading-none text-on-surface tracking-tight">87.4%</span>
+<span class="font-data-table text-data-table text-on-surface-variant border border-surface-variant px-1">CAPACITY</span>
+</div>
+<!-- Mini progress bar -->
+<div class="w-full h-1 bg-surface-container mt-2">
+<div class="h-full bg-primary-container w-[87.4%]"></div>
+</div>
+</div>
+</section>
+<!-- Middle Row: Visualizations & Policies -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter h-72">
+<!-- Traffic Flow Visualization -->
+<div class="lg:col-span-2 bg-surface border border-outline-variant flex flex-col">
+<div class="border-b border-surface-variant p-2 flex justify-between items-center bg-surface-container-low">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-primary">polyline</span>
+                            Real-Time Traffic Flow (Packets/Sec)
+                        </h2>
+<div class="flex gap-2 font-display-mono text-[10px] text-on-surface-variant">
+<span class="flex items-center gap-1"><div class="w-2 h-2 bg-primary"></div> INGRESS</span>
+<span class="flex items-center gap-1"><div class="w-2 h-2 bg-error"></div> BLOCKED</span>
+</div>
+</div>
+<div class="flex-1 relative overflow-hidden bg-surface-container-lowest">
+<img alt="Traffic Visualization" class="w-full h-full object-cover opacity-60 mix-blend-screen" data-alt="A brutalist, high-density data visualization depicting a continuous flow of network traffic. The background is a stark, monochromatic dark slate. Dense, rigid geometric streams of glowing electric blue data points intersect with sharp, jagged spikes of intense red representing anomalies. The aesthetic is strictly technical industrialism, resembling a military-grade sensor read-out panel with zero decorative elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKefv224bL4IlKQvwhZyzS8FhA7r7RhlRZzpSnzrrrwndwnwwOxzbKaqU4XE4zvBeBifiwFkXvnpjMCmrc0gx9tVgKFw5RSa7DVlT-K5F6Jrs0_-_1a1d6ETTFjK64zDaNKoeTfBV9sQLT_utzVwuUJsbPrs9PGmgR-UosgOKgQ5ji7bdeTGtJPFY7_DNvSlwSM9ESzVZF9XW-cxFIsehxYQfklLGcREgO6hmGD2ACEftMMtBqdY7yQDnd2NUu_WJyCd_CGflqgUCp"/>
+<!-- Overlay structural grid -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
+</div>
+</div>
+<!-- Active Policies Summary -->
+<div class="bg-surface border border-outline-variant flex flex-col">
+<div class="border-b border-surface-variant p-2 bg-surface-container-low">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase">Active Enforcement Policies</h2>
+</div>
+<div class="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
+<!-- Policy Item -->
+<div class="border border-surface-variant bg-surface-container-lowest p-2 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-data-table text-data-table text-on-surface">Geo-Fence: Eastern Europe</span>
+<span class="border border-secondary text-secondary font-label-caps text-[9px] px-1 uppercase tracking-widest">Active</span>
+</div>
+<div class="font-display-mono text-[10px] text-on-surface-variant flex justify-between">
+<span>RULE_ID: 884-A</span>
+<span>BLOCK_RATE: 99.2%</span>
+</div>
+</div>
+<!-- Policy Item -->
+<div class="border border-surface-variant bg-surface-container-lowest p-2 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-data-table text-data-table text-on-surface">Strict Rate Limiting (API)</span>
+<span class="border border-tertiary text-tertiary font-label-caps text-[9px] px-1 uppercase tracking-widest">Degraded</span>
+</div>
+<div class="font-display-mono text-[10px] text-on-surface-variant flex justify-between">
+<span>RULE_ID: 102-X</span>
+<span>LATENCY_PENALTY: 14ms</span>
+</div>
+</div>
+<!-- Policy Item -->
+<div class="border border-surface-variant bg-surface-container-lowest p-2 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-data-table text-data-table text-on-surface">Bot Signature Heuristics</span>
+<span class="border border-secondary text-secondary font-label-caps text-[9px] px-1 uppercase tracking-widest">Active</span>
+</div>
+<div class="font-display-mono text-[10px] text-on-surface-variant flex justify-between">
+<span>RULE_ID: 440-C</span>
+<span class="text-secondary">AUTO_TUNING</span>
+</div>
+</div>
+<button class="mt-auto border border-outline-variant text-on-surface-variant font-label-caps text-[10px] uppercase py-1 hover:bg-surface-variant transition-colors">
+                            View All Policies (42)
+                        </button>
+</div>
+</div>
+</section>
+<!-- Bottom Row: Heatmap & Ledger -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter flex-1 min-h-[300px]">
+<!-- Industry Risk Heatmap -->
+<div class="lg:col-span-2 bg-surface border border-outline-variant flex flex-col">
+<div class="border-b border-surface-variant p-2 flex justify-between items-center bg-surface-container-low">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase">Sector Threat Vector Heatmap</h2>
+<span class="font-display-mono text-[10px] text-outline">UPDATED: 0.002s AGO</span>
+</div>
+<div class="flex-1 p-2 grid grid-cols-4 grid-rows-3 gap-1 bg-surface-dim">
+<!-- Heatmap Blocks -->
+<!-- Severe Risk -->
+<div class="border border-error bg-error-container/10 p-2 flex flex-col justify-between hover:bg-error-container/20 transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-error uppercase">Financial Services</span>
+<span class="font-display-mono text-[14px] text-error">DEFCON_2</span>
+</div>
+<!-- Elevated Risk -->
+<div class="border border-tertiary bg-tertiary-container/10 p-2 flex flex-col justify-between hover:bg-tertiary-container/20 transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-tertiary uppercase">E-Commerce</span>
+<span class="font-display-mono text-[14px] text-tertiary">ELEVATED</span>
+</div>
+<!-- Nominal Risk -->
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Healthcare</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Logistics</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-error bg-error-container/20 p-2 flex flex-col justify-between hover:bg-error-container/30 transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-error uppercase">Crypto Exchanges</span>
+<span class="font-display-mono text-[14px] text-error">DEFCON_1</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Streaming Media</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-tertiary bg-tertiary-container/10 p-2 flex flex-col justify-between hover:bg-tertiary-container/20 transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-tertiary uppercase">SaaS Platforms</span>
+<span class="font-display-mono text-[14px] text-tertiary">ELEVATED</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Travel/Hospitality</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Public Sector</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-on-surface-variant uppercase">Telecommunications</span>
+<span class="font-display-mono text-[14px] text-secondary">NOMINAL</span>
+</div>
+<div class="border border-tertiary bg-tertiary-container/20 p-2 flex flex-col justify-between hover:bg-tertiary-container/30 transition-colors cursor-crosshair">
+<span class="font-label-caps text-[9px] text-tertiary uppercase">Gaming</span>
+<span class="font-display-mono text-[14px] text-tertiary">HIGH_VOLUME</span>
+</div>
+<div class="border border-surface-variant bg-surface p-2 flex flex-col justify-between hover:border-outline-variant transition-colors cursor-crosshair col-span-1 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9IiMzMTM1M2MiLz48L3N2Zz4=')]">
+<span class="font-label-caps text-[9px] text-outline uppercase">Unclassified</span>
+<span class="font-display-mono text-[14px] text-outline">SCANNING...</span>
+</div>
+</div>
+</div>
+<!-- System Status Ledger -->
+<div class="bg-surface border border-outline-variant flex flex-col overflow-hidden">
+<div class="border-b border-surface-variant p-2 bg-surface-container-low">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">terminal</span>
+                            System Event Ledger
+                        </h2>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-highest border-b border-surface-variant font-label-caps text-[9px] text-on-surface-variant uppercase">
+<th class="p-2 font-normal">State</th>
+<th class="p-2 font-normal">Node/Service</th>
+<th class="p-2 font-normal">Message</th>
+</tr>
+</thead>
+<tbody class="font-data-table text-data-table text-on-surface divide-y divide-surface-variant/50">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-error animate-pulse shadow-[0_0_4px_#ffb4ab]"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-error">EU_WEST_API</td>
+<td class="p-2 text-[11px]">DDoS Mitigation Engaged (L7)</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-tertiary"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-tertiary">DB_CLUSTER_04</td>
+<td class="p-2 text-[11px]">Query Latency Spikes Detected</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-secondary"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-on-surface-variant">AUTH_SVC</td>
+<td class="p-2 text-[11px] text-on-surface-variant">Token Rotation Complete</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-secondary"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-on-surface-variant">EDGE_ROUTER_1</td>
+<td class="p-2 text-[11px] text-on-surface-variant">Nominal Operation</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-secondary"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-on-surface-variant">WAF_CORE</td>
+<td class="p-2 text-[11px] text-on-surface-variant">Ruleset 2.4.1 Deployed</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="p-2">
+<div class="w-2 h-2 bg-error animate-pulse shadow-[0_0_4px_#ffb4ab]"></div>
+</td>
+<td class="p-2 font-display-mono text-[11px] text-error">PAYMENT_GW</td>
+<td class="p-2 text-[11px]">Connection Timeout (upstream)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
