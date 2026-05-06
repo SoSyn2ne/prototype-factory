@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dispute-Safe Communication Drafter - Tamper Triage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03b5d3",
+                        "surface-container-highest": "#353436",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-variant": "#353436",
+                        "on-background": "#e4e2e4",
+                        "background": "#131315",
+                        "tertiary-container": "#06182b",
+                        "outline-variant": "#45464d",
+                        "secondary": "#4cd7f6",
+                        "outline": "#909097",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-tint": "#bec6e0",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error": "#690005",
+                        "surface-bright": "#39393b",
+                        "surface-container": "#1f1f21",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#728299",
+                        "on-secondary-container": "#00424e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#e4e2e4",
+                        "on-tertiary": "#213145",
+                        "on-primary-container": "#798098",
+                        "inverse-on-surface": "#303032",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "inverse-primary": "#565e74",
+                        "surface-container-high": "#2a2a2b",
+                        "primary": "#bec6e0",
+                        "on-secondary-fixed": "#001f26",
+                        "surface": "#131315",
+                        "on-surface": "#e4e2e4",
+                        "on-secondary": "#003640",
+                        "primary-container": "#0f172a",
+                        "on-primary": "#283044",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-dim": "#131315",
+                        "surface-container-lowest": "#0e0e10",
+                        "surface-container-low": "#1b1b1d",
+                        "secondary-fixed": "#acedff",
+                        "tertiary": "#b7c8e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "component-gap": "8px",
+                        "unit": "4px",
+                        "margin-page": "24px",
+                        "density-standard": "12px",
+                        "density-dense": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-section": ["Inter"],
+                        "body-dense": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-standard": ["Inter"],
+                        "display-table": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-section": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-dense": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "mono-data": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-standard": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-table": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-standard min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-secondary dark:text-secondary font-body-standard text-body-standard docked left-0 h-screen w-64 border-r border-outline-variant flat no shadows flex flex-col fixed left-0 top-0 h-full py-density-standard z-40 hidden md:flex">
+<div class="px-gutter mb-margin-page flex flex-col gap-component-gap">
+<div class="font-headline-section text-headline-section font-semibold text-on-surface">Forensic Operations</div>
+<div class="text-on-surface-variant font-body-dense text-body-dense">Deep-Dive Analysis</div>
+</div>
+<div class="px-gutter mb-margin-page">
+<button class="w-full bg-secondary text-on-secondary font-mono-data text-mono-data py-density-dense px-density-standard rounded-DEFAULT hover:bg-secondary-fixed transition-colors">New Claim</button>
+</div>
+<div class="flex-1 overflow-y-auto px-gutter flex flex-col gap-unit">
+<a class="flex items-center gap-component-gap py-density-dense px-density-standard rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">biotech</span>
+<span>Active Triage</span>
+</a>
+<a class="flex items-center gap-component-gap py-density-dense px-density-standard rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">view_list</span>
+<span>Queue</span>
+</a>
+<a class="flex items-center gap-component-gap py-density-dense px-density-standard rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span>Audit Logs</span>
+</a>
+</div>
+<div class="mt-auto px-gutter pt-margin-page flex flex-col gap-unit border-t border-outline-variant">
+<a class="flex items-center gap-component-gap py-density-dense px-density-standard rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-component-gap py-density-dense px-density-standard rounded-DEFAULT text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">archive</span>
+<span>Archive</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 w-full">
+<!-- TopAppBar -->
+<header class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary font-headline-section text-headline-section docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center h-16 px-gutter w-full sticky top-0 z-50">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-section text-headline-section font-bold text-secondary dark:text-secondary">Tamper Triage</span>
+<div class="hidden lg:flex items-center bg-surface-container-low border border-outline-variant rounded-DEFAULT px-density-standard py-density-dense focus-within:border-secondary focus-within:shadow-[0_0_0_1px_rgba(76,215,246,1)] transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-component-gap" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="bg-transparent border-none text-on-surface font-body-dense text-body-dense placeholder-on-surface-variant focus:ring-0 p-0 w-64" placeholder="Search claims, artifacts..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<button class="hidden lg:flex px-density-standard py-density-dense border border-outline-variant text-on-surface font-mono-data text-mono-data rounded-DEFAULT hover:bg-surface-variant transition-colors">Request More Info</button>
+<button class="hidden lg:flex px-density-standard py-density-dense bg-secondary text-on-secondary font-mono-data text-mono-data rounded-DEFAULT hover:bg-secondary-fixed transition-colors">Confirm Suspicion</button>
+<div class="flex items-center gap-component-gap ml-component-gap border-l border-outline-variant pl-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors rounded-full p-unit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors rounded-full p-unit">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+<div class="h-8 w-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden ml-unit">
+<img alt="Investigator Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate investigator with a serious, focused expression. The lighting is cool and clinical, evoking a high-stakes financial auditing environment. The background is a blurred modern office space with subtle hints of cyan and deep navy, matching a corporate modern forensic aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvc3Gxo6LgHnUZltErNevZWizMJQjMXBpIRp-Vos8CVmhCyHexmF4SPkmMz1oYHxbyS0K_9WrZVmpMwInadmhgT_6H5VLXHJN2JRQiCQEfEXa_0cFF-T-69UN2i87SsQuca8b2kk-kh-EUWOaDMleoNbyscLDjLRyNQTL0vVB234ugYBD0jBrIo1Tte9xbqPNm7lyWno90qBkeddmM4abgQndkrdMy0B8RY_MBL1qxi3wRCfVrCe9EvszBihU0wA_j7BqtOP0UAQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Workspace Canvas -->
+<main class="flex-1 p-margin-page overflow-y-auto bg-background">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-margin-page">
+<!-- Left Column: Forensic Context -->
+<div class="xl:col-span-4 flex flex-col gap-margin-page">
+<!-- Claim Summary Card -->
+<section class="bg-surface-container rounded-DEFAULT border border-outline-variant flex flex-col shadow-[0_4px_4px_0_rgba(2,6,23,0.5)]">
+<div class="p-density-standard border-b border-outline-variant bg-surface-container-low flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Forensic Summary</h2>
+<span class="font-mono-data text-mono-data text-secondary">ID: CL-8924-RX</span>
+</div>
+<div class="p-density-standard flex flex-col gap-density-standard">
+<div class="flex items-start gap-component-gap">
+<span class="material-symbols-outlined text-error mt-unit" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<h3 class="font-body-standard text-body-standard font-semibold text-on-surface">Metadata Inconsistency</h3>
+<p class="font-body-dense text-body-dense text-on-surface-variant mt-unit">EXIF date precedes reported incident by 47 hours. Software signature matches known editor.</p>
+</div>
+</div>
+<div class="h-px bg-outline-variant w-full my-unit"></div>
+<div class="flex flex-col gap-unit">
+<div class="flex items-center justify-between font-mono-data text-mono-data">
+<span class="text-on-surface-variant">Tamper Probability</span>
+<span class="text-error font-semibold">94.2%</span>
+</div>
+<div class="w-full bg-surface-variant h-unit rounded-full overflow-hidden">
+<div class="bg-error h-full rounded-full" style="width: 94.2%"></div>
+</div>
+</div>
+<!-- Audit Trail Chips -->
+<div class="flex flex-wrap gap-component-gap mt-unit">
+<div class="flex items-center gap-unit bg-surface-variant px-density-standard py-density-dense rounded-DEFAULT border border-outline-variant font-mono-data text-mono-data text-on-surface">
+<span class="text-secondary text-[10px]">●</span>
+<span>Geo-Match</span>
+</div>
+<div class="flex items-center gap-unit bg-surface-variant px-density-standard py-density-dense rounded-DEFAULT border border-[rgba(255,180,171,0.3)] font-mono-data text-mono-data text-error">
+<span class="text-error text-[10px]">●</span>
+<span>EXIF Edited</span>
+</div>
+<div class="flex items-center gap-unit bg-surface-variant px-density-standard py-density-dense rounded-DEFAULT border border-[rgba(255,180,171,0.3)] font-mono-data text-mono-data text-error">
+<span class="text-error text-[10px]">●</span>
+<span>Clone Tool</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Decision Waterfall mini -->
+<section class="bg-surface-container rounded-DEFAULT border border-outline-variant flex flex-col flex-1 shadow-[0_4px_4px_0_rgba(2,6,23,0.5)]">
+<div class="p-density-standard border-b border-outline-variant bg-surface-container-low flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Logic Path</h2>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+</div>
+<div class="p-density-standard flex flex-col flex-1 relative">
+<!-- Vertical line -->
+<div class="absolute left-[27px] top-density-standard bottom-density-standard w-px bg-outline-variant"></div>
+<div class="flex items-start gap-density-standard mb-density-standard relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border border-outline-variant flex items-center justify-center shrink-0 mt-unit">
+<span class="text-secondary text-[10px]">●</span>
+</div>
+<div class="flex-1 bg-surface-variant rounded-DEFAULT p-density-standard border border-outline-variant">
+<div class="flex justify-between items-center mb-unit">
+<span class="font-mono-data text-mono-data text-on-surface">Ingest Check</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Pass</span>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-density-standard mb-density-standard relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border border-error flex items-center justify-center shrink-0 mt-unit shadow-[0_0_8px_rgba(255,180,171,0.2)]">
+<span class="text-error text-[10px]">●</span>
+</div>
+<div class="flex-1 bg-error-container/10 rounded-DEFAULT p-density-standard border border-error/30">
+<div class="flex justify-between items-center mb-unit">
+<span class="font-mono-data text-mono-data text-error">Pixel Variance</span>
+<span class="font-mono-data text-mono-data text-error">Fail</span>
+</div>
+<p class="font-body-dense text-body-dense text-on-surface-variant">Anomalous noise patterns detected in damage area.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Drafter Workspace -->
+<div class="xl:col-span-8 flex flex-col gap-margin-page">
+<div class="bg-surface-container rounded-DEFAULT border border-outline-variant flex flex-col flex-1 shadow-[0_4px_4px_0_rgba(2,6,23,0.5)]">
+<div class="p-density-standard border-b border-outline-variant bg-surface-container-low flex justify-between items-center rounded-t-DEFAULT">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dispute-Safe Drafter</h2>
+<div class="flex items-center gap-component-gap">
+<span class="flex h-2 w-2 relative">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-secondary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-secondary"></span>
+</span>
+<span class="font-mono-data text-mono-data text-secondary">AI Assistant Active</span>
+</div>
+</div>
+<div class="p-margin-page flex flex-col flex-1 gap-margin-page">
+<!-- AI Suggestions Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-component-gap">
+<button class="text-left bg-surface-variant border border-outline-variant hover:border-secondary p-density-standard rounded-DEFAULT transition-all group">
+<div class="flex items-center gap-unit mb-unit">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 0;">psychology</span>
+<span class="font-mono-data text-mono-data text-on-surface group-hover:text-secondary transition-colors">Request Clarification (Mild)</span>
+</div>
+<p class="font-body-dense text-body-dense text-on-surface-variant">Focuses on timeline discrepancies without accusing.</p>
+</button>
+<button class="text-left bg-surface-variant border border-outline-variant hover:border-secondary p-density-standard rounded-DEFAULT transition-all group">
+<div class="flex items-center gap-unit mb-unit">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 0;">gavel</span>
+<span class="font-mono-data text-mono-data text-on-surface group-hover:text-secondary transition-colors">Require Original File (Strict)</span>
+</div>
+<p class="font-body-dense text-body-dense text-on-surface-variant">Mandates unmodified submission due to technical errors.</p>
+</button>
+</div>
+<!-- Draft Window -->
+<div class="flex flex-col flex-1 border border-outline-variant rounded-DEFAULT overflow-hidden focus-within:border-secondary focus-within:shadow-[0_0_0_1px_rgba(76,215,246,0.3)] transition-all">
+<div class="bg-surface-container-low border-b border-outline-variant px-density-standard py-density-dense flex justify-between items-center">
+<div class="flex gap-component-gap">
+<span class="font-mono-data text-mono-data text-on-surface-variant">To: j.doe@example.com</span>
+<span class="text-outline-variant">|</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Subject: Regarding Claim CL-8924-RX</span>
+</div>
+<button class="text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">content_copy</span>
+</button>
+</div>
+<textarea class="flex-1 bg-surface-dim border-none text-on-surface font-body-standard text-body-standard p-density-standard resize-none focus:ring-0 min-h-[200px]" placeholder="Reviewing draft...">Dear John Doe,
+
+We are currently processing your claim (CL-8924-RX). To ensure accurate evaluation, we require additional information regarding the submitted documentation.
+
+Our automated review system has noted a technical inconsistency regarding the file metadata of the submitted images, specifically related to the creation timestamps. 
+
+Could you please provide the original, unedited image files directly from the capturing device? This will help us proceed with your claim without further delay.
+
+Thank you for your cooperation.
+
+Regards,
+Tamper Triage Team</textarea>
+<!-- Empathy/Risk Footer -->
+<div class="bg-surface-container-low border-t border-outline-variant p-density-standard flex items-center justify-between">
+<div class="flex items-center gap-density-standard">
+<div class="flex items-center gap-unit">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Tone: Neutral/Objective</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-unit">
+<span class="material-symbols-outlined text-secondary text-[16px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Dispute Risk: Low</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex justify-end gap-component-gap mt-auto">
+<button class="px-gutter py-density-standard border border-outline-variant text-on-surface font-mono-data text-mono-data rounded-DEFAULT hover:bg-surface-variant transition-colors">Discard Draft</button>
+<button class="px-gutter py-density-standard bg-primary-container text-on-primary-container border border-primary/20 font-mono-data text-mono-data rounded-DEFAULT hover:bg-primary-container/80 transition-colors flex items-center gap-unit">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">save</span>
+                                    Save to Case
+                                </button>
+<button class="px-gutter py-density-standard bg-secondary text-on-secondary font-mono-data text-mono-data rounded-DEFAULT hover:bg-secondary-fixed transition-colors flex items-center gap-unit shadow-[0_2px_8px_rgba(76,215,246,0.2)]">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">send</span>
+                                    Send Communication
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

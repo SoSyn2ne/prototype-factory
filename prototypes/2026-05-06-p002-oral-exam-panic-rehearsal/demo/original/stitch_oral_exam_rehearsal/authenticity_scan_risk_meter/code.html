@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Authenticity Scan &amp; Risk Meter - Aegis Defense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-primary": "#bccca5",
+                      "tertiary": "#685a48",
+                      "on-secondary-fixed": "#351000",
+                      "surface-dim": "#ded9d1",
+                      "on-tertiary-container": "#fffbff",
+                      "on-secondary-container": "#794227",
+                      "surface": "#fef9f0",
+                      "on-primary-container": "#f9ffea",
+                      "surface-container-highest": "#e7e2d9",
+                      "tertiary-fixed-dim": "#d7c3ae",
+                      "tertiary-fixed": "#f4dfc9",
+                      "on-tertiary-fixed-variant": "#524534",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#fef9f0",
+                      "on-primary-fixed": "#131f06",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#1d1c16",
+                      "tertiary-container": "#82725f",
+                      "background": "#fef9f0",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f8f3ea",
+                      "secondary-container": "#feb290",
+                      "surface-container-high": "#ece8df",
+                      "primary": "#526141",
+                      "on-primary-fixed-variant": "#3e4b2d",
+                      "surface-tint": "#556343",
+                      "on-surface-variant": "#45483f",
+                      "outline": "#75786e",
+                      "secondary-fixed": "#ffdbcc",
+                      "on-background": "#1d1c16",
+                      "outline-variant": "#c5c8bc",
+                      "primary-fixed-dim": "#bccca5",
+                      "primary-container": "#6b7958",
+                      "surface-container": "#f2ede4",
+                      "on-secondary-fixed-variant": "#6d391f",
+                      "inverse-surface": "#32302b",
+                      "secondary": "#8a4f34",
+                      "error": "#ba1a1a",
+                      "on-error": "#ffffff",
+                      "secondary-fixed-dim": "#ffb695",
+                      "inverse-on-surface": "#f5f0e7",
+                      "on-primary": "#ffffff",
+                      "surface-variant": "#e7e2d9",
+                      "on-tertiary-fixed": "#241a0c",
+                      "primary-fixed": "#d8e8c0",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-max": "1120px",
+                      "stack-gap": "16px",
+                      "margin-page": "40px",
+                      "gutter": "24px",
+                      "unit": "8px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Newsreader"
+                      ],
+                      "label-caps": [
+                              "Lexend"
+                      ],
+                      "body-base": [
+                              "Lexend"
+                      ],
+                      "body-sm": [
+                              "Lexend"
+                      ],
+                      "headline-md": [
+                              "Newsreader"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .ambient-shadow-card {
+            box-shadow: 0 8px 32px -8px rgba(104, 90, 72, 0.12);
+        }
+        .ambient-shadow-bubble {
+            box-shadow: 0 4px 16px -4px rgba(104, 90, 72, 0.1);
+        }
+        .bubble-curve-student {
+            border-radius: 24px 24px 4px 24px;
+        }
+        .bubble-curve-examiner {
+            border-radius: 24px 24px 24px 4px;
+        }
+        .meter-gradient {
+            background: linear-gradient(90deg, theme('colors.primary-container') 0%, theme('colors.secondary-container') 100%);
+        }
+        .pulse-caution {
+            animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% {
+                border-color: rgba(254, 178, 144, 0.3); /* secondary-container with opacity */
+            }
+            50% {
+                border-color: theme('colors.secondary-container');
+            }
+        }
+        .button-stamp {
+            box-shadow: 0 4px 0 0 rgba(104, 90, 72, 0.2);
+            transition: all 0.15s ease-in-out;
+        }
+        .button-stamp:active {
+            transform: translateY(4px);
+            box-shadow: 0 0 0 0 rgba(104, 90, 72, 0.2);
+        }
+      </style>
+</head>
+<body class="bg-background text-on-surface font-body-base min-h-screen antialiased flex">
+<!-- SideNavBar (Web Only) -->
+<nav class="hidden md:flex flex-col h-screen w-64 left-0 top-0 fixed bg-surface-container-low shadow-[4px_0_24px_-4px_rgba(104,90,72,0.12)] p-unit gap-stack-gap z-40">
+<div class="px-4 py-6">
+<h1 class="text-primary font-display-lg text-headline-md tracking-tight">Defense Prep</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Stay Grounded</p>
+</div>
+<div class="flex-1 overflow-y-auto space-y-2 px-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-body-base text-body-base">Home</span>
+</a>
+<!-- Active State: Analysis fits "Authenticity Scan & Risk Meter" intent best -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container rounded-xl font-bold transition-all active:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-body-base text-body-base">Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="record_voice_over">record_voice_over</span>
+<span class="font-body-base text-body-base">Flashcards</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-body-base text-body-base">Evidence</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="font-body-base text-body-base">Reports</span>
+</a>
+</div>
+<div class="p-4 mt-auto">
+<div class="flex items-center gap-3 px-4 py-3 bg-surface-container rounded-xl border border-outline-variant/30">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold font-body-sm text-body-sm">
+                    SP
+                </div>
+<div class="flex-col">
+<span class="font-body-sm text-body-sm block truncate">Student Profile</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pb-24 md:pb-0 relative min-h-screen">
+<!-- TopAppBar (Web Only) -->
+<header class="hidden md:flex justify-between items-center px-margin-page py-4 w-full max-w-container-max mx-auto bg-surface shadow-[0_4px_20px_-2px_rgba(104,90,72,0.08)] sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<h2 class="font-display-lg text-headline-md font-bold text-primary tracking-tight">Authenticity Scan</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-low transition-colors duration-300 active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Mobile Header (Visible only on md:hidden, representing intent of TopAppBar but styled for mobile) -->
+<header class="md:hidden flex justify-between items-center px-4 py-4 bg-surface sticky top-0 z-30 shadow-[0_4px_20px_-2px_rgba(104,90,72,0.08)]">
+<h2 class="font-display-lg text-headline-md font-bold text-primary tracking-tight truncate">Analysis</h2>
+<button class="p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</header>
+<!-- Content Area -->
+<div class="max-w-container-max mx-auto px-4 md:px-margin-page py-8 md:py-12 space-y-12">
+<!-- Page Header / Intent Statement -->
+<div class="max-w-3xl">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Submission Analysis Complete</h1>
+<p class="font-body-base text-body-base text-on-surface-variant leading-relaxed">
+                    We've reviewed your draft regarding "Impacts of Algorithmic Bias in Healthcare." The foundation is solid, but there are sections that read more like an academic paper than a personal defense. Let's focus on grounding these points in your own voice to ensure you're prepared for the oral examination.
+                </p>
+</div>
+<!-- Bento Grid Layout for Analysis -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Risk Meter Card (Spans 8 columns on large) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-[32px] p-8 md:p-12 ambient-shadow-card border border-outline-variant/20 flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle background texture indication -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'20\' height=\'20\' viewBox=\'0 0 20 20\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23685a48\' fill-opacity=\'1\' fill-rule=\'evenodd\'%3E%3Ccircle cx=\'3\' cy=\'3\' r=\'1\'/%3E%3C/g%3E%3C/svg%3E');"></div>
+<div class="relative z-10 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-display-lg text-headline-md text-on-surface">Blank-Stare Risk Meter</h3>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-xl">
+                            This gauge indicates the likelihood of receiving a "blank stare" or follow-up probe from an examiner. Sections flagged often rely on overly complex terminology without sufficient, grounding examples.
+                        </p>
+</div>
+<div class="relative z-10 w-full mt-auto">
+<!-- Custom Gentle Gauge Visual -->
+<div class="relative pt-8 pb-4">
+<!-- Gauge Arc Base -->
+<div class="h-3 w-full bg-surface-container-high rounded-full overflow-hidden flex">
+<!-- Colored sections -->
+<div class="h-full bg-primary-container w-[40%] rounded-l-full"></div>
+<div class="h-full bg-tertiary-fixed w-[40%]"></div>
+<div class="h-full bg-secondary-container w-[20%] rounded-r-full"></div>
+</div>
+<!-- Indicator Point (Currently sitting in the middle 'Amber/Tertiary' zone) -->
+<div class="absolute top-[26px] left-[65%] -translate-x-1/2 flex flex-col items-center">
+<div class="w-4 h-4 rounded-full border-4 border-surface-container-lowest bg-secondary shadow-md"></div>
+<div class="mt-2 bg-surface-container p-2 rounded-lg ambient-shadow-bubble border border-outline-variant/30 text-center min-w-[120px]">
+<span class="font-label-caps text-label-caps text-secondary block">Moderate Risk</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Focus needed</span>
+</div>
+</div>
+<!-- Labels -->
+<div class="flex justify-between mt-4 font-label-caps text-label-caps text-outline">
+<span>Grounded &amp; Conversational</span>
+<span>Academic &amp; Dense</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stats/Action Card (Spans 4 columns on large) -->
+<div class="lg:col-span-4 bg-surface-container-low rounded-[32px] p-8 ambient-shadow-card flex flex-col border border-outline-variant/10">
+<h3 class="font-display-lg text-headline-md text-on-surface mb-6">Scan Summary</h3>
+<ul class="space-y-4 mb-8 flex-1">
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-primary-container text-sm">check_circle</span>
+</div>
+<div>
+<span class="block font-body-base text-body-base text-on-surface font-semibold">Core Thesis</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Clear and well-defined.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center shrink-0 pulse-caution border-2 border-transparent">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant text-sm">edit_note</span>
+</div>
+<div>
+<span class="block font-body-base text-body-base text-on-surface font-semibold">Vocabulary Density</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">3 sections feel artificially complex.</span>
+</div>
+</li>
+<li class="flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-fixed text-sm">psychology</span>
+</div>
+<div>
+<span class="block font-body-base text-body-base text-on-surface font-semibold">Example Usage</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Needs more real-world grounding.</span>
+</div>
+</li>
+</ul>
+<button class="w-full bg-primary text-on-primary font-body-base text-body-base py-4 px-6 rounded-xl button-stamp flex justify-center items-center gap-2 group">
+<span class="font-semibold">Begin Oral Defense Rehearsal</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Deep Dive: Highlighted Text & Feedback -->
+<div class="mt-12 space-y-8">
+<div class="flex items-center gap-3 px-2 border-b border-outline-variant/30 pb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">find_in_page</span>
+<h3 class="font-display-lg text-headline-md text-on-surface">Text Analysis &amp; Feedback</h3>
+</div>
+<!-- Example Section 1 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+<!-- The User's Text -->
+<div class="md:col-span-7 bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-tertiary-fixed ambient-shadow-bubble">
+<h4 class="font-label-caps text-label-caps text-tertiary mb-3">Draft Extract: Methodology</h4>
+<p class="font-body-base text-body-base text-on-surface leading-loose">
+                            "The utilization of heterogeneous data repositories precipitates a statistically significant obfuscation of intrinsic biases, thereby complicating the deductive mitigation strategies employed by the algorithmic governance framework."
+                        </p>
+</div>
+<!-- The Feedback Bubble -->
+<div class="md:col-span-5 relative">
+<!-- Connecting line hidden on mobile -->
+<div class="hidden md:block absolute top-8 -left-8 w-8 h-px bg-tertiary-fixed"></div>
+<div class="bg-surface-container-low border border-outline-variant/30 p-6 ambient-shadow-bubble bubble-curve-examiner">
+<div class="flex items-center gap-2 mb-3 text-secondary">
+<span class="material-symbols-outlined text-sm">record_voice_over</span>
+<span class="font-label-caps text-label-caps">Examiner Persona Insight</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+                                This sentence is a prime candidate for a "blank stare." It sounds like it was written by a thesaurus. If an examiner asks you to explain this, you might stumble.
+                            </p>
+<div class="bg-primary-container/30 p-4 rounded-xl">
+<span class="font-label-caps text-label-caps text-primary block mb-1">Try grounding it:</span>
+<p class="font-body-sm text-body-sm text-on-surface italic">
+                                    "When we mix different types of data sources together, it actually hides the underlying biases, making it much harder for our system to find and fix them."
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Example Section 2 -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start mt-8">
+<!-- The User's Text -->
+<div class="md:col-span-7 bg-surface-container-lowest p-6 rounded-2xl border-l-4 border-secondary-container ambient-shadow-bubble">
+<h4 class="font-label-caps text-label-caps text-secondary mb-3">Draft Extract: Conclusion</h4>
+<p class="font-body-base text-body-base text-on-surface leading-loose">
+                            "Therefore, the synergistic paradigm shift necessitated by these findings mandates a holistic reevaluation of epistemic foundational models in clinical diagnostics."
+                        </p>
+</div>
+<!-- The Feedback Bubble -->
+<div class="md:col-span-5 relative">
+<!-- Connecting line hidden on mobile -->
+<div class="hidden md:block absolute top-8 -left-8 w-8 h-px bg-secondary-container"></div>
+<div class="bg-surface p-6 ambient-shadow-bubble bubble-curve-examiner border border-tertiary/20">
+<div class="flex items-center gap-2 mb-3 text-secondary">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+<span class="font-label-caps text-label-caps">Potential Probe Question</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+                                "Synergistic paradigm shift" is a major red flag for examiners looking for genuine understanding. Be prepared for them to stop you here.
+                            </p>
+<div class="bg-surface-container-high p-4 rounded-xl border border-outline-variant/20">
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">
+                                    "Can you explain what you mean by 'epistemic foundational models' in plain language, perhaps using a concrete example from a real hospital setting?"
+                                </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-low shadow-[0_-4px_24px_rgba(104,90,72,0.12)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="upload_file">upload_file</span>
+<span class="font-label-caps text-label-caps">Intake</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="psychology">psychology</span>
+<span class="font-label-caps text-label-caps">Rehearse</span>
+</a>
+<!-- Using 'Evidence' as the active tab proxy for Analysis intent on mobile if Rehearse isn't a perfect fit, though Analysis isn't in bottom nav. 
+             Based on JSON, let's keep them all inactive except Rehearse which might be closest to 'Analysis/Rehearsal', 
+             but JSON says Intent Fallback. Let's make Rehearse active as it's the next step from Analysis. -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-6 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-caps text-label-caps">Analysis</span> <!-- Note: The JSON provided labels for bottom nav were: ["Intake", "Rehearse", "Evidence", "Report"]. I must strictly use JSON labels. Correcting. -->
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="family_restroom">family_restroom</span>
+<span class="font-label-caps text-label-caps">Report</span>
+</a>
+</nav>
+<!-- Corrected Mobile Bottom Nav matching strict JSON labels -->
+<!-- The previous block was an error in thought process, rewriting strict BottomNav below and hiding the broken one -->
+<style> nav.md\:hidden:not(.strict-nav) { display: none !important; } </style>
+<nav class="md:hidden strict-nav fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface-container-low shadow-[0_-4px_24px_rgba(104,90,72,0.12)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="upload_file">upload_file</span>
+<span class="font-label-caps text-label-caps">Intake</span>
+</a>
+<!-- Rehearse is closest intent to 'Authenticity Scan / Prep' -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-6 py-1 active:scale-90 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-caps text-label-caps">Rehearse</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="history_edu">history_edu</span>
+<span class="font-label-caps text-label-caps">Evidence</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="family_restroom">family_restroom</span>
+<span class="font-label-caps text-label-caps">Report</span>
+</a>
+</nav>
+</body></html>

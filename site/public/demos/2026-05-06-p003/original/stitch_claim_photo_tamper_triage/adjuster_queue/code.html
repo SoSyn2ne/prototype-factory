@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Adjuster Next-Action Queue - Tamper Triage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03b5d3",
+                        "surface-container-highest": "#353436",
+                        "on-surface-variant": "#c6c6cd",
+                        "surface-variant": "#353436",
+                        "on-background": "#e4e2e4",
+                        "background": "#131315",
+                        "tertiary-container": "#06182b",
+                        "outline-variant": "#45464d",
+                        "secondary": "#4cd7f6",
+                        "outline": "#909097",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-tint": "#bec6e0",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "on-error": "#690005",
+                        "surface-bright": "#39393b",
+                        "surface-container": "#1f1f21",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#728299",
+                        "on-secondary-container": "#00424e",
+                        "primary-fixed": "#dae2fd",
+                        "inverse-surface": "#e4e2e4",
+                        "on-tertiary": "#213145",
+                        "on-primary-container": "#798098",
+                        "inverse-on-surface": "#303032",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "inverse-primary": "#565e74",
+                        "surface-container-high": "#2a2a2b",
+                        "primary": "#bec6e0",
+                        "on-secondary-fixed": "#001f26",
+                        "surface": "#131315",
+                        "on-surface": "#e4e2e4",
+                        "on-secondary": "#003640",
+                        "primary-container": "#0f172a",
+                        "on-primary": "#283044",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-dim": "#131315",
+                        "surface-container-lowest": "#0e0e10",
+                        "surface-container-low": "#1b1b1d",
+                        "secondary-fixed": "#acedff",
+                        "tertiary": "#b7c8e1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "component-gap": "8px",
+                        "unit": "4px",
+                        "margin-page": "24px",
+                        "density-standard": "12px",
+                        "density-dense": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-section": ["Inter"],
+                        "body-dense": ["Inter"],
+                        "mono-data": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-standard": ["Inter"],
+                        "display-table": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-section": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-dense": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "mono-data": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-standard": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-table": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex antialiased">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low docked left-0 h-screen w-64 bg-surface-container-low border-r border-outline-variant flat no shadows flex flex-col fixed left-0 top-0 h-full py-density-standard z-40 hidden md:flex">
+<div class="px-gutter mb-margin-page flex items-center gap-density-standard">
+<div class="h-10 w-10 rounded-DEFAULT bg-primary-container flex items-center justify-center overflow-hidden">
+<img alt="Forensic Suite Logo" class="h-full w-full object-cover" data-alt="A stylized, highly technical forensic security logo featuring an abstract eye or geometric shield in glowing cyan against a dark midnight navy background. The visual style is crisp, vector-like, and evokes digital intelligence and objective analysis within a dark mode UI context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlsR3_BnT7IcYfKrITIYk83HOpacwLBYk4O7KOAN4DJDbRkRksYGPQbnU9XCMNFDTU6IVAD7bZTA7DsLulLpTEAjVFQlw8u-tSR-h7MrG8GKoGsDTPJpf-tPYw-k6bjDRifBuPqjIwY8-whO1G-I4Z2Qg-DRvI2RuFSLIVAM1T6V5XJ44NrmO2s0ZLtdEUzupcauXGbdKdX4epuCS7P7tUrwBvpagzemW_eQhbUp5c9AIPQ7oM0I2bK7kKLZcYFmqFIrOVjCbkwA"/>
+</div>
+<div>
+<h1 class="font-headline-section text-headline-section font-semibold text-on-surface">Forensic Operations</h1>
+<p class="font-body-dense text-body-dense text-on-surface-variant">Deep-Dive Analysis</p>
+</div>
+</div>
+<div class="px-gutter mb-margin-page">
+<button class="w-full bg-secondary text-on-secondary font-body-standard text-body-standard py-density-standard px-gutter rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center justify-center gap-component-gap font-medium">
+<span class="material-symbols-outlined text-xl">add</span>
+                New Claim
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-unit px-unit">
+<li>
+<a class="flex items-center gap-density-standard px-density-standard py-density-standard rounded-DEFAULT hover:text-on-surface hover:bg-surface-variant text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">biotech</span>
+<span class="font-body-standard text-body-standard">Active Triage</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-density-standard px-density-standard py-density-standard rounded-DEFAULT text-secondary font-bold bg-secondary-container/20 border-r-2 border-secondary group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">view_list</span>
+<span class="font-body-standard text-body-standard">Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-density-standard px-density-standard py-density-standard rounded-DEFAULT hover:text-on-surface hover:bg-surface-variant text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-standard text-body-standard">Audit Logs</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-unit">
+<ul class="space-y-unit">
+<li>
+<a class="flex items-center gap-density-standard px-density-standard py-density-standard rounded-DEFAULT hover:text-on-surface hover:bg-surface-variant text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-standard text-body-standard">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-density-standard px-density-standard py-density-standard rounded-DEFAULT hover:text-on-surface hover:bg-surface-variant text-on-surface-variant group" href="#">
+<span class="material-symbols-outlined">archive</span>
+<span class="font-body-standard text-body-standard">Archive</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 w-full bg-background min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface-container dark:bg-surface-container docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center h-16 px-gutter w-full sticky top-0 z-50">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-section text-headline-section font-bold text-secondary dark:text-secondary md:hidden">Tamper Triage</span>
+<div class="hidden md:flex relative items-center">
+<span class="material-symbols-outlined absolute left-density-standard text-on-surface-variant">search</span>
+<input class="bg-surface-container-highest border border-outline-variant rounded-DEFAULT pl-10 pr-4 py-component-gap font-body-standard text-body-standard text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all w-64 lg:w-96" placeholder="Search claims, IDs, or entities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-density-standard">
+<div class="hidden sm:flex items-center gap-component-gap border-r border-outline-variant pr-density-standard mr-density-standard">
+<button class="text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors p-component-gap rounded-DEFAULT">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors p-component-gap rounded-DEFAULT">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-component-gap">
+<button class="hidden lg:block bg-transparent border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors font-body-dense text-body-dense py-component-gap px-density-standard rounded-DEFAULT">
+                        Request More Info
+                    </button>
+<button class="bg-primary text-on-primary font-body-dense text-body-dense py-component-gap px-density-standard rounded-DEFAULT hover:opacity-90 transition-opacity font-medium">
+                        Confirm Suspicion
+                    </button>
+<div class="h-8 w-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant ml-component-gap">
+<img alt="Investigator Profile" class="h-full w-full object-cover" data-alt="A professional headshot of a corporate investigator with a serious, focused expression. The lighting is cool and studio-quality, emphasizing objective professionalism against a neutral dark grey background, fitting a high-end dark mode UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9bS1nODx5NBQm_SQrQ7Z22PpG_fLIYAI2SABbwPe9FmPAGRlA2_fAKnMkJtVe6d-4CX3tKQq_mc66BP1953LBEtMuTTBc_EndbqDQsHZIupiXsLXqRpCmJig5Npafoo-rb9V3SRFJdJZqTMd9XYHKcmIZonMYhbCPSAJ_9J_tUOOiGTjaYjagLUBDVoSJi1nYCIBDnBiS8gywzHpq-R1hMgdPDiZJKRjxkn_aE9bhQ41qEbJJSMFi6qEg7yvx5PSWBbcyHOLl3Q"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Workspace Canvas -->
+<div class="p-margin-page flex-1 overflow-y-auto">
+<!-- Page Header & Filters -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-margin-page mb-margin-page">
+<div>
+<h2 class="font-display-table text-display-table text-on-surface mb-unit">Adjuster Next-Action Queue</h2>
+<p class="font-body-standard text-body-standard text-on-surface-variant max-w-2xl">Prioritized list of claims requiring deep-dive review based on automated risk scoring and anomaly detection.</p>
+</div>
+<div class="flex flex-wrap items-center gap-component-gap">
+<button class="bg-surface-container border border-outline-variant px-density-standard py-component-gap rounded-DEFAULT font-body-dense text-body-dense text-on-surface hover:border-secondary flex items-center gap-unit transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Risk Level
+                    </button>
+<button class="bg-surface-container border border-outline-variant px-density-standard py-component-gap rounded-DEFAULT font-body-dense text-body-dense text-on-surface hover:border-secondary flex items-center gap-unit transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Claim Age
+                    </button>
+<button class="bg-surface-container border border-outline-variant px-density-standard py-component-gap rounded-DEFAULT font-body-dense text-body-dense text-on-surface hover:border-secondary flex items-center gap-unit transition-colors">
+<span class="material-symbols-outlined text-[18px]">policy</span>
+                        Policy Context
+                    </button>
+</div>
+</div>
+<!-- Data Table Container (Glassmorphism card style) -->
+<div class="bg-[#0F172A] border border-outline-variant rounded-xl overflow-hidden shadow-[0_4px_4px_rgba(2,6,23,0.5)]">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-high/50">
+<th class="py-density-standard px-gutter font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Claim / Entity</th>
+<th class="py-density-standard px-gutter font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Risk Score</th>
+<th class="py-density-standard px-gutter font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Empathy Guardrail</th>
+<th class="py-density-standard px-gutter font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Decision Waterfall</th>
+<th class="py-density-standard px-gutter font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/50">
+<!-- Row 1: High Risk -->
+<tr class="hover:bg-surface-variant/30 transition-colors bg-[rgba(239,68,68,0.02)] relative group">
+<td class="py-density-standard px-gutter">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-error opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center gap-density-standard">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest border border-outline-variant overflow-hidden shrink-0">
+<img alt="Forensic Evidence Image" class="w-full h-full object-cover" data-alt="A close-up of a damaged vehicle bumper, taken in harsh daylight. The image has a slightly clinical, documentary feel, typical of an insurance claim photo uploaded by a user. The context is a dark mode UI dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaz93SfaftQNCXV52_B7eC7gLjSAsdfDg7KNe3ujqa_uAhkmRF0qUaVcETf3O5SwH70kF70RlId3G4HeyhKGZYYm3xBqHtJ2BC9_iYm7dsQEvNA5h6-GyjMfvnghEHkde73V753wom1kf0lcFh6ibaHwVnHg92ZZf4SsP2RXd369b0NCe1PM3Uhs2NL7KXlQi9FYCjajMNWqZfvsvvJjLit2Akzh1SMn4OC9tafyUc9WYA3ZM3Y0W8ZBJoYU7-z4JkjCH7Q_yMzA"/>
+</div>
+<div>
+<div class="font-body-standard text-body-standard font-medium text-on-surface">CLM-2023-9942</div>
+<div class="font-body-dense text-body-dense text-on-surface-variant">Auto Collision • 2 days old</div>
+</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="inline-flex items-center gap-unit bg-error-container/20 border border-error/30 px-2 py-1 rounded-DEFAULT">
+<span class="material-symbols-outlined text-error text-[16px]">warning</span>
+<span class="font-mono-data text-mono-data text-error font-bold">94%</span>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-unit text-on-surface-variant font-body-dense text-body-dense">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            First-time claimant
+                                        </div>
+<div class="flex items-center gap-unit text-on-surface-variant font-body-dense text-body-dense">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            High-stress incident
+                                        </div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex items-center text-on-surface-variant">
+<div class="flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="h-4 w-px bg-outline-variant"></span>
+</div>
+<div class="ml-2 font-mono-data text-mono-data">EXIF Altered</div>
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<div class="flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="h-4 w-px bg-outline-variant opacity-0"></span>
+</div>
+<div class="ml-2 font-mono-data text-mono-data">Lighting Anomaly</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter text-right">
+<button class="bg-surface-container border border-outline-variant hover:border-secondary text-on-surface font-body-dense text-body-dense py-component-gap px-density-standard rounded-DEFAULT transition-colors">
+                                        Review
+                                    </button>
+</td>
+</tr>
+<!-- Row 2: Medium Risk -->
+<tr class="hover:bg-surface-variant/30 transition-colors relative group">
+<td class="py-density-standard px-gutter">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center gap-density-standard">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest border border-outline-variant overflow-hidden shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">description</span>
+</div>
+<div>
+<div class="font-body-standard text-body-standard font-medium text-on-surface">CLM-2023-9811</div>
+<div class="font-body-dense text-body-dense text-on-surface-variant">Property Damage • 4 days old</div>
+</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="inline-flex items-center gap-unit bg-[#F59E0B]/10 border border-[#F59E0B]/30 px-2 py-1 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[#FBCFE8] text-[16px]">info</span>
+<span class="font-mono-data text-mono-data text-[#FCD34D] font-bold">62%</span>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-unit text-on-surface-variant font-body-dense text-body-dense">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                                            Standard profile
+                                        </div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex items-center text-on-surface-variant opacity-70">
+<div class="flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+<span class="h-4 w-px bg-outline-variant"></span>
+</div>
+<div class="ml-2 font-mono-data text-mono-data">EXIF Intact</div>
+<span class="material-symbols-outlined text-[16px] mx-1">chevron_right</span>
+<div class="flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-[#F59E0B]"></span>
+<span class="h-4 w-px bg-outline-variant opacity-0"></span>
+</div>
+<div class="ml-2 font-mono-data text-mono-data">Date Mismatch</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter text-right">
+<button class="bg-surface-container border border-outline-variant hover:border-secondary text-on-surface font-body-dense text-body-dense py-component-gap px-density-standard rounded-DEFAULT transition-colors">
+                                        Review
+                                    </button>
+</td>
+</tr>
+<!-- Row 3: Low Risk -->
+<tr class="hover:bg-surface-variant/30 transition-colors bg-surface-container-high/20 relative group">
+<td class="py-density-standard px-gutter">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center gap-density-standard">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest border border-outline-variant overflow-hidden shrink-0">
+<img alt="Device Evidence" class="w-full h-full object-cover" data-alt="A close up shot of a cracked smartphone screen resting on a dark wooden table. The lighting is soft and natural. The image serves as documentary evidence within a highly structured dark mode forensic dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdXpgh41M6S8TKLeYUwYHTFuIPNROfto4gCKG3Kl71r-ezppWRFPa8Cm7qaHKIi5vIZxHPfdt69Hs5xf7EUley60bXqoZd1xAEjhLs1VVoz1FmD8vqwFV0YdiBxs2CgTsN0T60eXM2OOvdfpvUHo1ZK9LvSah-Jeg4TFveSdjbS6_dyHnE25MFLr3ow9vQO1wGQstDEtzgoRMpDA5-qspoj5RRGRAAbqwwOi-y09E4uCOunXucDUoYN0qdgGRRQMgS1dg8-QzbMA"/>
+</div>
+<div>
+<div class="font-body-standard text-body-standard font-medium text-on-surface">CLM-2023-9705</div>
+<div class="font-body-dense text-body-dense text-on-surface-variant">Device Theft • 1 day old</div>
+</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="inline-flex items-center gap-unit bg-[#10B981]/10 border border-[#10B981]/30 px-2 py-1 rounded-DEFAULT">
+<span class="material-symbols-outlined text-[#6EE7B7] text-[16px]">check_circle</span>
+<span class="font-mono-data text-mono-data text-[#6EE7B7] font-bold">12%</span>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-unit text-on-surface-variant font-body-dense text-body-dense">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Elderly claimant
+                                        </div>
+</div>
+</td>
+<td class="py-density-standard px-gutter">
+<div class="flex items-center text-on-surface-variant opacity-50">
+<div class="flex flex-col items-center">
+<span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
+<span class="h-4 w-px bg-outline-variant opacity-0"></span>
+</div>
+<div class="ml-2 font-mono-data text-mono-data">All Checks Passed</div>
+</div>
+</td>
+<td class="py-density-standard px-gutter text-right">
+<button class="bg-surface-container border border-outline-variant hover:border-secondary text-on-surface font-body-dense text-body-dense py-component-gap px-density-standard rounded-DEFAULT transition-colors">
+                                        Review
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="border-t border-outline-variant bg-surface-container px-gutter py-density-standard flex items-center justify-between">
+<span class="font-body-dense text-body-dense text-on-surface-variant">Showing 1-3 of 124 claims</span>
+<div class="flex gap-unit">
+<button class="p-unit border border-outline-variant rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant disabled:opacity-50">
+<span class="material-symbols-outlined text-[20px]">chevron_left</span>
+</button>
+<button class="p-unit border border-outline-variant rounded-DEFAULT text-on-surface hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
