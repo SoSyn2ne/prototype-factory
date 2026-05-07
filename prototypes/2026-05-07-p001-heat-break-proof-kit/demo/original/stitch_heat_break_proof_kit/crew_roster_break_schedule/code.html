@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crew Roster &amp; Break Scheduler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb77d",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#3d2f00",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "surface-tint": "#ffb77d",
+                        "secondary": "#ffb3af",
+                        "tertiary-fixed-dim": "#ebc246",
+                        "secondary-fixed-dim": "#ffb3af",
+                        "tertiary-container": "#d0aa2f",
+                        "surface-container-highest": "#353535",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#d9c2b3",
+                        "outline-variant": "#544438",
+                        "inverse-on-surface": "#303030",
+                        "on-primary": "#4d2600",
+                        "on-tertiary-fixed": "#241a00",
+                        "surface": "#131313",
+                        "on-surface": "#e4e2e1",
+                        "on-secondary-fixed": "#410005",
+                        "primary-fixed": "#ffdcc3",
+                        "on-background": "#e4e2e1",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#ff9994",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-container": "#663500",
+                        "surface-variant": "#353535",
+                        "on-error": "#690005",
+                        "tertiary": "#eec549",
+                        "on-tertiary-container": "#513f00",
+                        "secondary-container": "#8e101c",
+                        "primary-container": "#f2994a",
+                        "outline": "#a18d7f",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-secondary-fixed-variant": "#8e101c",
+                        "tertiary-fixed": "#ffe08b",
+                        "surface-container": "#1f2020",
+                        "inverse-primary": "#904d00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-surface": "#e4e2e1",
+                        "primary": "#ffbb84",
+                        "on-secondary": "#68000e",
+                        "secondary-fixed": "#ffdad7",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1b1c1c",
+                        "on-primary-fixed": "#2f1500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target-min": "64px",
+                        "gutter": "24px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", { "lineHeight": "30px", "fontWeight": "500" }],
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-caps": ["14px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "900" }],
+                        "body-md": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary docked full-width top-0 border-b-4 border-outline bg-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] flex justify-between items-center w-full h-[80px] px-margin z-50 fixed">
+<div class="flex items-center gap-4">
+<button class="hover:bg-primary-container hover:text-on-primary-container active:translate-y-1 transition-all p-2 rounded-DEFAULT flex items-center justify-center min-h-[48px] min-w-[48px]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary-container border-2 border-primary-container px-2 py-1 uppercase tracking-tighter w-max">HEAT-SHIELD OPS</span>
+<h1 class="font-headline-md text-headline-md uppercase tracking-tighter">Jobsite Alpha-7</h1>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container active:translate-y-1 transition-all p-2 rounded-DEFAULT flex items-center justify-center min-h-[48px] min-w-[48px]">
+<span class="material-symbols-outlined">sync</span>
+</button>
+<button class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container active:translate-y-1 transition-all p-2 rounded-DEFAULT flex items-center justify-center min-h-[48px] min-w-[48px]">
+<span class="material-symbols-outlined">thermostat</span>
+</button>
+<button class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container active:translate-y-1 transition-all p-2 rounded-DEFAULT flex items-center justify-center min-h-[48px] min-w-[48px]">
+<span class="material-symbols-outlined">warning</span>
+</button>
+</div>
+<button class="bg-primary-container text-[#333333] hover:bg-primary-fixed-dim font-label-caps text-label-caps uppercase px-6 py-2 min-h-touch-target-min flex items-center justify-center active:translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] border-2 border-[#333333]">
+                EMERGENCY ALERT
+            </button>
+</div>
+</header>
+<!-- SideNavBar & Main Content Wrapper -->
+<div class="flex pt-[80px] min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col bg-surface-container-high dark:bg-surface-container-high text-primary dark:text-primary docked left-0 h-screen w-[280px] border-r-4 border-outline fixed left-0 top-0 h-full flex flex-col z-40 pt-[80px]">
+<div class="p-margin border-b border-outline-variant">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Supervisor Profile" class="w-16 h-16 rounded-full border-2 border-primary" data-alt="Close-up portrait of a rugged industrial site supervisor wearing safety gear. The lighting is dramatic and directional, typical of an outdoor construction site. The style is hyper-realistic photography highlighting gritty textures and a serious expression. Dark background with subtle hints of construction equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtsM_rq91sahFb1x0KSiKV16R7IxVkJd3Bvo5kP8V9uun-0XP5-SbM9ycow8g8qfud2HGpcdp8FKSwqT3-JHrOSLrsP_lYA96sKjV1IpQjUmq-hZvSyPau8wfORBdlifl0zqu5sDc2Mw5h3NVH9yH4su21z4zu7ozOVXm5M1ht-Kol10uWR1Y4g7gI4UiUasRfvM-WRBem4rY_c0Lq4UUas_EIgP9NY70n9fqxkceH2ANaNuiY1Sl5Z6eOHhUeSPaGPvXTB4xhIuw"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Site Supervisor</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Shift B • Level 4 Risk</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-[#333333] hover:bg-primary-fixed-dim font-label-caps text-label-caps uppercase min-h-touch-target-min flex items-center justify-center active:translate-y-1 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] border-2 border-[#333333]">
+                    START OBSERVATION
+                </button>
+</div>
+<ul class="flex-1 overflow-y-auto py-4">
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">map</span>
+<span class="font-label-caps text-label-caps uppercase">Heat Risk</span>
+</a>
+</li>
+<li>
+<a class="bg-primary text-on-primary border-3 border-on-primary-fixed m-2 flex items-center gap-4 px-4 py-6 hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg fill-icon">groups</span>
+<span class="font-label-caps text-label-caps uppercase">Crew Roster</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">timer</span>
+<span class="font-label-caps text-label-caps uppercase">Break Schedule</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">fact_check</span>
+<span class="font-label-caps text-label-caps uppercase">Compliance</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">history_edu</span>
+<span class="font-label-caps text-label-caps uppercase">Site Logs</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">verified_user</span>
+<span class="font-label-caps text-label-caps uppercase">Proof Center</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto border-t border-outline-variant">
+<ul>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">settings</span>
+<span class="font-label-caps text-label-caps uppercase">Settings</span>
+</a>
+</li>
+<li>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75" href="#">
+<span class="material-symbols-outlined text-display-lg">cloud_off</span>
+<span class="font-label-caps text-label-caps uppercase">Offline Mode</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 md:ml-[280px] p-gutter lg:p-margin bg-background">
+<div class="max-w-7xl mx-auto space-y-gutter">
+<!-- Section Title -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b-4 border-outline pb-4">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-background uppercase tracking-tight">Personnel Safety</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Active monitoring for Shift B operations.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest border-2 border-outline p-2">
+<span class="relative flex h-4 w-4">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-tertiary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-4 w-4 bg-tertiary-fixed"></span>
+</span>
+<span class="font-label-caps text-label-caps text-on-surface uppercase">Live Sync Active</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Scheduler (Spans 5 cols on lg) -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- Break Scheduler Card -->
+<div class="bg-surface-container-high border-[3px] border-outline p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)] flex flex-col h-full">
+<div class="flex justify-between items-center mb-6 border-b-2 border-outline-variant pb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">timer</span>
+                                    Cool-down Scheduler
+                                </h3>
+<span class="font-label-caps text-label-caps bg-error text-on-error px-3 py-1 border-2 border-error-container">MANDATORY</span>
+</div>
+<div class="space-y-6 flex-1">
+<!-- Timeline Item 1 -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center border-2 border-on-primary border-on-background z-10">
+<span class="material-symbols-outlined text-on-primary text-[16px]">done</span>
+</div>
+<div class="w-[2px] h-full bg-outline-variant absolute top-8 bottom-[-24px]"></div>
+</div>
+<div class="pb-6 opacity-60">
+<p class="font-label-caps text-label-caps text-on-surface-variant">10:00 AM</p>
+<p class="font-body-lg text-body-lg text-on-surface">Standard Water Break</p>
+<p class="font-body-md text-body-md text-outline">15 Minutes • Completed</p>
+</div>
+</div>
+<!-- Timeline Item 2 (Active/Next) -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-tertiary flex items-center justify-center border-2 border-on-tertiary-container z-10 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.8)]">
+<span class="material-symbols-outlined text-on-tertiary-container text-[16px] animate-pulse">hourglass_top</span>
+</div>
+<div class="w-[2px] h-full bg-outline-variant absolute top-8 bottom-[-24px]"></div>
+</div>
+<div class="pb-6 w-full">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-label-caps text-label-caps text-tertiary">12:30 PM (T-Minus 15m)</p>
+<p class="font-headline-sm text-headline-sm text-on-background">High-Heat Cool-down</p>
+<p class="font-body-md text-body-md text-on-surface-variant">30 Minutes • Mandated</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="flex gap-4 relative">
+<div class="flex flex-col items-center">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center border-2 border-outline z-10">
+<span class="material-symbols-outlined text-outline text-[16px]">schedule</span>
+</div>
+</div>
+<div class="pb-6">
+<p class="font-label-caps text-label-caps text-on-surface-variant">15:00 PM</p>
+<p class="font-body-lg text-body-lg text-on-surface">Final Shade Rotation</p>
+<p class="font-body-md text-body-md text-outline">20 Minutes • Scheduled</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-6 border-t-2 border-outline-variant">
+<button class="w-full bg-primary-container text-[#333333] hover:bg-primary-fixed-dim font-headline-sm text-headline-sm uppercase min-h-touch-target-min flex items-center justify-center gap-3 active:translate-y-1 transition-all shadow-[6px_6px_0px_0px_rgba(0,0,0,0.5)] border-3 border-[#333333]">
+<span class="material-symbols-outlined text-[32px] fill-icon">play_arrow</span>
+                                    INITIATE BREAK
+                                </button>
+</div>
+</div>
+</div>
+<!-- Right Column: Roster (Spans 7 cols on lg) -->
+<div class="lg:col-span-7 space-y-gutter">
+<!-- Roster Card -->
+<div class="bg-surface-container border-[3px] border-outline p-gutter shadow-[8px_8px_0px_0px_rgba(0,0,0,0.5)]">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4 border-b-2 border-outline-variant pb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-background uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[32px]">groups</span>
+                                    Crew Acclimatization Roster
+                                </h3>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps bg-surface-variant text-on-surface px-3 py-1 border-2 border-outline">TOTAL: 12</span>
+<span class="font-label-caps text-label-caps bg-error-container text-on-error-container px-3 py-1 border-2 border-error">AT RISK: 2</span>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Worker 1 (Acclimated) -->
+<div class="bg-surface-container-lowest border-2 border-outline p-4 hover:border-primary-fixed-dim transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<img alt="Worker Avatar" class="w-[64px] h-[64px] rounded-none border-2 border-outline grayscale" data-alt="Black and white portrait of a construction worker wearing a hard hat and safety glasses. Gritty texture, high contrast industrial style lighting. Serious expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs0PWJ1o0w_4RlA-fglAgmF3i4edJMZJNu4Z3dBiY9ml7MraImu70eMXptIgYe31uh8epaTrU0v6nmSRO62a3mMn0bdbO6syaCl-TkaMRgtJ550aRqiQnhXx6DvsPXZvGgXkGxgrcYPLxbWM35ffCKMK9swgZq0zwndA-rmnaNMZ59WyOIoWbg9JT1gU4hh_CH5TaAu-TzK-NSx33KLQ4RiYTAjCWw2ZufqmZHHe9L38LnPrSfZkh0vu7qsktwkRX55YKHWczPpeI"/>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-background">Jackson, M.</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Heavy Equipment Operator</p>
+</div>
+</div>
+<div class="w-full md:w-1/3 space-y-2">
+<div class="flex justify-between">
+<span class="font-label-caps text-label-caps text-outline">Acclimatization</span>
+<span class="font-label-caps text-label-caps text-primary">Day 14 of 14</span>
+</div>
+<div class="h-4 w-full bg-surface-container-high border-2 border-outline relative">
+<div class="absolute top-0 left-0 h-full bg-primary w-full border-r-2 border-outline"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 min-w-[140px] items-end">
+<span class="font-label-caps text-label-caps bg-secondary-container text-on-secondary-container px-3 py-1 border-2 border-secondary w-full text-center">FULL SUN</span>
+<button class="bg-surface-variant text-on-surface border-2 border-outline px-4 py-2 font-label-caps text-label-caps w-full hover:bg-surface-bright shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">LOG STATUS</button>
+</div>
+</div>
+<!-- Worker 2 (New/At Risk) -->
+<div class="bg-surface-container-lowest border-[3px] border-error p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 relative overflow-hidden">
+<!-- Striped Warning Background overlay -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #ffb4ab 0, #ffb4ab 10px, transparent 10px, transparent 20px);"></div>
+<div class="flex items-center gap-4 w-full md:w-auto z-10">
+<img alt="Worker Avatar" class="w-[64px] h-[64px] rounded-none border-2 border-error" data-alt="High contrast portrait of a young construction worker in a high visibility vest. The lighting is harsh, emphasizing the industrial environment. Desaturated color palette except for the bright safety vest." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZV48A3y5_mxBtC96o6DbonUIk4wWInrOj6d-bYxEeZLH00nQhbOCu8B8Liu1I_orGkmCZet3PtSBea1yvx-1uf-8RxsrOGXWcaDRu1b5ktGotQSyS2-8pd5LdCoJTqft-JHszRRiKhPTWMW0LPLyXo_gEtM43Ladto8zkAK31o9kHVar8S88j6GvNyeU3zT7wK2VTvzBqR-7GeQDvrTk9Mkt1J4sNKwuM4W8Go9ll9VwPL9Z0j31GzX73goHm6zrdL-ACBlu6nSQ"/>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-background flex items-center gap-2">
+                                                Rivera, C.
+                                                <span class="material-symbols-outlined text-error text-[20px] fill-icon">warning</span>
+</h4>
+<p class="font-body-md text-body-md text-error">Rigger • NEW HIRE</p>
+</div>
+</div>
+<div class="w-full md:w-1/3 space-y-2 z-10">
+<div class="flex justify-between">
+<span class="font-label-caps text-label-caps text-error">Acclimatization</span>
+<span class="font-label-caps text-label-caps text-error">Day 2 of 14</span>
+</div>
+<div class="h-4 w-full bg-surface-container-high border-2 border-outline relative">
+<div class="absolute top-0 left-0 h-full bg-error w-[14%] border-r-2 border-outline"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 min-w-[140px] items-end z-10">
+<span class="font-label-caps text-label-caps bg-surface-variant text-on-surface px-3 py-1 border-2 border-outline w-full text-center flex justify-center items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">park</span> SHADED ONLY
+                                        </span>
+<button class="bg-error-container text-on-error-container border-2 border-error px-4 py-2 font-label-caps text-label-caps w-full hover:bg-error hover:text-[#333333] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">INTERVENE</button>
+</div>
+</div>
+<!-- Worker 3 (Progressing) -->
+<div class="bg-surface-container-lowest border-2 border-outline p-4 hover:border-tertiary transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div class="flex items-center gap-4 w-full md:w-auto">
+<div class="w-[64px] h-[64px] bg-surface-variant border-2 border-outline flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-outline">DK</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-background">Kowalski, D.</h4>
+<p class="font-body-md text-body-md text-on-surface-variant">Spotter</p>
+</div>
+</div>
+<div class="w-full md:w-1/3 space-y-2">
+<div class="flex justify-between">
+<span class="font-label-caps text-label-caps text-outline">Acclimatization</span>
+<span class="font-label-caps text-label-caps text-tertiary">Day 8 of 14</span>
+</div>
+<div class="h-4 w-full bg-surface-container-high border-2 border-outline relative">
+<div class="absolute top-0 left-0 h-full bg-tertiary w-[57%] border-r-2 border-outline"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 min-w-[140px] items-end">
+<span class="font-label-caps text-label-caps bg-tertiary-container text-on-tertiary-container px-3 py-1 border-2 border-tertiary w-full text-center">MODIFIED DUTY</span>
+<button class="bg-surface-variant text-on-surface border-2 border-outline px-4 py-2 font-label-caps text-label-caps w-full hover:bg-surface-bright shadow-[2px_2px_0px_0px_rgba(0,0,0,0.5)]">LOG STATUS</button>
+</div>
+</div>
+</div>
+<div class="mt-6 flex justify-center border-t-2 border-outline-variant pt-4">
+<button class="text-primary hover:text-primary-fixed-dim font-label-caps text-label-caps uppercase flex items-center gap-2 p-2">
+<span class="material-symbols-outlined">expand_more</span>
+                                    VIEW FULL ROSTER
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Proof Stamp Component (Absolute positioned for visual flair on large screens, standard flow on mobile) -->
+<div class="lg:absolute lg:top-[120px] lg:right-[40px] mt-8 lg:mt-0 flex justify-end pointer-events-none">
+<div class="transform -rotate-12 border-[4px] border-tertiary p-2 inline-block opacity-80">
+<div class="border-[2px] border-tertiary p-4 text-center bg-surface/50 backdrop-blur-sm">
+<span class="material-symbols-outlined text-[48px] text-tertiary block mb-2">verified</span>
+<span class="font-label-caps text-label-caps text-tertiary block text-xl">OSHA COMPLIANT</span>
+<span class="font-label-caps text-label-caps text-tertiary block text-xs mt-1">LOGGED: 08:00 AM</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

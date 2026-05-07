@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Human Chatter Trust Filter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Newsreader:opsz,wght@6..72,300;6..72,400;6..72,500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#e3c09f",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444748",
+                        "on-tertiary-fixed-variant": "#324e2a",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#747878",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-dim": "#dbdad6",
+                        "surface-container-low": "#f4f4f0",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-secondary-fixed": "#2a1803",
+                        "surface-variant": "#e3e2df",
+                        "surface-container-highest": "#e3e2df",
+                        "primary": "#000000",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1b1c1a",
+                        "on-error-container": "#93000a",
+                        "tertiary-container": "#062104",
+                        "on-surface": "#1b1c1a",
+                        "surface-container-high": "#e9e8e4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-bright": "#faf9f5",
+                        "surface": "#faf9f5",
+                        "secondary-container": "#fdd9b6",
+                        "surface-container": "#efeeea",
+                        "surface-tint": "#5f5e5e",
+                        "outline-variant": "#c4c7c7",
+                        "background": "#faf9f5",
+                        "on-secondary-container": "#785e42",
+                        "on-primary-fixed-variant": "#474746",
+                        "on-tertiary-fixed": "#062104",
+                        "primary-container": "#1c1b1b",
+                        "secondary-fixed": "#ffdcbb",
+                        "tertiary": "#000000",
+                        "on-secondary-fixed-variant": "#5a4228",
+                        "on-tertiary-container": "#6d8c63",
+                        "inverse-surface": "#2f312e",
+                        "tertiary-fixed": "#caecbc",
+                        "tertiary-fixed-dim": "#afd0a1",
+                        "secondary": "#74593e",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "inverse-on-surface": "#f2f1ed"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-default": "24px",
+                        "card-padding": "40px",
+                        "stack-compact": "8px",
+                        "gutter-grid": "32px",
+                        "unit": "4px",
+                        "stack-editorial": "48px",
+                        "margin-page": "64px"
+                    },
+                    "fontFamily": {
+                        "quote-body": ["Newsreader"],
+                        "ui-medium": ["Manrope"],
+                        "ui-body": ["Manrope"],
+                        "h1-serif": ["Newsreader"],
+                        "data-label": ["Manrope"],
+                        "caption": ["Manrope"],
+                        "h2-serif": ["Newsreader"],
+                        "display-editorial": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "quote-body": ["20px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "ui-medium": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "ui-body": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "h1-serif": ["32px", { "lineHeight": "1.2", "fontWeight": "400" }],
+                        "data-label": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "caption": ["13px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "h2-serif": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "display-editorial": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #faf9f5; color: #1b1c1a; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .filled-icon { font-variation-settings: 'FILL' 1; }
+    </style>
+</head>
+<body class="font-ui-body text-ui-body min-h-screen flex flex-col antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar from JSON -->
+<header class="bg-surface dark:bg-surface-dim docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows z-50">
+<div class="flex justify-between items-center w-full px-margin-page h-20">
+<div class="flex items-center gap-8">
+<h1 class="font-display-editorial text-h2-serif text-primary dark:text-primary-fixed tracking-tight">Human Chatter Trust Filter</h1>
+<nav class="hidden md:flex gap-6 h-full items-center">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary h-full flex items-center px-2 hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 opacity-80 transition-opacity duration-150 font-ui-medium text-ui-medium" href="#">Analysis</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium h-full flex items-center px-2 hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 font-ui-medium text-ui-medium" href="#">Import</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-medium h-full flex items-center px-2 hover:text-primary dark:hover:text-primary-fixed transition-colors duration-200 font-ui-medium text-ui-medium" href="#">Export</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="border-b border-outline bg-transparent py-2 pr-10 focus:outline-none focus:border-primary font-ui-medium text-ui-medium placeholder-on-surface-variant" placeholder="Search archive..." type="text"/>
+</div>
+<button aria-label="tune" class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined">tune</span>
+</button>
+<button aria-label="notifications" class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="account_circle" class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar from JSON -->
+<aside class="hidden lg:flex flex-col h-full py-8 px-6 space-y-stack-default bg-surface dark:bg-surface-container-low border-r border-outline-variant dark:border-outline flat no shadows fixed left-0 top-20 w-72 z-40">
+<div class="flex items-center gap-4 px-4">
+<img alt="Research Curator Profile" class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A sophisticated black and white portrait of a person with a serene expression, functioning as an avatar placeholder in a minimalist, high-contrast user interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAELRr21pmDMQB71RAAh3hi9yK904NgnPDlcE9hzm9Hbl8bxAA3YTOMgeK0bJqTtn_lYGMWnJxtTCr3iCbkmgM6GvNuiNeAfrQPV4EGrth7oErHnMiPPhsaxsZU7VLUJSBoT_82hqcW7yTb4OxXYwjZU8yzSGH_LgW56bRT_dnsNxFcbm2PLj8SN_esWZm7kdNtTVtuwnzvnCbTqagaqjRk1La8VAGv290i4v5U5vJad1J_a94CJfYfDj2Of3mUJ1wtVLd_gxD_-1U"/>
+<div>
+<h2 class="font-display-editorial text-h2-serif text-primary">Archival</h2>
+<p class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Insight Console v1.0</p>
+</div>
+</div>
+<button class="w-full py-3 px-4 border border-outline text-primary font-ui-medium text-ui-medium hover:bg-primary hover:text-on-primary transition-colors duration-300 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Analysis
+            </button>
+<nav class="flex-1 space-y-2 mt-8">
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-container dark:hover:bg-surface-container transition-all duration-300 font-ui-medium text-ui-medium" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+                    Import
+                </a>
+<a class="flex items-center gap-4 text-primary dark:text-primary-fixed bg-surface-container-high dark:bg-surface-container-highest px-4 py-3 rounded-none border-r-4 border-primary transition-all duration-300 scale-[0.98] font-ui-medium text-ui-medium" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Analysis
+                </a>
+<a class="flex items-center gap-4 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 hover:bg-surface-container dark:hover:bg-surface-container transition-all duration-300 font-ui-medium text-ui-medium" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+                    Export
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area: Split View -->
+<main class="flex-1 lg:ml-72 flex flex-col md:flex-row overflow-hidden pt-20">
+<!-- Left: Curated Quote Shelf (The Chatter) -->
+<section class="w-full md:w-3/5 lg:w-2/3 h-full overflow-y-auto px-margin-page py-stack-editorial bg-surface-bright border-r border-outline-variant relative">
+<div class="max-w-3xl mx-auto">
+<header class="mb-stack-editorial flex justify-between items-end">
+<div>
+<p class="font-data-label text-data-label text-on-surface-variant uppercase mb-2">High-Signal Corpus</p>
+<h2 class="font-display-editorial text-display-editorial text-primary">Quote-Worthy Complaint Shelf</h2>
+</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-ui-medium text-ui-medium">
+<span class="material-symbols-outlined text-sm">filter_list</span> Filter
+                            </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-ui-medium text-ui-medium">
+<span class="material-symbols-outlined text-sm">sort</span> Sort
+                            </button>
+</div>
+</header>
+<div class="space-y-stack-editorial">
+<!-- Quote Card 1 -->
+<article class="bg-surface-container-lowest border border-outline-variant p-card-padding relative group hover:border-primary transition-colors duration-300">
+<div class="absolute top-0 left-0 h-full w-1 bg-tertiary-container"></div>
+<blockquote class="font-quote-body text-quote-body text-primary mb-8 relative z-10">
+                                "The dashboard doesn't feel like it was built for me. It feels like an engineer threw every available metric onto a grid and assumed I'd figure out what matters. I spend 20 minutes a day just trying to find the one number my boss actually cares about."
+                            </blockquote>
+<hr class="border-t border-outline-variant mb-6"/>
+<div class="flex justify-between items-end">
+<div>
+<p class="font-ui-medium text-ui-medium text-primary">User Interview #1042</p>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Enterprise Tier • 14 Months Active</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-block border border-outline px-2 py-1 font-data-label text-data-label text-on-surface-variant uppercase">Usability</span>
+<span class="inline-block border border-outline px-2 py-1 font-data-label text-data-label text-on-surface-variant uppercase">Cognitive Load</span>
+</div>
+</div>
+</article>
+<!-- Quote Card 2 -->
+<article class="bg-surface-container-lowest border border-outline-variant p-card-padding relative group hover:border-primary transition-colors duration-300 bg-surface-container-low">
+<div class="absolute top-0 left-0 h-full w-1 bg-secondary"></div>
+<blockquote class="font-quote-body text-quote-body text-primary mb-8 relative z-10">
+                                "I tried to export the report last Friday before my flight. The loader spun for five minutes and then just failed silently. No error message, nothing. I had to screenshot the web view and paste it into a doc."
+                            </blockquote>
+<hr class="border-t border-outline-variant mb-6"/>
+<div class="flex justify-between items-end">
+<div>
+<p class="font-ui-medium text-ui-medium text-primary">Support Ticket #8992</p>
+<p class="font-caption text-caption text-on-surface-variant mt-1">Pro Tier • 2 Months Active</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-block border border-outline px-2 py-1 font-data-label text-data-label text-on-surface-variant uppercase">Performance</span>
+<span class="inline-block border border-outline px-2 py-1 font-data-label text-data-label text-error uppercase">Critical</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- Right: Moderator/Research Action Queue -->
+<aside class="w-full md:w-2/5 lg:w-1/3 h-full overflow-y-auto bg-surface border-l border-outline-variant px-8 py-stack-editorial flex flex-col">
+<header class="mb-stack-default pb-4 border-b border-outline-variant">
+<h3 class="font-h1-serif text-h1-serif text-primary">Action Queue</h3>
+<p class="font-caption text-caption text-on-surface-variant mt-2">Requires moderator review and routing.</p>
+</header>
+<div class="flex-1 space-y-4">
+<!-- Action Item 1 -->
+<div class="border border-outline p-6 bg-surface-container-lowest group hover:border-primary transition-colors duration-200">
+<div class="flex justify-between items-start mb-4">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Pending Brief</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">more_horiz</span>
+</div>
+<p class="font-ui-body text-ui-body text-primary mb-6 line-clamp-3">
+                            "The new onboarding flow completely ignores users who are migrating from legacy systems. We lost a week trying to map data fields manually..."
+                        </p>
+<div class="flex flex-col gap-3">
+<button class="w-full py-2 border border-outline text-primary font-ui-medium text-ui-medium hover:bg-primary hover:text-on-primary transition-all duration-300 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                                Move to Brief
+                            </button>
+<div class="flex gap-3">
+<button class="flex-1 py-2 border border-outline text-on-surface-variant font-ui-medium text-ui-medium hover:text-primary hover:border-primary transition-colors duration-200">
+                                    Tag
+                                </button>
+<button class="flex-1 py-2 border border-outline text-on-surface-variant font-ui-medium text-ui-medium hover:text-error hover:border-error transition-colors duration-200">
+                                    Mute
+                                </button>
+</div>
+</div>
+</div>
+<!-- Action Item 2 -->
+<div class="border border-outline p-6 bg-surface-container-lowest group hover:border-primary transition-colors duration-200">
+<div class="flex justify-between items-start mb-4">
+<span class="font-data-label text-data-label text-on-surface-variant uppercase tracking-wider">Uncategorized</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">more_horiz</span>
+</div>
+<p class="font-ui-body text-ui-body text-primary mb-6 line-clamp-3">
+                            "Honestly, the UI is pretty but it's too dense. I can't read the small text on my external monitor without zooming in to 125%."
+                        </p>
+<div class="flex flex-col gap-3">
+<button class="w-full py-2 border border-outline text-primary font-ui-medium text-ui-medium hover:bg-primary hover:text-on-primary transition-all duration-300 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                                Move to Brief
+                            </button>
+<div class="flex gap-3">
+<button class="flex-1 py-2 border border-outline text-on-surface-variant font-ui-medium text-ui-medium hover:text-primary hover:border-primary transition-colors duration-200">
+                                    Tag
+                                </button>
+<button class="flex-1 py-2 border border-outline text-on-surface-variant font-ui-medium text-ui-medium hover:text-error hover:border-error transition-colors duration-200">
+                                    Mute
+                                </button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-stack-editorial pt-6 border-t border-outline-variant">
+<p class="font-data-label text-data-label text-on-surface-variant text-center uppercase tracking-wider">End of Queue</p>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

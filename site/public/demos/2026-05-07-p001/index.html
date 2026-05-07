@@ -1,59 +1,273 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Heat Break Proof Kit - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-07-p001</p>
-        <h1>Heat Break Proof Kit</h1>
-        <p>A field-ops compliance kit that turns heat-risk forecasts, crew schedules, and rest breaks into proof-ready safety logs before summer inspections.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Field Supervisor Dashboard - Heat Break Proof Kit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb77d",
+                        "error-container": "#93000a",
+                        "on-tertiary": "#3d2f00",
+                        "background": "#131313",
+                        "on-tertiary-fixed-variant": "#584400",
+                        "surface-tint": "#ffb77d",
+                        "secondary": "#ffb3af",
+                        "tertiary-fixed-dim": "#ebc246",
+                        "secondary-fixed-dim": "#ffb3af",
+                        "tertiary-container": "#d0aa2f",
+                        "surface-container-highest": "#353535",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#d9c2b3",
+                        "outline-variant": "#544438",
+                        "inverse-on-surface": "#303030",
+                        "on-primary": "#4d2600",
+                        "on-tertiary-fixed": "#241a00",
+                        "surface": "#131313",
+                        "on-surface": "#e4e2e1",
+                        "on-secondary-fixed": "#410005",
+                        "primary-fixed": "#ffdcc3",
+                        "on-background": "#e4e2e1",
+                        "surface-bright": "#393939",
+                        "on-secondary-container": "#ff9994",
+                        "surface-container-high": "#2a2a2a",
+                        "on-primary-container": "#663500",
+                        "surface-variant": "#353535",
+                        "on-error": "#690005",
+                        "tertiary": "#eec549",
+                        "on-tertiary-container": "#513f00",
+                        "secondary-container": "#8e101c",
+                        "primary-container": "#f2994a",
+                        "outline": "#a18d7f",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "on-secondary-fixed-variant": "#8e101c",
+                        "tertiary-fixed": "#ffe08b",
+                        "surface-container": "#1f2020",
+                        "inverse-primary": "#904d00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-surface": "#e4e2e1",
+                        "primary": "#ffbb84",
+                        "on-secondary": "#68000e",
+                        "secondary-fixed": "#ffdad7",
+                        "surface-dim": "#131313",
+                        "surface-container-low": "#1b1c1c",
+                        "on-primary-fixed": "#2f1500"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "touch-target-min": "64px",
+                        "gutter": "24px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", {"lineHeight": "30px", "fontWeight": "500"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                        "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "label-caps": ["14px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "900"}],
+                        "body-md": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glove-target { min-height: 64px; min-width: 64px; }
+        .industrial-shadow { box-shadow: 4px 4px 0px 0px rgba(0,0,0,0.5); }
+        .proof-stamp { transform: rotate(-15deg); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- SideNavBar (WEB) / Hidden on Mobile -->
+<nav class="hidden md:flex flex-col z-40 bg-surface-container-high dark:bg-surface-container-high text-primary dark:text-primary docked left-0 h-screen w-[280px] border-r-4 border-outline fixed left-0 top-0 h-full flex flex-col z-40">
+<div class="p-4 border-b-4 border-outline flex flex-col gap-2">
+<span class="font-display-lg text-display-lg text-primary">H-OPS</span>
+<div class="flex items-center gap-4 mt-4">
+<img alt="Supervisor Profile" class="w-12 h-12 rounded-full border-2 border-primary object-cover" data-alt="A close-up portrait of a rugged industrial site supervisor wearing safety gear. The lighting is harsh and directional, emphasizing the gritty, high-contrast industrial aesthetic. Deep blacks and strong primary colors dominate the palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ2MNTbxtX24VFrqEP0DWc7DVKKqHhel6wF9ZM1XubLqfiWG2LBeBWzGjqMTEi_2l9YSH9TlbRut-FrECjNRlpV0YwlaXlgwwPe1mXv3kmF9qzr-2Uvc8DWLzIbCCWTyK01enoFQZQzuKtKEIYfF0XNcB-4TzyXRNjL2m8fMfabwWa8bpCWC4d2nR9IKaqM_0hipEzEnc4JlX-F7b18gh2M3d4LRDnRTeOyAXdxvuGn3NNBtO5f7-uTn_W4t78I_h-pY59KNR9FEw"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Site Supervisor</h2>
+<p class="font-label-caps text-label-caps text-primary-fixed-dim">Shift B • Level 4 Risk</p>
+</div>
+</div>
+<button class="mt-4 bg-primary text-on-primary font-label-caps text-label-caps border-3 border-on-primary-fixed p-4 glove-target uppercase hover:bg-surface-bright hover:text-on-surface active:scale-95 duration-75">
+                START OBSERVATION
+            </button>
+</div>
+<ul class="flex-1 overflow-y-auto font-label-caps text-label-caps py-4">
+<li class="bg-primary text-on-primary border-3 border-on-primary-fixed m-2 flex items-center gap-4 px-4 py-6 cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+                Heat Risk
+            </li>
+<li class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">groups</span>
+                Crew Roster
+            </li>
+<li class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">timer</span>
+                Break Schedule
+            </li>
+<li class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">fact_check</span>
+                Compliance
+            </li>
+<li class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">history_edu</span>
+                Site Logs
+            </li>
+<li class="text-on-surface-variant flex items-center gap-4 px-4 py-6 border-b border-outline-variant cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">verified_user</span>
+                Proof Center
+            </li>
+</ul>
+<div class="p-4 border-t-4 border-outline flex flex-col gap-2 font-label-caps text-label-caps text-on-surface-variant">
+<div class="flex items-center gap-4 px-4 py-4 cursor-pointer hover:bg-surface-bright hover:text-on-surface">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </div>
+<div class="flex items-center gap-4 px-4 py-4 cursor-pointer hover:bg-surface-bright hover:text-on-surface text-tertiary-fixed-dim">
+<span class="material-symbols-outlined">cloud_off</span>
+                Offline Mode
+            </div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[280px] flex flex-col min-h-screen">
+<!-- TopAppBar (Mobile only, standard nav hidden on desktop but app bar header stays) -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary font-headline-md text-headline-md uppercase tracking-tighter docked full-width top-0 border-b-4 border-outline bg-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,0.5)] flex justify-between items-center w-full h-[80px] px-margin sticky top-0 z-30">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container p-2 active:translate-y-1 transition-all">
+<span class="material-symbols-outlined" style="font-size: 32px;">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-primary-container border-2 border-primary-container px-2 py-1 hidden sm:inline-block">HEAT-SHIELD OPS</span>
+<span>Jobsite Alpha-7</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden lg:flex items-center gap-2 text-tertiary-fixed-dim font-label-caps text-label-caps border-2 border-tertiary-fixed-dim px-3 py-1">
+<span class="material-symbols-outlined animate-pulse text-[18px]">sync</span>
+                    SYNC PENDING
+                </div>
+<button class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container p-2 active:translate-y-1 transition-all hidden sm:block">
+<span class="material-symbols-outlined">thermostat</span>
+</button>
+<button class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container p-2 active:translate-y-1 transition-all hidden sm:block">
+<span class="material-symbols-outlined">warning</span>
+</button>
+<button class="bg-error-container text-on-error-container font-label-caps text-label-caps border-3 border-error p-2 px-4 ml-2 hover:bg-error hover:text-on-error industrial-shadow glove-target">
+                    EMERGENCY ALERT
+                </button>
+</div>
+</header>
+<div class="p-gutter flex-1 grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Map Module - spans 8 cols -->
+<section class="lg:col-span-8 bg-surface-container-high border-3 border-outline p-6 flex flex-col gap-6 relative">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Jobsite Heat-Risk Intake</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Active Zone: Sector 4 Alpha</p>
+</div>
+<button class="bg-primary-container text-on-primary-container font-headline-sm text-headline-sm border-4 border-on-primary-fixed px-8 py-4 industrial-shadow glove-target hover:bg-primary hover:text-on-primary active:translate-y-1 transition-all">
+                        SHIFT START
+                    </button>
+</div>
+<div class="flex-1 w-full min-h-[400px] border-4 border-outline bg-surface relative overflow-hidden">
+<img alt="Jobsite Map View" class="absolute inset-0 w-full h-full object-cover opacity-60 mix-blend-luminosity" data-alt="An overhead satellite or drone view of an active industrial construction site in a harsh, sunny environment. The map shows various zones marked with high-contrast tactical overlays. The lighting is bright and intense, casting strong shadows typical of mid-day sun." data-location="Texas" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVYDBZgSMxAmnVhzPtt7or7DEmlUdgY9Yna3daQW-scXUSrPsfUTsyG07lhLzFSKbROyHumzJhiCwQto-LLLgbmzBv3E-UMNskwwR7YIt-LsIeVbidjEdZMrJaBv38U99UOVEwOqc72hnuN5M68G69QlvsDkat5i_H8i9cmPZuMQVxXFcQsqkH7n1xhi44yDN-kofVJzle3XYAytmF9FcMH_I4FnTAkblYNxqPspFLyFwF0a89NlEO2Zqly2Z9tXRwMORt3OvNUj0"/>
+<!-- Map Overlays -->
+<div class="absolute top-1/4 left-1/4 w-32 h-32 bg-error/30 border-4 border-error rounded-full animate-pulse flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-[48px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="absolute bottom-1/3 right-1/3 w-24 h-24 bg-tertiary/30 border-4 border-tertiary rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-[32px]" style="font-variation-settings: 'FILL' 1;">group</span>
+</div>
+<!-- HUD elements -->
+<div class="absolute bottom-4 left-4 bg-surface-dim border-2 border-outline p-2 font-label-caps text-label-caps text-primary-fixed-dim">
+                        LAT 31.9686 • LON -99.9018
+                    </div>
+</div>
+</section>
+<!-- Right Sidebar - spans 4 cols -->
+<section class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Heat Index Widget -->
+<div class="bg-surface-container border-3 border-error p-6 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Heat Index</h3>
+<span class="material-symbols-outlined text-error text-[32px]">thermostat</span>
+</div>
+<div class="flex items-end gap-2">
+<span class="font-display-lg text-display-lg text-error">104°</span>
+<span class="font-headline-md text-headline-md text-on-surface-variant mb-2">F</span>
+</div>
+<p class="font-label-caps text-label-caps text-error-container bg-error px-2 py-1 inline-block self-start border-2 border-error-container">
+                        CRITICAL DANGER ZONE
+                    </p>
+<!-- Color Bands -->
+<div class="mt-4 flex h-8 w-full border-2 border-outline">
+<div class="w-1/4 bg-[#2196F3] h-full"></div>
+<div class="w-1/4 bg-[#4CAF50] h-full"></div>
+<div class="w-1/4 bg-[#FFC107] h-full relative">
+<!-- Indicator -->
+<div class="absolute -top-3 -bottom-3 w-2 bg-on-surface right-0 border-2 border-background"></div>
+</div>
+<div class="w-1/4 bg-error h-full relative">
+</div>
+</div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant mt-1">
+<span>SAFE</span>
+<span>DANGER</span>
+</div>
+</div>
+<!-- Burden Meter -->
+<div class="bg-surface-container-high border-3 border-outline p-6 flex flex-col gap-4 flex-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Compliance Burden</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">OSHA/NFIB Risk Assessment</p>
+<div class="flex-1 flex flex-col items-center justify-center relative mt-4">
+<!-- Gauge visualization -->
+<div class="w-48 h-24 overflow-hidden relative">
+<div class="w-48 h-48 rounded-full border-[16px] border-surface-variant border-t-tertiary border-r-error border-l-primary transform rotate-45"></div>
+<div class="absolute bottom-0 left-1/2 w-2 h-24 bg-on-surface origin-bottom transform rotate-[60deg] -ml-1"></div>
+<div class="absolute bottom-[-8px] left-1/2 w-4 h-4 rounded-full bg-on-surface -ml-2"></div>
+</div>
+<div class="mt-6 text-center">
+<span class="font-headline-md text-headline-md text-tertiary">ELEVATED</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-2">Action Required in 45m</p>
+</div>
+</div>
+<button class="w-full bg-surface-variant text-on-surface border-3 border-outline font-label-caps text-label-caps py-4 glove-target hover:bg-surface-bright active:translate-y-1 transition-all mt-4">
+                        VIEW PENDING LOGS
+                    </button>
+</div>
+<!-- Proof Stamp Example -->
+<div class="bg-surface-container border-3 border-outline p-6 relative overflow-hidden flex items-center justify-center h-[120px]">
+<div class="proof-stamp border-4 border-primary text-primary font-label-caps text-label-caps text-xl p-2 px-4 uppercase font-bold absolute z-10 opacity-80 mix-blend-screen">
+                        SITE VERIFIED • 08:00 AM
+                    </div>
+<span class="material-symbols-outlined text-[80px] text-surface-variant opacity-20 absolute right-4 bottom-[-10px]">verified</span>
+</div>
+</section>
+</div>
+</main>
+</body></html>
