@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Defense Ops - Rev Defense Terminal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#353940",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary": "#472a00",
+                        "on-surface": "#dfe2eb",
+                        "primary-fixed-dim": "#4ae176",
+                        "primary-fixed": "#6bff8f",
+                        "on-error": "#690005",
+                        "on-secondary": "#2c3138",
+                        "surface-container": "#1c2026",
+                        "surface-container-high": "#262a31",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "on-surface-variant": "#bccbb9",
+                        "on-background": "#dfe2eb",
+                        "on-tertiary-fixed": "#2a1700",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#5c3800",
+                        "surface-dim": "#10141a",
+                        "surface-container-highest": "#31353c",
+                        "tertiary": "#ffba61",
+                        "inverse-on-surface": "#2d3137",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#004b1e",
+                        "surface-variant": "#31353c",
+                        "on-primary-fixed": "#002109",
+                        "surface-container-low": "#181c22",
+                        "tertiary-container": "#ef9900",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#4ae176",
+                        "surface-container-lowest": "#0a0e14",
+                        "primary": "#4be277",
+                        "background": "#10141a",
+                        "secondary": "#c2c7d0",
+                        "on-secondary-container": "#b1b5bf",
+                        "secondary-container": "#42474f",
+                        "outline-variant": "#3d4a3d",
+                        "on-secondary-fixed": "#171c23",
+                        "primary-container": "#22c55e",
+                        "surface": "#10141a",
+                        "inverse-primary": "#006e2f",
+                        "on-primary": "#003915",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-surface": "#dfe2eb",
+                        "secondary-fixed": "#dee2ec",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "outline": "#869585"
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px"
+                    },
+                    spacing: {
+                        unit: "4px",
+                        gutter: "12px",
+                        "margin-page": "24px",
+                        "container-padding": "12px",
+                        density: "condensed"
+                    },
+                    fontFamily: {
+                        "data-tabular": ["JetBrains Mono"],
+                        "heading-ui": ["Inter"],
+                        "display-mono": ["JetBrains Mono"],
+                        "body-standard": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "code-sm": ["JetBrains Mono"]
+                    },
+                    fontSize: {
+                        "data-tabular": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+                        "heading-ui": ["18px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-mono": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-standard": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-caps": ["11px", { lineHeight: "12px", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "code-sm": ["11px", { lineHeight: "14px", fontWeight: "400" }]
+                    }
+                }
+            }
+        };
+    </script>
+<style>
+        .terminal-grid {
+            background-image: 
+                linear-gradient(to right, rgba(61, 74, 61, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(61, 74, 61, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .glow-active {
+            box-shadow: 0 0 8px rgba(75, 226, 119, 0.2);
+        }
+        .blur-glow {
+            filter: blur(2px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-standard min-h-screen terminal-grid selection:bg-primary-container selection:text-on-primary-container flex flex-col">
+<!-- TopNavBar Component -->
+<header class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-gutter h-12 bg-surface-dim dark:bg-surface-dim border-b border-outline-variant">
+<div class="flex items-center gap-gutter">
+<span class="font-display-mono text-display-mono font-bold tracking-tighter text-primary">REV_DEFENSE // TERMINAL</span>
+<div class="hidden md:flex items-center h-full ml-4">
+<nav class="flex h-full gap-4">
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 px-2" href="#">
+<span class="font-heading-ui text-heading-ui">Dashboard</span>
+</a>
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 px-2" href="#">
+<span class="font-heading-ui text-heading-ui">Leak Analysis</span>
+</a>
+<a class="h-full flex items-center text-primary border-b-2 border-primary pb-1 hover:bg-surface-container-high transition-colors duration-150 px-2" href="#">
+<span class="font-heading-ui text-heading-ui">Defense Ops</span>
+</a>
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 px-2" href="#">
+<span class="font-heading-ui text-heading-ui">Briefing Room</span>
+</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-data-tabular text-data-tabular text-tertiary">RISK_TICKER: $12.4k</span>
+</div>
+<div class="w-px h-4 bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-sm bg-primary blur-glow relative">
+<div class="absolute inset-0 bg-primary rounded-sm blur-none"></div>
+</div>
+<span class="font-data-tabular text-data-tabular text-primary">SYS_OK</span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-12 pb-8">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex fixed top-12 left-0 h-[calc(100vh-48px-32px)] flex-col w-64 bg-surface-container dark:bg-surface-container border-r border-outline-variant z-40">
+<div class="p-4 border-b border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest border border-outline-variant overflow-hidden flex-shrink-0">
+<img alt="User Terminal Profile" class="w-full h-full object-cover grayscale opacity-80" data-alt="A stylized, low-contrast grayscale portrait of a professional in a tactical or analytical setting, suitable for a terminal interface avatar. The lighting is harsh and directional, emphasizing structural facial features. The background is pure dark gray to blend with the UI. The overall aesthetic is serious, clinical, and high-tech." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0ujWLuTgseiC4QSl1p6JZjA4_xf4eo6zcu_ZBBverotwEAB4A3feVVt9gVU3hF90Tb91K9yM3Z0Am-_72iTzl2QO8b9f_p6Oo0f9yPJtZ95pZRjsQHBGJpI9p5dqSWJqyHWd94q1DMGu8tuiM4wbjvXbh6HeWGDD1Hr_MNVsg7bLhn9rtFnt_bngHb41ybyeoiF75wYptPjp0ZTAoUBQ80tDpB-mXZG2y2DzK3lVFhjhpKcnzGuaEYzRt-ovb_aMJ9u3UIkSvlMcU"/>
+</div>
+<div class="flex flex-col">
+<span class="font-data-tabular text-data-tabular text-primary truncate">OPERATOR_01</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant">Direct Ad Ops</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Leak Analysis</span>
+</a>
+<a class="bg-surface-container-highest text-primary border-r-4 border-primary px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors scale-[0.99] glow-active" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Defense Ops</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps uppercase tracking-widest">Briefing Room</span>
+</a>
+</div>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full py-2 px-4 border border-primary text-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                    EXPORT BRIEF
+                </button>
+</div>
+<div class="flex flex-col border-t border-outline-variant">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 hover:bg-surface-container-high transition-colors border-b border-outline-variant" href="#">
+<span class="material-symbols-outlined text-[16px]">monitor_heart</span>
+<span class="font-code-sm text-code-sm">System Health</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span class="font-code-sm text-code-sm">Network Log</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-margin-page overflow-x-hidden">
+<div class="max-w-[1600px] mx-auto flex flex-col gap-unit-[6]">
+<!-- Header -->
+<div class="flex items-end justify-between border-b border-outline-variant pb-unit-[4]">
+<div>
+<h1 class="font-display-mono text-display-mono text-on-surface">CONTENT DEFENSE MATRIX</h1>
+<p class="font-data-tabular text-data-tabular text-on-surface-variant mt-1">TACTICAL REWRITE PRIORITY QUEUE // ACTIVE MITIGATION</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-surface-container border border-outline-variant px-3 py-1.5 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-sm bg-tertiary blur-glow relative">
+<span class="absolute inset-0 bg-tertiary rounded-sm blur-none"></span>
+</span>
+<span class="font-data-tabular text-data-tabular text-tertiary">32 PAGES AT RISK</span>
+</div>
+</div>
+</div>
+<!-- Core Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-unit-[4] items-start">
+<!-- Left Column: Priority Queue -->
+<div class="lg:col-span-8 flex flex-col gap-unit-[4]">
+<!-- Queue Header Actions -->
+<div class="flex items-center justify-between bg-surface-container border border-outline-variant p-2">
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-bright border border-outline-variant text-on-surface font-label-caps text-label-caps hover:border-primary hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">filter_list</span>
+                                    FILTER: REVENUE IMPACT
+                                </button>
+<button class="px-3 py-1 bg-transparent border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:border-on-surface hover:text-on-surface transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sort</span>
+                                    SORT: URGENCY
+                                </button>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+<input class="bg-surface-dim border-b border-outline-variant focus:border-primary border-t-0 border-l-0 border-r-0 text-data-tabular font-data-tabular text-on-surface pl-8 py-1 focus:ring-0 w-64 placeholder-on-surface-variant" placeholder="SEARCH TARGETS..." type="text"/>
+</div>
+</div>
+<!-- Data Table Container -->
+<div class="bg-surface-container border border-outline-variant">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-2 p-3 bg-surface-container-high border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant uppercase">
+<div class="col-span-1">RANK</div>
+<div class="col-span-4">TARGET ASSET</div>
+<div class="col-span-2 text-right">REV. AT RISK</div>
+<div class="col-span-2 text-center">STATUS</div>
+<div class="col-span-3 text-right">ACTION</div>
+</div>
+<!-- Table Rows -->
+<div class="flex flex-col">
+<!-- Row 1 (Critical) -->
+<div class="grid grid-cols-12 gap-2 p-3 border-b border-surface-bright hover:bg-surface-bright transition-colors items-center group border-l-2 border-l-error">
+<div class="col-span-1 font-data-tabular text-data-tabular text-error">#01</div>
+<div class="col-span-4 flex flex-col">
+<span class="font-heading-ui text-[14px] leading-tight text-on-surface truncate group-hover:text-primary transition-colors">/guide/enterprise-saas-pricing-2024</span>
+<span class="font-data-tabular text-code-sm text-on-surface-variant mt-0.5">ERR: AI_SNIPPET_TAKEOVER</span>
+</div>
+<div class="col-span-2 text-right font-data-tabular text-data-tabular text-on-surface">-$4,250<span class="text-on-surface-variant text-code-sm">/mo</span></div>
+<div class="col-span-2 flex justify-center">
+<div class="flex items-center gap-1.5 px-2 py-0.5 border border-error/30 bg-error/10 text-error font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-sm bg-error"></span>
+                                            PENDING
+                                        </div>
+</div>
+<div class="col-span-3 flex justify-end gap-2">
+<button class="px-2 py-1 border border-primary text-primary font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+                                            INITIATE
+                                        </button>
+</div>
+</div>
+<!-- Row 2 (Warning) -->
+<div class="grid grid-cols-12 gap-2 p-3 border-b border-surface-bright hover:bg-surface-bright transition-colors items-center group border-l-2 border-l-tertiary">
+<div class="col-span-1 font-data-tabular text-data-tabular text-tertiary">#02</div>
+<div class="col-span-4 flex flex-col">
+<span class="font-heading-ui text-[14px] leading-tight text-on-surface truncate group-hover:text-primary transition-colors">/reviews/best-crm-software</span>
+<span class="font-data-tabular text-code-sm text-on-surface-variant mt-0.5">ERR: TRAFFIC_DECAY_15%</span>
+</div>
+<div class="col-span-2 text-right font-data-tabular text-data-tabular text-on-surface">-$2,800<span class="text-on-surface-variant text-code-sm">/mo</span></div>
+<div class="col-span-2 flex justify-center">
+<div class="flex items-center gap-1.5 px-2 py-0.5 border border-tertiary/30 bg-tertiary/10 text-tertiary font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-sm bg-tertiary animate-pulse"></span>
+                                            IN_PROG
+                                        </div>
+</div>
+<div class="col-span-3 flex justify-end gap-2">
+<button class="px-2 py-1 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:border-tertiary hover:text-tertiary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">monitoring</span>
+                                            TRACK
+                                        </button>
+</div>
+</div>
+<!-- Row 3 (Active/Resolved) -->
+<div class="grid grid-cols-12 gap-2 p-3 hover:bg-surface-bright transition-colors items-center group border-l-2 border-l-primary">
+<div class="col-span-1 font-data-tabular text-data-tabular text-on-surface-variant">#03</div>
+<div class="col-span-4 flex flex-col">
+<span class="font-heading-ui text-[14px] leading-tight text-on-surface truncate group-hover:text-primary transition-colors">/blog/marketing-automation-trends</span>
+<span class="font-data-tabular text-code-sm text-on-surface-variant mt-0.5">STAT: REWRITE_DEPLOYED</span>
+</div>
+<div class="col-span-2 text-right font-data-tabular text-data-tabular text-on-surface-variant">-$950<span class="text-on-surface-variant text-code-sm">/mo</span></div>
+<div class="col-span-2 flex justify-center">
+<div class="flex items-center gap-1.5 px-2 py-0.5 border border-primary/30 bg-primary/10 text-primary font-code-sm text-code-sm">
+<span class="w-1.5 h-1.5 rounded-sm bg-primary"></span>
+                                            VERIFIED
+                                        </div>
+</div>
+<div class="col-span-3 flex justify-end gap-2">
+<button class="px-2 py-1 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps hover:border-primary hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+                                            VIEW_LOG
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Intel Sidebar -->
+<div class="lg:col-span-4 flex flex-col gap-unit-[4]">
+<!-- AI Insights Container -->
+<div class="bg-surface-container border border-outline-variant border-l-4 border-l-tertiary relative overflow-hidden group">
+<div class="absolute inset-0 bg-tertiary/5 pointer-events-none"></div>
+<div class="p-3 border-b border-tertiary/20 flex items-center gap-2 bg-surface-container-high">
+<span class="material-symbols-outlined text-tertiary text-[18px]">psychology</span>
+<span class="font-label-caps text-label-caps text-tertiary">SYS_INTEL // AI EROSION</span>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<div class="font-body-standard text-body-standard text-on-surface">
+                                    Search generative experience is currently capturing <span class="font-data-tabular text-tertiary">42%</span> of click intent on /guide/enterprise-saas-pricing-2024.
+                                </div>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-outline-variant border-dashed">
+<span class="font-code-sm text-code-sm text-on-surface-variant">REC: INJECT_PROPRIETARY_DATA</span>
+<button class="text-tertiary hover:text-tertiary-fixed font-label-caps text-label-caps flex items-center gap-1">
+                                        APPLY <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Community Complaint Quote Shelf -->
+<div class="bg-surface-container border border-outline-variant flex flex-col h-[300px]">
+<div class="p-3 border-b border-outline-variant bg-surface-container-high flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">forum</span>
+<span class="font-label-caps text-label-caps text-on-surface">EVIDENCE_SHELF // USER FEEDBACK</span>
+</div>
+<span class="font-data-tabular text-code-sm text-on-surface-variant">LIVE_STREAM</span>
+</div>
+<div class="flex-1 overflow-y-auto p-3 flex flex-col gap-3 scrollbar-hide">
+<!-- Quote 1 -->
+<div class="border border-outline-variant p-3 bg-surface-dim">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-code-sm text-on-surface-variant">SRC: REDDIT_R/SAAS</span>
+<span class="font-data-tabular text-code-sm text-error">-2h</span>
+</div>
+<p class="font-body-standard text-[13px] text-on-surface italic">"The AI summary for enterprise pricing was completely hallucinated. Had to click through to your guide to get the actual numbers."</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="px-1.5 py-0.5 bg-surface-bright text-on-surface-variant font-code-sm text-[10px] uppercase">Tag: Inaccuracy</span>
+<button class="ml-auto font-label-caps text-label-caps text-primary hover:text-primary-fixed transition-colors">ADD TO BRIEF</button>
+</div>
+</div>
+<!-- Quote 2 -->
+<div class="border border-outline-variant p-3 bg-surface-dim">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-code-sm text-on-surface-variant">SRC: TWITTER_X</span>
+<span class="font-data-tabular text-code-sm text-tertiary">-5h</span>
+</div>
+<p class="font-body-standard text-[13px] text-on-surface italic">"Why does search keep showing me outdated 2022 CRM stats in the quick answer? @YourBrand guide is right there with 2024 data."</p>
+<div class="mt-2 flex items-center gap-2">
+<span class="px-1.5 py-0.5 bg-surface-bright text-on-surface-variant font-code-sm text-[10px] uppercase">Tag: Stale_Data</span>
+<button class="ml-auto font-label-caps text-label-caps text-primary hover:text-primary-fixed transition-colors">ADD TO BRIEF</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer Component -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex items-center justify-between px-gutter py-1 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant h-8">
+<span class="font-code-sm text-code-sm text-on-surface-variant cursor-default">V4.2.0-STABLE // BUILD_ID: 8829</span>
+<div class="flex items-center gap-4">
+<span class="font-code-sm text-code-sm text-on-surface-variant cursor-default">API: CONNECTED</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant cursor-default">LOGS: ACTIVE</span>
+<span class="font-code-sm text-code-sm text-on-surface-variant cursor-default">LATENCY: 12ms</span>
+</div>
+</footer>
+</body></html>

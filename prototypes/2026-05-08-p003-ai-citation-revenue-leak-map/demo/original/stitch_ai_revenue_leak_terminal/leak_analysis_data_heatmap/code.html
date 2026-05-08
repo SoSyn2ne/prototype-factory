@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rev Defense // Terminal - Click Leakage</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#353940",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-tertiary": "#472a00",
+                        "on-surface": "#dfe2eb",
+                        "primary-fixed-dim": "#4ae176",
+                        "primary-fixed": "#6bff8f",
+                        "on-error": "#690005",
+                        "on-secondary": "#2c3138",
+                        "surface-container": "#1c2026",
+                        "surface-container-high": "#262a31",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#c2c7d0",
+                        "on-surface-variant": "#bccbb9",
+                        "on-background": "#dfe2eb",
+                        "on-tertiary-fixed": "#2a1700",
+                        "error": "#ffb4ab",
+                        "on-tertiary-container": "#5c3800",
+                        "surface-dim": "#10141a",
+                        "surface-container-highest": "#31353c",
+                        "tertiary": "#ffba61",
+                        "inverse-on-surface": "#2d3137",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#004b1e",
+                        "surface-variant": "#31353c",
+                        "on-primary-fixed": "#002109",
+                        "surface-container-low": "#181c22",
+                        "tertiary-container": "#ef9900",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface-tint": "#4ae176",
+                        "surface-container-lowest": "#0a0e14",
+                        "primary": "#4be277",
+                        "background": "#10141a",
+                        "secondary": "#c2c7d0",
+                        "on-secondary-container": "#b1b5bf",
+                        "secondary-container": "#42474f",
+                        "outline-variant": "#3d4a3d",
+                        "on-secondary-fixed": "#171c23",
+                        "primary-container": "#22c55e",
+                        "surface": "#10141a",
+                        "inverse-primary": "#006e2f",
+                        "on-primary": "#003915",
+                        "on-primary-fixed-variant": "#005321",
+                        "inverse-surface": "#dfe2eb",
+                        "secondary-fixed": "#dee2ec",
+                        "on-secondary-fixed-variant": "#42474f",
+                        "outline": "#869585"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "margin-page": "24px",
+                        "container-padding": "12px",
+                        "density": "condensed"
+                    },
+                    fontFamily: {
+                        "data-tabular": ["JetBrains Mono"],
+                        "heading-ui": ["Inter"],
+                        "display-mono": ["JetBrains Mono"],
+                        "body-standard": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "code-sm": ["JetBrains Mono"]
+                    },
+                    fontSize: {
+                        "data-tabular": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+                        "heading-ui": ["18px", { lineHeight: "24px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "display-mono": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "body-standard": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "label-caps": ["11px", { lineHeight: "12px", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "code-sm": ["11px", { lineHeight: "14px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Terminal Grid Background */
+        body {
+            background-color: #10141a; /* bg-background */
+            background-image: 
+                linear-gradient(to right, rgba(61, 74, 61, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(61, 74, 61, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        
+        /* Custom Scrollbar for Terminal Feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #10141a; 
+            border-left: 1px solid #3d4a3d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #31353c; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4be277; 
+        }
+
+        /* Glowing Status Pips */
+        .status-pip-green {
+            box-shadow: 0 0 4px #4be277;
+        }
+        .status-pip-amber {
+            box-shadow: 0 0 4px #ffba61;
+        }
+        .status-pip-red {
+            box-shadow: 0 0 4px #ffb4ab;
+        }
+    </style>
+</head>
+<body class="text-on-surface font-body-standard overflow-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-gutter h-12 bg-surface-dim dark:bg-surface-dim border-b border-outline-variant flat no shadows font-heading-ui text-heading-ui for UI; font-data-tabular text-data-tabular for metrics text-primary dark:text-primary">
+<div class="flex items-center gap-4">
+<span class="font-display-mono text-display-mono font-bold tracking-tighter text-primary">REV_DEFENSE // TERMINAL</span>
+<!-- Search Bar placeholder logic as per layout -->
+<div class="hidden md:flex items-center bg-surface-container border border-outline-variant px-2 py-1 ml-8 w-64 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">search</span>
+<input class="bg-transparent border-none outline-none text-code-sm font-code-sm text-on-surface w-full ml-2 placeholder:text-on-surface-variant focus:ring-0 p-0" placeholder="QUERY_SYS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 border-r border-outline-variant pr-6">
+<div class="w-2 h-2 bg-primary rounded-none status-pip-green"></div>
+<span class="font-data-tabular text-data-tabular text-on-surface">SYS_OK</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-data-tabular text-data-tabular text-error">RISK_TICKER: $12.4k</span>
+<span class="material-symbols-outlined text-[18px] text-error">trending_down</span>
+</div>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="fixed top-12 left-0 h-[calc(100vh-48px-32px)] flex flex-col docked left-0 w-64 bg-surface-container dark:bg-surface-container border-r border-outline-variant flat no shadows font-label-caps text-label-caps uppercase tracking-widest text-primary dark:text-primary z-40">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">terminal</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface font-bold">OPERATOR_01</span>
+<span class="text-on-surface-variant text-[9px]">Direct Ad Ops</span>
+</div>
+</div>
+<!-- Main Navigation (Active: Leak Analysis) -->
+<nav class="flex-1 py-4 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="bg-surface-container-highest text-primary border-r-4 border-primary px-4 py-3 flex items-center gap-3 Active: scale-[0.99] transition-transform hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Leak Analysis</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Defense Ops</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Briefing Room</span>
+</a>
+</nav>
+<!-- CTA -->
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full py-2 border border-primary text-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                EXPORT BRIEF
+            </button>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-outline-variant">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 border-b border-outline-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">monitor_heart</span>
+<span>System Health</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>Network Log</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 mt-12 mb-8 h-[calc(100vh-48px-32px)] overflow-y-auto p-margin-page">
+<!-- View Header & Filters -->
+<header class="flex justify-between items-end mb-6 border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-display-mono text-display-mono text-on-surface uppercase mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">target</span>
+                    Click Leakage Mapping
+                </h1>
+<p class="font-code-sm text-code-sm text-on-surface-variant">Deep-dive analysis: AI Citation vs. SC Clicks (Last 30d)</p>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Content Category</label>
+<select class="bg-surface-container border border-outline-variant text-code-sm font-code-sm text-on-surface py-1 px-2 focus:ring-1 focus:ring-primary focus:border-primary outline-none appearance-none cursor-pointer w-40">
+<option>ALL_CATEGORIES</option>
+<option>PRODUCT_REVIEWS</option>
+<option>HOW_TO_GUIDES</option>
+<option>NEWS_BRIEFS</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Update Cadence</label>
+<select class="bg-surface-container border border-outline-variant text-code-sm font-code-sm text-on-surface py-1 px-2 focus:ring-1 focus:ring-primary focus:border-primary outline-none appearance-none cursor-pointer w-32">
+<option>LIVE_FEED</option>
+<option>DAILY</option>
+<option>WEEKLY</option>
+</select>
+</div>
+</div>
+</header>
+<!-- Metrics Lane -->
+<div class="grid grid-cols-4 gap-4 mb-6">
+<!-- Normal Metric -->
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">Total Indexed Pages</span>
+<span class="font-display-mono text-display-mono text-on-surface">14,209</span>
+</div>
+<!-- AI Insight Metric (Amber) -->
+<div class="col-span-2 bg-surface-container border border-outline-variant border-l-4 border-l-tertiary relative overflow-hidden flex flex-col justify-between p-4">
+<div class="absolute inset-0 bg-tertiary/5 pointer-events-none"></div>
+<div class="flex justify-between items-start z-10">
+<span class="font-label-caps text-label-caps text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                        AI Citation Without Click
+                    </span>
+<span class="font-code-sm text-code-sm text-on-surface-variant bg-surface-variant px-1">CRITICAL_LEAK</span>
+</div>
+<div class="flex items-end gap-3 z-10 mt-2">
+<span class="font-display-mono text-display-mono text-tertiary">38.4%</span>
+<span class="font-data-tabular text-data-tabular text-error flex items-center mb-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +4.2% MoM
+                    </span>
+</div>
+</div>
+<!-- Risk Metric -->
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">Est. Rev Exposure</span>
+<span class="font-display-mono text-display-mono text-error">-$42.8K</span>
+</div>
+</div>
+<!-- Main Content Grids -->
+<div class="grid grid-cols-3 gap-6">
+<!-- Left Column: Heatmap Table (Span 2) -->
+<div class="col-span-2 bg-surface-container border border-outline-variant flex flex-col">
+<div class="bg-surface-container-highest border-b border-outline-variant p-3 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface">Page-Level Click-Leak Heatmap</h2>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary text-[18px]">more_horiz</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-dim border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<tr>
+<th class="p-3 font-normal">URL_PATH</th>
+<th class="p-3 font-normal text-right">SC_CLICKS (30D)</th>
+<th class="p-3 font-normal text-right">AI_CITATIONS</th>
+<th class="p-3 font-normal">LEAK_INTENSITY</th>
+</tr>
+</thead>
+<tbody class="font-data-tabular text-data-tabular text-on-surface">
+<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors">
+<td class="p-3 truncate max-w-[200px] text-secondary">/guides/best-vpn-2024</td>
+<td class="p-3 text-right">12,450</td>
+<td class="p-3 text-right text-tertiary">8,902</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-full bg-surface-variant flex">
+<div class="h-full bg-error" style="width: 72%"></div>
+<div class="h-full bg-primary" style="width: 28%"></div>
+</div>
+<span class="text-error text-[10px]">72%</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors bg-surface-container-low">
+<td class="p-3 truncate max-w-[200px] text-secondary">/reviews/hardware/rtx-5090</td>
+<td class="p-3 text-right">8,102</td>
+<td class="p-3 text-right text-tertiary">5,411</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-full bg-surface-variant flex">
+<div class="h-full bg-error" style="width: 66%"></div>
+<div class="h-full bg-primary" style="width: 34%"></div>
+</div>
+<span class="text-error text-[10px]">66%</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors">
+<td class="p-3 truncate max-w-[200px] text-secondary">/finance/high-yield-savings</td>
+<td class="p-3 text-right">5,889</td>
+<td class="p-3 text-right text-tertiary">4,200</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-full bg-surface-variant flex">
+<div class="h-full bg-error" style="width: 58%"></div>
+<div class="h-full bg-primary" style="width: 42%"></div>
+</div>
+<span class="text-error text-[10px]">58%</span>
+</div>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-high transition-colors bg-surface-container-low">
+<td class="p-3 truncate max-w-[200px] text-secondary">/software/top-crm-tools</td>
+<td class="p-3 text-right">3,210</td>
+<td class="p-3 text-right">1,105</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-full bg-surface-variant flex">
+<div class="h-full bg-tertiary" style="width: 34%"></div>
+<div class="h-full bg-primary" style="width: 66%"></div>
+</div>
+<span class="text-tertiary text-[10px]">34%</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="p-3 truncate max-w-[200px] text-secondary">/blog/company-news-q3</td>
+<td class="p-3 text-right">1,400</td>
+<td class="p-3 text-right">120</td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="h-1.5 w-full bg-surface-variant flex">
+<div class="h-full bg-primary" style="width: 8%"></div>
+<div class="h-full bg-primary" style="width: 92%"></div>
+</div>
+<span class="text-primary text-[10px]">8%</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Sponsor Exposure -->
+<div class="bg-surface-container border border-outline-variant flex flex-col">
+<div class="bg-surface-container-highest border-b border-outline-variant p-3 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-tertiary">attach_money</span>
+                        Affiliate Exposure
+                    </h2>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4 overflow-y-auto">
+<!-- Item 1 -->
+<div class="border border-outline-variant p-3 hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-code-sm text-secondary truncate max-w-[150px]">/guides/best-vpn...</span>
+<div class="flex items-center gap-1">
+<div class="w-1.5 h-1.5 bg-error status-pip-red"></div>
+<span class="font-label-caps text-label-caps text-error">HIGH</span>
+</div>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Value at Risk:</span>
+<span class="font-data-tabular text-data-tabular text-on-surface group-hover:text-error transition-colors">$18.2K/mo</span>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="border border-outline-variant p-3 hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-code-sm text-secondary truncate max-w-[150px]">/finance/high-yield...</span>
+<div class="flex items-center gap-1">
+<div class="w-1.5 h-1.5 bg-tertiary status-pip-amber"></div>
+<span class="font-label-caps text-label-caps text-tertiary">MED</span>
+</div>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Value at Risk:</span>
+<span class="font-data-tabular text-data-tabular text-on-surface group-hover:text-tertiary transition-colors">$9.4K/mo</span>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="border border-outline-variant p-3 hover:bg-surface-container-high transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-sm text-code-sm text-secondary truncate max-w-[150px]">/reviews/hardware...</span>
+<div class="flex items-center gap-1">
+<div class="w-1.5 h-1.5 bg-error status-pip-red"></div>
+<span class="font-label-caps text-label-caps text-error">HIGH</span>
+</div>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Value at Risk:</span>
+<span class="font-data-tabular text-data-tabular text-on-surface group-hover:text-error transition-colors">$11.1K/mo</span>
+</div>
+</div>
+</div>
+<div class="p-3 border-t border-outline-variant bg-surface-dim">
+<button class="w-full text-center font-code-sm text-code-sm text-primary hover:underline">VIEW FULL EXPOSURE LOG -&gt;</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full z-50 flex items-center justify-between px-gutter py-1 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant flat no shadows font-code-sm text-code-sm text-secondary dark:text-secondary">
+<span class="text-on-surface-variant">V4.2.0-STABLE // BUILD_ID: 8829</span>
+<div class="flex items-center gap-6">
+<span class="text-on-surface-variant hover:text-primary cursor-default">API: CONNECTED</span>
+<span class="text-on-surface-variant hover:text-primary cursor-default">LOGS: ACTIVE</span>
+<span class="text-on-surface-variant hover:text-primary cursor-default flex items-center gap-1">
+<div class="w-1.5 h-1.5 bg-primary status-pip-green"></div>
+                LATENCY: 12ms
+            </span>
+</div>
+</footer>
+</body></html>

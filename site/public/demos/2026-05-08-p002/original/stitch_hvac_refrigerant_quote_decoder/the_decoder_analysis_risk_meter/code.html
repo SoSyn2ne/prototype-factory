@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuoteDecoder - Detailed Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#111c2c",
+                        "on-primary-container": "#fdfcff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed": "#a4f3cf",
+                        "on-background": "#111c2c",
+                        "tertiary-fixed": "#ffddb4",
+                        "surface-variant": "#d8e3fa",
+                        "tertiary-container": "#a16900",
+                        "on-tertiary-fixed-variant": "#633f00",
+                        "primary": "#005da7",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#cfdaf1",
+                        "inverse-primary": "#a4c9ff",
+                        "on-tertiary-fixed": "#291800",
+                        "primary-fixed": "#d4e3ff",
+                        "primary-container": "#2976c7",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-highest": "#d8e3fa",
+                        "on-tertiary-container": "#fffbff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#00513a",
+                        "surface": "#f9f9ff",
+                        "secondary-fixed-dim": "#89d6b4",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#207155",
+                        "surface-container-low": "#f0f3ff",
+                        "on-primary-fixed": "#001c39",
+                        "tertiary-fixed-dim": "#ffb955",
+                        "inverse-on-surface": "#ebf1ff",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "on-primary-fixed-variant": "#004883",
+                        "secondary": "#186b4f",
+                        "on-secondary-fixed": "#002115",
+                        "secondary-container": "#a4f3cf",
+                        "background": "#f9f9ff",
+                        "outline": "#717783",
+                        "on-surface-variant": "#414751",
+                        "surface-tint": "#0060ac",
+                        "outline-variant": "#c1c7d3",
+                        "primary-fixed-dim": "#a4c9ff",
+                        "inverse-surface": "#263142",
+                        "tertiary": "#805200"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "container-max": "1200px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "lg": "40px",
+                        "sm": "12px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "h3": ["Plus Jakarta Sans"],
+                        "caption": ["Inter"],
+                        "technical-label": ["Inter"],
+                        "h1": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h2": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "caption": ["12px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "technical-label": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "h1": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h2": ["30px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .ambient-shadow { box-shadow: 0 10px 30px -5px rgba(113, 119, 131, 0.15); }
+        .glass-header { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md antialiased pb-24 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface/80 dark:bg-surface-container/80 backdrop-blur-md bg-surface/80 dark:bg-surface-container/80 border-b border-outline-variant/30 shadow-sm docked full-width top-0 sticky z-50">
+<div class="max-w-container-max mx-auto px-gutter flex justify-between items-center h-16 w-full">
+<div class="flex items-center gap-md">
+<span class="font-h1 text-h3 tracking-tight text-primary dark:text-inverse-primary cursor-pointer active:opacity-70 transition-opacity">QuoteDecoder</span>
+</div>
+<nav class="hidden md:flex gap-lg h-full items-center">
+<a class="font-technical-label text-technical-label text-on-surface-variant dark:text-outline hover:text-primary-container transition-colors cursor-pointer active:opacity-70 transition-opacity flex items-center h-full" href="#">Quote Entry</a>
+<a class="font-technical-label text-technical-label text-primary dark:text-primary-fixed border-b-2 border-primary hover:text-primary-container transition-colors cursor-pointer active:opacity-70 transition-opacity flex items-center h-full" href="#">Analysis</a>
+<a class="font-technical-label text-technical-label text-on-surface-variant dark:text-outline hover:text-primary-container transition-colors cursor-pointer active:opacity-70 transition-opacity flex items-center h-full" href="#">Comparison</a>
+<a class="font-technical-label text-technical-label text-on-surface-variant dark:text-outline hover:text-primary-container transition-colors cursor-pointer active:opacity-70 transition-opacity flex items-center h-full" href="#">Checklist</a>
+</nav>
+<div class="flex items-center gap-sm">
+<button class="hidden md:flex items-center gap-xs font-technical-label text-technical-label text-primary dark:text-primary-fixed-dim hover:bg-surface-variant px-sm py-base rounded-lg transition-colors">
+                    Save Progress
+                </button>
+<div class="flex gap-xs text-on-surface-variant">
+<button aria-label="print" class="p-xs hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">print</span>
+</button>
+<button aria-label="download" class="p-xs hover:bg-surface-variant rounded-full transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A close-up, softly lit portrait of a professional individual looking approachable. The background is a muted, abstract gray, ensuring focus remains on the face. The lighting is bright and clean, aligning with a modern, friendly light-mode aesthetic. High quality, crisp details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7EG6PYlBIQzg65IWDwDa3mZnnGQQqdu5TXmLzdmIZJMl3Pqs28OuG3JZfR8RROBTkwVPHJJTIb6qyXu9TvpqyWMNLB9jBZlsV47pElLSPIyKBnhvFd8VhNCaqSeMRCJBUlaqXH6LD4pbE3EsB9OGx0s071DPOsariDZCs63R3R0FrgrAS9iNVmd0usD0Rtdo9McZQjQAXQbxs35t3oZ2uqzDLBZD1oLnTrfBJdP72xrI5ZnakPwQzoyzfpoUkYYiQ_pKvHsVJI2Q"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full px-gutter pt-xl gap-xl relative">
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col gap-xl w-full">
+<section class="text-center md:text-left">
+<h1 class="font-h1 text-h1 text-on-surface mb-xs">Refrigerant Analysis</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Understanding the environmental impact, future availability, and serviceability risks of the refrigerants proposed in your quotes.</p>
+</section>
+<!-- Serviceability Risk Meter -->
+<section class="flex flex-col gap-lg">
+<h2 class="font-h2 text-h2 text-on-surface text-center">Serviceability Risk Meter</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Quote 1 Risk -->
+<div class="bg-surface-bright rounded-xl border border-outline-variant/20 p-lg ambient-shadow flex flex-col items-center text-center relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-error to-tertiary-fixed-dim"></div>
+<h3 class="font-h3 text-h3 text-on-surface mb-base">Quote A: Carrier Infinity</h3>
+<p class="font-technical-label text-technical-label text-error mb-lg">R-410A (Phasing Out)</p>
+<!-- Gauge Visual -->
+<div class="relative w-48 h-24 mb-md">
+<div class="absolute inset-0 border-t-8 border-l-8 border-r-8 border-outline-variant/30 rounded-t-full"></div>
+<!-- Needle pointing to High Risk -->
+<div class="absolute bottom-0 left-1/2 w-1 h-20 bg-on-surface origin-bottom transform rotate-45 rounded-full transition-transform duration-1000"></div>
+<div class="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-on-surface rounded-full"></div>
+</div>
+<span class="font-technical-label text-technical-label bg-error-container text-on-error-container px-sm py-xs rounded-full inline-block mt-xs">High Future Risk</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-md">Prices for R-410A are expected to rise significantly over the next 5 years due to production limits.</p>
+</div>
+<!-- Quote 2 Risk -->
+<div class="bg-surface-bright rounded-xl border border-outline-variant/20 p-lg ambient-shadow flex flex-col items-center text-center relative overflow-hidden ring-2 ring-primary">
+<div class="absolute top-0 right-0 m-md">
+<span class="bg-primary text-on-primary font-technical-label text-caption px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">star</span> Recommended
+                            </span>
+</div>
+<div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-secondary to-secondary-fixed"></div>
+<h3 class="font-h3 text-h3 text-on-surface mb-base">Quote B: Trane XV20i</h3>
+<p class="font-technical-label text-technical-label text-secondary mb-lg">R-454B (Future-Proof)</p>
+<!-- Gauge Visual -->
+<div class="relative w-48 h-24 mb-md">
+<div class="absolute inset-0 border-t-8 border-l-8 border-r-8 border-outline-variant/30 rounded-t-full"></div>
+<!-- Needle pointing to Low Risk -->
+<div class="absolute bottom-0 left-1/2 w-1 h-20 bg-on-surface origin-bottom transform -rotate-45 rounded-full transition-transform duration-1000"></div>
+<div class="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 w-3 h-3 bg-on-surface rounded-full"></div>
+</div>
+<span class="font-technical-label text-technical-label bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full inline-block mt-xs">Low Future Risk</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-md">Compliant with upcoming EPA regulations. Long-term availability and pricing are secure.</p>
+</div>
+</div>
+</section>
+<!-- Explainer Cards -->
+<section class="flex flex-col gap-lg bg-surface-container-low rounded-xl p-lg border border-outline-variant/20">
+<h2 class="font-h2 text-h2 text-on-surface text-center mb-sm">What this means for you</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- R410A Explainer -->
+<div class="bg-surface-bright rounded-xl p-md border border-outline-variant/20">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-error">
+<span class="material-symbols-outlined">warning</span>
+</div>
+<h4 class="font-h3 text-[20px] text-on-surface">The R-410A Phase Down</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Starting in 2025, production of R-410A will be drastically reduced. While your system will still work, repairing leaks will become increasingly expensive as the refrigerant supply dwindles.</p>
+<div class="bg-tertiary-fixed-dim/20 rounded-lg p-sm border border-tertiary-fixed/30 flex gap-sm items-start">
+<span class="material-symbols-outlined text-tertiary mt-xs">lightbulb</span>
+<p class="font-caption text-caption text-on-surface-variant">Opting for this now might save upfront costs, but increases long-term maintenance liabilities.</p>
+</div>
+</div>
+<!-- R454B Explainer -->
+<div class="bg-surface-bright rounded-xl p-md border border-outline-variant/20">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">energy_savings_leaf</span>
+</div>
+<h4 class="font-h3 text-[20px] text-on-surface">The R-454B Standard</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">This is the new industry standard replacing R-410A. It has a significantly lower Global Warming Potential (GWP) and guarantees parts and servicing availability for the lifespan of your new system.</p>
+<div class="bg-secondary-fixed/20 rounded-lg p-sm border border-secondary-fixed/30 flex gap-sm items-start">
+<span class="material-symbols-outlined text-secondary mt-xs">verified</span>
+<p class="font-caption text-caption text-on-surface-variant">Highly recommended for peace of mind and stable repair costs over the next 15-20 years.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Missing Details Summary -->
+<section class="bg-surface-bright rounded-xl border border-outline-variant/20 p-lg ambient-shadow mb-xl">
+<div class="flex items-center gap-sm mb-md border-b border-outline-variant/20 pb-sm">
+<span class="material-symbols-outlined text-tertiary-container text-[28px]">rule_folder</span>
+<h2 class="font-h3 text-h3 text-on-surface">Missing Details to Verify</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">We noticed a few critical pieces of information missing from your quotes that could impact these assessments.</p>
+<ul class="space-y-sm">
+<li class="flex items-start gap-md p-sm hover:bg-surface-variant/50 rounded-lg transition-colors">
+<div class="mt-xs w-6 h-6 rounded-full bg-outline-variant/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">question_mark</span>
+</div>
+<div>
+<p class="font-technical-label text-technical-label text-on-surface">Quote A Line-Set Replacement</p>
+<p class="font-body-md text-caption text-on-surface-variant">Does not specify if the copper lines connecting the units will be replaced or flushed. This is critical for warranty validity.</p>
+</div>
+</li>
+<li class="flex items-start gap-md p-sm hover:bg-surface-variant/50 rounded-lg transition-colors">
+<div class="mt-xs w-6 h-6 rounded-full bg-outline-variant/30 flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">question_mark</span>
+</div>
+<div>
+<p class="font-technical-label text-technical-label text-on-surface">Quote B Labor Warranty Duration</p>
+<p class="font-body-md text-caption text-on-surface-variant">Parts are covered for 10 years, but labor coverage is unlisted. Typical labor warranties range from 1 to 10 years.</p>
+</div>
+</li>
+</ul>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface dark:bg-surface-container-high border-t border-outline-variant/30 bg-surface/90 backdrop-blur-lg shadow-[0_-4px_20px_rgba(0,0,0,0.05)] docked full-width bottom-0 fixed rounded-t-xl fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-4">
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 px-6 py-2 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 0;">edit_note</span>
+<span class="font-technical-label text-caption">Quote Entry</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container/20 text-primary rounded-xl px-6 py-2 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-technical-label text-caption font-bold">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 px-6 py-2 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 0;">difference</span>
+<span class="font-technical-label text-caption">Comparison</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant/70 px-6 py-2 hover:text-primary dark:hover:text-primary-fixed-dim active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 0;">fact_check</span>
+<span class="font-technical-label text-caption">Checklist</span>
+</a>
+</nav>
+</body></html>

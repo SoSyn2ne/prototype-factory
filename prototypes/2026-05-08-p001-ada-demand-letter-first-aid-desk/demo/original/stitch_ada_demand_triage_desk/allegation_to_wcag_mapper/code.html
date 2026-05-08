@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ADA.OPS - Allegation Mapper</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary": "#233144",
+                        "surface": "#131315",
+                        "secondary": "#b9c7e0",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "surface-container-high": "#2a2a2b",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#e4e2e4",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#e4e2e4",
+                        "on-tertiary": "#2d3133",
+                        "primary": "#bec6e0",
+                        "surface-variant": "#353436",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "on-primary-container": "#798098",
+                        "inverse-primary": "#565e74",
+                        "surface-container-low": "#1b1b1d",
+                        "inverse-on-surface": "#303032",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#3c4a5e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary": "#c4c7c9",
+                        "background": "#131315",
+                        "surface-bright": "#39393b",
+                        "outline": "#909097",
+                        "tertiary-container": "#15181a",
+                        "surface-container": "#1f1f21",
+                        "surface-tint": "#bec6e0",
+                        "on-primary": "#283044",
+                        "surface-dim": "#131315",
+                        "primary-container": "#0f172a",
+                        "secondary-fixed": "#d5e3fd",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#7e8183",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-secondary-container": "#abb9d2",
+                        "on-background": "#e4e2e4",
+                        "surface-container-highest": "#353436",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#131b2e",
+                        "outline-variant": "#45464d",
+                        "error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "gutter": "8px",
+                        "dense-row": "24px",
+                        "panel-gap": "2px",
+                        "unit": "4px",
+                        "container-padding": "16px"
+                    },
+                    fontFamily: {
+                        "label-xs": ["Inter"],
+                        "heading-caps": ["Inter"],
+                        "body-compact": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    fontSize: {
+                        "label-xs": ["10px", { lineHeight: "12px", fontWeight: "600" }],
+                        "heading-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "body-compact": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+                        "data-mono": ["12px", { lineHeight: "18px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        /* Scrollbar styling for command desk feel */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #131315; }
+        ::-webkit-scrollbar-thumb { background: #353436; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #45464d; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-compact text-body-compact overflow-hidden flex h-screen antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full flex flex-col z-40 bg-surface dark:bg-surface border-r border-outline-variant w-64 shrink-0">
+<!-- Header -->
+<div class="p-container-padding border-b border-outline-variant flex flex-col gap-unit">
+<div class="flex items-center gap-gutter mb-2">
+<div class="w-8 h-8 rounded bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden shrink-0">
+<span class="material-symbols-outlined text-secondary" style="font-size: 20px;">account_circle</span>
+</div>
+<div class="flex flex-col">
+<span class="font-heading-caps text-heading-caps text-on-surface truncate">OPERATOR_082</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant truncate uppercase">SECTOR_REMEDIATION</span>
+</div>
+</div>
+<button class="w-full bg-surface-container-high border border-outline-variant hover:bg-surface-variant transition-colors text-on-surface font-heading-caps text-heading-caps py-2 rounded flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">add</span>
+                NEW_TICKET
+            </button>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 overflow-y-auto py-gutter flex flex-col gap-1">
+<!-- Active Tab: CRITICAL_TRIAGE -->
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left bg-surface-container-highest text-primary border-l-2 border-primary scale-95 duration-75">
+<span class="material-symbols-outlined icon-fill" style="font-size: 18px;">priority_high</span>
+<span class="truncate">CRITICAL_TRIAGE</span>
+</button>
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">pending_actions</span>
+<span class="truncate">PENDING_REVIEW</span>
+</button>
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">code</span>
+<span class="truncate">TECHNICAL_LOGS</span>
+</button>
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">check_circle</span>
+<span class="truncate">VERIFICATION</span>
+</button>
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">inventory_2</span>
+<span class="truncate">ARCHIVE</span>
+</button>
+</div>
+<!-- Footer Tabs -->
+<div class="border-t border-outline-variant p-gutter flex flex-col gap-1">
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">analytics</span>
+<span class="truncate">SYSTEM_HEALTH</span>
+</button>
+<button class="w-full flex items-center gap-3 px-container-padding py-2 font-data-mono text-data-mono text-left text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined" style="font-size: 18px;">settings</span>
+<span class="truncate">SETTINGS</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<div class="flex-1 ml-64 flex flex-col h-full overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-high dark:bg-surface-container-high border-b border-outline-variant flex justify-between items-center px-gutter h-12 w-full shrink-0 z-30">
+<div class="flex items-center gap-4 px-2">
+<span class="font-heading-caps text-heading-caps text-on-surface-variant tracking-widest">ADA.OPS_REMEDIATION</span>
+<div class="h-4 w-px bg-outline-variant"></div>
+<span class="font-data-mono text-data-mono text-primary">TICKET_ID: <span class="text-on-surface">LC-9942-B</span></span>
+</div>
+<div class="flex items-center gap-gutter">
+<!-- Icon Actions -->
+<div class="flex items-center border-r border-outline-variant pr-gutter gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant transition-colors hover:text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">timer</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant transition-colors hover:text-error flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">error_outline</span>
+</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-variant transition-colors hover:text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 18px;">terminal</span>
+</button>
+</div>
+<!-- Secondary/Primary Actions -->
+<button class="px-3 py-1 font-heading-caps text-heading-caps border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors rounded">
+                    EXPORT_LOGS
+                </button>
+<button class="px-3 py-1 font-heading-caps text-heading-caps bg-primary text-on-primary hover:bg-primary-fixed-dim transition-colors rounded">
+                    COMMIT_REMEDIATION
+                </button>
+</div>
+</header>
+<!-- Split Pane Workspace -->
+<main class="flex-1 flex overflow-hidden">
+<!-- LEFT PANE: Allegation Text -->
+<section class="w-1/2 lg:w-2/5 flex flex-col bg-surface border-r border-outline-variant relative">
+<!-- Pane Header -->
+<div class="h-8 border-b border-outline-variant bg-surface-container-lowest flex items-center px-container-padding justify-between shrink-0">
+<span class="font-heading-caps text-heading-caps text-on-surface">SOURCE_ALLEGATION</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase px-2 py-0.5 bg-surface-container border border-outline-variant rounded-sm">PAGE_REF: /CHECKOUT</span>
+</div>
+<!-- Pane Content -->
+<div class="flex-1 overflow-y-auto p-container-padding">
+<div class="bg-surface-container-low border border-outline-variant rounded p-4 font-data-mono text-data-mono text-on-surface-variant leading-relaxed">
+<p class="mb-4 text-on-surface font-semibold">[LEGAL_EXTRACT_START]</p>
+<p class="mb-4">
+                            Plaintiff alleges that the website's checkout process presents a significant barrier to users relying on keyboard navigation. Specifically, upon reaching the "Shipping Method" selection modal, keyboard focus becomes trapped within the modal interface.
+                        </p>
+<p class="mb-4 border-l-2 border-error pl-3 bg-error-container/10 text-on-surface">
+<span class="text-error font-semibold">[CRITICAL_OBSERVATION]</span> Users are unable to exit the modal using the 'Escape' key or navigate past the 'Confirm' button to access the main page content, forcing a <span class="bg-surface-variant px-1 rounded text-primary">keyboard trap</span> scenario.
+                        </p>
+<p class="mb-4">
+                            Furthermore, several custom radio buttons within this modal lack sufficient contrast against their background, specifically the 'Express Shipping' option which utilizes a light gray (#B0B0B0) text on a white background, failing to meet the required <span class="bg-surface-variant px-1 rounded text-primary">contrast ratio</span> for non-text content.
+                        </p>
+<p class="mt-4 text-on-surface font-semibold">[LEGAL_EXTRACT_END]</p>
+</div>
+</div>
+</section>
+<!-- RIGHT PANE: Mapper & Risk -->
+<section class="w-1/2 lg:w-3/5 flex flex-col bg-surface relative">
+<!-- Top Section: WCAG Criteria -->
+<div class="flex flex-col flex-1 min-h-0 border-b border-outline-variant">
+<div class="h-8 border-b border-outline-variant bg-surface-container-lowest flex items-center px-container-padding justify-between shrink-0">
+<span class="font-heading-caps text-heading-caps text-on-surface">WCAG_CRITERIA_MAPPING</span>
+<div class="flex gap-2">
+<span class="font-label-xs text-label-xs bg-error text-on-error px-1.5 py-0.5 rounded-sm">1 SELECTED</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-gutter bg-surface-container-lowest">
+<!-- Density List -->
+<div class="flex flex-col gap-unit">
+<!-- Selected Item -->
+<div class="group flex items-start gap-3 p-2 bg-primary-container border border-primary rounded cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="mt-0.5 flex items-center justify-center w-4 h-4 border border-primary bg-primary text-on-primary rounded-sm shrink-0">
+<span class="material-symbols-outlined" style="font-size: 12px;">check</span>
+</div>
+<div class="flex flex-col w-full">
+<div class="flex justify-between items-start">
+<span class="font-data-mono text-data-mono text-on-surface font-bold">2.1.2 No Keyboard Trap</span>
+<span class="font-label-xs text-label-xs text-primary bg-surface-container px-1 rounded border border-outline-variant">LEVEL_A</span>
+</div>
+<span class="font-body-compact text-body-compact text-on-surface-variant mt-1">If keyboard focus can be moved to a component using a keyboard interface, then focus can be moved away from that component using only a keyboard interface.</span>
+</div>
+</div>
+<!-- Unselected Item -->
+<div class="group flex items-start gap-3 p-2 bg-surface border border-outline-variant rounded hover:bg-surface-variant transition-colors cursor-pointer">
+<div class="mt-0.5 flex items-center justify-center w-4 h-4 border border-outline-variant bg-surface rounded-sm shrink-0 group-hover:border-on-surface-variant"></div>
+<div class="flex flex-col w-full">
+<div class="flex justify-between items-start">
+<span class="font-data-mono text-data-mono text-on-surface-variant group-hover:text-on-surface transition-colors">1.1.1 Non-text Content</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container px-1 rounded border border-outline-variant">LEVEL_A</span>
+</div>
+</div>
+</div>
+<!-- Unselected Item -->
+<div class="group flex items-start gap-3 p-2 bg-surface border border-outline-variant rounded hover:bg-surface-variant transition-colors cursor-pointer">
+<div class="mt-0.5 flex items-center justify-center w-4 h-4 border border-outline-variant bg-surface rounded-sm shrink-0 group-hover:border-on-surface-variant"></div>
+<div class="flex flex-col w-full">
+<div class="flex justify-between items-start">
+<span class="font-data-mono text-data-mono text-on-surface-variant group-hover:text-on-surface transition-colors">1.4.11 Non-text Contrast</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant bg-surface-container px-1 rounded border border-outline-variant">LEVEL_AA</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section: Risk Assessment -->
+<div class="border-b border-outline-variant shrink-0 bg-surface">
+<div class="h-8 border-b border-outline-variant bg-surface-container-lowest flex items-center px-container-padding">
+<span class="font-heading-caps text-heading-caps text-on-surface">RISK_LEVEL_ASSESSMENT</span>
+</div>
+<div class="p-container-padding flex flex-col gap-4">
+<!-- Custom Sliders -->
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-data-mono text-on-surface-variant w-24 shrink-0 text-right">LEGAL_RISK</span>
+<div class="flex-1 flex h-2 bg-surface-container-high rounded overflow-hidden">
+<div class="w-1/3 bg-surface-variant border-r border-background"></div>
+<div class="w-1/3 bg-surface-variant border-r border-background"></div>
+<div class="w-1/3 bg-error relative">
+<div class="absolute inset-0 bg-black/20"></div> <!-- Texture/Depth -->
+</div>
+</div>
+<span class="font-data-mono text-data-mono text-error font-bold w-12 shrink-0">HIGH</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-data-mono text-on-surface-variant w-24 shrink-0 text-right">TECH_DEBT</span>
+<div class="flex-1 flex h-2 bg-surface-container-high rounded overflow-hidden">
+<div class="w-1/3 bg-surface-variant border-r border-background"></div>
+<div class="w-1/3 bg-primary relative">
+<div class="absolute inset-0 bg-black/20"></div>
+</div>
+<div class="w-1/3 bg-transparent"></div>
+</div>
+<span class="font-data-mono text-data-mono text-primary font-bold w-12 shrink-0">MED</span>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Action & Assignment -->
+<div class="shrink-0 bg-surface-container-low flex flex-col">
+<div class="h-8 border-b border-outline-variant bg-surface-container-lowest flex items-center px-container-padding">
+<span class="font-heading-caps text-heading-caps text-on-surface">REMEDIATION_DIRECTIVE</span>
+</div>
+<div class="p-container-padding grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-2">
+<label class="font-label-xs text-label-xs text-on-surface-variant uppercase">RECOMMENDED_ACTION</label>
+<select class="w-full bg-surface border border-outline-variant text-on-surface font-data-mono text-data-mono text-sm rounded px-2 py-1.5 focus:ring-1 focus:ring-primary focus:border-primary outline-none appearance-none">
+<option>IMPLEMENT_FOCUS_TRAP_HANDLER</option>
+<option>REWRITE_MODAL_COMPONENT</option>
+<option>ADD_KEYBOARD_EVENT_LISTENER</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-xs text-label-xs text-on-surface-variant uppercase">ASSIGNED_DEVELOPER</label>
+<div class="relative">
+<select class="w-full bg-surface border border-outline-variant text-on-surface font-data-mono text-data-mono text-sm rounded px-2 py-1.5 pl-8 focus:ring-1 focus:ring-primary focus:border-primary outline-none appearance-none">
+<option>DEV_TEAM_ALPHA (FRONTEND)</option>
+<option>DEV_TEAM_BETA (CORE)</option>
+<option>UNASSIGNED_QUEUE</option>
+</select>
+<span class="material-symbols-outlined absolute left-2 top-1.5 text-on-surface-variant" style="font-size: 16px;">badge</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>REGRET MACHINE - Price Reveal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=JetBrains+Mono:wght@700&amp;family=Space+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#f5e700",
+                        "on-secondary-fixed": "#002020",
+                        "on-tertiary-container": "#454000",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#007070",
+                        "on-tertiary": "#353100",
+                        "primary-fixed-dim": "#ffb1c4",
+                        "on-primary-fixed": "#3f001a",
+                        "tertiary-container": "#b9ae00",
+                        "outline-variant": "#5c3f46",
+                        "primary-container": "#ff4a8d",
+                        "on-error": "#690005",
+                        "surface-container-low": "#191c1f",
+                        "inverse-primary": "#ba005b",
+                        "inverse-on-surface": "#2e3134",
+                        "surface-container-lowest": "#0c0e12",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#e5bcc5",
+                        "inverse-surface": "#e1e2e7",
+                        "tertiary": "#d7ca00",
+                        "surface-container-highest": "#323539",
+                        "surface-container-high": "#282a2e",
+                        "surface-variant": "#323539",
+                        "secondary-container": "#00fbfb",
+                        "surface-dim": "#111417",
+                        "surface": "#111417",
+                        "on-error-container": "#ffdad6",
+                        "on-primary": "#65002e",
+                        "on-surface": "#e1e2e7",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "surface-bright": "#37393d",
+                        "on-tertiary-fixed": "#1f1c00",
+                        "background": "#111417",
+                        "primary-fixed": "#ffd9e1",
+                        "secondary-fixed": "#00fbfb",
+                        "on-tertiary-fixed-variant": "#4d4800",
+                        "on-primary-container": "#590028",
+                        "surface-tint": "#ffb1c4",
+                        "secondary-fixed-dim": "#00dddd",
+                        "secondary": "#ffffff",
+                        "on-secondary": "#003737",
+                        "outline": "#ac878f",
+                        "on-primary-fixed-variant": "#8f0044",
+                        "on-background": "#e1e2e7",
+                        "tertiary-fixed-dim": "#d7ca00",
+                        "primary": "#ffb1c4",
+                        "surface-container": "#1d2023"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Anton"],
+                        "display-xl": ["Anton"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Space Grotesk"],
+                        "body-md": ["Space Grotesk"],
+                        "headline-lg": ["Anton"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "display-xl": ["96px", { "lineHeight": "90px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "44px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom Styles for Chaos & Ticker */
+        .tear-line-vertical {
+            background-image: linear-gradient(to bottom, #ac878f 50%, transparent 50%);
+            background-size: 2px 16px;
+            background-repeat: repeat-y;
+            width: 2px;
+        }
+        .tear-line-horizontal {
+            background-image: linear-gradient(to right, #ac878f 50%, transparent 50%);
+            background-size: 16px 2px;
+            background-repeat: repeat-x;
+            height: 2px;
+        }
+        .sticker-shadow-pink {
+            box-shadow: 4px 4px 0px 0px #ff4a8d;
+        }
+        .sticker-shadow-cyan {
+            box-shadow: 4px 4px 0px 0px #00fbfb;
+        }
+        .btn-pressed:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #ff4a8d;
+        }
+        .bg-thermal {
+            background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px);
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .animate-ticker {
+            display: inline-block;
+            white-space: nowrap;
+            animation: ticker 10s linear infinite;
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #ff4a8d, -2px 0 #00fbfb;
+        }
+        
+        /* Shaking animation for extreme regret */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            10% { transform: translate(-1px, -2px) rotate(-1deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            50% { transform: translate(-1px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-1deg); }
+            80% { transform: translate(-1px, -1px) rotate(1deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .animate-shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both infinite;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pt-20 pb-28 font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface dark:bg-surface border-b-4 border-primary shadow-[4px_4px_0px_0px_#ff4a8d]">
+<button class="text-primary dark:text-primary hover:skew-x-2 transition-transform active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">confirmation_number</span>
+</button>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tighter uppercase glitch-text">REGRET MACHINE</h1>
+<button class="text-primary dark:text-primary hover:skew-x-2 transition-transform active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined">history_toggle_off</span>
+</button>
+</header>
+<main class="max-w-container-max mx-auto px-gutter mt-margin space-y-8">
+<!-- Regret Warning Banner -->
+<div class="bg-error-container border-4 border-error text-on-error-container p-4 transform -rotate-1 shadow-[4px_4px_0px_0px_rgba(255,180,171,1)] relative overflow-hidden">
+<div class="absolute -top-4 -right-4 bg-tertiary text-on-tertiary font-headline-md text-headline-md px-4 py-1 rotate-12 border-2 border-on-tertiary">
+                CRITICAL HIT
+            </div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-4xl animate-shake text-error">warning</span>
+<div>
+<h2 class="font-headline-md text-headline-md uppercase text-error">Regret Warning</h2>
+<p class="font-label-caps text-label-caps mt-1">THE FOLLOWING FEES MAY CAUSE EMOTIONAL DAMAGE.</p>
+</div>
+</div>
+</div>
+<!-- Ticker Tape -->
+<div class="bg-surface-container-highest border-y-2 border-secondary-container overflow-hidden py-2 my-8 shadow-[0_0_15px_rgba(0,251,251,0.2)]">
+<div class="font-label-caps text-label-caps text-secondary-fixed animate-ticker tracking-widest whitespace-nowrap">
+                DYNAMIC PRICING SURGE DETECTED // CURRENT DEMAND: VERY HIGH // YOU ARE IN LINE BEHIND 42,069 FANS // DO NOT REFRESH // DYNAMIC PRICING SURGE DETECTED //
+            </div>
+</div>
+<!-- Ticket Stub: The Reveal -->
+<div class="relative max-w-2xl mx-auto">
+<!-- Floating Badge -->
+<div class="absolute -top-6 -left-6 z-10 bg-primary-container text-on-primary-container border-2 border-white px-3 py-1 rotate-[-15deg] sticker-shadow-cyan font-headline-md text-headline-md uppercase">
+                SOLD OUT SOON
+            </div>
+<div class="flex flex-col md:flex-row bg-surface-container border-4 border-outline-variant sticker-shadow-pink relative">
+<!-- Notches (Left/Right) -->
+<div class="hidden md:block absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-background rounded-full border-r-4 border-outline-variant"></div>
+<div class="hidden md:block absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-background rounded-full border-l-4 border-outline-variant"></div>
+<!-- Main Event Section -->
+<div class="flex-1 p-6 md:p-8 bg-surface-bright relative overflow-hidden">
+<!-- Texture Overlay -->
+<div class="absolute inset-0 bg-thermal opacity-50 pointer-events-none"></div>
+<div class="relative z-10">
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Face Value</p>
+<h3 class="font-display-xl text-display-xl text-primary font-bold tracking-tighter glitch-text">$199.00</h3>
+<div class="mt-8 space-y-4">
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Convenience Fee</span>
+<span class="font-body-lg text-body-lg text-secondary-fixed">$45.50</span>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Facility Charge</span>
+<span class="font-body-lg text-body-lg text-secondary-fixed">$15.00</span>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Processing Fee</span>
+<span class="font-body-lg text-body-lg text-secondary-fixed">$8.75</span>
+</div>
+<div class="flex justify-between items-end border-b border-outline-variant pb-2 bg-error-container/20 p-2">
+<span class="font-label-caps text-label-caps text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span> Dynamic Surge
+                                </span>
+<span class="font-body-lg text-body-lg text-error font-bold">+$300.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Perforation Line -->
+<div class="hidden md:block tear-line-vertical mx-0 z-10 bg-surface-container"></div>
+<div class="block md:hidden tear-line-horizontal my-0 z-10 bg-surface-container w-full"></div>
+<!-- Receipt Stub Section -->
+<div class="w-full md:w-64 p-6 bg-surface-container-high flex flex-col justify-between">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4">Total Price</p>
+<h4 class="font-headline-lg text-headline-lg text-tertiary-fixed mb-1">$568.25</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-70">USD</p>
+</div>
+<div class="mt-8">
+<div class="bg-background p-2 border-2 border-outline-variant text-center font-label-caps text-label-caps text-on-surface mb-4">
+                            SEC 404, ROW Z, SEAT 1
+                        </div>
+<p class="font-label-caps text-label-caps text-error text-center mb-2 animate-pulse">TIME REMAINING: 01:59</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="max-w-2xl mx-auto mt-12 text-center space-y-6">
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Is it worth skipping groceries this month? Let's find out.
+            </p>
+<button class="w-full md:w-auto px-12 py-6 bg-secondary-fixed text-on-secondary-fixed font-headline-md text-headline-md uppercase tracking-wider border-4 border-on-secondary-fixed sticker-shadow-pink btn-pressed transition-all duration-75 flex items-center justify-center gap-4 mx-auto group">
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">speed</span>
+                PROCEED TO SIMULATOR
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 h-20 rounded-t-xl border-t-4 border-secondary-container bg-surface-container-highest shadow-[0_-4px_10px_rgba(0,251,251,0.3)] md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_activity</span>
+<span class="font-label-caps text-label-caps mt-1">INTAKE</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg p-2 scale-110 rotate-2 active:scale-95 transition-all duration-100 border-2 border-primary-container sticker-shadow-cyan" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<span class="font-label-caps text-label-caps mt-1">REVEAL</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">speed</span>
+<span class="font-label-caps text-label-caps mt-1">SIMULATE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">style</span>
+<span class="font-label-caps text-label-caps mt-1">STUBS</span>
+</a>
+</nav>
+</body></html>

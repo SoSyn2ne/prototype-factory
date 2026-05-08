@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ADA.OPS - 48-Hour Fix Queue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#b9c7e0",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary": "#233144",
+                        "surface": "#131315",
+                        "secondary": "#b9c7e0",
+                        "on-secondary-fixed-variant": "#3a485c",
+                        "surface-container-high": "#2a2a2b",
+                        "on-tertiary-fixed": "#191c1e",
+                        "inverse-surface": "#e4e2e4",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-surface": "#e4e2e4",
+                        "on-tertiary": "#2d3133",
+                        "primary": "#bec6e0",
+                        "surface-variant": "#353436",
+                        "on-secondary-fixed": "#0d1c2f",
+                        "on-primary-container": "#798098",
+                        "inverse-primary": "#565e74",
+                        "surface-container-low": "#1b1b1d",
+                        "inverse-on-surface": "#303032",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#3c4a5e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary": "#c4c7c9",
+                        "background": "#131315",
+                        "surface-bright": "#39393b",
+                        "outline": "#909097",
+                        "tertiary-container": "#15181a",
+                        "surface-container": "#1f1f21",
+                        "surface-tint": "#bec6e0",
+                        "on-primary": "#283044",
+                        "surface-dim": "#131315",
+                        "primary-container": "#0f172a",
+                        "secondary-fixed": "#d5e3fd",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-tertiary-container": "#7e8183",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-secondary-container": "#abb9d2",
+                        "on-background": "#e4e2e4",
+                        "surface-container-highest": "#353436",
+                        "on-error": "#690005",
+                        "on-primary-fixed": "#131b2e",
+                        "outline-variant": "#45464d",
+                        "error-container": "#93000a",
+                        "tertiary-fixed": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "8px",
+                        "dense-row": "24px",
+                        "panel-gap": "2px",
+                        "unit": "4px",
+                        "container-padding": "16px"
+                    },
+                    "fontFamily": {
+                        "label-xs": ["Inter"],
+                        "heading-caps": ["Inter"],
+                        "body-compact": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-xs": ["10px", { "lineHeight": "12px", "fontWeight": "600" }],
+                        "heading-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-compact": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "data-mono": ["12px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #131315; color: #e4e2e4; }
+        .bg-triage-critical { background-color: #93000a; color: #ffdad6; }
+        .bg-triage-high { background-color: #3c4a5e; color: #d5e3fd; }
+        .bg-triage-medium { background-color: #353436; color: #c6c6cd; }
+    </style>
+</head>
+<body class="font-body-compact bg-background text-on-background h-screen overflow-hidden flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface-container-high dark:bg-surface-container-high text-primary dark:text-primary docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-gutter h-12 w-full z-50 flex-shrink-0">
+<div class="flex items-center gap-4">
+<span class="font-heading-caps text-heading-caps text-on-surface-variant tracking-widest">ADA.OPS_REMEDIATION</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="hover:bg-surface-variant transition-colors p-1 rounded"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">timer</span></button>
+<button class="hover:bg-surface-variant transition-colors p-1 rounded"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">error_outline</span></button>
+<button class="hover:bg-surface-variant transition-colors p-1 rounded"><span class="material-symbols-outlined text-on-surface-variant text-[20px]">terminal</span></button>
+</div>
+<button class="font-heading-caps text-heading-caps border border-outline-variant px-3 py-1 rounded hover:bg-surface-variant transition-colors text-on-surface-variant">EXPORT_LOGS</button>
+<button class="font-heading-caps text-heading-caps bg-primary-container text-primary px-3 py-1 rounded hover:bg-surface-variant transition-colors">COMMIT_REMEDIATION</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-primary border-r border-outline-variant flat no shadows fixed left-0 top-12 h-[calc(100vh-3rem)] flex flex-col z-40 w-16 md:w-64 flex-shrink-0">
+<div class="p-4 border-b border-outline-variant hidden md:block">
+<div class="font-heading-caps text-heading-caps text-secondary mb-1">OPERATOR_082</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant">SECTOR_REMEDIATION</div>
+<button class="mt-4 w-full border border-primary text-primary font-heading-caps text-heading-caps py-2 rounded hover:bg-surface-container-low transition-all">NEW_TICKET</button>
+</div>
+<div class="flex-1 py-2 overflow-y-auto">
+<a class="bg-surface-container-highest text-primary border-l-2 border-primary hover:bg-surface-container-low transition-all flex items-center px-4 py-3 Active: scale-95 duration-75" href="#">
+<span class="material-symbols-outlined mr-3">priority_high</span>
+<span class="font-data-mono text-data-mono hidden md:inline">CRITICAL_TRIAGE</span>
+</a>
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3">pending_actions</span>
+<span class="font-data-mono text-data-mono hidden md:inline">PENDING_REVIEW</span>
+</a>
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3">code</span>
+<span class="font-data-mono text-data-mono hidden md:inline">TECHNICAL_LOGS</span>
+</a>
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3">check_circle</span>
+<span class="font-data-mono text-data-mono hidden md:inline">VERIFICATION</span>
+</a>
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-3" href="#">
+<span class="material-symbols-outlined mr-3">inventory_2</span>
+<span class="font-data-mono text-data-mono hidden md:inline">ARCHIVE</span>
+</a>
+</div>
+<div class="border-t border-outline-variant p-2 hidden md:block">
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-2" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">analytics</span>
+<span class="font-data-mono text-data-mono">SYSTEM_HEALTH</span>
+</a>
+<a class="text-on-surface-variant opacity-70 hover:bg-surface-container-low transition-all flex items-center px-4 py-2" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">settings</span>
+<span class="font-data-mono text-data-mono">SETTINGS</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-16 md:ml-64 p-container-padding overflow-y-auto bg-surface-dim">
+<div class="max-w-7xl mx-auto">
+<div class="mb-6 flex justify-between items-end border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-data-mono text-xl text-primary mb-1">48-HOUR FIX QUEUE</h1>
+<p class="font-label-xs text-label-xs text-on-surface-variant">ACTIVE REMEDIATION TICKETS | SORTED BY DEADLINE</p>
+</div>
+<div class="text-right">
+<div class="font-heading-caps text-heading-caps text-error mb-1">CRITICAL TICKETS: 3</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">T-MINUS 47:12:09</div>
+</div>
+</div>
+<div class="flex flex-col gap-unit">
+<!-- Ticket Item 1 -->
+<div class="bg-surface-container flex items-stretch border border-outline-variant group hover:bg-surface-variant transition-colors relative">
+<div class="w-1 bg-error absolute left-0 top-0 bottom-0"></div>
+<div class="w-12 flex items-center justify-center border-r border-outline-variant">
+<input class="w-[14px] h-[14px] bg-transparent border-outline-variant rounded-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 flex items-center p-3 gap-6">
+<div class="w-24 shrink-0 font-data-mono text-data-mono text-on-surface">WCAG 1.1.1</div>
+<div class="flex-1 min-w-0">
+<div class="font-body-compact text-body-compact text-on-surface truncate">Missing descriptive alt text on global navigation logo.</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant mt-1">src/components/nav/Header.tsx:42</div>
+</div>
+<div class="w-24 shrink-0 text-right font-data-mono text-data-mono text-error">
+                                T-12:04
+                            </div>
+</div>
+<div class="w-32 flex items-center justify-end px-4 border-l border-outline-variant">
+<span class="bg-triage-critical px-2 py-1 font-heading-caps text-heading-caps rounded-sm">CRITICAL</span>
+</div>
+</div>
+<!-- Ticket Item 2 -->
+<div class="bg-surface-container flex items-stretch border border-outline-variant group hover:bg-surface-variant transition-colors relative">
+<div class="w-1 bg-error absolute left-0 top-0 bottom-0"></div>
+<div class="w-12 flex items-center justify-center border-r border-outline-variant">
+<input class="w-[14px] h-[14px] bg-transparent border-outline-variant rounded-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 flex items-center p-3 gap-6">
+<div class="w-24 shrink-0 font-data-mono text-data-mono text-on-surface">WCAG 2.1.1</div>
+<div class="flex-1 min-w-0">
+<div class="font-body-compact text-body-compact text-on-surface truncate">Custom dropdown menu cannot be opened via Keyboard (Enter/Space).</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant mt-1">src/ui/Select/Dropdown.tsx:115</div>
+</div>
+<div class="w-24 shrink-0 text-right font-data-mono text-data-mono text-error">
+                                T-18:45
+                            </div>
+</div>
+<div class="w-32 flex items-center justify-end px-4 border-l border-outline-variant">
+<span class="bg-triage-critical px-2 py-1 font-heading-caps text-heading-caps rounded-sm">CRITICAL</span>
+</div>
+</div>
+<!-- Ticket Item 3 -->
+<div class="bg-surface-container flex items-stretch border border-outline-variant group hover:bg-surface-variant transition-colors relative">
+<div class="w-1 bg-secondary absolute left-0 top-0 bottom-0 opacity-50"></div>
+<div class="w-12 flex items-center justify-center border-r border-outline-variant">
+<input class="w-[14px] h-[14px] bg-transparent border-outline-variant rounded-none text-primary focus:ring-0 cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 flex items-center p-3 gap-6">
+<div class="w-24 shrink-0 font-data-mono text-data-mono text-on-surface">WCAG 1.4.3</div>
+<div class="flex-1 min-w-0">
+<div class="font-body-compact text-body-compact text-on-surface truncate">Insufficient contrast ratio (3.1:1) on secondary button text.</div>
+<div class="font-label-xs text-label-xs text-on-surface-variant mt-1">styles/themes/light.css:88</div>
+</div>
+<div class="w-24 shrink-0 text-right font-data-mono text-data-mono text-secondary">
+                                T-36:12
+                            </div>
+</div>
+<div class="w-32 flex items-center justify-end px-4 border-l border-outline-variant">
+<span class="bg-triage-high px-2 py-1 font-heading-caps text-heading-caps rounded-sm">HIGH</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

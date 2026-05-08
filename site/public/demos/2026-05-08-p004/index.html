@@ -1,59 +1,256 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ticket Regret Time Machine - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Regret Machine - Intake</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=JetBrains+Mono:wght@700&amp;family=Space+Grotesk:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#f5e700",
+                        "on-secondary-fixed": "#002020",
+                        "on-tertiary-container": "#454000",
+                        "error": "#ffb4ab",
+                        "on-secondary-container": "#007070",
+                        "on-tertiary": "#353100",
+                        "primary-fixed-dim": "#ffb1c4",
+                        "on-primary-fixed": "#3f001a",
+                        "tertiary-container": "#b9ae00",
+                        "outline-variant": "#5c3f46",
+                        "primary-container": "#ff4a8d",
+                        "on-error": "#690005",
+                        "surface-container-low": "#191c1f",
+                        "inverse-primary": "#ba005b",
+                        "inverse-on-surface": "#2e3134",
+                        "surface-container-lowest": "#0c0e12",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#e5bcc5",
+                        "inverse-surface": "#e1e2e7",
+                        "tertiary": "#d7ca00",
+                        "surface-container-highest": "#323539",
+                        "surface-container-high": "#282a2e",
+                        "surface-variant": "#323539",
+                        "secondary-container": "#00fbfb",
+                        "surface-dim": "#111417",
+                        "surface": "#111417",
+                        "on-error-container": "#ffdad6",
+                        "on-primary": "#65002e",
+                        "on-surface": "#e1e2e7",
+                        "on-secondary-fixed-variant": "#004f4f",
+                        "surface-bright": "#37393d",
+                        "on-tertiary-fixed": "#1f1c00",
+                        "background": "#111417",
+                        "primary-fixed": "#ffd9e1",
+                        "secondary-fixed": "#00fbfb",
+                        "on-tertiary-fixed-variant": "#4d4800",
+                        "on-primary-container": "#590028",
+                        "surface-tint": "#ffb1c4",
+                        "secondary-fixed-dim": "#00dddd",
+                        "secondary": "#ffffff",
+                        "on-secondary": "#003737",
+                        "outline": "#ac878f",
+                        "on-primary-fixed-variant": "#8f0044",
+                        "on-background": "#e1e2e7",
+                        "tertiary-fixed-dim": "#d7ca00",
+                        "primary": "#ffb1c4",
+                        "surface-container": "#1d2023"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Anton"],
+                        "display-xl": ["Anton"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Space Grotesk"],
+                        "body-md": ["Space Grotesk"],
+                        "headline-lg": ["Anton"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "display-xl": ["96px", { "lineHeight": "90px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "44px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .ticket-stub {
+            background-image: radial-gradient(circle at top left, transparent 10px, var(--tw-colors-surface-container-high) 11px),
+                              radial-gradient(circle at top right, transparent 10px, var(--tw-colors-surface-container-high) 11px),
+                              radial-gradient(circle at bottom left, transparent 10px, var(--tw-colors-surface-container-high) 11px),
+                              radial-gradient(circle at bottom right, transparent 10px, var(--tw-colors-surface-container-high) 11px);
+            background-position: top left, top right, bottom left, bottom right;
+            background-size: 51% 51%;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .ticket-stub::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border: 2px dashed var(--tw-colors-outline-variant);
+            margin: -2px;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .thermal-input {
+            background-color: var(--tw-colors-surface-container-highest);
+            border: none;
+            border-bottom: 2px dashed var(--tw-colors-outline);
+            color: var(--tw-colors-on-surface);
+            font-family: "JetBrains Mono", monospace;
+        }
+        .thermal-input:focus {
+            outline: none;
+            border-bottom-color: var(--tw-colors-primary);
+            box-shadow: none;
+        }
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, var(--tw-colors-surface-container-high) 1px, transparent 1px),
+                              linear-gradient(to bottom, var(--tw-colors-surface-container-high) 1px, transparent 1px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
   </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-08-p004</p>
-        <h1>Ticket Regret Time Machine</h1>
-        <p>A playful fan tool that turns dynamic-pricing pain into a shareable “should I buy now or wait?” regret forecast.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<body class="bg-background text-on-background bg-grid font-body-md pt-20 pb-28 min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface dark:bg-surface border-b-4 border-primary shadow-[4px_4px_0px_0px_#ff4a8d]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary">confirmation_number</span>
+<span class="font-display-xl text-headline-md text-primary tracking-tighter uppercase">REGRET MACHINE</span>
+</div>
+<span class="material-symbols-outlined text-primary dark:text-primary">history_toggle_off</span>
+</header>
+<main class="max-w-container-max mx-auto px-gutter mt-margin">
+<!-- Hero Section -->
+<section class="mb-12 text-center relative">
+<div class="absolute -top-10 -left-10 transform -rotate-12 bg-tertiary text-on-tertiary px-4 py-1 border-2 border-on-tertiary font-label-caps text-label-caps shadow-[4px_4px_0px_0px_#1f1c00] z-10">
+                INITIATING SEQ...
+            </div>
+<h1 class="font-display-xl text-display-xl text-primary drop-shadow-[0_0_15px_rgba(255,74,141,0.6)] mb-4 uppercase">
+                Time Machine
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Calibrate your trauma. Enter the details of the event you missed, or the scalper price you almost paid. We will simulate your alternate reality.
+            </p>
+<div class="absolute -bottom-6 -right-6 transform rotate-6 bg-secondary-container text-on-secondary-container px-4 py-1 border-2 border-on-secondary-container font-label-caps text-label-caps shadow-[4px_4px_0px_0px_#004f4f] z-10">
+                NO REFUNDS
+            </div>
+</section>
+<!-- Intake Form Container (Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Event Details -->
+<div class="col-span-1 md:col-span-8 ticket-stub p-8 bg-surface-container-high border-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#5c3f46]">
+<h2 class="font-headline-md text-headline-md text-secondary-fixed mb-6 uppercase border-b-2 border-dashed border-outline-variant pb-2">
+                    Event Coordinates
+                </h2>
+<div class="space-y-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">TARGET EVENT</label>
+<input class="w-full thermal-input p-3 text-lg" placeholder="e.g. T-Swizzle Eras Tour" type="text"/>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">SEAT SECTION</label>
+<input class="w-full thermal-input p-3 text-lg" placeholder="e.g. Nosebleeds / Floor" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">GROUP SIZE</label>
+<input class="w-full thermal-input p-3 text-lg" placeholder="How many friends?" type="number"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Financials Stub -->
+<div class="col-span-1 md:col-span-4 ticket-stub p-8 bg-surface-container-low border-4 border-surface-container-highest shadow-[4px_4px_0px_0px_#ff4a8d]">
+<h2 class="font-headline-md text-headline-md text-primary mb-6 uppercase border-b-2 border-dashed border-outline-variant pb-2">
+                    Damage Report
+                </h2>
+<div class="space-y-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">CURRENT SCALPER PRICE ($)</label>
+<input class="w-full thermal-input p-3 text-lg text-primary" placeholder="999.99" type="number"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">HIDDEN FEES ($)</label>
+<input class="w-full thermal-input p-3 text-lg text-error" placeholder="Because of course" type="number"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">YOUR BUDGET ($)</label>
+<input class="w-full thermal-input p-3 text-lg text-tertiary-fixed" placeholder="What you *wanted* to spend" type="number"/>
+</div>
+</div>
+</div>
+<!-- Urgency & Action -->
+<div class="col-span-1 md:col-span-12 ticket-stub p-8 bg-surface-container border-4 border-secondary-container shadow-[4px_4px_0px_0px_#00fbfb] relative overflow-hidden mt-6">
+<!-- Decorative Blur -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-secondary-fixed/5 blur-[100px] pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="w-full md:w-1/2">
+<label class="block font-headline-md text-headline-md text-secondary-fixed mb-4 uppercase">Desperation Level</label>
+<input class="w-full h-4 bg-surface-container-highest rounded-none appearance-none cursor-pointer border-2 border-outline-variant" max="100" min="1" style="background: linear-gradient(to right, var(--tw-colors-secondary-fixed), var(--tw-colors-tertiary-fixed), var(--tw-colors-primary-container));" type="range" value="85"/>
+<div class="flex justify-between mt-2 font-label-caps text-label-caps text-on-surface-variant">
+<span>"I'll catch the stream"</span>
+<span class="text-primary animate-pulse">"I'D SELL MY SOUL"</span>
+</div>
+</div>
+<div class="w-full md:w-1/2 flex justify-end">
+<button class="w-full md:w-auto bg-primary-container text-on-primary-container font-headline-lg text-headline-lg uppercase px-12 py-6 border-4 border-on-primary-container shadow-[8px_8px_0px_0px_#590028] hover:translate-y-1 hover:shadow-[4px_4px_0px_0px_#590028] active:translate-y-2 active:shadow-none transition-all flex items-center justify-center gap-4 group">
+<span>ENTER THE SIMULATOR</span>
+<span class="material-symbols-outlined text-[48px] group-hover:rotate-180 transition-transform duration-500">cyclone</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 pb-4 h-20 rounded-t-xl border-t-4 border-secondary-container bg-surface-container-highest dark:bg-surface-container-highest shadow-[0_-4px_10px_rgba(0,251,251,0.3)] md:hidden">
+<!-- INTAKE (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg p-2 scale-110 rotate-2 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_activity</span>
+<span class="font-label-caps text-label-caps mt-1">INTAKE</span>
+</a>
+<!-- REVEAL (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-label-caps text-label-caps mt-1">REVEAL</span>
+</a>
+<!-- SIMULATE (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined">speed</span>
+<span class="font-label-caps text-label-caps mt-1">SIMULATE</span>
+</a>
+<!-- STUBS (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 opacity-70 hover:bg-surface-variant hover:rotate-0 active:scale-95 transition-all duration-100" href="#">
+<span class="material-symbols-outlined">style</span>
+<span class="font-label-caps text-label-caps mt-1">STUBS</span>
+</a>
+</nav>
+</body></html>
