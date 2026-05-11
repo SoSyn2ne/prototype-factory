@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AuditGuard - Document Upload &amp; Scan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#00164e",
+                      "primary-fixed": "#dce1ff",
+                      "surface": "#f8f9ff",
+                      "on-secondary-fixed": "#001a42",
+                      "tertiary-fixed": "#ffdbcb",
+                      "on-primary-fixed-variant": "#264191",
+                      "on-error-container": "#93000a",
+                      "secondary-container": "#2170e4",
+                      "on-secondary-fixed-variant": "#004395",
+                      "tertiary": "#4b1c00",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#b6c4ff",
+                      "surface-dim": "#cbdbf5",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "primary-container": "#1e3a8a",
+                      "outline": "#757682",
+                      "on-tertiary-fixed": "#341100",
+                      "on-surface": "#0b1c30",
+                      "surface-bright": "#f8f9ff",
+                      "tertiary-container": "#6e2c00",
+                      "surface-container": "#e5eeff",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb691",
+                      "surface-tint": "#4059aa",
+                      "inverse-surface": "#213145",
+                      "background": "#f8f9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#f39461",
+                      "on-background": "#0b1c30",
+                      "inverse-on-surface": "#eaf1ff",
+                      "inverse-primary": "#b6c4ff",
+                      "on-surface-variant": "#444651",
+                      "surface-container-highest": "#d3e4fe",
+                      "secondary": "#0058be",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "on-primary-container": "#90a8ff",
+                      "outline-variant": "#c5c5d3",
+                      "surface-container-high": "#dce9ff",
+                      "primary": "#00236f",
+                      "secondary-fixed": "#d8e2ff",
+                      "on-secondary-container": "#fefcff",
+                      "on-tertiary-fixed-variant": "#773205",
+                      "surface-variant": "#d3e4fe",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "sm": "12px",
+                      "container-max": "1280px",
+                      "xs": "4px",
+                      "base": "8px",
+                      "md": "24px",
+                      "gutter": "24px",
+                      "lg": "48px",
+                      "xl": "80px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "code-md": ["JetBrains Mono"],
+                      "headline-md": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "code-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .shadow-subtle { box-shadow: 0 2px 4px rgba(30, 58, 138, 0.05); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant docked full-width top-0 z-40">
+<div class="flex justify-between items-center w-full px-6 py-2 max-w-container-max mx-auto">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">AuditGuard</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-2 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a person, used as a user profile avatar. The person has a neutral, professional expression. The background is a plain, light color to ensure the face is the focal point. The lighting is soft and even, typical of a corporate portrait." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuDy-qY_FBtk50fUDtCEtGNLg_RzQbXfqcI4L3EJaePWScL6mpuebUn93oIDmAZw_Bisvy4l0mCY7oCd-rIVRYcXVxxVB1ZcTd0PMm3UDHcLiZVPWQN_V3q90EwgWX2_vdPObeGBgxz3u_zXvPse2gIHhObbgYrb84V17tfwb6fokRsrH4uXzRvfpFL6r_YAiaf77TXTVZYviCFb47PvcEN8cSEzThJ61mwnpxAhqIrt9pAlHs-6bzH3l-0I8aNn9VOSgphNgzUhKo"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low border-r border-outline-variant h-screen w-64 hidden md:flex flex-col p-4 gap-2 flex-shrink-0 z-30">
+<div class="mb-8 px-4 py-2">
+<h2 class="font-headline-md text-headline-md font-extrabold text-on-primary-fixed-variant">Consumer Rights</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Tenant Protection Unit</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-lg shadow-subtle hover:bg-primary-container hover:text-on-primary-container transition-colors w-full mb-6 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add</span>
+                New Audit
+            </button>
+<div class="flex-1 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-3 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    Dashboard
+                </a>
+<a class="bg-primary-container text-on-primary-container font-semibold font-label-md text-label-md py-3 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+                    My Audits
+                </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-3 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+                    Dispute Center
+                </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-3 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="library_books">library_books</span>
+                    Law Library
+                </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-3 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Settings
+                </a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-2 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="contact_support">contact_support</span>
+                    Support
+                </a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-all font-label-md text-label-md py-2 px-4 rounded-xl flex items-center gap-3" href="#">
+<span class="material-symbols-outlined text-[20px]" data-icon="person">person</span>
+                    Account
+                </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto w-full">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-gutter py-lg md:py-xl">
+<!-- Page Header -->
+<div class="mb-8">
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="font-body-sm text-body-sm">My Audits</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="font-body-sm text-body-sm text-primary">New Rental Junk Fee Audit</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-background">Document Analysis</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-3xl">Upload your lease agreement or move-in cost sheet. Our system will scan for non-compliant junk fees based on current state tenant protection laws.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column: Upload & Instructions (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Drag & Drop Area -->
+<div class="bg-surface-container-lowest border-2 border-dashed border-primary-container rounded-xl p-8 flex flex-col items-center justify-center text-center shadow-subtle relative overflow-hidden group hover:bg-surface-container-low transition-colors cursor-pointer min-h-[300px]">
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-5 transition-opacity"></div>
+<div class="bg-surface-container-highest p-4 rounded-full mb-4">
+<span class="material-symbols-outlined text-primary text-[48px]">upload_file</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Drag &amp; Drop Documents Here</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">or click to browse from your computer</p>
+<button class="bg-primary text-on-primary font-label-md text-label-md py-3 px-6 rounded-lg hover:bg-primary-container transition-colors shadow-subtle">
+                                Select Files
+                            </button>
+<div class="mt-6 flex items-center justify-center gap-4 text-on-surface-variant font-body-sm text-body-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">picture_as_pdf</span> PDF</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">image</span> JPG/PNG</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">lock</span> Encrypted Transfer</span>
+</div>
+</div>
+<!-- Document Instructions Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-subtle flex flex-col sm:flex-row gap-6 items-start">
+<div class="flex-shrink-0 bg-surface-container-low p-3 rounded-lg border border-outline-variant">
+<span class="material-symbols-outlined text-secondary text-[32px]">info</span>
+</div>
+<div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-2">For best scanning results:</h4>
+<ul class="font-body-md text-body-md text-on-surface-variant space-y-2">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                                        Ensure all pages of the lease agreement are included, specifically the 'Fees' or 'Addendum' sections.
+                                    </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                                        If taking a photo, ensure lighting is clear and text is legible.
+                                    </li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5">check_circle</span>
+                                        Redact sensitive personal information (SSN, banking numbers) before uploading.
+                                    </li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Right Column: Scanning Status / Preview (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Upload Progress (Active State Example) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-subtle">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-4">Processing Queue</h3>
+<div class="space-y-4">
+<!-- Active Item -->
+<div class="bg-surface p-4 rounded-lg border border-primary-fixed-dim relative overflow-hidden">
+<div class="absolute bottom-0 left-0 h-1 bg-surface-container-high w-full">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">description</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface truncate max-w-[150px]">lease_agreement_2023.pdf</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">2.4 MB • Analyzing text...</p>
+</div>
+</div>
+<span class="font-label-md text-label-md text-primary">68%</span>
+</div>
+<!-- Simulated Scan Line -->
+<div class="h-[60px] bg-surface-container-low rounded border border-outline-variant mt-2 relative overflow-hidden p-2">
+<div class="w-full h-[2px] bg-secondary-container absolute left-0 top-1/2 opacity-50 shadow-[0_0_8px_rgba(33,112,228,0.8)]"></div>
+<div class="font-code-md text-code-md text-outline-variant opacity-30 text-[10px] leading-tight">
+<p>...SECTION 4. MOVE-IN FEES...</p>
+<p class="text-on-error-container opacity-100 font-bold bg-error-container px-1 inline-block">ADMIN FEE: $250.00</p>
+<p>...PET DEPOSIT: $500.00...</p>
+</div>
+</div>
+</div>
+<!-- Queued Item -->
+<div class="bg-surface p-4 rounded-lg border border-outline-variant flex items-center justify-between opacity-60">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">image</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface truncate max-w-[150px]">move_in_receipt.jpg</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Queued</p>
+</div>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Security Trust Badge -->
+<div class="bg-surface border border-outline-variant rounded-xl p-4 flex items-center gap-4">
+<div class="bg-surface-container-high p-2 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-primary text-[24px]">encrypted</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">End-to-End Encryption</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Documents are temporarily stored for analysis and purged within 24 hours.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant flex justify-around items-center px-4 py-3 pb-safe z-50 rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-label-md text-label-md gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center text-primary font-bold font-label-md text-label-md gap-1 scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="assignment" style="font-variation-settings: 'FILL' 1;">assignment</span>
+            Audits
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-label-md text-label-md gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+            Disputes
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant font-label-md text-label-md gap-1" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+            Laws
+        </a>
+</nav>
+</body></html>

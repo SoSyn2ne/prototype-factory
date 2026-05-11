@@ -1,59 +1,321 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>College Essay Human Voice Alibi Studio - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-11-p004</p>
-        <h1>College Essay Human Voice Alibi Studio</h1>
-        <p>A playful admissions-anxiety studio that helps applicants prove their essay sounds human without turning their story into AI-detector paranoia.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Draft Lane - Alibi Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,700;0,800;1,700;1,800&amp;family=Lexend:wght@400&amp;family=Space+Mono&amp;family=Syne:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#001c39",
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface": "#fbf9f4",
+                      "primary": "#002446",
+                      "secondary": "#696000",
+                      "inverse-primary": "#abc8f5",
+                      "on-error": "#ffffff",
+                      "surface-variant": "#e4e2dd",
+                      "surface-bright": "#fbf9f4",
+                      "on-tertiary-fixed": "#3a0a00",
+                      "on-tertiary-fixed-variant": "#822707",
+                      "secondary-fixed": "#f6e557",
+                      "surface-container-highest": "#e4e2dd",
+                      "inverse-surface": "#30312e",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#eae8e3",
+                      "on-primary-fixed-variant": "#2a486e",
+                      "surface-dim": "#dbdad5",
+                      "tertiary": "#480f00",
+                      "on-secondary-container": "#6d6400",
+                      "on-secondary-fixed": "#1f1c00",
+                      "surface-tint": "#426087",
+                      "primary-fixed": "#d3e3ff",
+                      "on-tertiary-container": "#fb7f5a",
+                      "tertiary-fixed-dim": "#ffb59f",
+                      "outline": "#73777f",
+                      "secondary-fixed-dim": "#d8c93d",
+                      "on-surface-variant": "#43474e",
+                      "on-secondary-fixed-variant": "#4f4800",
+                      "tertiary-container": "#6e1b00",
+                      "primary-container": "#1a3a5f",
+                      "error-container": "#ffdad6",
+                      "on-background": "#1b1c19",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#1b1c19",
+                      "surface-container": "#f0eee9",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "on-primary-container": "#87a4cf",
+                      "secondary-container": "#f3e254",
+                      "surface-container-low": "#f5f3ee",
+                      "background": "#fbf9f4",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffdbd1",
+                      "outline-variant": "#c3c6cf",
+                      "primary-fixed-dim": "#abc8f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "unit": "4px",
+                      "stack-overlap": "-12px",
+                      "margin-page": "40px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Lexend"
+                      ],
+                      "label-mono": [
+                              "Space Mono"
+                      ],
+                      "annotation": [
+                              "Syne"
+                      ],
+                      "headline-md": [
+                              "Epilogue"
+                      ],
+                      "body-lg": [
+                              "Lexend"
+                      ],
+                      "headline-lg": [
+                              "Epilogue"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "annotation": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        /* Custom styles for the scrapbook/tactile feel */
+        body {
+            background-color: #dbdad5; /* surface-dim */
+            background-image: radial-gradient(#c3c6cf 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .torn-top {
+            clip-path: polygon(0% 2%, 5% 0%, 10% 3%, 15% 1%, 20% 4%, 25% 0%, 30% 3%, 35% 1%, 40% 4%, 45% 0%, 50% 3%, 55% 1%, 60% 4%, 65% 0%, 70% 3%, 75% 1%, 80% 4%, 85% 0%, 90% 3%, 95% 1%, 100% 2%, 100% 100%, 0% 100%);
+        }
+
+        .torn-bottom {
+            clip-path: polygon(0% 0%, 100% 0%, 100% 98%, 95% 100%, 90% 97%, 85% 99%, 80% 96%, 75% 99%, 70% 97%, 65% 100%, 60% 96%, 55% 99%, 50% 97%, 45% 100%, 40% 96%, 35% 99%, 30% 97%, 25% 100%, 20% 96%, 15% 99%, 10% 97%, 5% 100%, 0% 98%);
+        }
+
+        .tape {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: inset 0 0 4px rgba(255,255,255,0.8), 0 1px 2px rgba(0,0,0,0.1);
+            backdrop-filter: blur(2px);
+            position: absolute;
+        }
+
+        .lined-paper {
+            background-image: linear-gradient(transparent 95%, #abc8f5 95%);
+            background-size: 100% 32px;
+            line-height: 32px;
+        }
+
+        .marker-highlight {
+            background-color: rgba(243, 226, 84, 0.5); /* secondary-container with opacity */
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            padding: 0 4px;
+            border-radius: 2px;
+        }
+
+        .red-ink {
+            color: #ba1a1a; /* error */
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+        }
+
+        .blue-ink {
+            color: #002446; /* primary */
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-surface min-h-screen overflow-x-hidden">
+<!-- TopAppBar for Mobile (Hidden on Desktop) -->
+<header class="md:hidden bg-surface dark:bg-surface-dim font-headline-md text-headline-md. Body: font-body-md text-body-md. full-width top-0 border-b border-primary dark:border-primary-fixed flat no shadows flex justify-between items-center w-full px-gutter py-4 z-50 fixed">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed italic">
+            Alibi Studio
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant hover:rotate-1 transition-transform duration-200 cursor-pointer">history</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant hover:rotate-1 transition-transform duration-200 cursor-pointer">face</span>
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant hover:rotate-1 transition-transform duration-200 cursor-pointer">local_cafe</span>
+</div>
+</header>
+<!-- SideNavBar (Visible on Desktop) -->
+<nav class="hidden md:flex bg-surface-container dark:bg-surface-container-highest font-label-mono text-label-mono. Headlines: font-headline-md text-headline-md. docked left-0 h-full w-64 border-r-2 border-primary dark:border-primary-fixed bg-surface-container-high dark:bg-surface-container-highest shadow-[4px_0px_0px_0px_rgba(0,36,70,1)] fixed left-0 top-0 flex-col z-40 p-4">
+<div class="mb-8 p-2">
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed mb-1">Alibi Studio</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant">College Essay Lab</p>
+</div>
+<button class="bg-primary text-on-primary font-body-md text-body-md py-2 px-4 rounded transform rotate-1 hover:-rotate-1 transition-transform border-2 border-primary mb-8 shadow-[2px_2px_0px_0px_rgba(0,36,70,1)]">
+            New Scrap
+        </button>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-lg p-3 -rotate-1 border border-primary font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all Active: scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+                    Draft Lane
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                    Ingredients
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+                    Heatmap
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">auto_stories</span>
+                    History
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">question_answer</span>
+                    Interview
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">speed</span>
+                    Panic Meter
+                </a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary p-3 font-label-mono text-label-mono hover:bg-surface-variant hover:rotate-1 transition-all" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+                    Receipt
+                </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-20 md:pt-8 px-4 md:px-margin-page pb-24 min-h-screen relative">
+<!-- The "Draft Lane" Paper Scroll -->
+<div class="max-w-4xl mx-auto relative mt-8">
+<!-- Push Pin -->
+<div class="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20 text-error">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">push_pin</span>
+</div>
+<!-- The Paper -->
+<div class="bg-surface torn-top torn-bottom border border-primary min-h-[800px] shadow-[4px_4px_0px_0px_rgba(0,36,70,1)] relative p-8 md:p-12 lined-paper transform -rotate-[0.5deg] z-10">
+<!-- Tape top right -->
+<div class="tape w-16 h-6 -top-2 -right-4 transform rotate-[15deg]"></div>
+<!-- Content Area -->
+<article class="font-body-lg text-body-lg text-on-surface max-w-2xl mx-auto mt-4 relative">
+<h2 class="font-headline-lg text-headline-lg text-primary mb-8 bg-surface inline-block pr-4">The Summer I Learned to Build</h2>
+<p class="mb-6 bg-surface">
+                        It started with a pile of scrap wood behind the garage. <span class="marker-highlight">I wasn't looking to build anything specific</span>, just looking for a way to waste a Tuesday afternoon before junior year started.
+                    </p>
+<!-- Margin Note - Red -->
+<div class="absolute -left-32 top-32 w-28 hidden xl:block transform -rotate-2">
+<p class="red-ink text-sm leading-tight border-b border-error border-dashed pb-1">
+                            Show, don't tell! What kind of wood? Plywood? 2x4s?
+                        </p>
+</div>
+<p class="mb-6 bg-surface">
+                        My grandfather used to say that every piece of material has a purpose, even if you don't know what it is yet. I picked up a warped two-by-four. It was heavy, splintered, and smelled like old rain. It felt like potential.
+                    </p>
+<p class="mb-6 bg-surface">
+                        I dragged out the rusty circular saw. <span class="line-through decoration-error decoration-2">It was dangerous but I didn't care.</span> I wanted to see if I could make something out of nothing. The first cut was crooked, the blade protesting against the damp grain.
+                    </p>
+<!-- Margin Note - Blue -->
+<div class="absolute -right-32 top-64 w-28 hidden xl:block transform rotate-3">
+<div class="tape w-8 h-4 -top-2 left-2 transform -rotate-12 absolute z-10"></div>
+<div class="bg-surface-container p-2 border border-primary shadow-[2px_2px_0px_0px_rgba(0,36,70,1)]">
+<p class="blue-ink text-sm leading-tight">
+                                Good sensory details here. Keep going with the sound of the saw.
+                            </p>
+</div>
+</div>
+<p class="mb-6 bg-surface">
+                        Hours turned into days. The pile of wood slowly transformed into a rudimentary chair. It wobbled, one leg was distinctly shorter than the others, and sitting on it practically guaranteed a splinter. But when I finally sat on it, looking out over the driveway, it was the most comfortable seat in the world because I had made it.
+                    </p>
+<p class="mb-6 bg-surface">
+                        That chair is still in the garage. It reminds me that progress isn't about perfection on the first try; it's about the willingness to pick up the tools and make the first, imperfect cut.
+                    </p>
+<div class="mt-12 pt-8 border-t-2 border-primary border-dashed bg-surface flex justify-center">
+<button class="bg-primary text-on-primary font-body-md text-body-md py-2 px-6 rounded-sm transform -rotate-2 hover:rotate-0 transition-transform border border-primary shadow-[3px_3px_0px_0px_rgba(0,36,70,1)] flex items-center gap-2">
+<span class="material-symbols-outlined">save</span>
+                            Save Draft
+                        </button>
+</div>
+</article>
+</div>
+<!-- Decorative loose scrap -->
+<div class="absolute -bottom-8 -right-8 bg-secondary-container w-48 h-32 border border-primary shadow-[2px_2px_0px_0px_rgba(0,36,70,1)] transform rotate-6 z-0 p-3 hidden md:block">
+<div class="tape w-12 h-4 -top-2 left-1/2 transform -translate-x-1/2 absolute"></div>
+<p class="font-annotation text-annotation text-on-secondary-container opacity-80 mt-2">
+                    * Don't forget to mention the smell of sawdust!
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="md:ml-64 bg-transparent font-label-mono text-label-mono full-width bottom-0 no borders flat no shadows w-full py-8 px-margin-page flex justify-between items-center border-t border-outline-variant border-dashed mt-auto relative z-10">
+<div class="font-headline-md text-primary text-sm opacity-50">
+            © 2024 Alibi Studio - Keep it Human.
+        </div>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Manifesto</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</body></html>

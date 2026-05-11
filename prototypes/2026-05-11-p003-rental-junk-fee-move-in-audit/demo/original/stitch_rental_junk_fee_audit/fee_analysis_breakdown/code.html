@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AuditGuard - Fee Analysis &amp; Breakdown</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#00164e",
+                        "primary-fixed": "#dce1ff",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed": "#ffdbcb",
+                        "on-primary-fixed-variant": "#264191",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#2170e4",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary": "#4b1c00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#1e3a8a",
+                        "outline": "#757682",
+                        "on-tertiary-fixed": "#341100",
+                        "on-surface": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#6e2c00",
+                        "surface-container": "#e5eeff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "surface-tint": "#4059aa",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f39461",
+                        "on-background": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#b6c4ff",
+                        "on-surface-variant": "#444651",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#0058be",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#90a8ff",
+                        "outline-variant": "#c5c5d3",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#00236f",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary-container": "#fefcff",
+                        "on-tertiary-fixed-variant": "#773205",
+                        "surface-variant": "#d3e4fe",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "container-max": "1280px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code-md": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "code-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .shadow-subtle { box-shadow: 0 2px 4px rgba(30, 58, 138, 0.05); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r bg-surface-container-low dark:bg-surface-container border-outline-variant p-4 gap-2 sticky top-0 shrink-0">
+<div class="flex items-center gap-3 px-4 py-4 mb-4">
+<img alt="Organization Logo" class="w-10 h-10 rounded-full" data-alt="A clean, professional minimalist organization logo featuring a stylized shield or pillar in deep primary blue (#00236f) on a pristine white background. The design is modern, sharp, and evokes legal authority and protection. High contrast, well-lit, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOjmT25lcX-zEoN8CVbQvWWZNsTdBmPigPcMMQmhtcUVORnn-meb9GOk7fbnfWKNHaQzt3wLrC6d80surmwAG7_o_MXm6nSeFvRlXInRk6q4aIo7lnnBkeSVrVYyTLlljIWzfBJJKT0Oj7WBDSkUAzaBONS0BxOhRgSVkVI7wPEZTx2sBE2OaJ0gmufCFSRv75v5-p5SCUxNiz54BIgyYpBd-NpU1DFeni0M9h-3rYTVfga-cww6PciSo3zdrNT9lAfwrmp3kCCHoK"/>
+<div>
+<h2 class="font-headline-md text-headline-md font-extrabold text-on-primary-fixed-variant">Consumer Rights</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tenant Protection Unit</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md rounded-lg py-3 px-4 flex items-center justify-center gap-2 mb-6 hover:bg-on-primary-fixed-variant transition-colors shadow-subtle">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+            New Audit
+        </button>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-semibold rounded-xl scale-95 transition-transform duration-100 font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+                My Audits
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">gavel</span>
+                Dispute Center
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">library_books</span>
+                Law Library
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-all font-label-md text-label-md rounded-xl" href="#">
+<span class="material-symbols-outlined">person</span>
+                Account
+            </a>
+</div>
+</nav>
+<div class="flex-1 flex flex-col w-full min-w-0">
+<!-- TopAppBar (Web & Mobile) -->
+<header class="flex justify-between items-center w-full px-6 py-2 max-w-container-max mx-auto border-b border-outline-variant dark:border-outline bg-surface dark:bg-surface-container-lowest text-primary dark:text-primary-fixed-dim docked full-width top-0 sticky z-40">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-on-primary-container">AuditGuard</h1>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors rounded-full">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-2 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors rounded-full relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full ml-2 border border-outline-variant" data-alt="A professional headshot of a person looking directly at the camera. Soft, even studio lighting. Neutral expression conveying competence. Shot against a light grey background, perfectly suited for a modern corporate application profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcVq8HDagws76i4A7syoBSbNz1L3KzvPkfilbRYk3GbR5hC5jY-akt5wnxdSmsOZyUFJYvRssUenCLjok8Ph_b5KJXqShua05pZ8J75RZNmkTMaUAi3WuUdbquS3SKkfLsv1bYk0GyobIrMw1zhMPTCEtxAdePAloXGhXNUzM3rY1wTFU_D0rjviG-ZQjaxdDNxuk_1tWc87XD5_xYUME-FvaYJBx05GHRPy-3A82uuq8m7V2sufALJtUxBgv0CO_ZaW8ueNkxnDrO"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-auto p-margin-mobile md:p-md lg:p-lg w-full max-w-container-max mx-auto">
+<div class="mb-md md:mb-lg">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Lease Agreement Analysis</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Review the fee breakdown extracted from the uploaded document.</p>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: Document Preview (Sticky) -->
+<aside class="w-full lg:w-1/3 flex flex-col gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-subtle sticky top-md">
+<div class="flex justify-between items-center mb-4 pb-2 border-b border-outline-variant">
+<h3 class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Document Preview</h3>
+<span class="material-symbols-outlined text-outline">description</span>
+</div>
+<div class="aspect-[3/4] bg-surface-container-low rounded-lg border border-outline-variant relative overflow-hidden flex items-center justify-center">
+<!-- Placeholder for actual document rendering -->
+<div class="absolute inset-0 bg-cover bg-center opacity-50 blur-sm" data-alt="A macro shot of a complex legal lease agreement document. Dense paragraphs of text, highlighted sections, and faint institutional watermarks are visible. The lighting is bright and clear, emphasizing the stark black text on crisp white paper, conveying a serious, analytical mood." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYS6dSVJCw0wqV9br75zkGg59IznkKODtS7ME3Pz7XY2YsoU9ZS3dni1tZJnEZaNSUVmlaUy7dqzqhR7GQSR-Hf8MqxY54_E7SduxDXNIFoMnk90fTR8uh845xfYsygaFXS1QApA7L9-Th8PwhgLow8cYv2gT5U6PRguH7y3Jo98iyO6aCkxldMiIwQZKSWRQPy4szDkmWMzza2Rgq_M04YDq64kCz3nmdoMHSSJ6q_rHS4GWLNmHszpie47DAq0WTtT_BhzFcQ-ej');"></div>
+<div class="relative z-10 bg-surface/90 p-4 rounded shadow-sm border border-outline-variant backdrop-blur-sm m-4 text-center">
+<span class="material-symbols-outlined text-4xl text-primary mb-2">find_in_page</span>
+<p class="font-label-md text-label-md text-on-surface">Page 4 of 12</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Section 8: Additional Fees</p>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 bg-surface border border-outline-variant text-primary font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors shadow-subtle flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">zoom_in</span> Zoom
+                            </button>
+<button class="flex-1 bg-surface border border-outline-variant text-primary font-label-md text-label-md py-2 rounded-lg hover:bg-surface-container-low transition-colors shadow-subtle flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[20px]">download</span> Download
+                            </button>
+</div>
+</div>
+</aside>
+<!-- Right Column: Analysis & Action -->
+<div class="w-full lg:w-2/3 flex flex-col gap-6">
+<!-- Summary Card (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="md:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-subtle flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-1">Total Potential Savings</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">$1,450.00</span>
+<span class="font-body-md text-body-md text-outline">/ year</span>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">This represents the sum of all identified questionable and likely illegal fees over a 12-month lease period.</p>
+</div>
+<div class="bg-primary text-on-primary rounded-xl p-6 shadow-subtle flex flex-col justify-center items-center text-center relative overflow-hidden group hover:bg-on-primary-fixed-variant transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-4xl mb-2">gavel</span>
+<span class="font-label-md text-label-md font-bold mb-1">Generate Dispute Letter</span>
+<span class="font-body-sm text-body-sm text-primary-fixed-dim">Start formal dispute process</span>
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-primary-fixed-dim rounded-xl transition-colors"></div>
+</div>
+</div>
+<!-- Fee Breakdown List -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-subtle overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant bg-surface flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Fee Breakdown</h2>
+<span class="bg-surface-container-high text-on-surface-variant px-3 py-1 rounded-full font-label-md text-label-md text-xs">8 Fees Detected</span>
+</div>
+<div class="divide-y divide-outline-variant">
+<!-- Category: Likely Illegal / Junk Fees -->
+<div class="p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-label-md text-label-md text-error uppercase tracking-wider">Likely Illegal / Junk Fees</h3>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Fee Item 1 -->
+<div class="border border-error-container bg-[#FEF2F2] rounded-lg p-4 transition-all">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-on-error-container">January Move-in Processing Fee</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">One-time charge</p>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-error">$250.00</span>
+</div>
+<div class="mt-3 pt-3 border-t border-error-container/30">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-on-error-container text-[18px] mt-0.5">policy</span>
+<div>
+<span class="font-label-md text-label-md text-on-error-container">Legal Context:</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1">Section 1950.5 of State Civil Code limits non-refundable fees. 'Processing fees' not explicitly tied to credit check hard costs are generally considered unlawful in this jurisdiction.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Fee Item 2 -->
+<div class="border border-error-container bg-[#FEF2F2] rounded-lg p-4 transition-all">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-on-error-container">Mandatory Valet Trash (Opt-out denied)</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">$50.00 / month</p>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-error">$600.00<span class="text-sm font-normal text-on-surface-variant">/yr</span></span>
+</div>
+<div class="mt-3 pt-3 border-t border-error-container/30">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-on-error-container text-[18px] mt-0.5">policy</span>
+<div>
+<span class="font-label-md text-label-md text-on-error-container">Legal Context:</span>
+<p class="font-body-sm text-body-sm text-on-surface mt-1">Local Ordinance 42-B requires property managers to provide a free refuse collection option. Forcing a paid amenity without an opt-out violates current tenant protection statutes.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Category: Questionable Fees -->
+<div class="p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-tertiary-container" style="font-variation-settings: 'FILL' 1;">error</span>
+<h3 class="font-label-md text-label-md text-on-tertiary-container uppercase tracking-wider">Questionable Fees</h3>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Fee Item 3 -->
+<div class="border border-outline-variant bg-surface rounded-lg p-4">
+<div class="flex justify-between items-start mb-2">
+<div>
+<h4 class="font-body-lg text-body-lg font-bold text-on-surface">Pet Rent Supplement</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">$50.00 / month</p>
+</div>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">$600.00<span class="text-sm font-normal text-outline">/yr</span></span>
+</div>
+<details class="group">
+<summary class="font-label-md text-label-md text-secondary-container cursor-pointer flex items-center gap-1 mt-2 list-none">
+                                                View Legal Context
+                                                <span class="material-symbols-outlined text-[18px] group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="mt-3 pt-3 border-t border-outline-variant/50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-outline text-[18px] mt-0.5">info</span>
+<p class="font-body-sm text-body-sm text-on-surface">While pet deposits are legal, ongoing 'pet rent' is poorly regulated. If the animal is an ESA (Emotional Support Animal), this fee is strictly prohibited under the Fair Housing Act. Verification recommended.</p>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<!-- Category: Standard / Fair Fees -->
+<div class="p-6 opacity-80">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider">Standard / Fair Fees</h3>
+</div>
+<div class="flex flex-col gap-2">
+<!-- List item format for standard fees -->
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30 last:border-0">
+<span class="font-body-md text-body-md text-on-surface">Base Monthly Rent</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">$2,100.00 / mo</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30 last:border-0">
+<span class="font-body-md text-body-md text-on-surface">Security Deposit (Refundable)</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">$2,100.00 one-time</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/30 last:border-0">
+<span class="font-body-md text-body-md text-on-surface">Credit Screening Fee</span>
+<span class="font-body-md text-body-md text-on-surface font-semibold">$45.00 one-time</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface-container-lowest border-t border-outline-variant z-50 rounded-t-xl shadow-lg dark:shadow-none">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-2 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mb-1">home</span>
+            Home
+        </a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold scale-90 transition-transform font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">assignment</span>
+            Audits
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-2 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mb-1">gavel</span>
+            Disputes
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-2 rounded-lg font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined mb-1">menu_book</span>
+            Laws
+        </a>
+</nav>
+</body></html>

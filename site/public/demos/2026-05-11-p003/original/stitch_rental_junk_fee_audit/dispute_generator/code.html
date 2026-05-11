@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AuditGuard - Dispute Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#00164e",
+                        "primary-fixed": "#dce1ff",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed": "#001a42",
+                        "tertiary-fixed": "#ffdbcb",
+                        "on-primary-fixed-variant": "#264191",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#2170e4",
+                        "on-secondary-fixed-variant": "#004395",
+                        "tertiary": "#4b1c00",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#b6c4ff",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#1e3a8a",
+                        "outline": "#757682",
+                        "on-tertiary-fixed": "#341100",
+                        "on-surface": "#0b1c30",
+                        "surface-bright": "#f8f9ff",
+                        "tertiary-container": "#6e2c00",
+                        "surface-container": "#e5eeff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb691",
+                        "surface-tint": "#4059aa",
+                        "inverse-surface": "#213145",
+                        "background": "#f8f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#f39461",
+                        "on-background": "#0b1c30",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#b6c4ff",
+                        "on-surface-variant": "#444651",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#0058be",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-primary-container": "#90a8ff",
+                        "outline-variant": "#c5c5d3",
+                        "surface-container-high": "#dce9ff",
+                        "primary": "#00236f",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary-container": "#fefcff",
+                        "on-tertiary-fixed-variant": "#773205",
+                        "surface-variant": "#d3e4fe",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "sm": "12px",
+                        "container-max": "1280px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "md": "24px",
+                        "gutter": "24px",
+                        "lg": "48px",
+                        "xl": "80px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "code-md": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "code-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<nav class="bg-surface dark:bg-surface-container-lowest docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-6 py-2 max-w-container-max mx-auto">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-on-primary-container">AuditGuard</span>
+<div class="hidden md:flex gap-sm h-full">
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors px-sm py-xs rounded flex items-center h-full" href="#">
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors px-sm py-xs rounded flex items-center h-full" href="#">
+<span class="font-label-md text-label-md">My Audits</span>
+</a>
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary opacity-80 transition-opacity duration-150 px-sm py-xs flex items-center h-full" href="#">
+<span class="font-label-md text-label-md">Dispute Center</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors px-sm py-xs rounded flex items-center h-full" href="#">
+<span class="font-label-md text-label-md">Law Library</span>
+</a>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors p-xs rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors p-xs rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A small, professional circular profile picture of a person looking directly at the camera, set against a neutral, light-colored background. The image is crisp and clear, suitable for a corporate or legal application avatar. The lighting is soft and even, highlighting the subject's face without harsh shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5pzTiaTcVdOg_1FiAi7jPaE9aTRdOcCvZeWYf9TAi262Ebaf8xXh67YXpxx-oHP190iV8RlbFMF62dZK0S-va5NmKl4Cw6GFd26sq4KRrFavk7vpLv918gKgE7iE0crVkKepcWw9H6DXEifId1w95cl4LJLDfYPb0JU0cy0S9kk7t-trrhrzbczVYbO3LbkDfPhLew6hOoSeV1aTqxNFfpVtR2hdonUeYq9ze5jAHlGjqHQDKMbU_xNSFsN_UZdReQV78jm1m7QZk"/>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 max-w-container-max mx-auto w-full p-margin-mobile md:p-md lg:p-lg grid grid-cols-1 lg:grid-cols-12 gap-gutter pb-xl">
+<!-- Left Column: Customization Form -->
+<div class="lg:col-span-5 flex flex-col gap-md">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Generate Dispute</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Customize your formal dispute letter. The preview will update automatically.</p>
+<form class="flex flex-col gap-sm">
+<!-- Landlord Info -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="landlord-name">Landlord / Property Manager Name</label>
+<input class="font-body-md text-body-md p-sm border border-outline-variant rounded bg-surface-bright focus:ring-2 focus:ring-secondary-container focus:outline-none text-on-surface w-full" id="landlord-name" type="text" value="Apex Property Management"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface" for="property-address">Property Address</label>
+<input class="font-body-md text-body-md p-sm border border-outline-variant rounded bg-surface-bright focus:ring-2 focus:ring-secondary-container focus:outline-none text-on-surface w-full" id="property-address" type="text" value="123 Consumer Ave, Apt 4B, Cityville, ST 12345"/>
+</div>
+<!-- Junk Fees Checklist -->
+<div class="mt-sm">
+<label class="font-label-md text-label-md text-on-surface block mb-xs">Select Junk Fees to Dispute</label>
+<div class="flex flex-col gap-xs bg-surface-container-low p-sm rounded border border-outline-variant">
+<label class="flex items-center gap-sm cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Convenience Fee - $15.00</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input checked="" class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Mandatory Trash Valet - $35.00</span>
+</label>
+<label class="flex items-center gap-sm cursor-pointer">
+<input class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Admin Processing Fee - $50.00</span>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="mt-md flex gap-sm">
+<button class="bg-primary text-on-primary font-label-md text-label-md py-sm px-md rounded hover:bg-primary-container transition-colors flex-1 text-center" type="button">Update Preview</button>
+</div>
+</form>
+</div>
+<!-- Next Steps Guide -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary">fact_check</span>
+                    Next Steps
+                </h2>
+<ol class="list-decimal list-inside font-body-sm text-body-sm text-on-surface-variant space-y-xs">
+<li>Review the generated letter for accuracy.</li>
+<li>Choose a delivery method (Download PDF, Copy Text, or Email).</li>
+<li>If mailing, send via Certified Mail with Return Receipt.</li>
+<li>Keep a copy of all correspondence for your records.</li>
+</ol>
+</div>
+</div>
+<!-- Right Column: Document Preview & Actions -->
+<div class="lg:col-span-7 flex flex-col gap-md">
+<!-- Document Actions -->
+<div class="flex flex-wrap gap-sm justify-end">
+<button class="flex items-center gap-xs bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md py-xs px-sm rounded hover:bg-surface-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">download</span>
+                    Download PDF
+                </button>
+<button class="flex items-center gap-xs bg-surface-container border border-outline-variant text-on-surface font-label-md text-label-md py-xs px-sm rounded hover:bg-surface-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">content_copy</span>
+                    Copy Text
+                </button>
+<button class="flex items-center gap-xs bg-primary text-on-primary font-label-md text-label-md py-xs px-sm rounded hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">mail</span>
+                    Send via Email
+                </button>
+</div>
+<!-- Live Preview Document -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm flex-1 min-h-[600px] overflow-y-auto">
+<div class="max-w-[800px] mx-auto font-body-md text-body-md text-on-surface leading-relaxed">
+<div class="text-right mb-md text-on-surface-variant">
+                        Date: October 26, 2023
+                    </div>
+<div class="mb-md">
+<strong>To:</strong><br/>
+                        Apex Property Management<br/>
+                        [Landlord Address Line 1]<br/>
+                        [Landlord City, State Zip]
+                    </div>
+<div class="mb-md">
+<strong>From:</strong><br/>
+                        [Your Name]<br/>
+                        123 Consumer Ave, Apt 4B<br/>
+                        Cityville, ST 12345
+                    </div>
+<div class="mb-md font-bold text-lg uppercase tracking-wide border-b border-outline-variant pb-xs">
+                        Subject: Formal Dispute of Unauthorized Fees
+                    </div>
+<p class="mb-sm">Dear Apex Property Management,</p>
+<p class="mb-sm">
+                        I am writing to formally dispute several unauthorized charges that have been added to my recent rent statement for the property located at 123 Consumer Ave, Apt 4B. 
+                    </p>
+<p class="mb-sm">
+                        Specifically, I am contesting the following "junk fees" which are not outlined in my original lease agreement and do not correspond to any optional services I have elected to receive:
+                    </p>
+<ul class="list-disc list-inside mb-sm pl-sm bg-[#FEF2F2] border border-[#FECACA] p-sm rounded text-[#991B1B]">
+<li>Convenience Fee - $15.00</li>
+<li>Mandatory Trash Valet - $35.00</li>
+</ul>
+<p class="mb-sm">
+                        Pursuant to local tenant protection statutes and the explicit terms of our signed lease agreement, a landlord may not unilaterally impose mandatory fees for services not previously agreed upon. 
+                    </p>
+<p class="mb-sm">
+                        I respectfully request that these charges totaling <strong>$50.00</strong> be immediately removed from my ledger. Please confirm in writing within 14 days that my account has been credited and these fees will not be assessed in future billing cycles.
+                    </p>
+<p class="mb-sm">
+                        Should these charges persist, I reserve the right to seek further administrative or legal remedy through the local housing authority.
+                    </p>
+<p class="mb-lg">
+                        Sincerely,
+                    </p>
+<div>
+                        [Your Signature]<br/>
+<br/>
+                        [Your Printed Name]
+                    </div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface dark:bg-surface-container-lowest fixed bottom-0 w-full z-50 rounded-t-xl border-t border-outline-variant shadow-lg dark:shadow-none md:hidden flex justify-around items-center px-4 py-3 pb-safe">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-xs rounded" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md mt-xs">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-xs rounded" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md mt-xs">Audits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim font-bold scale-90 transition-transform p-xs rounded" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-md text-label-md mt-xs">Disputes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-inverse-surface p-xs rounded" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md mt-xs">Laws</span>
+</a>
+</nav>
+</body></html>
