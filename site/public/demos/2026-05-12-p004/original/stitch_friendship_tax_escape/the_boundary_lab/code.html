@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Boundary Lab</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Space+Mono:wght@700&amp;family=Syne:wght@600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#613d3e",
+                    "tertiary-container": "#ffdcdc",
+                    "surface-tint": "#6a5f00",
+                    "on-tertiary-fixed": "#2f1314",
+                    "error": "#ba1a1a",
+                    "on-background": "#1a1c1c",
+                    "primary-fixed-dim": "#dec800",
+                    "on-secondary-fixed-variant": "#1e477b",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f9f9f9",
+                    "on-tertiary-container": "#835b5c",
+                    "inverse-surface": "#2f3131",
+                    "on-surface-variant": "#4b4731",
+                    "on-primary-container": "#726600",
+                    "secondary": "#395f94",
+                    "surface": "#f9f9f9",
+                    "primary-fixed": "#fde400",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f1f1f1",
+                    "outline": "#7c775f",
+                    "primary-container": "#ffe600",
+                    "tertiary-fixed-dim": "#ecbaba",
+                    "surface-container-high": "#e8e8e8",
+                    "on-surface": "#1a1c1c",
+                    "surface-container-highest": "#e2e2e2",
+                    "tertiary": "#7b5455",
+                    "on-primary-fixed": "#201c00",
+                    "primary": "#6a5f00",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "background": "#f9f9f9",
+                    "inverse-primary": "#dec800",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#504700",
+                    "surface-container": "#eeeeee",
+                    "surface-container-low": "#f3f3f3",
+                    "surface-dim": "#dadada",
+                    "tertiary-fixed": "#ffdad9",
+                    "outline-variant": "#cdc7aa",
+                    "secondary-fixed-dim": "#a7c8ff",
+                    "surface-variant": "#e2e2e2",
+                    "on-secondary-container": "#284f83",
+                    "secondary-fixed": "#d5e3ff",
+                    "secondary-container": "#9ec2fe",
+                    "on-secondary-fixed": "#001c3b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "stack-offset": "8px",
+                    "margin": "24px"
+            },
+            "fontFamily": {
+                    "fine-print": ["JetBrains Mono"],
+                    "emotional-note": ["Syne"],
+                    "label-mono": ["JetBrains Mono"],
+                    "receipt-header": ["Space Mono"],
+                    "receipt-body": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "fine-print": ["10px", {"lineHeight": "12px", "fontWeight": "400"}],
+                    "emotional-note": ["18px", {"lineHeight": "22px", "letterSpacing": "0.5px", "fontWeight": "600"}],
+                    "label-mono": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                    "receipt-header": ["28px", {"lineHeight": "32px", "letterSpacing": "-1px", "fontWeight": "700"}],
+                    "receipt-body": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom Noise Texture Utility */
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        /* Wobbly line approximation for borders */
+        .wobbly-border {
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen bg-noise overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar Shared Component -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center bg-surface/90 backdrop-blur-sm px-gutter py-4 border-b-4 border-on-surface shadow-[4px_4px_0px_0px_rgba(26,28,28,1)]">
+<div class="font-receipt-header text-receipt-header uppercase text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+            Debt Confessional
+        </div>
+<div class="flex gap-4">
+<button class="text-primary hover:rotate-1 hover:bg-primary-container transition-transform active:scale-95 duration-75 p-1 rounded-DEFAULT">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<button class="text-primary hover:rotate-1 hover:bg-primary-container transition-transform active:scale-95 duration-75 p-1 rounded-DEFAULT">
+<span class="material-symbols-outlined">receipt_long</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas (Chaotic Stack Layout) -->
+<main class="pt-[100px] pb-[120px] px-gutter max-w-2xl mx-auto flex flex-col gap-10">
+<!-- Page Header -->
+<div class="relative mt-4 -rotate-1">
+<!-- Digital Washi Tape -->
+<div class="absolute -top-4 -left-2 w-24 h-6 bg-tertiary-container/80 rotate-3 z-10 backdrop-blur-sm border border-outline-variant/30"></div>
+<h1 class="font-receipt-header text-receipt-header text-on-surface mb-2">The Boundary Lab</h1>
+<p class="font-receipt-body text-receipt-body text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">exit_to_app</span>
+                Graceful Exits &amp; Soft Declines
+            </p>
+</div>
+<!-- Section: Script Cards -->
+<section class="flex flex-col gap-6 relative">
+<div class="flex justify-between items-end mb-2">
+<h2 class="font-label-mono text-label-mono text-on-surface uppercase tracking-widest border-b-2 border-primary pb-1 inline-block">Draft Scripts</h2>
+<span class="font-fine-print text-fine-print text-on-surface-variant bg-surface-container-high px-2 py-1 rotate-2">FILL IN BLANKS</span>
+</div>
+<!-- Script Card 1 -->
+<div class="bg-surface-container-lowest p-6 border-2 border-on-surface shadow-[4px_4px_0px_0px_#1a1c1c] rotate-1 wobbly-border relative group hover:rotate-0 transition-transform">
+<p class="font-emotional-note text-emotional-note text-on-surface leading-loose">
+                    Hey <span class="inline-block bg-primary-container text-on-primary-container border-b-2 border-primary px-2 mx-1 -rotate-2">Name</span>, 
+                    I would absolutely love to celebrate your <span class="inline-block bg-primary-container text-on-primary-container border-b-2 border-primary px-2 mx-1 rotate-1">Event</span>! 
+                    However, my social battery is currently running at <span class="inline-block bg-tertiary-container text-on-tertiary-container border-b-2 border-tertiary px-2 mx-1 -rotate-1">1%</span> 
+                    and I don't want to be a zombie. Can I treat you to <span class="inline-block bg-secondary-container text-on-secondary-container border-b-2 border-secondary px-2 mx-1 rotate-2">Coffee</span> next week instead?
+                </p>
+<div class="mt-6 flex justify-end">
+<button class="font-label-mono text-label-mono uppercase border-2 border-on-surface px-4 py-2 hover:bg-on-surface hover:text-surface transition-colors flex items-center gap-2 -rotate-2 shadow-[2px_2px_0px_0px_#1a1c1c]">
+<span class="material-symbols-outlined text-[16px]">content_copy</span> Copy
+                    </button>
+</div>
+</div>
+<!-- Script Card 2 (Stacked behind slightly) -->
+<div class="bg-surface-container p-6 border-2 border-outline shadow-[4px_4px_0px_0px_#7c775f] -rotate-2 wobbly-border relative -mt-4 -z-10 opacity-90 blur-[0.5px]">
+<p class="font-emotional-note text-emotional-note text-on-surface-variant leading-loose">
+                    I am so honored you asked me to be a <span class="border-b-2 border-outline border-dashed px-4"></span>. After looking at my budget and capacity, I have to pass so I don't resent the process.
+                </p>
+</div>
+</section>
+<!-- Washi Tape Divider -->
+<div class="w-full h-8 bg-secondary-container/40 -rotate-1 my-4 flex items-center justify-center border-y border-outline-variant/50 backdrop-blur-sm">
+<span class="font-fine-print text-fine-print text-on-secondary-container tracking-widest uppercase">Cheaper Alternatives Below</span>
+</div>
+<!-- Section: Alternative Support Menu (Diner Style) -->
+<section class="bg-[#fcf8f2] border-2 border-on-surface shadow-[6px_6px_0px_0px_#1a1c1c] p-6 relative rotate-1">
+<!-- decorative grease stain -->
+<div class="absolute top-4 right-4 w-16 h-16 bg-primary-container/20 rounded-full blur-xl mix-blend-multiply pointer-events-none"></div>
+<div class="text-center mb-6 border-b-4 border-double border-on-surface pb-4">
+<h2 class="font-receipt-header text-receipt-header text-on-surface uppercase mb-1">Support Menu</h2>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Low-Cost / High-Impact Actions</p>
+</div>
+<ul class="flex flex-col gap-4 font-receipt-body text-receipt-body text-on-surface">
+<!-- Menu Item 1 -->
+<li class="flex items-end justify-between group hover:bg-surface-container-high/50 p-1 -mx-1 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">videocam</span>
+<span>FaceTime Toast (10 mins)</span>
+</div>
+<div class="flex-grow border-b-2 border-dotted border-outline-variant mx-4 mb-1 group-hover:border-primary"></div>
+<span class="font-bold text-tertiary">Free</span>
+</li>
+<!-- Menu Item 2 -->
+<li class="flex items-end justify-between group hover:bg-surface-container-high/50 p-1 -mx-1 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">pets</span>
+<span>Weekend Pet Sitting</span>
+</div>
+<div class="flex-grow border-b-2 border-dotted border-outline-variant mx-4 mb-1 group-hover:border-primary"></div>
+<span class="font-bold">Labor</span>
+</li>
+<!-- Menu Item 3 -->
+<li class="flex items-end justify-between group hover:bg-surface-container-high/50 p-1 -mx-1 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">local_bar</span>
+<span>Venmo for a Drink</span>
+</div>
+<div class="flex-grow border-b-2 border-dotted border-outline-variant mx-4 mb-1 group-hover:border-primary"></div>
+<span class="font-bold">$15.00</span>
+</li>
+<!-- Menu Item 4 -->
+<li class="flex items-end justify-between group hover:bg-surface-container-high/50 p-1 -mx-1 transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">mail</span>
+<span>Physical Mailed Card</span>
+</div>
+<div class="flex-grow border-b-2 border-dotted border-outline-variant mx-4 mb-1 group-hover:border-primary"></div>
+<span class="font-bold">$5.00</span>
+</li>
+</ul>
+<div class="mt-8 text-center pt-4 border-t-2 border-on-surface">
+<p class="font-fine-print text-fine-print text-on-surface-variant uppercase">
+                    Remember: "No" is a complete sentence.<br/>
+                    Taxes &amp; Guilt not included.
+                </p>
+</div>
+</section>
+</main>
+<!-- BottomNavBar Shared Component -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface-container/95 rounded-t-xl border-t-2 border-on-surface/10 shadow-[0px_-4px_0px_0px_rgba(57,95,148,0.2)]">
+<!-- Audit (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-secondary-container hover:text-on-secondary-container transition-all active:translate-y-1 duration-100">
+<span class="material-symbols-outlined mb-1">account_balance_wallet</span>
+<span class="font-label-mono text-label-mono">Audit</span>
+</button>
+<!-- Debts (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-secondary-container hover:text-on-secondary-container transition-all active:translate-y-1 duration-100">
+<span class="material-symbols-outlined mb-1">receipt</span>
+<span class="font-label-mono text-label-mono">Debts</span>
+</button>
+<!-- Social (Active Tab based on Intent) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 rotate-[-1deg] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 duration-100 relative">
+<!-- Active indicator pin -->
+<div class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-error border border-on-surface"></div>
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">diversity_1</span>
+<span class="font-label-mono text-label-mono">Social</span>
+</button>
+<!-- The Void (Inactive) -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-secondary-container hover:text-on-secondary-container transition-all active:translate-y-1 duration-100">
+<span class="material-symbols-outlined mb-1">delete_forever</span>
+<span class="font-label-mono text-label-mono">The Void</span>
+</button>
+</nav>
+</body></html>

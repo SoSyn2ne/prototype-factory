@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Workbench - Lean Stack Export</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:opsz,wght@8..60,400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#121e15",
+                        "on-surface-variant": "#44474a",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e3e1",
+                        "background": "#f9f9f7",
+                        "secondary-container": "#c9ebd1",
+                        "outline": "#75777a",
+                        "surface-tint": "#5d5e61",
+                        "secondary-fixed-dim": "#aecfb5",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "on-tertiary-fixed-variant": "#3d4a3f",
+                        "inverse-primary": "#c6c6c9",
+                        "secondary-fixed": "#c9ebd1",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-primary-container": "#838486",
+                        "surface": "#f9f9f7",
+                        "tertiary-fixed-dim": "#bbcabc",
+                        "tertiary": "#000200",
+                        "secondary": "#476550",
+                        "on-secondary-container": "#4d6b56",
+                        "on-secondary-fixed-variant": "#304d3a",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#d7e6d8",
+                        "primary": "#000101",
+                        "tertiary-container": "#121f16",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c5c6ca",
+                        "surface-container-low": "#f4f4f2",
+                        "on-surface": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadad8",
+                        "on-primary-fixed": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-secondary-fixed": "#032111",
+                        "on-background": "#1a1c1b",
+                        "surface-container": "#eeeeec",
+                        "primary-container": "#1a1c1e",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-container": "#7a887c",
+                        "primary-fixed": "#e2e2e5",
+                        "on-primary-fixed-variant": "#454749",
+                        "surface-bright": "#f9f9f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-sm": "16px",
+                        "gutter": "1px",
+                        "margin-lg": "48px",
+                        "margin-md": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "memo-title": ["Source Serif 4"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["Inter"],
+                        "data-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "memo-body": ["Source Serif 4"]
+                    },
+                    "fontSize": {
+                        "memo-title": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-md": ["16px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "data-lg": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "memo-body": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for cleaner ledger look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f9f9f7;
+            border-left: 1px solid #c5c6ca;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5c6ca;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex overflow-hidden font-data-md">
+<!-- SideNavBar (Mobile Hidden, Desktop Flex) -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r border-outline-variant bg-surface dark:bg-surface">
+<!-- Header -->
+<div class="p-margin-md border-b border-outline-variant">
+<div class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary uppercase tracking-tighter mb-1">
+                TOOL KILL SWITCH
+            </div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                Fiduciary Oversight
+            </div>
+</div>
+<!-- Tabs -->
+<div class="flex flex-col flex-1 py-margin-sm overflow-y-auto">
+<!-- Inactive -->
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Inventory
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined">rule</span>
+                Decision Queue
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                Calendar
+            </a>
+<!-- Active -->
+<a class="text-primary dark:text-inverse-primary border-l-4 border-secondary px-4 py-3 flex items-center gap-3 bg-surface-container-low font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined icon-fill">ios_share</span>
+                Export
+            </a>
+</div>
+<!-- Footer Profile Proxy -->
+<div class="p-margin-sm border-t border-outline-variant flex items-center gap-3">
+<div class="w-8 h-8 bg-surface-variant border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<div class="font-data-mono text-[12px] uppercase text-on-surface-variant">Auth: ADM-992</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-md h-16 border-b border-outline-variant bg-surface dark:bg-surface">
+<!-- Mobile Menu Toggle (Only visible md:hidden) -->
+<button class="md:hidden mr-4 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Brand -->
+<div class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary flex-1">
+                FINANCIAL WORKBENCH
+            </div>
+<!-- Actions -->
+<div class="flex items-center gap-margin-sm">
+<!-- Search -->
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<!-- Secondary Action -->
+<button class="hidden sm:block border border-primary-container text-primary-container px-4 py-2 font-label-caps text-label-caps uppercase hover:bg-surface-variant transition-colors">
+                    REPORTS
+                </button>
+<!-- Primary Action -->
+<button class="bg-error text-on-error px-4 py-2 font-label-caps text-label-caps uppercase tracking-wider hover:bg-[#93000a] transition-colors">
+                    KILL SWITCH
+                </button>
+</div>
+</header>
+<!-- Main Canvas (Scrollable) -->
+<main class="flex-1 overflow-y-auto bg-background p-margin-sm md:p-margin-md lg:p-margin-lg">
+<div class="max-w-6xl mx-auto">
+<!-- Page Header & Actions -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-margin-md pb-margin-sm border-b-2 border-primary-container gap-4">
+<div>
+<h1 class="font-memo-title text-memo-title text-primary mb-1">Stack Reconciliation Report</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant">REF: AUDIT-2024-Q3 | GENERATED: TODAY</p>
+</div>
+<div class="flex gap-2">
+<button class="border border-outline bg-surface text-on-surface px-4 py-2 font-label-caps text-label-caps uppercase flex items-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">print</span> Print
+                        </button>
+<button class="bg-primary-container text-on-primary px-4 py-2 font-label-caps text-label-caps uppercase flex items-center gap-2 hover:bg-opacity-90 transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span> Export PDF
+                        </button>
+</div>
+</div>
+<!-- Ledger Grid Comparison -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter bg-outline-variant border border-outline-variant mb-margin-lg shadow-none">
+<!-- LEFT PANEL: Before (Bloated) -->
+<div class="bg-surface flex flex-col h-full">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Original Operating Stack</span>
+<span class="font-label-caps text-label-caps text-error bg-error-container px-2 py-1 uppercase">Bloated</span>
+</div>
+<!-- Total Cost Metric -->
+<div class="p-margin-md border-b border-outline-variant flex flex-col items-end bg-surface">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Total Monthly Spend</span>
+<span class="font-data-mono text-[42px] leading-none font-bold text-primary">$42,850.00</span>
+</div>
+<!-- Data List -->
+<div class="flex flex-col flex-1 bg-surface">
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Enterprise CRM Cloud</span>
+<span class="font-data-mono text-data-mono text-on-surface">$12,500</span>
+</div>
+<!-- Item Marked for Kill -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-error border-l-4 border-l-error bg-error-container bg-opacity-20 relative">
+<div class="flex flex-col">
+<span class="font-data-md text-data-md text-error line-through decoration-error">Legacy Email Marketing</span>
+<span class="font-label-caps text-[10px] text-error mt-1">STATUS: KILLED</span>
+</div>
+<span class="font-data-mono text-data-mono text-error">$4,200</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Data Analytics Platform</span>
+<span class="font-data-mono text-data-mono text-on-surface">$8,900</span>
+</div>
+<!-- Item Marked for Kill -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-error border-l-4 border-l-error bg-error-container bg-opacity-20 relative">
+<div class="flex flex-col">
+<span class="font-data-md text-data-md text-error line-through decoration-error">Redundant Cloud Storage</span>
+<span class="font-label-caps text-[10px] text-error mt-1">STATUS: KILLED</span>
+</div>
+<span class="font-data-mono text-data-mono text-error">$3,150</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Project Management Suite</span>
+<span class="font-data-mono text-data-mono text-on-surface">$5,400</span>
+</div>
+<!-- Item Marked for Consolidate -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant bg-surface-variant bg-opacity-30">
+<div class="flex flex-col">
+<span class="font-data-md text-data-md text-on-surface-variant">Design Tool Seats (Unused)</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant mt-1">STATUS: CONSOLIDATED</span>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant">$2,800</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Misc Subscriptions (Long Tail)</span>
+<span class="font-data-mono text-data-mono text-on-surface">$5,900</span>
+</div>
+</div>
+</div>
+<!-- RIGHT PANEL: After (Optimized) -->
+<div class="bg-surface flex flex-col h-full relative">
+<!-- Vertical Ledger Line -->
+<div class="absolute left-0 top-0 bottom-0 w-px bg-outline-variant hidden lg:block"></div>
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Optimized Lean Stack</span>
+<span class="font-label-caps text-label-caps text-secondary bg-secondary-container px-2 py-1 uppercase border border-secondary border-opacity-30">Disciplined</span>
+</div>
+<!-- Total Cost Metric -->
+<div class="p-margin-md border-b border-outline-variant flex flex-col items-end bg-surface">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-2">Projected Monthly Spend</span>
+<div class="flex items-end gap-3">
+<span class="font-data-mono text-data-mono text-secondary mb-1">(-22.4%)</span>
+<span class="font-data-mono text-[42px] leading-none font-bold text-secondary">$33,250.00</span>
+</div>
+</div>
+<!-- Data List -->
+<div class="flex flex-col flex-1 bg-surface">
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Enterprise CRM Cloud</span>
+<span class="font-data-mono text-data-mono text-on-surface">$12,500</span>
+</div>
+<!-- Empty slot representing removed item -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant bg-surface-bright h-[66px]">
+<span class="font-data-mono text-[12px] text-on-surface-variant italic opacity-50">Row Eliminated</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant opacity-50">$0</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Data Analytics Platform</span>
+<span class="font-data-mono text-data-mono text-on-surface">$8,900</span>
+</div>
+<!-- Empty slot representing removed item -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant bg-surface-bright h-[66px]">
+<span class="font-data-mono text-[12px] text-on-surface-variant italic opacity-50">Row Eliminated</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant opacity-50">$0</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Project Management Suite</span>
+<span class="font-data-mono text-data-mono text-on-surface">$5,400</span>
+</div>
+<!-- Consolidated Item -->
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant bg-secondary-container bg-opacity-10 border-l-2 border-l-secondary">
+<div class="flex flex-col">
+<span class="font-data-md text-data-md text-on-surface">Design Tool Seats (Core Team)</span>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface">$550</span>
+</div>
+<div class="flex justify-between items-center px-4 py-3 border-b border-outline-variant">
+<span class="font-data-md text-data-md text-on-surface">Misc Subscriptions (Scrubbed)</span>
+<span class="font-data-mono text-data-mono text-on-surface">$5,900</span>
+</div>
+</div>
+</div>
+</div>
+<!-- The Memo Block Summary -->
+<div class="bg-surface border border-outline-variant border-l-[4px] border-l-secondary p-margin-md md:p-8">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">description</span>
+<h2 class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Executive Briefing</h2>
+</div>
+<h3 class="font-memo-title text-memo-title text-primary mb-4">The Path Forward: Q3 Structural Optimization</h3>
+<div class="font-memo-body text-memo-body text-on-surface-variant max-w-4xl flex flex-col gap-4">
+<p>
+                            Following the complete audit of the operating stack, we have executed the mandate for fiduciary responsibility by excising redundancies and phantom subscriptions. The legacy stack exhibited significant bloat, primarily driven by unmanaged decentralization of procurement and a failure to deprecate legacy tools post-migration.
+                        </p>
+<p>
+                            By activating the kill switch on overlapping marketing platforms and consolidating design licensing, we have achieved an immediate <strong>22.4% reduction in monthly SaaS expenditure</strong>. This translates to an annualized capital release of $115,200.00. 
+                        </p>
+<p>
+                            The resultant architecture is not merely cheaper; it is structurally sounder. Information density has improved, security vectors have been reduced, and the digital ledger is clean. We recommend implementing a hard block on net-new tool provisioning without explicit executive override to maintain this disciplined posture.
+                        </p>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,59 +1,524 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Tool Spend Kill Switch - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-12-p003</p>
-        <h1>AI Tool Spend Kill Switch</h1>
-        <p>A ruthless AI subscription audit board that decides which tools earn their seat in a small-business workflow.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Workbench - Executive Spend Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&amp;family=JetBrains+Mono:wght@500&amp;family=Source+Serif+4:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#121e15",
+                    "on-surface-variant": "#44474a",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e3e1",
+                    "background": "#f9f9f7",
+                    "secondary-container": "#c9ebd1",
+                    "outline": "#75777a",
+                    "surface-tint": "#5d5e61",
+                    "secondary-fixed-dim": "#aecfb5",
+                    "primary-fixed-dim": "#c6c6c9",
+                    "on-tertiary-fixed-variant": "#3d4a3f",
+                    "inverse-primary": "#c6c6c9",
+                    "secondary-fixed": "#c9ebd1",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-primary-container": "#838486",
+                    "surface": "#f9f9f7",
+                    "tertiary-fixed-dim": "#bbcabc",
+                    "tertiary": "#000200",
+                    "secondary": "#476550",
+                    "on-secondary-container": "#4d6b56",
+                    "on-secondary-fixed-variant": "#304d3a",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#d7e6d8",
+                    "primary": "#000101",
+                    "tertiary-container": "#121f16",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8e6",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c5c6ca",
+                    "surface-container-low": "#f4f4f2",
+                    "on-surface": "#1a1c1b",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadad8",
+                    "on-primary-fixed": "#1a1c1e",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-secondary-fixed": "#032111",
+                    "on-background": "#1a1c1b",
+                    "surface-container": "#eeeeec",
+                    "primary-container": "#1a1c1e",
+                    "inverse-surface": "#2f3130",
+                    "on-tertiary-container": "#7a887c",
+                    "primary-fixed": "#e2e2e5",
+                    "on-primary-fixed-variant": "#454749",
+                    "surface-bright": "#f9f9f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-sm": "16px",
+                    "gutter": "1px",
+                    "margin-lg": "48px",
+                    "margin-md": "24px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "memo-title": [
+                            "Source Serif 4"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "data-md": [
+                            "Inter"
+                    ],
+                    "data-lg": [
+                            "Inter"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "memo-body": [
+                            "Source Serif 4"
+                    ]
+            },
+            "fontSize": {
+                    "memo-title": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "data-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "memo-body": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom Ledger Grid Styles */
+        .ledger-cell {
+            border-right: 1px solid #D1D1CF;
+            border-bottom: 1px solid #D1D1CF;
+        }
+        .ledger-row {
+            border-bottom: 1px solid #D1D1CF;
+        }
+        .confidence-band {
+            background-color: rgba(79, 109, 88, 0.1);
+        }
+        /* Component Overrides for strict design adherence */
+        body {
+            background-color: #F9F9F7;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex flex-col font-data-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-label-caps text-label-caps w-full border-b border-outline-variant flex justify-between items-center px-margin-md h-16 shrink-0 z-10">
+<div class="flex items-center gap-6">
+<span class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary tracking-tighter">FINANCIAL WORKBENCH</span>
+<nav class="hidden md:flex gap-6 h-full items-center">
+<a class="text-primary border-b-2 border-secondary h-full flex items-center hover:text-primary active:opacity-80 transition-colors duration-150 uppercase" href="#">Dashboard</a>
+<a class="text-on-surface-variant h-full flex items-center hover:text-primary active:opacity-80 transition-colors duration-150 uppercase" href="#">Inventory</a>
+<a class="text-on-surface-variant h-full flex items-center hover:text-primary active:opacity-80 transition-colors duration-150 uppercase" href="#">Decision Queue</a>
+<a class="text-on-surface-variant h-full flex items-center hover:text-primary active:opacity-80 transition-colors duration-150 uppercase" href="#">Calendar</a>
+<a class="text-on-surface-variant h-full flex items-center hover:text-primary active:opacity-80 transition-colors duration-150 uppercase" href="#">Export</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 16px;">search</span>
+<input class="bg-surface border border-outline-variant text-on-surface text-label-caps font-label-caps pl-9 pr-3 py-2 w-48 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary placeholder:text-on-surface-variant/50 transition-colors rounded-none" placeholder="Search Ledgers..." type="text"/>
+</div>
+<button class="bg-surface border border-primary text-primary font-label-caps text-label-caps px-4 py-2 hover:bg-surface-container-high transition-colors uppercase">
+                REPORTS
+            </button>
+<button class="bg-[#A64D4D] text-white font-data-mono text-data-mono font-bold px-4 py-2 hover:bg-[#8A3D3D] transition-colors uppercase flex items-center gap-2 border border-[#A64D4D]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1; font-size: 16px;">warning</span>
+                KILL SWITCH
+            </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center overflow-hidden ml-2">
+<img alt="User financial profile" class="w-full h-full object-cover filter grayscale" data-alt="A tightly cropped black and white portrait of a stoic executive, wearing a sharp dark suit. The lighting is harsh and directional, emphasizing facial structure and a serious expression. The background is pure, featureless white, aligning with a stark, corporate financial minimalist aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPB39wY8pJNyMnB974UFMtPIUp4lumoB2bKWAVYXyx9SoqOKiK-pvdmMW55ovtZ43aI7kU766IcTfIZWTIvoyLZedygmsmbhP3rdhEjUpfbby4wsmIbZZIsftelIsQ6-hrdUz5sgPw4HFwUfVoTJBiXmQZXfGb9uiGI64_W9clXNGF8_B_l7Z6Uo-FpNDCQvhEC82M5b4LeZM5skgWTWpMIQY9X0SJ5CMRAWdCxcjgFBs6XivbX3HzPlZDQTt37biDVP1b4OMZsA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Hidden on Mobile, Visible on Desktop) -->
+<aside class="hidden lg:flex flex-col h-full w-64 border-r border-outline-variant bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-label-caps text-label-caps shrink-0">
+<div class="p-6 border-b border-outline-variant">
+<div class="font-data-mono text-data-mono text-on-surface-variant mb-1">Fiduciary Oversight</div>
+<div class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary uppercase tracking-tighter leading-tight">TOOL KILL SWITCH</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4">
+<a class="text-primary dark:text-inverse-primary border-l-4 border-secondary px-4 py-3 flex items-center gap-3 bg-surface-container-low hover:bg-surface-container-high hover:text-primary transition-colors duration-150 uppercase" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                    Dashboard
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 border-l-4 border-transparent hover:bg-surface-container-high hover:text-primary transition-colors duration-150 uppercase" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                    Inventory
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 border-l-4 border-transparent hover:bg-surface-container-high hover:text-primary transition-colors duration-150 uppercase" href="#">
+<span class="material-symbols-outlined">rule</span>
+                    Decision Queue
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 border-l-4 border-transparent hover:bg-surface-container-high hover:text-primary transition-colors duration-150 uppercase" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Calendar
+                </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 border-l-4 border-transparent hover:bg-surface-container-high hover:text-primary transition-colors duration-150 uppercase" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+                    Export
+                </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background p-4 md:p-6 lg:p-margin-lg">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- Memo Header -->
+<div class="bg-surface border-l-4 border-secondary p-6 md:p-8 mb-8 border border-outline-variant border-l-secondary relative">
+<div class="absolute top-0 right-0 p-4 font-data-mono text-data-mono text-on-surface-variant">
+                        DATE: <span class="text-primary">2023.10.24</span><br/>
+                        STATUS: <span class="text-[#A64D4D] font-bold">CRITICAL REVIEW</span>
+</div>
+<h1 class="font-memo-title text-memo-title text-primary mb-4 pr-32">Executive Spend Summary: AI Tools</h1>
+<p class="font-memo-body text-memo-body text-on-surface-variant max-w-3xl">
+                        This dashboard provides immediate fiduciary oversight on active AI subscriptions. Tools exhibiting low utilization or negative ROI are flagged for immediate termination. Actions taken here are binding and update the primary ledger instantly.
+                    </p>
+</div>
+<!-- ROI Tiles (Top Summary) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-outline-variant bg-surface mb-8">
+<!-- Tile 1 -->
+<div class="p-6 border-b md:border-b-0 md:border-r border-outline-variant flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 flex items-center justify-between">
+                            Total Monthly Spend
+                            <span class="material-symbols-outlined text-secondary" style="font-size: 16px;">account_balance</span>
+</div>
+<div>
+<div class="font-data-mono text-[40px] leading-none font-bold text-primary">$142,500</div>
+<div class="font-data-mono text-data-mono text-[#A64D4D] mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">trending_up</span>
+                                +12.4% vs Last Month
+                            </div>
+</div>
+</div>
+<!-- Tile 2 -->
+<div class="p-6 border-b md:border-b-0 md:border-r border-outline-variant flex flex-col justify-between">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 flex items-center justify-between">
+                            Active AI Tool Count
+                            <span class="material-symbols-outlined text-on-surface-variant" style="font-size: 16px;">api</span>
+</div>
+<div>
+<div class="font-data-mono text-[40px] leading-none font-bold text-primary">47</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant mt-2">
+                                12 Pending Review
+                            </div>
+</div>
+</div>
+<!-- Tile 3 -->
+<div class="p-6 flex flex-col justify-between bg-surface-container-low">
+<div class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4 flex items-center justify-between">
+                            Projected Savings (ROI)
+                            <span class="material-symbols-outlined text-secondary" style="font-size: 16px;">savings</span>
+</div>
+<div>
+<div class="font-data-mono text-[40px] leading-none font-bold text-secondary">$38,200</div>
+<div class="font-data-mono text-data-mono text-secondary mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">content_cut</span>
+                                If flagged tools killed
+                            </div>
+</div>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Charts & Grids (Spans 8) -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Monthly Spend Waterfall Chart Container -->
+<div class="bg-surface border border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant">
+<h2 class="font-label-caps text-label-caps text-primary uppercase">Monthly Spend Waterfall</h2>
+<span class="font-data-mono text-data-mono text-on-surface-variant">YTD 2023</span>
+</div>
+<!-- CSS Grid Chart representation (Stepped/Flat aesthetic) -->
+<div class="h-64 relative w-full flex items-end gap-2 px-4 pb-8 pt-4">
+<!-- Y Axis Labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-[10px] font-data-mono text-on-surface-variant pb-8 z-10 w-8 text-right pr-2 bg-surface">
+<span>150k</span>
+<span>100k</span>
+<span>50k</span>
+<span>0</span>
+</div>
+<!-- Horizontal Grid Lines -->
+<div class="absolute left-8 right-0 top-4 h-[calc(100%-2rem)] flex flex-col justify-between pointer-events-none">
+<div class="w-full border-t border-outline-variant/30"></div>
+<div class="w-full border-t border-outline-variant/30"></div>
+<div class="w-full border-t border-outline-variant/30"></div>
+<div class="w-full border-t border-outline-variant"></div>
+</div>
+<!-- Chart Bars & Confidence Band Area -->
+<div class="ml-8 w-full h-full relative flex items-end justify-between gap-1">
+<!-- Confidence Band Background -->
+<div class="absolute bottom-0 left-0 right-0 h-3/4 confidence-band w-full border-t border-secondary border-dashed pointer-events-none"></div>
+<!-- Bars -->
+<div class="w-full bg-secondary h-[30%] z-10 relative group">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$45k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] text-on-surface-variant">JAN</div>
+</div>
+<div class="w-full bg-secondary h-[45%] z-10 relative group">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$67k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] text-on-surface-variant">FEB</div>
+</div>
+<div class="w-full bg-secondary h-[50%] z-10 relative group">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$75k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] text-on-surface-variant">MAR</div>
+</div>
+<div class="w-full bg-secondary h-[65%] z-10 relative group">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-primary text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$98k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] text-on-surface-variant">APR</div>
+</div>
+<div class="w-full bg-secondary h-[80%] z-10 relative group border-t-2 border-[#A64D4D]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#A64D4D] text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$120k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] text-on-surface-variant">MAY</div>
+</div>
+<div class="w-full bg-secondary h-[95%] z-10 relative group border-2 border-[#A64D4D]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#A64D4D] text-on-primary font-data-mono text-[10px] py-1 px-2 rounded-none transition-opacity pointer-events-none whitespace-nowrap">$142k</div>
+<div class="absolute -bottom-6 w-full text-center font-data-mono text-[10px] font-bold text-primary">JUN</div>
+</div>
+</div>
+</div>
+<div class="mt-4 flex justify-end gap-4 font-data-mono text-[10px] text-on-surface-variant">
+<div class="flex items-center gap-1"><div class="w-3 h-3 bg-secondary"></div> Actual Spend</div>
+<div class="flex items-center gap-1"><div class="w-3 h-3 border border-secondary border-dashed confidence-band"></div> Projected Cap</div>
+<div class="flex items-center gap-1"><div class="w-3 h-3 bg-secondary border-2 border-[#A64D4D]"></div> Over Budget Warning</div>
+</div>
+</div>
+<!-- Usage-versus-Promise Scorecard -->
+<div>
+<h2 class="font-label-caps text-label-caps text-primary uppercase mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">grid_view</span>
+                                Usage vs. Promise Scorecard
+                            </h2>
+<div class="bg-surface border border-outline-variant overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[600px]">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant uppercase">
+<th class="p-3 font-normal border-r border-outline-variant">Tool Name</th>
+<th class="p-3 font-normal border-r border-outline-variant text-right">Monthly Cost</th>
+<th class="p-3 font-normal border-r border-outline-variant text-right">Promised Value</th>
+<th class="p-3 font-normal border-r border-outline-variant text-right">Actual Value</th>
+<th class="p-3 font-normal text-center">Variance</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-primary">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-3 border-r border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-[#A64D4D] rounded-full"></div>
+                                                GenText Pro
+                                            </td>
+<td class="p-3 border-r border-outline-variant text-right">$12,400</td>
+<td class="p-3 border-r border-outline-variant text-right text-on-surface-variant">200h saved</td>
+<td class="p-3 border-r border-outline-variant text-right font-bold text-[#A64D4D]">45h saved</td>
+<td class="p-3 text-center text-[#A64D4D]">-77.5%</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-3 border-r border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+                                                CodeAssist AI
+                                            </td>
+<td class="p-3 border-r border-outline-variant text-right">$8,200</td>
+<td class="p-3 border-r border-outline-variant text-right text-on-surface-variant">15% velocity</td>
+<td class="p-3 border-r border-outline-variant text-right">14% velocity</td>
+<td class="p-3 text-center text-secondary">-6.6%</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low bg-error-container/20 border-l-2 border-l-[#A64D4D]">
+<td class="p-3 border-r border-outline-variant flex items-center gap-2 font-bold">
+<div class="w-2 h-2 bg-[#A64D4D] rounded-none"></div>
+                                                VisuaGen Enterprise
+                                            </td>
+<td class="p-3 border-r border-outline-variant text-right">$25,000</td>
+<td class="p-3 border-r border-outline-variant text-right text-on-surface-variant">$50k rev attr.</td>
+<td class="p-3 border-r border-outline-variant text-right font-bold text-[#A64D4D]">$0 rev attr.</td>
+<td class="p-3 text-center text-[#A64D4D] font-bold">-100%</td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="p-3 border-r border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+                                                DataSync ML
+                                            </td>
+<td class="p-3 border-r border-outline-variant text-right">$4,100</td>
+<td class="p-3 border-r border-outline-variant text-right text-on-surface-variant">99% uptime</td>
+<td class="p-3 border-r border-outline-variant text-right">99.9% uptime</td>
+<td class="p-3 text-center text-secondary">+0.9%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Urgent Decisions Sidebar (Spans 4) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface border-2 border-[#A64D4D] flex flex-col h-full relative">
+<!-- Warning Tape Header -->
+<div class="bg-[#A64D4D] text-white p-3 font-label-caps text-label-caps uppercase flex items-center justify-between">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                    Urgent Decisions
+                                </span>
+<span class="font-data-mono bg-white text-[#A64D4D] px-2 py-0.5">3 PENDING</span>
+</div>
+<div class="p-0 flex-1 overflow-y-auto">
+<!-- Urgent Item 1 -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-data-lg text-data-md font-bold text-primary">VisuaGen Enterprise</h3>
+<span class="font-data-mono text-[10px] text-[#A64D4D] border border-[#A64D4D] px-1 py-0.5 uppercase">Renews in 48h</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mb-4 grid grid-cols-2 gap-1">
+<span>Cost: $25,000/mo</span>
+<span class="text-right">Usage: <span class="text-[#A64D4D] font-bold">2%</span></span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-[#A64D4D] text-white font-data-mono text-[12px] font-bold py-2 uppercase hover:bg-[#8A3D3D] transition-colors border border-[#A64D4D]">
+                                            KILL SUBSCRIPTION
+                                        </button>
+<button class="w-10 flex items-center justify-center bg-surface border border-outline-variant hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Urgent Item 2 -->
+<div class="p-4 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-data-lg text-data-md font-bold text-primary">GenText Pro</h3>
+<span class="font-data-mono text-[10px] text-on-surface-variant border border-outline-variant px-1 py-0.5 uppercase">Renews in 5d</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mb-4 grid grid-cols-2 gap-1">
+<span>Cost: $12,400/mo</span>
+<span class="text-right">Usage: <span class="text-[#A64D4D] font-bold">14%</span></span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-[#A64D4D] text-white font-data-mono text-[12px] font-bold py-2 uppercase hover:bg-[#8A3D3D] transition-colors border border-[#A64D4D]">
+                                            KILL SUBSCRIPTION
+                                        </button>
+<button class="w-10 flex items-center justify-center bg-surface border border-outline-variant hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Urgent Item 3 -->
+<div class="p-4 hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-data-lg text-data-md font-bold text-primary">ChatBot API</h3>
+<span class="font-data-mono text-[10px] text-on-surface-variant border border-outline-variant px-1 py-0.5 uppercase">Renews in 7d</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mb-4 grid grid-cols-2 gap-1">
+<span>Cost: $3,200/mo</span>
+<span class="text-right">Usage: <span>45%</span></span>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface text-primary border border-primary font-data-mono text-[12px] font-bold py-2 uppercase hover:bg-surface-container-high transition-colors">
+                                            APPROVE RENEWAL
+                                        </button>
+<button class="w-10 flex items-center justify-center bg-surface border border-outline-variant hover:bg-surface-container-high transition-colors text-[#A64D4D]">
+<span class="material-symbols-outlined" style="font-size: 16px;">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Mini Ledger Entry Form -->
+<div class="bg-surface border border-outline-variant p-4">
+<h3 class="font-label-caps text-label-caps text-primary uppercase mb-3 border-b border-outline-variant pb-2">Manual Ledger Adjustment</h3>
+<div class="space-y-3">
+<div>
+<label class="block font-data-mono text-[10px] text-on-surface-variant mb-1 uppercase">Target Entity</label>
+<select class="w-full bg-surface border border-outline-variant text-data-mono text-[12px] p-2 focus:border-secondary focus:ring-0 rounded-none text-primary">
+<option>Select AI Vendor...</option>
+<option>VisuaGen Enterprise</option>
+<option>GenText Pro</option>
+</select>
+</div>
+<div>
+<label class="block font-data-mono text-[10px] text-on-surface-variant mb-1 uppercase">Adjustment Amount ($)</label>
+<input class="w-full bg-surface border border-outline-variant text-data-mono text-[12px] p-2 focus:border-secondary focus:ring-0 rounded-none text-right font-bold text-primary" placeholder="0.00" type="text"/>
+</div>
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-3 mt-2 hover:bg-primary-container transition-colors uppercase">
+                                    Commit Entry
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

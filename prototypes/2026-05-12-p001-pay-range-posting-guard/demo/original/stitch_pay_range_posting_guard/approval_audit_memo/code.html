@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Approval &amp; Checklist - Pay Range Posting Guard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#653e00",
+                    "primary-container": "#0f172a",
+                    "surface-container-low": "#0d1c2e",
+                    "primary-fixed": "#dae2fd",
+                    "surface-container": "#122032",
+                    "tertiary-fixed-dim": "#ffb4ab",
+                    "on-primary": "#283044",
+                    "surface": "#051425",
+                    "outline-variant": "#45464d",
+                    "inverse-surface": "#d5e3fc",
+                    "primary": "#bec6e0",
+                    "on-primary-fixed": "#131b2e",
+                    "on-error-container": "#ffdad6",
+                    "on-tertiary": "#690005",
+                    "error": "#ffb4ab",
+                    "surface-dim": "#051425",
+                    "outline": "#909097",
+                    "on-secondary": "#472a00",
+                    "primary-fixed-dim": "#bec6e0",
+                    "on-tertiary-container": "#f23733",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "secondary-fixed": "#ffddb8",
+                    "inverse-on-surface": "#233144",
+                    "tertiary": "#ffb4ab",
+                    "on-tertiary-fixed": "#410002",
+                    "on-tertiary-fixed-variant": "#93000b",
+                    "error-container": "#93000a",
+                    "surface-variant": "#283648",
+                    "surface-container-lowest": "#010f20",
+                    "surface-container-high": "#1d2b3d",
+                    "surface-container-highest": "#283648",
+                    "tertiary-fixed": "#ffdad6",
+                    "on-primary-container": "#798098",
+                    "on-surface-variant": "#c6c6cd",
+                    "inverse-primary": "#565e74",
+                    "on-background": "#d5e3fc",
+                    "on-secondary-container": "#5b3800",
+                    "surface-bright": "#2c3a4d",
+                    "tertiary-container": "#390002",
+                    "secondary-container": "#ee9800",
+                    "on-error": "#690005",
+                    "on-secondary-fixed": "#2a1700",
+                    "surface-tint": "#bec6e0",
+                    "on-surface": "#d5e3fc",
+                    "background": "#051425",
+                    "secondary": "#ffb95f",
+                    "on-primary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "cell-padding-y": "6px",
+                    "gutter": "12px",
+                    "unit": "4px",
+                    "cell-padding-x": "8px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "diff-added": [
+                            "JetBrains Mono"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "display-lg": [
+                            "30px",
+                            {
+                                    "lineHeight": "36px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "diff-added": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "data-mono": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "11px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #051425;
+            color: #d5e3fc;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex">
+<!-- Primary SideNav -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary docked vertical-left h-screen w-64 border-r border-outline-variant flat no shadows fixed left-0 top-0 h-full flex flex-col pt-16 z-40 hidden md:flex">
+<div class="px-4 pb-6 flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container rounded-DEFAULT flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary">policy</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps font-bold text-on-surface">Compliance Engine</div>
+<div class="font-data-mono text-data-mono text-outline text-[10px]">Vigilance Mode Active</div>
+</div>
+</div>
+<button class="mx-4 mb-6 bg-primary-container text-on-surface font-label-caps text-label-caps border border-outline-variant py-2 px-4 rounded-DEFAULT hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors text-left flex justify-between items-center">
+            New Job Audit
+            <span class="material-symbols-outlined text-primary text-sm">add</span>
+</button>
+<div class="flex-1 overflow-y-auto">
+<div class="flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-label-caps text-label-caps">Audit</span>
+</a>
+<a class="bg-primary-container text-primary border-l-4 border-secondary px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="font-label-caps text-label-caps">Jobs</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Templates</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1 pb-4">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="font-label-caps text-label-caps">Help Center</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high dark:hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined text-sm">menu_book</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-64 mr-12 min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center h-16 px-gutter w-full sticky z-50">
+<div class="flex items-center gap-4">
+<div class="font-display-lg text-display-lg font-bold text-on-surface dark:text-on-surface tracking-tight">Pay Range Posting Guard</div>
+</div>
+<div class="flex-1 flex justify-center max-w-md px-4">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded-DEFAULT pl-9 pr-3 py-1.5 font-data-mono text-data-mono text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Search Audits..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT transition-colors material-symbols-outlined text-xl">notifications</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT transition-colors material-symbols-outlined text-xl">history</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT transition-colors material-symbols-outlined text-xl">account_circle</button>
+</div>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4">
+<button class="bg-surface-container border border-outline text-on-surface font-label-caps text-label-caps px-4 py-1.5 rounded-DEFAULT hover:bg-surface-variant transition-colors">Save Draft</button>
+<button class="bg-secondary text-on-secondary font-label-caps text-label-caps px-4 py-1.5 rounded-DEFAULT hover:bg-secondary-fixed-dim transition-colors shadow-sm">Publish</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-container-margin overflow-y-auto">
+<div class="flex justify-between items-end mb-6 border-b border-outline-variant pb-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-surface-container-high border border-outline-variant px-2 py-0.5 rounded-DEFAULT font-data-mono text-data-mono text-outline">REQ-2023-089</span>
+<span class="bg-secondary-container text-secondary font-label-caps text-label-caps px-2 py-0.5 rounded-DEFAULT flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">pending_actions</span> Pending Approval</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Senior Machine Learning Engineer</h1>
+</div>
+<div class="text-right">
+<div class="font-label-caps text-label-caps text-outline mb-1">Risk Score</div>
+<div class="font-data-mono text-data-mono text-secondary flex items-center gap-1 justify-end">
+<span class="material-symbols-outlined text-sm">warning</span> 12 - Moderate
+                    </div>
+</div>
+</div>
+<!-- Split Pane View -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-outline-variant border border-outline-variant h-[calc(100vh-180px)]">
+<!-- Left Pane: Compliance Audit Memo -->
+<div class="bg-surface flex flex-col h-full overflow-hidden">
+<div class="bg-surface-container-low border-b border-outline-variant p-2 flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">article</span>
+                            Compliance Audit Memo (Export Preview)
+                        </span>
+<button class="text-outline hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+<div class="p-4 flex-1 overflow-y-auto font-data-mono text-data-mono text-on-surface-variant leading-relaxed">
+<div class="border border-outline-variant p-4 bg-surface-container-lowest mb-4">
+<div class="font-label-caps text-label-caps text-on-surface mb-2 border-b border-outline-variant pb-1">DOCUMENT METADATA</div>
+<div class="grid grid-cols-2 gap-2 text-[11px]">
+<div class="text-outline">AUDIT ID:</div>
+<div>AUD-774-902-X</div>
+<div class="text-outline">TIMESTAMP:</div>
+<div>2023-10-27T14:32:01Z</div>
+<div class="text-outline">TARGET JURISDICTION:</div>
+<div>CA, CO, NY, WA</div>
+<div class="text-outline">OPERATOR:</div>
+<div>system_admin_01</div>
+</div>
+</div>
+<p class="mb-4">This memorandum serves as the official record of compliance validation for job requisition REQ-2023-089 (Senior Machine Learning Engineer) prior to external publication.</p>
+<div class="mb-4">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">I. COMPENSATION DISCLOSURE</div>
+<p class="pl-4 border-l-2 border-surface-container-high">The posted base salary range of $165,000 - $210,000 USD has been verified against the current internal compensation bands for Job Grade L5. The range width (27%) complies with the 'good faith' requirements of targeted jurisdictions.</p>
+</div>
+<div class="mb-4">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">II. BENEFITS ENUMERATION</div>
+<p class="pl-4 border-l-2 border-surface-container-high">A general description of all benefits and other compensation has been included as required by Colorado Part 4 Rules and Washington SB 5761. Missing explicitly stated equity components have been <span class="bg-error text-on-error px-1">flagged and amended</span>.</p>
+</div>
+<div class="mb-4">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">III. EXCEPTIONS &amp; OVERRIDES</div>
+<p class="pl-4 border-l-2 border-surface-container-high text-secondary">Warning overridden on line 42: "Remote eligible" tag retained despite NY jurisdiction targeting. Justification: Position is national remote, NY pay transparency laws apply.</p>
+</div>
+<div class="mt-8 border-t border-outline-variant pt-4 flex justify-between items-center text-[10px]">
+<span>END OF MEMO</span>
+<span>GENERATED BY PAY RANGE POSTING GUARD</span>
+</div>
+</div>
+</div>
+<!-- Right Pane: Approval Checklist -->
+<div class="bg-surface flex flex-col h-full overflow-hidden">
+<div class="bg-surface-container-low border-b border-outline-variant p-2 flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">fact_check</span>
+                            Publish Readiness
+                        </span>
+<span class="bg-surface-variant text-on-surface font-data-mono text-data-mono px-2 py-0.5 rounded-DEFAULT text-[10px]">3/5 Complete</span>
+</div>
+<div class="p-4 flex-1 overflow-y-auto">
+<!-- Lint Pass Progress -->
+<div class="mb-6">
+<div class="flex justify-between font-label-caps text-label-caps mb-1">
+<span class="text-on-surface">Linting Status</span>
+<span class="text-error">1 Unresolved Warning</span>
+</div>
+<div class="flex h-1.5 w-full bg-surface-container-high overflow-hidden">
+<div class="bg-primary w-[70%]"></div>
+<div class="bg-secondary w-[20%]"></div>
+<div class="bg-error w-[10%]"></div>
+</div>
+</div>
+<!-- Checklist Items -->
+<div class="flex flex-col gap-px bg-outline-variant border border-outline-variant">
+<!-- Item 1 (Checked) -->
+<div class="bg-surface p-3 flex gap-3 items-start group hover:bg-surface-container-lowest transition-colors">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_box</span>
+</div>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Salary Disclosure Validated</div>
+<div class="font-data-mono text-data-mono text-outline text-[11px] mb-2">Good faith range confirmed against internal L5 bands for target Geos.</div>
+</div>
+</div>
+<!-- Item 2 (Checked) -->
+<div class="bg-surface p-3 flex gap-3 items-start group hover:bg-surface-container-lowest transition-colors">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_box</span>
+</div>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Benefits Verbiage Verified</div>
+<div class="font-data-mono text-data-mono text-outline text-[11px] mb-2">Statutory benefits enumeration present. Equity disclosure appended.</div>
+</div>
+</div>
+<!-- Item 3 (Checked) -->
+<div class="bg-surface p-3 flex gap-3 items-start group hover:bg-surface-container-lowest transition-colors">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_box</span>
+</div>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Recordkeeping Note Generated</div>
+<div class="font-data-mono text-data-mono text-outline text-[11px] mb-2">Audit memo staged for immutable storage in Compliance Vault.</div>
+</div>
+</div>
+<!-- Item 4 (Action Required - Warning) -->
+<div class="bg-surface p-3 flex gap-3 items-start border-l-2 border-secondary">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-secondary text-lg">check_box_outline_blank</span>
+</div>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-on-surface mb-1 flex items-center gap-2">
+                                        Jurisdictional Target Alignment
+                                        <span class="bg-secondary text-on-secondary px-1 py-0.5 text-[9px] rounded-sm">REVIEW</span>
+</div>
+<div class="font-data-mono text-data-mono text-outline text-[11px] mb-3">Remote posting flagged in NY/CA tracking. Manual acknowledgment required.</div>
+<div class="flex gap-2">
+<button class="bg-surface border border-outline-variant text-on-surface font-label-caps text-[10px] px-3 py-1 rounded-sm hover:bg-surface-variant">View Diff</button>
+<button class="bg-secondary text-on-secondary font-label-caps text-[10px] px-3 py-1 rounded-sm hover:bg-secondary-fixed-dim">Acknowledge</button>
+</div>
+</div>
+</div>
+<!-- Item 5 (Pending) -->
+<div class="bg-surface p-3 flex gap-3 items-start group hover:bg-surface-container-lowest transition-colors opacity-70">
+<div class="mt-0.5">
+<span class="material-symbols-outlined text-outline text-lg">check_box_outline_blank</span>
+</div>
+<div class="flex-1">
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Final Sign-off Declaration</div>
+<div class="font-data-mono text-data-mono text-outline text-[11px]">Requires all preceding checks to be cleared.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="p-4 bg-surface-container border-t border-outline-variant flex justify-between items-center">
+<div class="font-data-mono text-data-mono text-outline text-[11px] flex items-center gap-1">
+<span class="material-symbols-outlined text-sm text-error">lock</span>
+                            Publishing Locked
+                        </div>
+<button class="bg-surface-variant text-on-surface-variant font-label-caps text-label-caps px-6 py-2 rounded-DEFAULT cursor-not-allowed border border-outline-variant">
+                            Execute Publish
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Secondary Contextual SideNav (Right) -->
+<nav class="bg-surface-container dark:bg-surface-container text-secondary dark:text-secondary docked vertical-right h-screen w-12 border-l border-outline-variant flat no shadows fixed right-0 top-0 h-full flex flex-col pt-16 z-40 hidden lg:flex">
+<div class="flex flex-col items-center pt-4 pb-2 border-b border-outline-variant mb-2">
+<span class="font-label-caps text-label-caps text-error mb-1 text-[8px] uppercase rotate-90 whitespace-nowrap mt-4">Risk Progress</span>
+<div class="w-6 h-6 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-data-mono text-[10px] mt-6">!</div>
+</div>
+<div class="flex flex-col gap-2 items-center flex-1 w-full">
+<a class="w-full text-outline dark:text-outline hover:text-on-surface dark:hover:text-on-surface py-3 flex justify-center relative group" href="#">
+<span class="material-symbols-outlined text-lg">input</span>
+<!-- Tooltip hover -->
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-inverse-surface text-inverse-on-surface font-label-caps text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">Intake</div>
+</a>
+<a class="w-full text-outline dark:text-outline hover:text-on-surface dark:hover:text-on-surface py-3 flex justify-center relative group" href="#">
+<span class="material-symbols-outlined text-lg">map</span>
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-inverse-surface text-inverse-on-surface font-label-caps text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">Triggers</div>
+</a>
+<a class="w-full text-outline dark:text-outline hover:text-on-surface dark:hover:text-on-surface py-3 flex justify-center relative group" href="#">
+<span class="material-symbols-outlined text-lg">fact_check</span>
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-inverse-surface text-inverse-on-surface font-label-caps text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">Linting</div>
+</a>
+<a class="w-full text-outline dark:text-outline hover:text-on-surface dark:hover:text-on-surface py-3 flex justify-center relative group" href="#">
+<span class="material-symbols-outlined text-lg">card_giftcard</span>
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-inverse-surface text-inverse-on-surface font-label-caps text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">Benefits</div>
+</a>
+<a class="w-full text-secondary dark:text-secondary bg-surface-container-highest py-3 flex justify-center border-l-2 border-secondary relative group brightness-125" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<div class="absolute right-full mr-2 top-1/2 -translate-y-1/2 bg-inverse-surface text-inverse-on-surface font-label-caps text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">Approval</div>
+</a>
+</div>
+</nav>
+</body></html>

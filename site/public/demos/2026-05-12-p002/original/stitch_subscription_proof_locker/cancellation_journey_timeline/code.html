@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cancellation Journey - Premium Streaming Plus</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&amp;family=Manrope:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#92d2d3",
+                        "on-surface": "#191c1b",
+                        "tertiary-fixed": "#e5e2d8",
+                        "secondary": "#25686a",
+                        "on-primary-fixed": "#002115",
+                        "primary-fixed": "#c5ebd7",
+                        "tertiary-container": "#76756c",
+                        "surface-bright": "#f9faf8",
+                        "primary-fixed-dim": "#aacfbc",
+                        "on-primary-fixed-variant": "#2c4d3f",
+                        "surface-variant": "#e1e3e1",
+                        "inverse-surface": "#2e3130",
+                        "secondary-fixed": "#aeeef0",
+                        "background": "#f9faf8",
+                        "surface-container-highest": "#e1e3e1",
+                        "primary-container": "#597c6b",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c1c8c2",
+                        "on-error": "#ffffff",
+                        "surface-container": "#edeeec",
+                        "secondary-container": "#abebed",
+                        "on-background": "#191c1b",
+                        "on-tertiary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#48473f",
+                        "surface": "#f9faf8",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#2a6c6e",
+                        "outline": "#727974",
+                        "surface-container-low": "#f3f4f2",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#002021",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#c9c7bc",
+                        "primary": "#416353",
+                        "on-secondary-fixed-variant": "#004f51",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#5d5c54",
+                        "inverse-on-surface": "#f0f1ef",
+                        "on-surface-variant": "#414844",
+                        "on-tertiary-fixed": "#1c1c15",
+                        "inverse-primary": "#aacfbc",
+                        "on-primary-container": "#f5fff7",
+                        "error": "#ba1a1a",
+                        "surface-tint": "#446556",
+                        "surface-container-high": "#e7e8e6",
+                        "surface-dim": "#d9dad8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "64px",
+                        "card-inner-padding": "24px",
+                        "container-padding": "32px",
+                        "base": "8px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-caps": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Manrope"],
+                        "renewal-date": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-md": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "renewal-date": ["24px", { "lineHeight": "32px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        .ambient-shadow {
+            box-shadow: 0 4px 30px rgba(107, 142, 125, 0.06);
+        }
+        .progress-track {
+            position: absolute;
+            left: 23px;
+            top: 48px;
+            bottom: -24px;
+            width: 4px;
+            background-color: #f3f4f2;
+            border-radius: 9999px;
+            z-index: 0;
+        }
+        .progress-track.filled {
+            background: linear-gradient(to bottom, #aacfbc, #416353);
+        }
+        .step-container:last-child .progress-track {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col md:flex-row antialiased">
+<!-- TopAppBar (Mobile & Tablet) -->
+<header class="md:hidden flex justify-between items-center w-full px-container-padding h-20 bg-surface dark:bg-on-surface border-b border-outline-variant/20 shadow-sm docked full-width top-0 z-40">
+<div class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed-dim">Proof Locker</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full scale-98 active:transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full scale-98 active:transition-all">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="bg-surface-container-low dark:bg-surface-dim text-primary dark:text-primary-fixed-dim h-full w-72 hidden lg:flex flex-col border-r border-outline-variant/20 fixed left-0 top-0 p-6 space-y-base z-40 flat no shadows">
+<div class="mb-8">
+<h1 class="text-headline-md font-headline-md text-primary dark:text-primary-fixed-dim">Proof Locker</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant mt-1">Financial Peace</p>
+</div>
+<div class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-caps font-label-caps">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-xl font-bold ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined fill">route</span>
+<span class="text-label-caps font-label-caps">Active Journeys</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="text-label-caps font-label-caps">Evidence Vault</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-caps font-label-caps">Refund Packets</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-high rounded-xl transition-all ease-in-out duration-200" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="text-label-caps font-label-caps">Renewal Watch</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-72 pb-32 md:pb-12 pt-6 md:pt-12 px-container-padding max-w-[1200px] mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-section-gap">
+<div class="flex items-center gap-2 text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<span class="text-label-caps font-label-caps uppercase">Back to Active Journeys</span>
+</div>
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-on-surface mb-2">Premium Streaming Plus</h2>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Cancellation Journey Timeline</p>
+</div>
+<!-- Timeline Container -->
+<div class="max-w-3xl">
+<!-- Step 1: Intention to Cancel (Completed) -->
+<div class="relative pl-16 pb-12 step-container">
+<div class="progress-track filled"></div>
+<!-- Step Icon -->
+<div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center z-10 shadow-sm">
+<span class="material-symbols-outlined fill">check_circle</span>
+</div>
+<!-- Step Content -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-card-inner-padding border-[1.5px] border-primary/20">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Intention to Cancel</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Oct 12, 2023 • 10:00 AM</p>
+</div>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-tertiary text-on-tertiary text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-sm">lock</span>
+                            Logged
+                        </span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-4 mb-4">
+<p class="text-body-md font-body-md text-on-surface-variant">Decided to cancel due to recent price increase. Found the link in account settings.</p>
+</div>
+<button class="text-primary font-bold text-label-caps font-label-caps flex items-center gap-2 hover:bg-surface-container-low px-4 py-2 rounded-lg transition-colors border border-transparent hover:border-primary/20">
+<span class="material-symbols-outlined">add_photo_alternate</span>
+                        Capture Evidence
+                    </button>
+</div>
+</div>
+<!-- Step 2: Dark-Pattern Friction (Active) -->
+<div class="relative pl-16 pb-12 step-container">
+<div class="progress-track"></div>
+<!-- Step Icon -->
+<div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center z-10 shadow-sm ring-4 ring-surface">
+<span class="material-symbols-outlined fill">warning</span>
+</div>
+<!-- Step Content -->
+<div class="bg-surface-container-lowest ambient-shadow rounded-xl p-card-inner-padding border-[1.5px] border-secondary/40 relative overflow-hidden">
+<!-- Subtle highlight indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-headline-md font-headline-md text-on-surface">Dark-Pattern Friction Detected</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Oct 12, 2023 • 10:05 AM</p>
+</div>
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                            Active
+                        </span>
+</div>
+<!-- Friction Alert -->
+<div class="bg-error-container/30 border border-error/20 rounded-lg p-4 flex gap-3 mb-4">
+<span class="material-symbols-outlined text-error mt-0.5">report</span>
+<div>
+<h4 class="text-label-caps font-label-caps text-on-surface font-bold mb-1 uppercase tracking-wider">Confirm-Shaming &amp; Hidden Actions</h4>
+<p class="text-body-md font-body-md text-on-surface-variant">The final cancel button is styled as plain grey text at the very bottom, while a bright blue "Keep Subscription" button draws attention. They are trying to cause an accidental click.</p>
+</div>
+</div>
+<div class="mb-6">
+<label class="text-label-caps font-label-caps text-on-surface-variant block mb-2 uppercase tracking-wider">Notes</label>
+<textarea class="w-full bg-surface-bright border border-outline-variant rounded-lg p-4 text-body-md font-body-md focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none h-24" placeholder="Add details about the friction you encountered..."></textarea>
+</div>
+<div class="flex gap-4">
+<button class="bg-primary text-on-primary rounded-[16px] px-[32px] py-3 text-body-md font-body-md font-bold flex items-center gap-2 hover:bg-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined">add_a_photo</span>
+                            Capture Evidence
+                        </button>
+<button class="bg-transparent text-secondary border border-secondary rounded-[16px] px-[32px] py-3 text-body-md font-body-md font-bold hover:bg-secondary-container/20 transition-colors">
+                            Mark Resolved
+                        </button>
+</div>
+</div>
+</div>
+<!-- Step 3: Cancellation Request Sent (Pending) -->
+<div class="relative pl-16 pb-12 step-container opacity-60">
+<div class="progress-track"></div>
+<!-- Step Icon -->
+<div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined">send</span>
+</div>
+<!-- Step Content -->
+<div class="bg-surface-bright rounded-xl p-card-inner-padding border-[1.5px] border-outline-variant/30">
+<h3 class="text-headline-md font-headline-md text-on-surface">Cancellation Request Sent</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Pending action</p>
+</div>
+</div>
+<!-- Step 4: Proof Captured (Pending) -->
+<div class="relative pl-16 pb-12 step-container opacity-60">
+<div class="progress-track"></div>
+<!-- Step Icon -->
+<div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<!-- Step Content -->
+<div class="bg-surface-bright rounded-xl p-card-inner-padding border-[1.5px] border-outline-variant/30">
+<h3 class="text-headline-md font-headline-md text-on-surface">Proof Captured</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Pending action</p>
+</div>
+</div>
+<!-- Step 5: Pending Refund (Pending) -->
+<div class="relative pl-16 step-container opacity-60">
+<div class="progress-track"></div>
+<!-- Step Icon -->
+<div class="absolute left-0 top-0 w-12 h-12 rounded-full bg-surface-container-high text-on-surface-variant flex items-center justify-center z-10">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<!-- Step Content -->
+<div class="bg-surface-bright rounded-xl p-card-inner-padding border-[1.5px] border-outline-variant/30">
+<h3 class="text-headline-md font-headline-md text-on-surface">Pending Refund</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Pending action</p>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface dark:bg-inverse-surface text-primary dark:text-primary-fixed-dim border-t border-outline-variant/30 shadow-lg fixed bottom-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe docked full-width rounded-t-xl tap-highlight-transparent transition-transform duration-150">
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest rounded-lg p-2">
+<span class="material-symbols-outlined mb-1">home</span>
+<span class="text-label-caps font-label-caps">Home</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-6 py-1">
+<span class="material-symbols-outlined mb-1 fill">route</span>
+<span class="text-label-caps font-label-caps">Journeys</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest rounded-lg p-2">
+<span class="material-symbols-outlined mb-1">folder_zip</span>
+<span class="text-label-caps font-label-caps">Vault</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-highest rounded-lg p-2">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="text-label-caps font-label-caps">Refunds</span>
+</button>
+</nav>
+</body></html>

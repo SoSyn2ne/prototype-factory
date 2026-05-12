@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Renewal Cancellation Calendar - Financial Workbench</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;600&amp;family=Inter:wght@500;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#121e15",
+                        "on-surface-variant": "#44474a",
+                        "on-error-container": "#93000a",
+                        "surface-variant": "#e2e3e1",
+                        "background": "#f9f9f7",
+                        "secondary-container": "#c9ebd1",
+                        "outline": "#75777a",
+                        "surface-tint": "#5d5e61",
+                        "secondary-fixed-dim": "#aecfb5",
+                        "primary-fixed-dim": "#c6c6c9",
+                        "on-tertiary-fixed-variant": "#3d4a3f",
+                        "inverse-primary": "#c6c6c9",
+                        "secondary-fixed": "#c9ebd1",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-primary-container": "#838486",
+                        "surface": "#f9f9f7",
+                        "tertiary-fixed-dim": "#bbcabc",
+                        "tertiary": "#000200",
+                        "secondary": "#476550",
+                        "on-secondary-container": "#4d6b56",
+                        "on-secondary-fixed-variant": "#304d3a",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#d7e6d8",
+                        "primary": "#000101",
+                        "tertiary-container": "#121f16",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary": "#ffffff",
+                        "outline-variant": "#c5c6ca",
+                        "surface-container-low": "#f4f4f2",
+                        "on-surface": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadad8",
+                        "on-primary-fixed": "#1a1c1e",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#e2e3e1",
+                        "on-secondary-fixed": "#032111",
+                        "on-background": "#1a1c1b",
+                        "surface-container": "#eeeeec",
+                        "primary-container": "#1a1c1e",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-container": "#7a887c",
+                        "primary-fixed": "#e2e2e5",
+                        "on-primary-fixed-variant": "#454749",
+                        "surface-bright": "#f9f9f7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-sm": "16px",
+                        "gutter": "1px",
+                        "margin-lg": "48px",
+                        "margin-md": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "memo-title": ["Source Serif 4"],
+                        "label-caps": ["Inter"],
+                        "data-md": ["Inter"],
+                        "data-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "memo-body": ["Source Serif 4"]
+                    },
+                    "fontSize": {
+                        "memo-title": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-md": ["16px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "data-lg": ["24px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "memo-body": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F9F9F7; }
+        .ledger-line { border-color: #D1D1CF; border-width: 1px; }
+        .ledger-line-x { border-top-width: 1px; border-top-color: #D1D1CF; }
+        .ledger-line-y { border-right-width: 1px; border-right-color: #D1D1CF; }
+        .focus-border-green { border-color: #2D3A30; border-width: 2px; }
+        .kill-border-red { border-color: #A64D4D; border-width: 2px; }
+        .memo-border { border-left-width: 4px; border-left-color: #4F6D58; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-label-caps text-label-caps h-screen w-64 border-r border-outline-variant flex flex-col shrink-0 z-10">
+<div class="p-6 border-b border-outline-variant">
+<h1 class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary uppercase tracking-tighter">TOOL KILL SWITCH</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-2">Fiduciary Oversight</p>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span>Inventory</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">rule</span>
+<span>Decision Queue</span>
+</a>
+<a class="text-primary dark:text-inverse-primary border-l-4 border-secondary px-4 py-3 flex items-center gap-3 bg-surface-container-low hover:bg-surface-container-high hover:text-primary transition-colors duration-150 scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span>Calendar</span>
+</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">ios_share</span>
+<span>Export</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-inverse-primary font-label-caps text-label-caps w-full border-b border-outline-variant flex justify-between items-center px-margin-md h-16 shrink-0 z-10">
+<div class="flex items-center">
+<span class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary mr-4">FINANCIAL WORKBENCH</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary active:opacity-80">REPORTS</button>
+<button class="bg-[#A64D4D] text-[#FFFFFF] font-data-mono text-data-mono uppercase px-4 py-2 hover:opacity-90 active:opacity-80 transition-opacity">KILL SWITCH</button>
+</div>
+</header>
+<!-- Workbench Layout Grid -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Calendar View (Left/Main Area) -->
+<div class="flex-1 flex flex-col overflow-y-auto ledger-line-y">
+<!-- Month Header -->
+<div class="px-margin-md py-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest sticky top-0 z-10">
+<h2 class="font-memo-title text-memo-title text-primary">October 2024</h2>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline text-on-surface-variant hover:text-primary hover:border-primary transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
+<button class="px-3 py-1 border border-outline text-on-surface-variant hover:text-primary hover:border-primary transition-colors"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="flex-1 grid grid-cols-7 grid-rows-[auto_1fr_1fr_1fr_1fr_1fr] bg-outline-variant gap-[1px]">
+<!-- Day Headers -->
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Sun</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Mon</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Tue</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Wed</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Thu</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Fri</div>
+<div class="bg-surface-container-lowest font-label-caps text-label-caps text-on-surface-variant p-2 text-center uppercase">Sat</div>
+<!-- Week 1 (Placeholder blank days) -->
+<div class="bg-surface-container-low min-h-[100px] p-2"></div>
+<div class="bg-surface-container-low min-h-[100px] p-2"></div>
+<!-- Oct 1 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">01</span>
+</div>
+<!-- Oct 2 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">02</span>
+</div>
+<!-- Oct 3 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">03</span>
+</div>
+<!-- Oct 4 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">04</span>
+<!-- Renewal Event Keep -->
+<div class="mt-2 text-xs border-l-2 border-[#476550] bg-[#c9ebd1]/20 pl-2 py-1 truncate">
+<span class="font-label-caps block text-[#4d6b56]">KEEP DECISION</span>
+<span class="font-data-mono truncate">Airtable Pro ($480)</span>
+</div>
+</div>
+<!-- Oct 5 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">05</span>
+</div>
+<!-- Week 2 -->
+<!-- Oct 6 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative">
+<span class="font-data-mono text-data-mono text-on-surface-variant">06</span>
+</div>
+<!-- Oct 7 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative bg-error-container/10 border border-[#ba1a1a]/20">
+<span class="font-data-mono text-data-mono text-[#ba1a1a] font-bold">07</span>
+<!-- Cancellation Window -->
+<div class="mt-1 bg-[#A64D4D] text-white font-label-caps px-1 py-0.5 text-[10px] inline-block uppercase">Decision Required</div>
+<!-- Renewal Event Kill -->
+<div class="mt-1 text-xs border-l-2 border-[#A64D4D] bg-[#A64D4D]/10 pl-2 py-1">
+<span class="font-label-caps block text-[#A64D4D] line-through">KILL PENDING</span>
+<span class="font-data-mono truncate">Grammarly Team ($1.2k)</span>
+</div>
+</div>
+<!-- Oct 8 to Oct 12 -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">08</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">09</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">10</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">11</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">12</span></div>
+<!-- Week 3 (Truncated for brevity, filling with empty days) -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">13</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">14</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">15</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">16</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">17</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">18</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">19</span></div>
+<!-- Week 4 & 5 (Greyed out for next month) -->
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">20</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">21</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">22</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">23</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">24</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">25</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">26</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">27</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">28</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">29</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">30</span></div>
+<div class="bg-surface-container-lowest min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-on-surface-variant">31</span></div>
+<div class="bg-surface-container-low min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-outline">01</span></div>
+<div class="bg-surface-container-low min-h-[100px] p-2 relative"><span class="font-data-mono text-data-mono text-outline">02</span></div>
+</div>
+</div>
+<!-- Action Sidebar (Right Panel) -->
+<aside class="w-80 bg-surface-container-lowest flex flex-col overflow-y-auto">
+<div class="p-margin-md border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-1">IMMINENT RENEWALS</h3>
+<p class="font-data-mono text-data-mono text-on-surface-variant text-sm">Action required within 7 days.</p>
+</div>
+<!-- Action Item 1 -->
+<div class="p-margin-md border-b border-outline-variant">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono font-bold text-[#A64D4D]">OCT 07</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">$1,200.00</span>
+</div>
+<h4 class="font-data-md text-data-md text-on-surface mb-1">Grammarly Team</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4">DEPT: MARKETING</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline font-label-caps text-label-caps text-on-surface py-2 hover:bg-surface-container-low transition-colors">REVIEW</button>
+<button class="flex-1 bg-[#A64D4D] text-white font-label-caps text-label-caps py-2 hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">close</span> KILL
+                        </button>
+</div>
+</div>
+<!-- Action Item 2 -->
+<div class="p-margin-md border-b border-outline-variant opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono font-bold text-on-surface">OCT 14</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">$3,450.00</span>
+</div>
+<h4 class="font-data-md text-data-md text-on-surface mb-1">Salesforce Essentials</h4>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-4">DEPT: SALES</p>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-container-lowest border border-outline font-label-caps text-label-caps text-on-surface py-2 hover:bg-surface-container-low transition-colors">REVIEW</button>
+<button class="flex-1 bg-[#A64D4D] text-white font-label-caps text-label-caps py-2 hover:opacity-90 transition-opacity flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">close</span> KILL
+                        </button>
+</div>
+</div>
+<!-- Memo Block Insight -->
+<div class="p-margin-md mt-auto">
+<div class="bg-surface p-4 memo-border ledger-line shadow-sm">
+<h5 class="font-label-caps text-label-caps text-on-surface mb-2">SYSTEM INSIGHT</h5>
+<p class="font-memo-body text-memo-body text-on-surface-variant text-sm">
+                            Historical data suggests 40% of Q4 marketing software renewals are underutilized. Prioritize manual review of Grammarly and related drafting tools.
+                        </p>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Workbench - Decision Queue</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Source+Serif+4:ital,wght@0,400;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#121e15",
+                    "on-surface-variant": "#44474a",
+                    "on-error-container": "#93000a",
+                    "surface-variant": "#e2e3e1",
+                    "background": "#f9f9f7",
+                    "secondary-container": "#c9ebd1",
+                    "outline": "#75777a",
+                    "surface-tint": "#5d5e61",
+                    "secondary-fixed-dim": "#aecfb5",
+                    "primary-fixed-dim": "#c6c6c9",
+                    "on-tertiary-fixed-variant": "#3d4a3f",
+                    "inverse-primary": "#c6c6c9",
+                    "secondary-fixed": "#c9ebd1",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-primary-container": "#838486",
+                    "surface": "#f9f9f7",
+                    "tertiary-fixed-dim": "#bbcabc",
+                    "tertiary": "#000200",
+                    "secondary": "#476550",
+                    "on-secondary-container": "#4d6b56",
+                    "on-secondary-fixed-variant": "#304d3a",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#d7e6d8",
+                    "primary": "#000101",
+                    "tertiary-container": "#121f16",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#e8e8e6",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c5c6ca",
+                    "surface-container-low": "#f4f4f2",
+                    "on-surface": "#1a1c1b",
+                    "error": "#ba1a1a",
+                    "surface-dim": "#dadad8",
+                    "on-primary-fixed": "#1a1c1e",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#e2e3e1",
+                    "on-secondary-fixed": "#032111",
+                    "on-background": "#1a1c1b",
+                    "surface-container": "#eeeeec",
+                    "primary-container": "#1a1c1e",
+                    "inverse-surface": "#2f3130",
+                    "on-tertiary-container": "#7a887c",
+                    "primary-fixed": "#e2e2e5",
+                    "on-primary-fixed-variant": "#454749",
+                    "surface-bright": "#f9f9f7"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-sm": "16px",
+                    "gutter": "1px",
+                    "margin-lg": "48px",
+                    "margin-md": "24px",
+                    "unit": "4px"
+            },
+            "fontFamily": {
+                    "memo-title": [
+                            "Source Serif 4"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "data-md": [
+                            "Inter"
+                    ],
+                    "data-lg": [
+                            "Inter"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "memo-body": [
+                            "Source Serif 4"
+                    ]
+            },
+            "fontSize": {
+                    "memo-title": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "data-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "memo-body": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for rigid aesthetic */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f9f9f7; border-left: 1px solid #c5c6ca; }
+        ::-webkit-scrollbar-thumb { background: #c5c6ca; }
+        ::-webkit-scrollbar-thumb:hover { background: #75777a; }
+        
+        /* Grid background pattern for charts */
+        .chart-grid {
+            background-image: linear-gradient(#e2e3e1 1px, transparent 1px), linear-gradient(90deg, #e2e3e1 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-screen w-screen overflow-hidden flex font-data-md text-data-md selection:bg-secondary-container selection:text-on-surface">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 border-r border-outline-variant flex flex-col bg-surface dark:bg-surface flex-shrink-0 z-10 hidden md:flex">
+<div class="p-margin-md border-b border-outline-variant">
+<h1 class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary uppercase tracking-tighter">TOOL KILL SWITCH</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-unit">Fiduciary Oversight</p>
+</div>
+<div class="flex-1 overflow-y-auto py-margin-sm">
+<ul class="flex flex-col space-y-gutter">
+<!-- Dashboard -->
+<li>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+                        Dashboard
+                    </a>
+</li>
+<!-- Inventory -->
+<li>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+                        Inventory
+                    </a>
+</li>
+<!-- Decision Queue (Active) -->
+<li>
+<a class="text-primary dark:text-inverse-primary border-l-4 border-secondary px-4 py-3 flex items-center gap-3 bg-surface-container-low font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">rule</span>
+                        Decision Queue
+                    </a>
+</li>
+<!-- Calendar -->
+<li>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        Calendar
+                    </a>
+</li>
+<!-- Export -->
+<li>
+<a class="text-on-surface-variant dark:text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-surface-container-high hover:text-primary transition-colors duration-150 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">ios_share</span>
+                        Export
+                    </a>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-outline-variant flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-primary">ID: ADMIN-849</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-wider">System Access</p>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 h-screen">
+<!-- TopAppBar -->
+<header class="w-full border-b border-outline-variant bg-surface dark:bg-surface flex justify-between items-center px-margin-md h-16 flex-shrink-0 z-10">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-on-surface-variant hover:text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-data-lg text-data-lg font-bold text-primary dark:text-inverse-primary tracking-tight">FINANCIAL WORKBENCH</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center gap-2 border-b border-outline-variant pb-1 w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 p-0 font-data-mono text-data-mono text-on-surface w-full placeholder-on-surface-variant" placeholder="Search parameters..." type="text"/>
+</div>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-4 h-8">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors">
+                        REPORTS
+                    </button>
+<button class="font-label-caps text-label-caps bg-error text-on-error px-4 py-1.5 hover:opacity-90 transition-opacity">
+                        KILL SWITCH
+                    </button>
+</div>
+</div>
+</header>
+<!-- Workbench Canvas -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- Center Workbench (Decision Card) -->
+<div class="flex-1 flex flex-col overflow-y-auto">
+<!-- Decision Header -->
+<div class="p-margin-md border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-6">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-1 bg-surface-variant font-label-caps text-label-caps text-on-surface-variant border border-outline-variant uppercase">Review ID: D-8924</span>
+<span class="px-2 py-1 bg-error-container text-on-error-container font-label-caps text-label-caps border border-error uppercase">Over Budget Var.</span>
+</div>
+<h2 class="font-memo-title text-memo-title text-primary">Jasper vs. Copy.ai</h2>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-2">Category: Generative AI Content Production</p>
+</div>
+<div class="text-right border-l border-outline-variant pl-margin-md">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase">Current Annual Spend</p>
+<p class="font-data-mono text-data-mono text-[28px] font-bold text-primary tracking-tight">$142,500<span class="text-on-surface-variant text-[16px]">.00</span></p>
+<p class="font-data-mono text-data-mono text-error mt-1">+$28k projected overage</p>
+</div>
+</div>
+</div>
+<div class="p-margin-md flex flex-col gap-margin-md flex-1">
+<!-- Top Row: ROI Viz & Risk Matrix -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-margin-md">
+<!-- ROI Confidence Bands -->
+<div class="border border-outline-variant bg-surface-container-lowest flex flex-col h-64">
+<div class="px-4 py-2 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">ROI Confidence Bands (12Mo)</h3>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">Data: Finance API v2</span>
+</div>
+<div class="flex-1 relative chart-grid p-4 flex items-end justify-between">
+<!-- Y Axis Labels -->
+<div class="absolute left-2 top-4 bottom-4 flex flex-col justify-between font-data-mono text-data-mono text-[10px] text-on-surface-variant">
+<span>2.0x</span>
+<span>1.5x</span>
+<span>1.0x</span>
+<span>0.5x</span>
+</div>
+<!-- Confidence Band Area (Simulated) -->
+<div class="absolute inset-0 mx-10 my-4 bg-tertiary-fixed-dim opacity-20" style="clip-path: polygon(0 80%, 20% 70%, 40% 65%, 60% 75%, 80% 40%, 100% 30%, 100% 90%, 80% 85%, 60% 95%, 40% 85%, 20% 90%, 0 95%);"></div>
+<!-- Main Line -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none">
+<polyline fill="none" points="40,180 120,150 200,140 280,160 360,90 440,70" stroke="#1a1c1e" stroke-linejoin="miter" stroke-width="1.5"></polyline>
+<!-- Baseline 1.0x -->
+<line stroke="#ba1a1a" stroke-dasharray="4,4" stroke-width="1" x1="40" x2="100%" y1="120" y2="120"></line>
+</svg>
+<!-- X Axis Labels -->
+<div class="w-full flex justify-between mt-auto font-data-mono text-data-mono text-[10px] text-on-surface-variant z-10 pl-8">
+<span>Q1</span>
+<span>Q2</span>
+<span>Q3</span>
+<span>Q4</span>
+<span>Q1'</span>
+</div>
+</div>
+</div>
+<!-- Quality Risk Assessment -->
+<div class="border border-outline-variant bg-surface-container-lowest flex flex-col h-64">
+<div class="px-4 py-2 border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Quality Risk Profile</h3>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<tbody><tr class="border-b border-outline-variant">
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase">Vector</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Jasper Score</th>
+<th class="py-2 px-4 font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Copy.ai Score</th>
+</tr>
+<tr class="border-b border-surface-dim hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">Brand Voice Adherence</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-primary">8.4</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface-variant">7.2</td>
+</tr>
+<tr class="border-b border-surface-dim hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">API Latency (ms)</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface-variant">420</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-primary font-bold">210</td>
+</tr>
+<tr class="border-b border-surface-dim hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">Security Compliance</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface-variant">SOC2 Type II</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-on-surface-variant">SOC2 Type II</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="py-3 px-4 font-data-md text-data-md text-on-surface">Seat Utilization</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-error">42%</td>
+<td class="py-3 px-4 font-data-mono text-data-mono text-right text-primary">89%</td>
+</tr>
+</tbody></table>
+</div>
+</div>
+</div>
+<!-- The Memo Block -->
+<div class="bg-surface-container-lowest border border-outline-variant border-l-[4px] border-l-secondary p-margin-md relative group">
+<div class="absolute top-4 right-4 flex gap-2 opacity-50 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">content_copy</span>
+<span class="material-symbols-outlined text-[18px] cursor-pointer hover:text-primary">print</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4 uppercase tracking-widest">Executive Decision Memo</h4>
+<div class="font-memo-body text-memo-body text-on-surface space-y-4 max-w-3xl">
+<p>Analysis indicates redundant capabilities across the Marketing and Sales orgs regarding generative AI deployment. Jasper currently commands an annualized run rate of $142.5k against a seat utilization metric of 42%, signaling severe shelf-ware conditions.</p>
+<p>Copy.ai maintains a tighter API latency (210ms vs 420ms) and higher organic adoption within the SDR teams (89% utilization). However, Marketing insists on Jasper's superior brand voice adherence matrix (Score: 8.4).</p>
+<p><strong>Recommendation:</strong> Consolidation. Immediate renegotiation of Jasper contract to right-size seating based on active 30-day usage logs. Simultaneously, initiate deprecation of Copy.ai for Marketing users to enforce a single source of truth for external comms.</p>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="mt-auto border-t border-outline-variant pt-margin-md flex items-center justify-between">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">info</span>
+<span class="font-data-mono text-data-mono text-[12px]">Action requires VP approval.</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- KEEP Button -->
+<button class="bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps px-6 py-3 uppercase tracking-widest hover:border-primary hover:text-primary transition-all">
+                                Keep Both (Extend)
+                            </button>
+<!-- CONSOLIDATE Button -->
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-3 uppercase tracking-widest hover:bg-surface-tint transition-all shadow-none">
+                                Consolidate to Jasper
+                            </button>
+<!-- KILL Button -->
+<button class="bg-error text-on-error font-data-mono text-data-mono px-8 py-3 font-bold uppercase tracking-widest flex items-center gap-2 hover:opacity-90 transition-opacity border border-error">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">delete</span>
+                                Kill Copy.ai
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Queued Decisions -->
+<aside class="w-80 flex-shrink-0 flex flex-col border-l border-outline-variant bg-surface-container z-0 hidden lg:flex">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface">
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Queued Decisions</h3>
+<span class="bg-surface-variant text-on-surface-variant font-data-mono text-data-mono text-[10px] px-2 py-0.5 rounded-sm">14 PENDING</span>
+</div>
+<div class="flex-1 overflow-y-auto">
+<!-- Queue Item 1 (Active) -->
+<div class="border-b border-outline-variant p-4 bg-surface-container-lowest cursor-pointer border-l-[3px] border-l-secondary relative">
+<div class="flex justify-between items-start mb-1">
+<span class="font-data-md text-data-md font-bold text-primary">Jasper vs Copy.ai</span>
+<span class="material-symbols-outlined text-[16px] text-error">priority_high</span>
+</div>
+<p class="font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-2">Impact: $142k / High Risk</p>
+<div class="flex justify-between items-center mt-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Due: Today</span>
+<span class="font-label-caps text-label-caps text-primary uppercase text-[10px]">In Review</span>
+</div>
+</div>
+<!-- Queue Item 2 -->
+<div class="border-b border-outline-variant p-4 bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-l-[3px] border-l-transparent">
+<div class="flex justify-between items-start mb-1">
+<span class="font-data-md text-data-md text-on-surface">Miro vs Mural</span>
+<span class="w-2 h-2 rounded-full bg-secondary mt-1"></span>
+</div>
+<p class="font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-2">Impact: $84k / Low Risk</p>
+<div class="flex justify-between items-center mt-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Due: Oct 24</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Pending Data</span>
+</div>
+</div>
+<!-- Queue Item 3 -->
+<div class="border-b border-outline-variant p-4 bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-l-[3px] border-l-transparent">
+<div class="flex justify-between items-start mb-1">
+<span class="font-data-md text-data-md text-on-surface">AWS vs GCP Compute</span>
+<span class="material-symbols-outlined text-[16px] text-error">priority_high</span>
+</div>
+<p class="font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-2">Impact: $1.2M / Critical</p>
+<div class="flex justify-between items-center mt-2">
+<span class="font-label-caps text-label-caps text-error uppercase text-[10px]">Overdue</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Awaiting Arch</span>
+</div>
+</div>
+<!-- Queue Item 4 -->
+<div class="border-b border-outline-variant p-4 bg-surface hover:bg-surface-container-high cursor-pointer transition-colors border-l-[3px] border-l-transparent opacity-75">
+<div class="flex justify-between items-start mb-1">
+<span class="font-data-md text-data-md text-on-surface">Zoom vs Teams Phone</span>
+</div>
+<p class="font-data-mono text-data-mono text-[11px] text-on-surface-variant mb-2">Impact: $320k / Medium Risk</p>
+<div class="flex justify-between items-center mt-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Due: Nov 01</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-[10px]">Queued</span>
+</div>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</body></html>
