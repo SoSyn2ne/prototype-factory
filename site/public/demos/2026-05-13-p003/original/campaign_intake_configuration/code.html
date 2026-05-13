@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Campaign Risk Intake - AI Ad Adjacency Shield</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#3f465c",
+                        "outline-variant": "#45464d",
+                        "surface": "#131315",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "tertiary-container": "#231500",
+                        "primary-fixed": "#dae2fd",
+                        "secondary": "#bcc7de",
+                        "surface-container-highest": "#353436",
+                        "on-tertiary": "#3e2d11",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-surface": "#e4e2e4",
+                        "tertiary-fixed": "#fcdeb5",
+                        "on-error": "#690005",
+                        "surface-container-lowest": "#0e0e10",
+                        "error-container": "#93000a",
+                        "surface-container-low": "#1b1b1d",
+                        "on-secondary": "#263143",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "error": "#ffb4ab",
+                        "surface-container-high": "#2a2a2b",
+                        "inverse-on-surface": "#303032",
+                        "surface-tint": "#bec6e0",
+                        "on-primary": "#283044",
+                        "outline": "#909097",
+                        "surface-dim": "#131315",
+                        "on-primary-container": "#798098",
+                        "surface-bright": "#39393b",
+                        "on-background": "#e4e2e4",
+                        "inverse-primary": "#565e74",
+                        "primary-container": "#0f172a",
+                        "background": "#131315",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#c6c6cd",
+                        "primary": "#bec6e0",
+                        "primary-fixed-dim": "#bec6e0",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary-container": "#957d5a",
+                        "on-tertiary-fixed": "#271901",
+                        "surface-container": "#1f1f21",
+                        "surface-variant": "#353436",
+                        "on-secondary-container": "#aeb9d0",
+                        "tertiary": "#dec29a",
+                        "secondary-container": "#3e495d",
+                        "inverse-surface": "#e4e2e4",
+                        "on-tertiary-fixed-variant": "#574425"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "24px",
+                        "table-row-height": "32px",
+                        "gutter": "12px",
+                        "container-max": "1440px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "data-tabular": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "data-tabular": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom styles for sliders */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #bec6e0;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #353436;
+            border-radius: 2px;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131315; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353436; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #45464d; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface dark:bg-surface font-body-md text-body-md w-64 h-screen fixed left-0 top-0 border-r border-outline-variant dark:border-outline-variant flex flex-col h-full z-20">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A professional headshot of a financial analyst in a modern office setting. The lighting is crisp and cool, reflecting an institutional, serious environment. Deep navy blues and muted grays dominate the color palette, conveying authority and precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuANqaO_-R6okKQnWSEtQeTL__It9TECjVsL6twVY6kQkcr7NnfwGYJKnNVzjjy7KyRceSKcum6cc1FiEnaNl7L96H21HgXdGBlLEYcd0SBGKzk7do0THz-YIW09l1gYaEj-PChaDdPzattXM_YsRXFqVozaFnnqjOuAaUiV7acq-heAxrcVl3HIszu-EyN_nHdYB0r_l8He63Kg7knnc_vjRKWQ-2KFTCEGpwXWxx9gr5UOXoAUqIl5TT3xS7hOiB1SLmHEbKkRi2g"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-on-surface dark:text-on-surface">Shield Admin</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Institutional Access</div>
+</div>
+</div>
+<button class="w-full py-2 px-4 bg-primary-container text-primary border border-primary/30 rounded font-label-caps text-label-caps hover:bg-surface-container-high transition-colors duration-200">
+                Export Report
+            </button>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-4 overflow-y-auto">
+<ul class="space-y-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary dark:text-primary font-bold border-r-2 border-primary bg-surface-container-low transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+                        Campaign Intake
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+                        Suitability Matrix
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">visibility</span>
+                        Adjacency Scanner
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                        Decision Queue
+                    </a>
+</li>
+</ul>
+</div>
+<!-- Footer Links -->
+<div class="p-4 border-t border-outline-variant">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+                        Support
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface-container-low dark:bg-surface-container-low font-label-caps text-label-caps h-16 fixed top-0 right-0 w-[calc(100%-256px)] border-b border-outline-variant dark:border-outline-variant flex items-center justify-between px-margin-desktop ml-64 z-10 transition-colors duration-200">
+<!-- Left: Brand / Search / Navigation -->
+<div class="flex items-center gap-8 h-full">
+<div class="font-headline-lg text-headline-lg font-semibold text-on-surface dark:text-on-surface">AI Ad Adjacency Shield</div>
+<nav class="h-full hidden lg:flex items-center gap-6">
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Global Dashboard</a>
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Spend at Risk</a>
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary transition-colors duration-200" href="#">Signals</a>
+</nav>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined">history</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="px-4 py-1.5 border border-outline-variant text-on-surface hover:text-primary hover:border-primary rounded transition-colors scale-95 active:opacity-80">
+                    Review Queue
+                </button>
+<button class="px-4 py-1.5 bg-primary-container border border-primary/50 text-primary rounded transition-colors scale-95 active:opacity-80">
+                    Execute Buy
+                </button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high overflow-hidden ml-2 border border-outline-variant">
+<img alt="Analyst profile" class="w-full h-full object-cover" data-alt="A close-up headshot of a female data analyst looking intently at a screen. The lighting is cinematic and low-key, illuminating her face against a dark, navy-blue background. The overall aesthetic is serious, professional, and high-tech, fitting for a financial or security application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfPhztJXndpsflEPkzVmR85B-MGugq_pwEqpMnLnFCWqn9hJRN1WxyIihDktKNhwwWEAlYIwT5NTdDTOGVqJUaDQHzPov-KqadXkTOs784YfuuiJljGcjAtQ9YRahxSBI_5JMUu_mc2fMvb1juClP5_2lJ7xCejmIPTZrVP-yFZUE6I0J-EO5QnCih8g7wVjvSARwfIJ8keq4zX4rawpvv-B9Tp-dRAv1Mfrv1QdUtU6zGjGhnge3AqEohmICY0aY29VdTAQManWo"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-16 ml-64 p-margin-desktop bg-background overflow-y-auto">
+<div class="max-w-container-max mx-auto">
+<!-- Page Header -->
+<div class="mb-8">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Campaign Risk Intake Configuration</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Define brand safety parameters, upload target domains, and set algorithmic sensitivity thresholds for the upcoming campaign.</p>
+</div>
+<!-- 12-Column Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-8 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Core Configuration (8 cols) -->
+<div class="md:col-span-8 space-y-gutter">
+<!-- Panel 1: Campaign Details -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-6">
+<h2 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4">1. Campaign Nomenclature &amp; Targeting</h2>
+<div class="grid grid-cols-2 gap-4">
+<div class="col-span-2">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Campaign Identifier</label>
+<input class="w-full bg-surface border border-outline-variant rounded px-3 py-2 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary transition-colors" type="text" value="Q3_NA_ProductLaunch_Alpha"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Start Date</label>
+<input class="w-full bg-surface border border-outline-variant rounded px-3 py-2 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary transition-colors [color-scheme:dark]" type="date" value="2023-10-01"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">End Date</label>
+<input class="w-full bg-surface border border-outline-variant rounded px-3 py-2 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary transition-colors [color-scheme:dark]" type="date" value="2023-12-31"/>
+</div>
+<div class="col-span-2 mt-2">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Creator/Channel Target List (Bulk Upload)</label>
+<div class="border-2 border-dashed border-outline-variant rounded bg-surface p-8 text-center hover:bg-surface-container-high transition-colors cursor-pointer flex flex-col items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant text-4xl mb-2">upload_file</span>
+<p class="font-body-md text-body-md text-on-surface mb-1">Drag and drop CSV or TXT file here</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Max file size 50MB. Expected format: Domain/URL per line.</p>
+</div>
+<!-- Uploaded File Preview -->
+<div class="mt-3 flex items-center justify-between bg-surface border border-outline-variant rounded px-3 py-2">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">description</span>
+<span class="font-data-tabular text-data-tabular text-on-surface">target_channels_v2.csv</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4.2 MB (12,450 rows)</span>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel 2: Audience Fit & Exclusions -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-6">
+<h2 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4">2. Taxonomy &amp; Keyword Definitions</h2>
+<div class="space-y-6">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Brand Vertical Affinity</label>
+<div class="flex flex-wrap gap-2">
+<span class="bg-primary-container border border-primary/30 text-primary px-2 py-1 rounded font-body-sm flex items-center gap-1 cursor-pointer hover:bg-primary-container/80">Technology <span class="material-symbols-outlined text-[14px]">close</span></span>
+<span class="bg-primary-container border border-primary/30 text-primary px-2 py-1 rounded font-body-sm flex items-center gap-1 cursor-pointer hover:bg-primary-container/80">Consumer Electronics <span class="material-symbols-outlined text-[14px]">close</span></span>
+<span class="bg-surface border border-outline-variant text-on-surface-variant px-2 py-1 rounded font-body-sm flex items-center gap-1 cursor-pointer hover:bg-surface-container-high border-dashed"><span class="material-symbols-outlined text-[14px]">add</span> Add Category</span>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">Explicit Keyword Exclusions (High Priority)</label>
+<textarea class="w-full bg-surface border border-outline-variant rounded px-3 py-2 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary transition-colors resize-none" placeholder="Enter comma-separated keywords..." rows="3"></textarea>
+<div class="mt-2 text-right">
+<span class="font-body-sm text-on-surface-variant">0 / 500 keywords</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: AI Signals & Thresholds (4 cols) -->
+<div class="md:col-span-8 lg:col-span-4 space-y-gutter">
+<!-- Panel 3: AI-Content Signal Sensitivity -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-6 h-full flex flex-col">
+<h2 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-2 mb-4">3. Algorithmic Sensitivity Controls</h2>
+<div class="flex-1 space-y-6">
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adjust the strictness of the NLP and visual classification models. Higher sensitivity increases false positives but ensures strict brand safety.</p>
+<!-- Slider 1 -->
+<div>
+<div class="flex justify-between mb-2">
+<label class="font-label-caps text-label-caps text-on-surface">Political Adjacency</label>
+<span class="font-data-tabular text-data-tabular text-primary">High (0.85)</span>
+</div>
+<input max="100" min="0" type="range" value="85"/>
+<div class="flex justify-between mt-1 font-body-sm text-on-surface-variant text-[10px]">
+<span>Permissive</span>
+<span>Strict</span>
+</div>
+</div>
+<!-- Slider 2 -->
+<div>
+<div class="flex justify-between mb-2">
+<label class="font-label-caps text-label-caps text-on-surface">Profanity / Hate Speech</label>
+<span class="font-data-tabular text-data-tabular text-error">Maximum (0.99)</span>
+</div>
+<input max="100" min="0" type="range" value="99"/>
+<div class="flex justify-between mt-1 font-body-sm text-on-surface-variant text-[10px]">
+<span>Permissive</span>
+<span>Strict</span>
+</div>
+</div>
+<!-- Slider 3 -->
+<div>
+<div class="flex justify-between mb-2">
+<label class="font-label-caps text-label-caps text-on-surface">Controversial Topics</label>
+<span class="font-data-tabular text-data-tabular text-primary">Moderate (0.60)</span>
+</div>
+<input max="100" min="0" type="range" value="60"/>
+<div class="flex justify-between mt-1 font-body-sm text-on-surface-variant text-[10px]">
+<span>Permissive</span>
+<span>Strict</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Full-Width Row -->
+<div class="col-span-1 md:col-span-8 lg:col-span-12">
+<!-- Panel 4: Risk Threshold Configuration -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-6">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2 mb-4">
+<h2 class="font-label-caps text-label-caps text-primary">4. Risk Threshold &amp; Approval Rules</h2>
+<span class="bg-error-container text-error px-2 py-0.5 rounded font-label-caps text-[10px]">Critical Setup</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Rule 1 -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-on-surface">Auto-Block Threshold</span>
+<!-- Toggle Switch (CSS only) -->
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-4">Automatically exclude any domain or creator scoring above the defined aggregate risk score.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-data-tabular text-data-tabular text-on-surface">Score &gt;</span>
+<input class="w-16 bg-surface-container-low border border-outline-variant rounded px-2 py-1 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary text-right" type="number" value="75"/>
+</div>
+</div>
+<!-- Rule 2 -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-on-surface">Manual Review Queue</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-4">Route domains scoring in the moderate band to human analysts for final decision.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-data-tabular text-data-tabular text-on-surface">Score</span>
+<input class="w-16 bg-surface-container-low border border-outline-variant rounded px-2 py-1 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary text-center" type="number" value="50"/>
+<span class="font-data-tabular text-data-tabular text-on-surface">-</span>
+<input class="w-16 bg-surface-container-low border border-outline-variant rounded px-2 py-1 font-data-tabular text-data-tabular text-on-surface focus:outline-none focus:border-primary text-center" type="number" value="74"/>
+</div>
+</div>
+<!-- Rule 3 -->
+<div class="bg-surface border border-outline-variant rounded p-4 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="font-label-caps text-on-surface">Historical Violator Strictness</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-container-high peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<p class="font-body-sm text-on-surface-variant mb-4">Apply a 1.5x penalty multiplier to entities with previous brand safety strikes in the last 90 days.</p>
+</div>
+<div class="mt-auto">
+<span class="bg-surface-container-high text-on-surface-variant px-2 py-1 rounded font-data-tabular text-xs">Multiplier: Disabled</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-8 flex justify-end gap-4 border-t border-outline-variant pt-6 pb-12">
+<button class="px-6 py-2 border border-outline-variant text-on-surface hover:bg-surface-container-high rounded font-label-caps text-label-caps transition-colors">
+                        Save as Draft
+                    </button>
+<button class="px-6 py-2 bg-primary-container border border-primary/50 text-primary hover:bg-primary/20 rounded font-label-caps text-label-caps transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+                        Initialize Audit Scan
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

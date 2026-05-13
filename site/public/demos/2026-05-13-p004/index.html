@@ -1,59 +1,433 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Slop Shame Mirror - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-13-p004</p>
-        <h1>AI Slop Shame Mirror</h1>
-        <p>A playful self-audit booth that tells creators whether a post feels like disposable AI slop or something a human would actually share.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SHAME MIRROR - Audit Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#10141a",
+                      "tertiary": "#ffffff",
+                      "primary-fixed-dim": "#abd600",
+                      "tertiary-fixed": "#7df4ff",
+                      "on-secondary-fixed-variant": "#8f0041",
+                      "secondary-fixed": "#ffd9e0",
+                      "on-error": "#690005",
+                      "on-tertiary-container": "#006f77",
+                      "primary-container": "#c3f400",
+                      "outline-variant": "#444933",
+                      "inverse-on-surface": "#2d3137",
+                      "on-tertiary": "#00363a",
+                      "surface-container-high": "#262a31",
+                      "tertiary-container": "#7df4ff",
+                      "surface-tint": "#abd600",
+                      "primary-fixed": "#c3f400",
+                      "surface-dim": "#10141a",
+                      "surface-container": "#1c2026",
+                      "primary": "#ffffff",
+                      "inverse-primary": "#506600",
+                      "on-background": "#dfe2eb",
+                      "on-primary": "#283500",
+                      "surface-container-low": "#181c22",
+                      "outline": "#8e9379",
+                      "on-primary-container": "#556d00",
+                      "on-secondary-fixed": "#3f0019",
+                      "secondary-fixed-dim": "#ffb1c3",
+                      "surface-bright": "#353940",
+                      "on-primary-fixed": "#161e00",
+                      "on-secondary-container": "#590026",
+                      "on-tertiary-fixed-variant": "#004f54",
+                      "on-tertiary-fixed": "#002022",
+                      "error": "#ffb4ab",
+                      "error-container": "#93000a",
+                      "inverse-surface": "#dfe2eb",
+                      "on-secondary": "#66002c",
+                      "secondary": "#ffb1c3",
+                      "background": "#10141a",
+                      "surface-container-highest": "#31353c",
+                      "on-primary-fixed-variant": "#3c4d00",
+                      "on-surface-variant": "#c4c9ac",
+                      "secondary-container": "#ff4b89",
+                      "surface-container-lowest": "#0a0e14",
+                      "surface-variant": "#31353c",
+                      "on-surface": "#dfe2eb",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#00dbe9"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "gutter": "24px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "stack-compact": "8px",
+                      "stack-loose": "40px"
+              },
+              "fontFamily": {
+                      "slop-code": [
+                              "Space Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Anton"
+                      ],
+                      "display-xl": [
+                              "Anton"
+                      ],
+                      "label-bold": [
+                              "Space Mono"
+                      ],
+                      "body-standard": [
+                              "Space Mono"
+                      ],
+                      "headline-lg": [
+                              "Anton"
+                      ]
+              },
+              "fontSize": {
+                      "slop-code": [
+                              "16px",
+                              {
+                                      "lineHeight": "150%",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "110%",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-xl": [
+                              "96px",
+                              {
+                                      "lineHeight": "90%",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-bold": [
+                              "12px",
+                              {
+                                      "lineHeight": "120%",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-standard": [
+                              "14px",
+                              {
+                                      "lineHeight": "160%",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "100%",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-image: radial-gradient(circle at 50% 0%, rgba(0, 219, 233, 0.05) 0%, transparent 70%);
+            background-color: #10141a;
+        }
+        
+        /* Mirror Layers */
+        .mirror-panel {
+            background-color: rgba(16, 20, 26, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 219, 233, 0.3);
+        }
+
+        /* Rough Borders */
+        .rough-border {
+            position: relative;
+        }
+        .rough-border::after {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            border: 2px dashed #444933;
+            pointer-events: none;
+        }
+
+        /* Neon Glow */
+        .neon-glow-pink {
+            box-shadow: 0 0 20px rgba(255, 75, 137, 0.6), inset 0 0 10px rgba(255, 75, 137, 0.4);
+        }
+        .neon-glow-lime {
+            box-shadow: 0 0 20px rgba(195, 244, 0, 0.6), inset 0 0 10px rgba(195, 244, 0, 0.4);
+        }
+        
+        .neon-text-pink {
+            text-shadow: 0 0 8px rgba(255, 75, 137, 0.8);
+        }
+
+        /* Slop Annotations */
+        .slop-highlight {
+            background-color: rgba(195, 244, 0, 0.4);
+            border-bottom: 3px solid #c3f400;
+            padding: 0 4px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .slop-highlight-pink {
+            background-color: rgba(255, 75, 137, 0.3);
+            border-bottom: 3px solid #ff4b89;
+            padding: 0 4px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Warning Stickers */
+        .warning-sticker {
+            position: relative;
+            transform: rotate(-2deg);
+        }
+        .warning-sticker::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-width: 0 12px 12px 0;
+            border-style: solid;
+            border-color: #ffffff #ffffff transparent transparent;
+            box-shadow: -1px 1px 1px rgba(0,0,0,0.2);
+        }
+
+        /* Glitch Hover */
+        .glitch-hover:hover {
+            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            background-color: #c3f400;
+            color: #10141a;
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(-2deg); }
+            40% { transform: skew(2deg); }
+            60% { transform: skew(-1deg); }
+            80% { transform: skew(1deg); }
+            100% { transform: skew(0deg); }
+        }
+        
+        /* Terminal Blinking Cursor */
+        .blinking-cursor::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+            color: #00dbe9;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Progress Segments */
+        .segment-bar {
+            display: flex;
+            gap: 2px;
+            height: 24px;
+        }
+        .segment {
+            flex: 1;
+            background-color: #262a31;
+        }
+        .segment.active-lime { background-color: #c3f400; }
+        .segment.active-pink { background-color: #ff4b89; }
+        .segment.active-pink.flicker { animation: flicker 0.15s infinite; }
+        
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen font-body-standard text-body-standard overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface/90 backdrop-blur-2xl text-primary fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 border-b-4 border-primary-container">
+<div class="font-headline-lg text-headline-lg text-primary uppercase tracking-tighter italic">
+            SHAME MIRROR
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="hidden">
+<!-- Search bar hidden per JSON -->
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors duration-75">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface text-tertiary-fixed-dim border-r-2 border-tertiary-fixed-dim flat shadow-[8px_0px_0px_0px_rgba(0,219,233,0.1)] fixed left-0 top-0 h-full w-64 flex flex-col pt-24 pb-8 z-40 hidden md:flex">
+<div class="px-6 mb-8 flex flex-col items-start">
+<div class="w-16 h-16 bg-surface-container-high border-2 border-primary mb-4 flex items-center justify-center overflow-hidden">
+<img alt="Creator Profile" class="w-full h-full object-cover grayscale contrast-125" data-alt="A gritty, high-contrast black and white portrait of a person staring intensely into the camera, resembling a low-fi surveillance camera capture. The image is cropped tightly around the face, emphasizing a sense of confrontation. The lighting is harsh, casting strong shadows that highlight the subject's features in a raw, unpolished manner. The overall aesthetic feels like a still from an underground, cyberpunk documentary, fitting a brutalist UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5nQFbXzrF9UuOrkHjbXPdl76WkQSnubDzFP94dn7YmfeeUYoZ3Rj17IWX6M3kHNfrq_KufTySqW_aGAm5GPQGrClQWOIYGKnCttM98oLlEuN3_9is7gXQh5yNc7-ypKQp3fygGIjknGkd40RudeMSZBw7WhbQ5cm4IfeR2UlldxOBkdA87N0UX53Rqkv_parZu4FhijdiX3njs4rGB43n032rNJY2Wp7eulkBFWdhfdgXprmLux5JbF6fqwccKIATmBoD2os0Sibo"/>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-secondary-container leading-none uppercase tracking-tighter">OPERATOR</h2>
+<p class="font-slop-code text-slop-code text-secondary-container mt-2">CRINGE_LVL: HIGH</p>
+</div>
+<div class="flex-1 flex flex-col gap-2 px-4">
+<!-- Active Tab -->
+<a class="flex items-center gap-4 bg-secondary-container text-on-secondary-container font-label-bold text-label-bold uppercase p-4 border-2 border-primary rotate-1 scale-105 skew-x-2 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                Audit Mirror
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant font-label-bold text-label-bold uppercase p-4 hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+                Slop Vault
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant font-label-bold text-label-bold uppercase p-4 hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">warning</span>
+                Cringe Alerts
+            </a>
+<a class="flex items-center gap-4 text-on-surface-variant font-label-bold text-label-bold uppercase p-4 hover:bg-surface-container-high hover:text-primary-container transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">verified_user</span>
+                Reputation
+            </a>
+</div>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary-fixed text-on-primary-fixed border-2 border-on-primary-fixed font-label-bold text-label-bold uppercase py-4 glitch-hover text-center">
+                START CLEANSE
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-margin-mobile md:px-margin-desktop pb-stack-loose min-h-screen">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Analysis Panel (The Mirror) -->
+<div class="lg:col-span-8 flex flex-col gap-stack-loose">
+<div class="mirror-panel p-6 md:p-10 relative">
+<!-- Terminal Header -->
+<div class="flex items-center justify-between border-b border-tertiary-fixed/30 pb-4 mb-6">
+<div class="font-slop-code text-slop-code text-tertiary-fixed flex items-center gap-2 uppercase">
+<span class="w-3 h-3 bg-secondary-container rounded-none animate-pulse"></span>
+                            Target_Stream_Analysis.txt
+                        </div>
+<div class="font-slop-code text-slop-code text-surface-variant blinking-cursor">
+                            [READING]
+                        </div>
+</div>
+<!-- Analyzed Text -->
+<div class="font-slop-code text-[18px] leading-[180%] text-on-surface tracking-wide relative z-10">
+                        Hey guys, I just wanted to jump on here and <span class="slop-highlight">share my journey</span> with you all because I feel like we need to <span class="slop-highlight-pink">normalize the struggle</span>. It's been a really crazy season of <span class="slop-highlight">growth and alignment</span> for me. I’m just trying to <span class="slop-highlight-pink">hold space</span> for my authentic self, you know? It's all about <span class="slop-highlight">leaning in</span> to the discomfort. Remember, you are enough. Drop a comment below if this resonates with your <span class="slop-highlight-pink">personal truth</span>.
+                    </div>
+<!-- Floating Stickers (Absolute Positioning within Mirror) -->
+<div class="absolute top-[20%] -right-4 warning-sticker bg-secondary-container text-on-secondary-container font-label-bold text-label-bold uppercase p-2 border-2 border-surface shadow-[4px_4px_0px_0px_#000]">
+                        "NORMALIZE" DETECTED
+                    </div>
+<div class="absolute bottom-[30%] -left-6 warning-sticker bg-primary-container text-on-primary-container font-label-bold text-label-bold uppercase p-2 border-2 border-surface shadow-[4px_4px_0px_0px_#000] rotate-3">
+                        GENERIC CALL TO ACTION
+                    </div>
+</div>
+<!-- Secondary Data Panels (Bento Grid Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="rough-border bg-surface-container-high p-6 flex flex-col gap-4 border-2 border-outline-variant border-dashed">
+<h3 class="font-label-bold text-label-bold text-on-surface-variant uppercase">Vocabulary Breakdown</h3>
+<div class="space-y-4 font-slop-code text-slop-code">
+<div class="flex justify-between items-center border-b border-surface-variant pb-2">
+<span class="text-tertiary">Buzzwords</span>
+<span class="text-secondary-container">14</span>
+</div>
+<div class="flex justify-between items-center border-b border-surface-variant pb-2">
+<span class="text-tertiary">Clichés</span>
+<span class="text-secondary-container">8</span>
+</div>
+<div class="flex justify-between items-center border-b border-surface-variant pb-2">
+<span class="text-tertiary">Original Thought</span>
+<span class="text-tertiary-fixed-dim">0%</span>
+</div>
+</div>
+</div>
+<div class="bg-secondary-container/10 border-2 border-secondary-container p-6 flex flex-col justify-center items-center neon-glow-pink">
+<span class="material-symbols-outlined text-secondary-container text-[64px] mb-4" style="font-variation-settings: 'FILL' 0;">sentiment_very_dissatisfied</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-secondary-container uppercase tracking-tighter text-center">Authenticity<br/>Critical</h3>
+</div>
+</div>
+</div>
+<!-- Side Meters Panel (Sticker-slapped sidebar) -->
+<div class="lg:col-span-4 flex flex-col gap-stack-loose relative">
+<!-- Slop Smell Score -->
+<div class="bg-surface-container border-2 border-tertiary-fixed-dim p-6 relative overflow-hidden">
+<!-- Diagonal stripes background accent -->
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10" style="background: repeating-linear-gradient(45deg, #00dbe9, #00dbe9 10px, transparent 10px, transparent 20px);"></div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary-fixed uppercase mb-6 relative z-10">Slop Smell Score</h3>
+<div class="flex items-end gap-2 mb-4 relative z-10">
+<span class="font-display-xl text-display-xl text-secondary-container leading-none neon-text-pink">87</span>
+<span class="font-slop-code text-slop-code text-on-surface-variant mb-2">/100</span>
+</div>
+<div class="space-y-2 relative z-10">
+<div class="flex justify-between font-label-bold text-label-bold uppercase text-on-surface-variant">
+<span>Fresh</span>
+<span class="text-secondary-container">Putrid</span>
+</div>
+<div class="segment-bar">
+<div class="segment active-lime"></div>
+<div class="segment active-lime"></div>
+<div class="segment active-lime"></div>
+<div class="segment active-lime"></div>
+<div class="segment active-lime"></div>
+<div class="segment active-pink"></div>
+<div class="segment active-pink"></div>
+<div class="segment active-pink"></div>
+<div class="segment active-pink flicker"></div>
+<div class="segment"></div>
+</div>
+</div>
+</div>
+<!-- Audience Cringe Meter -->
+<div class="bg-primary-container text-on-primary-container p-6 border-4 border-inverse-primary transform rotate-1">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile uppercase mb-6 text-center tracking-tighter text-on-primary">Audience Cringe</h3>
+<!-- Analog Gauge Simulation -->
+<div class="relative w-48 h-48 mx-auto mb-6 flex items-center justify-center rounded-full border-8 border-on-primary bg-surface shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
+<!-- Dial markings -->
+<div class="absolute inset-2 rounded-full border-4 border-dashed border-outline-variant opacity-50"></div>
+<!-- Needle -->
+<div class="absolute bottom-1/2 left-1/2 w-1 h-20 bg-secondary-container origin-bottom transform rotate-[70deg] transition-transform duration-75">
+<!-- Needle center pin -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-4 h-4 rounded-full bg-tertiary"></div>
+</div>
+<!-- Gauge Value -->
+<div class="absolute bottom-4 font-slop-code text-slop-code text-tertiary-fixed font-bold">
+                            MAX
+                        </div>
+</div>
+<div class="flex justify-between font-label-bold text-label-bold uppercase px-4 border-t-2 border-on-primary-container pt-4">
+<span>High Soul</span>
+<span class="text-on-secondary-fixed-variant font-black">Pure Slop</span>
+</div>
+</div>
+<!-- Quick Action -->
+<button class="w-full bg-surface-bright border-2 border-primary text-primary font-label-bold text-label-bold uppercase py-6 flex items-center justify-center gap-2 hover:bg-primary hover:text-surface transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">delete_sweep</span>
+                    PURGE GENERIC PHRASES
+                </button>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,59 +1,362 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shopify Bot Storm Triage - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-13-p002</p>
-        <h1>Shopify Bot Storm Triage</h1>
-        <p>A panic-to-procedure incident board for fake carts, spam floods, suspicious orders, and chargeback risk in small stores.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Vault &amp; Communication</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config Injection -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#404b4f",
+                    "on-secondary-fixed-variant": "#3e484c",
+                    "surface-bright": "#333a3c",
+                    "on-primary-container": "#005250",
+                    "surface-container": "#1a2123",
+                    "surface-container-high": "#242b2d",
+                    "surface-container-highest": "#2f3638",
+                    "surface-container-lowest": "#080f11",
+                    "error-container": "#93000a",
+                    "secondary": "#bdc8cd",
+                    "outline": "#859492",
+                    "on-surface": "#dde4e6",
+                    "primary": "#46eae5",
+                    "secondary-fixed": "#d9e4e9",
+                    "inverse-on-surface": "#2b3234",
+                    "error": "#ffb4ab",
+                    "tertiary-container": "#efa796",
+                    "inverse-surface": "#dde4e6",
+                    "primary-fixed": "#5af9f3",
+                    "on-tertiary-container": "#6f3b2f",
+                    "outline-variant": "#3b4948",
+                    "on-secondary": "#283236",
+                    "primary-container": "#00cec9",
+                    "on-primary-fixed-variant": "#00504e",
+                    "on-error": "#690005",
+                    "surface-dim": "#0e1416",
+                    "on-primary": "#003735",
+                    "on-tertiary-fixed": "#360f06",
+                    "primary-fixed-dim": "#2edcd7",
+                    "on-tertiary": "#502318",
+                    "surface-tint": "#2edcd7",
+                    "background": "#0e1416",
+                    "tertiary": "#ffc8bb",
+                    "on-primary-fixed": "#00201f",
+                    "tertiary-fixed": "#ffdad2",
+                    "secondary-fixed-dim": "#bdc8cd",
+                    "on-background": "#dde4e6",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#bacac8",
+                    "on-tertiary-fixed-variant": "#6c392c",
+                    "on-secondary-container": "#afbabf",
+                    "surface-container-low": "#161d1f",
+                    "tertiary-fixed-dim": "#feb5a4",
+                    "on-secondary-fixed": "#131d21",
+                    "surface-variant": "#2f3638",
+                    "inverse-primary": "#006a67",
+                    "surface": "#0e1416"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin": "16px",
+                    "gutter": "12px",
+                    "unit": "4px",
+                    "container-padding": "24px"
+            },
+            "fontFamily": {
+                    "data-lg": ["JetBrains Mono", "monospace"],
+                    "label-caps": ["JetBrains Mono", "monospace"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "headline-lg": ["Inter", "sans-serif"],
+                    "headline-md": ["Inter", "sans-serif"],
+                    "data-md": ["JetBrains Mono", "monospace"]
+            },
+            "fontSize": {
+                    "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "data-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .material-symbols-outlined[data-weight="fill"] {
+        font-variation-settings: 'FILL' 1;
+      }
+      /* Custom scrollbar for industrial feel */
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #0e1416; }
+      ::-webkit-scrollbar-thumb { background: #3b4948; border-radius: 0px; }
+      ::-webkit-scrollbar-thumb:hover { background: #46eae5; }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen font-body-md overflow-x-hidden selection:bg-primary selection:text-on-primary">
+<!-- Global Technical Grid Overlay -->
+<div class="fixed inset-0 pointer-events-none z-0" style="background-image: linear-gradient(to right, rgba(70, 234, 229, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(70, 234, 229, 0.03) 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full h-16 z-50 flex justify-between items-center px-margin bg-surface-dim border-b-2 border-outline-variant shadow-none">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Toggle (Decorative) -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[24px]">menu</span>
+</button>
+<div class="font-headline-md text-headline-md font-black tracking-tighter text-primary uppercase">
+                BOT STORM TRIAGE
+            </div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-surface-container-lowest border border-outline-variant focus-within:border-primary px-3 h-10 w-64 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-2">search</span>
+<input class="w-full bg-transparent border-none outline-none text-data-md font-data-md text-on-surface placeholder:text-on-surface-variant placeholder:font-data-md p-0 focus:ring-0" placeholder="Search signals, IPs..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container active:scale-95 transition-all duration-75">
+<span class="material-symbols-outlined">warning</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container active:scale-95 transition-all duration-75 relative">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-dim"></span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-secondary-container hover:text-on-secondary-container active:scale-95 transition-all duration-75">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-none border border-outline-variant bg-surface-container-high overflow-hidden ml-2">
+<img alt="Operator Avatar" class="w-full h-full object-cover opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all" data-alt="A close-up, high-contrast portrait of a technical operator in a dimly lit command center. The lighting is dominated by the harsh cyan glow of monitors reflecting on their face. The aesthetic is gritty, cinematic, and industrial, emphasizing focus and urgency in a high-stakes digital security environment. Deep shadows and cool tones define the composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQwXcaY4eqhqCHUI9Ter39K4sGN4yzvqIxjQYLUVJ_C0WzaiOXPbfViP7WDVVCIjANSoA15IM1L8_Jc2VEr3Pgpgud1hiKu4eoaqUrHgOwA7GQReOEysg7VgjskpSbEUp4v_DCLhkIRlZHbTFxMeln6IKpKoi8dLmxoeby1Zn5CVZos9kHbpPTfpNo5On1VYxfwN-cPWiGrIKZtYarYY4qOu3NHHfowlmcaW5gOYETM77dB9HwJNOpwMl3g47zjPEDhXPTTlbVY5g"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 pt-16 border-r-2 border-outline-variant bg-surface-container w-64 z-40">
+<div class="p-4 border-b border-outline-variant/50">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-3 h-3 bg-primary animate-pulse rounded-full shadow-[0_0_8px_rgba(70,234,229,0.6)]"></div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary text-[14px] leading-tight">COMMAND_CENTER</h2>
+<p class="font-data-md text-data-md text-on-surface-variant text-[11px]">Sector-01 Active</p>
+</div>
+</div>
+<button class="w-full bg-error text-on-error font-label-caps text-label-caps py-2 border-2 border-transparent hover:bg-error-container hover:border-error transition-all duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                INITIATE LOCKDOWN
+            </button>
+</div>
+<div class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-label-caps">Pulse Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">security_update_good</span>
+<span class="font-label-caps text-label-caps">Lockdown Center</span>
+</a>
+<a class="bg-secondary-container text-primary border-l-4 border-primary px-4 py-3 flex items-center gap-3 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-weight="fill">inventory_2</span>
+<span class="font-label-caps text-label-caps">Evidence Vault</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">shield</span>
+<span class="font-label-caps text-label-caps">Hardening Plan</span>
+</a>
+</div>
+<div class="p-2 border-t border-outline-variant/50 flex flex-col gap-1 mb-4">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 hover:bg-surface-container-highest transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-label-caps text-label-caps text-[10px]">Logs</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-2 flex items-center gap-3 hover:bg-surface-container-highest transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-label-caps text-label-caps text-[10px]">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-0 md:ml-64 pt-16 p-container-padding min-h-screen relative z-10 flex flex-col gap-gutter">
+<!-- Top Status Marquee (Technical Ticker) -->
+<div class="w-full bg-surface-container border border-outline-variant flex items-center h-8 overflow-hidden shrink-0">
+<div class="bg-primary text-on-primary font-label-caps text-label-caps px-3 h-full flex items-center border-r border-outline-variant whitespace-nowrap">
+                LIVE FEED
+            </div>
+<div class="flex-1 overflow-hidden relative flex items-center px-3">
+<p class="font-data-md text-data-md text-on-surface-variant whitespace-nowrap animate-[marquee_20s_linear_infinite]">
+<span class="text-error">[ALERT]</span> High-velocity cart additions detected via AS39392... <span class="text-primary mx-4">|</span>
+<span class="text-secondary">[INFO]</span> Rate limit enforced on /api/checkout... <span class="text-primary mx-4">|</span>
+<span class="text-error">[ALERT]</span> Credential stuffing signature recognized (SIG-882)...
+                </p>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter flex-1 items-start">
+<!-- Left Column: Evidence Vault (Col Span 7) -->
+<section class="lg:col-span-7 bg-surface-container border-2 border-outline-variant flex flex-col h-[calc(100vh-140px)]">
+<header class="p-4 border-b-2 border-outline-variant flex justify-between items-center bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">grid_view</span>
+<h2 class="font-label-caps text-label-caps text-primary">CAPTURED SIGNALS</h2>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline bg-surface-container-lowest font-label-caps text-label-caps hover:border-primary hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">filter_list</span> FILTER
+                        </button>
+</div>
+</header>
+<!-- Vault Grid -->
+<div class="flex-1 overflow-y-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-unit*2 lg:gap-4 relative">
+<!-- Evidence Card 1 (High Severity) -->
+<article class="bg-surface-container-lowest border border-outline relative flex flex-col group hover:border-error transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="h-32 border-b border-outline relative overflow-hidden bg-surface-dim">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&amp;fit=crop&amp;q=80&amp;w=400&amp;h=200')] bg-cover bg-center opacity-40 mix-blend-screen group-hover:scale-105 transition-transform duration-500" data-alt="A dense, chaotic abstract representation of digital code and matrix-like data streams cascading vertically. The primary color is a toxic, glowing neon green and red against a pitch-black void. It visualizes a malicious botnet attack overwhelming a server, fitting a high-tech cybersecurity command center interface."></div>
+<div class="absolute top-2 right-2 bg-error text-on-error font-label-caps text-label-caps px-2 py-0.5 rounded-none">
+                                SEV-1
+                            </div>
+</div>
+<div class="p-3 pl-4 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-data-md text-data-md text-on-surface break-all">SIG_HYDRA_BETA</span>
+<span class="font-data-md text-data-md text-on-surface-variant text-[10px]">14:22:01</span>
+</div>
+<div class="flex flex-col gap-0.5 mt-2">
+<p class="font-data-md text-data-md text-secondary text-[11px]"><span class="text-outline">IP:</span> 192.168.x.x (Masked)</p>
+<p class="font-data-md text-data-md text-secondary text-[11px]"><span class="text-outline">Vol:</span> 12k req/min</p>
+</div>
+<button class="mt-2 text-primary font-label-caps text-label-caps border border-primary/30 px-2 py-1 text-center hover:bg-primary/10 transition-colors w-full">
+                                VIEW DUMP
+                            </button>
+</div>
+</article>
+<!-- Evidence Card 2 (Medium Severity) -->
+<article class="bg-surface-container-lowest border border-outline relative flex flex-col group hover:border-primary transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="h-32 border-b border-outline relative overflow-hidden bg-surface-dim">
+<div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1551808525-51a94da548ce?auto=format&amp;fit=crop&amp;q=80&amp;w=400&amp;h=200')] bg-cover bg-center opacity-40 mix-blend-screen group-hover:scale-105 transition-transform duration-500" data-alt="A stylized macro shot of a complex circuit board or server rack illuminated by sterile, cool cyan and blue LED lights. The focus is sharp on intricate electronic components, suggesting high-speed data processing and network hardware in a sterile, dark-mode industrial datacenter environment."></div>
+<div class="absolute top-2 right-2 bg-primary-container text-on-primary-container font-label-caps text-label-caps px-2 py-0.5 rounded-none">
+                                SEV-2
+                            </div>
+</div>
+<div class="p-3 pl-4 flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-data-md text-data-md text-on-surface break-all">SCRAPER_NODE_9</span>
+<span class="font-data-md text-data-md text-on-surface-variant text-[10px]">14:15:33</span>
+</div>
+<div class="flex flex-col gap-0.5 mt-2">
+<p class="font-data-md text-data-md text-secondary text-[11px]"><span class="text-outline">AS:</span> ASN-44521</p>
+<p class="font-data-md text-data-md text-secondary text-[11px]"><span class="text-outline">Path:</span> /catalog/inventory</p>
+</div>
+<button class="mt-2 text-primary font-label-caps text-label-caps border border-primary/30 px-2 py-1 text-center hover:bg-primary/10 transition-colors w-full">
+                                VIEW DUMP
+                            </button>
+</div>
+</article>
+<!-- Evidence Card 3 (Placeholder/Skeleton style) -->
+<article class="bg-surface-container-lowest border border-outline border-dashed flex flex-col items-center justify-center p-6 text-outline hover:text-on-surface hover:border-solid transition-all cursor-pointer min-h-[240px]">
+<span class="material-symbols-outlined text-[32px] mb-2">add_box</span>
+<span class="font-label-caps text-label-caps text-center">MANUAL CAPTURE</span>
+</article>
+</div>
+</section>
+<!-- Right Column: Communication Composer (Col Span 5) -->
+<section class="lg:col-span-5 bg-surface-container border-2 border-outline-variant flex flex-col h-[calc(100vh-140px)]">
+<header class="p-4 border-b-2 border-outline-variant bg-surface-container-high">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary-container">campaign</span>
+<h2 class="font-label-caps text-label-caps text-on-surface">STORE-WIDE ALERT SYSTEM</h2>
+</div>
+<p class="font-data-md text-data-md text-on-surface-variant text-[11px]">Broadcast operational changes or service degradation notices directly to customer-facing channels.</p>
+</header>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+<!-- Templates Array -->
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-outline">QUICK TEMPLATES</span>
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-1.5 border border-outline bg-surface-container-low font-data-md text-data-md text-[11px] hover:bg-secondary-container hover:text-primary hover:border-primary transition-colors">
+                                DDoS Delay
+                            </button>
+<button class="px-3 py-1.5 border border-outline bg-surface-container-low font-data-md text-data-md text-[11px] hover:bg-secondary-container hover:text-primary hover:border-primary transition-colors">
+                                Checkout Paused
+                            </button>
+<button class="px-3 py-1.5 border border-outline bg-surface-container-low font-data-md text-data-md text-[11px] hover:bg-secondary-container hover:text-primary hover:border-primary transition-colors">
+                                ALL CLEAR
+                            </button>
+</div>
+</div>
+<!-- Form Area -->
+<form class="flex flex-col gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-secondary flex justify-between">
+                                TARGET AUDIENCE
+                                <span class="text-error">*</span>
+</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border border-outline focus:border-primary focus:ring-1 focus:ring-primary text-data-md font-data-md text-on-surface p-2 appearance-none rounded-none outline-none">
+<option>All Active Sessions (Global)</option>
+<option>Checkout Flow Only</option>
+<option>Geofenced: High-Risk ASNs</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline pointer-events-none">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-secondary flex justify-between">
+                                SEVERITY LEVEL
+                            </label>
+<div class="flex gap-2">
+<label class="flex-1 border border-outline bg-surface-container-lowest p-2 cursor-pointer hover:border-primary has-[:checked]:border-primary has-[:checked]:bg-primary/10 transition-colors flex items-center justify-center gap-2">
+<input checked="" class="sr-only" name="severity" type="radio" value="info"/>
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-data-md text-data-md text-[12px]">INFO</span>
+</label>
+<label class="flex-1 border border-outline bg-surface-container-lowest p-2 cursor-pointer hover:border-error has-[:checked]:border-error has-[:checked]:bg-error/10 transition-colors flex items-center justify-center gap-2">
+<input class="sr-only" name="severity" type="radio" value="critical"/>
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-data-md text-data-md text-[12px]">CRITICAL</span>
+</label>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-secondary">
+                                MESSAGE PAYLOAD
+                            </label>
+<textarea class="w-full bg-surface-container-lowest border border-outline focus:border-primary focus:ring-1 focus:ring-primary text-data-md font-data-md text-on-surface p-3 resize-none rounded-none outline-none placeholder:text-outline-variant" placeholder="Enter plaintext or markdown alert..." rows="5"></textarea>
+</div>
+</form>
+</div>
+<!-- Footer Actions -->
+<footer class="p-4 border-t-2 border-outline-variant bg-surface-container-high flex justify-end gap-3">
+<button class="px-4 py-2 border border-outline text-on-surface font-label-caps text-label-caps hover:bg-surface-variant transition-colors">
+                        SAVE DRAFT
+                    </button>
+<button class="px-4 py-2 bg-primary text-on-primary font-label-caps text-label-caps font-bold hover:bg-primary-fixed transition-colors flex items-center gap-2 relative group overflow-hidden">
+<span class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></span>
+<span class="material-symbols-outlined text-[18px] relative z-10">send</span>
+<span class="relative z-10">TRANSMIT ALERT</span>
+</button>
+</footer>
+</section>
+</div>
+</main>
+</body></html>

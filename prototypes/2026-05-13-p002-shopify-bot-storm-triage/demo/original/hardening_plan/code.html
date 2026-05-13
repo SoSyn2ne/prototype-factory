@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Post-Incident Hardening Plan - COMMAND_CENTER</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom Checkbox specific to Style Guidelines */
+        .industrial-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid theme('colors.outline');
+            background-color: theme('colors.surface-dim');
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .industrial-checkbox:checked {
+            background-color: theme('colors.primary');
+            border-color: theme('colors.primary');
+        }
+        .industrial-checkbox:checked::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 6px;
+            height: 12px;
+            border: solid theme('colors.on-primary');
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .checklist-row:has(input:checked) {
+            opacity: 0.5;
+        }
+        .checklist-row:has(input:checked) .checklist-label {
+            text-decoration: line-through;
+            color: theme('colors.on-surface-variant');
+        }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#404b4f",
+                    "on-secondary-fixed-variant": "#3e484c",
+                    "surface-bright": "#333a3c",
+                    "on-primary-container": "#005250",
+                    "surface-container": "#1a2123",
+                    "surface-container-high": "#242b2d",
+                    "surface-container-highest": "#2f3638",
+                    "surface-container-lowest": "#080f11",
+                    "error-container": "#93000a",
+                    "secondary": "#bdc8cd",
+                    "outline": "#859492",
+                    "on-surface": "#dde4e6",
+                    "primary": "#46eae5",
+                    "secondary-fixed": "#d9e4e9",
+                    "inverse-on-surface": "#2b3234",
+                    "error": "#ffb4ab",
+                    "tertiary-container": "#efa796",
+                    "inverse-surface": "#dde4e6",
+                    "primary-fixed": "#5af9f3",
+                    "on-tertiary-container": "#6f3b2f",
+                    "outline-variant": "#3b4948",
+                    "on-secondary": "#283236",
+                    "primary-container": "#00cec9",
+                    "on-primary-fixed-variant": "#00504e",
+                    "on-error": "#690005",
+                    "surface-dim": "#0e1416",
+                    "on-primary": "#003735",
+                    "on-tertiary-fixed": "#360f06",
+                    "primary-fixed-dim": "#2edcd7",
+                    "on-tertiary": "#502318",
+                    "surface-tint": "#2edcd7",
+                    "background": "#0e1416",
+                    "tertiary": "#ffc8bb",
+                    "on-primary-fixed": "#00201f",
+                    "tertiary-fixed": "#ffdad2",
+                    "secondary-fixed-dim": "#bdc8cd",
+                    "on-background": "#dde4e6",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#bacac8",
+                    "on-tertiary-fixed-variant": "#6c392c",
+                    "on-secondary-container": "#afbabf",
+                    "surface-container-low": "#161d1f",
+                    "tertiary-fixed-dim": "#feb5a4",
+                    "on-secondary-fixed": "#131d21",
+                    "surface-variant": "#2f3638",
+                    "inverse-primary": "#006a67",
+                    "surface": "#0e1416"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin": "16px",
+                    "gutter": "12px",
+                    "unit": "4px",
+                    "container-padding": "24px"
+            },
+            "fontFamily": {
+                    "data-lg": ["JetBrains Mono"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "data-md": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "data-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-surface-dim text-on-surface min-h-screen font-body-md overflow-x-hidden selection:bg-primary selection:text-on-primary">
+<!-- Technical Grid Overlay (Level 0) -->
+<div class="fixed inset-0 pointer-events-none z-0 opacity-10" style="background-image: linear-gradient(to right, theme('colors.primary') 1px, transparent 1px), linear-gradient(to bottom, theme('colors.primary') 1px, transparent 1px); background-size: 40px 40px;"></div>
+<!-- TopAppBar -->
+<nav class="bg-surface-container border-b-2 border-outline-variant flex justify-between items-center w-full px-margin h-16 z-50 fixed top-0 transition-transform duration-75">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-black tracking-tighter text-primary">BOT STORM TRIAGE</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Search Bar (On Right as per JSON) -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="bg-surface-dim border border-outline-variant text-on-surface font-data-md text-data-md pl-8 pr-4 py-1 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 placeholder-on-surface-variant transition-colors" placeholder="QUERY_LOGS..." type="text"/>
+</div>
+<div class="flex items-center gap-3 text-primary">
+<button aria-label="warning" class="hover:bg-secondary-container hover:text-on-secondary-container p-2 rounded-none transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+</button>
+<button aria-label="notifications_active" class="hover:bg-secondary-container hover:text-on-secondary-container p-2 rounded-none transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button aria-label="settings" class="hover:bg-secondary-container hover:text-on-secondary-container p-2 rounded-none transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden ml-2">
+<!-- Placeholder for Operator Avatar -->
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex pt-16 min-h-screen relative z-10">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-4rem)] fixed left-0 top-16 w-64 border-r-2 border-outline-variant bg-surface-container-low z-40">
+<!-- Header -->
+<div class="p-margin border-b border-outline-variant mb-4">
+<div class="flex items-center gap-3 mb-2">
+<div aria-label="System Status Indicator" class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Sector-01 Active</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">COMMAND_CENTER</h2>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-200 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+                    Pulse Dashboard
+                </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-200 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">security_update_good</span>
+                    Lockdown Center
+                </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-200 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps uppercase tracking-wider" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                    Evidence Vault
+                </a>
+<!-- Active Tab -->
+<a class="bg-secondary-container text-primary border-l-4 border-primary px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps uppercase tracking-wider focus:ring-1 focus:ring-inset focus:ring-primary" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+                    Hardening Plan
+                </a>
+</nav>
+<!-- CTA -->
+<div class="p-4 mt-auto">
+<button class="w-full bg-error text-on-error font-label-caps text-label-caps uppercase py-3 font-bold tracking-widest hover:bg-error-container hover:text-on-error-container transition-colors border border-transparent focus:border-on-error outline-none shadow-[0_0_15px_rgba(255,180,171,0.2)]">
+                    INITIATE LOCKDOWN
+                </button>
+</div>
+<!-- Footer Tabs -->
+<div class="border-t border-outline-variant flex flex-col gap-1 p-2">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-200 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                    Logs
+                </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-200 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-0 md:ml-64 w-full p-container-padding flex flex-col gap-gutter max-w-7xl mx-auto">
+<!-- Page Header -->
+<header class="mb-2">
+<div class="flex items-center gap-2 mb-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">shield</span>
+<span class="font-label-caps text-label-caps uppercase">Recovery Protocol Alpha</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Post-Incident Hardening</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">Execute sequential checklists to achieve customer-safe recovery. Do not skip phases without architectural clearance.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Status & Progress Panel (Level 1) -->
+<div class="col-span-1 md:col-span-12 bg-surface-container border-2 border-outline-variant p-margin relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div> <!-- Status Rail -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pl-4">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase block mb-2">Overall Hardening Progress</span>
+<div class="flex items-baseline gap-2">
+<span class="font-data-lg text-[48px] leading-none text-primary font-bold">45</span>
+<span class="font-data-md text-data-md text-on-surface-variant">% COMPLETE</span>
+</div>
+</div>
+<!-- Industrial Segmented Meter -->
+<div class="flex-1 max-w-xl">
+<div class="flex gap-1 h-8">
+<div class="flex-1 bg-primary relative"><span class="absolute inset-0 flex items-center justify-center font-label-caps text-[10px] text-on-primary">PHASE 1</span></div>
+<div class="flex-1 bg-primary relative"><span class="absolute inset-0 flex items-center justify-center font-label-caps text-[10px] text-on-primary">PHASE 2</span></div>
+<div class="flex-1 bg-surface-variant border border-outline-variant relative"><span class="absolute inset-0 flex items-center justify-center font-label-caps text-[10px] text-on-surface-variant">PHASE 3</span></div>
+<div class="flex-1 bg-surface-variant border border-outline-variant relative"><span class="absolute inset-0 flex items-center justify-center font-label-caps text-[10px] text-on-surface-variant">PHASE 4</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Phase 1 Checklist (Active Card - Level 2) -->
+<div class="col-span-1 md:col-span-6 bg-surface-container border border-primary shadow-[inset_0_0_20px_rgba(70,234,229,0.05)] p-margin relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div> <!-- Active Status Rail -->
+<div class="pl-3">
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-label-caps text-label-caps text-primary uppercase">Phase 1: Immediate Containment</h3>
+<span class="bg-primary text-on-primary font-label-caps px-2 py-0.5">ACTIVE</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Task Row -->
+<label class="checklist-row flex items-start gap-3 group cursor-pointer">
+<input checked="" class="industrial-checkbox mt-0.5" type="checkbox"/>
+<div class="flex flex-col">
+<span class="checklist-label font-data-md text-data-md text-on-surface group-hover:text-primary transition-colors">Update Shopify Flow rules</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Targeting specific bot signatures identified in Log-A4.</span>
+</div>
+</label>
+<!-- Task Row -->
+<label class="checklist-row flex items-start gap-3 group cursor-pointer">
+<input checked="" class="industrial-checkbox mt-0.5" type="checkbox"/>
+<div class="flex flex-col">
+<span class="checklist-label font-data-md text-data-md text-on-surface group-hover:text-primary transition-colors">Enable CAPTCHA globally</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Force challenge on all high-risk endpoints.</span>
+</div>
+</label>
+<!-- Task Row (Pending) -->
+<label class="checklist-row flex items-start gap-3 group cursor-pointer">
+<input class="industrial-checkbox mt-0.5" type="checkbox"/>
+<div class="flex flex-col">
+<span class="checklist-label font-data-md text-data-md text-on-surface group-hover:text-primary transition-colors">Rotate Primary API Keys</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant text-error">CRITICAL: Prevents lateral movement.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Phase 2 Checklist (Level 1) -->
+<div class="col-span-1 md:col-span-6 bg-surface-container border-2 border-outline-variant p-margin relative opacity-80">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div> <!-- Inactive Status Rail -->
+<div class="pl-3">
+<div class="flex justify-between items-center mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase">Phase 2: Traffic Filtering</h3>
+<span class="bg-surface-variant text-on-surface-variant font-label-caps px-2 py-0.5 border border-outline-variant">PENDING</span>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Task Row -->
+<label class="checklist-row flex items-start gap-3 group cursor-pointer">
+<input class="industrial-checkbox mt-0.5" disabled="" type="checkbox"/>
+<div class="flex flex-col">
+<span class="checklist-label font-data-md text-data-md text-on-surface-variant">Deploy WAF Strict Mode</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Requires Level 2 authorization.</span>
+</div>
+</label>
+<!-- Task Row -->
+<label class="checklist-row flex items-start gap-3 group cursor-pointer">
+<input class="industrial-checkbox mt-0.5" disabled="" type="checkbox"/>
+<div class="flex flex-col">
+<span class="checklist-label font-data-md text-data-md text-on-surface-variant">Ban Top 50 Offending ASNs</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">Reference threat intel feed.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Live Technical Ticker (Full Width) -->
+<div class="col-span-1 md:col-span-12 bg-surface-container-lowest border border-outline-variant mt-4 p-2 flex items-center overflow-hidden">
+<span class="bg-error text-on-error font-label-caps text-[10px] px-2 py-1 mr-4 shrink-0 uppercase tracking-widest animate-pulse">LIVE LOG</span>
+<div class="whitespace-nowrap font-data-md text-[12px] text-on-surface-variant opacity-70">
+                        &gt; [SYS] 14:02:11 - Rule 'Shopify_Bot_Block_A' synchronized across edge nodes... &gt; [WARN] 14:02:15 - Anomaly detected in checkout payload volume... &gt; [SYS] 14:02:18 - CAPTCHA challenge rate increased to 85%... &gt; [SEC] 14:02:22 - Admin token rotation initialized by OPS-01...
+                    </div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

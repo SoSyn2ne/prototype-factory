@@ -1,59 +1,349 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Polite Invoice Chase Desk - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-13-p001</p>
-        <h1>Polite Invoice Chase Desk</h1>
-        <p>A relationship-safe collections board that tells small vendors exactly when and how to chase late invoices.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PICD - Script Ladder Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#93000a",
+                        "tertiary-container": "#e2e2e2",
+                        "surface-container-highest": "#353434",
+                        "on-tertiary-container": "#636565",
+                        "secondary-container": "#3e495d",
+                        "primary-fixed": "#e2e2e2",
+                        "tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "surface-variant": "#353434",
+                        "primary": "#ffffff",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary-fixed": "#111c2d",
+                        "surface-tint": "#c6c6c7",
+                        "secondary": "#bcc7de",
+                        "surface-container-high": "#2a2a2a",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#141313",
+                        "outline-variant": "#444748",
+                        "tertiary-fixed": "#e2e2e2",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary-fixed-dim": "#c6c6c7",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-primary-fixed": "#1a1c1c",
+                        "inverse-on-surface": "#313030",
+                        "on-primary-container": "#636565",
+                        "on-primary": "#2f3131",
+                        "on-error-container": "#ffdad6",
+                        "primary-container": "#e2e2e2",
+                        "surface": "#141313",
+                        "surface-bright": "#3a3939",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "background": "#141313",
+                        "on-background": "#e5e2e1",
+                        "on-tertiary": "#2f3131",
+                        "on-error": "#690005",
+                        "inverse-surface": "#e5e2e1",
+                        "on-primary-fixed-variant": "#454747",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "outline": "#8e9192",
+                        "inverse-primary": "#5d5f5f",
+                        "on-secondary-container": "#aeb9d0",
+                        "on-secondary": "#263143",
+                        "error": "#ffb4ab",
+                        "on-surface-variant": "#c4c7c8",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed": "#1a1c1c"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "rail-width": "64px",
+                        "container-margin": "16px",
+                        "panel-gap": "1px",
+                        "cell-padding-y": "8px",
+                        "cell-padding-x": "12px"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-md": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "label-caps": ["11px", { lineHeight: "12px", letterSpacing: "0.05em", fontWeight: "700" }],
+                        "headline-lg": ["24px", { lineHeight: "32px", letterSpacing: "-0.02em", fontWeight: "600" }],
+                        "data-mono": ["13px", { lineHeight: "16px", letterSpacing: "-0.01em", fontWeight: "500" }],
+                        "body-sm": ["12px", { lineHeight: "16px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Hide scrollbar for a cleaner cockpit look */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #444748; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #8e9192; }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface h-screen overflow-hidden selection:bg-primary/30 selection:text-primary">
+<!-- Shared Component: SideNavBar -->
+<nav class="w-rail-width h-screen border-r border-outline-variant fixed left-0 top-0 bg-surface-container-lowest dark:bg-surface-container-lowest flex flex-col items-center py-4 z-50">
+<div class="mb-8 font-headline-md text-headline-md font-bold text-primary dark:text-primary uppercase tracking-tighter">
+            PICD
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex flex-col gap-2 flex-grow w-full px-2">
+<!-- Active Tab: Workflows -->
+<button aria-label="Dashboard" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150 scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label-caps text-label-caps mt-1 scale-75">Dash</span>
+</button>
+<button aria-label="Invoices" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150 scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+<span class="font-label-caps text-label-caps mt-1 scale-75">Inv</span>
+</button>
+<button aria-label="Debtors" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150 scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-caps text-label-caps mt-1 scale-75">Debt</span>
+</button>
+<!-- Active State Applied -->
+<button aria-label="Workflows" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT text-primary border-l-2 border-primary bg-secondary-container/20 scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px] font-variation-settings-'FILL'-1" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-label-caps text-label-caps mt-1 scale-75">Flow</span>
+</button>
+<button aria-label="Reports" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150 scale-95 duration-75">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-caps text-label-caps mt-1 scale-75">Rep</span>
+</button>
+</div>
+<div class="flex flex-col gap-2 w-full px-2 mt-auto">
+<button aria-label="Add" class="w-full aspect-square flex flex-col items-center justify-center rounded-DEFAULT bg-primary text-on-primary hover:bg-surface-tint transition-colors duration-150 scale-95 duration-75 mb-4">
+<span class="material-symbols-outlined text-[24px]">add</span>
+</button>
+<button aria-label="Settings" class="w-full flex justify-center py-2 text-on-surface-variant hover:text-primary transition-colors duration-150">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button aria-label="Support" class="w-full flex justify-center py-2 text-on-surface-variant hover:text-primary transition-colors duration-150">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<div class="mt-2 w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant overflow-hidden mx-auto flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+</div>
+</div>
+</nav>
+<!-- Shared Component: TopAppBar -->
+<header class="h-12 w-[calc(100%-64px)] border-b border-outline-variant sticky top-0 z-40 ml-rail-width bg-surface-container dark:bg-surface-container text-primary dark:text-primary flex items-center justify-between px-container-margin transition-all duration-200">
+<div class="flex items-center gap-6">
+<span class="font-data-mono text-data-mono text-on-surface-variant">Total Outstanding: <span class="text-primary">$1.2M</span></span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Overdue 30d: <span class="text-primary">$240k</span></span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Overdue 60d: <span class="text-error">$85k</span></span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Overdue 90d: <span class="text-error-container">$12k</span></span>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-caps text-label-caps text-primary border border-outline-variant px-3 py-1.5 hover:bg-surface-container-highest transition-colors duration-150 uppercase tracking-wider">Export Memo</button>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4">
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors duration-150 text-[20px]">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant hover:text-primary cursor-pointer transition-colors duration-150 text-[20px]">history</span>
+</div>
+</div>
+</header>
+<!-- Main Workspace: 3-Panel Side-by-Side View -->
+<main class="ml-rail-width h-[calc(100vh-48px)] flex w-[calc(100%-64px)] bg-background">
+<!-- Left Panel: Original Contract Clauses -->
+<section class="w-[25%] min-w-[280px] border-r border-outline-variant bg-surface-dim flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Contract Reference</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant border border-outline-variant px-2 py-0.5">INV-992-A</span>
+</div>
+<div class="p-4 flex flex-col gap-4 overflow-y-auto flex-grow">
+<!-- Data Block: Late Fees -->
+<div class="border border-outline-variant bg-surface-container p-3 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">gavel</span>
+<h3 class="font-label-caps text-label-caps text-primary uppercase">Late Fee Provision</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        "In the event that payment is not received within <span class="text-on-surface font-bold">30 days</span> of the invoice date, a late fee of <span class="text-error font-data-mono">1.5% per month</span> shall be applied to the outstanding balance."
+                    </p>
+</div>
+<!-- Data Block: Escalation Protocol -->
+<div class="border border-outline-variant bg-surface-container p-3 flex flex-col gap-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">priority_high</span>
+<h3 class="font-label-caps text-label-caps text-primary uppercase">Escalation Protocol</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                        "Failure to cure outstanding balances within 60 days constitutes a material breach, authorizing the immediate suspension of all related software services and API access."
+                    </p>
+</div>
+<!-- Key Data Points -->
+<div class="mt-4 flex flex-col gap-1">
+<div class="flex justify-between items-center py-1 border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Invoice Date</span>
+<span class="font-data-mono text-data-mono text-on-surface">2023-09-15</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Due Date</span>
+<span class="font-data-mono text-data-mono text-on-surface">2023-10-15</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Days Overdue</span>
+<span class="font-data-mono text-data-mono text-error">42 Days</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Center Panel: The 'Polite Nudge' Draft Area -->
+<section class="w-[50%] min-w-[500px] border-r border-outline-variant bg-surface flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Script Ladder</h2>
+<span class="font-data-mono text-data-mono text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                        Action Required
+                    </span>
+</div>
+<!-- Progression Ladder UI -->
+<div class="flex items-center w-full justify-between relative">
+<div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-px bg-outline-variant z-0"></div>
+<div class="relative z-10 flex flex-col items-center gap-1 bg-surface-container px-2">
+<div class="w-4 h-4 rounded-full bg-outline-variant flex items-center justify-center"><span class="material-symbols-outlined text-[10px] text-surface-container">check</span></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Friendly</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 bg-surface-container px-2">
+<div class="w-4 h-4 rounded-full border-2 border-primary bg-primary flex items-center justify-center"></div>
+<span class="font-label-caps text-label-caps text-primary uppercase font-bold">Firm Request</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 bg-surface-container px-2 opacity-50">
+<div class="w-4 h-4 rounded-full border border-outline-variant bg-surface-container"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Urgent</span>
+</div>
+<div class="relative z-10 flex flex-col items-center gap-1 bg-surface-container px-2 opacity-50">
+<div class="w-4 h-4 rounded-full border border-outline-variant bg-surface-container"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Legal Notice</span>
+</div>
+</div>
+</div>
+<!-- Editor Area -->
+<div class="flex-grow p-4 bg-surface-container-low flex flex-col">
+<div class="w-full flex-grow relative">
+<textarea class="w-full h-full bg-transparent border-0 focus:ring-0 text-on-surface font-body-md text-body-md leading-loose resize-none outline-none" spellcheck="false">Subject: Action Required: Overdue Invoice INV-992-A
+
+Hi Sarah,
+
+I'm writing to follow up on invoice INV-992-A for $12,450.00, which was due on October 15th and is now 42 days overdue.
+
+As per our contract terms outlined in section 4.2, balances outstanding beyond 30 days are subject to a 1.5% monthly late fee. We have not yet applied this charge, but will be required to do so if this is not resolved by Friday.
+
+Could you please confirm the status of this payment today? If there is an issue preventing processing on your end, let me know immediately so we can assist.
+
+Best regards,
+Accounts Receivable
+                    </textarea>
+</div>
+</div>
+<!-- Editor Toolbar / Mini Actions -->
+<div class="h-12 border-t border-outline-variant bg-surface-container flex items-center px-4 justify-between">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">link</span></button>
+<div class="w-px h-4 bg-outline-variant mx-2"></div>
+<button class="font-label-caps text-label-caps text-on-surface-variant border border-outline-variant px-2 py-1 hover:bg-surface-container-highest transition-colors">Insert Variable</button>
+</div>
+<span class="font-data-mono text-[11px] text-on-surface-variant">Auto-saved 2m ago</span>
+</div>
+</section>
+<!-- Right Panel: Relationship Context & Actions -->
+<section class="w-[25%] min-w-[280px] bg-surface-dim flex flex-col overflow-y-auto">
+<div class="p-4 border-b border-outline-variant bg-surface-container flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">radar</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Relationship Context</h2>
+</div>
+<div class="p-4 flex flex-col gap-6 flex-grow">
+<!-- Entity Status -->
+<div class="flex justify-between items-start">
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Acme Corp</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1 uppercase">Tier 2 Enterprise</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<span class="bg-error-container text-on-error-container font-data-mono text-data-mono px-2 py-0.5 border border-error">Risk: HIGH</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Score: 24/100</span>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant"></div>
+<!-- Activity Feed (Prior Nudges) -->
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase mb-4">Communication History</h3>
+<div class="flex flex-col relative before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-outline-variant">
+<!-- Event 1 -->
+<div class="flex gap-3 mb-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border border-outline-variant flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[12px] text-on-surface-variant">mail</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface">Friendly Reminder Sent</div>
+<div class="font-data-mono text-[11px] text-on-surface-variant mt-0.5">Oct 20, 09:14 AM</div>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="flex gap-3 mb-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface border border-outline-variant flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[12px] text-on-surface-variant">visibility</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface">Email Opened by Contact</div>
+<div class="font-data-mono text-[11px] text-on-surface-variant mt-0.5">Oct 20, 10:45 AM</div>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="flex gap-3 relative z-10">
+<div class="w-6 h-6 rounded-full bg-primary border border-primary flex items-center justify-center shrink-0 mt-0.5 shadow-[0_0_8px_rgba(255,255,255,0.2)]">
+<span class="material-symbols-outlined text-[12px] text-surface-container-lowest">edit_document</span>
+</div>
+<div>
+<div class="font-body-sm text-body-sm text-primary font-bold">Firm Request Drafted</div>
+<div class="font-data-mono text-[11px] text-on-surface-variant mt-0.5">Just now</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Primary Actions (Fixed to bottom of right panel) -->
+<div class="p-4 border-t border-outline-variant bg-surface-container flex flex-col gap-3 mt-auto">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-3 uppercase tracking-widest hover:bg-surface-tint transition-colors duration-150 flex items-center justify-center gap-2 border border-primary">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                    Approve &amp; Send
+                </button>
+<div class="flex gap-2">
+<button class="flex-1 bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps py-2 hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2 uppercase">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+                        Copy
+                    </button>
+<button class="flex-1 bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps py-2 hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2 uppercase">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                        Schedule
+                    </button>
+</div>
+</div>
+</section>
+</main>
+</body></html>
