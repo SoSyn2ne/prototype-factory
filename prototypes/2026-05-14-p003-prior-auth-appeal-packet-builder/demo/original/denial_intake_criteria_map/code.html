@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Denial Intake &amp; Criteria Gap Map</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom scrollbar for dense panels */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #c5c6ce; /* outline-variant */
+            border-radius: 4px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#38485d",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4f5e7e",
+                        "on-surface-variant": "#44474d",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "surface-container-high": "#e3e9f1",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#594317",
+                        "on-surface": "#161c22",
+                        "surface-container": "#e8eef6",
+                        "primary-container": "#1b2b48",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-surface": "#2b3137",
+                        "on-background": "#161c22",
+                        "on-primary-fixed-variant": "#374765",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#b7c7eb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eef4fc",
+                        "tertiary-fixed": "#ffdea7",
+                        "surface-container-highest": "#dde3eb",
+                        "surface-variant": "#dde3eb",
+                        "tertiary-fixed-dim": "#e3c28a",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#b7c7eb",
+                        "surface-dim": "#d4dbe2",
+                        "on-tertiary-container": "#ac8e5b",
+                        "outline-variant": "#c5c6ce",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#75777e",
+                        "surface-bright": "#f6f9ff",
+                        "on-primary-container": "#8393b5",
+                        "on-tertiary-fixed": "#271900",
+                        "on-secondary-container": "#54647a",
+                        "secondary": "#505f76",
+                        "primary": "#041632",
+                        "tertiary": "#211500",
+                        "tertiary-container": "#3b2800",
+                        "on-primary-fixed": "#091b37",
+                        "background": "#f6f9ff",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1f9",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "pane-padding": "16px",
+                        "stack-dense": "4px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "stack-compact": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "data-tabular": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-tabular": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md overflow-hidden flex h-screen w-screen selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full flex flex-col z-50 bg-surface-container-low text-primary font-body-sm text-body-sm h-screen w-20 hover:w-64 transition-all duration-300 ease-in-out border-r border-outline-variant group overflow-hidden shadow-[1px_0_0_0_#c5c6ce]">
+<!-- Header / Brand -->
+<div class="h-16 flex items-center px-6 min-w-max border-b border-outline-variant">
+<span class="material-symbols-outlined text-[24px] mr-6 text-primary">health_and_safety</span>
+<div class="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">AppealConsole</span>
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Medical Review Unit</span>
+</div>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex-1 mt-4 flex flex-col gap-1 px-2">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center h-10 px-4 rounded transition-colors text-on-surface-variant hover:bg-surface-container-high scale-95 active:scale-90 min-w-max" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="dashboard">dashboard</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Dashboard</span>
+</a>
+<!-- Denial Intake (Active - Semantic Match) -->
+<a class="flex items-center h-10 px-4 rounded transition-colors scale-95 active:scale-90 min-w-max text-primary border-l-4 border-primary bg-secondary-container" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="assignment_return" data-weight="fill">assignment_return</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200 font-medium">Denial Intake</span>
+</a>
+<!-- Evidence Mapping (Inactive) -->
+<a class="flex items-center h-10 px-4 rounded transition-colors text-on-surface-variant hover:bg-surface-container-high scale-95 active:scale-90 min-w-max" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="account_tree">account_tree</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Evidence Mapping</span>
+</a>
+<!-- Packet Builder (Inactive) -->
+<a class="flex items-center h-10 px-4 rounded transition-colors text-on-surface-variant hover:bg-surface-container-high scale-95 active:scale-90 min-w-max" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="auto_stories">auto_stories</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Packet Builder</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="mb-4 flex flex-col gap-1 px-2 border-t border-outline-variant pt-4">
+<a class="flex items-center h-10 px-4 rounded transition-colors text-on-surface-variant hover:bg-surface-container-high scale-95 active:scale-90 min-w-max" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="settings">settings</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Settings</span>
+</a>
+<a class="flex items-center h-10 px-4 rounded transition-colors text-on-surface-variant hover:bg-surface-container-high scale-95 active:scale-90 min-w-max" href="#">
+<span class="material-symbols-outlined text-[20px] mr-6" data-icon="help_outline">help_outline</span>
+<span class="opacity-0 group-hover:opacity-100 transition-opacity duration-200">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-20 flex flex-col h-full bg-surface-container">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center px-pane-padding w-full sticky top-0 z-40 bg-surface h-12 border-b border-outline-variant">
+<!-- Context / Nav -->
+<div class="flex items-center gap-8 h-full">
+<span class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest overflow-hidden flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+</div>
+                    Case Context
+                </span>
+<nav class="flex h-full font-body-sm text-body-sm">
+<button class="h-full px-4 flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80">
+                        Patient Details
+                    </button>
+<!-- Conceptually active context for this view -->
+<button class="h-full px-4 flex items-center text-primary font-bold border-b-2 border-primary cursor-pointer active:opacity-80">
+                        Payer Rules
+                    </button>
+<button class="h-full px-4 flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80">
+                        Clinical Guidelines
+                    </button>
+</nav>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 border-r border-outline-variant pr-4 mr-2">
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="history">history</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-high transition-colors relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full border border-surface"></span>
+</button>
+</div>
+<button class="h-8 px-4 border border-outline-variant text-on-surface font-body-sm text-body-sm rounded flex items-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">post_add</span>
+                    Add Citation
+                </button>
+<button class="h-8 px-4 bg-primary text-on-primary font-body-sm text-body-sm rounded flex items-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm">
+                    Generate Packet
+                    <span class="material-symbols-outlined text-[18px]">send</span>
+</button>
+</div>
+</header>
+<!-- Workspace: Side-by-Side Fixed Layout -->
+<main class="flex flex-1 overflow-hidden p-gutter gap-gutter bg-surface-container">
+<!-- LEFT PANE: Document Review (Denial Letter) -->
+<section class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-[4px] shadow-sm flex flex-col overflow-hidden min-w-[400px]">
+<!-- Pane Header -->
+<div class="h-10 border-b border-outline-variant bg-surface px-4 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">description</span>
+<h2 class="font-headline-md text-[14px] font-semibold text-on-surface">Original Denial Letter</h2>
+<span class="ml-2 font-label-caps text-label-caps px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant border border-outline-variant">PDF</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="w-7 h-7 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]">zoom_out</span>
+</button>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant w-10 text-center">100%</span>
+<button class="w-7 h-7 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-colors" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]">zoom_in</span>
+</button>
+</div>
+</div>
+<!-- Pane Content (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-8 bg-[#FAFAFA] flex justify-center">
+<!-- Faux Paper Document -->
+<div class="max-w-[800px] w-full bg-white shadow-sm border border-outline-variant p-10 font-serif text-[13px] leading-relaxed text-on-surface">
+<div class="flex justify-between items-start border-b border-outline pb-6 mb-6">
+<div>
+<h1 class="text-xl font-bold uppercase tracking-wide text-primary">Aetna Health Management</h1>
+<p class="text-on-surface-variant mt-1">PO Box 1432, Blue Bell, PA 19422</p>
+</div>
+<div class="text-right font-data-tabular">
+<p><strong>Date:</strong> October 24, 2023</p>
+<p><strong>Auth ID:</strong> #PA-99382-XA</p>
+<p><strong>Member ID:</strong> W88392001</p>
+</div>
+</div>
+<div class="mb-6 grid grid-cols-2 gap-4 border border-outline-variant p-4 bg-surface-container-lowest">
+<div>
+<p><span class="font-semibold text-on-surface-variant">Patient:</span> John Doe</p>
+<p><span class="font-semibold text-on-surface-variant">DOB:</span> 05/12/1965</p>
+</div>
+<div>
+<p><span class="font-semibold text-on-surface-variant">Provider:</span> Dr. Sarah Jenkins, MD</p>
+<p><span class="font-semibold text-on-surface-variant">Facility:</span> Mercy General Hospital</p>
+</div>
+</div>
+<h3 class="font-bold text-base mb-2">Notice of Adverse Benefit Determination</h3>
+<p class="mb-4">Dear Dr. Jenkins,</p>
+<p class="mb-4">We have received your request for prior authorization for the following services:</p>
+<ul class="list-disc pl-8 mb-6 text-on-surface-variant">
+<li>CPT 22551: Arthrodesis, anterior interbody, including disc space preparation, discectomy, osteophytectomy and decompression of spinal cord and/or nerve roots; cervical below C2.</li>
+<li>Diagnosis: M50.12 - Cervical disc disorder with radiculopathy, mid-cervical region.</li>
+</ul>
+<p class="mb-4">After careful review of the clinical documentation submitted by a Medical Director in the same specialty, we have determined that the requested service does not meet the medical necessity criteria outlined in our commercial policy guidelines (Policy ID: SP-0023).</p>
+<!-- Highlighted Denial Reason -->
+<div class="my-6 p-4 border-l-4 border-error bg-error-container text-on-error-container relative">
+<span class="absolute -top-3 left-2 bg-error text-white font-label-caps text-[10px] px-2 py-0.5 rounded shadow-sm">REASON FOR DENIAL</span>
+<p class="font-semibold mb-2">Specifically, the documentation fails to demonstrate:</p>
+<ul class="list-disc pl-6 space-y-2">
+<li>Failure of conservative therapy. The records do not show completion of at least 6 weeks of structured physical therapy within the last 6 months.</li>
+<li>Current imaging confirming severe central canal stenosis or high-grade foraminal narrowing correlating with the reported radicular symptoms. The submitted MRI report from 02/2022 is outdated.</li>
+</ul>
+</div>
+<p class="mt-6 text-on-surface-variant">You have the right to appeal this decision. Please submit relevant clinical records, progress notes, and current imaging reports that address the specific criteria gaps identified above within 180 days of this notice.</p>
+</div>
+</div>
+</section>
+<!-- Vertical Resizer (Visual only in HTML, implies functionality) -->
+<div class="w-1 bg-transparent hover:bg-outline-variant cursor-col-resize transition-colors flex flex-col justify-center items-center group">
+<div class="h-8 w-1 rounded-full bg-outline-variant group-hover:bg-primary transition-colors"></div>
+</div>
+<!-- RIGHT PANE: Payer Criteria Gap Map -->
+<section class="flex-1 bg-surface-container-lowest border border-outline-variant rounded-[4px] shadow-sm flex flex-col overflow-hidden min-w-[500px]">
+<!-- Pane Header -->
+<div class="h-14 border-b border-outline-variant bg-surface px-4 flex items-center justify-between shrink-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px] text-primary">fact_check</span>
+<div>
+<h2 class="font-headline-md text-[15px] font-semibold text-on-surface">Payer Criteria Gap Map</h2>
+<p class="font-body-sm text-[12px] text-on-surface-variant">Aetna Policy: SP-0023 (Cervical Fusion)</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="h-8 px-3 border border-outline-variant text-on-surface-variant font-body-sm text-body-sm rounded-[4px] flex items-center gap-2 hover:bg-surface-container hover:text-primary transition-colors bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]">document_scanner</span>
+                            Scan Chart
+                        </button>
+<button class="h-8 px-3 border border-outline-variant text-on-surface-variant font-body-sm text-body-sm rounded-[4px] flex items-center gap-2 hover:bg-surface-container hover:text-primary transition-colors bg-surface-container-lowest">
+<span class="material-symbols-outlined text-[16px]">library_books</span>
+                            Add Guideline
+                        </button>
+</div>
+</div>
+<!-- Structured Input Area -->
+<div class="flex-1 overflow-y-auto bg-surface flex flex-col">
+<!-- Table Header -->
+<div class="grid grid-cols-[30px_minmax(150px,1fr)_120px_200px] gap-2 px-4 py-2 border-b border-outline-variant bg-surface-container-low font-data-tabular text-data-tabular uppercase text-on-surface-variant sticky top-0 z-10">
+<div class="flex items-center justify-center">#</div>
+<div class="flex items-center">Required Criteria</div>
+<div class="flex items-center">Status</div>
+<div class="flex items-center">Evidence Reference</div>
+</div>
+<!-- Row 1: Missing Evidence -->
+<div class="grid grid-cols-[30px_minmax(150px,1fr)_120px_200px] gap-2 px-4 py-3 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors items-start">
+<div class="font-data-tabular text-on-surface-variant pt-1 text-center">1</div>
+<div class="pr-4">
+<textarea class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-sm text-body-sm text-on-surface resize-none leading-snug" placeholder="Enter criteria..." rows="2">6 weeks of structured physical therapy within the last 6 months.</textarea>
+</div>
+<div class="pt-0.5">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-[2px] border-l-[3px] border-error bg-error/5 text-error font-data-tabular text-[11px] font-semibold w-full">
+<span class="material-symbols-outlined text-[14px]">cancel</span>
+                                MISSING
+                            </div>
+</div>
+<div class="relative">
+<input class="w-full bg-transparent border-b border-outline-variant border-x-0 border-t-0 px-0 py-1 focus:ring-0 focus:border-b-2 focus:border-primary font-body-sm text-body-sm text-on-surface placeholder:text-outline" placeholder="Link document or note..." type="text"/>
+<span class="material-symbols-outlined absolute right-0 top-1 text-[16px] text-outline-variant hover:text-primary cursor-pointer">link</span>
+</div>
+</div>
+<!-- Row 2: Found Evidence -->
+<div class="grid grid-cols-[30px_minmax(150px,1fr)_120px_200px] gap-2 px-4 py-3 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors items-start bg-surface-container-lowest/50">
+<div class="font-data-tabular text-on-surface-variant pt-1 text-center">2</div>
+<div class="pr-4">
+<textarea class="w-full bg-transparent border-none p-0 focus:ring-0 font-body-sm text-body-sm text-on-surface resize-none leading-snug" placeholder="Enter criteria..." rows="2">Current MRI confirming severe central canal stenosis or high-grade foraminal narrowing.</textarea>
+</div>
+<div class="pt-0.5">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-[2px] border-l-[3px] border-primary bg-primary/5 text-primary font-data-tabular text-[11px] font-semibold w-full">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                FOUND
+                            </div>
+</div>
+<div class="relative flex flex-col gap-1 pt-1">
+<!-- Evidence Chip -->
+<div class="flex items-center gap-2 p-1.5 border border-outline-variant rounded bg-surface text-on-surface font-body-sm text-[12px] group hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[14px] text-primary">image</span>
+<span class="truncate flex-1">MRI_CSpine_10_2023.pdf</span>
+<span class="material-symbols-outlined text-[14px] text-outline-variant opacity-0 group-hover:opacity-100">open_in_new</span>
+</div>
+<input class="w-full bg-transparent border-b border-outline-variant border-x-0 border-t-0 px-0 py-1 focus:ring-0 focus:border-b-2 focus:border-primary font-body-sm text-[12px] text-on-surface-variant placeholder:text-outline mt-1" placeholder="Add specific page/excerpt..." type="text" value="Page 2: 'Severe stenosis at C5-C6'"/>
+</div>
+</div>
+<!-- Row 3: Empty/New Entry -->
+<div class="grid grid-cols-[30px_minmax(150px,1fr)_120px_200px] gap-2 px-4 py-3 border-b border-outline-variant hover:bg-surface-container-lowest transition-colors items-start">
+<div class="font-data-tabular text-outline-variant pt-1 text-center">3</div>
+<div class="pr-4">
+<textarea class="w-full bg-transparent border-b border-dashed border-outline-variant p-0 focus:ring-0 font-body-sm text-body-sm text-on-surface resize-none leading-snug" placeholder="Type to add new criteria..." rows="1"></textarea>
+</div>
+<div class="pt-0.5">
+<div class="inline-flex items-center gap-1.5 px-2 py-1 rounded-[2px] border border-dashed border-outline-variant text-outline font-data-tabular text-[11px] font-semibold w-full cursor-pointer hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[14px]">help</span>
+                                PENDING
+                            </div>
+</div>
+<div class="relative">
+<input class="w-full bg-transparent border-b border-dashed border-outline-variant border-x-0 border-t-0 px-0 py-1 font-body-sm text-body-sm text-outline cursor-not-allowed" disabled="" placeholder="Awaiting criteria..." type="text"/>
+</div>
+</div>
+</div>
+<!-- Footer Action Area -->
+<div class="p-4 border-t border-outline-variant bg-surface flex justify-between items-center shrink-0">
+<div class="font-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+                        1 Critical Gap Identified
+                    </div>
+<button class="h-8 px-4 border border-primary text-primary font-body-sm text-body-sm font-medium rounded flex items-center gap-2 hover:bg-primary-container hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+                        Assign Task to Clinical
+                    </button>
+</div>
+</section>
+</main>
+</div>
+</body></html>

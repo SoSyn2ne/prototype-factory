@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Promo Burn &amp; Incentive Planner</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#d4e4fa",
+                      "tertiary": "#e3c284",
+                      "surface-bright": "#2c3a4c",
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#a7b5d5",
+                      "background": "#051424",
+                      "on-primary-fixed": "#021b3b",
+                      "secondary": "#b8c7e7",
+                      "surface-container": "#122131",
+                      "outline": "#8e9098",
+                      "on-surface": "#d4e4fa",
+                      "on-tertiary-fixed": "#261900",
+                      "on-secondary": "#22314a",
+                      "surface-container-highest": "#273647",
+                      "inverse-primary": "#4a5f82",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-lowest": "#010f1f",
+                      "primary": "#b2c7ef",
+                      "surface-variant": "#273647",
+                      "tertiary-fixed": "#ffdea3",
+                      "on-tertiary-container": "#c9aa6e",
+                      "surface-dim": "#051424",
+                      "on-primary": "#1b3151",
+                      "on-surface-variant": "#c4c6cf",
+                      "on-tertiary-fixed-variant": "#5a4311",
+                      "on-primary-container": "#9aafd5",
+                      "primary-container": "#2d4263",
+                      "error": "#ffb4ab",
+                      "secondary-fixed": "#d6e3ff",
+                      "on-background": "#d4e4fa",
+                      "tertiary-container": "#543e0c",
+                      "inverse-on-surface": "#233143",
+                      "outline-variant": "#44474e",
+                      "on-tertiary": "#402d00",
+                      "on-secondary-fixed": "#0b1b34",
+                      "secondary-fixed-dim": "#b8c7e7",
+                      "surface": "#051424",
+                      "tertiary-fixed-dim": "#e3c284",
+                      "on-error": "#690005",
+                      "primary-fixed": "#d6e3ff",
+                      "on-primary-fixed-variant": "#324769",
+                      "primary-fixed-dim": "#b2c7ef",
+                      "surface-container-high": "#1c2b3c",
+                      "surface-container-low": "#0d1c2d",
+                      "secondary-container": "#384762",
+                      "surface-tint": "#b2c7ef",
+                      "on-secondary-fixed-variant": "#384762"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-edge": "24px",
+                      "gutter": "16px",
+                      "card-gap": "12px",
+                      "unit": "4px",
+                      "rail-width": "64px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "data-display": ["JetBrains Mono"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-sm": ["18px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "data-display": ["14px", {"lineHeight": "1", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom range slider styling for industrial look */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 12px;
+            border-radius: 0;
+            background: #b2c7ef; /* primary */
+            cursor: pointer;
+            margin-top: -10px;
+            border: 1px solid #021b3b;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #44474e; /* outline-variant */
+            border-radius: 0;
+        }
+        input[type=range]:focus {
+            outline: none;
+        }
+        /* Custom scrollbar for script area */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #051424; 
+            border-left: 1px solid #44474e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #273647; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #384762; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (from JSON) -->
+<nav class="fixed left-0 top-0 h-full z-50 flex flex-col w-rail-width bg-surface-container-lowest border-r-2 border-outline-variant">
+<!-- Logo/Header Area -->
+<div class="h-16 flex flex-col items-center justify-center border-b-2 border-outline-variant bg-surface-container-low cursor-pointer hover:bg-surface-container-highest transition-all duration-75 active:scale-95" title="COMMAND_CENTER">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">terminal</span>
+</div>
+<!-- Tabs -->
+<div class="flex-1 flex flex-col">
+<!-- DASHBOARD -->
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95" href="#" title="DASHBOARD">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-caps text-label-caps" style="font-size: 8px;">DASH</span>
+</a>
+<!-- LOGISTICS -->
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95" href="#" title="LOGISTICS">
+<span class="material-symbols-outlined mb-1">local_shipping</span>
+<span class="font-label-caps text-label-caps" style="font-size: 8px;">LOGIS</span>
+</a>
+<!-- MARGINS (ACTIVE) -->
+<a class="bg-primary-container text-on-primary-container border-r-4 border-primary flex flex-col items-center justify-center py-4 active:scale-95" href="#" title="MARGINS">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="font-label-caps text-label-caps" style="font-size: 8px;">MARGIN</span>
+</a>
+<!-- KITCHEN -->
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95" href="#" title="KITCHEN">
+<span class="material-symbols-outlined mb-1">restaurant</span>
+<span class="font-label-caps text-label-caps" style="font-size: 8px;">KTCHN</span>
+</a>
+<!-- REPORTS -->
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95" href="#" title="REPORTS">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-label-caps text-label-caps" style="font-size: 8px;">REPRT</span>
+</a>
+</div>
+<!-- CTA Bottom -->
+<div class="border-t-2 border-outline-variant p-2 flex justify-center bg-surface-container-low">
+<button class="w-full aspect-square bg-primary text-on-primary flex flex-col items-center justify-center rounded-sm hover:opacity-90 active:scale-95 transition-all" title="LIVE_SYNC">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+</div>
+</nav>
+<!-- TopAppBar (from JSON) -->
+<header class="fixed top-0 right-0 left-rail-width h-16 z-40 flex justify-between items-center px-gutter bg-surface-container border-b-2 border-outline-variant">
+<div class="flex items-center h-full">
+<div class="font-label-caps text-label-caps font-black tracking-tighter text-on-surface border-l-4 border-primary pl-4 mr-8">
+                MARGIN_TRUTH_v1.0
+            </div>
+<nav class="h-full flex gap-1 hidden md:flex">
+<a class="text-on-surface-variant px-4 h-full flex items-center font-label-caps text-label-caps hover:bg-surface-container-highest hover:text-on-surface transition-colors duration-100 ease-in" href="#">SQUAD_VIEW</a>
+<a class="text-on-surface-variant px-4 h-full flex items-center font-label-caps text-label-caps hover:bg-surface-container-highest hover:text-on-surface transition-colors duration-100 ease-in" href="#">INCIDENTS</a>
+<a class="text-on-surface-variant px-4 h-full flex items-center font-label-caps text-label-caps hover:bg-surface-container-highest hover:text-on-surface transition-colors duration-100 ease-in" href="#">AUDIT</a>
+</nav>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors duration-100 ease-in border border-transparent rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface transition-colors duration-100 ease-in border border-transparent rounded">
+<span class="material-symbols-outlined">terminal</span>
+</button>
+<div class="h-8 w-px bg-outline-variant mx-2"></div>
+<div class="w-8 h-8 bg-surface-bright border border-outline flex items-center justify-center rounded-sm overflow-hidden" title="Operator">
+<span class="material-symbols-outlined text-[20px] text-on-surface">person</span>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="pl-rail-width pt-16 h-screen w-full flex flex-col md:flex-row p-gutter gap-gutter bg-background">
+<!-- LEFT SIDE: Promo Burn Simulator -->
+<section class="flex-1 flex flex-col bg-surface-container border-2 border-outline-variant h-full max-h-full overflow-hidden">
+<!-- Kitchen Rail Header -->
+<header class="bg-surface-container-high border-b-2 border-outline-variant px-4 py-3 flex justify-between items-center shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">local_fire_department</span>
+<h1 class="font-headline-sm text-headline-sm text-on-surface tracking-wide uppercase">BURN_SIMULATOR_v2.4</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-data-display text-[10px] text-error">LIVE_SYNC</span>
+</div>
+</div>
+</header>
+<div class="p-card-gap flex flex-col gap-gutter flex-1 overflow-y-auto">
+<!-- Data Visualization Area (Graph Placeholder) -->
+<div class="w-full h-48 bg-surface-dim border border-outline-variant relative overflow-hidden" style="background-image: linear-gradient(to bottom, rgba(45, 66, 99, 0.1), rgba(5, 20, 36, 0.8));">
+<img alt="Margin projection curve graph" class="w-full h-full object-cover opacity-30 mix-blend-screen" data-alt="A tactical, dark-mode data visualization graph displayed on an industrial UI panel. The graph shows a complex, jagged neon blue line chart representing profit margins intersecting with a solid red line representing promotional burn rate over time. The background is a deep steel blue with subtle grid lines, resembling a high-tech command center interface. The overall mood is serious, analytic, and precisely engineered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-FrwDzxOP8pKmmtg6YsgNs1aWcgrn7QAZpoQg9LMqoWt3zMXDMqEED6LWobbM6c3hkYV8_KQ-LCKApA9SCCWmonsdmeWe84A8Yhvui2SEKrZiEOwBD_FarIwpyZLgrM9jhjXrD33CYMyvWzyJTbiXbX0x6xp3R7kV9Q0q-yGD5xkK7_EtZWJzH3LBkkeV1lSS28tQT257wX01jAZ2S3Cr1jXOppQFrDbJEAxn_k6oTxhhCUGZe9q7vwT5qRd_MiqGtmY9nf47US91"/>
+<div class="absolute top-2 left-2 flex gap-2">
+<span class="bg-primary-container/80 text-on-primary-container font-label-caps text-label-caps px-2 py-1 border border-primary/50">Y: GROSS_MARGIN_%</span>
+<span class="bg-surface-variant/80 text-on-surface font-label-caps text-label-caps px-2 py-1 border border-outline/50">X: PROMO_SPEND_$</span>
+</div>
+</div>
+<!-- Margin Badges (Outputs) -->
+<div class="grid grid-cols-2 gap-unit">
+<div class="bg-background border-2 border-outline-variant p-3 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">CURRENT_YIELD_EST</span>
+<div class="font-data-display text-headline-md text-on-surface">14.2%</div>
+</div>
+<div class="bg-primary-container border-2 border-primary p-3 flex flex-col justify-center shadow-[inset_0_0_12px_rgba(0,0,0,0.5)]">
+<span class="font-label-caps text-label-caps text-primary-fixed mb-1">PROJECTED_IMPACT</span>
+<div class="font-data-display text-headline-md text-on-primary-container flex items-center gap-1">
+                            -2.8% 
+                            <span class="material-symbols-outlined text-[20px] text-error">trending_down</span>
+</div>
+</div>
+</div>
+<!-- Tactile Controls (Sliders) -->
+<div class="flex flex-col gap-4 mt-2">
+<div class="bg-surface border border-outline-variant p-4">
+<div class="flex justify-between items-end mb-4">
+<label class="font-label-caps text-label-caps text-on-surface">3P_PLATFORM_MARKETING_SPEND</label>
+<span class="font-data-display text-body-md text-primary bg-surface-dim px-2 py-1 border border-outline-variant">$1,250.00 / wk</span>
+</div>
+<input class="w-full" max="5000" min="0" type="range" value="1250"/>
+<div class="flex justify-between mt-2 font-data-display text-[10px] text-on-surface-variant">
+<span>$0</span>
+<span>$5K_MAX</span>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-4">
+<div class="flex justify-between items-end mb-4">
+<label class="font-label-caps text-label-caps text-on-surface">CUSTOMER_DELIVERY_SUBSIDY</label>
+<span class="font-data-display text-body-md text-primary bg-surface-dim px-2 py-1 border border-outline-variant">$2.99 / order</span>
+</div>
+<input class="w-full" max="800" min="0" type="range" value="299"/>
+<div class="flex justify-between mt-2 font-data-display text-[10px] text-on-surface-variant">
+<span>$0.00</span>
+<span>$8.00_MAX</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT SIDE: Planner & Script Generator -->
+<section class="flex-1 flex flex-col gap-gutter h-full max-h-full overflow-hidden">
+<!-- Direct-Order Incentive Planner Panel -->
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col shrink-0">
+<header class="bg-surface-container-highest border-b border-outline-variant px-3 py-2">
+<h2 class="font-label-caps text-label-caps text-on-surface tracking-wider">DIRECT_INCENTIVE_TARGETS</h2>
+</header>
+<div class="p-card-gap grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-on-surface-variant">LOYALTY_DISCOUNT_VAR</label>
+<div class="relative">
+<span class="absolute left-2 top-1/2 -translate-y-1/2 font-data-display text-on-surface-variant">%</span>
+<input class="w-full bg-surface-dim border-2 border-outline-variant focus:border-primary text-data-display text-on-surface py-2 pl-6 pr-2 outline-none" type="text" value="15.0"/>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-[10px] text-on-surface-variant">FREE_ITEM_COGS_LIMIT</label>
+<div class="relative">
+<span class="absolute left-2 top-1/2 -translate-y-1/2 font-data-display text-on-surface-variant">$</span>
+<input class="w-full bg-surface-dim border-2 border-outline-variant focus:border-primary text-data-display text-on-surface py-2 pl-6 pr-2 outline-none" type="text" value="4.50"/>
+</div>
+</div>
+<div class="col-span-2 flex flex-col gap-1 mt-2">
+<label class="font-label-caps text-[10px] text-on-surface-variant">TARGET_CONVERSION_METRIC</label>
+<div class="flex bg-surface-dim border border-outline-variant">
+<button class="flex-1 py-2 font-label-caps text-label-caps bg-primary-container text-on-primary-container border-r border-outline-variant active:bg-primary-fixed">ROI_OPTIMIZED</button>
+<button class="flex-1 py-2 font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-high active:bg-surface-variant">VOLUME_PUSH</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Customer Transparency Script Generator -->
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col flex-1 overflow-hidden">
+<header class="bg-surface-container-highest border-b border-outline-variant px-3 py-2 flex justify-between items-center shrink-0">
+<h2 class="font-label-caps text-label-caps text-on-surface tracking-wider">CUSTOMER_TRANSPARENCY_SCRIPT</h2>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-1.5 hover:bg-primary-fixed-dim active:scale-95 transition-all flex items-center gap-1 border border-primary">
+<span class="material-symbols-outlined text-[14px]">psychology</span>
+                        GENERATE_DRAFT
+                    </button>
+</header>
+<div class="p-card-gap flex-1 flex flex-col overflow-hidden">
+<div class="bg-surface-dim border-2 border-outline-variant p-4 flex-1 overflow-y-auto relative group">
+<!-- Watermark -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 font-data-display text-headline-lg text-surface-container-high pointer-events-none select-none opacity-50 rotate-[-15deg]">
+                            AUTO_GENERATED
+                        </div>
+<!-- Monospace Script Output -->
+<p class="font-data-display text-body-md text-on-surface leading-relaxed whitespace-pre-wrap relative z-10">
+&gt; SYSTEM INTENT: Direct Conversion (Honest Pricing Model)
+&gt; TARGET: Returning Customer (Order Count &gt; 3)
+
+Hello [Customer Name],
+
+We noticed you usually order through [3P App Name]. We appreciate your business, but those apps charge us up to 30% in commission fees on every order. 
+
+To keep our kitchen running and our ingredients high quality, we prefer when our regulars order directly through our site. 
+
+If you order direct today, we are returning that 30% fee directly to you. Your order total will drop by an estimated $4.50, and we'll throw in a complimentary side of [Free Item Variable] (our cost, your gain).
+
+Help us keep our margins healthy, and we'll keep your prices fair.
+
+Click here to start direct order: [Direct Link]
+
+&gt; END SCRIPT
+                        </p>
+</div>
+<!-- Action Footer -->
+<div class="mt-3 flex gap-2 shrink-0">
+<button class="flex-1 bg-surface-container-high border-2 border-outline-variant text-on-surface font-label-caps text-label-caps py-2 hover:bg-surface-variant active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+                            COPY_TO_CLIPBOARD
+                        </button>
+<button class="flex-1 bg-surface-container-high border-2 border-outline-variant text-on-surface font-label-caps text-label-caps py-2 hover:bg-surface-variant active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">send</span>
+                            PUSH_TO_CRM
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

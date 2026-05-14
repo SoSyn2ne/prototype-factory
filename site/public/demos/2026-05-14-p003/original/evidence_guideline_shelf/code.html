@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence &amp; Guideline Shelf</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#38485d",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#4f5e7e",
+                        "on-surface-variant": "#44474d",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "surface-container-high": "#e3e9f1",
+                        "on-secondary-fixed": "#0b1c30",
+                        "on-tertiary-fixed-variant": "#594317",
+                        "on-surface": "#161c22",
+                        "surface-container": "#e8eef6",
+                        "primary-container": "#1b2b48",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-surface": "#2b3137",
+                        "on-background": "#161c22",
+                        "on-primary-fixed-variant": "#374765",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#b7c7eb",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eef4fc",
+                        "tertiary-fixed": "#ffdea7",
+                        "surface-container-highest": "#dde3eb",
+                        "surface-variant": "#dde3eb",
+                        "tertiary-fixed-dim": "#e3c28a",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#b7c7eb",
+                        "surface-dim": "#d4dbe2",
+                        "on-tertiary-container": "#ac8e5b",
+                        "outline-variant": "#c5c6ce",
+                        "on-tertiary": "#ffffff",
+                        "outline": "#75777e",
+                        "surface-bright": "#f6f9ff",
+                        "on-primary-container": "#8393b5",
+                        "on-tertiary-fixed": "#271900",
+                        "on-secondary-container": "#54647a",
+                        "secondary": "#505f76",
+                        "primary": "#041632",
+                        "tertiary": "#211500",
+                        "tertiary-container": "#3b2800",
+                        "on-primary-fixed": "#091b37",
+                        "background": "#f6f9ff",
+                        "surface": "#f6f9ff",
+                        "inverse-on-surface": "#ebf1f9",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "pane-padding": "16px",
+                        "stack-dense": "4px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "stack-compact": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-tabular": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-tabular": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); margin: 0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom Scrollbar for Panes */
+        .scrollable-pane::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scrollable-pane::-webkit-scrollbar-track {
+            background: theme('colors.surface-container');
+        }
+        .scrollable-pane::-webkit-scrollbar-thumb {
+            background-color: theme('colors.outline-variant');
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full flex flex-col z-50 bg-surface-container-low dark:bg-primary-container h-screen w-20 hover:w-64 transition-all duration-300 ease-in-out border-r border-outline-variant dark:border-outline">
+<div class="flex flex-col items-center py-6 border-b border-outline-variant w-full overflow-hidden">
+<div class="h-10 w-10 rounded bg-primary text-on-primary flex items-center justify-center font-headline-md text-headline-md font-bold mb-2 shrink-0">
+                A
+            </div>
+<div class="text-center w-full px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden group-hover:block whitespace-nowrap">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">AppealConsole</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Medical Review Unit</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 w-full flex flex-col gap-2 px-2">
+<!-- Tab: Dashboard -->
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0">dashboard</span>
+<span class="font-body-sm text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Dashboard</span>
+</a>
+<!-- Tab: Denial Intake -->
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0">assignment_return</span>
+<span class="font-body-sm text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Denial Intake</span>
+</a>
+<!-- Tab: Evidence Mapping (ACTIVE) -->
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-primary dark:text-primary-fixed-dim border-l-4 border-primary dark:border-primary-fixed-dim bg-secondary-container dark:bg-on-primary-fixed-variant hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0 fill-icon">account_tree</span>
+<span class="font-body-sm text-body-sm font-bold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Evidence Mapping</span>
+</a>
+<!-- Tab: Packet Builder -->
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0">auto_stories</span>
+<span class="font-body-sm text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Packet Builder</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant py-4 w-full flex flex-col gap-2 px-2">
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0">settings</span>
+<span class="font-body-sm text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-3 py-3 rounded-lg text-on-surface-variant dark:text-on-primary-container hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-primary-container transition-colors scale-95 active:scale-90 transition-transform group" href="#">
+<span class="material-symbols-outlined shrink-0">help_outline</span>
+<span class="font-body-sm text-body-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-20 flex-1 flex flex-col h-full bg-surface">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex justify-between items-center px-pane-padding w-full sticky top-0 z-40 bg-surface dark:bg-on-primary-fixed h-12 w-full border-b border-outline-variant dark:border-on-primary-container">
+<div class="flex items-center gap-6 h-full">
+<div class="font-label-caps text-label-caps uppercase tracking-widest text-on-surface-variant">Case Context</div>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<nav class="flex h-full gap-4">
+<a class="flex items-center h-full px-2 text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer active:opacity-80 font-body-md text-body-md" href="#">Patient Details</a>
+<a class="flex items-center h-full px-2 text-on-surface-variant dark:text-on-primary-container hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer active:opacity-80 font-body-md text-body-md" href="#">Payer Rules</a>
+<a class="flex items-center h-full px-2 text-primary dark:text-primary-fixed font-bold border-b-2 border-primary hover:text-primary dark:hover:text-primary-fixed transition-colors cursor-pointer active:opacity-80 font-body-md text-body-md" href="#">Clinical Guidelines</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-1 hover:bg-surface-container rounded cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1 hover:bg-surface-container rounded cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined text-[20px]">history</span>
+</button>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1.5 border border-outline-variant rounded font-body-md text-body-md text-on-surface hover:bg-surface-container transition-colors cursor-pointer active:opacity-80">
+                        Add Citation
+                    </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded font-body-md text-body-md hover:bg-primary-container transition-colors cursor-pointer active:opacity-80">
+                        Generate Packet
+                    </button>
+</div>
+<div class="h-8 w-8 rounded bg-surface-container-highest overflow-hidden border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</header>
+<!-- Workspace Canvas (Multi-Pane Layout) -->
+<div class="flex-1 flex overflow-hidden p-pane-padding gap-gutter bg-surface-container-low">
+<!-- Left Pane: Required Clinical Evidence (Checklist) -->
+<section class="flex flex-col w-1/3 min-w-[300px] bg-surface border border-outline-variant rounded-lg overflow-hidden flex-shrink-0 shadow-sm">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Required Clinical Evidence</h2>
+<span class="px-2 py-0.5 bg-error-container text-on-error-container rounded text-label-caps font-label-caps uppercase border-l-2 border-error">2 Missing</span>
+</div>
+<div class="flex-1 scrollable-pane overflow-y-auto p-4 space-y-3">
+<!-- Evidence Item 1 (Found) -->
+<div class="p-3 border border-outline-variant rounded bg-surface-container-lowest hover:border-primary transition-colors group cursor-default">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5 fill-icon">check_circle</span>
+<div class="flex-1">
+<div class="font-body-md text-body-md font-semibold text-on-surface mb-1">Conservative Therapy Failure</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">6+ weeks of PT or medication documented.</div>
+<!-- Attached Snippet -->
+<div class="mt-3 p-2 bg-surface-container rounded border border-outline-variant/50 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">description</span>
+<div class="font-data-tabular text-data-tabular text-on-surface flex-1 truncate">PT_Notes_Oct_Nov.pdf - pg. 4</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-1 rounded hover:bg-surface">
+<span class="material-symbols-outlined text-[16px]">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence Item 2 (Missing - Drop Zone) -->
+<div class="p-3 border border-outline-variant border-dashed rounded bg-surface hover:bg-surface-container-lowest transition-colors group cursor-default">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5">error</span>
+<div class="flex-1">
+<div class="font-body-md text-body-md font-semibold text-on-surface mb-1">Imaging Results (MRI/CT)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Recent imaging showing structural abnormality.</div>
+<div class="mt-3 p-4 bg-surface-container-low rounded border border-outline-variant border-dashed flex flex-col items-center justify-center text-on-surface-variant opacity-70 group-hover:opacity-100 group-hover:border-primary transition-all">
+<span class="material-symbols-outlined mb-1">upload_file</span>
+<span class="font-label-caps text-label-caps">DRAG SNIPPET HERE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Evidence Item 3 (Missing - Drop Zone) -->
+<div class="p-3 border border-outline-variant border-dashed rounded bg-surface hover:bg-surface-container-lowest transition-colors group cursor-default">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5">error</span>
+<div class="flex-1">
+<div class="font-body-md text-body-md font-semibold text-on-surface mb-1">Pain Assessment Scores</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Documented VAS or similar pain scale &gt; 6/10.</div>
+<div class="mt-3 p-4 bg-surface-container-low rounded border border-outline-variant border-dashed flex flex-col items-center justify-center text-on-surface-variant opacity-70 group-hover:opacity-100 group-hover:border-primary transition-all">
+<span class="material-symbols-outlined mb-1">upload_file</span>
+<span class="font-label-caps text-label-caps">DRAG SNIPPET HERE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Middle Splitter (Visual Only) -->
+<div class="w-1 bg-outline-variant/30 hover:bg-primary/50 cursor-col-resize transition-colors h-full rounded flex flex-col justify-center items-center">
+<div class="h-8 w-1 bg-outline-variant rounded-full"></div>
+</div>
+<!-- Right Pane: Guideline Citation Shelf (Search & Results) -->
+<section class="flex flex-col flex-1 bg-surface border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex justify-between items-center mb-3">
+<h2 class="font-headline-md text-headline-md text-on-surface">Guideline Citation Shelf</h2>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-fixed rounded text-label-caps font-label-caps uppercase border border-outline-variant/50">MCG Care Guidelines</span>
+</div>
+</div>
+<!-- Search Bar -->
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded focus:outline-none focus:border-primary focus:border-b-2 font-body-sm text-body-sm text-on-surface placeholder-on-surface-variant" placeholder="Search criteria, codes, or keywords..." type="text"/>
+</div>
+<!-- Filters -->
+<div class="flex gap-2 mt-3 overflow-x-auto pb-1">
+<button class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full font-label-caps text-label-caps border border-primary-fixed-dim whitespace-nowrap">All Guidelines</button>
+<button class="px-3 py-1 bg-surface hover:bg-surface-container rounded-full font-label-caps text-label-caps text-on-surface-variant border border-outline-variant transition-colors whitespace-nowrap">Orthopedics</button>
+<button class="px-3 py-1 bg-surface hover:bg-surface-container rounded-full font-label-caps text-label-caps text-on-surface-variant border border-outline-variant transition-colors whitespace-nowrap">Pain Management</button>
+<button class="px-3 py-1 bg-surface hover:bg-surface-container rounded-full font-label-caps text-label-caps text-on-surface-variant border border-outline-variant transition-colors whitespace-nowrap">Imaging</button>
+</div>
+</div>
+<div class="flex-1 scrollable-pane overflow-y-auto bg-surface-container-low p-4">
+<!-- Guideline Category Container -->
+<div class="mb-6">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant mb-2 pl-1">MCG A-0239: Lumbar Spine Surgery</h3>
+<div class="space-y-2">
+<!-- Draggable Snippet 1 -->
+<div class="bg-surface border border-outline-variant rounded p-3 hover:shadow-sm hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing flex gap-3 group" draggable="true">
+<div class="mt-1 text-outline-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-tabular text-data-tabular bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant">Crit. 1.1</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Imaging Requirement</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                                        MRI or CT scan within the last 6 months demonstrating significant spinal stenosis, disc herniation, or other structural anomaly corresponding to clinical symptoms.
+                                    </p>
+</div>
+</div>
+<!-- Draggable Snippet 2 -->
+<div class="bg-surface border border-outline-variant rounded p-3 hover:shadow-sm hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing flex gap-3 group" draggable="true">
+<div class="mt-1 text-outline-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-tabular text-data-tabular bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant">Crit. 2.4</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Conservative Care</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                                        Failure of at least 6 weeks of non-operative treatment including physical therapy, NSAIDs, or epidural steroid injections, unless progressive neurological deficit is present.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Guideline Category Container -->
+<div>
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant mb-2 pl-1">InterQual: Pain Assessment</h3>
+<div class="space-y-2">
+<!-- Draggable Snippet 3 -->
+<div class="bg-surface border border-outline-variant rounded p-3 hover:shadow-sm hover:border-primary/50 transition-all cursor-grab active:cursor-grabbing flex gap-3 group" draggable="true">
+<div class="mt-1 text-outline-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined">drag_indicator</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-tabular text-data-tabular bg-surface-container px-1.5 py-0.5 rounded text-on-surface-variant">Sec. B</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Subjective Pain Reporting</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                                        Patient must report severe pain impacting Activities of Daily Living (ADLs), typically indicated by a score of 7 or higher on a 10-point Visual Analog Scale (VAS) or equivalent metric.
+                                    </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

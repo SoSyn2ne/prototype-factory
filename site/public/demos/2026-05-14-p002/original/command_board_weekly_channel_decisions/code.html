@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Dashboard - Margin Truth</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#d4e4fa",
+                        "tertiary": "#e3c284",
+                        "surface-bright": "#2c3a4c",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#a7b5d5",
+                        "background": "#051424",
+                        "on-primary-fixed": "#021b3b",
+                        "secondary": "#b8c7e7",
+                        "surface-container": "#122131",
+                        "outline": "#8e9098",
+                        "on-surface": "#d4e4fa",
+                        "on-tertiary-fixed": "#261900",
+                        "on-secondary": "#22314a",
+                        "surface-container-highest": "#273647",
+                        "inverse-primary": "#4a5f82",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-lowest": "#010f1f",
+                        "primary": "#b2c7ef",
+                        "surface-variant": "#273647",
+                        "tertiary-fixed": "#ffdea3",
+                        "on-tertiary-container": "#c9aa6e",
+                        "surface-dim": "#051424",
+                        "on-primary": "#1b3151",
+                        "on-surface-variant": "#c4c6cf",
+                        "on-tertiary-fixed-variant": "#5a4311",
+                        "on-primary-container": "#9aafd5",
+                        "primary-container": "#2d4263",
+                        "error": "#ffb4ab",
+                        "secondary-fixed": "#d6e3ff",
+                        "on-background": "#d4e4fa",
+                        "tertiary-container": "#543e0c",
+                        "inverse-on-surface": "#233143",
+                        "outline-variant": "#44474e",
+                        "on-tertiary": "#402d00",
+                        "on-secondary-fixed": "#0b1b34",
+                        "secondary-fixed-dim": "#b8c7e7",
+                        "surface": "#051424",
+                        "tertiary-fixed-dim": "#e3c284",
+                        "on-error": "#690005",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#324769",
+                        "primary-fixed-dim": "#b2c7ef",
+                        "surface-container-high": "#1c2b3c",
+                        "surface-container-low": "#0d1c2d",
+                        "secondary-container": "#384762",
+                        "surface-tint": "#b2c7ef",
+                        "on-secondary-fixed-variant": "#384762"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-edge": "24px",
+                        "gutter": "16px",
+                        "card-gap": "12px",
+                        "unit": "4px",
+                        "rail-width": "64px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-display": ["JetBrains Mono"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "data-display": ["14px", {"lineHeight": "1", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                        "label-caps": ["11px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+    </style>
+</head>
+<body class="flex bg-background text-on-background min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full z-50 flex flex-col w-rail-width bg-surface-container-lowest border-r-2 border-outline-variant">
+<div class="h-16 flex items-center justify-center border-b-2 border-outline-variant bg-surface-container-low">
+<img alt="Operator Profile" class="w-8 h-8 rounded-full border border-primary" data-alt="A close-up, high-contrast portrait of a confident chef or restaurant operator in a dimly lit, industrial kitchen setting. The lighting is dramatic, highlighting the texture of their uniform against a dark background, reflecting a professional, back-office command aesthetic with deep blacks and steel blue tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCL9La4VMqvUL08R02RfUMGCyyAZhOhJQONc1dFxaW0QTLn1ZSi2iqOrAS5C5oDRRvDw7FIKesMIwecv6JjSSyerZYuSkCywPTtPhbzv__uLUTp--1eRbHdQzCcHEVpADNKLdCksKxbs0SJJ1DYGLPGFlm2FzixgxfF1tA3zYtlQYO4CbeR_oL31KAzD0u9ao0puchwb2IMrd_MRlT4TRwkt8Q8EokmBWklX5Kq6B_ZZRO5h-H49DMapbdyMGjcAPXtRL2mz4Hr-fzx"/>
+</div>
+<div class="flex-1 flex flex-col">
+<!-- Active: DASHBOARD -->
+<a class="bg-primary-container text-on-primary-container border-r-4 border-primary flex flex-col items-center justify-center py-4 active:scale-95 cursor-pointer transition-all duration-75" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-caps text-label-caps text-[8px]">DASHBOARD</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined mb-1">local_shipping</span>
+<span class="font-label-caps text-label-caps text-[8px]">LOGISTICS</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined mb-1">payments</span>
+<span class="font-label-caps text-label-caps text-[8px]">MARGINS</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined mb-1">restaurant</span>
+<span class="font-label-caps text-label-caps text-[8px]">KITCHEN</span>
+</a>
+<a class="text-on-surface-variant flex flex-col items-center justify-center py-4 hover:bg-surface-container-highest transition-all duration-75 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-label-caps text-label-caps text-[8px]">REPORTS</span>
+</a>
+</div>
+<div class="h-16 flex items-center justify-center border-t-2 border-outline-variant bg-surface-container-low">
+<span class="material-symbols-outlined text-primary animate-pulse">sync</span>
+</div>
+</nav>
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-rail-width h-16 z-40 flex justify-between items-center px-gutter bg-surface-container border-b-2 border-outline-variant">
+<div class="flex items-center h-full">
+<span class="font-label-caps text-label-caps font-black tracking-tighter text-on-surface border-l-4 border-primary pl-4 mr-8">MARGIN_TRUTH_v1.0</span>
+<nav class="hidden md:flex h-full space-x-6">
+<!-- SQUAD_VIEW Active by default intent for Dashboard -->
+<a class="text-primary border-b-2 border-primary font-bold px-4 h-full flex items-center transition-colors duration-100 ease-in hover:bg-surface-container-highest hover:text-on-surface font-label-caps text-label-caps" href="#">SQUAD_VIEW</a>
+<a class="text-on-surface-variant px-4 h-full flex items-center transition-colors duration-100 ease-in hover:bg-surface-container-highest hover:text-on-surface font-label-caps text-label-caps" href="#">INCIDENTS</a>
+<a class="text-on-surface-variant px-4 h-full flex items-center transition-colors duration-100 ease-in hover:bg-surface-container-highest hover:text-on-surface font-label-caps text-label-caps" href="#">AUDIT</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">terminal</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">sync</span></button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-rail-width mt-16 p-margin-edge w-full flex-1 overflow-y-auto">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-card-gap pb-unit border-b-2 border-outline-variant">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface uppercase tracking-tight">Command Board</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">WEEKLY_CHANNEL_DECISION_MATRIX // WK_42</p>
+</div>
+<div class="flex items-center space-x-2 bg-surface-container-high px-3 py-1 rounded border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-data-display text-data-display text-primary text-xs">LIVE_SYNC</span>
+</div>
+</div>
+<!-- High-Level Metrics Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-card-gap mb-card-gap">
+<!-- Metric 1 -->
+<div class="bg-surface-container-highest border-2 border-outline-variant p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">AGGREGATED MARGIN %</span>
+<div class="flex items-baseline space-x-2">
+<span class="font-data-display text-3xl font-bold text-on-surface">24.8%</span>
+<span class="font-data-display text-xs text-error flex items-center"><span class="material-symbols-outlined text-sm">arrow_downward</span> 1.2%</span>
+</div>
+</div>
+<!-- Metric 2 -->
+<div class="bg-surface-container-highest border-2 border-outline-variant p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">TOTAL PROMO BURN</span>
+<div class="flex items-baseline space-x-2">
+<span class="font-data-display text-3xl font-bold text-on-surface">$4,250</span>
+<span class="font-data-display text-xs text-primary flex items-center"><span class="material-symbols-outlined text-sm">arrow_upward</span> 8%</span>
+</div>
+</div>
+<!-- Metric 3 -->
+<div class="bg-primary-container border-2 border-primary p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-primary-container mb-2">DIRECT ORDER CONV.</span>
+<div class="flex items-baseline space-x-2">
+<span class="font-data-display text-3xl font-bold text-on-primary-container">18.5%</span>
+<span class="font-data-display text-xs text-secondary flex items-center"><span class="material-symbols-outlined text-sm">arrow_upward</span> 2.1%</span>
+</div>
+</div>
+</div>
+<!-- Channel Action Rails -->
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-unit uppercase border-l-4 border-tertiary pl-2">Channel Tactical Controls</h2>
+<div class="space-y-card-gap">
+<!-- Channel 1: UberEats -->
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col md:flex-row md:items-center">
+<div class="p-4 bg-surface-container-low border-b-2 md:border-b-0 md:border-r-2 border-outline-variant w-full md:w-48 flex items-center space-x-3">
+<div class="w-10 h-10 bg-black rounded border border-outline flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-white">U</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">UBEREATS</span>
+</div>
+<div class="flex-1 p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">MARGIN</span>
+<span class="font-data-display text-data-display text-on-surface bg-error-container text-on-error-container px-2 py-0.5 inline-block">12%</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">VOLUME</span>
+<span class="font-data-display text-data-display text-on-surface">1.2k</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">PROMO_COST</span>
+<span class="font-data-display text-data-display text-on-surface">$1.5k</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">STATUS</span>
+<span class="font-data-display text-data-display text-primary">ACTIVE</span>
+</div>
+</div>
+<div class="p-2 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex space-x-2 bg-surface-container-high">
+<button class="flex-1 md:w-24 bg-surface border border-outline-variant hover:bg-surface-variant text-on-surface font-label-caps text-[10px] py-2 transition-colors">PAUSE</button>
+<button class="flex-1 md:w-24 bg-primary text-on-primary font-label-caps text-[10px] py-2 font-bold hover:bg-primary-fixed transition-colors">STAY</button>
+</div>
+</div>
+<!-- Channel 2: DoorDash -->
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col md:flex-row md:items-center opacity-80">
+<div class="p-4 bg-surface-container-low border-b-2 md:border-b-0 md:border-r-2 border-outline-variant w-full md:w-48 flex items-center space-x-3">
+<div class="w-10 h-10 bg-red-600 rounded border border-outline flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-white">D</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">DOORDASH</span>
+</div>
+<div class="flex-1 p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">MARGIN</span>
+<span class="font-data-display text-data-display text-on-surface bg-surface-container-highest px-2 py-0.5 inline-block">18%</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">VOLUME</span>
+<span class="font-data-display text-data-display text-on-surface">850</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">PROMO_COST</span>
+<span class="font-data-display text-data-display text-on-surface">$800</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">STATUS</span>
+<span class="font-data-display text-data-display text-error">PAUSED_WK41</span>
+</div>
+</div>
+<div class="p-2 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex space-x-2 bg-surface-container-high">
+<button class="flex-1 md:w-24 bg-error-container text-on-error-container border border-error hover:bg-error font-label-caps text-[10px] py-2 transition-colors">EXTEND PAUSE</button>
+<button class="flex-1 md:w-24 bg-surface border border-outline-variant text-on-surface font-label-caps text-[10px] py-2 hover:bg-surface-variant transition-colors">RESUME</button>
+</div>
+</div>
+<!-- Channel 3: Grubhub -->
+<div class="bg-surface-container border-2 border-outline-variant flex flex-col md:flex-row md:items-center">
+<div class="p-4 bg-surface-container-low border-b-2 md:border-b-0 md:border-r-2 border-outline-variant w-full md:w-48 flex items-center space-x-3">
+<div class="w-10 h-10 bg-orange-500 rounded border border-outline flex items-center justify-center">
+<span class="font-headline-md text-headline-md text-white">G</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface">GRUBHUB</span>
+</div>
+<div class="flex-1 p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">MARGIN</span>
+<span class="font-data-display text-data-display text-on-surface bg-primary-container text-on-primary-container px-2 py-0.5 inline-block">22%</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">VOLUME</span>
+<span class="font-data-display text-data-display text-on-surface">420</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">PROMO_COST</span>
+<span class="font-data-display text-data-display text-on-surface">$200</span>
+</div>
+<div>
+<span class="block font-label-caps text-[9px] text-on-surface-variant mb-1">STATUS</span>
+<span class="font-data-display text-data-display text-primary">ACTIVE</span>
+</div>
+</div>
+<div class="p-2 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex space-x-2 bg-surface-container-high">
+<button class="flex-1 md:w-24 bg-surface border border-outline-variant hover:bg-surface-variant text-on-surface font-label-caps text-[10px] py-2 transition-colors">PAUSE</button>
+<button class="flex-1 md:w-24 bg-primary text-on-primary font-label-caps text-[10px] py-2 font-bold hover:bg-primary-fixed transition-colors">STAY</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
