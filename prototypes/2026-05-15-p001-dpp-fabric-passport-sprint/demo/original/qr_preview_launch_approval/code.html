@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QR Passport Preview &amp; Approval Memo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#d4e4fa",
+                        "surface-container-lowest": "#010f1f",
+                        "surface-container-high": "#1c2b3c",
+                        "primary": "#ffc174",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#394457",
+                        "tertiary": "#c1cce4",
+                        "error": "#ffb4ab",
+                        "secondary-container": "#3f465c",
+                        "inverse-on-surface": "#233143",
+                        "on-secondary": "#283044",
+                        "primary-fixed-dim": "#ffb95f",
+                        "primary-container": "#f59e0b",
+                        "background": "#051424",
+                        "on-primary-container": "#613b00",
+                        "secondary-fixed": "#dae2fd",
+                        "on-tertiary-fixed": "#111c2d",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "on-background": "#d4e4fa",
+                        "on-tertiary": "#263143",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-tint": "#ffb95f",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "surface-bright": "#2c3a4c",
+                        "surface-container-highest": "#273647",
+                        "inverse-primary": "#855300",
+                        "surface-dim": "#051424",
+                        "tertiary-container": "#a6b1c8",
+                        "surface-variant": "#273647",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#2a1700",
+                        "on-primary": "#472a00",
+                        "outline": "#a08e7a",
+                        "on-secondary-container": "#adb4ce",
+                        "secondary": "#bec6e0",
+                        "surface": "#051424",
+                        "outline-variant": "#534434",
+                        "inverse-surface": "#d4e4fa",
+                        "on-error": "#690005",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-container": "#122131",
+                        "tertiary-fixed": "#d8e3fb",
+                        "surface-container-low": "#0d1c2d",
+                        "on-surface-variant": "#d8c3ad",
+                        "on-primary-fixed-variant": "#653e00",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-fixed": "#ffddb8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-padding": "8px",
+                        "margin": "16px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Geist"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-sm": ["Geist"],
+                        "display-sm": ["Geist"],
+                        "body-md": ["Geist"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "data-mono": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-sm": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0F172A; } /* Deep Navy base */
+        .surface-slate { background-color: #1E293B; border: 1px solid #334155; }
+        .amber-border { border: 1px solid #f59e0b; }
+        .micro-light { width: 6px; height: 6px; border-radius: 1px; display: inline-block; }
+        .micro-light.steady { background-color: #f59e0b; }
+        .micro-light.pulse { background-color: #f59e0b; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+        /* Custom scrollbar for inner containers */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #0F172A; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex flex-col font-body-sm">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-high border-b border-outline-variant flex justify-between items-center w-full px-margin h-[48px] shrink-0">
+<div class="flex items-center gap-margin">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">DPP Fabric Passport Sprint</span>
+<div class="hidden md:flex gap-gutter h-full items-center">
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:bg-surface-bright transition-colors px-2 py-1 rounded cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:bg-surface-bright transition-colors px-2 py-1 rounded cursor-pointer active:opacity-80" href="#">Grid</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:bg-surface-bright transition-colors px-2 py-1 rounded cursor-pointer active:opacity-80" href="#">Mapper</a>
+<a class="text-on-surface-variant font-label-caps text-label-caps uppercase hover:bg-surface-bright transition-colors px-2 py-1 rounded cursor-pointer active:opacity-80" href="#">Supplier Chase</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps uppercase cursor-pointer active:opacity-80" href="#">Approval</a>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">settings</span>
+<div class="w-6 h-6 rounded bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of an industrial operator in a high-tech facility. The lighting is moody and technical, emphasizing the serious, focused expression. Deep navy shadows contrast with crisp, cold white highlights, fitting a technical console environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHBEGDE3Q7ai7eRsyt5q1CFuEbht834l0dRea5Z1bPQ11d9CF4MPDWu1IaIYhZaQy0NjOw0AQ8WJ2Jx6tE3lzR33IQPt8SeXFgCNBjlzFeunnL7PGz7DWASO7u5oUIJcpNuQit-2KPBNLVNouPDT19MAdD3-bc8lV0vgHrYYgp1jjohbOfs1qMlVrTssY2SVhd_f_ynhp7bHoaCzJDcB7PSoZvNrTPLnDUk3TpV_OFbKg2PkW_PLVtTP5DxFSkr0DCoGA84TIBuOw"/>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex flex-col h-full py-gutter bg-surface-container-lowest border-r border-outline-variant w-64 shrink-0 transition-all duration-150 ease-in-out">
+<div class="px-margin mb-margin">
+<h2 class="text-primary font-bold font-headline-sm text-headline-sm">Control Panel</h2>
+<p class="text-on-surface-variant font-data-mono text-data-mono">Zone 04-Alpha</p>
+</div>
+<nav class="flex-1 px-container-padding flex flex-col gap-unit">
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">verified_user</span>
+                    Evidence Vault
+                </a>
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitoring</span>
+                    Risk Analysis
+                </a>
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+                    Batch History
+                </a>
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">terminal</span>
+                    Logs
+                </a>
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded bg-secondary-container text-on-secondary-container border-l-2 border-primary font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+                    Queue
+                </a>
+</nav>
+<div class="px-margin mt-auto mb-gutter">
+<button class="w-full bg-primary text-on-primary-container font-label-caps text-label-caps uppercase py-2 rounded border border-primary hover:bg-primary-container transition-colors">
+                    Deploy Patch
+                </button>
+</div>
+<div class="px-container-padding border-t border-outline-variant pt-gutter">
+<a class="flex items-center gap-gutter px-container-padding py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label-caps text-label-caps uppercase transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-margin grid grid-cols-1 lg:grid-cols-12 gap-margin">
+<!-- Header Row -->
+<div class="col-span-1 lg:col-span-12 flex justify-between items-end border-b border-outline-variant pb-unit mb-unit">
+<div>
+<h1 class="font-display-sm text-display-sm text-on-surface">Passport Approval Memo</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-unit">SKU: 899-AX-772 | BATCH: 2024-Q3</p>
+</div>
+<div class="flex gap-container-padding">
+<button class="px-margin py-2 border border-outline-variant text-on-surface font-label-caps text-label-caps uppercase rounded hover:bg-surface-bright transition-colors">
+                        Reject
+                    </button>
+<button class="px-margin py-2 bg-primary text-on-primary-container font-label-caps text-label-caps uppercase rounded hover:bg-primary-container transition-colors flex items-center gap-unit">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                        Approve &amp; Issue Passport
+                    </button>
+</div>
+</div>
+<!-- Left Column: Mobile Preview (3 cols) -->
+<div class="col-span-1 lg:col-span-3 flex flex-col gap-margin">
+<div class="surface-slate rounded p-container-padding flex flex-col items-center">
+<div class="w-full flex justify-between items-center mb-unit border-b border-outline-variant pb-unit">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Consumer Preview</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">smartphone</span>
+</div>
+<!-- Faux Mobile Device -->
+<div class="w-[280px] h-[580px] bg-background border border-outline-variant rounded-xl overflow-hidden flex flex-col shadow-lg mt-unit">
+<!-- Mobile Header -->
+<div class="bg-surface-container-highest p-container-padding text-center border-b border-outline-variant">
+<span class="font-headline-sm text-headline-sm text-primary">Eco-Trek Jacket</span>
+<div class="font-data-mono text-[10px] text-on-surface-variant">ID: 899-AX-772</div>
+</div>
+<!-- Mobile Image -->
+<div class="h-48 bg-surface-bright relative">
+<img alt="Product Image" class="w-full h-full object-cover opacity-80" data-alt="A sleek, high-tech outdoor jacket displayed against a stark, minimalist dark background. The lighting highlights the technical fabric textures. It feels premium and functional, perfectly matching an industrial data console aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQ8-hhfhw7rfTLZ5vB1JWomy633AfG7IJjVfQjdLSSldIoKqMr-8NKho70oRy1aY8Zh6D4CCst465eTsjOXyy919-fsMnn1VenonAiqLO7JBs5qAaiTnXds9F_gkj2Cm6_rr7Ef74662eGCAud4ecwphzyNJIkE0fpxWjSxTdkiLJUFqSifbrD2tB-ba1n6UTy4u8bHrk0S4VLubmQV9oqKnsgHzkYZxkfTnTgP6CEDu6kHhFeUMmIGcDgSCB2rPCk5sZ3rUoFYLw"/>
+<div class="absolute bottom-2 left-2 bg-background border border-primary px-2 py-1 rounded font-label-caps text-[8px] text-primary">VERIFIED</div>
+</div>
+<!-- Mobile Content -->
+<div class="flex-1 p-container-padding overflow-y-auto flex flex-col gap-unit">
+<div class="border border-outline-variant rounded p-unit bg-surface-container-low">
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Materials</div>
+<div class="font-data-mono text-[11px] text-on-surface flex justify-between"><span>Recycled Polyester</span><span>75%</span></div>
+<div class="font-data-mono text-[11px] text-on-surface flex justify-between"><span>Organic Cotton</span><span>25%</span></div>
+</div>
+<div class="border border-outline-variant rounded p-unit bg-surface-container-low">
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Carbon Footprint</div>
+<div class="flex items-end gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface">12.4</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant mb-1">kg CO2e</span>
+</div>
+</div>
+<div class="border border-outline-variant rounded p-unit bg-surface-container-low">
+<div class="font-label-caps text-[10px] text-on-surface-variant uppercase mb-1">Supply Chain</div>
+<div class="font-data-mono text-[10px] text-on-surface flex items-center gap-1 mb-1"><span class="material-symbols-outlined text-[12px] text-primary">location_on</span> Mill: Vertex Textiles, VN</div>
+<div class="font-data-mono text-[10px] text-on-surface flex items-center gap-1"><span class="material-symbols-outlined text-[12px] text-primary">location_on</span> Assembly: Apex Mfg, BD</div>
+</div>
+</div>
+<!-- Mobile Footer (QR) -->
+<div class="p-container-padding border-t border-outline-variant bg-surface-container-highest flex justify-center">
+<div class="w-16 h-16 bg-on-surface rounded flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-background text-[32px]">qr_code_2</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Column: Launch Memo & Audit Trail (6 cols) -->
+<div class="col-span-1 lg:col-span-6 flex flex-col gap-margin">
+<!-- Launch Memo -->
+<div class="surface-slate rounded flex flex-col h-1/2">
+<div class="p-container-padding border-b border-outline-variant bg-surface-container-highest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Internal Launch Memo</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">edit_document</span>
+</div>
+<div class="p-margin flex-1 overflow-y-auto">
+<div class="mb-gutter">
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-unit">Approval Summary</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded p-container-padding font-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary h-24 resize-none">All compliance checkpoints cleared. Material traceability verified via third-party audit (Cert: #992-B). Ready for public ledger instantiation.</textarea>
+</div>
+<div class="grid grid-cols-2 gap-margin">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-unit">Target Publish Date</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-container-padding py-1 font-data-mono text-data-mono text-on-surface focus:border-primary" type="text" value="2024-11-15T00:00Z"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase mb-unit">Lead Auditor</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded px-container-padding py-1 font-data-mono text-data-mono text-on-surface focus:border-primary" readonly="" type="text" value="Op_77_Bravo"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Audit Trail Grid -->
+<div class="surface-slate rounded flex flex-col h-1/2">
+<div class="p-container-padding border-b border-outline-variant bg-surface-container-highest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Data Verification Trail</span>
+<div class="flex items-center gap-unit">
+<span class="micro-light pulse"></span>
+<span class="font-data-mono text-[10px] text-primary">LIVE SYNC</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<table class="w-full text-left font-data-mono text-data-mono">
+<thead class="bg-surface-container-highest sticky top-0 border-b border-outline-variant">
+<tr>
+<th class="py-1 px-container-padding font-normal text-on-surface-variant w-8">STS</th>
+<th class="py-1 px-container-padding font-normal text-on-surface-variant">NODE</th>
+<th class="py-1 px-container-padding font-normal text-on-surface-variant">SIG</th>
+<th class="py-1 px-container-padding font-normal text-on-surface-variant text-right">TIMESTAMP</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant bg-surface-container-lowest">
+<tr class="hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Material.Poly</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x8a9...4f2</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">10:42:01</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Material.Cotton</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x2b1...9c1</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">10:41:55</td>
+</tr>
+<tr class="hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Carbon.LCA</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x5f0...33d</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">09:15:22</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Facility.Tier1</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x11a...7bc</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">08:05:10</td>
+</tr>
+<tr class="hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Facility.Tier2</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x99c...11a</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">YEST</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-bright">
+<td class="py-1 px-container-padding"><span class="material-symbols-outlined text-[14px] text-primary">check_circle</span></td>
+<td class="py-1 px-container-padding text-on-surface">Compliance.EU</td>
+<td class="py-1 px-container-padding text-on-surface-variant">0x4d4...88f</td>
+<td class="py-1 px-container-padding text-right text-on-surface-variant">YEST</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Compliance Checklist (3 cols) -->
+<div class="col-span-1 lg:col-span-3 flex flex-col gap-margin">
+<div class="surface-slate rounded flex flex-col h-full border-amber-border">
+<div class="p-container-padding border-b border-primary bg-surface-container-highest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider">Pre-Flight Checks</span>
+<span class="material-symbols-outlined text-primary text-[16px]">fact_check</span>
+</div>
+<div class="p-container-padding flex-1 overflow-y-auto flex flex-col gap-gutter">
+<!-- Risk Meter -->
+<div class="mb-unit">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-caps text-[10px] text-on-surface-variant uppercase">Overall Risk Profile</span>
+<span class="font-data-mono text-[10px] text-primary">LOW</span>
+</div>
+<div class="flex h-2 gap-1 w-full">
+<div class="flex-1 bg-primary rounded-sm opacity-100"></div>
+<div class="flex-1 bg-primary rounded-sm opacity-100"></div>
+<div class="flex-1 bg-primary rounded-sm opacity-100"></div>
+<div class="flex-1 bg-surface-bright rounded-sm"></div>
+<div class="flex-1 bg-surface-bright rounded-sm"></div>
+</div>
+</div>
+<!-- Checklist Items -->
+<div class="flex items-start gap-unit border-b border-outline-variant pb-unit">
+<span class="material-symbols-outlined text-[16px] text-primary mt-[2px]">check_box</span>
+<div>
+<div class="font-body-md text-on-surface">ESPR Data Completeness</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">100% Mandatory fields mapped.</div>
+</div>
+</div>
+<div class="flex items-start gap-unit border-b border-outline-variant pb-unit">
+<span class="material-symbols-outlined text-[16px] text-primary mt-[2px]">check_box</span>
+<div>
+<div class="font-body-md text-on-surface">Geo-Fencing Validated</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">Approved for EU distribution.</div>
+</div>
+</div>
+<div class="flex items-start gap-unit border-b border-outline-variant pb-unit">
+<span class="material-symbols-outlined text-[16px] text-primary mt-[2px]">check_box</span>
+<div>
+<div class="font-body-md text-on-surface">Image Assets Locked</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">Hash matches primary CDN.</div>
+</div>
+</div>
+<div class="flex items-start gap-unit">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mt-[2px]">check_box_outline_blank</span>
+<div>
+<div class="font-body-md text-on-surface">Final Legal Sign-off</div>
+<div class="font-data-mono text-[10px] text-primary">Pending internal memo generation.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

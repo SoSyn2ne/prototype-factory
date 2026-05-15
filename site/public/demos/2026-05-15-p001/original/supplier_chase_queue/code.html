@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Supplier Chase Queue &amp; Evidence Intake</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#d4e4fa",
+                    "surface-container-lowest": "#010f1f",
+                    "surface-container-high": "#1c2b3c",
+                    "primary": "#ffc174",
+                    "error-container": "#93000a",
+                    "on-tertiary-container": "#394457",
+                    "tertiary": "#c1cce4",
+                    "error": "#ffb4ab",
+                    "secondary-container": "#3f465c",
+                    "inverse-on-surface": "#233143",
+                    "on-secondary": "#283044",
+                    "primary-fixed-dim": "#ffb95f",
+                    "primary-container": "#f59e0b",
+                    "background": "#051424",
+                    "on-primary-container": "#613b00",
+                    "secondary-fixed": "#dae2fd",
+                    "on-tertiary-fixed": "#111c2d",
+                    "tertiary-fixed-dim": "#bcc7de",
+                    "on-background": "#d4e4fa",
+                    "on-tertiary": "#263143",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "surface-tint": "#ffb95f",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "surface-bright": "#2c3a4c",
+                    "surface-container-highest": "#273647",
+                    "inverse-primary": "#855300",
+                    "surface-dim": "#051424",
+                    "tertiary-container": "#a6b1c8",
+                    "surface-variant": "#273647",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#2a1700",
+                    "on-primary": "#472a00",
+                    "outline": "#a08e7a",
+                    "on-secondary-container": "#adb4ce",
+                    "secondary": "#bec6e0",
+                    "surface": "#051424",
+                    "outline-variant": "#534434",
+                    "inverse-surface": "#d4e4fa",
+                    "on-error": "#690005",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-container": "#122131",
+                    "tertiary-fixed": "#d8e3fb",
+                    "surface-container-low": "#0d1c2d",
+                    "on-surface-variant": "#d8c3ad",
+                    "on-primary-fixed-variant": "#653e00",
+                    "on-secondary-fixed": "#131b2e",
+                    "primary-fixed": "#ffddb8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "container-padding": "8px",
+                    "margin": "16px",
+                    "gutter": "12px"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Geist"
+                    ],
+                    "data-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-sm": [
+                            "Geist"
+                    ],
+                    "display-sm": [
+                            "Geist"
+                    ],
+                    "body-md": [
+                            "Geist"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "data-mono": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "10px",
+                            {
+                                    "lineHeight": "12px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex flex-col font-body-sm selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface-container-high dark:bg-surface-container-high docked full-width top-0 h-[48px] border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-margin h-12 flex-shrink-0 z-50">
+<div class="flex items-center gap-6">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">DPP Fabric Passport Sprint</span>
+<!-- Navigation Links (Desktop) -->
+<nav class="hidden md:flex gap-4 h-full items-end">
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-bright transition-colors cursor-pointer active:opacity-80 px-2 pb-1" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-bright transition-colors cursor-pointer active:opacity-80 px-2 pb-1" href="#">Grid</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-bright transition-colors cursor-pointer active:opacity-80 px-2 pb-1" href="#">Mapper</a>
+<a class="font-body-md text-body-md text-primary border-b-2 border-primary pb-1 hover:bg-surface-bright transition-colors cursor-pointer active:opacity-80 px-2" href="#">Supplier Chase</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-bright transition-colors cursor-pointer active:opacity-80 px-2 pb-1" href="#">Approval</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-surface-container-low border border-outline-variant rounded text-on-surface font-body-sm text-body-sm pl-8 pr-2 py-1 w-48 focus:outline-none focus:border-primary placeholder-on-surface-variant" placeholder="Search queues..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<img alt="Operator Profile" class="w-6 h-6 rounded-full border border-outline-variant" data-alt="A close-up portrait of a professional operator in a high-tech control room environment. Soft, cool-toned lighting highlights their focused expression. The background is slightly blurred, showing faint outlines of glowing monitor screens in a dark navy setting. The overall mood is serious, capable, and embedded in an industrial data management context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABrVtaTfT746N6ke-v9FUtzHf1qiUPOO-tp9bYga6NKyPN1G4RAvWRTks8wcWwsLPpDwSeoepNwwTDHG2mAFxs8y5qQRSrHOCG9tkL0jwzTSn52o0Tzw0VwjBsRg700-u9GJsqVfgakhQfJJ7csCQ51YUk3HdCaNKqhUNqFS6HYupX-NIj18gKyrdqaaG_qYf0b-PLgU7o85-bjsu8VCtqJrZOzsLMohZzX6_byN6bDKW43mT1Jy-AwPktNFJwvma64KLRtee8VVQ"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col bg-surface-container-lowest dark:bg-surface-container-lowest docked left-0 top-[48px] w-64 h-[calc(100vh-48px)] border-r border-outline-variant flat no shadows flex flex-col h-full py-gutter flex-shrink-0 z-40">
+<div class="px-container-padding mb-6">
+<div class="flex items-center gap-3 px-2 py-2 border border-outline-variant rounded bg-surface-container">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center border border-outline text-primary font-data-mono text-data-mono">
+                        04
+                    </div>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface font-bold">Control Panel</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Zone 04-Alpha</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-container-padding overflow-y-auto no-scrollbar">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+                    Evidence Vault
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">monitoring</span>
+                    Risk Analysis
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                    Batch History
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+                    Logs
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container border-l-2 border-primary transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">list_alt</span>
+                    Queue
+                </a>
+</nav>
+<div class="px-container-padding mt-auto pt-4 border-t border-outline-variant flex flex-col gap-2">
+<button class="w-full bg-primary text-on-primary-container font-label-caps text-label-caps py-2 rounded hover:bg-primary-fixed transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">build</span>
+                    Deploy Patch
+                </button>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- Main War Room Canvas -->
+<main class="flex-1 bg-background overflow-hidden flex flex-col p-unit">
+<!-- Context Header -->
+<div class="flex justify-between items-end mb-unit px-unit">
+<div>
+<h1 class="font-display-sm text-display-sm text-on-surface">Supplier Chase Queue</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-1">Total Active Chases: <span class="text-primary">142</span> | Overdue: <span class="text-primary-container font-bold">28</span></p>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline text-on-surface font-label-caps text-label-caps rounded hover:bg-surface-container flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">filter_list</span> Filter
+                    </button>
+<button class="px-3 py-1 bg-primary text-on-primary-container font-label-caps text-label-caps rounded hover:bg-primary-fixed flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span> New Chase
+                    </button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-unit overflow-hidden">
+<!-- Queue Panel (Left 7 cols) -->
+<section class="lg:col-span-7 bg-surface border border-outline-variant flex flex-col overflow-hidden rounded-sm">
+<header class="bg-surface-container border-b border-outline-variant p-2 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface">Active Chases</h2>
+<div class="flex gap-1">
+<span class="w-2 h-2 rounded-sm bg-primary-container animate-pulse"></span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">Live Sync</span>
+</div>
+</header>
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-2 px-2 py-1 bg-surface-container-low border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant sticky top-0">
+<div class="col-span-1">Sts</div>
+<div class="col-span-3">Supplier</div>
+<div class="col-span-2">SKU Ref</div>
+<div class="col-span-4">Requested Data</div>
+<div class="col-span-2 text-right">Age</div>
+</div>
+<!-- Queue List (Scrollable) -->
+<div class="flex-1 overflow-y-auto no-scrollbar bg-surface-dim">
+<!-- Row: Overdue -->
+<div class="grid grid-cols-12 gap-2 px-2 py-1 border-b border-outline-variant items-center bg-surface hover:bg-surface-container transition-colors cursor-pointer border-l-2 border-l-primary-container">
+<div class="col-span-1 flex justify-center">
+<span class="w-1.5 h-1.5 bg-primary-container"></span>
+</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">Apex Textiles Ltd.</div>
+<div class="col-span-2 font-data-mono text-data-mono text-tertiary truncate hover:underline">TX-9901-A</div>
+<div class="col-span-4 font-body-sm text-body-sm text-on-surface-variant truncate">GOTS Certificate 2024</div>
+<div class="col-span-2 text-right font-data-mono text-data-mono text-primary-container">14d</div>
+</div>
+<!-- Row: Normal -->
+<div class="grid grid-cols-12 gap-2 px-2 py-1 border-b border-outline-variant items-center bg-surface hover:bg-surface-container transition-colors cursor-pointer">
+<div class="col-span-1 flex justify-center">
+<span class="w-1.5 h-1.5 bg-tertiary border border-outline"></span>
+</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">BlueOcean Dyes</div>
+<div class="col-span-2 font-data-mono text-data-mono text-tertiary truncate hover:underline">DY-442-B</div>
+<div class="col-span-4 font-body-sm text-body-sm text-on-surface-variant truncate">ZDHC Wastewater Rpt</div>
+<div class="col-span-2 text-right font-data-mono text-data-mono text-on-surface-variant">2d</div>
+</div>
+<!-- Row: Viewed -->
+<div class="grid grid-cols-12 gap-2 px-2 py-1 border-b border-outline-variant items-center bg-surface-container-lowest hover:bg-surface-container transition-colors cursor-pointer">
+<div class="col-span-1 flex justify-center text-secondary">
+<span class="material-symbols-outlined text-[12px]">visibility</span>
+</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">LoomWorks Inc.</div>
+<div class="col-span-2 font-data-mono text-data-mono text-tertiary truncate hover:underline">LW-881-C</div>
+<div class="col-span-4 font-body-sm text-body-sm text-on-surface-variant truncate">OEKO-TEX Standard 100</div>
+<div class="col-span-2 text-right font-data-mono text-data-mono text-on-surface-variant">5d</div>
+</div>
+<!-- Row: Overdue -->
+<div class="grid grid-cols-12 gap-2 px-2 py-1 border-b border-outline-variant items-center bg-surface hover:bg-surface-container transition-colors cursor-pointer border-l-2 border-l-primary-container">
+<div class="col-span-1 flex justify-center">
+<span class="w-1.5 h-1.5 bg-primary-container"></span>
+</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">EcoYarn Mills</div>
+<div class="col-span-2 font-data-mono text-data-mono text-tertiary truncate hover:underline">EY-102-X</div>
+<div class="col-span-4 font-body-sm text-body-sm text-on-surface-variant truncate">Recycled Claim Standard</div>
+<div class="col-span-2 text-right font-data-mono text-data-mono text-primary-container">21d</div>
+</div>
+</div>
+</section>
+<!-- Intake & Preview Area (Right 5 cols) -->
+<section class="lg:col-span-5 flex flex-col gap-unit overflow-hidden">
+<!-- Quick Intake Panel -->
+<div class="bg-surface border border-outline-variant rounded-sm flex flex-col h-2/5">
+<header class="bg-surface-container border-b border-outline-variant p-2">
+<h2 class="font-label-caps text-label-caps text-on-surface">Incoming Evidence Intake</h2>
+</header>
+<div class="p-container-padding flex-1 flex flex-col gap-2">
+<div class="border border-dashed border-outline-variant bg-surface-container-lowest flex-1 flex flex-col items-center justify-center text-center p-4 rounded-sm hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant text-[32px] mb-2">upload_file</span>
+<div class="font-body-sm text-body-sm text-on-surface">Drag &amp; drop unmapped PDFs here</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant mt-1">or click to browse</div>
+</div>
+<!-- Recent Upload Item -->
+<div class="border border-outline-variant bg-surface-container p-2 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[16px]">description</span>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface">Apex_GOTS_2024_rev.pdf</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">2.4 MB • Uploaded 10m ago</div>
+</div>
+</div>
+<button class="px-2 py-1 bg-surface-bright border border-outline text-on-surface font-label-caps text-label-caps hover:bg-surface-variant transition-colors">Process</button>
+</div>
+</div>
+</div>
+<!-- Selected Detail Preview -->
+<div class="bg-surface border border-outline-variant rounded-sm flex-1 flex flex-col overflow-hidden relative">
+<!-- Warning overlay indicator for overdue -->
+<div class="absolute top-0 right-0 w-0 h-0 border-t-[24px] border-r-[24px] border-t-primary-container border-r-transparent"></div>
+<header class="bg-surface-container border-b border-outline-variant p-2 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface">Chase Details: <span class="text-tertiary">TX-9901-A</span></h2>
+</header>
+<div class="p-container-padding flex-1 overflow-y-auto no-scrollbar flex flex-col gap-4">
+<div class="grid grid-cols-2 gap-4 border-b border-outline-variant pb-4">
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Supplier</label>
+<div class="font-body-md text-body-md text-on-surface font-bold">Apex Textiles Ltd.</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">ID: SUP-00294</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Status</label>
+<div class="inline-flex items-center gap-1 px-2 py-0.5 border border-primary-container bg-primary-container/10 text-primary-container font-data-mono text-data-mono rounded-sm">
+                                        Overdue
+                                    </div>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Requirement Trace</label>
+<div class="bg-surface-container-lowest border border-outline-variant p-2 rounded-sm font-data-mono text-data-mono text-on-surface">
+                                    &gt; Order #88219 -&gt; Product T-Shirt_V2<br/>
+                                    &gt; Component: Main Body Fabric<br/>
+                                    &gt; Claim: "100% Organic Cotton"<br/>
+<span class="text-primary-container">&gt; Missing: Valid GOTS Transaction Certificate</span>
+</div>
+</div>
+<div>
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Communication Log</label>
+<div class="flex flex-col gap-2">
+<div class="border-l-2 border-outline-variant pl-2">
+<div class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">14 Days Ago - System</div>
+<div class="font-body-sm text-body-sm text-on-surface">Automated chase email sent to compliance@apextextiles.com.</div>
+</div>
+<div class="border-l-2 border-outline-variant pl-2">
+<div class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">7 Days Ago - Operator 04</div>
+<div class="font-body-sm text-body-sm text-on-surface">Manual follow-up via portal. Supplier viewed request.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="bg-surface-container border-t border-outline-variant p-2 flex gap-2 justify-end">
+<button class="px-3 py-1 border border-outline text-on-surface font-label-caps text-label-caps rounded hover:bg-surface-bright">Reject &amp; Re-chase</button>
+<button class="px-3 py-1 bg-primary text-on-primary-container font-label-caps text-label-caps rounded hover:bg-primary-fixed">Manually Fulfill</button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

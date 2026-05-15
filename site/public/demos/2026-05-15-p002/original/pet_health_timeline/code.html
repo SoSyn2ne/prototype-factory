@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pet Health &amp; Claim Timeline</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#00666e",
+                        "surface-container-low": "#f6f3f2",
+                        "outline": "#6e797a",
+                        "on-tertiary-container": "#fffbff",
+                        "inverse-surface": "#303030",
+                        "tertiary-fixed": "#e7e2d8",
+                        "primary-fixed": "#9af0fa",
+                        "secondary-fixed": "#eae1d4",
+                        "surface-dim": "#dcd9d9",
+                        "surface": "#fbf9f8",
+                        "tertiary-fixed-dim": "#cac6bd",
+                        "on-surface": "#1b1c1c",
+                        "tertiary": "#5e5c54",
+                        "surface-variant": "#e4e2e1",
+                        "background": "#fbf9f8",
+                        "on-tertiary-fixed": "#1d1c16",
+                        "on-tertiary-fixed-variant": "#494740",
+                        "surface-bright": "#fbf9f8",
+                        "secondary-container": "#eae1d4",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#635e54",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#7ed4dd",
+                        "on-surface-variant": "#3e494a",
+                        "surface-tint": "#006971",
+                        "on-secondary-fixed": "#1e1b13",
+                        "outline-variant": "#bdc9ca",
+                        "on-secondary-container": "#696459",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#77746c",
+                        "error-container": "#ffdad6",
+                        "on-background": "#1b1c1c",
+                        "on-primary-container": "#f5feff",
+                        "primary-container": "#1d8089",
+                        "surface-container-high": "#eae8e7",
+                        "on-primary-fixed": "#002023",
+                        "inverse-primary": "#7ed4dd",
+                        "on-primary-fixed-variant": "#004f55",
+                        "surface-container-highest": "#e4e2e1",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#cdc6b9",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#f0eded",
+                        "on-secondary-fixed-variant": "#4b463d",
+                        "inverse-on-surface": "#f3f0f0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "section-padding-desktop": "80px",
+                        "gutter": "24px",
+                        "section-padding-mobile": "40px",
+                        "stack-sm": "12px",
+                        "container-max-width": "1140px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["28px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-sm": ["22px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #fbf9f8; color: #1b1c1c; }
+        .ambient-shadow { box-shadow: 0 10px 30px -5px rgba(0, 102, 110, 0.08); }
+        .ambient-shadow-hover:hover { box-shadow: 0 15px 35px -5px rgba(0, 102, 110, 0.12); transform: translateY(-2px); transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-bright shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center px-gutter py-4 w-full max-w-container-max-width mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                PawProtect
+            </div>
+<nav class="hidden md:flex gap-stack-md font-label-md text-label-md">
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Find Coverage</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Claims</a>
+<a aria-current="page" class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Pet Wellness</a>
+<a class="text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed transition-colors duration-300" href="#">Help Center</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md hover:bg-primary/90 transition-colors hidden md:block">
+                Get Quote
+            </button>
+<!-- Mobile Menu Icon (Hidden on Desktop for this exercise scope) -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</div>
+</header>
+<!-- Main Content Layout -->
+<main class="flex-1 w-full max-w-container-max-width mx-auto px-gutter py-stack-lg flex flex-col md:flex-row gap-stack-lg">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col gap-stack-sm p-6 w-72 sticky top-24 rounded-lg h-fit bg-secondary-container dark:bg-on-secondary-container shadow-[0_10px_30px_-5px_rgba(0,102,110,0.08)] z-10 shrink-0">
+<div class="flex flex-col items-center text-center mb-6">
+<div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-surface shadow-sm">
+<img alt="Pet Profile Picture" class="w-full h-full object-cover" data-alt="A close-up portrait of a happy Golden Retriever dog sitting outdoors in soft, warm daylight. The dog has a bright, golden coat and a friendly expression. The background is softly blurred out, emphasizing the pet in a high-key, modern aesthetic suitable for a polished digital profile avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq0pc4hepKwcct_rT45K3nhLugm5s88IUn8CmcUHRKIdVvyPErQ-Do9RUZ3BapqeOjUanW5faRDU6RZ3Howz8SSoUa1nUNgHCX9AOlodHp7Kgz14DSGyOABFXIYgn6V4ioJE6RBfijW20SWeKBoLoDlw0AsPDIc_qTsMMZgQozQMsg4f0ssCwIbGXaHUevZCB6FmvkcsCpmQvZuokh2cGueMsUbjev5As-uvY85wFAsNQL4-JzW-ocgMCgNmy5D-hRuAFIuevkPKg"/>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary">Luna's Profile</h2>
+<p class="font-label-md text-label-md text-on-secondary-container mt-1">Golden Retriever • 3 yrs</p>
+<button class="mt-4 border-2 border-primary text-primary px-4 py-1.5 rounded-full font-label-sm text-label-sm hover:bg-primary/5 transition-colors">
+                    Update Stats
+                </button>
+</div>
+<nav class="flex flex-col gap-2 font-label-md text-label-md">
+<a class="flex items-center gap-3 text-on-secondary-container dark:text-secondary-fixed-dim px-4 py-2 rounded-full hover:bg-surface-variant/50 dark:hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="pets">pets</span>
+                    Overview
+                </a>
+<a aria-current="page" class="flex items-center gap-3 bg-surface dark:bg-surface-container-highest text-primary dark:text-primary-fixed-dim rounded-full px-4 py-2 hover:bg-surface-variant/50 dark:hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                    Medical History
+                </a>
+<a class="flex items-center gap-3 text-on-secondary-container dark:text-secondary-fixed-dim px-4 py-2 rounded-full hover:bg-surface-variant/50 dark:hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+                    Policy Details
+                </a>
+<a class="flex items-center gap-3 text-on-secondary-container dark:text-secondary-fixed-dim px-4 py-2 rounded-full hover:bg-surface-variant/50 dark:hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
+                    Saved Quotes
+                </a>
+</nav>
+</aside>
+<!-- Timeline Content Area -->
+<div class="flex-1 flex flex-col max-w-3xl">
+<div class="mb-stack-lg flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Luna's Health Timeline</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+                        Review Luna's past claims and understand how diagnosed conditions might affect future coverage if you decide to switch plans.
+                    </p>
+</div>
+<button class="bg-primary text-on-primary px-6 py-3 rounded-full font-label-md text-label-md shadow-sm hover:bg-surface-tint transition-colors shrink-0 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="compare_arrows">compare_arrows</span>
+                    Compare Scenarios
+                </button>
+</div>
+<!-- The Timeline -->
+<div class="relative pl-8 md:pl-12 py-4 space-y-stack-md before:absolute before:inset-0 before:ml-[15px] md:before:ml-[23px] before:-translate-x-px md:before:translate-x-0 before:h-full before:w-[3px] before:bg-gradient-to-b before:from-primary/20 before:via-primary before:to-primary/20 before:rounded-full">
+<!-- Event 1: Start (Beige Marker) -->
+<div class="relative">
+<div class="absolute -left-[39px] md:-left-[47px] top-6 w-5 h-5 rounded-full bg-secondary-container border-4 border-surface shadow-sm z-10 flex items-center justify-center"></div>
+<div class="bg-surface-container-low rounded-lg p-6 ambient-shadow ambient-shadow-hover border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="cake">cake</span>
+<span class="font-label-md text-label-md">June 2021 • Age 0</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Adopted &amp; Initial Checkup</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Clean bill of health from Dr. Smith. Started initial vaccinations and preventative care routine.</p>
+</div>
+</div>
+<!-- Event 2: Standard Claim (Teal Marker) -->
+<div class="relative">
+<div class="absolute -left-[39px] md:-left-[47px] top-6 w-5 h-5 rounded-full bg-primary border-4 border-surface shadow-sm z-10"></div>
+<div class="bg-surface-container-low rounded-lg p-6 ambient-shadow ambient-shadow-hover border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-primary" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-md text-label-md">March 2022 • Age 1</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Ear Infection Treatment</h3>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm mb-3">
+                            Claim Covered: $145
+                        </div>
+<p class="font-body-md text-body-md text-on-surface-variant">Routine treatment for a minor ear infection. Fully resolved within two weeks.</p>
+</div>
+</div>
+<!-- Event 3: Pre-existing Condition Trap (Warning) -->
+<div class="relative">
+<div class="absolute -left-[43px] md:-left-[51px] top-6 w-7 h-7 rounded-full bg-surface border-[3px] border-error-container shadow-sm z-10 flex items-center justify-center">
+<div class="w-3 h-3 bg-error rounded-full"></div>
+</div>
+<div class="bg-error-container/10 rounded-lg p-6 ambient-shadow ambient-shadow-hover border border-error-container relative overflow-hidden">
+<!-- Decorative subtle gradient for the trap card -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-error-container/30 blur-3xl rounded-full -translate-y-1/2 translate-x-1/3"></div>
+<div class="flex items-center gap-3 mb-2 text-error">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span class="font-label-md text-label-md">November 2023 • Age 2</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-1">Diagnosed with Seasonal Allergies</h3>
+<div class="mt-4 bg-surface rounded-[1rem] p-4 border border-error-container/50 flex gap-4 items-start">
+<div class="bg-error/10 p-2 rounded-full text-error shrink-0 mt-1">
+<span class="material-symbols-outlined" data-icon="info">info</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface mb-1">Pre-existing Condition Trap</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">
+                                    Because this condition was diagnosed while on your current plan, it is covered. However, if you switch to a new provider, seasonal allergies will be classified as a <strong>pre-existing condition</strong> and will likely be excluded from future coverage.
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Event 4: Current Status (Teal Marker) -->
+<div class="relative">
+<div class="absolute -left-[41px] md:-left-[49px] top-6 w-6 h-6 rounded-full bg-primary border-[4px] border-primary-fixed shadow-sm z-10 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-on-primary rounded-full"></div>
+</div>
+<div class="bg-surface rounded-lg p-6 border-2 border-primary/20 shadow-sm relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-50"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-2 text-primary">
+<span class="material-symbols-outlined" data-icon="today">today</span>
+<span class="font-label-md text-label-md">Today • Age 3</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Current Status</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Luna is healthy and up-to-date on all preventative care. Maintaining current coverage ensures allergy treatments remain covered.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- End Timeline -->
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim full-width bottom-0 border-t border-outline-variant/30 dark:border-outline/20 mt-auto">
+<div class="w-full py-stack-lg px-gutter max-w-container-max-width mx-auto flex flex-col items-center text-center gap-stack-md">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed-dim">
+                PawProtect
+            </div>
+<nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-label-sm text-label-sm font-body-md text-body-md">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 rounded" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 rounded" href="#">Terms of Service</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 rounded" href="#">Insurance Disclosure</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20 rounded" href="#">Contact Support</a>
+</nav>
+<p class="font-label-sm text-label-sm font-body-md text-body-md text-on-surface-variant dark:text-on-surface-variant max-w-2xl">
+                © 2024 PawProtect Insurance Services. We are here to guide you, but this is not legal or financial advice.
+            </p>
+</div>
+</footer>
+</body></html>

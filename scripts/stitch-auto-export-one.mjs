@@ -12,7 +12,8 @@ if (!id || !prompt) {
 }
 const outRoot = '/home/sy/.openclaw/workspace/prototype-factory/.tmp/stitch-auto';
 const outDir = path.join(outRoot, id);
-const dlDir = '/home/sy/Downloads/stitch_drop/2026-04-30';
+const today = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
+const dlDir = process.env.STITCH_DL_DIR || path.join('/home/sy/Downloads/stitch_drop', today);
 await fs.mkdir(outDir, { recursive: true });
 await fs.mkdir(dlDir, { recursive: true });
 
@@ -30,19 +31,52 @@ await page.goto('https://stitch.withgoogle.com/', { waitUntil: 'domcontentloaded
 await new Promise((r) => setTimeout(r, 5000));
 await shot('00-home');
 
-// Focus prompt field, clear, type prompt. Coordinates are for the debug Chrome viewport (~1854x927).
-await page.mouse.click(900, 445);
-await page.keyboard.down('Control');
-await page.keyboard.press('A');
-await page.keyboard.up('Control');
-await page.keyboard.type(prompt, { delay: 0 });
+let appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
+if (!appFrame) throw new Error('Could not find Stitch app iframe on home');
+
+async function clickByText(text, opts = {}) {
+  const clicked = await appFrame.evaluate((needle, options) => {
+    const exact = options.exact ?? true;
+    const candidates = [...document.querySelectorAll('button,[role=button],[role=menuitem]')];
+    const el = candidates.find((node) => {
+      const body = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
+      return exact ? body === needle : body.includes(needle);
+    });
+    el?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    return Boolean(el);
+  }, text, opts);
+  if (!clicked) throw new Error(`Could not click Stitch control: ${text}`);
+}
+
+// Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.
+await clickByText('웹');
+await new Promise((r) => setTimeout(r, 500));
+await clickByText('3 Flash');
+await new Promise((r) => setTimeout(r, 500));
+await clickByText('Thinking with 3.1 Pro', { exact: false });
+await new Promise((r) => setTimeout(r, 500));
+
+await appFrame.evaluate((value) => {
+  const editor = document.querySelector('[contenteditable="true"]');
+  if (!editor) throw new Error('Could not find Stitch prompt editor');
+  editor.focus();
+  document.execCommand('selectAll', false, null);
+  document.execCommand('insertText', false, value);
+  editor.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: value }));
+}, prompt);
 await new Promise((r) => setTimeout(r, 1000));
 await shot('01-filled');
-await page.mouse.click(1440, 679);
+await clickByText('디자인 생성', { exact: false }).catch(async () => {
+  await appFrame.evaluate(() => {
+    const button = [...document.querySelectorAll('button')].find((node) => node.getAttribute('aria-label') === '디자인 생성');
+    button?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    if (!button) throw new Error('Could not find generate button');
+  });
+});
 
 // Wait for project navigation/rendering.
-await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 90000 }).catch(() => {});
-await new Promise((r) => setTimeout(r, 90000));
+await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 180000 }).catch(() => {});
+await new Promise((r) => setTimeout(r, Number(process.env.STITCH_RENDER_WAIT_MS || 150000)));
 await shot('02-project');
 
 // Select all generated screens, open export, choose zip, export.
@@ -50,18 +84,20 @@ await page.keyboard.down('Control');
 await page.keyboard.press('A');
 await page.keyboard.up('Control');
 await new Promise((r) => setTimeout(r, 1000));
-let appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
+appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
 if (!appFrame) throw new Error('Could not find Stitch app iframe after generation');
 await appFrame.evaluate(() => {
   const buttons = [...document.querySelectorAll('button')];
   const topExport = buttons.find((button) => button.innerText.trim() === '내보내기' && button.getBoundingClientRect().y < 80);
   topExport?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+  if (!topExport) throw new Error('Could not find top export button');
 });
 await new Promise((r) => setTimeout(r, 1500));
 await shot('03-export-menu');
 await appFrame.evaluate(() => {
   const zipLabel = [...document.querySelectorAll('label')].find((label) => label.innerText.trim() === '.zip');
   zipLabel?.click();
+  if (!zipLabel) throw new Error('Could not find .zip export option');
 });
 await new Promise((r) => setTimeout(r, 1000));
 await appFrame.evaluate(() => {
@@ -69,8 +105,9 @@ await appFrame.evaluate(() => {
     .filter((button) => button.getBoundingClientRect().y > 780)
     .find((button) => /내보내기|다운로드|빌드/.test(button.innerText));
   bottomExport?.click();
+  if (!bottomExport) throw new Error('Could not find bottom export button');
 });
-await new Promise((r) => setTimeout(r, 45000));
+await new Promise((r) => setTimeout(r, Number(process.env.STITCH_DOWNLOAD_WAIT_MS || 60000)));
 await shot('04-after-export');
 
 const files = await fs.readdir(dlDir).catch(() => []);

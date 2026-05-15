@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Substitution &amp; Risk Lane</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#00626e",
+                      "on-tertiary-fixed": "#091d2e",
+                      "primary": "#c3f5ff",
+                      "error": "#ffb4ab",
+                      "surface-tint": "#00daf3",
+                      "primary-fixed": "#9cf0ff",
+                      "on-secondary": "#4c2700",
+                      "surface-container-lowest": "#0e0e0e",
+                      "surface-container-highest": "#353535",
+                      "surface-container": "#20201f",
+                      "secondary-fixed-dim": "#ffb778",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "on-primary-fixed-variant": "#004f58",
+                      "on-surface": "#e5e2e1",
+                      "inverse-on-surface": "#313030",
+                      "on-secondary-fixed-variant": "#6c3a00",
+                      "surface-dim": "#131313",
+                      "on-surface-variant": "#bac9cc",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "tertiary-container": "#bfd2e9",
+                      "tertiary": "#e0eeff",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1b1b1b",
+                      "primary-fixed-dim": "#00daf3",
+                      "surface": "#131313",
+                      "secondary-fixed": "#ffdcc1",
+                      "secondary-container": "#fd9000",
+                      "secondary": "#ffb778",
+                      "on-tertiary-container": "#485a6e",
+                      "on-secondary-container": "#613400",
+                      "inverse-surface": "#e5e2e1",
+                      "primary-container": "#00e5ff",
+                      "inverse-primary": "#006875",
+                      "on-primary": "#00363d",
+                      "on-tertiary": "#203243",
+                      "on-primary-fixed": "#001f24",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-error": "#690005",
+                      "surface-container-high": "#2a2a2a",
+                      "outline": "#849396",
+                      "on-secondary-fixed": "#2e1500",
+                      "surface-variant": "#353535",
+                      "error-container": "#93000a",
+                      "background": "#131313",
+                      "on-background": "#e5e2e1",
+                      "outline-variant": "#3b494c",
+                      "surface-bright": "#393939"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "lg": "24px",
+                      "sm": "8px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "margin-desktop": "32px",
+                      "xl": "48px",
+                      "base": "4px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Geist"
+                      ],
+                      "data-mono": [
+                              "Geist"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "headline-lg": [
+                              "Geist"
+                      ],
+                      "label-caps": [
+                              "Geist"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #131313; color: #e5e2e1; }
+        .geist-font { font-family: 'Geist', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar (WEB) -->
+<nav class="hidden md:flex flex-col h-full bg-surface-container dark:bg-surface-container h-screen w-64 fixed left-0 top-0 border-r-2 border-outline-variant flat no shadows z-40">
+<div class="px-lg py-md border-b-2 border-outline-variant flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md font-bold text-surface-tint dark:text-surface-tint tracking-tighter">Compliance: 85%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-xs">Restaurant Group Admin</span>
+</div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-surface-tint" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcx_Mfh4p-yfuZxdJEX9QJRbTxDE28NLSSrP6Xbxxyvjm3xmvXznmYyQ1m0f2rwMwbxY1Lxx0hrxwkpBfN3OALdBRN3EAzW5dVQnn5GvMgROyPcRB3isTQyoco2Ni_yx8HMd6RSyho7FDO_UE48nAcrQRHSSUAW0-ZS_lXSJuePTQ5BkYHG_tFzCta8TlcMfXDyCu1RgLx1FCLTlpsoLwvkR_6-iCtj5l6Rh68pvSlt7OYjSWwyARWie721kWU-qgoLFN2SSYOfdYZ"/>
+</div>
+<div class="flex-1 overflow-y-auto py-md space-y-sm">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Operations Desk
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">table_chart</span>
+                Allergen Matrix
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+                Evidence Vault
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container border-l-4 border-surface-tint font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">warning</span>
+                Risk Lanes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">assignment</span>
+                Task Queue
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                Briefing Cards
+            </a>
+</div>
+<div class="p-md border-t-2 border-outline-variant">
+<button class="w-full py-2 bg-surface-tint text-background font-label-caps text-label-caps rounded-DEFAULT hover:brightness-110 transition-all font-bold">Inspection Export</button>
+<div class="mt-md space-y-sm">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                    Support
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 bg-background">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-lg py-sm bg-surface dark:bg-surface docked full-width top-0 sticky z-50 border-b-2 border-outline-variant flat no shadows">
+<div class="flex items-center gap-lg">
+<h1 class="font-headline-md text-headline-md font-black text-on-surface dark:text-on-surface uppercase tracking-widest">Allergen Proof Desk</h1>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="bg-surface-container border border-outline-variant text-on-surface font-body-sm text-body-sm rounded-DEFAULT pl-10 pr-4 py-1.5 focus:border-surface-tint focus:ring-1 focus:ring-surface-tint outline-none w-64 transition-all" placeholder="Search menu, ingredients..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 Active: brightness-110">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 Active: brightness-110">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="px-4 py-1.5 bg-surface-container border border-surface-tint text-surface-tint font-label-caps text-label-caps rounded-DEFAULT hover:bg-surface-tint hover:text-background transition-all font-bold tracking-widest hidden sm:block">
+                    Quick Upload
+                </button>
+<img alt="Administrator" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqb2gosjOLTmwgd9acPiduXK-7PCgWp_UatbNizXRcBeMEUXda9eRisiOk1o68s06PXfHOIYEUB347IAJDaAvJE3Yy3PA0MsiRClifKPIVqpZCRKFZcO-XffcOOndEgpNSJsEX5-jwpvBkeDyMT7UqxR-gHmeq9wgTgSIHsQuQXQDLMsglQKj-EddQHQWayCSphSYPmETEonCRTOVLh-9U5B0m-gVG5S0CmObZ8pbwPcmzy0NifSoWTeR7mUdK9plWYb2oYg9N3_is"/>
+</div>
+</header>
+<!-- Kanban Board Area -->
+<main class="flex-1 overflow-x-auto overflow-y-hidden p-lg">
+<div class="flex items-center justify-between mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface geist-font">Substitution &amp; Risk Lane</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Shift: Evening Service (17:00 - 23:00)</p>
+</div>
+<div class="flex gap-sm">
+<span class="px-3 py-1 bg-surface-container border border-outline-variant rounded-full font-data-mono text-data-mono text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span> 12 Safe
+                    </span>
+<span class="px-3 py-1 bg-surface-container border border-secondary-container rounded-full font-data-mono text-data-mono text-secondary-container flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary-container animate-pulse"></span> 4 High-Risk
+                    </span>
+</div>
+</div>
+<!-- Board Grid -->
+<div class="flex h-[calc(100%-80px)] gap-lg pb-md items-start">
+<!-- Lane 1: Verified Safe Subs -->
+<div class="flex-shrink-0 w-80 lg:w-96 flex flex-col h-full bg-surface-container-low rounded-lg border-2 border-outline-variant overflow-hidden">
+<div class="p-sm bg-surface border-b-2 border-outline-variant flex justify-between items-center sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-tint text-[20px]">check_circle</span>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Safe Substitutions</h3>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant">5 items</span>
+</div>
+<div class="p-sm space-y-sm overflow-y-auto flex-1">
+<!-- Card -->
+<div class="bg-surface border-l-2 border-l-surface-tint border-y border-r border-y-outline-variant border-r-outline-variant rounded-DEFAULT p-md hover:border-surface-tint transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-surface-tint">SUB-092</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px] font-label-caps text-on-surface-variant uppercase">Prep Stn A</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Gluten-Free Bun</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Replacement for Classic Brioche. Verified dedicated toaster line active.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-2 py-1 bg-[#2C3E50] text-on-surface font-label-caps text-[10px] rounded-sm">Dairy-Free</span>
+<span class="px-2 py-1 bg-[#2C3E50] text-on-surface font-label-caps text-[10px] rounded-sm">GF Certified</span>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface border-l-2 border-l-surface-tint border-y border-r border-y-outline-variant border-r-outline-variant rounded-DEFAULT p-md hover:border-surface-tint transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-surface-tint">SUB-088</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px] font-label-caps text-on-surface-variant uppercase">Salad Stn</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Sunflower Seed Pesto</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Nut-free pesto alternative. Dedicated squeeze bottle confirmed.</p>
+<div class="flex flex-wrap gap-xs">
+<span class="px-2 py-1 bg-[#2C3E50] text-on-surface font-label-caps text-[10px] rounded-sm">Nut-Free</span>
+<span class="px-2 py-1 bg-[#2C3E50] text-on-surface font-label-caps text-[10px] rounded-sm">Vegan</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Lane 2: Active Monitoring -->
+<div class="flex-shrink-0 w-80 lg:w-96 flex flex-col h-full bg-surface-container-low rounded-lg border-2 border-outline-variant overflow-hidden">
+<div class="p-sm bg-surface border-b-2 border-outline-variant flex justify-between items-center sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">visibility</span>
+<h3 class="font-label-caps text-label-caps text-on-surface uppercase">Active Monitoring</h3>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant">3 items</span>
+</div>
+<div class="p-sm space-y-sm overflow-y-auto flex-1">
+<!-- Card -->
+<div class="bg-surface border-l-2 border-l-secondary border-y border-r border-y-outline-variant border-r-outline-variant rounded-DEFAULT p-md hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-secondary">MON-112</span>
+<span class="px-2 py-0.5 bg-surface-container-high rounded text-[10px] font-label-caps text-on-surface-variant uppercase">Grill</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Beyond Patty Prep</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Monitor spatial separation on grill zone B. Requires distinct spatula.</p>
+<div class="flex items-center justify-between mt-2 pt-2 border-t border-outline-variant">
+<div class="flex -space-x-2">
+<img alt="Chef A" class="w-6 h-6 border border-surface rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBwvFmg2usd2qk33KrXofHevw-cJSfhFbALJUk2OB04GmaRJCES2ao4X9L16_reurQB1WUhUZLGRcHUx2AUDDkNsIAhQL9TV4uxYacpdC4R3I3wzHYnGfl6ekNHb9MLRsX8MXyqDVw-hpB6TkXy3YR2qjr1mIl1eDrI-CVeGUDGUb9zdNssXM2hNjwY95doooNF7M_hHa3ubhiY_0nKKxr29WtwdrhjvgnMtHUeKuKKtaHAKtEVUuYPKDntNplPgRxOlv62K1ZAbeT4"/>
+</div>
+<span class="font-label-caps text-[10px] text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 15m ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Lane 3: High-Risk Cross-Contact (Urgent) -->
+<div class="flex-shrink-0 w-80 lg:w-96 flex flex-col h-full bg-surface-container-low rounded-lg border-2 border-secondary-container overflow-hidden">
+<div class="p-sm bg-secondary-container border-b-2 border-secondary-container flex justify-between items-center sticky top-0 z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-background text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h3 class="font-label-caps text-label-caps text-background uppercase font-bold">High-Risk Points</h3>
+</div>
+<span class="font-data-mono text-data-mono text-background font-bold">2 alerts</span>
+</div>
+<div class="p-sm space-y-sm overflow-y-auto flex-1 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iI2ZmOTAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48L3N2Zz4=')]">
+<!-- Urgent Card -->
+<div class="bg-surface border-2 border-secondary-container rounded-DEFAULT p-md shadow-[0_0_15px_rgba(253,144,0,0.15)] cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-secondary-container font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">priority_high</span> ALR-045</span>
+<span class="px-2 py-0.5 bg-secondary-container text-background rounded text-[10px] font-label-caps uppercase font-bold">Fryer Stn</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Shared Oil Contamination Risk</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Calamari order active. Oil vat 2 is compromised for shellfish allergies. Awaiting vat 3 clean confirmation.</p>
+<div class="flex flex-wrap gap-xs mb-4">
+<span class="px-2 py-1 bg-surface-container-highest text-secondary-container border border-secondary-container font-label-caps text-[10px] rounded-sm">Shellfish</span>
+<span class="px-2 py-1 bg-surface-container-highest text-secondary-container border border-secondary-container font-label-caps text-[10px] rounded-sm">Soy</span>
+</div>
+<button class="w-full py-2 bg-secondary-container text-background font-label-caps text-label-caps rounded-DEFAULT hover:brightness-110 transition-all font-bold">Verify Mitigation</button>
+</div>
+<!-- Urgent Card -->
+<div class="bg-surface border-2 border-secondary-container rounded-DEFAULT p-md shadow-[0_0_15px_rgba(253,144,0,0.15)] cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-secondary-container font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">priority_high</span> ALR-048</span>
+<span class="px-2 py-0.5 bg-secondary-container text-background rounded text-[10px] font-label-caps uppercase font-bold">Pastry</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-1">Airborne Flour Vector</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Heavy dough dusting in progress. Zone perimeter breach risk for GF prep tables nearby.</p>
+<button class="w-full py-2 border border-secondary-container text-secondary-container font-label-caps text-label-caps rounded-DEFAULT hover:bg-surface-container-high transition-all font-bold">Log Zone Check</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
