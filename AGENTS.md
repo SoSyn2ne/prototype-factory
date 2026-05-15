@@ -78,6 +78,7 @@ When the task is “idea + design”:
 - PF ideation is now search-first by default. Before producing `/pf idea` or daily cron candidates, perform a live external sweep when available and write the raw signals into `daily/YYYY-MM-DD/ideas.md`.
 - Minimum evidence for each daily batch: 5–10 raw market/problem signals from at least 3 buckets (news/business/tech, communities/forums, niche workflows, trend/policy shifts, weird consumer behavior). At least 2 signals should come from community-style chatter when available. Each final candidate should cite the signal(s) that inspired it.
 - Community roam is part of PF ideation: skim posts/comments for repeated complaints, hacks, screenshots, embarrassment, jealousy, budget anxiety, “what should I do?” questions, and workaround behavior. Prefer lived pain over polished trend summaries.
+- Trend freshness is now a first-class input. Each daily `/pf idea` sweep should include at least one live trend/community keyword pass using the trend bank in `docs/TREND_KEYWORD_BANK.md`, then combine those keywords with a concrete anxiety/desire such as money loss, status, romance, parenting, health, scarcity, or location.
 - Do not overfit daily ideas to the operator's most visible interests.
 - Using the operator's taste as one signal is fine; mirroring it too closely is not.
 - Default expectation: daily batches should show broader range sourced from external signals and the assistant's own synthesis.
