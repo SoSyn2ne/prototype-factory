@@ -1,59 +1,416 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Policy Shock Switchboard - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-18-p003</p>
-        <h1>Home Policy Shock Switchboard</h1>
-        <p>A homeowner decision workbench for premium spikes and nonrenewal notices, comparing coverage, mitigation, broker calls, and regulator complaint paths.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Notice &amp; Deadline Intake Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#476083",
+                      "tertiary-container": "#391303",
+                      "inverse-on-surface": "#eff1f3",
+                      "on-tertiary-fixed": "#351002",
+                      "on-secondary-fixed-variant": "#3a485b",
+                      "secondary-fixed": "#d5e3fc",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#d8dadc",
+                      "secondary-fixed-dim": "#b9c7df",
+                      "surface-container": "#eceef0",
+                      "primary-container": "#001f3f",
+                      "on-tertiary-fixed-variant": "#6b3a25",
+                      "tertiary-fixed-dim": "#fdb69a",
+                      "surface-container-high": "#e6e8ea",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-container-highest": "#e0e3e5",
+                      "inverse-primary": "#afc8f0",
+                      "on-background": "#191c1e",
+                      "on-surface-variant": "#43474e",
+                      "primary-fixed-dim": "#afc8f0",
+                      "tertiary-fixed": "#ffdbce",
+                      "on-secondary-fixed": "#0d1c2e",
+                      "outline": "#74777f",
+                      "on-secondary-container": "#57657a",
+                      "primary-fixed": "#d4e3ff",
+                      "outline-variant": "#c4c6cf",
+                      "secondary": "#515f74",
+                      "tertiary": "#110200",
+                      "on-tertiary": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "primary": "#000613",
+                      "on-tertiary-container": "#b5785f",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "background": "#f7f9fb",
+                      "on-surface": "#191c1e",
+                      "secondary-container": "#d5e3fc",
+                      "surface-variant": "#e0e3e5",
+                      "on-primary-container": "#6f88ad",
+                      "on-primary-fixed": "#001c3a",
+                      "surface": "#f7f9fb",
+                      "surface-bright": "#f7f9fb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "16px",
+                      "container-max": "1280px",
+                      "margin": "32px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "data-md": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        /* Custom Scrollbar for tight tables */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: theme('borderRadius.full');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin h-16 z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flat no shadows">
+<div class="flex items-center gap-gutter">
+<span class="text-headline-sm font-headline-sm font-black tracking-tight text-primary dark:text-on-surface">Policy Shock Switchboard</span>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded border border-error flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+<span class="font-data-md text-data-md font-bold tracking-tight">Deadline: 14d 06h</span>
+</div>
+<button aria-label="warning" class="p-2 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">warning</span>
+</button>
+<button aria-label="upload_file" class="p-2 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">upload_file</span>
+</button>
+<button aria-label="account_circle" class="p-2 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded text-on-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full p-unit border-r border-outline-variant w-64 bg-surface-container-low dark:bg-surface-container-lowest shrink-0">
+<div class="p-4 border-b border-outline-variant mb-2">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary-container flex items-center justify-center overflow-hidden shrink-0">
+<img alt="Underwriter Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a financial underwriter wearing a dark suit and tie. The lighting is bright and even, set against a neutral gray background. The subject exudes confidence and precision, fitting for a corporate data analysis setting. The image is crisp and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCUFlBafuog2bx6bMrbQvNpymZ6G-7bOsdTC5E_FZKtdQLYHE-VIQ4dO9vmxdLL0Y4htBhFUmuYRWo5sjmOtpas8ks7Q7YT8O6LLx2On2CTKQrZzBr8BOkbsYqUvyDYiSq1W19km37ymW1E8PKGk4ClyYvp39x8yARsCDxTchV5ZEE2Q99J4NCoRsWbGi5RIz69ChCC-xJBAXJjvY_zVAmVgfwc_MHPF5FT-kMyj--9wGY1wijM5E85TSqS5ouZXBAaRUXKGext1A"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary dark:text-primary-fixed truncate">Scenario Switchboard</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant truncate">Precision Underwriting Mode</p>
+</div>
+</div>
+</div>
+<ul class="flex flex-col gap-1 flex-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary border-l-4 border-surface-tint font-bold bg-secondary-container text-on-secondary-container Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-label-caps text-label-caps">Current Policy</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-inverse-surface border-l-4 border-transparent Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-caps text-label-caps">Scenario A: Renewal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-inverse-surface border-l-4 border-transparent Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+<span class="font-label-caps text-label-caps">Scenario B: Market Pivot</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-inverse-surface border-l-4 border-transparent Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">security</span>
+<span class="font-label-caps text-label-caps">Risk Analysis</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:bg-surface-container-highest dark:hover:bg-inverse-surface border-l-4 border-transparent Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+<span class="font-label-caps text-label-caps">Historical Audit</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto p-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-label-caps text-label-caps mb-4 hover:bg-surface-tint transition-colors">Create New Scenario</button>
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high Transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter bg-surface">
+<div class="max-w-[1280px] mx-auto grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Notice Upload Zone -->
+<section class="xl:col-span-12 border border-outline-variant bg-surface-container-lowest rounded p-gutter mb-gutter">
+<h3 class="font-headline-md text-headline-md text-primary mb-4 border-b border-outline-variant pb-2">Notice Intake</h3>
+<div class="border-2 border-dashed border-outline-variant rounded bg-surface-container-low p-8 text-center flex flex-col items-center justify-center cursor-pointer hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[48px] text-outline mb-2">cloud_upload</span>
+<p class="font-headline-sm text-headline-sm text-on-surface-variant mb-1">Drag &amp; Drop Cancellation Notice</p>
+<p class="font-body-sm text-body-sm text-outline mb-4">Supported formats: PDF, TIFF, JPG. Max size 20MB.</p>
+<button class="border border-outline bg-surface text-on-surface font-label-caps text-label-caps py-2 px-4 rounded hover:bg-surface-container-low transition-colors">Browse Files</button>
+</div>
+</section>
+<!-- Data Entry Grid -->
+<section class="xl:col-span-7 border border-outline-variant bg-surface-container-lowest rounded flex flex-col">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Financial Parameters</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface px-2 py-1 border border-outline-variant rounded">Manual Entry Required</span>
+</div>
+<div class="p-gutter grid grid-cols-2 gap-x-gutter gap-y-4">
+<!-- Input Group -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Current Premium</label>
+<div class="relative">
+<span class="absolute left-3 top-2 font-data-md text-data-md text-outline">$</span>
+<input class="w-full border border-outline-variant rounded pl-8 pr-3 py-2 font-data-md text-data-md focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface" type="text" value="2,450.00"/>
+</div>
+</div>
+<!-- Input Group -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Proposed Premium</label>
+<div class="relative">
+<span class="absolute left-3 top-2 font-data-md text-data-md text-outline">$</span>
+<input class="w-full border border-outline-variant rounded pl-8 pr-3 py-2 font-data-md text-data-md focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface" placeholder="0.00" type="text"/>
+</div>
+</div>
+<!-- Input Group -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Dwelling Coverage (Cov A)</label>
+<div class="relative">
+<span class="absolute left-3 top-2 font-data-md text-data-md text-outline">$</span>
+<input class="w-full border border-outline-variant rounded pl-8 pr-3 py-2 font-data-md text-data-md focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface" type="text" value="450,000"/>
+</div>
+</div>
+<!-- Input Group -->
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Deductible</label>
+<select class="w-full border border-outline-variant rounded px-3 py-2 font-data-md text-data-md focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface appearance-none">
+<option>1% ($4,500)</option>
+<option>2% ($9,000)</option>
+<option>5% ($22,500)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Risk Proof Locker -->
+<section class="xl:col-span-5 border border-outline-variant bg-surface-container-lowest rounded flex flex-col">
+<div class="p-3 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Risk Proof Locker</h3>
+<span class="material-symbols-outlined text-[20px] text-on-surface-variant">lock</span>
+</div>
+<div class="p-0 flex-1 overflow-y-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-outline-variant">
+<th class="font-label-caps text-label-caps text-on-surface-variant py-2 px-3">Mitigation Type</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-2 px-3">Status</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant py-2 px-3 text-right">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">roofing</span>
+                                        Roof Update (Post-2015)
+                                    </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-label-caps text-label-caps text-primary bg-primary-fixed px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Verified
+                                        </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="text-primary hover:text-surface-tint font-label-caps text-label-caps underline">View PDF</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors bg-surface-container-lowest">
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">storm</span>
+                                        Impact Windows
+                                    </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-label-caps text-label-caps text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">
+                                            Missing
+                                        </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="border border-outline bg-surface text-on-surface font-label-caps text-label-caps py-1 px-2 rounded hover:bg-surface-container-low transition-colors text-[10px]">Upload</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline">water_drop</span>
+                                        Water Shutoff Valve
+                                    </td>
+<td class="py-3 px-3">
+<span class="inline-flex items-center gap-1 font-label-caps text-label-caps text-on-surface-variant bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">
+                                            Missing
+                                        </span>
+</td>
+<td class="py-3 px-3 text-right">
+<button class="border border-outline bg-surface text-on-surface font-label-caps text-label-caps py-1 px-2 rounded hover:bg-surface-container-low transition-colors text-[10px]">Upload</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Impact Memo -->
+<section class="xl:col-span-12 border border-outline-variant bg-[#f8f9fa] rounded p-gutter mt-gutter relative overflow-hidden shadow-[0_4px_4px_rgba(0,0,0,0.02)]">
+<div class="absolute top-0 left-0 w-1 h-full bg-surface-tint"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-surface-tint">assignment</span>
+<h4 class="font-headline-sm text-headline-sm text-primary">Initial Analysis Memo</h4>
+</div>
+<p class="font-data-md text-data-md text-on-surface-variant leading-relaxed">
+                         Preliminary review indicates a high probability of premium increase exceeding 40% due to regional carrier insolvency. Primary mitigation strategy should focus on documenting recent roof replacement to qualify for Tier 1 wind mitigation credits. Timeline is critical; failure to secure alternative coverage within 14 days will result in lender-placed policy at estimated 2.5x current premium.
+                     </p>
+</section>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="w-full py-margin px-margin flex flex-col md:flex-row justify-between items-center gap-gutter bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline flat no shadows z-50 shrink-0">
+<span class="font-body-sm text-body-sm text-on-surface-variant dark:text-on-surface-variant">© 2024 Policy Shock Switchboard. Licensed for residential financial analysis only.</span>
+<div class="flex gap-4">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Regulatory Disclosures</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Underwriting Standards</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</body></html>

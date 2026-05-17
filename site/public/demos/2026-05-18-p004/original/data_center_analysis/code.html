@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THE AI IMPACT - BLAME RECEIPT</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&amp;family=JetBrains+Mono:wght@500;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1c1b1b",
+                        "surface-tint": "#5f6200",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#2559bd",
+                        "on-primary-fixed": "#1c1d00",
+                        "on-tertiary-fixed-variant": "#930010",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c9c8aa",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed-variant": "#474a00",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#00419e",
+                        "inverse-primary": "#c8cf00",
+                        "secondary-container": "#6c98ff",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-fixed": "#dae2ff",
+                        "on-tertiary-fixed": "#410003",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container": "#f0eded",
+                        "on-secondary-container": "#002f76",
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "primary": "#5f6200",
+                        "outline": "#79795f",
+                        "tertiary": "#ba1a20",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#717400",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e4ec00",
+                        "on-surface-variant": "#484831",
+                        "on-secondary-fixed": "#001946",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#d32f2f",
+                        "secondary-fixed-dim": "#b1c5ff",
+                        "on-primary": "#ffffff",
+                        "background": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#313030",
+                        "primary-container": "#f7ff00",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface": "#1c1b1b",
+                        "tertiary-container": "#fff2f0",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c8cf00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "receipt-width": "600px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "receipt-header": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "body-md": ["Space Mono"],
+                        "blame-stamp": ["Space Grotesk"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "receipt-header": ["18px", {"lineHeight": "1.4", "fontWeight": "800"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "blame-stamp": ["48px", {"lineHeight": "1.0", "fontWeight": "800"}],
+                        "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .dot-matrix-bg {
+            background-image: radial-gradient(var(--tw-colors-outline-variant) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        .receipt-edge-top {
+            mask-image: radial-gradient(circle at 10px 0, transparent 10px, black 11px);
+            mask-size: 20px 100%;
+            mask-repeat: repeat-x;
+            mask-position: top;
+            padding-top: 15px;
+        }
+        .receipt-edge-bottom {
+            mask-image: radial-gradient(circle at 10px 100%, transparent 10px, black 11px);
+            mask-size: 20px 100%;
+            mask-repeat: repeat-x;
+            mask-position: bottom;
+            padding-bottom: 15px;
+        }
+        .blame-stamp-anim {
+            animation: stampIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            opacity: 0;
+            transform: scale(3) rotate(-15deg);
+        }
+        @keyframes stampIn {
+            to {
+                opacity: 0.8;
+                transform: scale(1) rotate(var(--random-rotation, -5deg));
+            }
+        }
+        .caution-tape {
+            background: repeating-linear-gradient(
+                -45deg,
+                var(--tw-colors-primary-container),
+                var(--tw-colors-primary-container) 10px,
+                var(--tw-colors-on-background) 10px,
+                var(--tw-colors-on-background) 20px
+            );
+        }
+    </style>
+</head>
+<body class="bg-background dot-matrix-bg text-on-background font-body-md min-h-screen flex flex-col items-center pt-24 pb-24">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-unit bg-background/90 backdrop-blur-sm border-b-2 border-on-background flat no shadows docked full-width top-0 hidden md:flex">
+<div class="font-receipt-header text-receipt-header uppercase tracking-widest text-on-background">BLAME RECEIPT</div>
+<nav class="flex gap-4">
+<a class="text-on-surface-variant font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors px-2 py-1" href="#">Start New</a>
+<a class="text-on-surface-variant font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors px-2 py-1" href="#">About Data</a>
+</nav>
+<button class="font-label-sm text-label-sm bg-background border-2 border-on-background text-on-background px-4 py-2 hover:translate-x-0.5 hover:translate-y-0.5 shadow-[2px_2px_0px_0px_rgba(28,27,27,1)] transition-transform uppercase">REPORT ERROR</button>
+</header>
+<!-- Main Content Container (Receipt Strip) -->
+<main class="w-full max-w-[600px] bg-surface-container-lowest border-x-2 border-on-background relative shadow-[8px_8px_0px_0px_rgba(37,89,189,1)]">
+<!-- Header Banner -->
+<div class="border-b-2 border-on-background p-6 bg-surface-variant relative overflow-hidden">
+<div class="caution-tape h-2 absolute top-0 left-0 w-full"></div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg uppercase mt-2 mb-1">THE AI IMPACT</h1>
+<p class="font-receipt-header text-receipt-header text-on-surface-variant uppercase">Data-Center Claim Meter</p>
+<div class="absolute right-4 top-8 border-2 border-error p-2 rotate-12 opacity-80 mix-blend-multiply">
+<span class="font-blame-stamp text-blame-stamp text-error block leading-none">CERTIFIED</span>
+<span class="font-label-sm text-label-sm text-error block text-center mt-1">RATE HIKE</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-6 space-y-8">
+<!-- Claim Meter Section -->
+<section class="border-2 border-on-background p-4 relative group">
+<div class="flex justify-between items-end mb-4 border-b-2 border-dashed border-outline-variant pb-2">
+<h2 class="font-receipt-header text-receipt-header">LOCAL RATE HIKE ATTRIBUTION</h2>
+<span class="font-body-md text-body-md text-on-surface-variant">EST. LIABILITY</span>
+</div>
+<!-- Ascii style meter -->
+<div class="py-4">
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span>0%</span>
+<span class="text-error font-bold">12.4% IMPACT</span>
+</div>
+<div class="w-full bg-surface-variant border border-on-background h-8 relative flex items-center overflow-hidden">
+<div class="bg-primary-container h-full w-[65%] border-r-2 border-on-background flex items-center px-2">
+<span class="font-label-sm text-label-sm text-on-background whitespace-nowrap">||||||||||||||||||||||||</span>
+</div>
+</div>
+<p class="font-body-md text-body-md mt-2 text-on-surface-variant text-sm">
+                        * Percentage of recent regional utility rate hikes directly attributable to data center energy consumption.
+                    </p>
+</div>
+</section>
+<!-- Map & Chart Section (Bento style but brutalist) -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Map Card -->
+<div class="border-2 border-on-background p-2 flex flex-col">
+<h3 class="font-label-sm text-label-sm border-b border-on-background pb-1 mb-2 uppercase">Proximity Factor</h3>
+<div class="w-full aspect-square bg-surface-variant border border-on-background relative overflow-hidden group">
+<img alt="Map showing local data centers" class="object-cover w-full h-full grayscale contrast-125 mix-blend-luminosity" data-alt="A high-contrast, black-and-white satellite map image showing urban grid layouts with bright red markers indicating data center locations. The aesthetic is raw and documentarian, fitting a brutalist digital bureaucracy theme. The red markers provide a stark contrast against the gritty, grayscale urban topology. It looks like a thermal-printed document with digital overlays." data-location="Northern Virginia" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDslEMkKJwprItTnKJGJa1dR2Do0nvO3ULkc57sZva9RzKicyM9pIyLpTMchxK7-vK_9p8Yh0WVh-_MHvJlMlJM1TQR41F-EWxACbUA_ccZ7CHP0OLXktvu9ozXqZkX1uCfa48kDzm9SQMp4nIR-ooUnh5nRaANWcBnWouLuje0qtCWX_NQBHciWxJQVlVPvh8zaWl_tKaBgPnm4KFwolHZusrIxMXJY2yu9r4aOn8zaTEv7f2g3fx2S40ukx7mIkcxUzQyuD3A-BVF"/>
+<!-- Red markers overlay -->
+<div class="absolute inset-0 pointer-events-none">
+<span class="material-symbols-outlined absolute top-1/4 left-1/3 text-error" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="material-symbols-outlined absolute top-1/2 left-2/3 text-error" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="material-symbols-outlined absolute bottom-1/3 left-1/4 text-error" style="font-variation-settings: 'FILL' 1;">location_on</span>
+</div>
+</div>
+</div>
+<!-- Comparison Chart -->
+<div class="border-2 border-on-background p-2 flex flex-col bg-surface-container-low">
+<h3 class="font-label-sm text-label-sm border-b border-on-background pb-1 mb-2 uppercase">Rate Baseline (vs Pre-AI)</h3>
+<div class="flex-grow flex flex-col justify-end gap-2 pb-2">
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm w-12 text-right">NOW</span>
+<div class="h-6 bg-error w-full border border-on-background"></div>
+<span class="font-receipt-header text-receipt-header text-error">+$45</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm w-12 text-right">PRE</span>
+<div class="h-6 bg-surface-variant w-2/3 border border-on-background"></div>
+<span class="font-receipt-header text-receipt-header">BASE</span>
+</div>
+</div>
+</div>
+</section>
+<!-- News Feed -->
+<section class="space-y-4 pt-4 border-t-2 border-dashed border-outline-variant">
+<h3 class="font-receipt-header text-receipt-header uppercase flex items-center gap-2">
+<span class="material-symbols-outlined">receipt_long</span>
+                    Rate-Case Headlines
+                </h3>
+<div class="flex flex-col gap-3">
+<article class="border border-on-background p-3 hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-label-sm text-error bg-error-container px-1 border border-error">ALERT</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">4 HRS AGO</span>
+</div>
+<p class="font-body-md text-body-md font-bold leading-tight">Utility requests 12% hike for data center grid build-out</p>
+</article>
+<article class="border border-on-background p-3 hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-label-sm border border-on-background px-1">LOGGED</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">1 DAY AGO</span>
+</div>
+<p class="font-body-md text-body-md leading-tight">State regulators question tech firm's energy consumption projections</p>
+</article>
+</div>
+</section>
+</div>
+<!-- Bottom Sawtooth -->
+<div class="h-8 bg-surface-container-lowest w-full receipt-edge-bottom mt-4"></div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center bg-surface px-2 py-1 border-t-2 border-dashed border-outline-variant flat no shadows docked full-width bottom-0 md:hidden">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 font-label-sm text-label-sm hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">receipt_long</span>
+            Receipt
+        </a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-none p-2 border-2 border-on-background font-label-sm text-label-sm hover:bg-secondary-fixed hover:text-on-secondary-fixed active:scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+            Analysis
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 font-label-sm text-label-sm hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">factory</span>
+            Impact
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 font-label-sm text-label-sm hover:bg-secondary-fixed hover:text-on-secondary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined mb-1">share</span>
+            Share
+        </a>
+</nav>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-unit py-8 px-gutter text-center bg-surface-container-lowest text-on-background border-t-4 border-double border-on-background mt-16 md:mt-24 pb-24 md:pb-8">
+<div class="font-display-lg text-display-lg text-primary mb-4">BLAME RECEIPT</div>
+<div class="flex gap-4 font-label-sm text-label-sm mb-4">
+<a class="text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">Privacy Policy</a>
+<a class="text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">Methodology</a>
+<a class="text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">API Access</a>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">©2024 BUREAU OF AI ACCOUNTABILITY. DATA SUBJECT TO THERMAL DRIFT.</p>
+</footer>
+<script>
+        // Simple script to handle blame stamp animation on click of the main receipt area
+        document.querySelector('main').addEventListener('dblclick', function(e) {
+            const stamp = document.createElement('div');
+            stamp.className = 'absolute border-4 border-error p-2 rotate-12 opacity-80 mix-blend-multiply blame-stamp-anim pointer-events-none z-50';
+            stamp.style.left = (e.clientX - 100) + 'px';
+            stamp.style.top = (e.clientY - 50 + window.scrollY) + 'px';
+            stamp.style.setProperty('--random-rotation', (Math.random() * 30 - 15) + 'deg');
+            
+            const text1 = document.createElement('span');
+            text1.className = 'font-blame-stamp text-blame-stamp text-error block leading-none';
+            text1.textContent = 'BLAME';
+            
+            const text2 = document.createElement('span');
+            text2.className = 'font-label-sm text-label-sm text-error block text-center mt-1';
+            text2.textContent = 'ASSESSED';
+            
+            stamp.appendChild(text1);
+            stamp.appendChild(text2);
+            document.body.appendChild(stamp);
+            
+            // Cleanup
+            setTimeout(() => {
+                stamp.remove();
+            }, 2000);
+        });
+    </script>
+</body></html>

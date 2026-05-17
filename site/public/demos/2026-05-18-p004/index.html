@@ -1,59 +1,266 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Bill Blame Receipt - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-18-p004</p>
-        <h1>AI Bill Blame Receipt</h1>
-        <p>A playful utility-bill explainer that turns rising power costs and data-center arguments into a shareable neighborhood blame receipt.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SUBMIT YOUR BILL - Blame Receipt</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700;800&amp;family=JetBrains+Mono:wght@400;500;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1c1b1b",
+                        "surface-tint": "#5f6200",
+                        "surface-container-low": "#f6f3f2",
+                        "secondary": "#2559bd",
+                        "on-primary-fixed": "#1c1d00",
+                        "on-tertiary-fixed-variant": "#930010",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c9c8aa",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed-variant": "#474a00",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#f3f0ef",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#00419e",
+                        "inverse-primary": "#c8cf00",
+                        "secondary-container": "#6c98ff",
+                        "surface-variant": "#e5e2e1",
+                        "secondary-fixed": "#dae2ff",
+                        "on-tertiary-fixed": "#410003",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container": "#f0eded",
+                        "on-secondary-container": "#002f76",
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "primary": "#5f6200",
+                        "outline": "#79795f",
+                        "tertiary": "#ba1a20",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#717400",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e4ec00",
+                        "on-surface-variant": "#484831",
+                        "on-secondary-fixed": "#001946",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-container": "#d32f2f",
+                        "secondary-fixed-dim": "#b1c5ff",
+                        "on-primary": "#ffffff",
+                        "background": "#fcf9f8",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#313030",
+                        "primary-container": "#f7ff00",
+                        "surface-dim": "#dcd9d9",
+                        "on-surface": "#1c1b1b",
+                        "tertiary-container": "#fff2f0",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c8cf00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "receipt-width": "600px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "receipt-header": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "body-md": ["Space Mono"],
+                        "blame-stamp": ["Space Grotesk"],
+                        "label-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "receipt-header": ["18px", { "lineHeight": "1.4", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "blame-stamp": ["48px", { "lineHeight": "1.0", "fontWeight": "800" }],
+                        "label-sm": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Digital Bureaucracy Dot Matrix Texture */
+        body {
+            background-color: #fcf9f8;
+            background-image: radial-gradient(#dcd9d9 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+
+        /* Sawtooth / Jagged Edge Mask for Receipts */
+        .jagged-top {
+            mask-image: linear-gradient(to bottom, transparent 4px, black 4px), radial-gradient(4px at 50% 0px, transparent 4px, black 5px);
+            mask-size: 100% 100%, 8px 8px;
+            mask-repeat: no-repeat, repeat-x;
+            mask-position: 0 0, 0 -4px;
+        }
+
+        .jagged-bottom {
+            mask-image: linear-gradient(to top, transparent 4px, black 4px), radial-gradient(4px at 50% 100%, transparent 4px, black 5px);
+            mask-size: 100% 100%, 8px 8px;
+            mask-repeat: no-repeat, repeat-x;
+            mask-position: 0 0, 0 4px;
+        }
+        
+        .receipt-container {
+            mask-image: 
+                linear-gradient(to top, transparent 4px, black 4px), 
+                radial-gradient(4px at 50% 100%, transparent 4px, black 5px),
+                linear-gradient(to bottom, transparent 4px, black 4px), 
+                radial-gradient(4px at 50% 0px, transparent 4px, black 5px);
+            mask-size: 100% 100%, 8px 8px, 100% 100%, 8px 8px;
+            mask-repeat: no-repeat, repeat-x, no-repeat, repeat-x;
+            mask-position: 0 0, 0 4px, 0 0, 0 -4px;
+            mask-composite: intersect;
+        }
+
+        /* Custom underline input */
+        .input-receipt {
+            border: none;
+            border-bottom: 2px solid #1c1b1b;
+            background: transparent;
+            border-radius: 0;
+        }
+        .input-receipt:focus {
+            outline: none;
+            border-bottom-color: #2559bd; /* Civic Blue */
+            box-shadow: none;
+        }
+
+        /* Custom Scrollbar for the feed */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fcf9f8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #79795f;
+            border-radius: 0px;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md text-on-background min-h-screen flex flex-col items-center">
+<!-- TopAppBar Semantic Shell -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-unit bg-background/90 backdrop-blur-sm border-b-2 border-on-background dark:border-surface-variant font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg">
+<div class="font-receipt-header text-receipt-header uppercase tracking-widest text-on-background dark:text-surface">
+            BLAME RECEIPT
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<nav class="hidden md:flex gap-4">
+<a class="text-secondary dark:text-secondary-fixed-dim font-bold border-b-2 border-secondary px-2 py-1" href="#">Start New</a>
+<a class="text-on-surface-variant dark:text-surface-variant font-medium hover:bg-primary-container hover:text-on-primary-container transition-colors px-2 py-1" href="#">About Data</a>
+</nav>
+<button class="bg-primary-container text-on-primary-container border-2 border-on-background px-4 py-2 text-sm font-bold hover:translate-x-0.5 hover:translate-y-0.5 transition-transform hidden md:block">
+            REPORT ERROR
+        </button>
+</header>
+<!-- Main Content Canvas (Fixed Center Column) -->
+<main class="w-full max-w-[600px] mt-24 mb-32 flex flex-col gap-8 px-margin-mobile md:px-0">
+<!-- Header Section -->
+<section class="text-center">
+<h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-on-background">SUBMIT YOUR BILL</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Initialize blame calculation sequence.</p>
+</section>
+<!-- The Receipt Card Container -->
+<div class="receipt-container bg-surface border-x border-on-background/20 relative shadow-[4px_4px_0_0_#2559bd]">
+<!-- Vertical Crease Line -->
+<div class="absolute inset-y-0 left-1/2 w-[1px] bg-outline-variant/30 z-0"></div>
+<div class="p-8 relative z-10 flex flex-col gap-8">
+<!-- Drop Zone for PDF/Photo -->
+<div class="border-2 border-dashed border-on-background/50 bg-surface-container-low p-8 text-center cursor-pointer hover:bg-surface-variant transition-colors group">
+<span class="material-symbols-outlined text-4xl mb-4 text-outline group-hover:text-primary transition-colors">upload_file</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile mb-2">UPLOAD DOCUMENT</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Drag &amp; drop utility bill PDF or Image here.</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">(Max 5MB. Data will be extracted automatically.)</p>
+</div>
+<!-- Divider -->
+<div class="flex items-center gap-4">
+<div class="h-[1px] bg-on-background/30 flex-1"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">OR MANUAL ENTRY</span>
+<div class="h-[1px] bg-on-background/30 flex-1"></div>
+</div>
+<!-- Manual Entry Form -->
+<form class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase" for="state">State / Territory</label>
+<select class="input-receipt py-2 font-body-md text-body-md text-on-background appearance-none" id="state">
+<option value="">-- SELECT STATE --</option>
+<option value="CA">California</option>
+<option value="TX">Texas</option>
+<option value="NY">New York</option>
+<option value="other">Other...</option>
+</select>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase" for="provider">Utility Provider</label>
+<input class="input-receipt py-2 font-body-md text-body-md text-on-background" id="provider" placeholder="e.g. Pacific Gas &amp; Electric" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-label-sm uppercase" for="amount">Recent Bill Total ($)</label>
+<div class="flex items-end">
+<span class="font-receipt-header text-receipt-header mr-2 mb-2">$</span>
+<input class="input-receipt py-2 font-receipt-header text-receipt-header text-on-background flex-1 text-right" id="amount" placeholder="0.00" step="0.01" type="number"/>
+</div>
+</div>
+</form>
+<!-- Blame Banner (Decorative) -->
+<div class="w-full h-4 mt-4" style="background: repeating-linear-gradient(45deg, #f7ff00, #f7ff00 10px, #1c1b1b 10px, #1c1b1b 20px);"></div>
+</div>
+</div>
+<!-- Call to Action -->
+<button class="w-full bg-primary-container text-on-primary-container border-2 border-on-background py-4 font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-widest shadow-[4px_4px_0_0_#2559bd] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0_0_#2559bd] transition-all active:translate-x-[4px] active:translate-y-[4px] active:shadow-none">
+            GENERATE BLAME RECEIPT
+        </button>
+</main>
+<!-- BottomNavBar Semantic Shell (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center bg-surface px-2 py-1 border-t-2 border-dashed border-outline-variant">
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-none p-2 border-2 border-on-background min-w-[70px]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-sm text-label-sm mt-1">Receipt</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2 min-w-[70px]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-sm text-label-sm mt-1">Analysis</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2 min-w-[70px]" href="#">
+<span class="material-symbols-outlined">factory</span>
+<span class="font-label-sm text-label-sm mt-1">Impact</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant p-2 min-w-[70px]" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label-sm text-label-sm mt-1">Share</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full flex flex-col items-center gap-unit py-8 px-gutter text-center bg-on-background dark:bg-surface-container-lowest border-t-4 border-double border-on-background mb-16 md:mb-0">
+<div class="text-surface font-label-sm text-label-sm mb-4 max-w-[600px] border border-surface/30 p-2 border-dashed">
+            *CAVEAT: This tool utilizes predictive modeling based on regional grid emission factors and published corporate AI energy expenditure ratios. Individual results are an estimation of proportional thermal drift.
+        </div>
+<p class="font-label-sm text-label-sm text-surface dark:text-on-background opacity-80">
+            ©2024 BUREAU OF AI ACCOUNTABILITY. DATA SUBJECT TO THERMAL DRIFT.
+        </p>
+<div class="flex gap-4 mt-2">
+<a class="font-label-sm text-label-sm text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">Methodology</a>
+<a class="font-label-sm text-label-sm text-surface-variant opacity-70 hover:text-primary-fixed transition-opacity" href="#">API Access</a>
+</div>
+</footer>
+</body></html>
