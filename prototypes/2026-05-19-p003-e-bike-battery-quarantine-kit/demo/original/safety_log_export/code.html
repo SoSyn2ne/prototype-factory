@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BATT-OPS QUARANTINE - Safety Log Export</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#44474c",
+                    "surface": "#f9f9ff",
+                    "on-tertiary-container": "#ff8f4f",
+                    "background": "#f9f9ff",
+                    "tertiary-fixed-dim": "#ffb690",
+                    "primary-container": "#374151",
+                    "on-tertiary-fixed": "#341100",
+                    "on-surface": "#141b2b",
+                    "surface-container-highest": "#dce2f7",
+                    "surface-dim": "#d3daef",
+                    "on-background": "#141b2b",
+                    "primary-fixed-dim": "#bdc7db",
+                    "surface-container-high": "#e1e8fd",
+                    "on-secondary-container": "#606366",
+                    "inverse-primary": "#bdc7db",
+                    "on-secondary-fixed": "#191c1f",
+                    "outline": "#75777d",
+                    "primary-fixed": "#d9e3f7",
+                    "secondary-fixed": "#e0e2e6",
+                    "on-primary-fixed": "#121c2a",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed-variant": "#44474a",
+                    "on-primary-container": "#a3adc0",
+                    "tertiary-container": "#6e2d00",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#783200",
+                    "surface-bright": "#f9f9ff",
+                    "error-container": "#ffdad6",
+                    "surface-variant": "#dce2f7",
+                    "outline-variant": "#c5c6cc",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#3d4757",
+                    "secondary": "#5c5f62",
+                    "tertiary": "#4b1c00",
+                    "tertiary-fixed": "#ffdbca",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#dee0e4",
+                    "inverse-on-surface": "#edf0ff",
+                    "surface-container": "#e9edff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#c4c7ca",
+                    "surface-tint": "#555f70",
+                    "surface-container-low": "#f1f3ff",
+                    "inverse-surface": "#293040",
+                    "primary": "#212b3a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-mobile": "20px",
+                    "touch-target-min": "56px",
+                    "base": "8px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "margin-desktop": "48px",
+                    "stack-lg": "40px",
+                    "stack-sm": "12px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "status-code": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "800"}],
+                    "status-code": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-caps": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "800"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-sans selection:bg-primary selection:text-on-primary md:pl-64 pt-touch-target-min md:pt-0">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-touch-target-min bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-b-4 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div class="font-headline-md text-headline-md font-black text-on-primary tracking-tighter">
+            BATT-OPS QUARANTINE
+        </div>
+<div class="flex items-center gap-4 hidden">
+<!-- Search hidden per JSON -->
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-caps text-label-caps text-on-primary font-bold hover:bg-tertiary-container hover:text-on-tertiary-container active:translate-y-0.5 active:translate-x-0.5 active:shadow-none transition-all flex items-center gap-2">
+                EMERGENCY SHUTDOWN
+            </button>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-primary-fixed-variant hover:bg-tertiary-container hover:text-on-tertiary-container active:translate-y-0.5 active:translate-x-0.5 active:shadow-none transition-all cursor-pointer p-2" data-icon="sync" data-weight="fill">sync</span>
+<span class="material-symbols-outlined text-on-primary-fixed-variant hover:bg-tertiary-container hover:text-on-tertiary-container active:translate-y-0.5 active:translate-x-0.5 active:shadow-none transition-all cursor-pointer p-2" data-icon="wifi" data-weight="fill">wifi</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Web Only) -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full flex-col pt-20 pb-8 px-4 w-64 border-r-4 border-on-surface-variant bg-surface dark:bg-surface-dim text-primary dark:text-inverse-primary shadow-[4px_0px_0px_0px_rgba(0,0,0,0.1)] z-40">
+<div class="mb-stack-lg px-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-primary overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-extrabold text-primary">FACILITY A-1</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Zone 4 South</p>
+</div>
+</div>
+</div>
+<button class="w-full min-h-touch-target-min bg-tertiary text-on-tertiary font-label-caps text-label-caps font-bold border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all mb-stack-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+            NEW INSPECTION
+        </button>
+<div class="flex flex-col gap-2 flex-grow">
+<!-- Navigation Items -->
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="input">input</span>
+                Intake
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="biotech">biotech</span>
+                Triage
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+                Zone Board
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+                Scheduler
+            </a>
+<a class="bg-primary text-on-primary flex items-center gap-4 p-4 border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-label-caps text-label-caps rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="health_and_safety">health_and_safety</span>
+                Safety Logs
+            </a>
+</div>
+<div class="mt-auto flex flex-col gap-2 pt-4 border-t-2 border-outline-variant">
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-4 p-4 text-on-surface-variant hover:bg-surface-container-high font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="p-margin-mobile md:p-margin-desktop max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-stack-lg gap-stack-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Safety Log Export</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Official handling logs for regulatory compliance and fire marshal reporting.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+<button class="min-h-touch-target-min px-6 bg-surface text-primary border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-label-caps text-label-caps font-bold active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+                    GENERATE PDF
+                </button>
+<button class="min-h-touch-target-min px-6 bg-tertiary-container text-on-tertiary-container border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] font-label-caps text-label-caps font-bold active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                    EMAIL FIRE MARSHAL
+                </button>
+</div>
+</div>
+<!-- Filters (Bento/Card Style) -->
+<div class="bg-surface-container p-6 border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] mb-stack-lg rounded-DEFAULT">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Date Filter -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-primary mb-2">Date Range</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="date_range">date_range</span>
+<input class="w-full h-touch-target-min pl-12 pr-4 bg-surface border-2 border-on-surface-variant font-body-md text-body-md shadow-[inset_0px_2px_4px_rgba(0,0,0,0.1)] focus:outline-none focus:border-primary focus:ring-0" type="text" value="Last 7 Days (Oct 18 - Oct 25)"/>
+</div>
+</div>
+<!-- Brand Filter -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-primary mb-2">Battery Brand</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="battery_charging_full">battery_charging_full</span>
+<select class="w-full h-touch-target-min pl-12 pr-10 bg-surface border-2 border-on-surface-variant font-body-md text-body-md shadow-[inset_0px_2px_4px_rgba(0,0,0,0.1)] focus:outline-none focus:border-primary focus:ring-0 appearance-none">
+<option>All Brands</option>
+<option>VoltX</option>
+<option>MegaCell</option>
+<option>EcoPower</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+<!-- Technician Filter -->
+<div class="flex flex-col">
+<label class="font-label-caps text-label-caps text-primary mb-2">Technician</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="badge">badge</span>
+<select class="w-full h-touch-target-min pl-12 pr-10 bg-surface border-2 border-on-surface-variant font-body-md text-body-md shadow-[inset_0px_2px_4px_rgba(0,0,0,0.1)] focus:outline-none focus:border-primary focus:ring-0 appearance-none">
+<option>All Technicians</option>
+<option>R. Vance</option>
+<option>S. Chen</option>
+<option>J. Miller</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Data Table (Industrial Brutalism) -->
+<div class="bg-surface border-2 border-on-surface-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] rounded-DEFAULT overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-high border-b-2 border-on-surface-variant">
+<th class="p-4 font-label-caps text-label-caps text-primary">Timestamp (UTC)</th>
+<th class="p-4 font-label-caps text-label-caps text-primary">Battery ID / Brand</th>
+<th class="p-4 font-label-caps text-label-caps text-primary">Action</th>
+<th class="p-4 font-label-caps text-label-caps text-primary">Technician</th>
+<th class="p-4 font-label-caps text-label-caps text-primary">Waiver / Sig</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md divide-y divide-outline-variant">
+<!-- Record 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 text-on-surface-variant font-status-code text-status-code">2023-10-25 08:14:22</td>
+<td class="p-4">
+<div class="font-bold text-primary">BX-8832-A</div>
+<div class="text-on-surface-variant text-sm">MegaCell Pro</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container text-on-primary-container font-label-caps text-label-caps text-[10px] border border-on-surface-variant rounded-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="input">input</span>
+                                    INTAKE
+                                </span>
+</td>
+<td class="p-4 text-on-surface">R. Vance (ID: 442)</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span class="font-status-code text-status-code">VERIFIED</span>
+</div>
+</td>
+</tr>
+<!-- Record 2: CRITICAL -->
+<tr class="hover:bg-surface-container-low transition-colors group bg-error-container/20">
+<td class="p-4 text-on-surface-variant font-status-code text-status-code">2023-10-25 09:30:05</td>
+<td class="p-4">
+<div class="font-bold text-primary">VX-1109-C</div>
+<div class="text-on-surface-variant text-sm">VoltX Industrial</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-error-container text-on-error-container font-label-caps text-label-caps text-[10px] border border-error border-2 rounded-sm font-black">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                                    CRITICAL
+                                </span>
+</td>
+<td class="p-4 text-on-surface">S. Chen (ID: 881)</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span class="font-status-code text-status-code">VERIFIED</span>
+</div>
+</td>
+</tr>
+<!-- Record 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 text-on-surface-variant font-status-code text-status-code">2023-10-25 10:15:44</td>
+<td class="p-4">
+<div class="font-bold text-primary">EP-4421-B</div>
+<div class="text-on-surface-variant text-sm">EcoPower Home</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-surface-container-high text-on-surface-variant font-label-caps text-label-caps text-[10px] border border-on-surface-variant rounded-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="local_shipping">local_shipping</span>
+                                    MOVE
+                                </span>
+</td>
+<td class="p-4 text-on-surface">J. Miller (ID: 219)</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-outline">
+<span class="material-symbols-outlined" data-icon="pending">pending</span>
+<span class="font-status-code text-status-code">PENDING</span>
+</div>
+</td>
+</tr>
+<!-- Record 4 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="p-4 text-on-surface-variant font-status-code text-status-code">2023-10-25 11:05:12</td>
+<td class="p-4">
+<div class="font-bold text-primary">BX-8832-A</div>
+<div class="text-on-surface-variant text-sm">MegaCell Pro</div>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps text-[10px] border border-on-surface-variant rounded-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="shield">shield</span>
+                                    STABLE
+                                </span>
+</td>
+<td class="p-4 text-on-surface">R. Vance (ID: 442)</td>
+<td class="p-4">
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined" data-icon="check_circle" data-weight="fill">check_circle</span>
+<span class="font-status-code text-status-code">VERIFIED</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination -->
+<div class="bg-surface-container-low p-4 border-t-2 border-on-surface-variant flex justify-between items-center">
+<span class="font-status-code text-status-code text-on-surface-variant">Showing 1-4 of 128 records</span>
+<div class="flex gap-2">
+<button class="w-10 h-10 border-2 border-on-surface-variant flex items-center justify-center bg-surface hover:bg-surface-container-high shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all cursor-not-allowed opacity-50">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-10 h-10 border-2 border-on-surface-variant flex items-center justify-center bg-surface hover:bg-surface-container-high shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>

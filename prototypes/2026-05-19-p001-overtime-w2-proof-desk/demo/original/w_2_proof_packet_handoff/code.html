@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>W-2 Proof Packet &amp; CPA Handoff</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-surface": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "tertiary": "#000000",
+                        "on-surface-variant": "#45464d",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-container": "#2a1700",
+                        "on-secondary-fixed-variant": "#005236",
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-tint": "#565e74",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#7c839b",
+                        "outline-variant": "#c6c6cd",
+                        "surface": "#f8f9ff",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#ffddb8",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#00714d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "cell-padding-x": "12px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-page": "32px",
+                        "cell-padding-y": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c6c6cd; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #76777d; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar -->
+<nav class="docked h-screen w-64 border-r border-outline-variant bg-surface-container-low dark:bg-surface-container-highest hidden md:flex flex-col py-gutter px-cell-padding-x shrink-0">
+<div class="flex items-center gap-3 mb-8 px-2">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-headline-sm font-bold">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md font-extrabold text-on-surface dark:text-inverse-on-surface text-base leading-tight">Proof Desk</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Compliance Audit</p>
+</div>
+</div>
+<button class="mb-6 w-full py-2 px-4 bg-primary text-on-primary rounded text-body-md font-body-md font-semibold hover:bg-surface-tint transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> New Audit
+        </button>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="text-body-md font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">upload_file</span>
+<span class="text-body-md font-body-md">Imports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+<span class="text-body-md font-body-md">Review Board</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-surface-container dark:bg-primary-container text-on-surface dark:text-on-primary-container border-l-2 border-primary scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-body-md font-body-md font-medium">W-2 Packets</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="text-body-md font-body-md">Help Center</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+<span class="text-body-md font-body-md">Log Out</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden bg-background">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-page py-cell-padding-y border-b border-outline-variant bg-surface-container-lowest dark:bg-surface-dim shrink-0">
+<div class="flex items-center gap-4">
+<h2 class="text-headline-md font-headline-md font-extrabold text-on-surface dark:text-inverse-on-surface">Overtime W-2 Proof Desk</h2>
+<div class="h-4 w-px bg-outline-variant hidden md:block"></div>
+<span class="text-label-caps font-label-caps text-on-surface-variant hidden md:block">AUDIT PACKET PREPARATION</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="relative mr-4 hidden lg:block">
+<span class="material-symbols-outlined absolute left-2 top-1.5 text-outline text-[18px]">search</span>
+<input class="pl-8 pr-3 py-1 bg-surface border border-outline-variant rounded text-body-sm font-body-sm w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search employee or packet ID..." type="text"/>
+</div>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface rounded transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low dark:hover:bg-inverse-surface rounded transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-2 px-2 py-1 text-on-surface hover:bg-surface-container-low rounded transition-colors">
+<span class="text-body-sm font-body-sm font-medium">Acme Corp</span>
+<span class="material-symbols-outlined text-[16px]">swap_vert</span>
+</button>
+<button class="ml-2 w-8 h-8 rounded-full bg-primary-fixed text-on-primary-fixed flex items-center justify-center font-label-caps font-bold">
+                    JS
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto p-margin-page">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-gutter">
+<!-- Left Column: Document Preview & Memo -->
+<div class="flex-1 flex flex-col gap-gutter min-w-0">
+<!-- CPA Handoff Memo Editor -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+<h3 class="text-body-md font-headline-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit_document</span>
+                                CPA Handoff Memo
+                            </h3>
+<span class="text-label-caps font-label-caps text-on-surface-variant px-2 py-0.5 bg-surface-variant rounded">DRAFT</span>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<!-- Auto-populated Stats Summary -->
+<div class="grid grid-cols-3 gap-3">
+<div class="bg-surface-container-low p-3 rounded border border-outline-variant/50">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-1">TOTAL EMPLOYEES AUDITED</div>
+<div class="text-headline-md font-headline-md text-on-surface font-mono">142</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded border border-outline-variant/50">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-1">W-2 DELTAS RESOLVED</div>
+<div class="text-headline-md font-headline-md text-on-surface font-mono flex items-center gap-1">
+                                        $4,250.00
+                                        <span class="material-symbols-outlined text-[14px] text-secondary">check_circle</span>
+</div>
+</div>
+<div class="bg-surface-container-low p-3 rounded border border-outline-variant/50">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-1">FLAGGED RISKS REMAINING</div>
+<div class="text-headline-md font-headline-md text-on-surface font-mono flex items-center gap-1">
+                                        0
+                                        <span class="material-symbols-outlined text-[14px] text-outline">verified</span>
+</div>
+</div>
+</div>
+<!-- Memo Textarea -->
+<div class="flex-1 min-h-[200px] flex flex-col">
+<label class="text-label-caps font-label-caps text-on-surface-variant mb-2">EXECUTIVE SUMMARY FOR CPA</label>
+<textarea class="flex-1 w-full p-3 border border-outline-variant rounded bg-surface focus:ring-1 focus:ring-primary focus:border-primary resize-none text-body-sm font-body-sm shadow-inner transition-shadow" placeholder="Enter notes for the CPA... ">All overtime calculations for Q1-Q4 have been cross-verified against timesheet data. Discrepancies found in the July pay period regarding shift differentials have been documented and resolved via manual adjustment #402. Ready for final sign-off.</textarea>
+</div>
+</div>
+</section>
+<!-- Document Preview Panel -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm flex flex-col flex-1 min-h-[400px]">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+<h3 class="text-body-md font-headline-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">preview</span>
+                                Proof Packet Preview
+                            </h3>
+<div class="flex gap-2">
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded border border-outline-variant"><span class="material-symbols-outlined text-[16px]">zoom_out</span></button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-low rounded border border-outline-variant"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+</div>
+</div>
+<div class="flex-1 bg-surface-variant p-6 overflow-y-auto flex justify-center">
+<!-- Mock Document Page -->
+<div class="bg-surface-container-lowest w-[80%] max-w-[600px] min-h-[800px] shadow-md border border-outline-variant p-8 flex flex-col gap-6">
+<div class="border-b-2 border-primary pb-4 mb-4">
+<h4 class="text-headline-md font-headline-md font-bold text-center uppercase tracking-wide">W-2 Compliance Audit Record</h4>
+<p class="text-center text-body-sm font-body-sm text-on-surface-variant mt-1">Generated: 2023-10-24 | Entity: Acme Corp</p>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface space-y-4">
+<p>This document serves as the formal proof packet for the reconciled W-2 adjustments concerning overtime wage calculations.</p>
+<table class="w-full text-left border-collapse mt-4">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<th class="py-2 px-2 text-label-caps font-label-caps text-on-surface-variant">Employee ID</th>
+<th class="py-2 px-2 text-label-caps font-label-caps text-on-surface-variant">Original OT</th>
+<th class="py-2 px-2 text-label-caps font-label-caps text-on-surface-variant">Adjusted OT</th>
+<th class="py-2 px-2 text-label-caps font-label-caps text-on-surface-variant">Delta</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-outline-variant/50">
+<td class="py-2 px-2">E-1042</td>
+<td class="py-2 px-2">$1,200.00</td>
+<td class="py-2 px-2">$1,450.00</td>
+<td class="py-2 px-2 text-error">+$250.00</td>
+</tr>
+<tr class="border-b border-outline-variant/50">
+<td class="py-2 px-2">E-1088</td>
+<td class="py-2 px-2">$850.00</td>
+<td class="py-2 px-2">$850.00</td>
+<td class="py-2 px-2 text-outline">$0.00</td>
+</tr>
+</tbody>
+</table>
+<div class="mt-8 pt-8 border-t border-outline-variant flex justify-between items-end">
+<div>
+<div class="w-48 border-b border-on-surface mb-1"></div>
+<div class="text-label-caps font-label-caps text-on-surface-variant">Authorized Signature</div>
+</div>
+<div class="text-data-mono font-data-mono text-outline">Ref: AUD-2023-992A</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Checklists & Actions -->
+<div class="w-full lg:w-80 flex flex-col gap-gutter shrink-0">
+<!-- Required Evidence Checklist -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-bright">
+<h3 class="text-body-md font-headline-md font-semibold text-on-surface">Required Evidence</h3>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-0.5">
+<input checked="" class="peer h-4 w-4 rounded-sm border-outline-variant text-primary focus:ring-primary bg-surface transition-colors cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="text-body-sm font-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">Timesheet Exports (Q1-Q4)</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">attachment</span> 4 files attached
+                                    </div>
+</div>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-0.5">
+<input checked="" class="peer h-4 w-4 rounded-sm border-outline-variant text-primary focus:ring-primary bg-surface transition-colors cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="text-body-sm font-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">Payroll Stub Samples</div>
+<div class="text-[10px] text-on-surface-variant mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">attachment</span> 12 files attached
+                                    </div>
+</div>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="relative flex items-center justify-center mt-0.5">
+<input class="peer h-4 w-4 rounded-sm border-outline-variant text-primary focus:ring-primary bg-surface transition-colors cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1">
+<div class="text-body-sm font-body-sm font-medium text-on-surface group-hover:text-primary transition-colors">FLSA Rule Citations</div>
+<div class="text-[10px] text-error mt-0.5 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span> Missing required citation
+                                    </div>
+</div>
+</label>
+</div>
+</section>
+<!-- Final Approval Workflow -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm flex flex-col">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface-bright">
+<h3 class="text-body-md font-headline-md font-semibold text-on-surface">Final Approval</h3>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="bg-surface-container-low p-3 rounded border border-outline-variant text-body-sm font-body-sm text-on-surface-variant">
+                                By signing off, you confirm that all W-2 evidence has been reviewed and is ready for CPA submission.
+                            </div>
+<div class="flex flex-col gap-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant">OWNER INITIALS</label>
+<input class="p-2 border border-outline-variant rounded bg-surface focus:ring-1 focus:ring-primary focus:border-primary text-body-md font-mono uppercase w-full" placeholder="e.g. JS" type="text"/>
+</div>
+<button class="w-full py-2 px-4 bg-primary text-on-primary rounded text-body-sm font-body-md font-semibold hover:bg-surface-tint transition-colors flex items-center justify-center gap-2 mt-2">
+<span class="material-symbols-outlined text-[18px]">verified</span> Sign &amp; Lock Packet
+                            </button>
+</div>
+</section>
+<!-- Export Actions -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm flex flex-col mt-auto">
+<div class="p-4 flex flex-col gap-3">
+<button class="w-full py-2 px-4 border border-outline-variant bg-transparent text-primary rounded text-body-sm font-body-md font-medium hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span> Download PDF
+                            </button>
+<button class="w-full py-2 px-4 border border-outline-variant bg-transparent text-primary rounded text-body-sm font-body-md font-medium hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">folder_zip</span> Export ZIP Bundle
+                            </button>
+<div class="h-px bg-outline-variant my-1"></div>
+<button class="w-full py-2 px-4 bg-secondary text-on-secondary rounded text-body-sm font-body-md font-semibold hover:bg-on-secondary-fixed transition-colors flex items-center justify-center gap-2" disabled="" style="opacity: 0.5; cursor: not-allowed;" title="Requires Final Approval">
+<span class="material-symbols-outlined text-[18px]">send</span> Send to CPA
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

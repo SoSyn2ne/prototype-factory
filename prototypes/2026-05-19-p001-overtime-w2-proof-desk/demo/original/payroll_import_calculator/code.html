@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Overtime W-2 Proof Desk - Imports</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "secondary-container": "#6cf8bb",
+                        "on-secondary-fixed": "#002113",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-surface": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#cbdbf5",
+                        "primary-container": "#131b2e",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "tertiary": "#000000",
+                        "on-surface-variant": "#45464d",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-background": "#0b1c30",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary-container": "#b87500",
+                        "tertiary-container": "#2a1700",
+                        "on-secondary-fixed-variant": "#005236",
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#006c49",
+                        "surface-tint": "#565e74",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container": "#e5eeff",
+                        "secondary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#7c839b",
+                        "outline-variant": "#c6c6cd",
+                        "surface": "#f8f9ff",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#ffddb8",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#f8f9ff",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#131b2e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-container": "#00714d",
+                        "defensible": "#10b981",
+                        "defensible-bg": "rgba(16, 185, 129, 0.1)",
+                        "flagged": "#f59e0b",
+                        "flagged-bg": "rgba(245, 158, 11, 0.1)"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "cell-padding-x": "12px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-page": "32px",
+                        "cell-padding-y": "8px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Base styles from guidance */
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+        }
+        
+        /* Form inputs and buttons */
+        .btn-primary {
+            background-color: theme('colors.primary');
+            color: theme('colors.on-primary');
+            border-radius: theme('borderRadius.DEFAULT');
+            padding: theme('spacing.cell-padding-y') theme('spacing.gutter');
+            font-family: theme('fontFamily.body-md');
+            font-size: theme('fontSize.body-md[0]');
+            font-weight: theme('fontSize.body-md[1].fontWeight');
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: theme('colors.primary');
+            border: 1px solid theme('colors.outline-variant');
+            border-radius: theme('borderRadius.DEFAULT');
+            padding: theme('spacing.cell-padding-y') theme('spacing.gutter');
+            font-family: theme('fontFamily.body-md');
+            font-size: theme('fontSize.body-md[0]');
+            font-weight: theme('fontSize.body-md[1].fontWeight');
+        }
+
+        .data-input {
+            font-family: theme('fontFamily.data-mono');
+            font-size: theme('fontSize.data-mono[0]');
+            font-weight: theme('fontSize.data-mono[1].fontWeight');
+            border: 1px solid theme('colors.outline-variant');
+            border-radius: theme('borderRadius.DEFAULT');
+            padding: theme('spacing.unit') theme('spacing.cell-padding-x');
+        }
+        
+        .data-input:focus {
+            outline: none;
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            border-color: theme('colors.primary');
+        }
+
+        /* Status Chips */
+        .chip-defensible {
+            background-color: theme('colors.defensible-bg');
+            color: theme('colors.defensible');
+            border-left: 1px solid theme('colors.defensible');
+            padding: 2px 6px;
+            font-family: theme('fontFamily.label-caps');
+            font-size: theme('fontSize.label-caps[0]');
+            font-weight: theme('fontSize.label-caps[1].fontWeight');
+            letter-spacing: theme('fontSize.label-caps[1].letterSpacing');
+        }
+
+        .chip-flagged {
+            background-color: theme('colors.flagged-bg');
+            color: theme('colors.flagged');
+            border: 1px solid theme('colors.flagged');
+            padding: 2px 6px;
+            font-family: theme('fontFamily.label-caps');
+            font-size: theme('fontSize.label-caps[0]');
+            font-weight: theme('fontSize.label-caps[1].fontWeight');
+            letter-spacing: theme('fontSize.label-caps[1].letterSpacing');
+        }
+
+        /* Audit Marker */
+        .audit-marker {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 8px;
+            height: 8px;
+            background-color: theme('colors.flagged');
+        }
+
+        /* Table structural styling */
+        .data-table th {
+            background-color: theme('colors.surface-container-lowest');
+            border-bottom: 1px solid theme('colors.outline-variant');
+            font-family: theme('fontFamily.label-caps');
+            font-size: theme('fontSize.label-caps[0]');
+            font-weight: theme('fontSize.label-caps[1].fontWeight');
+            letter-spacing: theme('fontSize.label-caps[1].letterSpacing');
+            color: theme('colors.on-surface-variant');
+            text-align: left;
+            padding: theme('spacing.cell-padding-y') theme('spacing.cell-padding-x');
+        }
+        
+        .data-table td {
+            border-bottom: 1px solid theme('colors.outline-variant');
+            padding: theme('spacing.cell-padding-y') theme('spacing.cell-padding-x');
+            position: relative;
+        }
+
+        .data-table tr.active-row td {
+            background-color: theme('colors.surface-container-low');
+        }
+        
+        .data-table tr.active-row td:first-child {
+            border-left: 2px solid theme('colors.primary');
+        }
+
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar -->
+<aside class="flex flex-col h-full py-gutter px-cell-padding-x docked w-64 border-r border-outline-variant bg-surface-container-low dark:bg-surface-container-highest shrink-0 z-10">
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary text-on-primary flex items-center justify-center font-bold">
+                P
+            </div>
+<div>
+<h1 class="text-headline-sm font-headline-sm font-bold text-on-surface dark:text-inverse-on-surface leading-tight">Proof Desk</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Compliance Audit</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md bg-surface-container dark:bg-primary-container text-on-surface dark:text-on-primary-container border-l-2 border-primary group" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary">upload_file</span>
+                Imports
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">fact_check</span>
+                Review Board
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                W-2 Packets
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-body-md font-body-md text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">logout</span>
+                Log Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-full bg-surface relative overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-page py-cell-padding-y docked full-width top border-b border-outline-variant bg-surface-container-lowest dark:bg-surface-dim shrink-0 z-10">
+<div class="flex items-center gap-4">
+<h2 class="text-headline-md font-headline-md font-extrabold text-on-surface dark:text-inverse-on-surface">Overtime W-2 Proof Desk</h2>
+<div class="hidden md:flex items-center bg-surface-container-low border border-outline-variant rounded-DEFAULT px-3 py-1">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span>
+<input class="bg-transparent border-none text-body-sm font-body-sm focus:ring-0 p-0 w-64 text-on-surface placeholder:text-outline-variant" placeholder="Search entries..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-outline hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-2 text-body-sm font-body-sm font-semibold text-primary">
+<span class="material-symbols-outlined text-[18px]">domain</span>
+                    Organization Switcher
+                </button>
+<button class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant border border-outline-variant ml-2">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</button>
+</div>
+</header>
+<!-- Page Content Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-margin-page">
+<div class="max-w-7xl mx-auto space-y-8">
+<!-- Page Header & Actions -->
+<div class="flex justify-between items-end pb-4 border-b border-outline-variant">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-1">Payroll Import &amp; Premium Calculator</h2>
+<p class="text-body-md font-body-md text-on-surface-variant">Upload payroll data, map fields, and reconcile overtime premiums.</p>
+</div>
+<div class="flex gap-3">
+<button class="btn-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export Exceptions
+                        </button>
+<button class="btn-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                            Run Calculations
+                        </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column: Upload & Mapping -->
+<div class="lg:col-span-1 space-y-6">
+<!-- Upload Zone -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-6 flex flex-col items-center justify-center text-center border-dashed border-2 cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-outline text-[40px] mb-3">cloud_upload</span>
+<h3 class="text-body-md font-body-md font-semibold text-on-surface mb-1">Upload Payroll Export</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-4">CSV or Excel files only. Max 50MB.</p>
+<button class="btn-secondary text-sm py-1 px-3">Select File</button>
+</div>
+<!-- Data Mapping Panel -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface">Data Mapping</h3>
+<span class="material-symbols-outlined text-[18px] text-outline">tune</span>
+</div>
+<div class="p-4 space-y-4">
+<div class="grid grid-cols-2 gap-4 items-center">
+<label class="text-body-sm font-body-sm text-on-surface-variant">Employee ID</label>
+<select class="data-input w-full bg-transparent text-body-sm font-body-sm py-1">
+<option>col_emp_id</option>
+<option>EmployeeNumber</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4 items-center">
+<label class="text-body-sm font-body-sm text-on-surface-variant">Base Rate</label>
+<select class="data-input w-full bg-transparent text-body-sm font-body-sm py-1">
+<option>col_base_hourly</option>
+<option>RegularRate</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4 items-center">
+<label class="text-body-sm font-body-sm text-on-surface-variant">Regular Hours</label>
+<select class="data-input w-full bg-transparent text-body-sm font-body-sm py-1">
+<option>col_reg_hrs</option>
+<option>HoursWorked</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-4 items-center">
+<label class="text-body-sm font-body-sm text-on-surface-variant">OT Hours</label>
+<select class="data-input w-full bg-transparent text-body-sm font-body-sm py-1 border-flagged text-flagged">
+<option>Select Column...</option>
+<option>col_ot_hrs</option>
+</select>
+</div>
+<div class="pt-2">
+<button class="w-full btn-secondary text-sm py-1">Auto-Map Fields</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Calculator Engine View -->
+<div class="lg:col-span-2 flex flex-col h-[600px]">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT flex flex-col h-full overflow-hidden">
+<div class="px-4 py-3 bg-surface-container border-b border-outline-variant flex justify-between items-center shrink-0">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">calculate</span>
+                                    Calculator Engine: Period Q3-2023
+                                </h3>
+<div class="flex items-center gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">View:</span>
+<select class="bg-transparent border-none text-body-sm font-body-sm focus:ring-0 p-0 pr-4 text-primary font-semibold">
+<option>All Entries</option>
+<option>Flagged Only</option>
+</select>
+</div>
+</div>
+<div class="flex-1 overflow-auto">
+<table class="w-full data-table border-collapse text-left whitespace-nowrap">
+<thead class="sticky top-0 z-10">
+<tr>
+<th>Emp ID</th>
+<th class="text-right">Base Rate</th>
+<th class="text-right">OT Hrs</th>
+<th class="text-right">Calc. Premium</th>
+<th class="text-right">Actual Paid</th>
+<th class="text-right">Delta</th>
+<th class="text-center">Status</th>
+<th class="text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm font-data-mono text-on-surface">
+<!-- Row 1: Defensible -->
+<tr>
+<td>EMP-4092</td>
+<td class="text-right">$24.50</td>
+<td class="text-right">4.50</td>
+<td class="text-right text-on-surface-variant">$165.38</td>
+<td class="text-right">$165.38</td>
+<td class="text-right text-defensible font-semibold">$0.00</td>
+<td class="text-center"><span class="chip-defensible">QUALIFIED</span></td>
+<td class="text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2: Flagged / Active -->
+<tr class="active-row">
+<td>
+                                                EMP-8821
+                                                <div class="audit-marker" title="Manual override history"></div>
+</td>
+<td class="text-right">$32.00</td>
+<td class="text-right">12.00</td>
+<td class="text-right text-on-surface-variant">$576.00</td>
+<td class="text-right">$520.00</td>
+<td class="text-right text-flagged font-semibold">-$56.00</td>
+<td class="text-center"><span class="chip-flagged">FLAGGED</span></td>
+<td class="text-right flex justify-end gap-2">
+<button class="text-on-surface-variant hover:text-primary" title="Add Audit Note"><span class="material-symbols-outlined text-[16px]">note_add</span></button>
+<button class="text-primary font-semibold hover:underline text-[12px] font-body-sm">Reconcile</button>
+</td>
+</tr>
+<!-- Row 3: Defensible -->
+<tr>
+<td>EMP-1022</td>
+<td class="text-right">$18.75</td>
+<td class="text-right">2.25</td>
+<td class="text-right text-on-surface-variant">$63.28</td>
+<td class="text-right">$63.28</td>
+<td class="text-right text-defensible font-semibold">$0.00</td>
+<td class="text-center"><span class="chip-defensible">QUALIFIED</span></td>
+<td class="text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 4: Flagged Minor -->
+<tr>
+<td>EMP-3394</td>
+<td class="text-right">$45.00</td>
+<td class="text-right">1.50</td>
+<td class="text-right text-on-surface-variant">$101.25</td>
+<td class="text-right">$100.00</td>
+<td class="text-right text-flagged font-semibold">-$1.25</td>
+<td class="text-center"><span class="chip-flagged">FLAGGED</span></td>
+<td class="text-right">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Summary -->
+<div class="px-4 py-2 bg-surface border-t border-outline-variant flex justify-between items-center shrink-0">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Showing 4 of 1,204 records</span>
+<div class="flex gap-4 font-data-mono text-body-sm">
+<span class="text-on-surface-variant">Total Delta: <span class="text-flagged font-semibold">-$57.25</span></span>
+<span class="text-on-surface-variant">Flagged: <span class="text-on-surface font-semibold">24</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

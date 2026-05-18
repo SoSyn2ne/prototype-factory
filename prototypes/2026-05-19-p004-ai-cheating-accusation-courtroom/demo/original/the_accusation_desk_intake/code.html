@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Courtroom - Accusation Desk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Bricolage+Grotesque:opsz,wght@12..96,200..800&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-primary": "#ffb3b6",
+                      "on-secondary-fixed": "#1e1c00",
+                      "surface-dim": "#d2d9f4",
+                      "on-surface-variant": "#5c3f40",
+                      "on-background": "#131b2e",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#555c64",
+                      "on-primary-fixed-variant": "#920028",
+                      "primary-container": "#e11d48",
+                      "tertiary-container": "#6d757d",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#faf8ff",
+                      "on-surface": "#131b2e",
+                      "secondary": "#636036",
+                      "secondary-fixed-dim": "#cdc996",
+                      "outline-variant": "#e5bdbe",
+                      "primary-fixed": "#ffdada",
+                      "on-tertiary-fixed": "#151c23",
+                      "surface": "#faf8ff",
+                      "tertiary-fixed-dim": "#c0c7d0",
+                      "error": "#ba1a1a",
+                      "on-secondary-fixed-variant": "#4a4821",
+                      "tertiary-fixed": "#dce3ec",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-variant": "#dae2fd",
+                      "surface-container-highest": "#dae2fd",
+                      "outline": "#906f70",
+                      "surface-container": "#eaedff",
+                      "on-tertiary-fixed-variant": "#40484f",
+                      "surface-container-low": "#f2f3ff",
+                      "secondary-fixed": "#e9e5b0",
+                      "on-error": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "surface-tint": "#be0037",
+                      "on-primary-container": "#fffaf9",
+                      "inverse-surface": "#283044",
+                      "on-primary-fixed": "#40000c",
+                      "on-secondary-container": "#69663c",
+                      "primary": "#b80035",
+                      "primary-fixed-dim": "#ffb3b6",
+                      "surface-container-high": "#e2e7ff",
+                      "inverse-on-surface": "#eef0ff",
+                      "secondary-container": "#e9e5b0",
+                      "on-tertiary-container": "#fbfbff",
+                      "on-secondary": "#ffffff",
+                      "background": "#faf8ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "notebook-line": "24px",
+                      "margin-desktop": "48px",
+                      "gutter": "24px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Space Mono"],
+                      "headline-lg-mobile": ["Space Mono"],
+                      "headline-lg": ["Space Mono"],
+                      "label-md": ["Bricolage Grotesque"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "stamp-text": ["Bricolage Grotesque"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                      "stamp-text": ["24px", {"lineHeight": "1", "fontWeight": "800"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Scrapbook Utilities */
+        .hard-shadow { box-shadow: 4px 4px 0px 0px #131b2e; }
+        .hard-shadow-lg { box-shadow: 8px 8px 0px 0px #131b2e; }
+        .notebook-bg {
+            background-color: #faf8ff;
+            background-image: linear-gradient(#c0c7d0 1px, transparent 1px);
+            background-size: 100% 24px;
+        }
+        .stamp-click:active {
+            transform: scale(0.95) rotate(-2deg);
+        }
+        /* Binder Holes Decoration */
+        .binder-holes::after {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            height: 100%;
+            width: 16px;
+            background-image: radial-gradient(circle, #131b2e 4px, transparent 4px);
+            background-size: 100% 32px;
+            background-position: 0 16px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md overflow-x-hidden notebook-bg min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface border-b-2 border-on-surface shadow-[4px_4px_0px_0px_rgba(19,27,46,1)] flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">AI Courtroom</h1>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-label-md text-label-md text-primary hover:rotate-1 hover:scale-105 transition-transform flex items-center gap-2">
+                Objection!
+            </button>
+<button class="text-primary hover:rotate-1 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px]">folder_open</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-on-surface overflow-hidden hidden md:block">
+<img alt="Student Portrait" class="w-full h-full object-cover" data-alt="A close-up studio portrait of a determined young student. The lighting is bright and even, casting subtle shadows that highlight their focused expression. They are wearing casual, neat clothing against a stark white backdrop, emphasizing a clean, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXyYbs0M3zH_87FM5SwIdVw8kf66u_gyhxml2l-rGIAvS_yShxiExcP2gks4GhnUV8N639b2D8aggIynWs-IXJbgKQTSQL7ynfRv_QI9A51a7jer0G3fqx23poQ_FjvnluFJAb4e2osGbGumNoUF7IRs5uXu0jL1VA8ahtOQqk0YjwmiTkD7YOW1CTEH09ithZ2C8jJGh324gn0AYV3GOWhyGi4hdCysSph2b5Cx-cqS9aU3GBaeInCOsaAUNZVEQyOzFsJwNzpUhF"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 pt-24 pb-10 bg-surface-container border-r-2 border-on-surface binder-holes z-40">
+<div class="px-6 mb-8 mt-4 relative z-10">
+<div class="w-16 h-16 rounded-full border-2 border-on-surface overflow-hidden mb-4 hard-shadow rotate-[-3deg] bg-surface">
+<img alt="Case File Icon" class="w-full h-full object-cover" data-alt="A high-contrast, top-down view of a stark manila folder lying on a clean desk. A bold red 'CONFIDENTIAL' stamp is visible on the corner. The lighting is harsh and directional, creating a slightly dramatic, investigative mood within a predominantly light-toned environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUnljty2t0-0MPmwjL2rbTzOTSSVG_PD8RG61M3EW7REAAOUPd9HmoIYd543KxYO9Cbd77vqwNplpiOLno6spe-zdyZCq7VykBra3At4jnAfDKXbzMQLWPsjGTmw15qN837ENWhP5UG4PlxZRk0xJtFU5NI-xByd9r34bvy0OGrB2WVkqBOAao_ml7iPz1IwECXjdrwX6cBHEFPUJ4wSN1J9nzZ-xXkoT0JRg1AvqjC50CoEdPvf-kCJczuR7BdIvQGBZ-ouQdxIgR"/>
+</div>
+<h2 class="font-headline-md text-[24px] uppercase tracking-tighter text-on-surface leading-tight">Escalation Ladder</h2>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Case #842-AI</p>
+</div>
+<div class="flex-1 overflow-y-auto px-4 flex flex-col gap-2 relative z-10">
+<!-- Active Tab: Intake -->
+<a class="flex items-center gap-4 bg-primary-container text-on-primary-container border-2 border-on-surface p-3 scale-95 transition-transform duration-75 rotate-[-2deg] hard-shadow" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+<span class="font-label-md text-label-md">Intake</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-4 text-on-surface-variant p-3 hover:bg-secondary-container hover:text-on-secondary-container hover:border-2 hover:border-on-surface hover:rotate-1 hover:hard-shadow transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">folder_shared</span>
+<span class="font-label-md text-label-md">Evidence Wall</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant p-3 hover:bg-secondary-container hover:text-on-secondary-container hover:border-2 hover:border-on-surface hover:-rotate-1 hover:hard-shadow transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">gavel</span>
+<span class="font-label-md text-label-md">Rehearsal</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant p-3 hover:bg-secondary-container hover:text-on-secondary-container hover:border-2 hover:border-on-surface hover:rotate-2 hover:hard-shadow transition-all group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">balance</span>
+<span class="font-label-md text-label-md">Verdict</span>
+</a>
+</div>
+<div class="px-6 mt-auto relative z-10">
+<button class="w-full bg-secondary text-on-secondary font-stamp-text text-[18px] py-3 border-2 border-on-surface hard-shadow hover:-translate-y-1 hover:rotate-1 transition-transform mb-6">
+                Human Writing Receipt
+            </button>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-28 pb-32 px-margin-mobile md:px-margin-desktop min-h-screen">
+<div class="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Intake Form Area -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Header & Sticky Note -->
+<div class="flex flex-col md:flex-row gap-6 items-start">
+<div class="flex-1">
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">The Accusation Desk</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Compile the evidence against you.</p>
+</div>
+<div class="w-full md:w-64 bg-secondary-fixed text-on-secondary-container p-4 border-2 border-on-surface hard-shadow rotate-2 relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-8 h-8 bg-surface-container-highest opacity-50 rounded-full blur-[1px]"></div> <!-- Fake tape -->
+<span class="font-label-md text-label-md uppercase tracking-widest opacity-50 block mb-2 text-[10px]">Counsel's Note</span>
+<p class="font-body-md text-body-md leading-snug font-medium">Stay calm. We're building your case. Just drop the files and we'll handle the objections.</p>
+</div>
+</div>
+<!-- Intake Form Container -->
+<div class="bg-surface border-2 border-on-surface hard-shadow-lg p-6 md:p-8 relative mt-4">
+<div class="absolute -top-4 -right-4 w-12 h-12 bg-primary text-on-primary border-2 border-on-surface flex items-center justify-center rotate-[15deg] hard-shadow">
+<span class="material-symbols-outlined text-[28px]">priority_high</span>
+</div>
+<form class="flex flex-col gap-8">
+<!-- Teacher's Accusation -->
+<div class="flex flex-col gap-2 relative">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                                Teacher's Accusation
+                            </label>
+<textarea class="w-full bg-secondary-fixed/30 border-2 border-on-surface p-4 font-body-md text-on-surface focus:outline-none focus:ring-4 focus:ring-outline-variant focus:border-on-surface resize-none placeholder:text-on-surface-variant/50" placeholder="Paste the exact email or comment here..." rows="4"></textarea>
+<div class="absolute bottom-2 right-2 opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[48px]">format_quote</span>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- AI Detector Screenshot -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">image</span>
+                                    Detector Screenshot
+                                </label>
+<div class="w-full h-32 border-2 border-dashed border-on-surface bg-surface-container-low hover:bg-surface-container transition-colors flex flex-col items-center justify-center cursor-pointer group relative">
+<span class="material-symbols-outlined text-primary mb-2 group-hover:scale-110 transition-transform">upload_file</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Drop image or click</span>
+<div class="absolute -left-3 -top-3 rotate-[-45deg] opacity-70">
+<svg fill="none" height="24" stroke="#131b2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+</div>
+</div>
+</div>
+<!-- Essay Draft -->
+<div class="flex flex-col gap-2">
+<label class="font-label-md text-label-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                                    Original Draft
+                                </label>
+<div class="w-full h-32 border-2 border-on-surface bg-surface-container-highest hover:bg-surface-variant transition-colors flex flex-col items-center justify-center cursor-pointer group rotate-1">
+<span class="material-symbols-outlined text-on-surface mb-2 group-hover:scale-110 transition-transform">post_add</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Upload .docx or .pdf</span>
+</div>
+</div>
+</div>
+<!-- Panic / Submit Button -->
+<div class="pt-6 border-t-2 border-dashed border-outline flex justify-center">
+<button class="bg-primary text-on-primary font-stamp-text text-stamp-text px-12 py-4 border-2 border-on-surface hard-shadow-lg rotate-[-2deg] hover:rotate-0 hover:-translate-y-1 stamp-click transition-all flex items-center gap-3" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                FILE MOTION
+                            </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Right Column: Case Summary Card -->
+<div class="lg:col-span-4">
+<div class="bg-secondary-container border-2 border-on-surface hard-shadow-lg p-6 rotate-[1.5deg] relative mt-12 lg:mt-0">
+<!-- Paperclip decoration -->
+<div class="absolute -top-5 left-8 rotate-[15deg]">
+<svg fill="none" height="40" stroke="#131b2e" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="40"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"></path></svg>
+</div>
+<div class="border-b-2 border-on-surface pb-4 mb-4 mt-2">
+<h3 class="font-headline-md text-[20px] text-on-secondary-container uppercase tracking-tight">Case Summary</h3>
+<p class="font-label-md text-label-md text-on-secondary-container/70">Docket #842-AI</p>
+</div>
+<ul class="flex flex-col gap-4 font-body-md text-on-secondary-container">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5 text-[18px]">close</span>
+<div>
+<span class="font-label-md text-label-md block">Accusation Status</span>
+<span class="text-sm opacity-80">Pending input...</span>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5 text-[18px]">close</span>
+<div>
+<span class="font-label-md text-label-md block">Evidence Provided</span>
+<span class="text-sm opacity-80">Missing screenshot</span>
+</div>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5 text-[18px]">close</span>
+<div>
+<span class="font-label-md text-label-md block">Draft Analysis</span>
+<span class="text-sm opacity-80">Awaiting document</span>
+</div>
+</li>
+</ul>
+<div class="mt-8 p-4 bg-surface border-2 border-on-surface -rotate-1">
+<p class="font-label-md text-label-md text-center text-on-surface flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+                            Client-Attorney Privilege
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-surface-container-highest border-t-2 border-on-surface flex justify-around items-center px-4 pb-4 pt-2 hard-shadow">
+<!-- Active: Intake -->
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary border-2 border-on-surface rounded-xl p-2 -translate-y-2 rotate-2 w-16 h-16" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-md text-[10px] mt-1">Intake</span>
+</a>
+<!-- Inactive -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-[10px] mt-1">Evidence</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-md text-[10px] mt-1">Practice</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:scale-110 transition-transform" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-label-md text-[10px] mt-1">Verdict</span>
+</a>
+</nav>
+</body></html>
