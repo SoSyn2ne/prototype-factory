@@ -204,7 +204,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
       <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
-            <div className="flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="order-2 flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:order-1">
               <button
                 type="button"
                 onClick={() => setTag('all')}
@@ -251,14 +251,14 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               </button>
             </div>
 
-            <div className="flex gap-3 lg:ml-auto lg:items-center">
-              <details className="group relative">
-                <summary className="list-none inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 text-sm font-black text-primary transition hover:bg-primary/15 dark:border-primary/30 dark:bg-primary/15 dark:text-white">
+            <div className="order-1 flex flex-col gap-3 sm:flex-row sm:items-center lg:order-2 lg:ml-auto">
+              <details className="group relative order-2 w-full sm:w-auto">
+                <summary className="list-none inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 text-sm font-black text-primary transition hover:bg-primary/15 dark:border-primary/30 dark:bg-primary/15 dark:text-white sm:w-auto">
                   <span className="tracking-tight">Filters</span>
                   <IconChevronDown className="h-4 w-4 text-current transition group-open:rotate-180" />
                 </summary>
 
-                <div className="mt-3 w-full rounded-2xl border border-slate-200 bg-background-light p-4 shadow-xl dark:border-slate-800 dark:bg-background-dark lg:absolute lg:right-0 lg:mt-3 lg:w-80">
+                <div className="absolute right-0 top-full z-30 mt-3 w-full min-w-72 rounded-2xl border border-slate-200 bg-background-light p-4 shadow-xl dark:border-slate-800 dark:bg-background-dark sm:w-80">
                   <div className="grid grid-cols-1 gap-3">
                     <div>
                       <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">Status</label>
@@ -305,7 +305,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                 </div>
               </details>
 
-              <div className="w-full lg:w-80">
+              <div className="order-1 w-full sm:min-w-64 lg:w-80">
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 grid w-10 place-items-center text-slate-400">⌕</div>
                   <input
