@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PROOF BOOTH - Proof Mix</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&amp;family=Syne:wght@700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-low'); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant'); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline-variant'); 
+        }
+
+        /* Ambient Glow effects */
+        .ambient-glow-primary {
+            box-shadow: 0 0 15px rgba(236,178,255,0.4);
+        }
+        .ambient-glow-secondary {
+            box-shadow: 0 0 15px rgba(54,255,196,0.4);
+        }
+        .ambient-glow-error {
+            box-shadow: 0 0 15px rgba(255,180,171,0.4);
+        }
+
+        /* Inset well */
+        .inset-well {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Tactile Button Lip */
+        .tactile-btn {
+            box-shadow: 0 4px 0 rgba(0,0,0,0.4);
+            transform: translateY(0);
+            transition: all 0.1s ease;
+        }
+        .tactile-btn:active {
+            box-shadow: 0 0 0 rgba(0,0,0,0.4);
+            transform: translateY(4px);
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 16px;
+            border-radius: 4px;
+            background: theme('colors.secondary-fixed');
+            cursor: pointer;
+            margin-top: -10px;
+            box-shadow: 0 0 10px rgba(54,255,196,0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: 2px;
+        }
+        
+        /* Shimmer Effect for Verified watermark */
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .shimmer-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+            transform: translateX(-100%) rotate(45deg);
+            animation: shimmer 3s infinite;
+            pointer-events: none;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary": "#ffb4a3",
+                    "on-secondary": "#003828",
+                    "outline": "#9d8ba0",
+                    "error": "#ffb4ab",
+                    "surface-container-lowest": "#0e0e10",
+                    "secondary-fixed": "#36ffc4",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#514255",
+                    "tertiary-fixed": "#ffdad2",
+                    "tertiary-container": "#c65036",
+                    "on-tertiary-fixed": "#3d0600",
+                    "on-error": "#690005",
+                    "surface": "#131315",
+                    "secondary-fixed-dim": "#00e1ab",
+                    "on-tertiary-container": "#fffeff",
+                    "on-surface-variant": "#d4c0d7",
+                    "surface-variant": "#353437",
+                    "primary-container": "#bd00ff",
+                    "tertiary-fixed-dim": "#ffb4a3",
+                    "on-tertiary-fixed-variant": "#86220c",
+                    "primary-fixed-dim": "#ecb2ff",
+                    "primary-fixed": "#f8d8ff",
+                    "on-secondary-container": "#007255",
+                    "on-tertiary": "#630f00",
+                    "on-primary": "#520071",
+                    "surface-container-highest": "#353437",
+                    "surface-bright": "#39393b",
+                    "primary": "#ecb2ff",
+                    "inverse-surface": "#e5e1e4",
+                    "on-secondary-fixed": "#002116",
+                    "on-background": "#e5e1e4",
+                    "surface-tint": "#ecb2ff",
+                    "on-primary-container": "#ffffff",
+                    "on-surface": "#e5e1e4",
+                    "surface-container": "#201f21",
+                    "error-container": "#93000a",
+                    "inverse-primary": "#9900cf",
+                    "inverse-on-surface": "#303032",
+                    "surface-dim": "#131315",
+                    "on-primary-fixed-variant": "#74009f",
+                    "on-secondary-fixed-variant": "#00513c",
+                    "secondary": "#ffffff",
+                    "surface-container-low": "#1b1b1d",
+                    "secondary-container": "#36ffc4",
+                    "surface-container-high": "#2a2a2c",
+                    "on-primary-fixed": "#320047",
+                    "background": "#131315"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "gutter": "16px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "40px",
+                    "container-max": "1200px"
+            },
+            "fontFamily": {
+                    "body-lg": [
+                            "Hanken Grotesk"
+                    ],
+                    "headline-lg-mobile": [
+                            "Syne"
+                    ],
+                    "headline-xl": [
+                            "Syne"
+                    ],
+                    "label-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-lg": [
+                            "Syne"
+                    ],
+                    "body-md": [
+                            "Hanken Grotesk"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "label-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+        },
+        },
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar (Mobile Only) -->
+<header class="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-20 bg-surface-container-low/80 backdrop-blur-xl shadow-md">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter uppercase">PROOF BOOTH</div>
+<div class="flex gap-unit text-primary">
+<span class="material-symbols-outlined hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer">fingerprint</span>
+<span class="material-symbols-outlined hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer">history</span>
+<span class="material-symbols-outlined hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer">settings</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-40 bg-surface-container border-r border-outline-variant shadow-xl py-8 gap-unit">
+<div class="px-4 mb-8">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter uppercase mb-6">PROOF BOOTH</div>
+<div class="flex items-center gap-3 bg-surface-container-lowest p-3 rounded-xl inset-well">
+<div class="w-12 h-12 rounded-full bg-surface-variant overflow-hidden border-2 border-secondary-fixed">
+<img alt="Human Verification Status" class="w-full h-full object-cover" data-alt="A small, circular avatar portrait of a man with short hair looking directly at the camera. The image has a subtle digital scan line overlay, suggesting a technological verification process. The overall tone is slightly moody and high-contrast, fitting a cyberpunk or near-future aesthetic. The portrait is framed within a glowing neon green ring, emphasizing the 'verified' status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMQX7ZYQThS6hy5zE8XqFjTQvl7lvqu2ClyzKLSvoAV1pGn4qoUpxvPZm-LmneddV4eWVMRO-EU6H0Tp0trk315UtKTQb_o-NQkKlpqmltfkqXQNgr6tRxhpR6jrtpTF3mYioe_M_-ATsPe1HYUc0NbUJwijsQEiBS-qgL-zr-mGiHHIfr6nGtQCfVchmqRdblNu1pMmhzV5YCMwo7h8punzmld9hsRFTgRK9eqjB2X_j5HtA_kybTmidbqnCVzft50GE1LQJXFoWK"/>
+</div>
+<div>
+<div class="font-label-mono text-label-mono text-secondary-fixed uppercase">Verified Human</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">98.4% Confidence</div>
+</div>
+</div>
+<button class="mt-4 w-full bg-surface-variant text-on-surface-variant font-label-mono text-label-mono uppercase tracking-widest py-2 rounded-lg hover:bg-surface-container-high transition-all tactile-btn">RE-SCAN BIOMETRICS</button>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="text-on-surface-variant flex flex-row items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all font-label-mono text-label-mono uppercase tracking-widest mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">view_module</span>Booth
+            </a>
+<a class="text-on-surface-variant flex flex-row items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all font-label-mono text-label-mono uppercase tracking-widest mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">query_stats</span>Analysis
+            </a>
+<a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 flex flex-row items-center p-4 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] font-label-mono text-label-mono uppercase tracking-widest transform scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined mr-3 fill">compare</span>Mix
+            </a>
+<a class="text-on-surface-variant flex flex-row items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all font-label-mono text-label-mono uppercase tracking-widest mx-2 rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">settings_suggest</span>Prompts
+            </a>
+</div>
+<div class="mt-auto px-2">
+<a class="text-on-surface-variant flex flex-row items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all font-label-mono text-label-mono uppercase tracking-widest rounded-lg" href="#">
+<span class="material-symbols-outlined mr-3">logout</span>Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-24 md:pt-8 px-margin-mobile md:px-margin-desktop pb-32 md:pb-8 min-h-screen flex flex-col">
+<!-- Header Section -->
+<header class="mb-8 border-b border-outline-variant pb-6">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-surface mb-2">Profile Mix Console</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Analyze your digital footprint. Balance high-fidelity polished assets with raw, verified human proof to optimize trust signals.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter flex-1">
+<!-- Left Column: Suspicious (Polished) Profile -->
+<section class="lg:col-span-5 bg-surface-container rounded-xl p-6 border border-error/20 relative overflow-hidden flex flex-col">
+<div class="absolute top-0 left-0 w-full h-1 bg-error"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<div class="font-label-mono text-label-mono text-error uppercase tracking-widest mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span> Flagged Suspicious
+                        </div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg text-on-surface">The "Too Perfect" Read</h2>
+</div>
+<div class="bg-error-container text-on-error-container px-3 py-1 rounded-full font-label-caps text-label-caps border border-error/50">
+                        BOT LIKELIHOOD: 84%
+                    </div>
+</div>
+<!-- Profile Card Mockup -->
+<div class="bg-surface-container-lowest rounded-lg p-4 inset-well flex-1 flex flex-col gap-4">
+<div class="relative rounded-lg overflow-hidden h-64 border border-outline-variant">
+<img alt="Highly Polished Profile Photo" class="w-full h-full object-cover filter contrast-125 saturate-150" data-alt="A highly stylized, hyper-realistic portrait of a man in a sharp suit, standing against a clean, architectural background. The lighting is immaculate, resembling an expensive studio setup with perfect rim lights and soft fill. The image appears almost AI-generated in its flawless execution, lacking natural texture or imperfections. The overall aesthetic is sleek, corporate, and devoid of candid human elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBF0vII1hlK2InlGtQu3MsVdDOjfFSQW6VtNwuw3avG_gNSMQhgzgX9_2Jl6OhrGwmXvzj99iAlzrqK0uO5tWBEn3O695RZOVpQjjm2RrBTvCzgENbCpAuPnsjEQufinJqixcRcsoHJew9O9v0LLN8R01sWmscos0EBQTYIxT_db9atxoMPvXFkmiEcbqVDH-6jP7cMzmgXuZyaOV1uQ5UlO5-dgvY_tmvOxtIxyCMZqYMAcZqbjihQNRf69z2HhdYwEO5nSWL8nqIG"/>
+<div class="absolute bottom-2 right-2 bg-surface/80 backdrop-blur px-2 py-1 rounded font-label-caps text-label-caps text-error border border-error/50">
+                            AI ENHANCEMENT DETECTED
+                        </div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-label-mono text-on-surface-variant">Bio Optimization</span>
+<span class="font-label-caps text-label-caps text-error">CRITICAL OVER-TUNING</span>
+</div>
+<div class="bg-surface-container p-3 rounded border border-outline-variant font-body-md text-body-md text-on-surface italic opacity-80">
+                            "Visionary entrepreneur leveraging synergistic paradigms to disrupt the dating landscape. Fluent in sarcasm and Python."
+                        </div>
+</div>
+</div>
+</section>
+<!-- Center Column: The Mixer Controls -->
+<section class="lg:col-span-2 flex flex-col justify-center items-center gap-8 py-8 lg:py-0 relative">
+<!-- Decorative Connector Lines (Desktop) -->
+<div class="hidden lg:block absolute top-1/2 left-0 w-full h-px bg-outline-variant -z-10"></div>
+<div class="bg-surface-container-high rounded-full p-4 border border-outline-variant shadow-lg ambient-glow-primary z-10">
+<span class="material-symbols-outlined text-[32px] text-primary">sync_alt</span>
+</div>
+<div class="w-full bg-surface-container rounded-xl p-6 border border-outline-variant shadow-md flex flex-col gap-6">
+<h3 class="font-label-mono text-label-mono text-center text-primary uppercase tracking-widest">Tune The Vibe</h3>
+<div class="space-y-6">
+<!-- Slider 1 -->
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant mb-2">
+<span>CANDID</span>
+<span>CURATED</span>
+</div>
+<input max="100" min="0" type="range" value="30"/>
+</div>
+<!-- Slider 2 -->
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant mb-2">
+<span>RAW TXT</span>
+<span>WITTY</span>
+</div>
+<input max="100" min="0" type="range" value="70"/>
+</div>
+<!-- Mini Meter -->
+<div class="pt-4 border-t border-outline-variant">
+<div class="font-label-caps text-label-caps text-center text-on-surface-variant mb-2">HUMAN RESONANCE</div>
+<div class="flex gap-1 h-4">
+<div class="flex-1 bg-secondary-fixed rounded-sm"></div>
+<div class="flex-1 bg-secondary-fixed rounded-sm"></div>
+<div class="flex-1 bg-secondary-fixed rounded-sm opacity-50"></div>
+<div class="flex-1 bg-surface-variant rounded-sm"></div>
+<div class="flex-1 bg-surface-variant rounded-sm"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Column: Proof-Optimized Profile -->
+<section class="lg:col-span-5 bg-surface-container rounded-xl p-6 border border-secondary-fixed/30 relative overflow-hidden flex flex-col ambient-glow-secondary">
+<div class="absolute top-0 left-0 w-full h-1 bg-secondary-fixed"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<div class="font-label-mono text-label-mono text-secondary-fixed uppercase tracking-widest mb-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] fill">verified</span> Proof-Optimized
+                        </div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg text-on-surface">The Authenticity Baseline</h2>
+</div>
+<div class="bg-secondary-fixed/10 text-secondary-fixed px-3 py-1 rounded-full font-label-caps text-label-caps border border-secondary-fixed/30 shimmer-wrapper">
+                        VERIFIED: ORGANIC
+                    </div>
+</div>
+<!-- Profile Card Mockup -->
+<div class="bg-surface-container-lowest rounded-lg p-4 inset-well flex-1 flex flex-col gap-4">
+<div class="relative rounded-lg overflow-hidden h-64 border border-outline-variant">
+<img alt="Casual Candid Profile Photo" class="w-full h-full object-cover" data-alt="A candid, slightly grainy photograph of a person laughing in an everyday setting, perhaps a coffee shop or a park. The lighting is natural and uneven, with soft shadows and minor imperfections that give it a raw, authentic feel. The composition is relaxed, not perfectly centered, conveying a sense of spontaneous reality. The color palette leans towards warm, natural tones, contrasting with sterile digital perfection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNlIA_iCxeHTpHKWmSCDjVxL3ft1OTc0Iye7nfIw2QeRjqmCNL7QqOI0VOnjUpr11VJotXEhJ3ugqMdHEozaWjR-nLPYsA9cpF8DMAm6Zghf-pZgqXvoctlhfZCIuxc-qYNCKgC6Qk4vavMjVfjIc-4Rjeg61C3EmRXbE9NNPgOoAb00c3rMd5wYk6xPa2I67QmRhV0n82Ihl5R5dha3c77qBFCYbko7gD3ISJo8ZLe5_lSlxhQ7dSE3h0r0hX4kpSpg5yps7AK92c"/>
+<div class="absolute top-2 left-2 bg-surface/80 backdrop-blur px-2 py-1 rounded font-label-mono text-label-mono text-secondary-fixed border border-secondary-fixed/50 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">my_location</span> GYRO DATA MATCH
+                        </div>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-label-mono text-label-mono text-on-surface-variant">Bio Formatting</span>
+<span class="font-label-caps text-label-caps text-secondary-fixed">NATURAL CADENCE</span>
+</div>
+<div class="bg-surface-container p-3 rounded border border-outline-variant font-body-md text-body-md text-on-surface">
+                            Just a guy trying to keep his plants alive. I make a decent coffee and am aggressively average at trivia.
+                        </div>
+</div>
+</div>
+</section>
+</div>
+<!-- Action Footer -->
+<footer class="mt-8 pt-8 border-t border-outline-variant flex flex-col sm:flex-row justify-end items-center gap-4">
+<button class="w-full sm:w-auto px-6 py-4 bg-surface-variant text-on-surface-variant font-label-mono text-label-mono uppercase tracking-widest rounded-lg hover:bg-surface-container-high transition-all tactile-btn border border-outline-variant">
+                RE-SCAN BIOMETRICS
+            </button>
+<button class="w-full sm:w-auto px-8 py-4 bg-primary text-on-primary font-headline-lg-mobile text-[20px] rounded-lg hover:bg-primary-fixed transition-all tactile-btn ambient-glow-primary">
+                COMMIT TO HUMAN
+            </button>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface-container-highest border-t-2 border-outline-variant shadow-[0_-4px_10px_rgba(0,0,0,0.5)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all" href="#">
+<span class="material-symbols-outlined mb-1">dashboard</span>
+<span class="font-label-caps text-label-caps">Booth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all" href="#">
+<span class="material-symbols-outlined mb-1">analytics</span>
+<span class="font-label-caps text-label-caps">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl p-2 scale-110 -translate-y-2 shadow-[0_0_15px_rgba(236,178,255,0.6)] transition-transform duration-75" href="#">
+<span class="material-symbols-outlined mb-1 fill">layers</span>
+<span class="font-label-caps text-label-caps">Mixer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all" href="#">
+<span class="material-symbols-outlined mb-1">refresh</span>
+<span class="font-label-caps text-label-caps">Wheel</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all" href="#">
+<span class="material-symbols-outlined mb-1">verified</span>
+<span class="font-label-caps text-label-caps">Card</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction: Update slider glows based on value
+        const sliders = document.querySelectorAll('input[type=range]');
+        sliders.forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                // Subtle hue shift based on position to represent "tuning"
+                if(val > 60) {
+                    e.target.style.accentColor = "var(--color-primary)";
+                } else if (val < 40) {
+                    e.target.style.accentColor = "var(--color-secondary-fixed)";
+                } else {
+                    e.target.style.accentColor = "var(--color-outline)";
+                }
+            });
+        });
+    </script>
+</body></html>

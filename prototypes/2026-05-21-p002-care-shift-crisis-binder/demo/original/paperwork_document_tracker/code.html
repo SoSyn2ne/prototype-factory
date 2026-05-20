@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Crisis Binder - Paperwork Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-fixed-dim": "#b9c7e3",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#0e1c31",
+                        "background": "#fbf9fb",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#101e33",
+                        "surface": "#fbf9fb",
+                        "primary": "#000410",
+                        "surface-container-high": "#eae7e9",
+                        "on-background": "#1b1b1d",
+                        "surface-variant": "#e4e2e4",
+                        "outline": "#75777d",
+                        "on-tertiary-fixed": "#002116",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c3ecd9",
+                        "on-secondary-container": "#54647a",
+                        "on-surface-variant": "#44474d",
+                        "surface-container-highest": "#e4e2e4",
+                        "surface-tint": "#515f77",
+                        "secondary-container": "#d0e1fb",
+                        "tertiary": "#000503",
+                        "on-primary-container": "#7986a0",
+                        "on-primary-fixed-variant": "#3a475e",
+                        "outline-variant": "#c5c6cd",
+                        "inverse-primary": "#b9c7e3",
+                        "on-tertiary-container": "#678e7d",
+                        "surface-dim": "#dbd9db",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "inverse-surface": "#303032",
+                        "on-error": "#ffffff",
+                        "secondary": "#505f76",
+                        "surface-container-low": "#f5f3f5",
+                        "inverse-on-surface": "#f2f0f2",
+                        "on-tertiary-fixed-variant": "#294e40",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-bright": "#fbf9fb",
+                        "tertiary-fixed-dim": "#a7cfbd",
+                        "surface-container": "#efedef",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "tertiary-container": "#002318"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "48px",
+                        "margin-desktop": "40px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "stack-sm": "12px",
+                        "stack-md": "24px",
+                        "margin-mobile": "20px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "label-sm": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "label-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "30px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md min-h-screen flex flex-col md:flex-row antialiased">
+<nav class="fixed top-0 flex justify-between items-center px-margin-desktop w-full h-16 z-50 bg-surface border-b border-outline-variant">
+<div class="flex items-center gap-stack-md">
+<span class="font-headline-md text-headline-md text-primary tracking-tight">Crisis Binder</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-stack-sm py-base border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px] mr-base">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-label-md font-label-md text-on-surface w-48 placeholder-on-surface-variant outline-none" placeholder="Search paperwork..." type="text"/>
+</div>
+<button class="p-base rounded-full hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emergency_share</span>
+</button>
+<button class="p-base rounded-full hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant ml-base overflow-hidden border border-outline-variant">
+<img alt="Primary caregiver profile" class="w-full h-full object-cover" data-alt="A small, circular profile portrait of a smiling adult woman with shoulder-length brown hair, used as a primary caregiver avatar. She is standing outdoors with a soft, natural blurred background. The lighting is bright and reassuring, fitting a modern digital application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCukyqvbLxL8YmwN24ebj0ihCZc51Fl92Ih1F9ZYw9294vq5JOd25FjTIg-DwxGrtP0lyR0ETKWMkZ3PKLo7DFqVF3evSflKpiRrma8eq892TcKGak20C9gBHIPIYkHZPgrhvA-CBAo0sRgW6cdiBMscMHjY-UUjA1BlTJnMzxNfm_Slgvkp9fgXH0OSHGmQ3t3pVdPUclAHv2rOOB05W7IO--v3EImPiUroMpomNvQhiy4G-XUbQfs_wmEDZ-d4OvMyI9V4u_PTck"/>
+</div>
+</div>
+</nav>
+<aside class="fixed left-0 top-0 h-full flex flex-col p-base z-40 w-64 bg-surface-container-low border-r border-outline-variant hidden md:flex pt-20">
+<div class="mb-stack-md px-base pt-base">
+<div class="flex items-center gap-stack-sm mb-base">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant shrink-0">
+<img alt="Elderly parent photo" class="w-full h-full object-cover" data-alt="A small, circular profile portrait of an elderly man with glasses, smiling softly. The image is used as an avatar representing a parent in a care management application. The background is a plain, light color to maintain a clean, organized aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbnEYlN9z9tBHe79JsDv-XWsJxaajC--06EQ8F1qlL6JsqXPuX1CVDK4fcX4I2kfsjF9kPQqOkCZwQnEanSVdJbvSHxealLOngegB3Dt2PuAtxIxQDUjZuzpWB43xiEJeupBMppsNGV4PKJXrylOZSrIwkwmv9bUuS5W5IYe5-WddgdVrx89x5U3Lg9G8eNxMbe6C-ietxgXJfFQcNRXmAIqQY04tT0EdQ3E2gBs9LB30UMRIQtSfPi9wFCFVWBGRLVBILdVORqKQ"/>
+</div>
+<div>
+<div class="font-label-md text-label-md text-primary">Parent Status: Stable</div>
+<div class="text-[12px] leading-tight text-on-surface-variant">Last updated 2h ago</div>
+</div>
+</div>
+<button class="w-full bg-error text-on-error font-label-md text-label-md py-base px-stack-sm rounded-lg mt-base flex items-center justify-center gap-base active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                EMERGENCY PROTOCOL
+            </button>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-base p-stack-sm rounded-lg transition-transform active:scale-95 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">history</span>
+                Timeline
+            </a>
+<a class="flex items-center gap-base p-stack-sm rounded-lg transition-transform active:scale-95 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">medical_services</span>
+                Health
+            </a>
+<a class="flex items-center gap-base p-stack-sm rounded-lg transition-transform active:scale-95 font-label-md text-label-md bg-secondary-container text-on-secondary-container font-bold" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">description</span>
+                Paperwork
+            </a>
+<a class="flex items-center gap-base p-stack-sm rounded-lg transition-transform active:scale-95 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+                Team
+            </a>
+</nav>
+<div class="mt-auto pt-stack-md border-t border-outline-variant/50">
+<a class="flex items-center gap-base p-stack-sm rounded-lg transition-transform active:scale-95 font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">history_edu</span>
+                Recent Sibling Activity
+            </a>
+</div>
+</aside>
+<main class="flex-1 pt-24 pb-section-gap px-margin-mobile md:px-margin-desktop md:ml-64 max-w-7xl mx-auto w-full">
+<header class="mb-stack-md flex flex-col md:flex-row md:items-end justify-between gap-stack-sm">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Document Tracker</h1>
+<p class="text-on-surface-variant mt-1">Manage essential files and quick-reference scripts for care coordination.</p>
+</div>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-stack-md py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-base self-start md:self-auto">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Add Document
+            </button>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter items-start">
+<section class="xl:col-span-2 space-y-gutter">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-stack-md py-stack-sm border-b border-outline-variant bg-surface flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary">folder_special</span>
+                            Core Legal &amp; Directives
+                        </h2>
+</div>
+<div class="divide-y divide-outline-variant/50">
+<div class="p-stack-md flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm hover:bg-surface/50 transition-colors">
+<div class="flex items-start gap-stack-sm">
+<div class="mt-1 w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[16px] text-primary hidden">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg">Power of Attorney (POA)</h3>
+<p class="text-on-surface-variant text-sm mt-0.5">Updated Oct 2023. Notarized copy in safe.</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm sm:w-auto w-full justify-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed-variant">
+                                    Have it
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<div class="p-stack-md flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm hover:bg-surface/50 transition-colors">
+<div class="flex items-start gap-stack-sm">
+<div class="mt-1 w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0">
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg">Do Not Resuscitate (DNR) Order</h3>
+<p class="text-on-surface-variant text-sm mt-0.5">Awaiting physician signature.</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm sm:w-auto w-full justify-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-error-container text-on-error-container">
+                                    Need it
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="px-stack-md py-stack-sm border-b border-outline-variant bg-surface flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-base">
+<span class="material-symbols-outlined text-secondary">health_and_safety</span>
+                            Health Records &amp; ID
+                        </h2>
+</div>
+<div class="divide-y divide-outline-variant/50">
+<div class="p-stack-md flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm hover:bg-surface/50 transition-colors">
+<div class="flex items-start gap-stack-sm">
+<div class="mt-1 w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0 bg-primary border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg">Medicare &amp; Insurance Cards</h3>
+<p class="text-on-surface-variant text-sm mt-0.5">Front and back scanned.</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm sm:w-auto w-full justify-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-secondary-container text-on-secondary-container">
+                                    Sent to Facility
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+<div class="p-stack-md flex flex-col sm:flex-row sm:items-center justify-between gap-stack-sm hover:bg-surface/50 transition-colors">
+<div class="flex items-start gap-stack-sm">
+<div class="mt-1 w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0 bg-primary border-primary">
+<span class="material-symbols-outlined text-[16px] text-on-primary">check</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface text-lg">Current Med List</h3>
+<p class="text-on-surface-variant text-sm mt-0.5">Includes dosages and prescribing doctors.</p>
+</div>
+</div>
+<div class="flex items-center gap-stack-sm sm:w-auto w-full justify-end">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed-variant">
+                                    Have it
+                                </span>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="xl:col-span-1">
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-stack-md sticky top-24">
+<div class="flex items-center gap-base mb-stack-md">
+<span class="material-symbols-outlined text-primary text-[28px]">support_agent</span>
+<h2 class="font-headline-md text-headline-md text-primary">Call Scripts</h2>
+</div>
+<p class="text-sm text-on-surface-variant mb-stack-md">Quick reference language for navigating complex institutional phone trees.</p>
+<div class="space-y-stack-sm">
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-stack-sm cursor-pointer font-label-md text-label-md text-on-surface hover:bg-surface transition-colors select-none">
+<span>Insurance: Claim Status</span>
+<span class="material-symbols-outlined text-on-surface-variant transition duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-stack-sm pt-0 border-t border-outline-variant/50 bg-surface text-sm text-on-surface-variant">
+<p class="mb-2">"Hi, my name is [Your Name] and I am calling regarding my [Relation], [Patient Name]."</p>
+<p class="mb-2">"I have their policy number: [Number]. I need to check the status of a claim submitted on [Date] for [Service]."</p>
+<p class="font-semibold text-on-surface mt-3 mb-1">Key Phrase to remember:</p>
+<div class="bg-surface-container p-2 rounded border-l-2 border-primary text-on-surface italic">
+                                    "Can you provide a reference number for this call and send me an itemized EOB?"
+                                </div>
+</div>
+</details>
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-stack-sm cursor-pointer font-label-md text-label-md text-on-surface hover:bg-surface transition-colors select-none">
+<span>Hospital: Billing Dispute</span>
+<span class="material-symbols-outlined text-on-surface-variant transition duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-stack-sm pt-0 border-t border-outline-variant/50 bg-surface text-sm text-on-surface-variant">
+<p class="mb-2">"I received bill #[Number] for dates of service [Dates]. I am requesting an itemized bill before processing payment."</p>
+<p class="font-semibold text-on-surface mt-3 mb-1">Key Phrase to remember:</p>
+<div class="bg-surface-container p-2 rounded border-l-2 border-primary text-on-surface italic">
+                                    "Please place this account on a temporary hold while I review the itemized charges to avoid collections."
+                                </div>
+</div>
+</details>
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden [&amp;_summary::-webkit-details-marker]:hidden">
+<summary class="flex items-center justify-between p-stack-sm cursor-pointer font-label-md text-label-md text-on-surface hover:bg-surface transition-colors select-none">
+<span>Facility: Requesting Records</span>
+<span class="material-symbols-outlined text-on-surface-variant transition duration-300 group-open:rotate-180">expand_more</span>
+</summary>
+<div class="p-stack-sm pt-0 border-t border-outline-variant/50 bg-surface text-sm text-on-surface-variant">
+<p class="mb-2">"I am the designated HIPAA contact / POA for [Patient Name]. I need to request their complete chart from the recent discharge."</p>
+<div class="bg-surface-container p-2 rounded border-l-2 border-primary text-on-surface italic mt-2">
+                                    "What is your direct fax number to send the signed release of information form?"
+                                </div>
+</div>
+</details>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

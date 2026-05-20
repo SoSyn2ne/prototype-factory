@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Citation Repair - Citation Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ffb95f",
+                        "surface-container-lowest": "#010f1f",
+                        "outline": "#909097",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#1000a9",
+                        "on-error": "#690005",
+                        "surface": "#051424",
+                        "tertiary-container": "#251400",
+                        "on-tertiary-fixed": "#2a1700",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e1e0ff",
+                        "outline-variant": "#45464d",
+                        "on-tertiary-container": "#b47300",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "surface-variant": "#273647",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-container": "#0f172a",
+                        "on-tertiary": "#472a00",
+                        "on-secondary-container": "#b0b2ff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "on-primary": "#283044",
+                        "on-secondary-fixed": "#07006c",
+                        "inverse-surface": "#d4e4fa",
+                        "primary": "#bec6e0",
+                        "on-surface": "#d4e4fa",
+                        "on-primary-container": "#798098",
+                        "surface-tint": "#bec6e0",
+                        "on-background": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "surface-container": "#122131",
+                        "inverse-on-surface": "#233143",
+                        "inverse-primary": "#565e74",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-dim": "#051424",
+                        "surface-container-low": "#0d1c2d",
+                        "secondary": "#c0c1ff",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#051424",
+                        "secondary-container": "#3131c0",
+                        "surface-container-high": "#1c2b3c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "16px",
+                        "unit": "4px",
+                        "cell-padding-v": "8px",
+                        "gutter": "12px",
+                        "cell-padding-h": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-caps": ["IBM Plex Sans"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "body-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Utility styles for scrollbars */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #273647; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #45464d; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm h-screen overflow-hidden flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface-container-high border-b border-outline-variant flex justify-between items-center w-full px-gutter z-50 h-12 shrink-0">
+<div class="flex items-center gap-4">
+<span class="text-body-md font-bold text-on-surface tracking-tight uppercase">Citation Ledger</span>
+<!-- Search Bar (on_left) -->
+<div class="hidden md:flex items-center bg-surface-container-lowest border border-outline-variant rounded px-2 h-8 w-64 focus-within:border-primary-fixed focus-within:ring-1 focus-within:ring-primary-fixed">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none p-0 text-body-sm font-body-sm text-on-surface w-full focus:ring-0 placeholder:text-on-surface-variant outline-none" placeholder="Search citations, entities..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<!-- Trailing Icons -->
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors duration-150 rounded active:opacity-80 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors duration-150 rounded active:opacity-80 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="history">history</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors duration-150 rounded active:opacity-80 active:scale-[0.98]">
+<span class="material-symbols-outlined text-[18px]" data-icon="help">help</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<img alt="Operator Profile" class="w-7 h-7 rounded bg-surface-container-highest border border-outline-variant cursor-pointer object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsU7wGiPYK0uEQN1cdAi5LlO8-3UT_gFeIoYMGPTW8awd2j-yk4Nv5E6lMyRvUBeDWw_3zTumvGc2Jbk3axxOaYxCwxZzN_1ANESD2359IugeourXlGmSLTu-ZCllQPjseLzSxyJvwuVcD3n5HBWBlVTLUWO6b5UfKIpfZb9hz6UlQX9SU2KPQXpMuEe7X2JDPgHzVXesROUAXGwna3IMAMDM8Mu6tRAEg8OupkwA1HOldOURmsV9Jj2ksmFE3vxsFTdb7yWYAr9s"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low border-r border-outline-variant w-64 h-full shrink-0 flex flex-col py-4 gap-1 overflow-y-auto hidden md:flex z-40">
+<!-- Header -->
+<div class="px-4 mb-4 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container border border-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<div>
+<div class="text-label-caps font-bold text-primary tracking-widest uppercase">Rescue Ledger</div>
+<div class="text-[10px] text-on-surface-variant">Operator 01</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 mt-2">
+<!-- Dashboard -->
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Citation Repair (Active) -->
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary px-4 py-2 flex items-center gap-3 active:translate-x-1 transition-all text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px] text-primary fill-icon" data-icon="build_circle">build_circle</span>
+<span class="font-bold text-primary">Citation Repair</span>
+</a>
+<!-- Community Queue -->
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="groups">groups</span>
+<span>Community Queue</span>
+</a>
+<!-- Kanban -->
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="view_kanban">view_kanban</span>
+<span>Kanban</span>
+</a>
+<!-- Reports -->
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant pt-2">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest px-4 py-2 flex items-center gap-3 transition-all duration-100 text-body-sm font-body-sm group" href="#">
+<span class="material-symbols-outlined text-[18px] group-hover:text-on-surface text-on-surface-variant" data-icon="terminal">terminal</span>
+<span>System Logs</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Workflow Filter Bar -->
+<div class="bg-surface-container px-container-padding py-2 border-b border-outline-variant flex items-center gap-2 overflow-x-auto shrink-0 no-scrollbar">
+<button class="bg-primary-container text-primary border border-primary px-3 py-1 rounded text-label-caps font-label-caps uppercase whitespace-nowrap">All</button>
+<button class="bg-transparent text-on-surface-variant border border-outline-variant hover:border-outline hover:text-on-surface px-3 py-1 rounded text-label-caps font-label-caps uppercase whitespace-nowrap transition-colors">High Priority</button>
+<button class="bg-transparent text-on-surface-variant border border-outline-variant hover:border-outline hover:text-on-surface px-3 py-1 rounded text-label-caps font-label-caps uppercase whitespace-nowrap transition-colors flex items-center gap-1">
+                    Community Backlog
+                    <span class="bg-surface-variant text-on-surface px-1.5 rounded-full text-[9px]">142</span>
+</button>
+<button class="bg-transparent text-on-surface-variant border border-outline-variant hover:border-outline hover:text-on-surface px-3 py-1 rounded text-label-caps font-label-caps uppercase whitespace-nowrap transition-colors">Pending Review</button>
+<div class="ml-auto flex items-center gap-2">
+<button class="text-on-surface-variant hover:text-on-surface p-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface p-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="sort">sort</span>
+</button>
+</div>
+</div>
+<!-- Content Grid (Queue + Drawer) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Community Proof Queue (List) -->
+<div class="flex-1 overflow-y-auto p-container-padding flex flex-col gap-3">
+<!-- Table Header Proxy for alignment -->
+<div class="grid grid-cols-12 gap-4 px-4 py-2 bg-surface-container-high border border-outline-variant rounded-t text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider sticky top-0 z-10 shadow-sm">
+<div class="col-span-1">Status</div>
+<div class="col-span-4">Engine / Query</div>
+<div class="col-span-5">Missing Citation / Claim</div>
+<div class="col-span-2 text-right">Action</div>
+</div>
+<!-- Queue Item 1 (Active/Selected) -->
+<div class="bg-surface-container-high border-l-4 border-l-error border-y border-r border-outline-variant cursor-pointer hover:bg-surface-container-highest transition-colors relative">
+<div class="grid grid-cols-12 gap-4 p-4 items-center">
+<div class="col-span-1 flex flex-col gap-1">
+<span class="bg-error/10 text-error border border-error/30 px-1.5 py-0.5 rounded text-[10px] font-label-caps uppercase inline-block text-center w-max">Critical</span>
+<span class="text-[10px] text-on-surface-variant font-data-mono">REQ-8992</span>
+</div>
+<div class="col-span-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-4 h-4 rounded-full bg-[#1A1A1A] flex items-center justify-center text-[10px] border border-outline-variant">P</span>
+<span class="text-body-sm font-headline-md text-on-surface truncate">"Latest models of EV battery capacity 2024"</span>
+</div>
+<div class="text-[11px] text-on-surface-variant truncate">Engine: Perplexity Pro • 2h ago</div>
+</div>
+<div class="col-span-5">
+<div class="text-body-sm font-body-sm text-on-surface line-clamp-2">Model response claims "Solid state integration reached 450Wh/kg" but lacks primary source link. Brand safety risk flagged.</div>
+</div>
+<div class="col-span-2 flex justify-end">
+<button class="bg-primary-container text-primary border border-primary px-3 py-1.5 rounded text-label-caps font-label-caps uppercase hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors">Repair</button>
+</div>
+</div>
+<!-- Active Indicator Overlay -->
+<div class="absolute inset-0 border border-primary pointer-events-none rounded"></div>
+</div>
+<!-- Queue Item 2 -->
+<div class="bg-primary-container border border-outline-variant cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="grid grid-cols-12 gap-4 p-4 items-center">
+<div class="col-span-1 flex flex-col gap-1">
+<span class="bg-tertiary/10 text-tertiary border border-tertiary/30 px-1.5 py-0.5 rounded text-[10px] font-label-caps uppercase inline-block text-center w-max">Warn</span>
+<span class="text-[10px] text-on-surface-variant font-data-mono">REQ-8991</span>
+</div>
+<div class="col-span-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-4 h-4 rounded-full bg-[#000000] flex items-center justify-center text-[10px] border border-outline-variant">S</span>
+<span class="text-body-sm font-headline-md text-on-surface truncate">"Current CEO of Acme Corp structure"</span>
+</div>
+<div class="text-[11px] text-on-surface-variant truncate">Engine: SearchGPT • 4h ago</div>
+</div>
+<div class="col-span-5">
+<div class="text-body-sm font-body-sm text-on-surface line-clamp-2">Hallucination detected. Executive board change not cited from official press release.</div>
+</div>
+<div class="col-span-2 flex justify-end">
+<button class="bg-transparent text-primary border border-outline-variant px-3 py-1.5 rounded text-label-caps font-label-caps uppercase hover:border-primary transition-colors">Draft</button>
+</div>
+</div>
+</div>
+<!-- Queue Item 3 -->
+<div class="bg-primary-container border border-outline-variant cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="grid grid-cols-12 gap-4 p-4 items-center opacity-80">
+<div class="col-span-1 flex flex-col gap-1">
+<span class="bg-surface-variant text-on-surface border border-outline-variant px-1.5 py-0.5 rounded text-[10px] font-label-caps uppercase inline-block text-center w-max">Low</span>
+<span class="text-[10px] text-on-surface-variant font-data-mono">REQ-8985</span>
+</div>
+<div class="col-span-4">
+<div class="flex items-center gap-2 mb-1">
+<span class="w-4 h-4 rounded-full bg-[#4285F4] flex items-center justify-center text-[10px] border border-outline-variant text-white">G</span>
+<span class="text-body-sm font-headline-md text-on-surface truncate">"Historical GDP metrics France 1990"</span>
+</div>
+<div class="text-[11px] text-on-surface-variant truncate">Engine: AI Overviews • 1d ago</div>
+</div>
+<div class="col-span-5">
+<div class="text-body-sm font-body-sm text-on-surface line-clamp-2">Data hallucination suspected in economic table formatting. Missing IMF source link.</div>
+</div>
+<div class="col-span-2 flex justify-end">
+<button class="bg-transparent text-primary border border-outline-variant px-3 py-1.5 rounded text-label-caps font-label-caps uppercase hover:border-primary transition-colors">Draft</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Citation Repair Drawer (Right Panel) -->
+<div class="w-96 border-l border-outline-variant bg-surface-container-low flex flex-col shrink-0 shadow-lg relative z-20">
+<!-- Drawer Header -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-high flex justify-between items-start">
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Repair Task</div>
+<div class="text-headline-md font-headline-md text-on-surface">REQ-8992</div>
+<div class="text-[11px] text-error flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[12px]" data-icon="warning">warning</span> Critical Risk Level
+                            </div>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<!-- Drawer Body -->
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-6">
+<!-- Snippet Section -->
+<section>
+<h3 class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-2">AI Result Snippet</h3>
+<div class="bg-surface border border-outline-variant rounded p-3 text-body-sm font-body-sm text-on-surface relative">
+                                "...recent breakthroughs in manufacturing have pushed solid state integration to <mark class="bg-error/20 text-error px-1 rounded">450Wh/kg</mark>, significantly outpacing legacy lithium-ion constraints..."
+                                <div class="absolute -right-2 -top-2 bg-surface-container-highest border border-outline-variant px-2 py-0.5 rounded text-[10px] font-data-mono text-on-surface-variant">Perplexity</div>
+</div>
+</section>
+<!-- Problem Definition -->
+<section>
+<h3 class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-2">Requirement</h3>
+<div class="flex items-start gap-2 text-body-sm">
+<span class="material-symbols-outlined text-tertiary text-[16px] mt-0.5" data-icon="link_off">link_off</span>
+<div>
+<span class="text-on-surface font-medium block">Missing Primary Citation</span>
+<span class="text-on-surface-variant text-[12px]">The metric "450Wh/kg" requires grounding. Provide the authoritative URL metadata to inject into the repair pipeline.</span>
+</div>
+</div>
+</section>
+<!-- Input Area -->
+<section class="flex flex-col gap-3 border-t border-outline-variant pt-4 mt-2">
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1 block">Correction URL</label>
+<input class="w-full bg-background border border-outline-variant rounded px-3 py-2 text-body-sm font-body-sm text-on-surface focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none placeholder:text-outline" placeholder="https://..." type="url" value="https://energy.gov/news/2024-solid-state"/>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1 block">Entity ID (Optional)</label>
+<input class="w-full bg-background border border-outline-variant rounded px-3 py-2 text-body-sm font-data-mono text-on-surface focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none" placeholder="ENT-..." type="text"/>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1 block">Confidence Level</label>
+<select class="w-full bg-background border border-outline-variant rounded px-3 py-2 text-body-sm font-body-sm text-on-surface focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none appearance-none">
+<option selected="" value="high">High (Primary)</option>
+<option value="med">Medium (Secondary)</option>
+</select>
+</div>
+</div>
+<div>
+<label class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1 block">Repair Notes</label>
+<textarea class="w-full bg-background border border-outline-variant rounded px-3 py-2 text-body-sm font-body-sm text-on-surface focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed outline-none resize-none placeholder:text-outline" placeholder="Enter notes for review..." rows="2"></textarea>
+</div>
+</section>
+<!-- Assignment -->
+<section class="border-t border-outline-variant pt-4 flex items-center justify-between">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase">Owner</span>
+<div class="flex items-center gap-2 bg-surface-container border border-outline-variant rounded px-2 py-1 cursor-pointer hover:bg-surface-variant transition-colors">
+<img alt="Operator" class="w-5 h-5 rounded object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKp2SoovbD0jfWUhp56OVd7V7jhqly4wXWVXtBB0FALix89mHCW2AgWV1KHjwfH8aLTTxQY-Pl3X7M__rfz2Jhb4nSBNlTP36008zFMZqTrt9jur9yTKLf_w6ew2QLsBrW-VIVfHewGm5sKG5usqBWBfbFMq81cazHSgAcdmKSdwVFZGSx_rqrDwcY5nd6t7iSHP5y72NWQv3-wUr5kssloNMybD7hqEP2Vf1BKcas0hHFZFm9ntusAXWGbeDV9Ngr0P7pMrvmGtw"/>
+<span class="text-[12px] text-on-surface font-medium">Operator 01 (You)</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" data-icon="arrow_drop_down">arrow_drop_down</span>
+</div>
+</section>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-high flex gap-3">
+<button class="flex-1 bg-transparent text-on-surface border border-outline-variant py-2 rounded text-label-caps font-label-caps uppercase hover:bg-surface-variant transition-colors">Cancel</button>
+<button class="flex-1 bg-secondary-container text-on-secondary-container border border-secondary-container py-2 rounded text-label-caps font-label-caps uppercase hover:brightness-110 transition-all font-bold flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="send">send</span>
+                            Submit Proof
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

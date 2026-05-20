@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis &amp; Scoring - Proof Booth</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400&amp;family=Syne:wght@700;800&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ffb4a3",
+                        "on-secondary": "#003828",
+                        "outline": "#9d8ba0",
+                        "error": "#ffb4ab",
+                        "surface-container-lowest": "#0e0e10",
+                        "secondary-fixed": "#36ffc4",
+                        "on-error-container": "#ffdad6",
+                        "outline-variant": "#514255",
+                        "tertiary-fixed": "#ffdad2",
+                        "tertiary-container": "#c65036",
+                        "on-tertiary-fixed": "#3d0600",
+                        "on-error": "#690005",
+                        "surface": "#131315",
+                        "secondary-fixed-dim": "#00e1ab",
+                        "on-tertiary-container": "#fffeff",
+                        "on-surface-variant": "#d4c0d7",
+                        "surface-variant": "#353437",
+                        "primary-container": "#bd00ff",
+                        "tertiary-fixed-dim": "#ffb4a3",
+                        "on-tertiary-fixed-variant": "#86220c",
+                        "primary-fixed-dim": "#ecb2ff",
+                        "primary-fixed": "#f8d8ff",
+                        "on-secondary-container": "#007255",
+                        "on-tertiary": "#630f00",
+                        "on-primary": "#520071",
+                        "surface-container-highest": "#353437",
+                        "surface-bright": "#39393b",
+                        "primary": "#ecb2ff",
+                        "inverse-surface": "#e5e1e4",
+                        "on-secondary-fixed": "#002116",
+                        "on-background": "#e5e1e4",
+                        "surface-tint": "#ecb2ff",
+                        "on-primary-container": "#ffffff",
+                        "on-surface": "#e5e1e4",
+                        "surface-container": "#201f21",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#9900cf",
+                        "inverse-on-surface": "#303032",
+                        "surface-dim": "#131315",
+                        "on-primary-fixed-variant": "#74009f",
+                        "on-secondary-fixed-variant": "#00513c",
+                        "secondary": "#ffffff",
+                        "surface-container-low": "#1b1b1d",
+                        "secondary-container": "#36ffc4",
+                        "surface-container-high": "#2a2a2c",
+                        "on-primary-fixed": "#320047",
+                        "background": "#131315"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "gutter": "16px",
+                        "margin-mobile": "20px",
+                        "margin-desktop": "40px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Syne"],
+                        "headline-xl": ["Syne"],
+                        "label-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Syne"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-mono": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .inset-shadow {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+        }
+        .ambient-glow {
+            box-shadow: 0 0 15px rgba(236,178,255,0.3);
+        }
+        .tactile-button {
+            border-bottom: 2px solid rgba(0,0,0,0.5);
+            transition: transform 0.1s, border-width 0.1s;
+        }
+        .tactile-button:active {
+            transform: translateY(2px);
+            border-bottom-width: 0px;
+        }
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen pt-20 pb-24 md:pb-0 md:pl-64">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 bg-background dark:bg-background bg-surface-container-low/80 backdrop-blur-xl border-b border-outline-variant shadow-md">
+<div class="font-headline-xl text-headline-xl text-primary tracking-tighter uppercase">
+            PROOF BOOTH
+        </div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary dark:text-primary hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer active:translate-y-[1px] transition-transform" data-icon="fingerprint">fingerprint</span>
+<span class="material-symbols-outlined text-primary dark:text-primary hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer active:translate-y-[1px] transition-transform" data-icon="history">history</span>
+<span class="material-symbols-outlined text-primary dark:text-primary hover:bg-surface-variant/50 transition-colors p-2 rounded-full cursor-pointer active:translate-y-[1px] transition-transform" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 z-40 bg-surface-container dark:bg-surface-container border-r border-outline-variant shadow-xl py-8 gap-unit pt-24">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-4 mb-2">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest overflow-hidden border border-primary">
+<img alt="Human Verification Status" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAh0q-U6oyIKxplXRNQKVzyOq6TCEohXFYgTZ60Gb9WgQDJZI3LMJ1tWmuYWvoRuRy8IVme6ab4FXB8EsmAeKatm_Ug2LB4jMMUW2G9XgAk8PTLrHxFVyiQm9W7Pweqkrukj5csEYeYVe9w1dIAAWP7h8ccaTKXk4CFCFE2wzuqcYe3cYNYXuLwyNjx2DkylhRH6MB6sv3cW2je4YVnycTICHta_n1fzye5WXCAg1wQ20mwgXMWtBxVs9bp4P811s_z7gR5w15O0xn-"/>
+</div>
+<div>
+<div class="font-label-mono text-label-mono text-secondary-fixed">Verified Human</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-[10px]">98.4% Confidence</div>
+</div>
+</div>
+<button class="w-full py-2 bg-surface-variant text-primary font-label-caps text-label-caps rounded tactile-button hover:bg-surface-container-high transition-all">RE-SCAN BIOMETRICS</button>
+</div>
+<div class="flex-1 px-4 flex flex-col gap-2">
+<a class="text-on-surface-variant flex items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all rounded-lg font-label-mono text-label-mono uppercase tracking-widest gap-4" href="#">
+<span class="material-symbols-outlined" data-icon="view_module">view_module</span>
+                Booth
+            </a>
+<a class="bg-secondary-container text-on-secondary-container rounded-lg mx-2 flex items-center p-4 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] font-label-mono text-label-mono uppercase tracking-widest gap-4 active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats" data-weight="fill">query_stats</span>
+                Analysis
+            </a>
+<a class="text-on-surface-variant flex items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all rounded-lg font-label-mono text-label-mono uppercase tracking-widest gap-4" href="#">
+<span class="material-symbols-outlined" data-icon="compare">compare</span>
+                Mix
+            </a>
+<a class="text-on-surface-variant flex items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all rounded-lg font-label-mono text-label-mono uppercase tracking-widest gap-4" href="#">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+                Prompts
+            </a>
+</div>
+<div class="px-4 mt-auto">
+<a class="text-on-surface-variant flex items-center p-4 hover:text-primary hover:bg-surface-container-high transition-all rounded-lg font-label-mono text-label-mono uppercase tracking-widest gap-4" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="p-margin-mobile md:p-margin-desktop max-w-container-max mx-auto space-y-gutter">
+<!-- Header -->
+<div class="mb-8">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary mb-2">Proof Mix Score</h1>
+<p class="font-label-mono text-label-mono text-on-surface-variant">Deep dive diagnostic of your digital presence.</p>
+</div>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Vibe Metrics (Radar Chart Placeholder) -->
+<div class="md:col-span-8 bg-surface-container rounded-xl p-6 border border-outline-variant inset-shadow flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" data-icon="radar">radar</span>
+</div>
+<div class="flex justify-between items-start mb-6 z-10">
+<div>
+<h2 class="font-headline-lg text-secondary-fixed">Vibe Metrics</h2>
+<div class="font-label-caps text-label-caps text-on-surface-variant mt-1">AXIS ANALYSIS: NOMINAL</div>
+</div>
+<div class="bg-surface-container-high px-3 py-1 rounded-full font-label-mono text-label-mono text-primary flex items-center gap-2 border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed animate-pulse"></span>
+                        LIVE
+                    </div>
+</div>
+<div class="flex-1 flex items-center justify-center min-h-[300px] z-10 relative">
+<!-- Fake Radar Chart Structure -->
+<div class="relative w-64 h-64 border-2 border-outline-variant rounded-full flex items-center justify-center">
+<div class="absolute w-48 h-48 border border-outline-variant/50 rounded-full"></div>
+<div class="absolute w-32 h-32 border border-outline-variant/30 rounded-full"></div>
+<!-- Axis Lines -->
+<div class="absolute w-full h-px bg-outline-variant rotate-0"></div>
+<div class="absolute w-full h-px bg-outline-variant rotate-60"></div>
+<div class="absolute w-full h-px bg-outline-variant rotate-120"></div>
+<!-- Data Polygon (CSS Hack for visual) -->
+<div class="absolute inset-0 bg-primary/20" style="clip-path: polygon(50% 10%, 85% 30%, 75% 80%, 20% 70%, 15% 40%); border: 2px solid var(--color-primary);"></div>
+<!-- Labels -->
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-mono text-label-mono text-tertiary text-xs whitespace-nowrap">Chaos Energy (82%)</div>
+<div class="absolute top-1/4 -right-24 font-label-mono text-label-mono text-secondary-fixed text-xs whitespace-nowrap">Relatability (91%)</div>
+<div class="absolute bottom-1/4 -right-24 font-label-mono text-label-mono text-primary text-xs whitespace-nowrap">Aesthetic (74%)</div>
+<div class="absolute -bottom-6 left-1/2 -translate-x-1/2 font-label-mono text-label-mono text-tertiary-fixed text-xs whitespace-nowrap">Lighting Quality (60%)</div>
+<div class="absolute top-1/2 -left-28 -translate-y-1/2 font-label-mono text-label-mono text-on-surface-variant text-xs whitespace-nowrap">Candidness (88%)</div>
+</div>
+</div>
+</div>
+<!-- Overall Score -->
+<div class="md:col-span-4 bg-surface-container rounded-xl p-6 border border-outline-variant flex flex-col justify-between relative overflow-hidden">
+<div class="absolute -right-10 -top-10 w-40 h-40 bg-primary/10 rounded-full blur-2xl"></div>
+<div>
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-widest mb-4">Total Mix Score</h3>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-xl text-headline-xl text-primary">87</span>
+<span class="font-body-lg text-body-lg text-on-surface-variant">/ 100</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-4">High probability of genuine human interaction. Minor bot-like tendencies detected in lighting perfection.</p>
+</div>
+<div class="mt-8 space-y-4">
+<div>
+<div class="flex justify-between font-label-caps text-label-caps mb-1">
+<span class="text-secondary-fixed">Humanity</span>
+<span class="text-secondary-fixed">95%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary-fixed w-[95%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-label-caps mb-1">
+<span class="text-tertiary">Try-Hard Factor</span>
+<span class="text-tertiary">42%</span>
+</div>
+<div class="h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[42%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Prompt Generator Wheel -->
+<div class="md:col-span-6 bg-surface-container-low rounded-xl p-6 border border-outline-variant inset-shadow flex flex-col items-center justify-center text-center">
+<h3 class="font-headline-lg-mobile text-primary mb-2">Casual Proof-Shot Prompt</h3>
+<p class="font-label-mono text-label-mono text-on-surface-variant mb-8">Spin for your next unhinged (but verified) upload.</p>
+<div class="relative w-48 h-48 mb-8 cursor-pointer group" onclick="this.querySelector('.wheel').style.transform = `rotate(${Math.random() * 360 + 720}deg)`">
+<!-- Pointer -->
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[20px] border-t-secondary-fixed z-10 drop-shadow-md"></div>
+<!-- Wheel -->
+<div class="wheel w-full h-full rounded-full border-4 border-surface-variant relative overflow-hidden transition-transform duration-[3s] cubic-bezier(0.25, 1, 0.5, 1)" style="transform: rotate(0deg);">
+<!-- CSS Segments (Simplified visual representation) -->
+<div class="absolute inset-0 bg-[conic-gradient(var(--tw-colors-primary-container)_0deg_90deg,var(--tw-colors-surface-variant)_90deg_180deg,var(--tw-colors-tertiary-container)_180deg_270deg,var(--tw-colors-surface-container-highest)_270deg_360deg)]"></div>
+<!-- Segment Labels -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="font-label-caps text-[10px] text-white absolute top-4">Bedhead</div>
+<div class="font-label-caps text-[10px] text-white absolute right-2 rotate-90">Blurry</div>
+<div class="font-label-caps text-[10px] text-white absolute bottom-4">Ugly-Cute</div>
+<div class="font-label-caps text-[10px] text-white absolute left-2 -rotate-90">Mid-Bite</div>
+</div>
+<div class="absolute inset-0 bg-black/10 inset-shadow rounded-full pointer-events-none"></div>
+</div>
+<!-- Center Nub -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-surface border-2 border-outline-variant rounded-full z-10 shadow-md flex items-center justify-center">
+<div class="w-2 h-2 bg-secondary-fixed rounded-full"></div>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-3 rounded-lg tactile-button ambient-glow uppercase tracking-widest hover:bg-primary-fixed transition-colors">
+                    SPIN THE WHEEL
+                </button>
+</div>
+<!-- Caption Tone Check -->
+<div class="md:col-span-6 bg-surface-container rounded-xl p-6 border border-outline-variant flex flex-col">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-tertiary" data-icon="spellcheck">spellcheck</span>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary">Caption Tone Check</h3>
+</div>
+<div class="flex-1 flex flex-col gap-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/50 inset-shadow relative group">
+<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md text-on-surface resize-none h-24 placeholder:text-on-surface-variant/50 font-label-mono" placeholder="Type your caption here... e.g., 'Just living my best life on this beautiful Sunday funday! #blessed'"></textarea>
+<div class="absolute inset-0 rounded-lg pointer-events-none group-focus-within:shadow-[0_0_10px_rgba(189,0,255,0.2)] transition-shadow border border-transparent group-focus-within:border-primary/50"></div>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<div class="bg-error-container/20 text-error border border-error/30 px-3 py-1 rounded font-label-caps text-label-caps flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+                            FLAG: 'Bot-Speak' Detected
+                        </div>
+<button class="bg-surface-variant text-primary font-label-caps text-label-caps px-4 py-2 rounded tactile-button hover:text-secondary-fixed transition-colors border border-outline-variant">
+                            ANALYZE
+                        </button>
+</div>
+<!-- Microcopy Tooltip (Static) -->
+<div class="mt-2 bg-surface-container-high p-3 rounded border border-outline-variant text-label-mono font-label-mono text-on-surface-variant text-xs flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed mt-0.5" data-icon="info">info</span>
+<span>Scanning for generic platitudes... Too many emojis detected. Suggest injecting self-deprecating humor to verify human charm.</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-2 bg-surface-container-highest dark:bg-surface-container-highest border-t-2 border-outline-variant rounded-t-xl shadow-[0_-4px_10px_rgba(0,0,0,0.5)]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="mt-1 text-[10px]">Booth</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-xl p-2 scale-110 -translate-y-2 shadow-[0_0_15px_rgba(236,178,255,0.6)] font-label-caps text-label-caps active:translate-y-1 transition-all duration-75" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" data-weight="fill">analytics</span>
+<span class="mt-1 text-[10px]">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span class="mt-1 text-[10px]">Mixer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="refresh">refresh</span>
+<span class="mt-1 text-[10px]">Wheel</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-secondary-fixed transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+<span class="mt-1 text-[10px]">Card</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rescue Ledger - Kanban</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ffb95f",
+                        "surface-container-lowest": "#010f1f",
+                        "outline": "#909097",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#1000a9",
+                        "on-error": "#690005",
+                        "surface": "#051424",
+                        "tertiary-container": "#251400",
+                        "on-tertiary-fixed": "#2a1700",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#e1e0ff",
+                        "outline-variant": "#45464d",
+                        "on-tertiary-container": "#b47300",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#c0c1ff",
+                        "surface-variant": "#273647",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "primary-container": "#0f172a",
+                        "on-tertiary": "#472a00",
+                        "on-secondary-container": "#b0b2ff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "primary-fixed-dim": "#bec6e0",
+                        "primary-fixed": "#dae2fd",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "on-primary": "#283044",
+                        "on-secondary-fixed": "#07006c",
+                        "inverse-surface": "#d4e4fa",
+                        "primary": "#bec6e0",
+                        "on-surface": "#d4e4fa",
+                        "on-primary-container": "#798098",
+                        "surface-tint": "#bec6e0",
+                        "on-background": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "surface-container": "#122131",
+                        "inverse-on-surface": "#233143",
+                        "inverse-primary": "#565e74",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary-fixed-variant": "#2f2ebe",
+                        "surface-dim": "#051424",
+                        "surface-container-low": "#0d1c2d",
+                        "secondary": "#c0c1ff",
+                        "on-primary-fixed": "#131b2e",
+                        "background": "#051424",
+                        "secondary-container": "#3131c0",
+                        "surface-container-high": "#1c2b3c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "16px",
+                        "unit": "4px",
+                        "cell-padding-v": "8px",
+                        "gutter": "12px",
+                        "cell-padding-h": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["IBM Plex Sans"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-caps": ["IBM Plex Sans"],
+                        "data-mono": ["IBM Plex Mono"],
+                        "body-sm": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .kanban-scroll::-webkit-scrollbar {
+            height: 8px;
+            width: 8px;
+        }
+        .kanban-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .kanban-scroll::-webkit-scrollbar-thumb {
+            background-color: #273647;
+            border-radius: 4px;
+        }
+        .kanban-col-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .kanban-col-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .kanban-col-scroll::-webkit-scrollbar-thumb {
+            background-color: #45464d;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex overflow-hidden">
+<!-- SideNavBar Component -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary docked left-0 h-screen w-64 border-r border-outline-variant dark:border-outline-variant flat no shadows flex flex-col py-4 gap-1 overflow-y-auto hidden md:flex flex-shrink-0 z-40">
+<div class="px-4 pb-6 border-b border-outline-variant mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container flex items-center justify-center border border-outline-variant shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<div>
+<h1 class="text-label-caps font-label-caps font-bold text-primary tracking-widest uppercase">Rescue Ledger</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Operator 01</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1 overflow-y-auto px-2">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="build_circle">build_circle</span>
+<span>Citation Repair</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="groups">groups</span>
+<span>Community Queue</span>
+</a>
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary px-4 py-3 flex items-center gap-3 translate-x-1 rounded-r text-label-caps font-label-caps shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="view_kanban" style="font-variation-settings: 'FILL' 1;">view_kanban</span>
+<span>Kanban</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+<span>Reports</span>
+</a>
+</div>
+<div class="px-2 pt-4 border-t border-outline-variant mt-auto">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 hover:bg-surface-container-highest transition-all duration-100 rounded text-label-caps font-label-caps" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="terminal">terminal</span>
+<span>System Logs</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopAppBar (Mobile Only or as Secondary Header) -->
+<header class="bg-surface-container-high dark:bg-surface-container-high border-b border-outline-variant dark:border-outline-variant flex justify-between items-center w-full px-container-padding z-50 docked full-width top-0 h-12 flex-shrink-0 md:hidden">
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors duration-150 p-1 rounded">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-body-md font-bold text-on-surface tracking-tight uppercase">Citation Ledger</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors duration-150 p-1 rounded">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<!-- Functional Header -->
+<div class="px-container-padding py-4 border-b border-outline-variant bg-surface-container flex flex-col sm:flex-row sm:items-center justify-between gap-4 shrink-0">
+<div>
+<h2 class="text-display-lg font-display-lg text-on-surface">7-Day Task Horizon</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Active repair cycles across all operator queues.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex items-center bg-surface-container-high border border-outline-variant rounded px-3 py-1.5 focus-within:border-secondary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" data-icon="person_search">person_search</span>
+<input class="bg-transparent border-none p-0 text-body-sm font-body-sm text-on-surface focus:ring-0 w-32 placeholder:text-on-surface-variant/50" placeholder="Filter by Owner..." type="text"/>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high border border-outline-variant rounded p-1">
+<button class="px-3 py-1 text-label-caps font-label-caps rounded bg-surface-variant text-on-surface border border-outline-variant shadow-sm transition-colors">All Risks</button>
+<button class="px-3 py-1 text-label-caps font-label-caps rounded text-on-surface-variant hover:bg-surface-variant/50 transition-colors flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-error"></span> Critical
+                    </button>
+<button class="px-3 py-1 text-label-caps font-label-caps rounded text-on-surface-variant hover:bg-surface-variant/50 transition-colors flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> High
+                    </button>
+</div>
+<button class="bg-secondary-container text-on-secondary-container hover:bg-secondary hover:text-on-secondary border border-secondary-container transition-colors px-4 py-1.5 rounded text-label-caps font-label-caps flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                    New Task
+                </button>
+</div>
+</div>
+<!-- Kanban Board Area -->
+<div class="flex-1 overflow-x-auto overflow-y-hidden kanban-scroll bg-surface p-container-padding">
+<div class="flex gap-4 h-full min-w-max pb-4">
+<!-- Column: Backlog -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="inventory_2">inventory_2</span>
+                            Backlog
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">3</span>
+</div>
+<div class="flex-1 overflow-y-auto kanban-col-scroll p-2 flex flex-col gap-2">
+<!-- Card -->
+<div class="bg-surface-container border border-outline-variant rounded p-3 hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-tertiary border border-tertiary/30 bg-tertiary/10 px-1.5 py-0.5 rounded">Metadata Fix</span>
+<span class="material-symbols-outlined text-tertiary text-sm" data-icon="warning">warning</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Resolve orphaned DOIs in Publisher Alpha batch #8892.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<img alt="Operator A" class="w-5 h-5 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfQk1TuhtMTCNsSD_k4hp7flJORR7QtH3LSXIqqsjyfyGniwm-m2B3pL5Ym5aCo6qruzx6zn6lxgDk76yZSNa87jJ2x-tg-kUKNORDjfH5Naf6gBmygLSJ_8vg6TNURyTGfD1IRHNX0hMQn6Idsc8pC5Ou3tiVWmvpMMsyL7Sb9vjfLT5rPx8r6qHDc3qrAUpnm22T__klZ6sQDMgSPXjsfiGUomAEgT9SVoiD5HwKuer4uc12T2kW5ENYAtl0fb-ZyCtJZNWUmrY"/>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span class="text-data-mono font-data-mono text-[11px]">-48h TTR</span>
+</div>
+</div>
+</div>
+<!-- Card -->
+<div class="bg-surface-container border border-outline-variant rounded p-3 hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-on-surface-variant border border-outline-variant bg-surface-variant px-1.5 py-0.5 rounded">Compliance</span>
+<span class="material-symbols-outlined text-outline text-sm" data-icon="info">info</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface mb-3 group-hover:text-primary transition-colors line-clamp-2">Audit historical citation drift for Q2 reports.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full border border-outline border-dashed flex items-center justify-center bg-surface text-[10px] text-outline">
+<span class="material-symbols-outlined text-[12px]">person_off</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span class="text-data-mono font-data-mono text-[11px]">-72h TTR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Today -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t border-l-2 border-l-secondary">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-secondary" data-icon="today" style="font-variation-settings: 'FILL' 1;">today</span>
+                            Today
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">2</span>
+</div>
+<div class="flex-1 overflow-y-auto kanban-col-scroll p-2 flex flex-col gap-2">
+<!-- Card High Risk -->
+<div class="bg-surface-container border border-error border-l-4 rounded p-3 hover:border-error/80 transition-colors cursor-pointer group shadow-[0_0_10px_rgba(255,180,171,0.05)]">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-error border border-error/30 bg-error/10 px-1.5 py-0.5 rounded">Extraction Failure</span>
+<span class="material-symbols-outlined text-error text-sm" data-icon="error" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface mb-3 group-hover:text-primary transition-colors">Critical parse error on API ingress stream B.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<img alt="Operator 01" class="w-5 h-5 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoPPT6zEa_ONWcNgZW-LgJdBkA5U_PL7gsFfQJxiYJ4uJnVl1wNM-2M5ap8zvryKq7sxnn2bOByOOOMXhOoOhIQxxU20b7cCEHTG2IJy37-KHLZk2EJO6IlPmbZTK-4HzWxvM3LHFLSbyHbRoue5DXEGmbbIhPZf6h6fPwLK31RSNH2tlZyU8CtrKxX7pR05dTMq4zQtBk1pIJ273-nE3GCLtWSgMNhMlQigNqJ9sTk_bsLpZrMfbspqGefpO9FrEmzgLz_4lGudg"/>
+</div>
+<div class="flex items-center gap-1 text-error">
+<span class="material-symbols-outlined text-[14px]" data-icon="timer">timer</span>
+<span class="text-data-mono font-data-mono text-[11px] font-bold">2h TTR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Tomorrow -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant" data-icon="event">event</span>
+                            Tomorrow
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">0</span>
+</div>
+<div class="flex-1 flex items-center justify-center p-4">
+<div class="text-center border border-dashed border-outline-variant rounded p-4 w-full">
+<span class="material-symbols-outlined text-outline mb-1 text-xl" data-icon="inbox">inbox</span>
+<p class="text-label-caps font-label-caps text-on-surface-variant">No tasks scheduled</p>
+</div>
+</div>
+</div>
+<!-- Column: In Progress -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t border-l-2 border-l-tertiary">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="pending_actions">pending_actions</span>
+                            In Progress
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">1</span>
+</div>
+<div class="flex-1 overflow-y-auto kanban-col-scroll p-2 flex flex-col gap-2">
+<!-- Card -->
+<div class="bg-surface-container border border-outline-variant rounded p-3 hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-[#38bdf8] border border-[#38bdf8]/30 bg-[#38bdf8]/10 px-1.5 py-0.5 rounded">Script Update</span>
+<span class="material-symbols-outlined text-[#38bdf8] text-sm animate-pulse" data-icon="sync">sync</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface mb-3 group-hover:text-primary transition-colors">Re-aligning regex parsers for Legacy Format C.</p>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-variant h-1 rounded-full mb-3 overflow-hidden">
+<div class="bg-[#38bdf8] h-full rounded-full" style="width: 65%"></div>
+</div>
+<div class="flex justify-between items-end border-t border-outline-variant pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<img alt="Operator 01" class="w-5 h-5 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgQPVa7l0BzbVKQLq0zG-sr8JfLMHuUA63xpyRW77JlgHHMBLHTTQyECcvKF4sNx5fR-kn0fsZ78cIajXnItZmseq1AaywsOQ-WOcA1UKUSeuv2_fpajYQtvA-KP8GGwQSyxAF3zaqLKtFyyQmLlC1RNvNdiDlZI22gh_td3a0mRfihOmJs-C6n6jVwIIQLxzbSB09WjHoZ_29rocX0IHNml3mYSlTWewz3b97OExOfyT4-bN5qX5sVn-RhFQyTJw0oWO9XkZ2Xyw"/>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span class="text-data-mono font-data-mono text-[11px]">8h TTR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Verification -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t border-l-2 border-l-[#a78bfa]">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-[#a78bfa]" data-icon="fact_check">fact_check</span>
+                            Verification
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">1</span>
+</div>
+<div class="flex-1 overflow-y-auto kanban-col-scroll p-2 flex flex-col gap-2">
+<!-- Card -->
+<div class="bg-surface-container border border-outline-variant rounded p-3 hover:border-secondary transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-[#a78bfa] border border-[#a78bfa]/30 bg-[#a78bfa]/10 px-1.5 py-0.5 rounded">QA Review</span>
+<span class="material-symbols-outlined text-[#a78bfa] text-sm" data-icon="policy">policy</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface mb-3 group-hover:text-primary transition-colors">Verify bulk extraction output against control dataset.</p>
+<div class="flex justify-between items-end border-t border-outline-variant pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<img alt="Lead" class="w-5 h-5 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1jdN6mSeWAZmJTls0NZV-RDpqjO0M-lcboeQPi60cLLLIXenN9EUu3pv6AYoE3QbIOKGIxMJQbXo6wrEVF54OzVZbKgTZGiMiPknIM7odd_-w7tc5jUTV1v5Se6TjLkQuga4aNA_J-OAiIe5UyUEWzV-9O5ycKS_8tdCVOhMURzyWjIg2lKh43T7PE0Ob2OyPTCKWweIRYSsUtVgAklZcxvVAHA5Z33ZuspDBL8gX3DTFynskIyBhYZe5gIyMz8lJDQKAX1UcHmo"/>
+</div>
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span>
+<span class="text-data-mono font-data-mono text-[11px]">12h TTR</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column: Done -->
+<div class="w-80 flex flex-col bg-surface-container-low border border-outline-variant rounded flex-shrink-0 opacity-60">
+<div class="px-3 py-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center rounded-t border-l-2 border-l-[#34d399]">
+<h3 class="text-label-caps font-label-caps text-on-surface uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-[#34d399]" data-icon="check_circle">check_circle</span>
+                            Done
+                        </h3>
+<span class="text-data-mono font-data-mono text-on-surface-variant text-xs bg-surface-variant px-2 py-0.5 rounded border border-outline-variant">14</span>
+</div>
+<div class="flex-1 overflow-y-auto kanban-col-scroll p-2 flex flex-col gap-2">
+<!-- Card -->
+<div class="bg-surface-container border border-outline-variant/50 rounded p-3 cursor-default">
+<div class="flex justify-between items-start mb-2">
+<span class="text-[10px] font-label-caps uppercase tracking-wider text-outline border border-outline-variant bg-transparent px-1.5 py-0.5 rounded line-through">Link Repair</span>
+<span class="material-symbols-outlined text-[#34d399] text-sm" data-icon="done_all">done_all</span>
+</div>
+<p class="text-body-sm font-body-sm text-outline mb-3 line-through">Batch 8891 URL normalization.</p>
+<div class="flex justify-between items-end border-t border-outline-variant/50 pt-2 mt-auto">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-surface-variant border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-outline" data-icon="person">person</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-[#34d399]">
+<span class="text-data-mono font-data-mono text-[11px]">Recovered</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

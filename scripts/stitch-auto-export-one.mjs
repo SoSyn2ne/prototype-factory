@@ -18,12 +18,15 @@ await fs.mkdir(outDir, { recursive: true });
 await fs.mkdir(dlDir, { recursive: true });
 
 const browser = await puppeteer.connect({ browserURL: endpoint, defaultViewport: null });
-let page = (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com')) || await browser.newPage();
+let page = (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com') && !p.url().includes('/projects/'))
+  || (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com'))
+  || await browser.newPage();
 await page.bringToFront();
 const cdp = await page.createCDPSession();
 await cdp.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: dlDir }).catch(() => {});
 
 async function shot(name) {
+  if (process.env.STITCH_SKIP_SHOTS === '1') return;
   await page.screenshot({ path: path.join(outDir, `${name}.png`), fullPage: true }).catch(() => {});
 }
 
@@ -42,19 +45,35 @@ async function clickByText(text, opts = {}) {
       const body = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
       return exact ? body === needle : body.includes(needle);
     });
-    el?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+    el?.click();
     return Boolean(el);
   }, text, opts);
   if (!clicked) throw new Error(`Could not click Stitch control: ${text}`);
 }
 
+async function clickGenerate() {
+  const clicked = await appFrame.evaluate(() => {
+    const button = [...document.querySelectorAll('button')]
+      .find((node) => node.getAttribute('aria-label') === '디자인 생성' || node.getAttribute('aria-label') === 'Generate design');
+    button?.click();
+    return Boolean(button);
+  });
+  if (!clicked) throw new Error('Could not find generate button');
+}
+
 // Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.
 await clickByText('웹');
 await new Promise((r) => setTimeout(r, 500));
-await clickByText('3 Flash');
-await new Promise((r) => setTimeout(r, 500));
-await clickByText('Thinking with 3.1 Pro', { exact: false });
-await new Promise((r) => setTimeout(r, 500));
+const modelButton = await appFrame.evaluate(() =>
+  [...document.querySelectorAll('button,[role=button]')]
+    .some((node) => (node.innerText || node.textContent || '').trim().includes('3 Flash'))
+);
+if (modelButton) {
+  await clickByText('3 Flash');
+  await new Promise((r) => setTimeout(r, 500));
+  await clickByText('Thinking with 3.1 Pro', { exact: false });
+  await new Promise((r) => setTimeout(r, 500));
+}
 
 await appFrame.evaluate((value) => {
   const editor = document.querySelector('[contenteditable="true"]');
@@ -66,13 +85,7 @@ await appFrame.evaluate((value) => {
 }, prompt);
 await new Promise((r) => setTimeout(r, 1000));
 await shot('01-filled');
-await clickByText('디자인 생성', { exact: false }).catch(async () => {
-  await appFrame.evaluate(() => {
-    const button = [...document.querySelectorAll('button')].find((node) => node.getAttribute('aria-label') === '디자인 생성');
-    button?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-    if (!button) throw new Error('Could not find generate button');
-  });
-});
+await clickGenerate();
 
 // Wait for project navigation/rendering.
 await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 180000 }).catch(() => {});
@@ -88,25 +101,19 @@ appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
 if (!appFrame) throw new Error('Could not find Stitch app iframe after generation');
 await appFrame.evaluate(() => {
   const buttons = [...document.querySelectorAll('button')];
-  const topExport = buttons.find((button) => button.innerText.trim() === '내보내기' && button.getBoundingClientRect().y < 80);
-  topExport?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+  const topExport = buttons.find((button) => {
+    const label = (button.innerText || button.textContent || '').trim();
+    return /내보내기|Export/.test(label) && button.getBoundingClientRect().y < 100;
+  });
+  topExport?.click();
   if (!topExport) throw new Error('Could not find top export button');
 });
 await new Promise((r) => setTimeout(r, 1500));
 await shot('03-export-menu');
-await appFrame.evaluate(() => {
-  const zipLabel = [...document.querySelectorAll('label')].find((label) => label.innerText.trim() === '.zip');
-  zipLabel?.click();
-  if (!zipLabel) throw new Error('Could not find .zip export option');
-});
+// Stitch's radio rows sometimes swallow synthetic DOM clicks; viewport clicks are more reliable here.
+await page.mouse.click(Number(process.env.STITCH_ZIP_X || 479), Number(process.env.STITCH_ZIP_Y || 445));
 await new Promise((r) => setTimeout(r, 1000));
-await appFrame.evaluate(() => {
-  const bottomExport = [...document.querySelectorAll('button')]
-    .filter((button) => button.getBoundingClientRect().y > 780)
-    .find((button) => /내보내기|다운로드|빌드/.test(button.innerText));
-  bottomExport?.click();
-  if (!bottomExport) throw new Error('Could not find bottom export button');
-});
+await page.mouse.click(Number(process.env.STITCH_EXPORT_X || 585), Number(process.env.STITCH_EXPORT_Y || 475));
 await new Promise((r) => setTimeout(r, Number(process.env.STITCH_DOWNLOAD_WAIT_MS || 60000)));
 await shot('04-after-export');
 

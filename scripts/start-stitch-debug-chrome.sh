@@ -6,5 +6,8 @@ exec /opt/google/chrome/chrome \
   --remote-debugging-address=127.0.0.1 \
   --remote-debugging-port=9222 \
   --user-data-dir="$PROFILE_DIR" \
+  --disable-gpu \
+  --disable-dev-shm-usage \
+  --disable-features=OptimizationGuideOnDeviceModel,OptimizationGuideModelDownloading,OptimizationHintsFetching,OptimizationTargetPrediction \
   --no-first-run \
   --new-window "https://stitch.withgoogle.com/"

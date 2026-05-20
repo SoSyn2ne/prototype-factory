@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Consent Composer - Enterprise Compliance</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-variant": "#273647",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary-fixed": "#fcdeb5",
+                        "surface-container-high": "#1c2b3c",
+                        "tertiary-container": "#231500",
+                        "primary-container": "#0f172a",
+                        "error-container": "#93000a",
+                        "on-primary": "#283044",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "primary": "#bec6e0",
+                        "on-secondary-container": "#00374d",
+                        "secondary-fixed": "#c4e7ff",
+                        "secondary-container": "#00a6e0",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary": "#00354a",
+                        "on-surface-variant": "#c6c6cd",
+                        "on-primary-container": "#798098",
+                        "outline": "#909097",
+                        "surface-bright": "#2c3a4c",
+                        "surface-tint": "#bec6e0",
+                        "on-tertiary-fixed": "#271901",
+                        "on-error": "#690005",
+                        "on-tertiary": "#3e2d11",
+                        "outline-variant": "#45464d",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary": "#dec29a",
+                        "secondary": "#7bd0ff",
+                        "surface-container": "#122131",
+                        "surface-dim": "#051424",
+                        "background": "#051424",
+                        "on-background": "#d4e4fa",
+                        "surface-container-highest": "#273647",
+                        "surface-container-low": "#0d1c2d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "surface": "#051424",
+                        "on-surface": "#d4e4fa",
+                        "tertiary-fixed-dim": "#dec29a",
+                        "inverse-primary": "#565e74",
+                        "on-secondary-fixed": "#001e2c",
+                        "surface-container-lowest": "#010f1f",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#233143",
+                        "inverse-surface": "#d4e4fa",
+                        "on-tertiary-fixed-variant": "#574425",
+                        "on-tertiary-container": "#957d5a",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "table-cell-padding": "0.5rem 0.75rem",
+                        "unit": "4px",
+                        "container-padding": "1.5rem",
+                        "gutter": "1rem",
+                        "stack-sm": "0.25rem",
+                        "stack-md": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["IBM Plex Sans"],
+                        "mono-data": ["JetBrains Mono"],
+                        "display": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"],
+                        "label-caps": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "mono-data": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "display": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-lg": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 20;
+        }
+        
+        /* Custom scrollbar for high-density tables/panels */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #45464d; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #909097; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopAppBar -->
+<header class="bg-surface-container border-b border-outline-variant fixed top-0 w-full z-50 flex justify-between items-center h-12 px-container-padding">
+<div class="flex items-center gap-gutter">
+<h1 class="font-display text-display text-on-surface tracking-tight">Consent Firewall</h1>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<!-- Search Bar representation as requested on_left -->
+<div class="flex items-center text-on-surface-variant bg-surface-container-highest px-3 py-1 rounded border border-outline-variant opacity-80 hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[18px] mr-2">search</span>
+<span class="font-body-md text-body-md">Locate resource...</span>
+</div>
+</div>
+<div class="flex items-center gap-unit">
+<button aria-label="notifications" class="p-2 text-primary hover:bg-surface-variant transition-colors duration-150 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="settings" class="p-2 text-primary hover:bg-surface-variant transition-colors duration-150 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button aria-label="help" class="p-2 text-primary hover:bg-surface-variant transition-colors duration-150 rounded cursor-pointer active:opacity-80 mr-4">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div aria-label="Compliance Officer Avatar" class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center border border-outline">
+<span class="font-label-caps text-label-caps text-on-secondary-container">CO</span>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface-dim border-r border-outline-variant fixed left-0 top-12 bottom-0 w-[240px] flex flex-col py-stack-md z-40">
+<div class="px-container-padding mb-6">
+<div class="flex items-center gap-3 mb-1">
+<div aria-label="System Status Indicator" class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(123,208,255,0.6)]"></div>
+<h2 class="font-label-caps text-label-caps text-on-surface">Operator Console</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant ml-6 opacity-70">Global Firewall Active</p>
+</div>
+<div class="flex-1 flex flex-col gap-unit">
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined">queue_play_next</span>
+<span class="font-label-caps text-label-caps">Meeting Queue</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-caps text-label-caps">Risk Monitoring</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-label-caps text-label-caps">Bot Policies</span>
+</a>
+<!-- ACTIVE TAB: Consent Composition -->
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer bg-surface-variant text-secondary-fixed border-l-2 border-secondary-container" href="#">
+<span class="material-symbols-outlined icon-fill">edit_note</span>
+<span class="font-label-caps text-label-caps">Consent Composition</span>
+</a>
+<!-- Inactive Tab -->
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-caps text-label-caps">Audit Trails</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4 flex flex-col gap-unit">
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 cursor-pointer text-on-surface-variant opacity-80 hover:bg-surface-container-high hover:text-on-surface transition-all duration-100" href="#">
+<span class="material-symbols-outlined text-[18px]">menu_book</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="ml-[240px] pt-12 h-screen flex flex-col bg-surface overflow-hidden">
+<!-- Workspace Header -->
+<header class="bg-surface-container-low border-b border-outline-variant px-container-padding py-3 flex justify-between items-center shrink-0">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Policy Editor: External Vendor Meetings</h2>
+<p class="font-mono-data text-mono-data text-on-surface-variant mt-1">ID: POL-773-A | Last modified: Just now</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 border border-outline rounded font-label-caps text-label-caps text-on-surface hover:bg-surface-variant transition-colors">
+                    Discard Draft
+                </button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded font-label-caps text-label-caps hover:brightness-110 transition-all shadow-[inset_0_1px_1px_rgba(255,255,255,0.4)]">
+                    Commit to Firewall
+                </button>
+</div>
+</header>
+<!-- Split Layout Canvas -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Pane: Editor (60%) -->
+<section class="flex-[6] border-r border-outline-variant flex flex-col bg-surface overflow-y-auto">
+<div class="p-container-padding flex flex-col gap-6">
+<!-- Token Injection Panel -->
+<div class="bg-surface-container border border-outline-variant p-4 rounded">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-secondary text-[18px]">data_object</span>
+<h3 class="font-label-caps text-label-caps text-secondary">Dynamic Variables</h3>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="bg-surface-container-highest border border-outline-variant px-2 py-1 rounded font-mono-data text-mono-data text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors">[Meeting_Subject]</button>
+<button class="bg-surface-container-highest border border-outline-variant px-2 py-1 rounded font-mono-data text-mono-data text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors">[Host_Org]</button>
+<button class="bg-surface-container-highest border border-outline-variant px-2 py-1 rounded font-mono-data text-mono-data text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors">[Guest_Org]</button>
+<button class="bg-surface-container-highest border border-outline-variant px-2 py-1 rounded font-mono-data text-mono-data text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors">[Bot_Identifier]</button>
+<button class="bg-surface-container-highest border border-outline-variant px-2 py-1 rounded font-mono-data text-mono-data text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors">[Retention_Period]</button>
+</div>
+</div>
+<!-- Main Text Area -->
+<div class="flex flex-col flex-1 min-h-[300px]">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2">Consent Language Definition</label>
+<div class="relative flex-1 flex flex-col">
+<textarea class="flex-1 w-full bg-surface-container-lowest border border-outline-variant rounded p-4 font-body-md text-body-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary resize-none" placeholder="Enter disclosure text..."></textarea>
+<div class="absolute inset-0 pointer-events-none p-4 font-body-md text-body-md text-transparent break-words whitespace-pre-wrap">
+                                This meeting, <span class="bg-secondary-container/20 text-secondary border border-secondary/30 rounded px-1 font-mono-data text-[11px] pointer-events-auto">[Meeting_Subject]</span>, is being recorded by <span class="bg-secondary-container/20 text-secondary border border-secondary/30 rounded px-1 font-mono-data text-[11px] pointer-events-auto">[Host_Org]</span> using the agent <span class="bg-secondary-container/20 text-secondary border border-secondary/30 rounded px-1 font-mono-data text-[11px] pointer-events-auto">[Bot_Identifier]</span>. Data will be retained for <span class="bg-secondary-container/20 text-secondary border border-secondary/30 rounded px-1 font-mono-data text-[11px] pointer-events-auto">[Retention_Period]</span>. If you do not consent, please drop from the call now.
+                            </div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="font-mono-data text-mono-data text-on-surface-variant">Line: 1, Col: 254</span>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Strict Syntax Checking: Active</span>
+</div>
+</div>
+<!-- Retention Settings -->
+<div class="bg-surface-container border border-outline-variant p-4 rounded">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary text-[18px]">hourglass_empty</span>
+<h3 class="font-label-caps text-label-caps text-tertiary">Data Lifecycle (Retention)</h3>
+</div>
+<div class="flex gap-4">
+<label class="flex-1 relative cursor-pointer group">
+<input checked="" class="peer sr-only" name="retention" type="radio" value="30"/>
+<div class="p-3 border border-outline-variant rounded bg-surface peer-checked:border-secondary peer-checked:bg-surface-variant transition-all text-center">
+<span class="font-headline-md text-headline-md text-on-surface block mb-1">30 Days</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ephemeral</span>
+</div>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full border border-outline-variant peer-checked:border-secondary flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</label>
+<label class="flex-1 relative cursor-pointer group">
+<input class="peer sr-only" name="retention" type="radio" value="365"/>
+<div class="p-3 border border-outline-variant rounded bg-surface peer-checked:border-secondary peer-checked:bg-surface-variant transition-all text-center">
+<span class="font-headline-md text-headline-md text-on-surface block mb-1">1 Year</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Standard Audit</span>
+</div>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full border border-outline-variant peer-checked:border-secondary flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</label>
+<label class="flex-1 relative cursor-pointer group">
+<input class="peer sr-only" name="retention" type="radio" value="indefinite"/>
+<div class="p-3 border border-outline-variant rounded bg-surface peer-checked:border-error peer-checked:bg-error-container/20 transition-all text-center">
+<span class="font-headline-md text-headline-md text-error block mb-1">Indefinite</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Legal Hold Only</span>
+</div>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full border border-outline-variant peer-checked:border-error flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-error opacity-0 peer-checked:opacity-100 transition-opacity"></div>
+</div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Pane: Preview & Tracking (40%) -->
+<section class="flex-[4] flex flex-col bg-surface-container-lowest overflow-hidden">
+<!-- Output Preview -->
+<div class="p-container-padding border-b border-outline-variant bg-surface-container-low">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-[18px]">preview</span>
+<h3 class="font-label-caps text-label-caps text-primary">Simulated Payload</h3>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-4">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                            This meeting, <strong>Q3 Vendor Review</strong>, is being recorded by <strong>Acme Corp</strong> using the agent <strong>ComplianceBot-v2</strong>. Data will be retained for <strong>30 Days</strong>. If you do not consent, please drop from the call now.
+                        </p>
+</div>
+</div>
+<!-- Participant Tracker Simulator -->
+<div class="flex-1 flex flex-col p-container-padding overflow-hidden">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">group</span>
+<h3 class="font-label-caps text-label-caps text-secondary">Participant Tracker Behavior</h3>
+</div>
+<span class="font-mono-data text-mono-data text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">Simulated Flow</span>
+</div>
+<!-- Flow visualization -->
+<div class="bg-surface-container border border-outline-variant rounded p-4 flex flex-col gap-4 overflow-y-auto">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Global Threshold</span>
+<span class="font-mono-data text-mono-data text-on-surface">100% Consensus Required</span>
+</div>
+<!-- Participant Mock Rows -->
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center font-label-caps text-[9px] text-on-surface">J.D</div>
+<span class="font-mono-data text-mono-data text-on-surface">host@acme.corp</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-secondary-container/10 border border-secondary/20">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+<span class="font-label-caps text-[10px] text-secondary">Implicit (Host)</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center font-label-caps text-[9px] text-on-surface">A.S</div>
+<span class="font-mono-data text-mono-data text-on-surface">vendor@external.com</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-secondary-container/10 border border-secondary/20">
+<div class="w-1.5 h-1.5 rounded-full bg-secondary"></div>
+<span class="font-label-caps text-[10px] text-secondary">Consented (0:02)</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-2 border-b border-outline-variant/50">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center font-label-caps text-[9px] text-on-surface">R.L</div>
+<span class="font-mono-data text-mono-data text-on-surface">legal@external.com</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-tertiary-container border border-tertiary/20">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label-caps text-[10px] text-tertiary">Pending Acknowledgment</span>
+</div>
+</div>
+<div class="flex items-center justify-between py-2">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-full bg-surface-bright flex items-center justify-center font-label-caps text-[9px] text-on-surface opacity-50">?</div>
+<span class="font-mono-data text-mono-data text-on-surface-variant">Unknown Caller</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-error-container/20 border border-error/30">
+<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+<span class="font-label-caps text-[10px] text-error">Opt-Out / Dropped</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>
