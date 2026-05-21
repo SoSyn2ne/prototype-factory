@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopify App Pruner - Inventory &amp; Overlap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#8f3f37",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "surface-container-lowest": "#ffffff",
+                        "outline": "#6e7a73",
+                        "primary": "#00654b",
+                        "primary-container": "#008060",
+                        "surface-container": "#e5eeff",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "surface-container-high": "#dce9ff",
+                        "secondary": "#5d5e60",
+                        "surface-dim": "#cbdbf5",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#7a2e28",
+                        "on-error": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "outline-variant": "#bdc9c2",
+                        "on-tertiary-fixed": "#3f0303",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#616364",
+                        "tertiary-container": "#ae564d",
+                        "inverse-primary": "#75d9b3",
+                        "on-primary-fixed-variant": "#00513c",
+                        "surface-tint": "#006c50",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#dfdfe0",
+                        "on-surface": "#0b1c30",
+                        "on-surface-variant": "#3e4944",
+                        "primary-fixed": "#92f6cf",
+                        "inverse-surface": "#213145",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary-fixed": "#e2e2e3",
+                        "on-primary-container": "#d6ffeb",
+                        "surface-container-low": "#eff4ff",
+                        "background": "#f8f9ff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#002116",
+                        "tertiary-fixed": "#ffdad6",
+                        "primary-fixed-dim": "#75d9b3",
+                        "on-secondary-fixed": "#1a1c1d",
+                        "on-tertiary-container": "#fff2f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "lg": "16px",
+                        "xl": "24px",
+                        "md": "12px",
+                        "sm": "8px",
+                        "margin": "16px",
+                        "base": "4px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter", "sans-serif"],
+                        "tabular-num": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "label-caps": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "tabular-num": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for tables to fit industrial theme */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f8f9ff; }
+        ::-webkit-scrollbar-thumb { background: #bdc9c2; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6e7a73; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm antialiased h-screen overflow-hidden flex">
+<!-- Shared Component: SideNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-on-background h-screen w-64 border-r border-outline-variant fixed left-0 top-0 flex flex-col py-lg z-20">
+<div class="px-lg mb-xl">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">App Pruner</h1>
+<p class="font-body-sm text-body-sm text-secondary">Mission Control</p>
+</div>
+<div class="flex-1 px-sm space-y-xs">
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 dark:hover:bg-secondary-container/10 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-md text-[20px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-primary dark:text-primary-fixed bg-primary-container/10 border-r-2 border-primary font-bold font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-md text-[20px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                App Inventory
+            </a>
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 dark:hover:bg-secondary-container/10 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-md text-[20px]">map</span>
+                Overlap Map
+            </a>
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 dark:hover:bg-secondary-container/10 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-md text-[20px]">account_tree</span>
+                Pruning Queue
+            </a>
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 dark:hover:bg-secondary-container/10 font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined mr-md text-[20px]">assessment</span>
+                Audit Reports
+            </a>
+</div>
+<div class="px-lg mt-auto mb-xl">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm py-sm rounded border border-primary transition hover:opacity-90">
+                Run New Audit
+            </button>
+</div>
+<div class="px-sm border-t border-outline-variant pt-sm">
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined mr-md text-[18px]">settings</span>
+                Settings
+            </a>
+<a class="flex items-center px-md py-sm rounded transition-colors duration-150 ease-in-out text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed hover:bg-secondary-container/50 font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined mr-md text-[18px]">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="ml-64 flex-1 flex flex-col h-full bg-surface">
+<!-- Shared Component: TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-on-background border-b border-outline-variant flex justify-between items-center w-full px-xl h-12 flex-shrink-0 z-10">
+<div class="flex items-center gap-xl h-full">
+<div class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed mr-lg">Shopify App Pruner</div>
+<nav class="flex h-full gap-lg">
+<a class="flex items-center h-full text-primary dark:text-primary-fixed border-b-2 border-primary pb-1 font-headline-sm text-headline-sm cursor-pointer active:opacity-80" href="#">Direct View</a>
+<a class="flex items-center h-full text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed font-headline-sm text-headline-sm cursor-pointer active:opacity-80" href="#">Consultant Mode</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary border border-transparent hover:border-outline-variant px-sm py-xs rounded transition-colors">
+                    Export CSV
+                </button>
+<button class="text-on-surface-variant hover:text-primary p-xs rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary p-xs rounded hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 overflow-y-auto p-xl flex flex-col gap-lg">
+<!-- Filters & Context Bar -->
+<div class="flex justify-between items-end border-b border-outline-variant pb-md">
+<div>
+<h2 class="font-display text-display text-on-surface mb-xs">Inventory &amp; Overlap Analysis</h2>
+<p class="font-body-md text-body-md text-secondary">Analyzing 42 installed applications for functional redundancy and cost efficiency.</p>
+</div>
+<div class="flex gap-sm">
+<button class="bg-error-container text-on-error-container border border-error/20 px-sm py-xs rounded font-body-sm text-body-sm flex items-center gap-xs hover:opacity-90">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                        Redundant (3)
+                    </button>
+<button class="bg-surface-container-highest text-on-surface border border-outline-variant px-sm py-xs rounded font-body-sm text-body-sm flex items-center gap-xs hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">speed</span>
+                        High Friction
+                    </button>
+<button class="bg-surface-container-highest text-on-surface border border-outline-variant px-sm py-xs rounded font-body-sm text-body-sm flex items-center gap-xs hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[16px]">shopping_cart</span>
+                        Order Volume Traps
+                    </button>
+</div>
+</div>
+<!-- Overlap Map Section (Bento Grid) -->
+<section>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs uppercase tracking-wider text-secondary">
+<span class="material-symbols-outlined text-[18px]">map</span> Critical Overlaps
+                </h3>
+<div class="grid grid-cols-3 gap-md">
+<!-- Overlap Card 1 -->
+<div class="bg-surface-container-lowest border border-error border-l-4 rounded p-md flex flex-col shadow-sm">
+<div class="flex justify-between items-start mb-sm border-b border-outline-variant pb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Function Domain</span>
+<span class="bg-error text-on-error px-xs rounded font-tabular-num text-[10px] leading-none py-xs">3 Apps</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-md">Product Reviews</div>
+<ul class="font-body-sm text-body-sm space-y-xs text-secondary mt-auto">
+<li class="flex justify-between"><span class="text-on-surface">Yotpo</span> <span>$299/mo</span></li>
+<li class="flex justify-between"><span class="text-on-surface">Loox</span> <span>$34/mo</span></li>
+<li class="flex justify-between"><span class="text-on-surface">Judge.me</span> <span>$15/mo</span></li>
+</ul>
+</div>
+<!-- Overlap Card 2 -->
+<div class="bg-surface-container-lowest border border-tertiary border-l-4 rounded p-md flex flex-col shadow-sm">
+<div class="flex justify-between items-start mb-sm border-b border-outline-variant pb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Function Domain</span>
+<span class="bg-tertiary text-on-tertiary px-xs rounded font-tabular-num text-[10px] leading-none py-xs">2 Apps</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-md">Upsell / Cross-sell</div>
+<ul class="font-body-sm text-body-sm space-y-xs text-secondary mt-auto">
+<li class="flex justify-between"><span class="text-on-surface">ReConvert</span> <span>$99/mo</span></li>
+<li class="flex justify-between"><span class="text-on-surface">Frequently Bought Together</span> <span>$9/mo</span></li>
+</ul>
+</div>
+<!-- Clean Card (No Overlap) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-md flex flex-col bg-surface-bright shadow-sm opacity-80">
+<div class="flex justify-between items-start mb-sm border-b border-outline-variant pb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Function Domain</span>
+<span class="bg-surface-container text-on-surface px-xs rounded font-tabular-num text-[10px] leading-none py-xs">1 App</span>
+</div>
+<div class="font-headline-md text-headline-md text-on-surface mb-md">Email Marketing</div>
+<ul class="font-body-sm text-body-sm space-y-xs text-secondary mt-auto">
+<li class="flex justify-between"><span class="text-on-surface">Klaviyo</span> <span class="text-primary font-medium">Core</span></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Full App Table Section -->
+<section class="flex-1 flex flex-col min-h-[400px]">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm flex items-center gap-xs uppercase tracking-wider text-secondary">
+<span class="material-symbols-outlined text-[18px]">table_chart</span> Detailed Inventory
+                </h3>
+<div class="flex-1 border border-outline-variant rounded bg-surface-container-lowest overflow-auto relative shadow-sm">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-low border-b border-outline-variant z-10 shadow-sm">
+<tr>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant/50 w-64">Application Name</th>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant/50">Primary Function</th>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant/50 text-right w-32">Monthly Cost</th>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant/50 w-32">API Load</th>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant/50 w-32">Support Friction</th>
+<th class="p-sm font-label-caps text-label-caps text-on-surface-variant w-24">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant/30 transition-colors bg-error-container/10">
+<td class="p-sm border-r border-outline-variant/50 font-medium text-on-surface flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-error"></div> Yotpo Reviews
+                                </td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Reviews &amp; UGC</td>
+<td class="p-sm border-r border-outline-variant/50 font-tabular-num text-tabular-num text-right">$299.00</td>
+<td class="p-sm border-r border-outline-variant/50">
+<div class="flex items-center gap-xs"><div class="h-1.5 w-full bg-surface-container rounded overflow-hidden"><div class="h-full bg-error w-4/5"></div></div><span class="text-[10px]">High</span></div>
+</td>
+<td class="p-sm border-r border-outline-variant/50 text-tertiary">High (Tickets open)</td>
+<td class="p-sm text-center">
+<button class="text-secondary hover:text-error"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant/30 transition-colors">
+<td class="p-sm border-r border-outline-variant/50 font-medium text-on-surface flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-primary"></div> Klaviyo
+                                </td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Email Marketing</td>
+<td class="p-sm border-r border-outline-variant/50 font-tabular-num text-tabular-num text-right">$1,250.00</td>
+<td class="p-sm border-r border-outline-variant/50">
+<div class="flex items-center gap-xs"><div class="h-1.5 w-full bg-surface-container rounded overflow-hidden"><div class="h-full bg-primary w-2/5"></div></div><span class="text-[10px]">Low</span></div>
+</td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Minimal</td>
+<td class="p-sm text-center">
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-[18px]">edit</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant/30 transition-colors bg-tertiary-container/10">
+<td class="p-sm border-r border-outline-variant/50 font-medium text-on-surface flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div> ReConvert
+                                </td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Upsell / Cross-sell</td>
+<td class="p-sm border-r border-outline-variant/50 font-tabular-num text-tabular-num text-right">$99.00</td>
+<td class="p-sm border-r border-outline-variant/50">
+<div class="flex items-center gap-xs"><div class="h-1.5 w-full bg-surface-container rounded overflow-hidden"><div class="h-full bg-tertiary w-3/5"></div></div><span class="text-[10px]">Med</span></div>
+</td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Moderate</td>
+<td class="p-sm text-center">
+<button class="text-secondary hover:text-error"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant/30 transition-colors bg-error-container/10">
+<td class="p-sm border-r border-outline-variant/50 font-medium text-on-surface flex items-center gap-sm">
+<div class="w-2 h-2 rounded-full bg-error"></div> Loox
+                                </td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Reviews &amp; UGC</td>
+<td class="p-sm border-r border-outline-variant/50 font-tabular-num text-tabular-num text-right">$34.99</td>
+<td class="p-sm border-r border-outline-variant/50">
+<div class="flex items-center gap-xs"><div class="h-1.5 w-full bg-surface-container rounded overflow-hidden"><div class="h-full bg-primary w-1/5"></div></div><span class="text-[10px]">Low</span></div>
+</td>
+<td class="p-sm border-r border-outline-variant/50 text-secondary">Minimal</td>
+<td class="p-sm text-center">
+<button class="text-secondary hover:text-error"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>

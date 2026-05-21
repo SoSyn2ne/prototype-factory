@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Room Turnover Task Board</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom Scrollbar for utility feel */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c3c5d9; /* outline-variant */
+            border-radius: 4px;
+        }
+    </style>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#ffdfbe",
+                        "outline": "#737688",
+                        "on-primary": "#ffffff",
+                        "surface-variant": "#dae2fd",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#b7c4ff",
+                        "on-secondary-container": "#57657a",
+                        "surface-container": "#eaedff",
+                        "tertiary-container": "#905a00",
+                        "on-primary-container": "#dfe3ff",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "on-primary-fixed-variant": "#0038b6",
+                        "primary": "#003ec7",
+                        "on-surface": "#131b2e",
+                        "inverse-primary": "#b7c4ff",
+                        "background": "#faf8ff",
+                        "on-primary-fixed": "#001452",
+                        "secondary-container": "#d5e3fc",
+                        "secondary": "#515f74",
+                        "error-container": "#ffdad6",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#6f4500",
+                        "surface-dim": "#d2d9f4",
+                        "surface-bright": "#faf8ff",
+                        "inverse-surface": "#283044",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-highest": "#dae2fd",
+                        "surface-tint": "#004ced",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-high": "#e2e7ff",
+                        "surface": "#faf8ff",
+                        "on-background": "#131b2e",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-container": "#0052ff",
+                        "tertiary-fixed": "#ffddb8",
+                        "primary-fixed": "#dde1ff",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-surface-variant": "#434656",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "outline-variant": "#c3c5d9",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "gutter": "16px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "touch-target": "44px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "data-emphasis": ["Inter", "sans-serif"],
+                        "headline-lg-mobile": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-lg": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-emphasis": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 border-b border-outline-variant flat no shadows z-40 sticky">
+<div class="flex justify-between items-center w-full px-gutter h-touch-target">
+<div class="flex items-center gap-gutter">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full flex items-center justify-center w-touch-target h-touch-target">
+<span class="material-symbols-outlined" data-icon="home_work">home_work</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary tracking-tight">Turnover Dispatch</h1>
+</div>
+<div class="flex items-center gap-base">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full flex items-center justify-center w-touch-target h-touch-target">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full flex items-center justify-center w-touch-target h-touch-target">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2 bg-surface-container-high">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female dispatch manager wearing a practical navy blue collared shirt. She has a confident, focused expression, standing against a brightly lit, modern industrial office background. The lighting is crisp and cool, casting soft, flattering shadows that emphasize a clean, professional aesthetic suitable for an enterprise software avatar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIvP1yS7y8DNU9YK3kPVnhSCWnlAtYUKksKsgEdTv2nHEbQykI_c2LftahYbmjomFYRJDo7Npcwe5YAs9GdYVpON33J6AEBMynX_qGQgEOuww0Bafg4cKWxJVo0mcZERAky3fV3atN0sJHI6ElvddM4IU4I8REl7cFKmaaEcXOZRWPT-FZ4MEvTw6NcD-nEGpvXqiU1YgwbsVcBCob_8s6GVz2dY5XVLaJF7K_WaeXsaKbgoxfX_QCxjNEBijYgfqG-SNGh7WMVDqq"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex flex-col w-full max-w-3xl mx-auto px-margin-mobile md:px-margin-desktop py-margin-mobile pb-32 gap-margin-mobile">
+<!-- Context Header -->
+<section class="flex flex-col gap-base">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface">Unit 402 - Standard Clean</h2>
+<div class="bg-surface-container-high text-on-surface font-label-sm text-label-sm px-3 py-1.5 rounded-full border border-outline-variant">
+                    Est. 45m remaining
+                </div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high rounded-full h-2 mt-2 border border-outline-variant overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 45%;"></div>
+</div>
+<p class="text-body-md font-body-md text-outline mt-1">4 of 12 tasks completed</p>
+</section>
+<!-- Task Board (Bento Style Cards) -->
+<section class="flex flex-col gap-gutter">
+<!-- Room Category: Kitchen -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<!-- Status Rib handled by a left border on the header -->
+<div class="bg-surface-container-low border-b border-outline-variant border-l-4 border-l-primary px-gutter py-3 flex justify-between items-center">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface">Kitchen</h3>
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="kitchen">kitchen</span>
+</div>
+<div class="flex flex-col">
+<!-- Task Item 1 (Completed) -->
+<label class="flex items-start gap-gutter p-gutter border-b border-surface-variant hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center w-touch-target h-touch-target -ml-2 -mt-2">
+<input checked="" class="peer sr-only" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline rounded flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-on-primary text-[18px] opacity-0 peer-checked:opacity-100 transition-opacity" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="flex-grow pt-1">
+<p class="text-body-md font-body-md text-outline line-through">Clear countertops and sink</p>
+<p class="text-label-sm font-label-sm text-outline mt-1">5m</p>
+</div>
+</label>
+<!-- Task Item 2 (Active) -->
+<label class="flex items-start gap-gutter p-gutter hover:bg-surface-container-lowest transition-colors cursor-pointer group bg-inverse-on-surface">
+<div class="relative flex items-center justify-center w-touch-target h-touch-target -ml-2 -mt-2">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-primary rounded flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-on-primary text-[18px] opacity-0 peer-checked:opacity-100 transition-opacity" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<div class="flex-grow pt-1">
+<p class="text-body-md font-body-md text-on-surface font-medium">Sanitize all hard surfaces</p>
+<p class="text-label-sm font-label-sm text-primary mt-1">10m</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Room Category: Bedroom 1 -->
+<div class="bg-surface border border-outline-variant rounded-xl overflow-hidden shadow-sm opacity-90">
+<div class="bg-surface-container-low border-b border-outline-variant border-l-4 border-l-outline-variant px-gutter py-3 flex justify-between items-center">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface">Bedroom 1</h3>
+<span class="material-symbols-outlined text-outline text-[20px]" data-icon="bed">bed</span>
+</div>
+<div class="flex flex-col">
+<!-- Task Item -->
+<label class="flex items-start gap-gutter p-gutter hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="relative flex items-center justify-center w-touch-target h-touch-target -ml-2 -mt-2">
+<input class="peer sr-only" type="checkbox"/>
+<div class="w-6 h-6 border-2 border-outline rounded flex items-center justify-center peer-checked:bg-primary peer-checked:border-primary transition-all">
+<span class="material-symbols-outlined text-on-primary text-[18px] opacity-0 peer-checked:opacity-100 transition-opacity" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex-grow pt-1">
+<p class="text-body-md font-body-md text-on-surface">Change bed linens</p>
+<p class="text-label-sm font-label-sm text-outline mt-1">15m</p>
+</div>
+</label>
+</div>
+</div>
+</section>
+<!-- Required Photo Proof Grid -->
+<section class="flex flex-col gap-base mt-4">
+<h3 class="text-data-emphasis font-data-emphasis text-on-surface px-1 uppercase tracking-wider">Required Proof</h3>
+<div class="grid grid-cols-2 gap-base">
+<!-- Proof Placeholder 1 -->
+<button class="bg-surface-container-low border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center h-32 gap-2 hover:bg-surface-container-high hover:border-primary transition-all group active:scale-95">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="add_a_photo">add_a_photo</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-center px-2">Kitchen - Counters Clear</span>
+</button>
+<!-- Proof Placeholder 2 -->
+<button class="bg-surface-container-low border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center h-32 gap-2 hover:bg-surface-container-high hover:border-primary transition-all group active:scale-95">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center group-hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="add_a_photo">add_a_photo</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant text-center px-2">Bed Linens - Fresh</span>
+</button>
+<!-- Proof Placeholder 3 (Completed Example) -->
+<div class="bg-surface border border-outline-variant rounded-lg relative overflow-hidden h-32 group">
+<div class="absolute inset-0 bg-black/20 z-10 flex items-end p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="text-label-sm font-label-sm text-white bg-black/50 px-2 py-1 rounded backdrop-blur-sm w-full text-center">Retake</button>
+</div>
+<div class="absolute top-2 right-2 z-20 bg-primary text-on-primary rounded-full w-6 h-6 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[14px]" data-icon="check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+<img alt="Clean Bathroom Proof" class="w-full h-full object-cover" data-alt="A brightly lit, freshly cleaned modern bathroom interior. The focus is on a pristine white ceramic sink and polished chrome faucet. The countertop is completely clear of clutter, reflecting the overhead light. In the background, a sparkling clean mirror and light gray tiled walls confirm a thorough sanitization process. The image has a stark, clinical documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCByW3cg_G08Wg6oSthaE_Sr0k4MkNZENrQy5bIfXKRraZ6_BbKnzS3phjI0D9swhTYVT0dkm9Wcd7vApKOLuHOXq0Pr2fUlkhyw7UbbreJwIS_GxAp0Xpa1eWhwcjl3d5wzBIqAnBLtQ0yo2a0Tv6sZgOMuoEoDujaz4mKI-nMPLlryKHH0TyigBNVZE5au5WhjuQJ37k24zi_ssZPQNwiSNN27pFPpW2QK2lY2Hwd2S0ncAQUbtIwomvV1YcPyY8haYU9kx7QAugQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-2 z-0">
+<span class="text-label-sm font-label-sm text-white truncate block">Bathroom - Sanitized</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-margin-mobile py-2 bg-surface border-t border-outline-variant shadow-lg md:hidden">
+<!-- Item 1: Finish -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-highest transition-colors rounded-xl min-w-touch-target min-h-touch-target">
+<span class="material-symbols-outlined mb-1" data-icon="check_circle">check_circle</span>
+<span class="text-label-sm font-label-sm">Finish</span>
+</button>
+<!-- Item 2: Proof (Active) -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 scale-90 transition-transform duration-150 min-w-touch-target min-h-touch-target">
+<span class="material-symbols-outlined mb-1" data-icon="photo_camera" data-weight="fill" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+<span class="text-label-sm font-label-sm font-bold">Proof</span>
+</button>
+<!-- Item 3: Escalate -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-highest transition-colors rounded-xl min-w-touch-target min-h-touch-target">
+<span class="material-symbols-outlined mb-1" data-icon="report_problem">report_problem</span>
+<span class="text-label-sm font-label-sm">Escalate</span>
+</button>
+<!-- Item 4: Status -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-1 hover:bg-surface-container-highest transition-colors rounded-xl min-w-touch-target min-h-touch-target">
+<span class="material-symbols-outlined mb-1" data-icon="analytics">analytics</span>
+<span class="text-label-sm font-label-sm">Status</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for checklist items
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const label = this.closest('label');
+                const text = label.querySelector('.flex-grow p:first-child');
+                
+                if(this.checked) {
+                    text.classList.add('line-through', 'text-outline');
+                    text.classList.remove('text-on-surface', 'font-medium');
+                    label.classList.remove('bg-inverse-on-surface');
+                } else {
+                    text.classList.remove('line-through', 'text-outline');
+                    text.classList.add('text-on-surface', 'font-medium');
+                    // In a real app, logic would determine if it needs background highlight based on 'next up' status
+                }
+            });
+        });
+    </script>
+</body></html>
