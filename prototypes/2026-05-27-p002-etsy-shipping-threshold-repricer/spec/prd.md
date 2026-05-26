@@ -1,0 +1,52 @@
+# PRD - Etsy Shipping Threshold Repricer
+
+## Summary
+A seller workbench that turns postage hikes, free-shipping pressure, and Etsy threshold anxiety into listing-safe price moves.
+
+## Candidate type
+- Practical / Commercial
+
+## Problem
+- S4: Sellers worry that raising shipping over Etsy's customer-friendly threshold may hurt search placement even when postage exceeds what they charge.
+- S5: Long-time sellers say Etsy's free-shipping threshold is no longer sustainable for supplies and low-margin orders.
+
+## Target user
+- Etsy sellers, handmade supply shops, micro-commerce operators, and marketplace consultants managing dozens or hundreds of listings.
+
+## Key UX
+- The seller imports listing rows, shipping profiles, package weights, and margin targets; the app flags listings where free shipping or sub-$6 shipping destroys margin and generates controlled item-price, shipping-price, bundle, and customer-copy changes.
+
+## Required UI sections
+- Listing import summary with shipping profile and package class coverage
+- Threshold risk table for $6 shipping, $35 free shipping, multi-item orders, and offsite ad fees
+- Margin-preserving repricing scenarios by listing cluster
+- Domestic versus international shipping adjustment lane
+- Customer-friendly copy builder for why prices changed
+- Bulk edit checklist for Etsy listings and shipping profiles
+- Traffic-watch log for post-change placement and conversion notes
+
+## Design profile
+- financial-analyst
+
+## Theme
+- 자산 방어
+
+## External signal references
+- S4 - Reddit r/EtsySellers, shipping above Etsy's $6 threshold: https://www.reddit.com/r/EtsySellers/comments/1t8ghc4/has_anyone_noticed_a_significant_change_in_shop/
+- S5 - Reddit r/EtsySellers, $35 free-shipping threshold pressure: https://www.reddit.com/r/EtsySellers/comments/1sqtkr8/etsy_needs_to_raise_the_35_free_shipping/
+
+## Stitch prompt
+Create a responsive web app prototype for "Etsy Shipping Threshold Repricer," a seller finance workbench for Etsy merchants facing postage hikes, free-shipping pressure, and threshold anxiety. Include: listing import summary, threshold risk table for $6 shipping and $35 free shipping, margin-preserving repricing scenarios, domestic versus international adjustment lane, customer-friendly copy builder, bulk edit checklist, and traffic-watch log. Design direction: use the financial-analyst profile with spreadsheet-like clarity, strong margin deltas, muted warning tones, compact scenario chips, and marketplace-specific listing cues; it should feel like a calm accountant for a stressed handmade seller.
+
+## Constraints
+- Phase A only: scaffold and prompt pack, no custom demo implementation.
+- Use Stitch export drop folder: /home/sy/Downloads/stitch_drop/2026-05-27/p002/
+
+## Non-goals
+- Do not claim source signals prove market size.
+- Do not implement production integrations in Phase A.
+
+## Success metrics
+- User understands the core pain in under 10 seconds.
+- Stitch output includes every required UI section.
+- Demo preserves the assigned design profile and main workflow.
