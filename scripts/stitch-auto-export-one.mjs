@@ -128,8 +128,8 @@ while (Date.now() - waitStarted < renderWaitMs) {
   if (
     body
     && /내보내기|Export/.test(body)
-    && /Would you like|How do these screens|I have designed|I built|The design|Downloaded screens/i.test(body)
-    && !/\([0-3]\/[4-9]\)/.test(body)
+    && !/화면 생성 중|Crafting/i.test(body)
+    && /Would you like|How do these screens|I have designed|I built|The design|Downloaded screens|Logo|Design System|devices/i.test(body)
   ) break;
   await new Promise((r) => setTimeout(r, 5000));
 }
@@ -144,10 +144,20 @@ await new Promise((r) => setTimeout(r, 1000));
 appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
 if (!appFrame) throw new Error('Could not find Stitch app iframe after generation');
 await appFrame.evaluate(() => {
+  const controls = [...document.querySelectorAll('button,[role=button],div,span')];
+  const selectAll = controls.find((node) => {
+    const label = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
+    return label === '모두 선택' || label === 'Select all';
+  });
+  selectAll?.click();
+});
+await new Promise((r) => setTimeout(r, 1500));
+await appFrame.evaluate(() => {
   const buttons = [...document.querySelectorAll('button')];
   const topExport = buttons.find((button) => {
     const label = (button.innerText || button.textContent || '').trim();
-    return /내보내기|Export/.test(label) && button.getBoundingClientRect().y < 100;
+    const rect = button.getBoundingClientRect();
+    return /내보내기|Export/.test(label) && rect.y < 100 && rect.width > 0 && rect.height > 0;
   });
   topExport?.click();
   if (!topExport) throw new Error('Could not find top export button');
@@ -156,7 +166,7 @@ await new Promise((r) => setTimeout(r, 1500));
 await shot('03-export-menu');
 const clickedZip = await appFrame.evaluate(() => {
   const row = [...document.querySelectorAll('label,button,[role=radio]')]
-    .find((node) => (node.innerText || node.textContent || '').trim() === '.zip');
+    .find((node) => (node.innerText || node.textContent || '').trim().includes('.zip'));
   if (!row) return false;
   row.click();
   return true;
@@ -168,7 +178,7 @@ await new Promise((r) => setTimeout(r, 1000));
 const clickedExport = await appFrame.evaluate(() => {
   const buttons = [...document.querySelectorAll('button')]
     .map((button) => ({ button, rect: button.getBoundingClientRect(), text: (button.innerText || button.getAttribute('aria-label') || '').trim() }))
-    .filter(({ rect, text }) => rect.width > 0 && rect.height > 0 && /내보내기|Export|Download|다운로드|빌드/.test(text));
+    .filter(({ rect, text }) => rect.width > 0 && rect.height > 0 && /내보내기|Export|Download|다운로드/.test(text));
   const button = buttons.sort((a, b) => b.rect.y - a.rect.y)[0]?.button;
   button?.click();
   return Boolean(button);
@@ -180,5 +190,8 @@ await new Promise((r) => setTimeout(r, Number(process.env.STITCH_DOWNLOAD_WAIT_M
 await shot('04-after-export');
 
 const files = await fs.readdir(dlDir).catch(() => []);
+if (!files.some((file) => file.endsWith('.zip'))) {
+  throw new Error(`Stitch export did not download a zip into ${dlDir}`);
+}
 console.log(JSON.stringify({ id, url: page.url(), title: await page.title().catch(() => ''), dlDir, files }, null, 2));
 await browser.disconnect();

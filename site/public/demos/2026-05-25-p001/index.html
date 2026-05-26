@@ -1,59 +1,334 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Exception Workflow Black Box - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-25-p001</p>
-        <h1>Exception Workflow Black Box</h1>
-        <p>A small-business workflow recorder that catches the messy exceptions owners forget to mention before they waste money on brittle AI automations.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Forensic Intake - BLACKBOX_WF</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdfa0",
+                        "tertiary-container": "#1c1b1a",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-primary-fixed-variant": "#474646",
+                        "on-primary-fixed": "#1c1b1b",
+                        "on-primary-container": "#858383",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-tint": "#5f5e5e",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "background": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-container": "#6d5000",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#1c1b1b",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dadada",
+                        "secondary": "#795900",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1a1c1c",
+                        "on-secondary-fixed": "#261a00",
+                        "on-tertiary-container": "#868381",
+                        "on-background": "#1a1c1c",
+                        "inverse-primary": "#c8c6c5",
+                        "on-surface-variant": "#444748",
+                        "secondary-fixed-dim": "#fbbc00",
+                        "outline-variant": "#c4c7c7",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "tertiary": "#000000",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "surface-container-highest": "#e2e2e2",
+                        "outline": "#747878",
+                        "tertiary-fixed-dim": "#cac6c3",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#e6e1df",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-surface": "#2f3131",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#ffbf00",
+                        "surface-container": "#eeeeee"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "12px",
+                        "unit": "4px",
+                        "margin-desktop": "24px",
+                        "table-row-height": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "code-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Scrollbar for dense data feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c4c7c7; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #747878; 
+        }
+
+        .exception-flagged {
+            border-left: 4px solid #ffbf00 !important;
+            background-color: #fff9e6;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-background dark:bg-tertiary-container text-primary dark:text-primary-fixed h-screen w-64 border-r border-outline-variant flex flex-col py-margin-desktop space-y-unit flex-shrink-0">
+<div class="px-margin-desktop mb-8">
+<h1 class="font-headline-md text-headline-md font-black tracking-tighter text-primary dark:text-primary-fixed">BLACKBOX_WF</h1>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest mt-1">SESSION_LOG_V2.4</p>
+</div>
+<nav class="flex-1 space-y-1 px-4">
+<!-- Active Tab: Forensic Intake -->
+<a class="flex items-center px-4 h-table-row-height bg-secondary-container text-on-secondary-container font-bold border-l-4 border-secondary font-body-md text-body-md active:opacity-90 transition-opacity duration-75" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">inbox</span>
+                Forensic Intake
+            </a>
+<a class="flex items-center px-4 h-table-row-height text-on-surface-variant hover:bg-surface-container-highest border-l-4 border-transparent font-body-md text-body-md hover:bg-surface-variant dark:hover:bg-surface-container-high transition-none" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">map</span>
+                Scatter Map
+            </a>
+<a class="flex items-center px-4 h-table-row-height text-on-surface-variant hover:bg-surface-container-highest border-l-4 border-transparent font-body-md text-body-md hover:bg-surface-variant dark:hover:bg-surface-container-high transition-none" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">emergency_recording</span>
+                Audit Recorder
+            </a>
+<a class="flex items-center px-4 h-table-row-height text-on-surface-variant hover:bg-surface-container-highest border-l-4 border-transparent font-body-md text-body-md hover:bg-surface-variant dark:hover:bg-surface-container-high transition-none" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">assignment_turned_in</span>
+                Readiness Report
+            </a>
+<a class="flex items-center px-4 h-table-row-height text-on-surface-variant hover:bg-surface-container-highest border-l-4 border-transparent font-body-md text-body-md hover:bg-surface-variant dark:hover:bg-surface-container-high transition-none" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]">smart_toy</span>
+                Automation Briefs
+            </a>
+</nav>
+<div class="px-margin-desktop mt-auto pt-4 border-t border-outline-variant">
+<button class="w-full h-table-row-height bg-secondary-container text-on-secondary-container font-label-md text-label-md uppercase tracking-widest font-bold flex items-center justify-center hover:bg-secondary-fixed-dim transition-none">
+                INITIATE_AUDIT
+            </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-tertiary-container w-full h-table-row-height border-b border-outline-variant flex justify-between items-center px-margin-desktop sticky top-0 z-50 flex-shrink-0">
+<div class="flex items-center">
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Audit Session: Messy Week: Oct 12-18</h2>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative border border-outline-variant bg-surface h-6 flex items-center px-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 p-0 font-body-sm text-body-sm text-on-surface w-48 h-full outline-none" placeholder="Search Fragments..." type="text"/>
+</div>
+<div class="flex items-center space-x-2">
+<button class="h-6 px-3 bg-secondary-container text-on-secondary-container font-label-md text-label-md uppercase font-bold hover:bg-secondary-fixed-dim">
+                        EXCEPTION_CAPTURE
+                    </button>
+<button class="h-6 px-3 border border-outline-variant text-on-surface font-label-md text-label-md uppercase hover:bg-surface-variant">
+                        EXPORT_LOG
+                    </button>
+</div>
+<div class="flex items-center space-x-2 border-l border-outline-variant pl-4">
+<button class="text-on-surface-variant hover:text-secondary p-1">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-secondary p-1">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-auto bg-surface p-margin-desktop">
+<div class="max-w-[1400px] mx-auto">
+<div class="mb-6 flex justify-between items-end border-b border-outline-variant pb-2">
+<div>
+<h3 class="font-headline-lg text-headline-lg text-primary">Intake Stream</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Fragmented inputs detected. Analyzing workflow breaks.</p>
+</div>
+<div class="flex space-x-2">
+<span class="px-2 py-1 bg-surface-container-high border border-outline-variant font-code-md text-code-md text-on-surface">TOTAL_EVENTS: 142</span>
+<span class="px-2 py-1 bg-secondary-container text-on-secondary-container font-code-md text-code-md border border-secondary">EXCEPTIONS: 3</span>
+</div>
+</div>
+<!-- Bento Grid / Feed Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter items-start">
+<!-- Timeline Node 1 -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2 text-on-surface-variant font-code-md text-code-md">
+<span class="w-2 h-2 bg-primary"></span>
+<span>OCT-12 09:14:22Z</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 hover:border-primary transition-colors group relative">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2 py-0.5 border border-outline-variant font-label-md text-label-md uppercase bg-surface text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">mail</span> Email
+                                </span>
+<button class="text-outline hover:text-secondary-container flag-btn" title="Flag as Exception">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-clamp-4">
+                                "Hey team, I submitted my onboarding documents three days ago but haven't received access to the portal yet. Can someone look into this?"
+                            </p>
+<div class="mt-4 pt-3 border-t border-outline-variant flex justify-between items-center">
+<span class="font-code-md text-code-md text-on-surface-variant">SRC: Client_Portal</span>
+<span class="font-label-md text-label-md text-on-surface border border-outline-variant px-1">ROUTINE</span>
+</div>
+</div>
+</div>
+<!-- Timeline Node 2 (Flagged Exception) -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2 text-secondary-container font-code-md text-code-md">
+<span class="w-2 h-2 bg-secondary-container"></span>
+<span>OCT-12 11:30:05Z</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 hover:border-primary transition-colors group relative exception-flagged">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2 py-0.5 border border-outline-variant font-label-md text-label-md uppercase bg-surface text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">forum</span> IG_DM
+                                </span>
+<button class="text-secondary-container flag-btn active" title="Remove Flag">
+<span class="material-symbols-outlined text-[18px] fill">flag</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                                "Urgent!! I tried to process a refund using the link you sent, but it just loops back to the home page. Customers are getting angry on Twitter."
+                            </p>
+<div class="mt-4 pt-3 border-t border-secondary-container flex justify-between items-center">
+<span class="font-code-md text-code-md text-on-surface-variant">SRC: Social_Listen</span>
+<span class="font-label-md text-label-md text-on-secondary-container bg-secondary-container px-1">CRITICAL_FAIL</span>
+</div>
+</div>
+</div>
+<!-- Timeline Node 3 -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2 text-on-surface-variant font-code-md text-code-md">
+<span class="w-2 h-2 bg-primary"></span>
+<span>OCT-12 14:05:11Z</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 hover:border-primary transition-colors group relative">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2 py-0.5 border border-outline-variant font-label-md text-label-md uppercase bg-surface text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">edit_note</span> Staff_Note
+                                </span>
+<button class="text-outline hover:text-secondary-container flag-btn" title="Flag as Exception">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-clamp-4">
+                                "Manual override applied to account #8892. The automated script failed to recognize the legacy tier structure again. Need to log this for Dev."
+                            </p>
+<div class="mt-4 pt-3 border-t border-outline-variant flex justify-between items-center">
+<span class="font-code-md text-code-md text-on-surface-variant">OP: Sarah_J</span>
+<span class="font-label-md text-label-md text-on-surface border border-outline-variant px-1">WORKAROUND</span>
+</div>
+</div>
+</div>
+<!-- Timeline Node 4 -->
+<div class="flex flex-col space-y-2">
+<div class="flex items-center space-x-2 text-on-surface-variant font-code-md text-code-md">
+<span class="w-2 h-2 bg-primary"></span>
+<span>OCT-13 08:22:45Z</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 hover:border-primary transition-colors group relative">
+<div class="flex justify-between items-start mb-3">
+<span class="px-2 py-0.5 border border-outline-variant font-label-md text-label-md uppercase bg-surface text-on-surface-variant flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">description</span> Form
+                                </span>
+<button class="text-outline hover:text-secondary-container flag-btn" title="Flag as Exception">
+<span class="material-symbols-outlined text-[18px]">flag</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface line-clamp-4">
+                                Feedback Survey Submission ID #442. "Overall good service, but the initial invoice was confusing to read."
+                            </p>
+<div class="mt-4 pt-3 border-t border-outline-variant flex justify-between items-center">
+<span class="font-code-md text-code-md text-on-surface-variant">SRC: Typeform</span>
+<span class="font-label-md text-label-md text-on-surface border border-outline-variant px-1">INFO</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple JS for toggling exception flags
+        document.querySelectorAll('.flag-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const card = this.closest('.group');
+                const icon = this.querySelector('.material-symbols-outlined');
+                const headerLine = card.previousElementSibling.querySelector('span:first-child');
+                
+                card.classList.toggle('exception-flagged');
+                
+                if (card.classList.contains('exception-flagged')) {
+                    this.classList.replace('text-outline', 'text-secondary-container');
+                    icon.classList.add('fill');
+                    headerLine.classList.replace('bg-primary', 'bg-secondary-container');
+                } else {
+                    this.classList.replace('text-secondary-container', 'text-outline');
+                    icon.classList.remove('fill');
+                    headerLine.classList.replace('bg-secondary-container', 'bg-primary');
+                }
+            });
+        });
+    </script>
+</body></html>
