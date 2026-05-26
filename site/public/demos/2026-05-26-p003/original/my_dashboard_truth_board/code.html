@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - Truth Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#996100",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-fixed": "#00174b",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ffeedd",
+                        "inverse-surface": "#213145",
+                        "tertiary": "#784b00",
+                        "surface-variant": "#d3e4fe",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#0053db",
+                        "secondary-fixed": "#89f5e7",
+                        "on-tertiary": "#ffffff",
+                        "secondary": "#006a61",
+                        "on-secondary-fixed": "#00201d",
+                        "outline": "#737686",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-container-low": "#eff4ff",
+                        "surface-bright": "#f8f9ff",
+                        "primary-container": "#2563eb",
+                        "outline-variant": "#c3c6d7",
+                        "inverse-primary": "#b4c5ff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#434655",
+                        "on-error": "#ffffff",
+                        "background": "#f8f9ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-secondary-fixed-variant": "#005049",
+                        "on-primary-container": "#eeefff",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#006f66",
+                        "secondary-fixed-dim": "#6bd8cb",
+                        "surface": "#f8f9ff",
+                        "secondary-container": "#86f2e4",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary-fixed": "#ffddb8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "stack-sm": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "60px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f8f9ff;
+            color: #0b1c30;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="hidden md:flex sticky top-0 z-50 flex justify-between items-center w-full px-margin-desktop py-4 bg-surface/95 backdrop-blur-md shadow-sm border-b border-outline-variant transition-opacity opacity-80 duration-150 hover:opacity-100">
+<div class="flex items-center gap-6">
+<div class="font-display-lg text-headline-md font-bold text-primary">Truth Board</div>
+<nav class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-2 rounded-lg" href="#">Search</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-2" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-primary font-label-md text-label-md hover:bg-surface-container-low transition-colors px-3 py-2 rounded-lg" href="#">Community</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-lg shadow-sm hover:bg-primary-container transition-colors">Submit Data</button>
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A smiling young woman with bright, natural lighting in a soft, modern professional setting. The image should convey warmth, trust, and approachability, aligning with a family-oriented service aesthetic. High quality, clear focus, soft background blur." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7lJNK6b2Bx7XEC3b6Vh1Au6shEytrPKbdcN0XssXtqmJXFFM9r1tfut6v9eZCC855FXODlHaf_jTfgm6IrK4xCFJaedPDU-g7E5Qih49s3ctCL0J1S0tgTd5LOtPKzSism6rCNSWwcxw34nvdE_SkMLtZQQgLDEyMrPHdRsnANk78NAs6u85pCnvtyErHHfXt-ITFWUZ0xrGO3rMTfKwYCzcrWK7DnkSEsgtelffAr5FINmbbCjm9ZSES3sZ7BftvCrZuAhYVqB7y"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg pb-32 md:pb-stack-lg">
+<!-- Welcome Section -->
+<section class="mb-stack-lg">
+<h1 class="font-display-lg text-headline-lg md:text-display-lg text-on-background mb-2">Welcome back, Sarah.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Here is an overview of your daycare waitlist journey.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Watched Daycares (Main Span) -->
+<div class="md:col-span-8 space-y-gutter">
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline-md text-headline-md text-on-background">Watched Daycares</h2>
+<button class="text-primary font-label-md text-label-md hover:underline flex items-center gap-1">
+                        View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<!-- Daycare Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_12px_rgba(0,74,198,0.04)] border border-outline-variant/30 hover:shadow-[0_8px_20px_rgba(0,74,198,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background">Sunny Days Early Learning</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> 123 Maple Street, Downtown
+                            </p>
+</div>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-sm text-label-sm border border-secondary/20">Likely Available</span>
+</div>
+<div class="mt-6">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-2">
+<span>Est. Wait Time: 2-3 Months</span>
+<span>Position: ~15</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 75%;"></div>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30 flex justify-between items-center">
+<div class="flex items-center gap-2 text-primary font-label-sm text-label-sm bg-primary/5 px-3 py-1.5 rounded-lg">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+                            New availability reported yesterday
+                        </div>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+</div>
+<!-- Daycare Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_12px_rgba(0,74,198,0.04)] border border-outline-variant/30 hover:shadow-[0_8px_20px_rgba(0,74,198,0.08)] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background">Little Explorers Academy</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">location_on</span> 456 Oak Avenue, Westside
+                            </p>
+</div>
+<span class="bg-error/10 text-error px-3 py-1 rounded-full font-label-sm text-label-sm border border-error/20">Long Wait</span>
+</div>
+<div class="mt-6">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-2">
+<span>Est. Wait Time: 12+ Months</span>
+<span>Position: ~85</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 15%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Sidebar -->
+<div class="md:col-span-4 space-y-gutter">
+<!-- Community Rank Card -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-outline-variant/50">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined icon-filled">workspace_premium</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-background text-[18px]">Community Rank</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Helpful Contributor</p>
+</div>
+</div>
+<div class="mb-4">
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-2">
+<span>Level 3</span>
+<span>450 / 500 pts</span>
+</div>
+<div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 90%;"></div>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">Just 50 more points to reach Trusted Parent status!</p>
+</div>
+<!-- My Contributions -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_12px_rgba(0,74,198,0.04)] border border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-on-background text-[18px] mb-4">My Contributions</h3>
+<div class="flex justify-around text-center mb-6 py-4 bg-surface rounded-lg">
+<div>
+<div class="font-headline-md text-headline-md text-primary text-[28px]">12</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Updates Shared</div>
+</div>
+<div class="w-px bg-outline-variant/30"></div>
+<div>
+<div class="font-headline-md text-headline-md text-secondary text-[28px]">143</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Parents Helped</div>
+</div>
+</div>
+<button class="w-full bg-transparent border border-primary text-primary font-label-md text-label-md px-4 py-3 rounded-lg hover:bg-primary/5 transition-colors flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add</span> Share New Update
+                    </button>
+</div>
+<!-- Quick Actions -->
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-container-lowest border border-outline-variant/30 p-4 rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm text-center">
+<span class="material-symbols-outlined text-primary text-[28px]">search</span>
+<span class="font-label-sm text-label-sm text-on-background">Find Daycare</span>
+</button>
+<button class="bg-surface-container-lowest border border-outline-variant/30 p-4 rounded-xl flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors shadow-sm text-center">
+<span class="material-symbols-outlined text-primary text-[28px]">forum</span>
+<span class="font-label-sm text-label-sm text-on-background">Community</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-2 bg-surface dark:bg-inverse-surface shadow-[0_-4px_12px_rgba(0,74,198,0.04)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-sm text-label-sm mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-3 py-1 hover:bg-surface-container-high transition-all scale-95 duration-200" href="#">
+<span class="material-symbols-outlined icon-filled">list_alt</span>
+<span class="font-label-sm text-label-sm mt-1">My List</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="font-label-sm text-label-sm mt-1">Contribute</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="w-full px-margin-desktop py-stack-lg flex flex-col md:flex-row justify-between items-center gap-4 bg-surface-container-low border-t border-outline-variant mt-auto">
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-left">© 2024 Daycare Waitlist Truth Board. Empowering parents through transparency.</p>
+<div class="flex gap-4 font-label-sm text-label-sm flex-wrap justify-center">
+<a class="text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">Contact Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-all hover:underline" href="#">About Us</a>
+</div>
+</footer>
+</body></html>

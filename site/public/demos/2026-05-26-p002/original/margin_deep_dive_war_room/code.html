@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Margin Deep-Dive | WAR_ROOM_v2.4</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#c1c6db",
+                        "outline-variant": "#45464c",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "surface-tint": "#c1c6db",
+                        "on-tertiary-fixed": "#2a1700",
+                        "primary-fixed": "#dde2f8",
+                        "surface-bright": "#2f3a4c",
+                        "secondary-fixed": "#7df4ff",
+                        "primary": "#c1c6db",
+                        "surface-dim": "#081425",
+                        "on-surface-variant": "#c6c6cd",
+                        "tertiary-fixed": "#ffddb8",
+                        "tertiary-container": "#1d0e00",
+                        "secondary-fixed-dim": "#00dbe9",
+                        "error-container": "#93000a",
+                        "tertiary": "#ffb95f",
+                        "surface-variant": "#2a3548",
+                        "primary-container": "#0b1120",
+                        "inverse-primary": "#585e70",
+                        "surface-container": "#152031",
+                        "background": "#081425",
+                        "error": "#ffb4ab",
+                        "on-primary-fixed": "#151b2b",
+                        "surface-container-low": "#111c2d",
+                        "surface-container-lowest": "#040e1f",
+                        "on-tertiary-container": "#af6f00",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-error": "#690005",
+                        "on-primary": "#2a3040",
+                        "secondary": "#d3fbff",
+                        "surface": "#081425",
+                        "secondary-container": "#00eefc",
+                        "on-primary-fixed-variant": "#414658",
+                        "on-secondary": "#00363a",
+                        "on-secondary-container": "#00686f",
+                        "inverse-on-surface": "#263143",
+                        "on-tertiary": "#472a00",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#1f2a3c",
+                        "surface-container-highest": "#2a3548",
+                        "on-secondary-fixed": "#002022",
+                        "on-background": "#d8e3fb",
+                        "on-surface": "#d8e3fb",
+                        "on-primary-container": "#777c90",
+                        "outline": "#909097",
+                        "inverse-surface": "#d8e3fb",
+                        "tertiary-fixed-dim": "#ffb95f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "24px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "32px",
+                        "unit": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "data-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "data-md": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "display-lg-mobile": ["Inter"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-md": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .glass-panel {
+            background-color: theme('colors.surface-container/60');
+            backdrop-filter: blur(24px);
+            border: 1px solid theme('colors.white/10');
+        }
+        .glow-accent {
+            box-shadow: 0 0 12px theme('colors.secondary-fixed-dim/50');
+        }
+        .glow-critical {
+            box-shadow: 0 0 12px theme('colors.error/50');
+        }
+        /* Custom scrollbar for data density */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.primary-fixed-dim');
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md antialiased overflow-hidden">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-14 bg-surface-dim/60 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md tracking-tighter text-secondary font-black">WAR_ROOM_v2.4</span>
+<nav class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-secondary-fixed transition-colors" href="#">LIVE FEED</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-secondary-fixed transition-colors" href="#">GLOBAL MESH</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<input class="bg-surface-container-lowest border border-outline-variant rounded px-3 py-1 font-data-md text-data-md text-on-surface focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim focus:outline-none transition-all w-64 placeholder:text-outline-variant" placeholder="QUERY DATABASE..." type="text"/>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline-variant group-focus-within:text-secondary-fixed-dim text-sm">search</span>
+</div>
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined">settings_suggest</span>
+</button>
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined" data-alt="Executive User Profile">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="hidden md:flex fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex-col z-40 bg-surface-container-lowest/80 backdrop-blur-2xl w-64 border-r border-white/10 shadow-2xl shadow-black/50">
+<div class="p-6 border-b border-white/10">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 rounded bg-secondary/20 flex items-center justify-center glow-accent border border-secondary/30">
+<span class="material-symbols-outlined text-secondary text-lg">memory</span>
+</div>
+<div>
+<h2 class="font-data-md text-data-md text-primary">STRATEGIC OPS</h2>
+<p class="font-label-caps text-label-caps text-secondary-fixed-dim animate-pulse">VIGILANCE MODE: ACTIVE</p>
+</div>
+</div>
+<button class="w-full mt-4 bg-error text-on-error font-label-caps text-label-caps py-2 rounded border border-error hover:bg-error-container hover:text-error transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span> DEPLOY MITIGATION
+            </button>
+</div>
+<nav class="flex-1 overflow-y-auto py-4">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">dashboard_customize</span> EXECUTIVE OVERVIEW
+            </a>
+<a class="flex items-center gap-4 bg-secondary/10 text-secondary border-r-4 border-secondary px-4 py-3 font-label-caps text-label-caps Active: scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span> MARGIN DEEP-DIVE
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">model_training</span> SCENARIO SIMULATOR
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">bolt</span> ACTION CENTER
+            </a>
+</nav>
+<div class="p-4 border-t border-white/10">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-2 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-sm">terminal</span> SYSTEM LOGS
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-2 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-sm">contact_support</span> SUPPORT
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-14 md:pl-64 h-screen overflow-y-auto w-full flex flex-col">
+<div class="p-gutter md:p-margin-desktop flex-1 max-w-7xl mx-auto w-full grid grid-cols-12 gap-gutter content-start">
+<!-- Page Header & Global Filters -->
+<div class="col-span-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-2">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">MARGIN DEEP-DIVE</h1>
+<p class="font-data-md text-data-md text-outline-variant mt-1">Cross-Sector Variance Analysis vs Baseline Trajectory</p>
+</div>
+<div class="glass-panel p-2 flex flex-wrap gap-2 rounded items-center">
+<span class="font-label-caps text-label-caps text-outline-variant px-2">PARAMETERS:</span>
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 pr-8 font-data-md text-data-md text-on-surface focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim focus:outline-none cursor-pointer">
+<option>Q3 2024 (CURRENT)</option>
+<option>Q2 2024</option>
+<option>YTD 2024</option>
+<option>CUSTOM RANGE...</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-sm">arrow_drop_down</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 pr-8 font-data-md text-data-md text-on-surface focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim focus:outline-none cursor-pointer">
+<option>ALL REGIONS</option>
+<option>APAC</option>
+<option>EMEA</option>
+<option>AMER</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-sm">arrow_drop_down</span>
+</div>
+<div class="relative">
+<select class="appearance-none bg-surface-container-lowest border border-outline-variant rounded px-3 py-1.5 pr-8 font-data-md text-data-md text-on-surface focus:border-secondary-fixed-dim focus:ring-1 focus:ring-secondary-fixed-dim focus:outline-none cursor-pointer">
+<option>ALL SKU CATEGORIES</option>
+<option>ELECTRONICS</option>
+<option>TEXTILES</option>
+<option>AUTOMOTIVE</option>
+</select>
+<span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none text-sm">arrow_drop_down</span>
+</div>
+<button class="bg-secondary text-on-secondary font-label-caps text-label-caps px-4 py-1.5 rounded hover:bg-secondary-fixed-dim transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">filter_alt</span> APPLY
+                    </button>
+</div>
+</div>
+<!-- Chart Module -->
+<div class="col-span-12 glass-panel rounded-lg overflow-hidden flex flex-col border-t-2 border-t-secondary/50">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-surface-container-high/30">
+<h3 class="font-label-caps text-label-caps text-on-surface">PROJECTED VS ACTUAL MARGIN VARIANCE (%)</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-secondary-fixed-dim rounded-full"></div>
+<span class="font-label-caps text-label-caps text-outline-variant">ELECTRONICS</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-tertiary-fixed rounded-full"></div>
+<span class="font-label-caps text-label-caps text-outline-variant">TEXTILES</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-1 bg-error rounded-full"></div>
+<span class="font-label-caps text-label-caps text-outline-variant">AUTOMOTIVE</span>
+</div>
+<div class="flex items-center gap-2 ml-4">
+<div class="w-3 h-0.5 bg-outline-variant border-b border-dashed border-outline-variant"></div>
+<span class="font-label-caps text-label-caps text-outline-variant">BASELINE</span>
+</div>
+</div>
+</div>
+<div class="p-6 h-80 relative bg-surface-container-lowest/50">
+<!-- Placeholder for actual chart rendering library -->
+<div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+<!-- Simulated Chart Grid -->
+<div class="w-full h-full flex flex-col justify-between border-l border-b border-outline-variant/30 pb-6 pl-8">
+<div class="w-full border-t border-outline-variant/10 relative"><span class="absolute -left-8 -top-2 font-data-md text-data-md text-outline-variant text-[10px]">25%</span></div>
+<div class="w-full border-t border-outline-variant/10 relative"><span class="absolute -left-8 -top-2 font-data-md text-data-md text-outline-variant text-[10px]">20%</span></div>
+<div class="w-full border-t border-outline-variant/20 relative"><span class="absolute -left-8 -top-2 font-data-md text-data-md text-outline-variant text-[10px]">15%</span></div>
+<div class="w-full border-t border-outline-variant/10 relative"><span class="absolute -left-8 -top-2 font-data-md text-data-md text-outline-variant text-[10px]">10%</span></div>
+<div class="w-full border-t border-outline-variant/10 relative"><span class="absolute -left-6 -top-2 font-data-md text-data-md text-outline-variant text-[10px]">5%</span></div>
+</div>
+<!-- Simulated X Axis Labels -->
+<div class="absolute bottom-0 left-8 right-0 flex justify-between font-data-md text-data-md text-outline-variant text-[10px] pt-2 px-4">
+<span>WK 32</span><span>WK 33</span><span>WK 34</span><span>WK 35</span><span>WK 36</span><span>WK 37</span><span>WK 38</span><span>WK 39</span>
+</div>
+</div>
+<!-- Decorative Chart Lines (Abstract representation) -->
+<svg class="w-full h-full absolute inset-0 z-10 pl-8 pb-6 pt-2 pr-4 drop-shadow-md" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,60 Q10,55 20,62 T40,50 T60,55 T80,40 T100,35" fill="none" stroke="theme('colors.secondary-fixed-dim')" stroke-width="0.5" vector-effect="non-scaling-stroke"></path>
+<path d="M0,70 Q15,75 30,68 T50,72 T70,60 T90,65 T100,58" fill="none" stroke="theme('colors.tertiary-fixed')" stroke-width="0.5" vector-effect="non-scaling-stroke"></path>
+<path class="glow-critical" d="M0,40 Q20,45 40,35 T60,45 T80,55 T100,65" fill="none" stroke="theme('colors.error')" stroke-width="0.5" vector-effect="non-scaling-stroke"></path>
+<!-- Baseline -->
+<path d="M0,50 L100,50" fill="none" stroke="theme('colors.outline-variant')" stroke-dasharray="2,2" stroke-width="0.25" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+<!-- Data Table Module -->
+<div class="col-span-12 glass-panel rounded-lg overflow-hidden flex flex-col border-t-2 border-t-primary-fixed-dim/30">
+<div class="p-4 border-b border-white/10 flex justify-between items-center bg-surface-container-high/30">
+<h3 class="font-label-caps text-label-caps text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">table_chart</span> TARIFF NODE IMPACT ANALYSIS
+                    </h3>
+<button class="text-outline-variant hover:text-secondary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead>
+<tr class="bg-surface-container-lowest border-b border-white/10">
+<th class="p-3 font-label-caps text-label-caps text-outline-variant cursor-pointer hover:text-on-surface sticky left-0 bg-surface-container-lowest z-20">
+<div class="flex items-center gap-1">TARIFF CODE <span class="material-symbols-outlined text-[10px]">unfold_more</span></div>
+</th>
+<th class="p-3 font-label-caps text-label-caps text-outline-variant cursor-pointer hover:text-on-surface">
+<div class="flex items-center gap-1">CATEGORY <span class="material-symbols-outlined text-[10px]">unfold_more</span></div>
+</th>
+<th class="p-3 font-label-caps text-label-caps text-outline-variant cursor-pointer hover:text-on-surface">
+<div class="flex items-center gap-1">REGION <span class="material-symbols-outlined text-[10px]">unfold_more</span></div>
+</th>
+<th class="p-3 font-label-caps text-label-caps text-outline-variant cursor-pointer hover:text-on-surface text-right">
+<div class="flex items-center justify-end gap-1">CURRENT MARGIN % <span class="material-symbols-outlined text-[10px]">unfold_more</span></div>
+</th>
+<th class="p-3 font-label-caps text-label-caps text-outline-variant cursor-pointer hover:text-on-surface text-right">
+<div class="flex items-center justify-end gap-1">IMPACT DELTA <span class="material-symbols-outlined text-[10px]">arrow_downward</span></div>
+</th>
+<th class="p-3 font-label-caps text-label-caps text-outline-variant text-center">TREND</th>
+</tr>
+</thead>
+<tbody class="font-data-md text-data-md text-on-surface">
+<!-- Row 1 (Critical) -->
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+<td class="p-3 font-bold sticky left-0 bg-surface-container/80 group-hover:bg-surface-container-highest/90 z-10 border-l-2 border-l-error">8708.99.81</td>
+<td class="p-3">Automotive</td>
+<td class="p-3">APAC (CN)</td>
+<td class="p-3 text-right">12.4%</td>
+<td class="p-3 text-right text-error font-bold glow-critical">-4.2%</td>
+<td class="p-3 text-center">
+<svg class="w-16 h-4 inline-block" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0,5 L20,8 L40,15 L60,12 L80,18 L100,19" fill="none" stroke="theme('colors.error')" stroke-width="2"></path>
+</svg>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+<td class="p-3 font-bold sticky left-0 bg-surface-container/80 group-hover:bg-surface-container-highest/90 z-10 border-l-2 border-l-secondary-fixed-dim">8517.62.00</td>
+<td class="p-3">Electronics</td>
+<td class="p-3">EMEA (DE)</td>
+<td class="p-3 text-right">24.8%</td>
+<td class="p-3 text-right text-secondary-fixed-dim">+1.5%</td>
+<td class="p-3 text-center">
+<svg class="w-16 h-4 inline-block" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0,15 L20,12 L40,10 L60,8 L80,5 L100,4" fill="none" stroke="theme('colors.secondary-fixed-dim')" stroke-width="2"></path>
+</svg>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+<td class="p-3 font-bold sticky left-0 bg-surface-container/80 group-hover:bg-surface-container-highest/90 z-10 border-l-2 border-l-outline-variant">6109.10.00</td>
+<td class="p-3">Textiles</td>
+<td class="p-3">AMER (MX)</td>
+<td class="p-3 text-right">18.2%</td>
+<td class="p-3 text-right text-outline-variant">-0.1%</td>
+<td class="p-3 text-center">
+<svg class="w-16 h-4 inline-block" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0,10 L20,11 L40,9 L60,10 L80,12 L100,10" fill="none" stroke="theme('colors.outline-variant')" stroke-width="2"></path>
+</svg>
+</td>
+</tr>
+<!-- Row 4 (Warning) -->
+<tr class="border-b border-white/5 hover:bg-white/5 transition-colors group">
+<td class="p-3 font-bold sticky left-0 bg-surface-container/80 group-hover:bg-surface-container-highest/90 z-10 border-l-2 border-l-tertiary">8542.31.00</td>
+<td class="p-3">Electronics</td>
+<td class="p-3">APAC (TW)</td>
+<td class="p-3 text-right">31.5%</td>
+<td class="p-3 text-right text-tertiary">-1.8%</td>
+<td class="p-3 text-center">
+<svg class="w-16 h-4 inline-block" preserveaspectratio="none" viewbox="0 0 100 20">
+<path d="M0,5 L20,4 L40,10 L60,12 L80,15 L100,16" fill="none" stroke="theme('colors.tertiary')" stroke-width="2"></path>
+</svg>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 border-t border-white/10 bg-surface-container-lowest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-outline-variant">SHOWING 1-4 OF 248 NODES</span>
+<div class="flex gap-2">
+<button class="px-2 py-1 border border-outline-variant rounded text-outline-variant hover:text-on-surface hover:border-on-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-outline-variant hover:text-on-surface hover:border-on-surface">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

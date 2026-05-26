@@ -23,6 +23,13 @@ let page = (await browser.pages()).find((p) => p.url().includes('stitch.withgoog
   || await browser.newPage();
 await page.bringToFront();
 const cdp = await page.createCDPSession();
+await cdp.send('Browser.getWindowForTarget')
+  .then(({ windowId }) => cdp.send('Browser.setWindowBounds', {
+    windowId,
+    bounds: { left: 0, top: 0, width: 1600, height: 1000, windowState: 'normal' },
+  }))
+  .catch(() => {});
+await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 1 }).catch(() => {});
 await cdp.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: dlDir }).catch(() => {});
 
 async function shot(name) {
@@ -54,7 +61,10 @@ async function clickByText(text, opts = {}) {
 async function clickGenerate() {
   const clicked = await appFrame.evaluate(() => {
     const button = [...document.querySelectorAll('button')]
-      .find((node) => node.getAttribute('aria-label') === '디자인 생성' || node.getAttribute('aria-label') === 'Generate design');
+      .find((node) => {
+        const label = node.getAttribute('aria-label') || '';
+        return label === '디자인 생성' || /^Generate designs?$/i.test(label);
+      });
     button?.click();
     return Boolean(button);
   });
@@ -62,16 +72,37 @@ async function clickGenerate() {
 }
 
 // Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.
-await clickByText('웹');
+const clickedWeb = await appFrame.evaluate(() => {
+  const candidates = [...document.querySelectorAll('button,[role=button],[role=tab]')];
+  const el = candidates.find((node) => {
+    const body = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
+    return body === '웹' || body === 'Web';
+  });
+  el?.click();
+  return Boolean(el);
+});
+if (!clickedWeb) throw new Error('Could not click Stitch Web control');
 await new Promise((r) => setTimeout(r, 500));
 const modelButton = await appFrame.evaluate(() =>
   [...document.querySelectorAll('button,[role=button]')]
-    .some((node) => (node.innerText || node.textContent || '').trim().includes('3 Flash'))
+    .some((node) => /3\s*Flash|2\.5\s*Flash|Flash/.test((node.innerText || node.textContent || '').trim()))
 );
 if (modelButton) {
-  await clickByText('3 Flash');
+  const clickedModel = await appFrame.evaluate(() => {
+    const el = [...document.querySelectorAll('button,[role=button]')]
+      .find((node) => /3\s*Flash|2\.5\s*Flash|Flash/.test((node.innerText || node.textContent || '').trim()));
+    el?.click();
+    return Boolean(el);
+  });
+  if (!clickedModel) throw new Error('Could not open Stitch model selector');
   await new Promise((r) => setTimeout(r, 500));
-  await clickByText('Thinking with 3.1 Pro', { exact: false });
+  const clicked31 = await appFrame.evaluate(() => {
+    const el = [...document.querySelectorAll('button,[role=button],[role=menuitem]')]
+      .find((node) => /3\.1|Thinking with 3\.1 Pro/i.test((node.innerText || node.textContent || '').trim()));
+    el?.click();
+    return Boolean(el);
+  });
+  if (!clicked31) throw new Error('Could not select Stitch model 3.1');
   await new Promise((r) => setTimeout(r, 500));
 }
 
@@ -89,10 +120,23 @@ await clickGenerate();
 
 // Wait for project navigation/rendering.
 await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 180000 }).catch(() => {});
-await new Promise((r) => setTimeout(r, Number(process.env.STITCH_RENDER_WAIT_MS || 150000)));
+const renderWaitMs = Number(process.env.STITCH_RENDER_WAIT_MS || 150000);
+const waitStarted = Date.now();
+while (Date.now() - waitStarted < renderWaitMs) {
+  appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
+  const body = await appFrame?.evaluate(() => document.body?.innerText || '').catch(() => '');
+  if (
+    body
+    && /내보내기|Export/.test(body)
+    && /Would you like|How do these screens|I have designed|I built|The design|Downloaded screens/i.test(body)
+    && !/\([0-3]\/[4-9]\)/.test(body)
+  ) break;
+  await new Promise((r) => setTimeout(r, 5000));
+}
 await shot('02-project');
 
 // Select all generated screens, open export, choose zip, export.
+await page.keyboard.press('Escape').catch(() => {});
 await page.keyboard.down('Control');
 await page.keyboard.press('A');
 await page.keyboard.up('Control');
@@ -110,10 +154,28 @@ await appFrame.evaluate(() => {
 });
 await new Promise((r) => setTimeout(r, 1500));
 await shot('03-export-menu');
-// Stitch's radio rows sometimes swallow synthetic DOM clicks; viewport clicks are more reliable here.
-await page.mouse.click(Number(process.env.STITCH_ZIP_X || 479), Number(process.env.STITCH_ZIP_Y || 445));
+const clickedZip = await appFrame.evaluate(() => {
+  const row = [...document.querySelectorAll('label,button,[role=radio]')]
+    .find((node) => (node.innerText || node.textContent || '').trim() === '.zip');
+  if (!row) return false;
+  row.click();
+  return true;
+});
+if (!clickedZip) {
+  await page.mouse.click(Number(process.env.STITCH_ZIP_X || 1279), Number(process.env.STITCH_ZIP_Y || 455));
+}
 await new Promise((r) => setTimeout(r, 1000));
-await page.mouse.click(Number(process.env.STITCH_EXPORT_X || 585), Number(process.env.STITCH_EXPORT_Y || 475));
+const clickedExport = await appFrame.evaluate(() => {
+  const buttons = [...document.querySelectorAll('button')]
+    .map((button) => ({ button, rect: button.getBoundingClientRect(), text: (button.innerText || button.getAttribute('aria-label') || '').trim() }))
+    .filter(({ rect, text }) => rect.width > 0 && rect.height > 0 && /내보내기|Export|Download|다운로드|빌드/.test(text));
+  const button = buttons.sort((a, b) => b.rect.y - a.rect.y)[0]?.button;
+  button?.click();
+  return Boolean(button);
+});
+if (!clickedExport) {
+  await page.mouse.click(Number(process.env.STITCH_EXPORT_X || 1388), Number(process.env.STITCH_EXPORT_Y || 790));
+}
 await new Promise((r) => setTimeout(r, Number(process.env.STITCH_DOWNLOAD_WAIT_MS || 60000)));
 await shot('04-after-export');
 

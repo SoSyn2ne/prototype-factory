@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scenario Simulator | WAR_ROOM_v2.4</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#c1c6db",
+                      "outline-variant": "#45464c",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "surface-tint": "#c1c6db",
+                      "on-tertiary-fixed": "#2a1700",
+                      "primary-fixed": "#dde2f8",
+                      "surface-bright": "#2f3a4c",
+                      "secondary-fixed": "#7df4ff",
+                      "primary": "#c1c6db",
+                      "surface-dim": "#081425",
+                      "on-surface-variant": "#c6c6cd",
+                      "tertiary-fixed": "#ffddb8",
+                      "tertiary-container": "#1d0e00",
+                      "secondary-fixed-dim": "#00dbe9",
+                      "error-container": "#93000a",
+                      "tertiary": "#ffb95f",
+                      "surface-variant": "#2a3548",
+                      "primary-container": "#0b1120",
+                      "inverse-primary": "#585e70",
+                      "surface-container": "#152031",
+                      "background": "#081425",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed": "#151b2b",
+                      "surface-container-low": "#111c2d",
+                      "surface-container-lowest": "#040e1f",
+                      "on-tertiary-container": "#af6f00",
+                      "on-secondary-fixed-variant": "#004f54",
+                      "on-error": "#690005",
+                      "on-primary": "#2a3040",
+                      "secondary": "#d3fbff",
+                      "surface": "#081425",
+                      "secondary-container": "#00eefc",
+                      "on-primary-fixed-variant": "#414658",
+                      "on-secondary": "#00363a",
+                      "on-secondary-container": "#00686f",
+                      "inverse-on-surface": "#263143",
+                      "on-tertiary": "#472a00",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-high": "#1f2a3c",
+                      "surface-container-highest": "#2a3548",
+                      "on-secondary-fixed": "#002022",
+                      "on-background": "#d8e3fb",
+                      "on-surface": "#d8e3fb",
+                      "on-primary-container": "#777c90",
+                      "outline": "#909097",
+                      "inverse-surface": "#d8e3fb",
+                      "tertiary-fixed-dim": "#ffb95f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "unit": "4px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "data-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "38px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glow-cyan {
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+        }
+        
+        .glow-crimson {
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #00F0FF;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased h-screen overflow-hidden flex flex-col selection:bg-secondary selection:text-on-secondary">
+<!-- TopNavBar -->
+<nav class="bg-surface-dim/60 backdrop-blur-xl fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-14 border-b border-white/10 flat no shadows">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md tracking-tighter text-secondary font-black">WAR_ROOM_v2.4</span>
+<div class="hidden md:flex gap-6">
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-secondary-fixed transition-colors" href="#">LIVE FEED</a>
+<a class="font-label-caps text-label-caps text-outline-variant hover:text-secondary-fixed transition-colors" href="#">GLOBAL MESH</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-4">
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+</button>
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+</button>
+<button class="text-outline-variant hover:text-secondary-fixed transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 pt-14 h-full">
+<!-- SideNavBar -->
+<aside class="hidden md:flex fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex-col z-40 bg-surface-container-lowest/80 backdrop-blur-2xl w-64 border-r border-white/10 shadow-2xl shadow-black/50">
+<div class="p-6 border-b border-white/10 flex flex-col items-center">
+<img alt="System Status Node" class="w-16 h-16 rounded-full border-2 border-secondary mb-3" data-alt="A macro shot of a complex, glowing digital circuitry node, representing advanced system processing. High contrast dark background with intense neon cyan and deep blue accents. Strategic ops telemetry mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp4oTZCT_l5Dw0X2CZmvvpNktY6CU4lzkXtYXwXo-DSR6SG6qMjxHEkRFI3Jz9tqHq6EVwKO7vXe2HLuGJkPSBISZSvZ7yOt6BgKGVRSqjDsYKkFuYJ-sdxPTIvEWAaX-3YBmIv6cUKVLtnsSB9fgjNLyc5T5pJ1FtL68nfB6SPB2W5wLfyLYbvrJjFJPnYAGh_5tVX5DGrVvjiO4ft8Ooulacczk7ekGnbsy7Egg2bvYHPnU-bN6a9YrsZAZOGbfc76Krj5HvmClJ"/>
+<h2 class="font-data-md text-data-md text-primary tracking-wider text-center">STRATEGIC OPS</h2>
+<p class="font-label-caps text-label-caps text-secondary mt-1 text-center opacity-80 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary glow-cyan inline-block"></span>
+                    VIGILANCE MODE: ACTIVE
+                </p>
+<button class="mt-4 w-full bg-error text-on-error font-label-caps text-label-caps py-2 rounded-DEFAULT uppercase tracking-widest hover:bg-red-400 transition-colors">
+                    DEPLOY MITIGATION
+                </button>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard_customize">dashboard_customize</span>
+                        EXECUTIVE OVERVIEW
+                    </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+                        MARGIN DEEP-DIVE
+                    </a>
+<a class="flex items-center gap-4 bg-secondary/10 text-secondary border-r-4 border-secondary px-4 py-3 scale-[0.98] font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="model_training">model_training</span>
+                        SCENARIO SIMULATOR
+                    </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+                        ACTION CENTER
+                    </a>
+</nav>
+</div>
+<div class="mt-auto border-t border-white/10 py-4">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+                    SYSTEM LOGS
+                </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+                    SUPPORT
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-gutter overflow-y-auto h-full flex flex-col gap-6">
+<!-- Header -->
+<header class="flex justify-between items-end pb-4 border-b border-surface-variant">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Scenario Simulator</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Modeling 'What-If' outcomes based on global variables.</p>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-2 border border-secondary text-secondary font-label-caps text-label-caps rounded-DEFAULT hover:bg-secondary/10 transition-colors uppercase">
+                        Reset Variables
+                    </button>
+<button class="px-6 py-2 bg-[#00F0FF] text-black font-label-caps text-label-caps rounded-DEFAULT hover:bg-[#7df4ff] transition-colors uppercase font-bold">
+                        Run Simulation
+                    </button>
+</div>
+</header>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter flex-1 min-h-0">
+<!-- Variables Control Panel (Left Column) -->
+<div class="xl:col-span-4 flex flex-col gap-gutter">
+<div class="glass-card rounded-lg p-6 flex flex-col gap-6 h-full">
+<div class="flex items-center justify-between border-b border-white/10 pb-3">
+<h3 class="font-label-caps text-label-caps text-primary tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">tune</span>
+                                GLOBAL VARIABLES
+                            </h3>
+<span class="font-data-md text-data-md text-secondary">MODIFIED</span>
+</div>
+<!-- Sliders -->
+<div class="flex flex-col gap-8 flex-1 overflow-y-auto pr-2">
+<!-- Base Tariff -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">BASE TARIFF %</label>
+<span class="font-data-lg text-data-lg text-secondary">15.5%</span>
+</div>
+<input class="w-full" max="50" min="0" step="0.5" type="range" value="15.5"/>
+<div class="flex justify-between font-label-caps text-label-caps text-outline-variant text-[10px]">
+<span>0%</span>
+<span>Current: 12.0%</span>
+<span>50%</span>
+</div>
+</div>
+<!-- Logistics Surcharge -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">LOGISTICS SURCHARGE</label>
+<span class="font-data-lg text-data-lg text-error">+ $2.4M</span>
+</div>
+<input class="w-full" max="10" min="-5" step="0.1" type="range" value="2.4"/>
+<div class="flex justify-between font-label-caps text-label-caps text-outline-variant text-[10px]">
+<span>-$5M</span>
+<span>Current: $0M</span>
+<span>+$10M</span>
+</div>
+</div>
+<!-- Vendor Price Adjustments -->
+<div class="flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<label class="font-label-caps text-label-caps text-on-surface-variant">VENDOR PRICE ADJ.</label>
+<span class="font-data-lg text-data-lg text-secondary">- 4.2%</span>
+</div>
+<input class="w-full" max="15" min="-15" step="0.1" type="range" value="-4.2"/>
+<div class="flex justify-between font-label-caps text-label-caps text-outline-variant text-[10px]">
+<span>-15%</span>
+<span>Current: 0%</span>
+<span>+15%</span>
+</div>
+</div>
+<!-- Exchange Rate Input (Example of numeric input) -->
+<div class="flex flex-col gap-2 mt-4">
+<label class="font-label-caps text-label-caps text-on-surface-variant">EUR/USD EXCHANGE RATE</label>
+<div class="relative">
+<input class="w-full bg-surface-dim border border-outline-variant rounded-DEFAULT py-2 px-4 font-data-md text-data-md text-on-surface focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" step="0.001" type="number" value="1.085"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Comparison View (Right Column) -->
+<div class="xl:col-span-8 flex flex-col gap-gutter">
+<div class="glass-card rounded-lg p-6 flex flex-col h-full">
+<div class="flex items-center justify-between border-b border-white/10 pb-3 mb-6">
+<h3 class="font-label-caps text-label-caps text-primary tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">waterfall_chart</span>
+                                MARGIN IMPACT WATERFALL
+                            </h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-surface-variant border border-outline-variant inline-block"></span>
+<span class="font-label-caps text-label-caps text-outline-variant">CURRENT</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-[#00F0FF] inline-block glow-cyan"></span>
+<span class="font-label-caps text-label-caps text-secondary">SIMULATED</span>
+</div>
+</div>
+</div>
+<!-- Waterfall Chart Mockup Area -->
+<div class="flex-1 relative border-l border-b border-surface-variant min-h-[300px] mb-8 mt-4 mx-8">
+<!-- Y-Axis Grid Lines -->
+<div class="absolute w-full h-full flex flex-col justify-between opacity-20 z-0">
+<div class="border-t border-dashed border-outline-variant w-full"></div>
+<div class="border-t border-dashed border-outline-variant w-full"></div>
+<div class="border-t border-dashed border-outline-variant w-full"></div>
+<div class="border-t border-dashed border-outline-variant w-full"></div>
+<div class="border-t border-dashed border-outline-variant w-full"></div>
+</div>
+<!-- Waterfall Bars (Stylized CSS implementation) -->
+<div class="absolute bottom-0 w-full h-full flex items-end justify-around px-8 z-10 pb-[1px]">
+<!-- Starting Revenue -->
+<div class="w-16 h-[80%] bg-surface-variant border border-outline-variant relative flex flex-col justify-start items-center pt-2">
+<span class="absolute -top-8 font-data-md text-data-md text-on-surface-variant">$125M</span>
+</div>
+<!-- Tariff Impact (Negative) -->
+<div class="w-16 h-[15%] bg-error/80 border border-error relative mb-[65%] flex flex-col justify-center items-center">
+<span class="absolute -top-8 font-data-md text-data-md text-error">-$18M</span>
+</div>
+<!-- Logistics Impact (Negative) -->
+<div class="w-16 h-[5%] bg-error/80 border border-error relative mb-[60%] flex flex-col justify-center items-center">
+<span class="absolute -top-8 font-data-md text-data-md text-error">-$6M</span>
+</div>
+<!-- Vendor Savings (Positive) -->
+<div class="w-16 h-[10%] bg-[#00F0FF]/80 border border-[#00F0FF] relative mb-[60%] flex flex-col justify-center items-center glow-cyan">
+<span class="absolute -top-8 font-data-md text-data-md text-secondary">+$12M</span>
+</div>
+<!-- Simulated Final Margin -->
+<div class="w-16 h-[70%] bg-[#00F0FF]/20 border-2 border-[#00F0FF] relative flex flex-col justify-start items-center pt-2 glow-cyan">
+<span class="absolute -top-8 font-data-md text-data-md text-secondary font-bold">$113M</span>
+</div>
+</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-around px-8 mt-2 mx-8 border-t border-surface-variant pt-4">
+<span class="font-label-caps text-label-caps text-outline-variant text-center w-20">CURRENT MARGIN</span>
+<span class="font-label-caps text-label-caps text-outline-variant text-center w-20">TARIFF IMPACT</span>
+<span class="font-label-caps text-label-caps text-outline-variant text-center w-20">LOGISTICS SURCHARGE</span>
+<span class="font-label-caps text-label-caps text-outline-variant text-center w-20">VENDOR ADJ.</span>
+<span class="font-label-caps text-label-caps text-secondary font-bold text-center w-20">SIMULATED MARGIN</span>
+</div>
+<!-- Summary Data Table -->
+<div class="mt-8">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-surface-variant">
+<th class="py-2 font-label-caps text-label-caps text-outline-variant font-normal">METRIC</th>
+<th class="py-2 font-label-caps text-label-caps text-outline-variant font-normal text-right">CURRENT STATE</th>
+<th class="py-2 font-label-caps text-label-caps text-secondary font-bold text-right">SIMULATED STATE</th>
+<th class="py-2 font-label-caps text-label-caps text-outline-variant font-normal text-right">VARIANCE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-white/5">
+<td class="py-3 font-data-md text-data-md text-on-surface">Gross Margin %</td>
+<td class="py-3 font-data-md text-data-md text-outline-variant text-right">32.4%</td>
+<td class="py-3 font-data-md text-data-md text-secondary text-right">29.1%</td>
+<td class="py-3 font-data-md text-data-md text-error text-right">-3.3%</td>
+</tr>
+<tr class="border-b border-white/5">
+<td class="py-3 font-data-md text-data-md text-on-surface">Operating Profit</td>
+<td class="py-3 font-data-md text-data-md text-outline-variant text-right">$125.0M</td>
+<td class="py-3 font-data-md text-data-md text-secondary text-right">$113.0M</td>
+<td class="py-3 font-data-md text-data-md text-error text-right">-$12.0M</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

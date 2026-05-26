@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Action Center - WAR_ROOM_v2.4</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed-dim": "#c1c6db",
+                      "outline-variant": "#45464c",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "surface-tint": "#c1c6db",
+                      "on-tertiary-fixed": "#2a1700",
+                      "primary-fixed": "#dde2f8",
+                      "surface-bright": "#2f3a4c",
+                      "secondary-fixed": "#7df4ff",
+                      "primary": "#c1c6db",
+                      "surface-dim": "#081425",
+                      "on-surface-variant": "#c6c6cd",
+                      "tertiary-fixed": "#ffddb8",
+                      "tertiary-container": "#1d0e00",
+                      "secondary-fixed-dim": "#00dbe9",
+                      "error-container": "#93000a",
+                      "tertiary": "#ffb95f",
+                      "surface-variant": "#2a3548",
+                      "primary-container": "#0b1120",
+                      "inverse-primary": "#585e70",
+                      "surface-container": "#152031",
+                      "background": "#081425",
+                      "error": "#ffb4ab",
+                      "on-primary-fixed": "#151b2b",
+                      "surface-container-low": "#111c2d",
+                      "surface-container-lowest": "#040e1f",
+                      "on-tertiary-container": "#af6f00",
+                      "on-secondary-fixed-variant": "#004f54",
+                      "on-error": "#690005",
+                      "on-primary": "#2a3040",
+                      "secondary": "#d3fbff",
+                      "surface": "#081425",
+                      "secondary-container": "#00eefc",
+                      "on-primary-fixed-variant": "#414658",
+                      "on-secondary": "#00363a",
+                      "on-secondary-container": "#00686f",
+                      "inverse-on-surface": "#263143",
+                      "on-tertiary": "#472a00",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-high": "#1f2a3c",
+                      "surface-container-highest": "#2a3548",
+                      "on-secondary-fixed": "#002022",
+                      "on-background": "#d8e3fb",
+                      "on-surface": "#d8e3fb",
+                      "on-primary-container": "#777c90",
+                      "outline": "#909097",
+                      "inverse-surface": "#d8e3fb",
+                      "tertiary-fixed-dim": "#ffb95f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "24px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "unit": "4px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "data-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "display-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "38px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        /* Custom scrollbar for data density */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(11, 17, 32, 0.5); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a3548; 
+            border-radius: 2px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00dbe9; 
+        }
+        /* Glow effects for status */
+        .glow-cyan {
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+        .glow-crimson {
+            box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+        }
+        .glow-amber {
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased overflow-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-14 bg-surface-dim/60 backdrop-blur-xl border-b border-white/10 flat no shadows text-secondary font-label-caps text-label-caps">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md tracking-tighter text-secondary font-black">WAR_ROOM_v2.4</span>
+<div class="hidden md:flex gap-6">
+<a class="text-outline-variant hover:text-secondary-fixed transition-colors" href="#">LIVE FEED</a>
+<a class="text-outline-variant hover:text-secondary-fixed transition-colors" href="#">GLOBAL MESH</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search on right -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline-variant text-[16px]">search</span>
+<input class="bg-primary-container border border-surface-variant rounded text-on-surface pl-8 pr-2 py-1 focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary/50 transition-all font-data-md text-sm placeholder:text-outline-variant w-48" placeholder="QUERY_DB..." type="text"/>
+</div>
+<button class="text-secondary hover:text-secondary-fixed transition-colors flex items-center justify-center p-1 rounded hover:bg-white/5"><span class="material-symbols-outlined">notifications_active</span></button>
+<button class="text-secondary hover:text-secondary-fixed transition-colors flex items-center justify-center p-1 rounded hover:bg-white/5"><span class="material-symbols-outlined">settings_suggest</span></button>
+<button class="text-secondary hover:text-secondary-fixed transition-colors flex items-center justify-center p-1 rounded hover:bg-white/5"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</nav>
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex fixed left-0 top-14 h-[calc(100vh-3.5rem)] flex-col z-40 bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-white/10 shadow-2xl shadow-black/50 w-64 text-secondary font-label-caps text-label-caps">
+<!-- Header -->
+<div class="p-6 border-b border-white/10 flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-secondary">memory</span>
+</div>
+<div>
+<div class="font-data-md text-data-md text-primary">STRATEGIC OPS</div>
+<div class="text-[10px] text-error mt-0.5">VIGILANCE MODE: ACTIVE</div>
+</div>
+</div>
+<button class="w-full bg-error text-on-error py-2 rounded mt-2 hover:bg-error-container transition-colors font-bold text-xs tracking-wider flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                DEPLOY MITIGATION
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex-1 py-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">dashboard_customize</span>
+                EXECUTIVE OVERVIEW
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                MARGIN DEEP-DIVE
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">model_training</span>
+                SCENARIO SIMULATOR
+            </a>
+<a class="flex items-center gap-4 bg-secondary/10 text-secondary border-r-4 border-secondary px-4 py-3 scale-[0.98]" href="#">
+<span class="material-symbols-outlined">bolt</span>
+                ACTION CENTER
+            </a>
+</div>
+<!-- Footer Tabs -->
+<div class="border-t border-white/10 py-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">terminal</span>
+                SYSTEM LOGS
+            </a>
+<a class="flex items-center gap-4 text-outline-variant px-4 py-3 hover:bg-white/5 hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+                SUPPORT
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="pt-14 md:pl-64 h-screen overflow-y-auto p-gutter relative">
+<!-- Content Grid Container -->
+<div class="max-w-7xl mx-auto h-full flex flex-col gap-gutter pb-8">
+<!-- Page Header -->
+<div class="flex items-center justify-between mt-4">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">bolt</span>
+                        ACTION CENTER
+                    </h1>
+<p class="text-outline-variant text-xs mt-1 font-data-md">GLOBAL QUEUE: 14 PENDING // 3 CRITICAL</p>
+</div>
+<div class="flex gap-2">
+<button class="border border-secondary text-secondary px-3 py-1 rounded text-xs font-label-caps hover:bg-secondary/10 transition-colors">FILTER_ALL</button>
+<button class="bg-secondary text-on-secondary px-3 py-1 rounded text-xs font-label-caps hover:bg-secondary-fixed transition-colors shadow-[0_0_10px_rgba(0,240,255,0.2)]">EXECUTE_BATCH</button>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter flex-1 min-h-0">
+<!-- Response Queue (Left Column - Wider) -->
+<div class="lg:col-span-8 flex flex-col gap-gutter min-h-0">
+<div class="bg-surface-container-high/60 backdrop-blur-md rounded-lg border border-white/10 flex flex-col h-full relative overflow-hidden">
+<!-- Card Header -->
+<div class="px-4 py-3 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-highest/50">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">list_alt</span>
+                                RESPONSE QUEUE
+                            </h2>
+<div class="flex items-center gap-2 text-[10px] font-data-md text-outline-variant">
+<span>SORT: PRIORITY_DESC</span>
+<span class="material-symbols-outlined text-[14px] cursor-pointer hover:text-secondary">sort</span>
+</div>
+</div>
+<!-- Queue List -->
+<div class="flex-1 overflow-y-auto p-2 flex flex-col gap-2">
+<!-- High Priority Card -->
+<div class="bg-surface-container border border-error/50 rounded p-3 relative pl-4 transition-all hover:border-error glow-crimson">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error rounded-l"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="text-xs font-bold text-error font-data-md">CRITICAL: TARIFF_HIKES_APAC</span>
+</div>
+<span class="text-[10px] text-outline-variant font-data-md">T-MINUS 04:00:00</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">Impending 15% tariff increase on semiconductor components originating from Sector 4. Estimated margin impact: -$2.4M/mo.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-outline flex items-center justify-center text-[10px] font-bold text-primary">JD</div>
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-outline flex items-center justify-center text-[10px] font-bold text-primary">SL</div>
+</div>
+<button class="bg-error/10 text-error border border-error/30 px-2 py-1 rounded text-[10px] font-data-md hover:bg-error hover:text-on-error transition-colors">AUTHORIZE_SHIFT</button>
+</div>
+</div>
+<!-- Medium Priority Card -->
+<div class="bg-surface-container border border-tertiary/30 rounded p-3 relative pl-4 transition-all hover:border-tertiary">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary glow-amber"></span>
+<span class="text-xs font-bold text-tertiary font-data-md">WARN: VENDOR_LATENCY</span>
+</div>
+<span class="text-[10px] text-outline-variant font-data-md">T-MINUS 12:45:00</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">Primary logistics partner (VND-882) reporting 48hr delays at Port of Entry B. Inventory levels for SKU-992 approaching minimum safety threshold.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-outline flex items-center justify-center text-[10px] font-bold text-primary">MK</div>
+</div>
+<button class="bg-surface-variant text-on-surface border border-outline-variant px-2 py-1 rounded text-[10px] font-data-md hover:bg-tertiary/20 hover:text-tertiary hover:border-tertiary transition-colors">DIVERT_FREIGHT</button>
+</div>
+</div>
+<!-- Low Priority Card -->
+<div class="bg-surface-container border border-primary/20 rounded p-3 relative pl-4 transition-all hover:border-primary/50">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary/50 rounded-l"></div>
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary/50"></span>
+<span class="text-xs font-bold text-primary font-data-md">INFO: CONTRACT_RENEWAL</span>
+</div>
+<span class="text-[10px] text-outline-variant font-data-md">T-MINUS 72:00:00</span>
+</div>
+<p class="text-sm text-on-surface-variant mb-3">Facility lease for Secondary Distribution Node (EUR) up for review. Current utilization at 68%.</p>
+<div class="flex justify-between items-center">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-outline flex items-center justify-center text-[10px] font-bold text-primary">AJ</div>
+</div>
+<button class="bg-surface-variant text-on-surface border border-outline-variant px-2 py-1 rounded text-[10px] font-data-md hover:bg-white/10 transition-colors">REVIEW_TERMS</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Stacked Widgets) -->
+<div class="lg:col-span-4 flex flex-col gap-gutter min-h-0">
+<!-- Strategic Mitigation -->
+<div class="bg-surface-container-high/60 backdrop-blur-md rounded-lg border border-white/10 flex flex-col flex-1 relative overflow-hidden">
+<div class="h-1 w-full bg-gradient-to-r from-secondary to-transparent absolute top-0 left-0"></div>
+<div class="px-4 py-3 border-b border-outline-variant/30 bg-surface-container-highest/50">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">rule</span>
+                                STRATEGIC MITIGATION
+                            </h2>
+</div>
+<div class="p-4 flex-1 overflow-y-auto">
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-2 hover:bg-white/5 rounded transition-colors group cursor-pointer">
+<div class="w-4 h-4 mt-0.5 border border-outline-variant rounded flex items-center justify-center group-hover:border-secondary transition-colors">
+<!-- unchecked -->
+</div>
+<div>
+<div class="text-sm font-data-md text-on-surface group-hover:text-secondary transition-colors">Vendor Renegotiation</div>
+<div class="text-[10px] text-outline-variant mt-1">Initiate talks with Tier 2 suppliers for volume discounts to offset tariff impacts.</div>
+</div>
+</li>
+<li class="flex items-start gap-3 p-2 bg-secondary/5 rounded transition-colors group cursor-pointer border border-secondary/20">
+<div class="w-4 h-4 mt-0.5 bg-secondary border border-secondary rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-on-secondary font-bold">check</span>
+</div>
+<div>
+<div class="text-sm font-data-md text-secondary line-through opacity-70">Inventory Pull-forward</div>
+<div class="text-[10px] text-outline-variant mt-1">Accelerate Q3 orders for SKU-992. <span class="text-secondary opacity-70">[EXECUTED]</span></div>
+</div>
+</li>
+<li class="flex items-start gap-3 p-2 hover:bg-white/5 rounded transition-colors group cursor-pointer">
+<div class="w-4 h-4 mt-0.5 border border-outline-variant rounded flex items-center justify-center group-hover:border-secondary transition-colors">
+</div>
+<div>
+<div class="text-sm font-data-md text-on-surface group-hover:text-secondary transition-colors">Route Optimization</div>
+<div class="text-[10px] text-outline-variant mt-1">Recalculate trans-pacific shipping lanes avoiding Port of Entry B.</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Live Intelligence Feed -->
+<div class="bg-surface-container-high/60 backdrop-blur-md rounded-lg border border-white/10 flex flex-col flex-1 relative overflow-hidden">
+<div class="px-4 py-3 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-highest/50">
+<h2 class="font-label-caps text-label-caps text-secondary flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">radar</span>
+                                LIVE INTELLIGENCE
+                            </h2>
+<span class="w-2 h-2 rounded-full bg-secondary glow-cyan animate-pulse"></span>
+</div>
+<div class="p-0 flex-1 overflow-y-auto bg-surface-dim/30">
+<div class="flex flex-col">
+<div class="px-4 py-2 border-b border-outline-variant/20 hover:bg-white/5 transition-colors">
+<div class="text-[10px] font-data-md text-secondary mb-1">GLOBAL_MESH // 14:02:11Z</div>
+<div class="text-xs text-on-surface-variant">Suez Canal traffic reports 15% reduction in transit volume over last 48 hrs.</div>
+</div>
+<div class="px-4 py-2 border-b border-error/20 bg-error/5 hover:bg-error/10 transition-colors">
+<div class="text-[10px] font-data-md text-error mb-1">ALERT_SYS // 13:45:00Z</div>
+<div class="text-xs text-on-surface-variant">Labor strike confirmed at Manufacturing Hub Delta. Output projected -40% next 72hrs.</div>
+</div>
+<div class="px-4 py-2 border-b border-outline-variant/20 hover:bg-white/5 transition-colors">
+<div class="text-[10px] font-data-md text-tertiary mb-1">MARKET_WATCH // 12:10:05Z</div>
+<div class="text-xs text-on-surface-variant">Copper futures spike 4.2%. Cost models updating...</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Team Status Widget -->
+<div class="bg-surface-container-high/60 backdrop-blur-md rounded-lg border border-white/10 p-3 flex flex-col justify-center">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-label-caps text-[10px] text-outline-variant">TEAM STATUS</h3>
+<span class="text-[10px] font-data-md text-secondary">4 ONLINE</span>
+</div>
+<div class="flex gap-2">
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-xs font-bold text-primary cursor-help">JD</div>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-xs font-bold text-primary cursor-help">SL</div>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-xs font-bold text-primary cursor-help opacity-50">MK</div>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary rounded-full border-2 border-surface"></div>
+</div>
+<div class="relative group">
+<div class="w-8 h-8 rounded-full bg-surface-variant border-2 border-surface flex items-center justify-center text-xs font-bold text-primary cursor-help">AJ</div>
+<div class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-secondary rounded-full border-2 border-surface"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
