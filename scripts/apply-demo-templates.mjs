@@ -77,6 +77,8 @@ function main() {
   const force = args.includes("--force");
   const dryRun = args.includes("--dry-run");
   const writeMeta = args.includes("--write-meta");
+  const dateFilter = args.includes("--date") ? args[args.indexOf("--date") + 1] : "";
+  const idFilter = args.includes("--id") ? args[args.indexOf("--id") + 1] : "";
 
   if (!fs.existsSync(PROTOTYPES_DIR)) die(`Missing: ${PROTOTYPES_DIR}`);
   if (!fs.existsSync(TEMPLATES_DIR)) die(`Missing: ${TEMPLATES_DIR}`);
@@ -91,6 +93,11 @@ function main() {
   let skipped = 0;
 
   for (const folderName of folders) {
+    if (dateFilter && !folderName.startsWith(`${dateFilter}-`)) {
+      skipped += 1;
+      continue;
+    }
+
     const protoDir = path.join(PROTOTYPES_DIR, folderName);
     const metaPath = path.join(protoDir, "meta.json");
     if (!fs.existsSync(metaPath)) {
@@ -100,6 +107,11 @@ function main() {
 
     const meta = readJson(metaPath);
     const id = typeof meta.id === "string" ? meta.id : folderName.slice(0, "YYYY-MM-DD-p000".length);
+    if (idFilter && id !== idFilter) {
+      skipped += 1;
+      continue;
+    }
+
     const title = typeof meta.title === "string" ? meta.title : id;
     const oneLiner = typeof meta.oneLiner === "string" ? meta.oneLiner : "";
 
@@ -135,7 +147,7 @@ function main() {
     console.log(`${dryRun ? "[dry]" : "[ok]"} ${folderName} -> ${templateName}`);
   }
 
-  console.log(`Summary: applied=${applied} skipped=${skipped} force=${force} dryRun=${dryRun} writeMeta=${writeMeta}`);
+  console.log(`Summary: applied=${applied} skipped=${skipped} force=${force} dryRun=${dryRun} writeMeta=${writeMeta} date=${dateFilter || "all"} id=${idFilter || "all"}`);
 }
 
 main();
