@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Peppol Flow - Invoice Detail &amp; Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#434654",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#444749",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-tint": "#0c56d0",
+                    "primary-container": "#0052cc",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "surface-container-low": "#f1f3ff",
+                    "secondary-fixed-dim": "#c5c6c8",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "surface": "#faf9ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-primary-container": "#c4d2ff",
+                    "on-primary-fixed": "#001848",
+                    "on-secondary-container": "#606365",
+                    "surface-bright": "#faf9ff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#051a3e",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#1d3054",
+                    "inverse-on-surface": "#edf0ff",
+                    "secondary-fixed": "#e1e2e4",
+                    "background": "#faf9ff",
+                    "surface-container-high": "#e1e8ff",
+                    "inverse-primary": "#b2c5ff",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-background": "#051a3e",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#a33500",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "primary": "#003d9b",
+                    "tertiary": "#7b2600",
+                    "surface-dim": "#ccdaff",
+                    "surface-container": "#e9edff",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#dee0e2",
+                    "on-tertiary-container": "#ffc6b2",
+                    "surface-variant": "#d8e2ff",
+                    "secondary": "#5c5f60",
+                    "outline": "#737685",
+                    "surface-container-highest": "#d8e2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "comfortable-padding": "12px",
+                    "container-margin": "24px",
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "compact-padding": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "data-mono": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F4F5F7; /* Design System Level 0 Background */
+        }
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #c3c6d6;
+            border-radius: 10px;
+        }
+        .flat-card {
+            background-color: white;
+            border: 1px solid #DFE1E6;
+        }
+        .status-ready {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+        .status-warning {
+            background-color: #fef7e0;
+            color: #b06000;
+        }
+    </style>
+</head>
+<body class="h-full flex text-on-background font-body-md overflow-hidden">
+<!-- SideNavBar (Suppressed as this is a focused detail/task view, but keeping structural space if required, though UX goal says hide for focused journey. We will hide it to prioritize Canvas for detail view.) -->
+<!-- Main Content Area - Full Width for Detail View -->
+<div class="flex-1 flex flex-col h-full bg-background relative">
+<!-- Header - Contextual TopBar -->
+<header class="bg-surface border-b border-outline-variant h-14 flex items-center justify-between px-container-margin shrink-0 sticky top-0 z-40 shadow-sm">
+<div class="flex items-center gap-gutter">
+<button aria-label="Go back" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center rounded-full p-1 hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-xl">arrow_back</span>
+</button>
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Invoice INV-2023-0042</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Acme Corp Ltd. • Received Oct 24, 2023</p>
+</div>
+<div class="ml-4 px-2 py-1 rounded-DEFAULT bg-surface-container-high border border-outline-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-surface-tint"></span>
+<span class="font-label-md text-label-md text-on-surface">Review Pending</span>
+</div>
+</div>
+<div class="flex items-center gap-compact-padding">
+<button class="px-4 py-2 border border-outline-variant text-on-surface rounded-DEFAULT font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Download UBL
+                </button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-DEFAULT font-label-md text-label-md hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+                    Mark as Ready
+                </button>
+</div>
+</header>
+<!-- Stepper / Lifecycle -->
+<div class="bg-surface border-b border-outline-variant px-container-margin py-compact-padding flex items-center gap-8 overflow-x-auto shrink-0">
+<div class="flex items-center gap-2 opacity-60">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md">Received</span>
+<span class="w-8 h-px bg-outline-variant ml-2"></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">radio_button_checked</span>
+<span class="font-label-md text-label-md text-primary font-bold">Validated</span>
+<span class="w-8 h-px bg-outline-variant ml-2"></span>
+</div>
+<div class="flex items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-sm">radio_button_unchecked</span>
+<span class="font-label-md text-label-md">Registered</span>
+<span class="w-8 h-px bg-outline-variant ml-2"></span>
+</div>
+<div class="flex items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-sm">radio_button_unchecked</span>
+<span class="font-label-md text-label-md">Paid</span>
+</div>
+</div>
+<!-- Master-Detail Layout -->
+<div class="flex-1 flex overflow-hidden p-gutter gap-gutter">
+<!-- Left Panel: Human-readable document preview (Simulated PDF) -->
+<div class="flex-1 flex flex-col min-w-0 bg-surface border border-outline-variant rounded-lg overflow-hidden relative">
+<div class="bg-surface-container-low border-b border-outline-variant px-comfortable-padding py-compact-padding flex items-center justify-between shrink-0">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">description</span>
+                        Document Preview
+                    </span>
+<div class="flex gap-2">
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm">zoom_in</span></button>
+<button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-sm">zoom_out</span></button>
+</div>
+</div>
+<!-- Simulated PDF Content Canvas -->
+<div class="flex-1 overflow-auto p-8 bg-[#e5e7eb] flex justify-center">
+<div class="bg-white w-[210mm] min-h-[297mm] shadow-sm p-12 flex flex-col text-sm border border-gray-200">
+<!-- Invoice Header -->
+<div class="flex justify-between border-b pb-8 mb-8">
+<div>
+<h2 class="text-2xl font-bold text-gray-800 mb-2">Acme Corp Ltd.</h2>
+<p class="text-gray-600">123 Business Rd, Suite 100</p>
+<p class="text-gray-600">Techville, TX 75001</p>
+<p class="text-gray-600">VAT: US123456789</p>
+</div>
+<div class="text-right">
+<h1 class="text-3xl text-gray-400 font-light mb-2">INVOICE</h1>
+<p class="font-bold text-gray-800"># INV-2023-0042</p>
+<p class="text-gray-600">Date: Oct 24, 2023</p>
+<p class="text-gray-600">Due: Nov 24, 2023</p>
+</div>
+</div>
+<!-- Bill To -->
+<div class="mb-10">
+<h3 class="text-gray-500 font-bold mb-2 uppercase text-xs tracking-wider">Bill To</h3>
+<p class="font-bold text-gray-800">Global Enterprises Inc.</p>
+<p class="text-gray-600">456 Corporate Blvd</p>
+<p class="text-gray-600">Metropolis, NY 10001</p>
+</div>
+<!-- Line Items -->
+<table class="w-full mb-10 text-left border-collapse">
+<thead>
+<tr class="border-b-2 border-gray-800 text-gray-800">
+<th class="py-2 w-3/5">Description</th>
+<th class="py-2 text-right">Qty</th>
+<th class="py-2 text-right">Rate</th>
+<th class="py-2 text-right">Amount</th>
+</tr>
+</thead>
+<tbody class="text-gray-600">
+<tr class="border-b border-gray-200">
+<td class="py-4">Q3 Enterprise Software License</td>
+<td class="py-4 text-right">1</td>
+<td class="py-4 text-right">$5,000.00</td>
+<td class="py-4 text-right">$5,000.00</td>
+</tr>
+<tr class="border-b border-gray-200">
+<td class="py-4">Implementation Services (Hours)</td>
+<td class="py-4 text-right">40</td>
+<td class="py-4 text-right">$150.00</td>
+<td class="py-4 text-right">$6,000.00</td>
+</tr>
+</tbody>
+</table>
+<!-- Totals -->
+<div class="flex justify-end">
+<div class="w-1/2">
+<div class="flex justify-between py-2 border-b border-gray-200 text-gray-600">
+<span>Subtotal</span>
+<span>$11,000.00</span>
+</div>
+<div class="flex justify-between py-2 border-b border-gray-200 text-gray-600">
+<span>Tax (10%)</span>
+<span>$1,100.00</span>
+</div>
+<div class="flex justify-between py-4 font-bold text-lg text-gray-800">
+<span>Total Amount</span>
+<span>$12,100.00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Plain-language field validator -->
+<div class="w-[400px] flex flex-col shrink-0 gap-gutter overflow-y-auto pr-2 pb-8">
+<!-- Routing Status Card -->
+<div class="flat-card rounded-lg p-comfortable-padding border-l-4 border-l-surface-tint">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-surface-tint" style="font-variation-settings: 'FILL' 1;">info</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Peppol Routing Status</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Document structure is valid, but missing required endpoints for final routing.</p>
+<div class="inline-flex items-center gap-1 status-warning px-2 py-1 rounded font-data-mono text-data-mono">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                Needs Attention
+                            </div>
+</div>
+</div>
+</div>
+<!-- Validation Breakdown -->
+<div class="flat-card rounded-lg overflow-hidden">
+<div class="bg-surface-container-low px-comfortable-padding py-compact-padding border-b border-outline-variant flex justify-between items-center">
+<h4 class="font-label-md text-label-md text-on-surface">Field Validation</h4>
+<span class="text-xs text-on-surface-variant">UBL 2.1</span>
+</div>
+<div class="p-0">
+<!-- Field Row: Valid -->
+<div class="flex flex-col border-b border-outline-variant p-comfortable-padding hover:bg-surface-container-lowest transition-colors group">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Sender ID (Endpoint)</span>
+<span class="material-symbols-outlined text-green-600 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface">0192:123456789</div>
+</div>
+<!-- Field Row: Error -->
+<div class="flex flex-col border-b border-outline-variant p-comfortable-padding bg-[#fff8f6] relative">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-error"></div>
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Receiver ID (Endpoint)</span>
+<span class="material-symbols-outlined text-error text-sm" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div class="font-data-mono text-data-mono text-error mb-2">MISSING_VALUE</div>
+<button class="self-start text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit</span> Edit Field
+                            </button>
+</div>
+<!-- Field Row: Valid -->
+<div class="flex flex-col border-b border-outline-variant p-comfortable-padding hover:bg-surface-container-lowest transition-colors">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface-variant">Currency</span>
+<span class="material-symbols-outlined text-green-600 text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface">USD</div>
+</div>
+</div>
+</div>
+<!-- Tax ID Verification -->
+<div class="flat-card rounded-lg overflow-hidden">
+<div class="bg-surface-container-low px-comfortable-padding py-compact-padding border-b border-outline-variant">
+<h4 class="font-label-md text-label-md text-on-surface">Tax ID Verification</h4>
+</div>
+<div class="p-comfortable-padding flex flex-col gap-3">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Extracted VAT</span>
+<span class="font-data-mono text-data-mono text-on-surface">US123456789</span>
+</div>
+<div class="p-3 bg-surface border border-outline-variant rounded text-sm flex items-start gap-2">
+<span class="material-symbols-outlined text-surface-tint text-base mt-0.5">policy</span>
+<p class="text-on-surface-variant">VIES lookup unavailable for US entities. Manual verification required for cross-border compliance.</p>
+</div>
+<button class="w-full py-2 border border-outline-variant rounded font-label-md text-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+                            Verify Manually
+                        </button>
+</div>
+</div>
+<!-- Fix Errors CTA Panel -->
+<div class="mt-auto p-4 bg-error-container rounded-lg border border-[#ffb4ab] flex flex-col gap-3 shadow-sm">
+<div class="flex items-center gap-2 text-[#93000a]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-headline-md text-headline-md">1 Critical Error</span>
+</div>
+<p class="font-body-sm text-body-sm text-[#93000a]">Document cannot be dispatched to Peppol network until Receiver ID is resolved.</p>
+<button class="w-full py-2 bg-[#93000a] text-white rounded font-label-md text-label-md hover:opacity-90 transition-opacity">
+                        Fix Errors Now
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

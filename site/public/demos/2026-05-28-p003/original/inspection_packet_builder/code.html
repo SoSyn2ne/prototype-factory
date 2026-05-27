@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inspection Response Packet Builder - HEATSENTRY FIELD-OPS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#783200",
+                        "primary-container": "#f97316",
+                        "on-primary": "#552100",
+                        "outline-variant": "#584237",
+                        "primary-fixed-dim": "#ffb690",
+                        "surface-bright": "#2f3a4c",
+                        "inverse-surface": "#d8e3fb",
+                        "on-secondary-fixed": "#231b00",
+                        "surface": "#081425",
+                        "on-surface": "#d8e3fb",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#040e1f",
+                        "on-primary-fixed": "#341100",
+                        "on-secondary-container": "#645000",
+                        "primary": "#ffb690",
+                        "on-secondary": "#3c2f00",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "secondary-fixed-dim": "#eec200",
+                        "surface-tint": "#ffb690",
+                        "secondary-container": "#eec200",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "surface-container": "#152031",
+                        "surface-container-high": "#1f2a3c",
+                        "tertiary-fixed": "#ffdad7",
+                        "on-tertiary-fixed": "#410004",
+                        "tertiary-container": "#ff6a64",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#ffdbca",
+                        "surface-container-highest": "#2a3548",
+                        "tertiary": "#ffb3ad",
+                        "on-tertiary-container": "#6c000b",
+                        "on-secondary-fixed-variant": "#574500",
+                        "surface-variant": "#2a3548",
+                        "inverse-on-surface": "#263143",
+                        "on-background": "#d8e3fb",
+                        "on-surface-variant": "#e0c0b1",
+                        "on-tertiary": "#68000a",
+                        "secondary": "#ffe083",
+                        "background": "#081425",
+                        "surface-container-low": "#111c2d",
+                        "outline": "#a78b7d",
+                        "inverse-primary": "#9d4300",
+                        "on-primary-container": "#582200",
+                        "secondary-fixed": "#ffe083",
+                        "surface-dim": "#081425",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "stack-gap": "1rem",
+                        "margin-desktop": "3rem",
+                        "touch-target-min": "56px",
+                        "margin-mobile": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-xl": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "36px", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-xl": ["20px", { "lineHeight": "20px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .chunky-button {
+            height: 56px;
+            text-transform: uppercase;
+            border: 2px inset var(--tw-colors-primary-container);
+            background-color: var(--tw-colors-primary-container);
+            color: var(--tw-colors-on-primary-container);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s ease-in-out;
+            cursor: pointer;
+        }
+        .chunky-button:active {
+            border-style: outset;
+            transform: scale(0.98);
+        }
+        .util-card {
+            background-color: var(--tw-colors-surface-container-high);
+            border: 2px solid var(--tw-colors-outline);
+            border-radius: var(--tw-border-radius-DEFAULT);
+        }
+        .monospaced { font-family: monospace; }
+        
+        /* Custom Checkbox for glove-friendly interaction */
+        .glove-checkbox {
+            appearance: none;
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--tw-colors-outline);
+            border-radius: var(--tw-border-radius-DEFAULT);
+            background-color: var(--tw-colors-surface);
+            display: inline-grid;
+            place-content: center;
+            cursor: pointer;
+        }
+        .glove-checkbox::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            transform: scale(0);
+            transition: 120ms transform ease-in-out;
+            box-shadow: inset 1em 1em var(--tw-colors-primary);
+            background-color: var(--tw-colors-primary);
+            transform-origin: center;
+            clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+        }
+        .glove-checkbox:checked::before { transform: scale(1); }
+        .glove-checkbox:checked {
+            border-color: var(--tw-colors-primary);
+            background-color: var(--tw-colors-surface-container-highest);
+        }
+        
+        /* Progress Bar */
+        progress {
+            appearance: none;
+            width: 100%;
+            height: 24px;
+        }
+        progress::-webkit-progress-bar {
+            background-color: var(--tw-colors-surface);
+            border: 2px solid var(--tw-colors-outline);
+            border-radius: 2px;
+        }
+        progress::-webkit-progress-value {
+            background-color: var(--tw-colors-primary);
+            border-radius: 0px;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 border-b-4 border-primary bg-surface-container-highest flex justify-between items-center w-full px-gutter h-touch-target-min z-50 sticky">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-extrabold text-primary tracking-tighter">HEATSENTRY FIELD-OPS</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">add_a_photo</span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">ios_share</span>
+<button class="hidden md:flex h-touch-target-min px-4 items-center justify-center font-bold text-primary border-2 border-primary hover:bg-primary hover:text-on-primary transition-colors duration-100 uppercase tracking-wider">LOG BREAK</button>
+<button class="h-touch-target-min px-4 items-center justify-center font-bold bg-primary text-on-primary hover:bg-primary-container transition-colors duration-100 uppercase tracking-wider hidden sm:flex">ATTEST ALL</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full fixed left-0 top-0 z-40 overflow-y-auto bg-surface-container border-r-4 border-outline w-64 pt-20 pb-4 shadow-[4px_0_0_black]">
+<div class="px-4 py-6 border-b-2 border-outline-variant mb-4">
+<div class="text-headline-sm font-headline-md font-black text-primary">JOBSITE ID: DX-402</div>
+<div class="text-label-md font-label-md text-error mt-1 font-bold">HEAT RISK: EXTREME</div>
+</div>
+<a class="flex items-center gap-4 text-on-surface p-4 border-b-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-xl font-label-xl">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface p-4 border-b-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-xl font-label-xl">Roster</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface p-4 border-b-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span class="text-label-xl font-label-xl">Break Log</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface p-4 border-b-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-label-xl font-label-xl">Training</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface p-4 border-b-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="text-label-xl font-label-xl">Incidents</span>
+</a>
+<div class="mt-auto px-4 mb-4">
+<button class="chunky-button w-full bg-primary text-on-primary border-primary">EXPORT PACKET</button>
+</div>
+<a class="flex items-center gap-4 text-on-surface p-4 border-t-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">cloud_sync</span>
+<span class="text-label-xl font-label-xl">Sync Logs</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface p-4 border-t-2 border-outline-variant hover:bg-surface-container-high hover:text-primary" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-xl font-label-xl">Settings</span>
+</a>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop overflow-y-auto mb-20 md:mb-0">
+<!-- Context Banner -->
+<div class="bg-surface-container-highest border-2 border-primary p-4 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+<div>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-primary uppercase">Audit Compiler</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant">Generating evidence packet for regulatory inspection.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface p-2 border-2 border-outline">
+<span class="material-symbols-outlined text-primary">warning</span>
+<span class="text-label-md font-label-md monospaced text-primary">OSHA MANDATE ACTIVE</span>
+</div>
+</div>
+<!-- Bento Layout Container -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-gap md:gap-gutter">
+<!-- Left Column: Primary Actions & Progress (Spans 8 cols on desktop) -->
+<div class="lg:col-span-8 flex flex-col gap-stack-gap">
+<!-- Progress Card -->
+<section class="util-card p-6 border-l-4 border-l-primary">
+<div class="flex justify-between items-end mb-4">
+<h2 class="text-headline-md font-headline-md text-primary">Packet Assembly Progress</h2>
+<span class="text-headline-md font-headline-md monospaced" id="progress-text">0%</span>
+</div>
+<progress id="packet-progress" max="100" value="0"></progress>
+<p class="text-label-md font-label-md text-on-surface-variant mt-2 uppercase tracking-widest">Awaiting source selection</p>
+</section>
+<!-- Selection Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<!-- Training Records -->
+<label class="util-card p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="glove-checkbox source-toggle" data-weight="30" type="checkbox"/>
+<div class="flex-1">
+<div class="text-label-xl font-label-xl text-on-surface mb-1">Include Training Records</div>
+<div class="text-body-md font-body-md text-on-surface-variant monospaced">42/42 Certified</div>
+</div>
+<span class="material-symbols-outlined text-outline text-3xl">school</span>
+</label>
+<!-- Break Logs -->
+<label class="util-card p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="glove-checkbox source-toggle" data-weight="40" type="checkbox"/>
+<div class="flex-1">
+<div class="text-label-xl font-label-xl text-on-surface mb-1">Include Break Logs</div>
+<div class="text-body-md font-body-md text-on-surface-variant monospaced">Last 72 Hours</div>
+</div>
+<span class="material-symbols-outlined text-outline text-3xl">timer</span>
+</label>
+<!-- Incident Notes -->
+<label class="util-card p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input class="glove-checkbox source-toggle" data-weight="30" type="checkbox"/>
+<div class="flex-1">
+<div class="text-label-xl font-label-xl text-on-surface mb-1">Include Incident Notes</div>
+<div class="text-body-md font-body-md text-error monospaced font-bold">1 Flagged Event</div>
+</div>
+<span class="material-symbols-outlined text-outline text-3xl">report_problem</span>
+</label>
+<!-- Equipment Calibration -->
+<label class="util-card p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-container-highest transition-colors">
+<input checked="" class="glove-checkbox source-toggle" data-weight="0" disabled="" type="checkbox"/>
+<div class="flex-1">
+<div class="text-label-xl font-label-xl text-on-surface mb-1 opacity-70">Sensor Calibration</div>
+<div class="text-body-md font-body-md text-primary monospaced font-bold">MANDATORY AUTO-INCLUDED</div>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl">sensors</span>
+</label>
+</section>
+<!-- Primary Action -->
+<button class="chunky-button mt-4 w-full text-headline-md font-headline-md py-8 opacity-50 cursor-not-allowed" disabled="" id="export-btn">
+                        EXPORT FOR INSPECTOR
+                    </button>
+</div>
+<!-- Right Column: Corrective Actions Lane (Spans 4 cols on desktop) -->
+<div class="lg:col-span-4 flex flex-col h-full">
+<section class="util-card flex-1 flex flex-col border-2 border-secondary bg-surface-container">
+<header class="p-4 border-b-2 border-secondary bg-surface-container-highest flex items-center justify-between">
+<h3 class="text-label-xl font-label-xl text-secondary uppercase font-bold tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">history</span>
+                                Corrective Actions
+                            </h3>
+</header>
+<div class="p-4 flex-1 overflow-y-auto flex flex-col gap-4">
+<p class="text-body-md font-body-md text-on-surface-variant mb-2">Repeat-Violation flags requiring proof of fix in this packet.</p>
+<!-- Violation Item 1 -->
+<div class="border-l-4 border-error pl-4 py-2 relative">
+<div class="absolute w-3 h-3 bg-error rounded-full -left-[10px] top-4"></div>
+<div class="text-label-md font-label-md monospaced text-on-surface-variant mb-1">FLAG: 2024-05-18T14:30</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold mb-2">Inadequate Shade Provision Zone B</div>
+<!-- Proof of Fix -->
+<div class="bg-surface border border-outline p-3 flex flex-col gap-2">
+<div class="flex items-center gap-2 text-primary font-bold text-label-md">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                        PROOF ATTACHED
+                                    </div>
+<div class="h-24 bg-surface-container-lowest border border-outline-variant relative overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 opacity-30" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, var(--tw-colors-outline-variant) 10px, var(--tw-colors-outline-variant) 20px);"></div>
+<span class="material-symbols-outlined text-4xl text-outline-variant z-10">image</span>
+<span class="text-label-md font-label-md text-outline-variant z-10 ml-2 monospaced">IMG_SHADE_FIX.JPG</span>
+</div>
+</div>
+</div>
+<!-- Violation Item 2 -->
+<div class="border-l-4 border-error pl-4 py-2 relative opacity-50">
+<div class="absolute w-3 h-3 bg-outline rounded-full -left-[10px] top-4"></div>
+<div class="text-label-md font-label-md monospaced text-on-surface-variant mb-1">FLAG: 2024-04-02T09:15</div>
+<div class="text-body-lg font-body-lg text-on-surface font-bold mb-2 line-through">Water Temp Log Missing</div>
+<div class="text-label-md text-primary font-bold">CLEARED PRIOR AUDIT</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-touch-target-min z-50 flex justify-around items-stretch bg-surface-container-highest border-t-4 border-primary">
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-label-md font-label-md">Roster</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container" href="#">
+<span class="material-symbols-outlined">timer</span>
+<span class="text-label-md font-label-md">Breaks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-label-md font-label-md">Training</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-primary-container" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="text-label-md font-label-md">Incidents</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="flex justify-between items-center px-gutter py-2 w-full bg-error-container border-t-2 border-on-error-container animate-pulse docked full-width bottom-0 mb-touch-target-min md:mb-0 relative z-50 hidden md:flex">
+<span class="font-bold text-on-error-container text-label-md font-label-md monospaced">ACTIVE PACKET: DX-402_2024-05-20 | EXPORT: <span id="footer-export-status">0%</span></span>
+<div class="flex gap-4">
+<a class="text-on-error-container opacity-80 hover:text-white text-label-md font-label-md monospaced" href="#">Emergency Protocol</a>
+<a class="text-on-error-container opacity-80 hover:text-white text-label-md font-label-md monospaced" href="#">OSHA Heat Stays</a>
+<a class="text-on-error-container opacity-80 hover:text-white text-label-md font-label-md monospaced" href="#">Support</a>
+</div>
+</footer>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.source-toggle');
+            const progressBar = document.getElementById('packet-progress');
+            const progressText = document.getElementById('progress-text');
+            const exportBtn = document.getElementById('export-btn');
+            const footerExportStatus = document.getElementById('footer-export-status');
+
+            function updateProgress() {
+                let total = 0;
+                checkboxes.forEach(cb => {
+                    if (cb.checked) {
+                        total += parseInt(cb.dataset.weight || 0, 10);
+                    }
+                });
+                
+                progressBar.value = total;
+                progressText.textContent = `${total}%`;
+                if(footerExportStatus) footerExportStatus.textContent = `${total}%`;
+
+                if (total === 100) {
+                    exportBtn.disabled = false;
+                    exportBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    exportBtn.textContent = 'PACKET READY - EXPORT NOW';
+                    exportBtn.classList.add('bg-error', 'text-on-error', 'border-error');
+                    exportBtn.classList.remove('bg-primary', 'text-on-primary');
+                } else {
+                    exportBtn.disabled = true;
+                    exportBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    exportBtn.textContent = 'EXPORT FOR INSPECTOR';
+                    exportBtn.classList.remove('bg-error', 'text-on-error', 'border-error');
+                    exportBtn.classList.add('bg-primary', 'text-on-primary');
+                }
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateProgress);
+            });
+        });
+    </script>
+</body></html>

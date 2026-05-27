@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Decision Log &amp; PMS Sync - FeeSwitch Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ac1c2b",
+                        "on-tertiary-container": "#fff4f2",
+                        "surface-variant": "#e4e2e2",
+                        "on-secondary-fixed-variant": "#25467a",
+                        "surface-container-highest": "#e4e2e2",
+                        "tertiary-container": "#cf3740",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#a0efff",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-tertiary-fixed": "#410007",
+                        "on-tertiary-fixed-variant": "#92001b",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae8e7",
+                        "surface-dim": "#dbd9d9",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e3faff",
+                        "secondary-fixed": "#d7e3ff",
+                        "outline": "#6e797b",
+                        "inverse-primary": "#79d4e5",
+                        "on-background": "#1b1c1c",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3e494b",
+                        "secondary": "#3f5e94",
+                        "background": "#fbf9f8",
+                        "surface-container-low": "#f5f3f3",
+                        "on-surface": "#1b1c1c",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001b3f",
+                        "surface": "#fbf9f8",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bdc8cb",
+                        "surface-bright": "#fbf9f8",
+                        "primary-fixed-dim": "#79d4e5",
+                        "inverse-surface": "#303030",
+                        "primary-container": "#007c8c",
+                        "on-primary-fixed-variant": "#004e59",
+                        "surface-tint": "#006876",
+                        "secondary-container": "#a2c2fd",
+                        "on-secondary": "#ffffff",
+                        "primary": "#00616e",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#abc7ff",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#2e4f83",
+                        "on-primary-fixed": "#001f25"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "density-sm": "8px",
+                        "density-md": "16px",
+                        "compact-gutter": "12px",
+                        "unit": "4px",
+                        "density-xs": "4px",
+                        "container-max": "1280px",
+                        "standard-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "tabular-numeric": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "tabular-numeric": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .table-cell-header {
+                @apply px-density-md py-density-sm bg-[#F7F7F7] text-label-caps font-label-caps text-on-surface-variant border-b border-[#EBEBEB] text-left;
+            }
+            .table-cell-data {
+                @apply px-density-md py-density-md text-body-md font-body-md text-on-surface border-b border-surface-variant group-hover:bg-[#F9F9F9] transition-colors;
+            }
+            .financial-value {
+                @apply text-right tabular-nums;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-sans h-full flex overflow-hidden">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex flex-col h-full w-64 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline py-density-md space-y-density-sm shrink-0 z-10 relative">
+<div class="px-standard-margin mb-density-md">
+<h1 class="text-headline-md font-headline-md font-black text-primary">FeeSwitch Pro</h1>
+</div>
+<div class="px-standard-margin mb-standard-margin flex items-center space-x-density-md">
+<img alt="Selected Listing Thumbnail" class="w-12 h-12 rounded bg-surface-container object-cover" data-alt="A small, professional thumbnail image of a modern loft interior, well-lit, used as a listing avatar in a financial dashboard, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf0Z0dN01Rmf_eVxtwMdiamu9vc_u99jGk-U_Mu47mVJ9l-hKNarBXSAB3fagkO585dQCoq2PmoObahmfvePrL3HLudg2W2lSpE7dtxUGj6hHzl0GdQEQVJVJ1aPCxaIJhoVgZp5EDBezjnUBpheldF1uIAoFhBKZdZJv2GiOqqQ9oere8pcPqvrx37ymWf5NyYxgXevuqVjrR1n73qW9nOCo4E2hrnwi-4THObVLjMDuUJlFIT20Kg-u4CnZ-ncCmoiKwKeAik-At"/>
+<div>
+<div class="text-body-md font-body-md font-bold text-on-surface">Main Street Loft</div>
+<div class="text-label-caps font-label-caps text-on-surface-variant mt-unit">ID: 48201-A</div>
+</div>
+</div>
+<div class="px-standard-margin mb-standard-margin">
+<button class="w-full py-density-sm px-density-md border border-outline-variant rounded text-label-caps font-label-caps text-secondary hover:bg-surface-container transition-colors text-center">Switch Listing</button>
+</div>
+<div class="flex-1 overflow-y-auto space-y-unit px-unit">
+<a class="flex items-center px-standard-margin py-density-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-variant transition-colors rounded-r-full mr-unit group" href="#">
+<span class="material-symbols-outlined mr-density-md text-on-surface-variant group-hover:text-primary transition-colors">dashboard</span>
+<span class="text-label-caps font-label-caps">Board</span>
+</a>
+<a class="flex items-center px-standard-margin py-density-sm bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold border-l-4 border-primary rounded-r-full mr-unit group" href="#">
+<span class="material-symbols-outlined mr-density-md" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="text-label-caps font-label-caps">Decision Log</span>
+</a>
+<a class="flex items-center px-standard-margin py-density-sm text-on-surface-variant dark:text-surface-variant hover:bg-surface-container dark:hover:bg-surface-variant transition-colors rounded-r-full mr-unit group" href="#">
+<span class="material-symbols-outlined mr-density-md text-on-surface-variant group-hover:text-primary transition-colors">settings</span>
+<span class="text-label-caps font-label-caps">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- TopNavBar (from JSON) -->
+<header class="flex justify-between items-center w-full px-standard-margin max-w-container-max mx-auto h-16 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shrink-0 z-20 sticky top-0">
+<!-- Mobile Brand (hidden on desktop where SideNav shows it) -->
+<div class="md:hidden text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">
+                FeeSwitch Pro
+            </div>
+<div class="flex items-center space-x-density-md ml-auto">
+<button class="p-density-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-density-sm text-on-surface-variant hover:bg-surface-container-low rounded-full transition-colors hidden md:block">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="bg-primary text-on-primary px-density-md py-density-sm rounded text-body-md font-body-md font-semibold hover:bg-surface-tint transition-colors shadow-sm ml-density-md active:scale-95 duration-100">
+                    Approve Payouts
+                </button>
+<img alt="Pro-Host profile avatar" class="w-8 h-8 rounded-full border border-outline-variant ml-density-md hidden sm:block" data-alt="A small, professional circular profile picture of a business user, bright lighting, corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdTdPxFEoRtNnCcfHsj6sFFUunnIB0elop8HBxuPyIU2Qvh-GXJyBN7uJ6NT2VZk-xyFxr2GkfHW2Sye6Yf5VRAecMgDMM4RIEY-2Z5t_e7C35ZpfCo_P7gWxhgmUexHpYjtL5lT9H6RKqMjexmZNRFI1fEpfgqCGLZhBT_trMuxCl8HG1t9iz7NMpUpM2XNSVRQHiUF65SpMeArjyaj9GX2s5_n7ayBGulSn0pH6zGWvAykuwhLGl8FWRmh-6-vqtak4aNWVJkHSC"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-standard-margin bg-background">
+<div class="max-w-container-max mx-auto h-full flex flex-col md:flex-row gap-standard-margin">
+<!-- Left Column (Main Log) -->
+<div class="flex-1 flex flex-col gap-standard-margin min-w-0">
+<!-- Owner Approval Workflow (Scenario Card Style) -->
+<section class="bg-surface border border-outline-variant rounded-lg p-standard-margin relative overflow-hidden shadow-[0_4px_8px_rgba(0,0,0,0.04)] border-l-2 border-l-primary">
+<div class="flex justify-between items-start mb-standard-margin">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-density-sm text-primary">pending_actions</span>
+                                    Pending Decisions
+                                </h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-unit">Host approval required before PMS sync.</p>
+</div>
+<div class="text-right">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-unit">Projected Impact</div>
+<div class="text-display-lg font-display-lg text-primary tabular-nums">+$4,250</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-density-md mb-standard-margin">
+<div class="flex items-center justify-between py-density-sm border-b border-surface-variant last:border-0">
+<span class="text-body-md font-body-md text-on-surface font-medium">Q3 Weekend Surge Adjustment</span>
+<span class="text-body-md font-body-md text-on-surface-variant">42 Listings</span>
+</div>
+<div class="flex items-center justify-between py-density-sm border-b border-surface-variant last:border-0">
+<span class="text-body-md font-body-md text-on-surface font-medium">Cleaning Fee Offset Implementation</span>
+<span class="text-body-md font-body-md text-on-surface-variant">18 Listings</span>
+</div>
+</div>
+<div class="flex justify-end space-x-density-md">
+<button class="px-density-md py-density-sm border border-secondary text-secondary rounded text-body-md font-body-md font-semibold hover:bg-surface-container-lowest transition-colors">Review Details</button>
+<button class="bg-primary text-on-primary px-density-md py-density-sm rounded text-body-md font-body-md font-semibold hover:bg-surface-tint transition-colors flex items-center">
+<span class="material-symbols-outlined mr-unit text-[18px]">check_circle</span>
+                                Sign-off &amp; Queue Sync
+                            </button>
+</div>
+</section>
+<!-- Decision Log Table -->
+<section class="bg-surface border border-[#EBEBEB] rounded-lg flex flex-col flex-1 min-h-[400px]">
+<div class="p-standard-margin border-b border-[#EBEBEB] flex justify-between items-center bg-surface">
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface">Historical Log</h3>
+<div class="flex space-x-density-sm">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-density-sm top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-8 pr-density-sm py-density-sm border border-[#B0B0B0] rounded text-body-md font-body-md focus:border-primary focus:ring-0 w-48 bg-surface-container-lowest" placeholder="Search log..." type="text"/>
+</div>
+<button class="px-density-sm py-density-sm border border-secondary text-secondary rounded hover:bg-surface-container-lowest transition-colors flex items-center" title="Export CSV">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto flex-1">
+<table class="w-full whitespace-nowrap">
+<thead>
+<tr>
+<th class="table-cell-header w-32">Date</th>
+<th class="table-cell-header">Listing</th>
+<th class="table-cell-header text-right">Change</th>
+<th class="table-cell-header">Strategy</th>
+<th class="table-cell-header w-32">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="group cursor-pointer">
+<td class="table-cell-data text-on-surface-variant">Oct 24, 09:15</td>
+<td class="table-cell-data font-medium">Main Street Loft</td>
+<td class="table-cell-data financial-value text-[#1b1c1c]">+12.5% Nightly</td>
+<td class="table-cell-data">Full Offset</td>
+<td class="table-cell-data">
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px] mr-1">sync_saved_locally</span>
+                                                Synced
+                                            </span>
+</td>
+</tr>
+<tr class="group cursor-pointer">
+<td class="table-cell-data text-on-surface-variant">Oct 23, 14:30</td>
+<td class="table-cell-data font-medium">Lakeside Cabin</td>
+<td class="table-cell-data financial-value text-error">-5.0% Base</td>
+<td class="table-cell-data">Occupancy Push</td>
+<td class="table-cell-data">
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#E8F5E9] text-[#2E7D32] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px] mr-1">sync_saved_locally</span>
+                                                Synced
+                                            </span>
+</td>
+</tr>
+<tr class="group cursor-pointer">
+<td class="table-cell-data text-on-surface-variant">Oct 23, 10:05</td>
+<td class="table-cell-data font-medium">Urban Studio 4B</td>
+<td class="table-cell-data financial-value text-[#1b1c1c]">+8.0% Weekend</td>
+<td class="table-cell-data">Event Margin</td>
+<td class="table-cell-data">
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#FFF8E1] text-[#F57F17] text-label-sm font-label-sm">
+<span class="material-symbols-outlined text-[14px] mr-1">hourglass_empty</span>
+                                                Pending Push
+                                            </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Column (Widgets) -->
+<div class="w-full md:w-80 flex flex-col gap-standard-margin shrink-0">
+<!-- Sync Status Dashboard -->
+<div class="bg-surface border border-[#EBEBEB] rounded-lg p-standard-margin">
+<div class="flex items-center mb-density-md">
+<span class="material-symbols-outlined text-primary mr-density-sm">api</span>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface">PMS Connection</h3>
+</div>
+<div class="flex items-center justify-between mb-density-sm">
+<span class="text-body-md font-body-md text-on-surface-variant">Status</span>
+<span class="flex items-center text-[#2E7D32] text-tabular-numeric font-tabular-numeric">
+<span class="w-2 h-2 rounded-full bg-[#4CAF50] mr-2"></span>Healthy
+                            </span>
+</div>
+<div class="flex items-center justify-between mb-standard-margin">
+<span class="text-body-md font-body-md text-on-surface-variant">Last Sync</span>
+<span class="text-tabular-numeric font-tabular-numeric text-on-surface">2 mins ago</span>
+</div>
+<button class="w-full bg-primary text-on-primary py-density-sm rounded text-body-md font-body-md font-semibold hover:bg-surface-tint transition-colors flex justify-center items-center">
+<span class="material-symbols-outlined mr-unit text-[18px]">publish</span>
+                            Push All Changes
+                        </button>
+</div>
+<!-- PMS Update Checklist -->
+<div class="bg-surface border border-[#EBEBEB] rounded-lg p-standard-margin flex-1">
+<div class="flex items-center mb-density-md border-b border-[#EBEBEB] pb-density-sm">
+<span class="material-symbols-outlined text-on-surface-variant mr-density-sm">fact_check</span>
+<h3 class="text-body-lg font-body-lg font-semibold text-on-surface">Manual Verification</h3>
+</div>
+<ul class="space-y-compact-gutter">
+<li class="flex items-start group">
+<input class="mt-1 mr-density-sm rounded border-[#B0B0B0] text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+<label class="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors cursor-pointer select-none">Verify cleaning fee sync across all OTAs</label>
+</li>
+<li class="flex items-start group">
+<input class="mt-1 mr-density-sm rounded border-[#B0B0B0] text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+<label class="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors cursor-pointer select-none">Review upcoming event rates in Channel Manager</label>
+</li>
+<li class="flex items-start group">
+<input class="mt-1 mr-density-sm rounded border-[#B0B0B0] text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+<label class="text-body-md font-body-md text-on-surface group-hover:text-primary transition-colors cursor-pointer select-none">Confirm base price parity on direct booking site</label>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (from JSON) -->
+<footer class="fixed bottom-0 w-full flex justify-between items-center px-standard-margin py-density-xs z-50 bg-surface-container dark:bg-surface-dim border-t border-outline-variant dark:border-outline md:pl-[280px]">
+<div class="text-label-caps font-label-caps text-on-surface">PMS Sync Status: Connected</div>
+<div class="flex space-x-standard-margin text-secondary dark:text-secondary-fixed-dim text-label-sm font-label-sm">
+<span>Last sync: 2 mins ago</span>
+<span>API Health: 99.9%</span>
+</div>
+</footer>
+</div>
+</body></html>

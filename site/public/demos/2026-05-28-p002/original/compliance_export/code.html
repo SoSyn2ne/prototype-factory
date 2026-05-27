@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Peppol Flow - Compliance &amp; Export</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface-variant": "#434654",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#444749",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-tint": "#0c56d0",
+                    "primary-container": "#0052cc",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "surface-container-low": "#f1f3ff",
+                    "secondary-fixed-dim": "#c5c6c8",
+                    "on-tertiary-fixed-variant": "#812800",
+                    "surface": "#faf9ff",
+                    "primary-fixed-dim": "#b2c5ff",
+                    "on-secondary-fixed": "#191c1e",
+                    "on-primary-container": "#c4d2ff",
+                    "on-primary-fixed": "#001848",
+                    "on-secondary-container": "#606365",
+                    "surface-bright": "#faf9ff",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#dae2ff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c3c6d6",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#051a3e",
+                    "on-secondary": "#ffffff",
+                    "inverse-surface": "#1d3054",
+                    "inverse-on-surface": "#edf0ff",
+                    "secondary-fixed": "#e1e2e4",
+                    "background": "#faf9ff",
+                    "surface-container-high": "#e1e8ff",
+                    "inverse-primary": "#b2c5ff",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-background": "#051a3e",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#a33500",
+                    "on-primary-fixed-variant": "#0040a2",
+                    "primary": "#003d9b",
+                    "tertiary": "#7b2600",
+                    "surface-dim": "#ccdaff",
+                    "surface-container": "#e9edff",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#dee0e2",
+                    "on-tertiary-container": "#ffc6b2",
+                    "surface-variant": "#d8e2ff",
+                    "secondary": "#5c5f60",
+                    "outline": "#737685",
+                    "surface-container-highest": "#d8e2ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "comfortable-padding": "12px",
+                    "container-margin": "24px",
+                    "gutter": "16px",
+                    "unit": "4px",
+                    "compact-padding": "8px"
+            },
+            "fontFamily": {
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "data-mono": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md h-screen w-full overflow-hidden flex">
+<!-- SideNavBar Component -->
+<aside class="w-[240px] h-screen fixed left-0 top-0 bg-surface dark:bg-surface-container-lowest border-r border-outline-variant dark:border-on-secondary-fixed-variant flex flex-col py-comfortable-padding z-50">
+<!-- Header -->
+<div class="px-gutter mb-6">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">Peppol Flow</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Operator Console</p>
+</div>
+<!-- CTA -->
+<div class="px-gutter mb-6">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md h-10 rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+                New Invoice
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 flex flex-col gap-1 px-compact-padding">
+<!-- Inbox (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">inbox</span>
+                Inbox
+            </a>
+<!-- Compliance (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary dark:text-primary-fixed-dim border-l-2 border-primary font-bold bg-surface-container-low transition-all scale-[0.98] font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                Compliance
+            </a>
+<!-- Reports (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+<!-- Settings (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<!-- Export (Inactive) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+                Export
+            </a>
+</nav>
+<!-- Footer -->
+<div class="px-compact-padding mt-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-secondary-container hover:bg-surface-container-high transition-colors font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<div class="flex-1 ml-[240px] flex flex-col h-full bg-background">
+<!-- TopAppBar Component -->
+<header class="flex justify-between items-center w-full px-container-margin h-10 bg-surface dark:bg-surface-container-lowest border-b border-outline-variant dark:border-on-secondary-fixed-variant sticky top-0 z-40">
+<!-- Left: Breadcrumbs/Links -->
+<div class="flex items-center gap-6">
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-on-secondary-container hover:text-primary transition-colors" href="#">Mandates</a>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center gap-4">
+<button class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hover:opacity-80 transition-opacity">Sync Data</button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content Canvas -->
+<main class="flex-1 overflow-y-auto p-container-margin">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Compliance &amp; Handoff</h2>
+<p class="font-body-md text-body-md text-secondary mt-1">Ensure your setup meets Peppol standards before exporting batches to your accountant.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Section 1: Compliance Checklist (Spans 5 cols) -->
+<section class="lg:col-span-5 flex flex-col gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-comfortable-padding flex flex-col h-full">
+<div class="flex items-center gap-2 mb-4 pb-2 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary">fact_check</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">First Compliant Invoice Checklist</h3>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<!-- Task 1: Done -->
+<div class="flex items-center justify-between p-compact-padding hover:bg-surface-container-high transition-colors rounded border border-transparent h-[40px] cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface line-through opacity-70">Verify Business ID</span>
+</div>
+<span class="bg-surface-container font-label-md text-label-md text-on-surface-variant px-2 py-0.5 rounded text-[10px]">Verified</span>
+</div>
+<!-- Task 2: Done -->
+<div class="flex items-center justify-between p-compact-padding hover:bg-surface-container-high transition-colors rounded border border-transparent h-[40px] cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface line-through opacity-70">Connect Peppol Access Point</span>
+</div>
+<span class="bg-surface-container font-label-md text-label-md text-on-surface-variant px-2 py-0.5 rounded text-[10px]">Connected</span>
+</div>
+<!-- Task 3: Pending / Active -->
+<div class="flex items-center justify-between p-compact-padding bg-surface-container-low border-l-2 border-l-primary rounded-r h-[40px] cursor-pointer shadow-sm">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">radio_button_unchecked</span>
+<span class="font-body-sm text-body-sm text-on-surface font-medium">Enable E-Invoice Receiving</span>
+</div>
+<button class="font-label-md text-label-md text-primary hover:underline">Configure</button>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<div class="w-full bg-surface-variant h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-2/3"></div>
+</div>
+<p class="font-label-md text-label-md text-secondary mt-2 text-right">66% Complete</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Accountant Handoff (Spans 7 cols) -->
+<section class="lg:col-span-7 flex flex-col gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-comfortable-padding flex flex-col h-full">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">folder_shared</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Accountant Handoff</h3>
+</div>
+<span class="bg-surface-container-high text-primary font-label-md text-label-md px-2 py-1 rounded">3 Ready</span>
+</div>
+<!-- Batch Validation Queue -->
+<div class="flex flex-col border border-outline-variant rounded overflow-hidden mb-6 flex-1">
+<!-- Header Row -->
+<div class="flex items-center bg-surface-variant px-compact-padding py-1 border-b border-outline-variant">
+<div class="w-1/3 font-label-md text-label-md text-on-surface-variant">Document ID</div>
+<div class="w-1/3 font-label-md text-label-md text-on-surface-variant">Date</div>
+<div class="w-1/3 font-label-md text-label-md text-on-surface-variant text-right">Validation</div>
+</div>
+<!-- Data Rows (40px compact height) -->
+<div class="flex flex-col bg-surface-bright">
+<div class="flex items-center px-compact-padding h-[40px] border-b border-outline-variant hover:bg-surface-container-high transition-colors">
+<div class="w-1/3 font-data-mono text-data-mono text-on-surface">INV-2023-089</div>
+<div class="w-1/3 font-body-sm text-body-sm text-secondary">Oct 12, 2023</div>
+<div class="w-1/3 flex justify-end">
+<span class="flex items-center gap-1 text-[10px] font-label-md text-primary bg-primary-fixed px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">check</span> Validated
+                                        </span>
+</div>
+</div>
+<div class="flex items-center px-compact-padding h-[40px] border-b border-outline-variant hover:bg-surface-container-high transition-colors">
+<div class="w-1/3 font-data-mono text-data-mono text-on-surface">INV-2023-090</div>
+<div class="w-1/3 font-body-sm text-body-sm text-secondary">Oct 14, 2023</div>
+<div class="w-1/3 flex justify-end">
+<span class="flex items-center gap-1 text-[10px] font-label-md text-primary bg-primary-fixed px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">check</span> Validated
+                                        </span>
+</div>
+</div>
+<div class="flex items-center px-compact-padding h-[40px] hover:bg-surface-container-high transition-colors">
+<div class="w-1/3 font-data-mono text-data-mono text-on-surface">CRN-2023-005</div>
+<div class="w-1/3 font-body-sm text-body-sm text-secondary">Oct 15, 2023</div>
+<div class="w-1/3 flex justify-end">
+<span class="flex items-center gap-1 text-[10px] font-label-md text-primary bg-primary-fixed px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[12px]">check</span> Validated
+                                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="flex items-center justify-between mt-auto pt-4 border-t border-outline-variant">
+<p class="font-body-sm text-body-sm text-secondary max-w-xs">Bundle includes standardized UBL 2.1 XML files and a summary CSV for quick ledger import.</p>
+<button class="bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded flex items-center gap-2 hover:bg-on-primary-fixed-variant transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                                Export for Accountant (CSV + XML Bundle)
+                            </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

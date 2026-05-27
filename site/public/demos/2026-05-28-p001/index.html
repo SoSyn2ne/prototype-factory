@@ -1,59 +1,339 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Airbnb Fee Switch Reprice Board - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-05-28-p001</p>
-        <h1>Airbnb Fee Switch Reprice Board</h1>
-        <p>A host pricing board that recalculates nightly, cleaning, and event rates after Airbnb&#39;s host-only fee shift.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reprice Board - FeeSwitch Pro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#ac1c2b",
+                        "on-tertiary-container": "#fff4f2",
+                        "surface-variant": "#e4e2e2",
+                        "on-secondary-fixed-variant": "#25467a",
+                        "surface-container-highest": "#e4e2e2",
+                        "tertiary-container": "#cf3740",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#a0efff",
+                        "tertiary-fixed": "#ffdad8",
+                        "on-tertiary-fixed": "#410007",
+                        "on-tertiary-fixed-variant": "#92001b",
+                        "surface-container": "#f0eded",
+                        "surface-container-high": "#eae8e7",
+                        "surface-dim": "#dbd9d9",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#e3faff",
+                        "secondary-fixed": "#d7e3ff",
+                        "outline": "#6e797b",
+                        "inverse-primary": "#79d4e5",
+                        "on-background": "#1b1c1c",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#3e494b",
+                        "secondary": "#3f5e94",
+                        "background": "#fbf9f8",
+                        "surface-container-low": "#f5f3f3",
+                        "on-surface": "#1b1c1c",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#001b3f",
+                        "surface": "#fbf9f8",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#bdc8cb",
+                        "surface-bright": "#fbf9f8",
+                        "primary-fixed-dim": "#79d4e5",
+                        "inverse-surface": "#303030",
+                        "primary-container": "#007c8c",
+                        "on-primary-fixed-variant": "#004e59",
+                        "surface-tint": "#006876",
+                        "secondary-container": "#a2c2fd",
+                        "on-secondary": "#ffffff",
+                        "primary": "#00616e",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#abc7ff",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#2e4f83",
+                        "on-primary-fixed": "#001f25"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "density-sm": "8px",
+                        "density-md": "16px",
+                        "compact-gutter": "12px",
+                        "unit": "4px",
+                        "density-xs": "4px",
+                        "container-max": "1280px",
+                        "standard-margin": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "tabular-numeric": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "tabular-numeric": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased overflow-x-hidden flex h-screen">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full w-64 docked left-0 h-full w-64 bg-surface-container-lowest dark:bg-inverse-surface border-r border-outline-variant dark:border-outline flat no shadows py-density-md space-y-density-sm flex-shrink-0 z-20">
+<div class="px-density-md mb-density-md">
+<div class="flex items-center space-x-3 mb-4">
+<img alt="Selected Listing Thumbnail" class="w-10 h-10 rounded object-cover border border-outline-variant" data-alt="A small, high-resolution square thumbnail of a modern architectural home interior, featuring clean lines, warm wood accents, and bright natural lighting. The style is sharp and professional, fitting for a premium real estate listing icon within a sophisticated, data-dense financial dashboard environment. The overall mood is crisp and high-quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwFrSzBQOTUXq2KoqCoQwKa27FijJU0z-9OjMbj5DasIG4hbqkQhNDxtOKAGvE6Y4mJTup_A-UI6IazOioaN0YZ-vmJsHNBaSNsyuB0J9KavknxXtiVzwzZlxSv6LxAyNei6D2BC0qeWkJhU85KN75ENk4G1VMjLI-GrUvWjL8nS8xAA5BIpw5wEhWePYiqY-Q_CIEKCe6RgvgihY9W_18fq6BtDcT5Y2FL5hPySX6dgwJGAlcm4NghGDeJY1Bjgq5BB3C8avTYkH_"/>
+<div>
+<h2 class="text-primary font-headline-md text-headline-md font-black text-sm leading-tight">Main Street Loft</h2>
+<p class="text-on-surface-variant font-label-sm text-label-sm">ID: 48201-A</p>
+</div>
+</div>
+<button class="w-full text-left px-3 py-2 text-primary border border-primary rounded font-label-caps text-label-caps hover:bg-primary-container hover:text-on-primary-container transition-colors">
+                Switch Listing
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto px-density-md space-y-unit">
+<!-- Active Tab: Board -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold border-l-4 border-primary transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined filled" data-icon="dashboard" data-weight="fill">dashboard</span>
+<span class="font-label-caps text-label-caps">Board</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center space-x-3 px-3 py-2 rounded text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-caps text-label-caps">Decision Log</span>
+</a>
+<a class="flex items-center space-x-3 px-3 py-2 rounded text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</div>
+</nav>
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="docked full-width top-0 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-standard-margin max-w-container-max mx-auto h-16 flex-shrink-0 z-10">
+<div class="flex items-center gap-4">
+<div class="md:hidden flex items-center">
+<span class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">FeeSwitch Pro</span>
+</div>
+<!-- Search Bar on Left (Hidden on small mobile for space, but requested in JSON) -->
+<div class="hidden sm:flex items-center bg-surface-container-low border border-outline-variant rounded px-3 py-1.5 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-2 text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface placeholder-on-surface-variant w-48" placeholder="Search listing..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-compact-gutter">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low p-2 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 rounded hover:bg-surface-tint transition-colors">
+                    Approve Payouts
+                </button>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden ml-2">
+<img alt="Pro-Host profile avatar" class="w-full h-full object-cover" data-alt="A small, professional headshot of an individual, well-lit with a neutral background, suitable for a sophisticated financial application user profile avatar. High contrast and clean composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRKqsJbtHkvCbYwz3rszWrAgp9UDLm384UaUQewhnf-v_npoMQXTG3jdwG3c89oR2Jii7qqTGbS1jRUIfy94y8_2C4k0uTToOZlUi5qtYkM36rc9pdC6kSURC5ioJQ8n7HF7D1ZNyS3Vu6DPnhtqItFgfpiYUPyaXoGYRgcOZkosB54U-5HwUgLWJq3wnYp7R3AIFnPelVGXHTq6XdcMBEKWLC0GzVhrUpcG1okAKlNjC9DhSqZ2EnCN7ODSlCnWY4EjegSLM-GwxN"/>
+</div>
+</div>
+</header>
+<!-- Main Content Scrollable Area -->
+<main class="flex-1 overflow-y-auto bg-background p-density-md md:p-standard-margin">
+<div class="max-w-container-max mx-auto space-y-standard-margin pb-20">
+<!-- 1. Fee Switch Status Header -->
+<section class="bg-surface border border-outline-variant rounded p-standard-margin flex flex-col md:flex-row justify-between items-start md:items-center gap-density-md">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<h1 class="text-headline-md font-headline-md text-on-surface">Host-Only Fee Active</h1>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant">Transitioning from 3% split to flat 15% host fee.</p>
+</div>
+<div class="flex items-center gap-4 bg-surface-container-lowest border border-outline-variant rounded p-2">
+<span class="text-label-sm font-label-sm text-on-surface-variant">Simulation Mode</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox" value=""/>
+<div class="w-9 h-5 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-standard-margin">
+<!-- Left Column (Wider) -->
+<div class="col-span-1 lg:col-span-8 space-y-standard-margin">
+<!-- 3. Scenario Cards (Bento style) -->
+<section>
+<h2 class="text-body-lg font-body-lg text-on-surface mb-compact-gutter font-semibold">Scenario Planning</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-compact-gutter">
+<!-- Card 1 -->
+<div class="bg-surface border border-outline-variant rounded p-density-md hover:shadow-sm transition-shadow hover:border-primary relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface">Full Offset</h3>
+<span class="material-symbols-outlined text-primary text-lg">trending_up</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-4 h-10">Automatically bumps nightly rates to maintain exact net payout.</p>
+<div class="flex justify-between items-end">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant block mb-1">Delta</span>
+<span class="text-tabular-numeric font-tabular-numeric text-primary font-semibold">+$0.00</span>
+</div>
+<button class="text-primary border border-primary rounded px-3 py-1 text-label-caps font-label-caps hover:bg-primary-container hover:text-on-primary-container transition-colors">Apply</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border-l-2 border-primary border-t border-r border-b border-outline-variant rounded p-density-md shadow-[0_4px_8px_rgba(0,0,0,0.04)] relative overflow-hidden">
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface">Partial Offset</h3>
+<span class="material-symbols-outlined text-tertiary text-lg">call_split</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-4 h-10">Bumps rates by 10%. Splitting difference with guests.</p>
+<div class="flex justify-between items-end">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant block mb-1">Delta</span>
+<span class="text-tabular-numeric font-tabular-numeric text-tertiary font-semibold">-$12.50/nt</span>
+</div>
+<button class="bg-primary text-on-primary rounded px-3 py-1 text-label-caps font-label-caps hover:bg-surface-tint transition-colors">Active</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface border border-outline-variant rounded p-density-md hover:shadow-sm transition-shadow hover:border-primary relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform"></div>
+<div class="flex justify-between items-start mb-4">
+<h3 class="text-body-md font-body-md font-semibold text-on-surface">Occupancy Guard</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-lg">shield</span>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface-variant mb-4 h-10">Keeps rates lower for slow seasons. Flags drops.</p>
+<div class="flex justify-between items-end">
+<div>
+<span class="text-label-sm font-label-sm text-on-surface-variant block mb-1">Delta</span>
+<span class="text-tabular-numeric font-tabular-numeric text-error font-semibold">-$25.00/nt</span>
+</div>
+<button class="text-primary border border-primary rounded px-3 py-1 text-label-caps font-label-caps hover:bg-primary-container hover:text-on-primary-container transition-colors">Apply</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Listing Calendar Heatmap -->
+<section class="bg-surface border border-outline-variant rounded overflow-hidden">
+<div class="bg-surface-container-lowest p-density-md border-b border-outline-variant flex justify-between items-center">
+<h2 class="text-body-md font-body-md font-semibold text-on-surface">Mismatch Risk Heatmap</h2>
+<div class="flex gap-3 text-label-sm font-label-sm">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Maintained</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> Too Low</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error"></span> Loss Risk</span>
+</div>
+</div>
+<div class="p-density-md">
+<div class="grid grid-cols-7 gap-1 text-center mb-2">
+<div class="text-label-caps font-label-caps text-on-surface-variant">S</div><div class="text-label-caps font-label-caps text-on-surface-variant">M</div><div class="text-label-caps font-label-caps text-on-surface-variant">T</div><div class="text-label-caps font-label-caps text-on-surface-variant">W</div><div class="text-label-caps font-label-caps text-on-surface-variant">T</div><div class="text-label-caps font-label-caps text-on-surface-variant">F</div><div class="text-label-caps font-label-caps text-on-surface-variant">S</div>
+</div>
+<div class="grid grid-cols-7 gap-1">
+<!-- Generating some dummy calendar days with heat colors -->
+<div class="aspect-square bg-surface-container rounded border border-outline-variant opacity-50 flex items-center justify-center text-label-sm font-label-sm">28</div>
+<div class="aspect-square bg-surface-container rounded border border-outline-variant opacity-50 flex items-center justify-center text-label-sm font-label-sm">29</div>
+<div class="aspect-square bg-primary-fixed/20 border-primary/30 border rounded flex items-center justify-center text-label-sm font-label-sm text-primary">1</div>
+<div class="aspect-square bg-primary-fixed/20 border-primary/30 border rounded flex items-center justify-center text-label-sm font-label-sm text-primary">2</div>
+<div class="aspect-square bg-yellow-500/20 border-yellow-500/30 border rounded flex items-center justify-center text-label-sm font-label-sm text-yellow-700">3</div>
+<div class="aspect-square bg-error-container border-error/30 border rounded flex items-center justify-center text-label-sm font-label-sm text-error">4</div>
+<div class="aspect-square bg-error-container border-error/30 border rounded flex items-center justify-center text-label-sm font-label-sm text-error">5</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Narrower) -->
+<div class="col-span-1 lg:col-span-4 space-y-standard-margin">
+<!-- 4. Margin Calculator Widget -->
+<section class="bg-surface border border-outline-variant rounded">
+<div class="p-density-md border-b border-outline-variant bg-surface-container-lowest">
+<h2 class="text-body-md font-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calculate</span>
+                                    Spreadsheet Confidence
+                                </h2>
+</div>
+<div class="p-density-md space-y-3">
+<div class="flex justify-between items-center text-body-md font-body-md">
+<span class="text-on-surface-variant">Current Nightly Price</span>
+<span class="text-tabular-numeric font-tabular-numeric text-on-surface">$250.00</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md border-b border-outline-variant/50 pb-2">
+<span class="text-on-surface-variant">New Host Fee (15%)</span>
+<span class="text-tabular-numeric font-tabular-numeric text-error">-$37.50</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md">
+<span class="text-on-surface-variant">Cleaning Break-even (Old)</span>
+<span class="text-tabular-numeric font-tabular-numeric text-on-surface">$80.00</span>
+</div>
+<div class="flex justify-between items-center text-body-md font-body-md border-b border-outline-variant/50 pb-2">
+<span class="text-on-surface-variant">Cleaning Break-even (New)</span>
+<span class="text-tabular-numeric font-tabular-numeric text-tertiary">$94.00</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="text-body-md font-body-md font-semibold text-on-surface">Net Payout Delta</span>
+<span class="text-tabular-numeric font-tabular-numeric text-error font-bold bg-error-container px-2 py-1 rounded">-$12.50/nt</span>
+</div>
+</div>
+</section>
+<!-- 5. Guest-Visible Comparison -->
+<section class="bg-surface border border-outline-variant rounded overflow-hidden">
+<div class="p-density-md border-b border-outline-variant bg-surface-container-lowest">
+<h2 class="text-body-md font-body-md font-semibold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">visibility</span>
+                                    Guest View Comparison
+                                </h2>
+</div>
+<div class="p-density-md grid grid-cols-2 gap-4">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block mb-1">Before (3%)</span>
+<div class="text-tabular-numeric font-tabular-numeric text-on-surface">$280.00</div>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block mb-1">After (15%)</span>
+<div class="text-tabular-numeric font-tabular-numeric text-primary font-semibold">$295.00</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="docked full-width bottom-0 bg-surface-container dark:bg-surface-dim border-t border-outline-variant dark:border-outline flat no shadows fixed bottom-0 w-full md:w-[calc(100%-16rem)] md:ml-64 flex justify-between items-center px-standard-margin py-density-xs z-50">
+<div class="text-label-caps font-label-caps text-on-surface">PMS Sync Status: Connected</div>
+<div class="flex gap-4 text-label-sm font-label-sm text-secondary dark:text-secondary-fixed-dim">
+<span>Last sync: 2 mins ago</span>
+<span>API Health: 99.9%</span>
+</div>
+</footer>
+</div>
+</body></html>
