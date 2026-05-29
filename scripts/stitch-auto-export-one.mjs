@@ -31,6 +31,7 @@ await cdp.send('Browser.getWindowForTarget')
   .catch(() => {});
 await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 1 }).catch(() => {});
 await cdp.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: dlDir }).catch(() => {});
+const downloadsBefore = new Set(await fs.readdir(dlDir).catch(() => []));
 
 async function shot(name) {
   if (process.env.STITCH_SKIP_SHOTS === '1') return;
@@ -60,9 +61,9 @@ async function clickByText(text, opts = {}) {
 
 async function clickGenerate() {
   const clicked = await appFrame.evaluate(() => {
-    const button = [...document.querySelectorAll('button')]
+    const button = [...document.querySelectorAll('button,[role=button]')]
       .find((node) => {
-        const label = node.getAttribute('aria-label') || '';
+        const label = node.getAttribute('aria-label') || (node.innerText || node.textContent || '').trim();
         return label === '디자인 생성' || /^Generate designs?$/i.test(label);
       });
     button?.click();
@@ -119,24 +120,31 @@ await shot('01-filled');
 await clickGenerate();
 
 // Wait for project navigation/rendering.
-await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 180000 }).catch(() => {});
+await page.waitForFunction(() => location.href.includes('/projects/'), { timeout: 180000 });
 const renderWaitMs = Number(process.env.STITCH_RENDER_WAIT_MS || 150000);
 const waitStarted = Date.now();
+let rendered = false;
 while (Date.now() - waitStarted < renderWaitMs) {
   appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
   const body = await appFrame?.evaluate(() => document.body?.innerText || '').catch(() => '');
   if (
     body
     && /내보내기|Export/.test(body)
-    && !/화면 생성 중|Crafting/i.test(body)
+    && !/화면 생성 중|Crafting|Generating/i.test(body)
     && /Would you like|How do these screens|I have designed|I built|The design|Downloaded screens|Logo|Design System|devices/i.test(body)
-  ) break;
+  ) {
+    rendered = true;
+    break;
+  }
   await new Promise((r) => setTimeout(r, 5000));
 }
+if (!rendered) throw new Error('Stitch project did not finish rendering before timeout');
 await shot('02-project');
 
 // Select all generated screens, open export, choose zip, export.
 await page.keyboard.press('Escape').catch(() => {});
+await page.mouse.click(650, 440).catch(() => {});
+await new Promise((r) => setTimeout(r, 300));
 await page.keyboard.down('Control');
 await page.keyboard.press('A');
 await page.keyboard.up('Control');
@@ -144,16 +152,17 @@ await new Promise((r) => setTimeout(r, 1000));
 appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
 if (!appFrame) throw new Error('Could not find Stitch app iframe after generation');
 await appFrame.evaluate(() => {
-  const controls = [...document.querySelectorAll('button,[role=button],div,span')];
+  const controls = [...document.querySelectorAll('button,[role=button],div,span')]
+    .map((node) => ({ node, rect: node.getBoundingClientRect(), label: (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ') }))
+    .filter(({ rect }) => rect.width > 0 && rect.height > 0);
   const selectAll = controls.find((node) => {
-    const label = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
-    return label === '모두 선택' || label === 'Select all';
+    return node.label === '모두 선택' || node.label === 'Select all';
   });
-  selectAll?.click();
+  selectAll?.node.click();
 });
 await new Promise((r) => setTimeout(r, 1500));
 await appFrame.evaluate(() => {
-  const buttons = [...document.querySelectorAll('button')];
+  const buttons = [...document.querySelectorAll('button,[role=button]')];
   const topExport = buttons.find((button) => {
     const label = (button.innerText || button.textContent || '').trim();
     const rect = button.getBoundingClientRect();
@@ -164,34 +173,58 @@ await appFrame.evaluate(() => {
 });
 await new Promise((r) => setTimeout(r, 1500));
 await shot('03-export-menu');
-const clickedZip = await appFrame.evaluate(() => {
-  const row = [...document.querySelectorAll('label,button,[role=radio]')]
-    .find((node) => (node.innerText || node.textContent || '').trim().includes('.zip'));
-  if (!row) return false;
-  row.click();
-  return true;
+const zipTarget = await appFrame.evaluate(() => {
+  const row = [...document.querySelectorAll('label,button,[role=button],[role=radio]')]
+    .map((node) => ({ node, rect: node.getBoundingClientRect(), label: (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ') }))
+    .filter(({ rect }) => rect.width > 0 && rect.height > 0 && rect.x > 1200)
+    .find(({ label }) => label === '.zip');
+  if (!row) return null;
+  return {
+    x: row.rect.x + Math.min(24, row.rect.width / 2),
+    y: row.rect.y + row.rect.height / 2,
+  };
 });
-if (!clickedZip) {
+if (zipTarget) {
+  await page.mouse.click(zipTarget.x, zipTarget.y);
+} else {
   await page.mouse.click(Number(process.env.STITCH_ZIP_X || 1279), Number(process.env.STITCH_ZIP_Y || 455));
 }
-await new Promise((r) => setTimeout(r, 1000));
-const clickedExport = await appFrame.evaluate(() => {
-  const buttons = [...document.querySelectorAll('button')]
+await appFrame.waitForFunction(() => {
+  const rows = [...document.querySelectorAll('button,[role=button]')];
+  return rows.some((node) => {
+    const rect = node.getBoundingClientRect();
+    const text = (node.innerText || node.textContent || node.getAttribute('aria-label') || '').trim();
+    return rect.x > 1200 && rect.y > 700 && /내보내기|Export|Download|다운로드/.test(text);
+  });
+}, { timeout: 5000 }).catch(() => new Promise((r) => setTimeout(r, 1000)));
+const exportTarget = await appFrame.evaluate(() => {
+  const buttons = [...document.querySelectorAll('button,[role=button]')]
     .map((button) => ({ button, rect: button.getBoundingClientRect(), text: (button.innerText || button.getAttribute('aria-label') || '').trim() }))
-    .filter(({ rect, text }) => rect.width > 0 && rect.height > 0 && /내보내기|Export|Download|다운로드/.test(text));
+    .filter(({ button, rect, text }) =>
+      rect.width > 0
+      && rect.height > 0
+      && rect.x > 1200
+      && rect.y > 700
+      && /내보내기|Export|Download|다운로드/.test(text)
+      && !(button.disabled || button.getAttribute('aria-disabled') === 'true')
+    );
   const button = buttons.sort((a, b) => b.rect.y - a.rect.y)[0]?.button;
-  button?.click();
-  return Boolean(button);
+  if (!button) return null;
+  const rect = button.getBoundingClientRect();
+  return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
 });
-if (!clickedExport) {
+if (exportTarget) {
+  await page.mouse.click(exportTarget.x, exportTarget.y);
+} else {
   await page.mouse.click(Number(process.env.STITCH_EXPORT_X || 1388), Number(process.env.STITCH_EXPORT_Y || 790));
 }
 await new Promise((r) => setTimeout(r, Number(process.env.STITCH_DOWNLOAD_WAIT_MS || 60000)));
 await shot('04-after-export');
 
 const files = await fs.readdir(dlDir).catch(() => []);
-if (!files.some((file) => file.endsWith('.zip'))) {
+const newZipFiles = files.filter((file) => file.endsWith('.zip') && !downloadsBefore.has(file));
+if (!newZipFiles.length) {
   throw new Error(`Stitch export did not download a zip into ${dlDir}`);
 }
-console.log(JSON.stringify({ id, url: page.url(), title: await page.title().catch(() => ''), dlDir, files }, null, 2));
+console.log(JSON.stringify({ id, url: page.url(), title: await page.title().catch(() => ''), dlDir, files, newZipFiles }, null, 2));
 await browser.disconnect();
