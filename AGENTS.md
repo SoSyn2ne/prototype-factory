@@ -76,9 +76,12 @@ When the task is “idea + design”:
 
 ### Idea diversity rule
 - PF ideation is now search-first by default. Before producing `/pf idea` or daily cron candidates, perform a live external sweep when available and write the raw signals into `daily/YYYY-MM-DD/ideas.md`.
+- Daily ideation must use the board flow in `docs/IDEA_BOARD.md`: `Signal Inbox -> Desire Ledger -> Mechanic Matrix -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`. Do not jump directly from search results to final candidates.
 - Minimum evidence for each daily batch: 5–10 raw market/problem signals from at least 3 buckets (news/business/tech, communities/forums, niche workflows, trend/policy shifts, weird consumer behavior). At least 2 signals should come from community-style chatter when available. Each final candidate should cite the signal(s) that inspired it.
 - Community roam is part of PF ideation: skim posts/comments for repeated complaints, hacks, screenshots, embarrassment, jealousy, budget anxiety, “what should I do?” questions, and workaround behavior. Prefer lived pain over polished trend summaries.
 - Trend freshness is now a first-class input. Each daily `/pf idea` sweep should include at least one live trend/community keyword pass using the trend bank in `docs/TREND_KEYWORD_BANK.md`, then combine those keywords with a concrete anxiety/desire such as money loss, status, romance, parenting, health, scarcity, or location.
+- Before final selection, draft 8–12 candidates, score them on Pain/Shame/Urgency/Workaround/Share/Visual/WTP, and keep a Kill List with explicit rejection tags such as `just-dashboard`, `weak-buyer`, `no-3-sec-sting`, `theme-wash`, or `stitch-bland-risk`.
+- Final batches should include at least 3 distinct prototype mechanics and at least one non-dashboard/board/scanner/planner shape, such as Receipt, Interrogator, Simulator, Proof Kit, Status Mirror, Negotiation Room, Panic Button, Confession Booth, Tradeoff Court, or Flex/Defense Poster.
 - Do not overfit daily ideas to the operator's most visible interests.
 - Using the operator's taste as one signal is fine; mirroring it too closely is not.
 - Default expectation: daily batches should show broader range sourced from external signals and the assistant's own synthesis.
