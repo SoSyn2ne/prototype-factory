@@ -1,78 +1,124 @@
-# PF Daily Idea Board
+# PF Daily Need Hunt Board
 
-Use this template for `/pf idea` and daily Phase A. The purpose is to stop
-PF from producing polite SaaS summaries and force each candidate through human
-desire, urgency, mechanic, rejection, and Stitch-readiness gates.
+Use this template for `/pf idea` and daily Phase A. The first job is not to
+invent better app ideas. The first job is to prove that real people are already
+pulling on the problem through searches, questions, purchases, templates,
+spreadsheets, screenshots, comments, agencies, or repeated workarounds.
+
+PF should not promote a candidate from signal to prototype until it has pull
+evidence. Pain alone is not enough. A strong candidate shows that someone is
+already spending money, time, reputation, or social effort to solve it badly.
 
 ## Board Flow
 
-`Signal Inbox -> Desire Ledger -> Mechanic Matrix -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`
+`Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`
 
-Do not skip the middle. A search signal is not an idea until it has a desire
-ledger entry, a prototype mechanic, and a 3-second sting.
+Do not start with the seven desire themes. They are lenses for interpreting a
+validated pull signal, not boxes to fill. Do not start with a web-app mechanic.
+First prove the user is already hunting for an answer.
 
 ## Daily Template
 
 ```markdown
-# Prototype Factory Ideas - YYYY-MM-DD
+# Prototype Factory Need Hunt - YYYY-MM-DD
 
-## Signal Inbox
+## Signal Roam
 
 ### S1 - <source/title/date>
 - URL:
-- Bucket: news/business | communities/forums | niche workflow | trend/policy | weird consumer behavior
-- Observed complaint/desire:
-- Who feels it:
-- Why now:
-- Current workaround:
-- WTP/shareability:
-- Source type: community chatter | formal/news source | operator workflow | trend signal
+- Bucket: community question | purchase/review | template/workaround | service/agency | search trend | operator workflow | news/policy | weird behavior
+- Raw user language:
+- Observed action, not just complaint:
+- Who is doing it:
+- Trigger moment:
+- What they already tried:
+- Money/time/social cost already spent:
+- Source type: community chatter | marketplace/review | search result | formal/news source | operator workflow | trend signal
 
-<!-- Repeat S1-S10. Minimum 5, target 8-10. At least 2 should be community-style when available. -->
+<!-- Repeat S1-S10. Minimum 5, target 8-10. At least 3 should show user action, not just a stated problem. -->
 
-## Desire Ledger
+## Need Evidence
 
-### D1 - <short pressure name>
+### N1 - <short need name>
 - Signals:
-- Human driver/theme: 성욕 | 외모 | 사교육 | 자산 방어 | 외로움 | 건강 | 역전
+- Repeated question/request:
+- Actual user actions seen:
+  1.
+  2.
+  3.
+- Money/time already spent:
+- Frequency clue:
+- Urgency clue:
+- Public vs private shame clue:
+- Pull evidence score: <1-5>
+- Evidence quality: direct quote/search/review/template/service | inference
+
+<!-- No candidate can move forward without at least 2 concrete user actions. -->
+
+## Workaround Proof
+
+### W1 - <workaround pattern>
+- Need evidence linked:
+- Current workaround:
+- Existing paid substitute:
+- Existing free substitute:
+- Why the workaround is painful:
+- Switching trigger:
+- What users would type or ask for:
+- Proof strength: weak | medium | strong
+
+## Search / Community Language
+
+### L1 - <need phrase>
+- User would say:
+- Search query candidates:
+- Community post title candidates:
+- Landing-page headline candidate:
+- Comment/DM reply hook:
+- Words to avoid because they sound like SaaS:
+
+## Format Roulette
+
+Before choosing a prototype, list at least 3 possible formats. Web app is only
+one possible format.
+
+### F1 - <need name>
+- Format A: web app / calculator / diagnostic / map / browser extension / chatbot / printable / challenge / game / kiosk / local device / script / spreadsheet template / mini-course / checklist / alert / marketplace / concierge
+- Format B:
+- Format C:
+- Best format for first validation:
+- Why this should be a prototype, not just content/template/service:
+- If Stitch/web is used, what non-generic interaction must survive:
+
+## Desire Lens
+
+### D1 - <pressure name>
+- Need evidence linked:
+- Human driver/theme: 성욕 | 외모 | 사교육 | 자산 방어 | 외로움 | 건강 | 역전 | unclassified
 - Loss at stake:
 - Shame audience:
 - Trigger moment:
-- Existing workaround:
 - Buyer/share audience:
-- Why existing tools fail:
+- Why existing tools fail emotionally/socially:
 - 3-second sting:
-
-<!-- Create D entries only for signals that might become candidates. -->
-
-## Mechanic Matrix
-
-| Mechanic | Candidate use | Why it fits | Bland-risk check |
-| --- | --- | --- | --- |
-| Receipt |  | Turns hidden loss/regret into a bill | Would this be more than a report? |
-| Interrogator |  | Cross-examines docs/claims/choices | Does it reveal something uncomfortable? |
-| Simulator |  | Lets the user feel future regret/upside | Is the future state visual and specific? |
-| Proof Kit |  | Packages evidence for persuasion/defense | Is there a real audience to convince? |
-| Status Mirror |  | Shows peer/rival/norm gap | Is comparison central, not decorative? |
-| Negotiation Room |  | Tunes pressure/concessions/risk | Is there a relationship or money conflict? |
-| Panic Button |  | Produces next urgent moves | Is the deadline real? |
-| Confession Booth |  | Reveals the avoided truth privately | Is the admission emotionally sharp? |
-| Tradeoff Court |  | Puts options on trial | Is the verdict useful and debatable? |
-| Flex/Defense Poster |  | Creates a shareable result | Would someone actually show it? |
 
 ## Candidate Drafts
 
 ### C1 - <working title>
+- Need evidence:
+- Pull evidence score:
 - Theme:
+- Format:
 - Mechanic:
 - Trigger moment:
 - Target user:
 - Buyer/share audience:
-- 3-second sting:
+- User-action sentence:
+- Search/community language:
 - Key input/data:
 - Output artifact:
-- Inspired by signals:
-- Scores: Pain <1-5> / Shame <1-5> / Urgency <1-5> / Workaround <1-5> / Share <1-5> / Visual <1-5> / WTP <1-5>
+- First validation test:
+- Scores: Pull <1-5> / Pain <1-5> / Urgency <1-5> / Workaround <1-5> / Reach <1-5> / Visual <1-5> / WTP <1-5>
 - Keep/kill/rewrite:
 - Notes:
 
@@ -82,8 +128,9 @@ ledger entry, a prototype mechanic, and a 3-second sting.
 
 ### K1 - <candidate title>
 - Source draft:
-- Kill tag: just-dashboard | weak-buyer | article-only | saas-clone | no-3-sec-sting | theme-wash | stitch-bland-risk | low-urgency | no-output-artifact
+- Kill tag: no-pull-evidence | no-user-action | no-workaround | unclear-arrival-path | article-only | just-dashboard | weak-buyer | saas-clone | no-3-sec-sting | theme-wash | stitch-bland-risk | low-urgency | no-output-artifact
 - Reason:
+- What evidence would revive it:
 - Salvage path, if any:
 
 ## Novelty / Duplicate Check
@@ -91,12 +138,14 @@ ledger entry, a prototype mechanic, and a 3-second sting.
 - Checked recent batches:
 - Rejected near-duplicates:
 - Kept only because:
-- Shape diversity check:
+- Need/pull diversity check:
+  - Candidates with direct user-action proof:
+  - Candidates with existing workaround proof:
+  - Candidates with clear arrival/search/community path:
   - Dashboard/board/scanner/planner count:
-  - Non-dashboard mechanic count:
+  - Non-web or non-SaaS first-validation formats:
   - Consumer desire/anxiety count:
   - B2B/ops count:
-  - Shareable/actionable artifact count:
 
 ## Final 4
 
@@ -106,7 +155,19 @@ ledger entry, a prototype mechanic, and a 3-second sting.
 
 ### One-liner
 
+### Need Evidence
+- Signals:
+- Actual user actions:
+  1.
+  2.
+  3.
+- Existing workaround:
+- Arrival path:
+- Pull evidence score:
+
 ### Theme
+
+### Format
 
 ### Mechanic
 
@@ -116,21 +177,25 @@ ledger entry, a prototype mechanic, and a 3-second sting.
 
 ### Buyer / Share Audience
 
+### User-Action Sentence
+
 ### 3-Second Sting
 
 ### Key UX
 
 ### Output Artifact
 
+### First Validation Test
+
 ### Required UI Sections
 - 
 
 ### Scores
+- Pull:
 - Pain:
-- Shame:
 - Urgency:
 - Workaround:
-- Share:
+- Reach:
 - Visual:
 - WTP:
 
@@ -142,7 +207,7 @@ ledger entry, a prototype mechanic, and a 3-second sting.
 
 ### Stitch Prompt
 
-Create a responsive web app called "<Title>" for <target user>. The app should use a <mechanic> mechanic around the trigger moment "<trigger>" and make the first screen communicate "<3-second sting>". Build the core workflow around <key input/data> and produce <output artifact>. Required sections: <sections>. Emotional pressure to make visible: <theme/loss/shame/urgency>. Design direction: use the `<design-profile>` profile with <tailored visual direction>. Avoid generic dashboard framing; make the main interaction feel like <mechanic-specific experience>.
+Create a responsive web app called "<Title>" for <target user>. The app is based on observed user pull: <actual user actions and workaround>. The app should use a <format/mechanic> around the trigger moment "<trigger>" and make the first screen communicate "<3-second sting>". Use the user's own language: "<user-action sentence>". Build the core workflow around <key input/data> and produce <output artifact>. Required sections: <sections>. Emotional pressure to make visible: <theme/loss/shame/urgency>. Design direction: use the `<design-profile>` profile with <tailored visual direction>. Avoid generic dashboard framing; make the main interaction feel like <format/mechanic-specific experience>.
 
 <!-- Repeat p002-p004. -->
 
@@ -159,28 +224,34 @@ Expected files:
 
 ## Scoring Guide
 
+- `Pull`: real evidence that users are already asking, searching, buying,
+  downloading, sharing, hiring, building templates, or maintaining workarounds.
 - `Pain`: actual money, time, opportunity, health, or relationship loss.
-- `Shame`: embarrassment if exposed to spouse, boss, client, peers, parents,
-  community, or future self.
 - `Urgency`: pressure to act today, this week, before a deadline, before a bill,
   before a comparison, or before a public event.
-- `Workaround`: evidence that people already use spreadsheets, screenshots,
-  chat threads, notes, manual checking, or strangers' advice.
-- `Share`: whether the result is worth showing, sending, posting, or using to
-  persuade someone.
+- `Workaround`: strength of current spreadsheets, screenshots, chat threads,
+  notes, manual checking, agencies, templates, or stranger-advice behavior.
+- `Reach`: whether the user can be reached through search, community posts,
+  marketplaces, creator content, referrals, or a clear trigger moment.
 - `Visual`: whether the first screen can be understood in 3 seconds.
 - `WTP`: whether the payer, buyer, or economic owner is obvious.
 
-Candidates with no score above 4 should usually be killed or rewritten.
+Candidates with `Pull` below 3 should usually be killed, parked for research, or
+turned into content/search tests instead of Stitch prototypes.
 
 ## Batch Gates
 
 - Final batch has exactly `p001` through `p004`.
-- Final batch includes at least 3 distinct human-driver themes.
-- Final batch includes at least 3 distinct mechanics.
+- Every final candidate has at least 2 concrete user actions as need evidence.
+- At least 3 final candidates have clear workaround proof.
+- Every final candidate has an arrival path: search phrase, community channel,
+  marketplace, referral path, or trigger event.
+- Final batch includes at least 3 distinct human-driver themes, but theme mapping
+  happens after pull evidence.
+- Final batch includes at least 3 distinct formats or mechanics.
 - At least one final idea is not a dashboard, board, scanner, planner, or console.
 - At least one final idea is a consumer desire/anxiety tool.
 - At least one final idea is commercially practical.
-- Every final idea has a concrete output artifact.
-- Every final Stitch prompt includes mechanic, trigger moment, emotional pressure,
-  output artifact, and first-screen promise.
+- Every final idea has a concrete output artifact and a first validation test.
+- Every final Stitch prompt includes pull evidence, user language, mechanic,
+  trigger moment, emotional pressure, output artifact, and first-screen promise.
