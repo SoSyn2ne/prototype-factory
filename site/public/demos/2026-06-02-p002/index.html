@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Family Guard - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "outline": "#72787f",
+                      "surface-dim": "#d9dadb",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2e3132",
+                      "tertiary-fixed": "#ffdcc4",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-fixed-dim": "#abd0ac",
+                      "on-secondary-fixed-variant": "#2d4e33",
+                      "secondary": "#456649",
+                      "outline-variant": "#c1c7cf",
+                      "on-tertiary-fixed": "#2f1400",
+                      "surface-container": "#edeeef",
+                      "surface": "#f8f9fa",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-fixed": "#01210a",
+                      "surface-variant": "#e1e3e4",
+                      "surface-container-high": "#e7e8e9",
+                      "inverse-primary": "#9ccbf7",
+                      "on-tertiary-fixed-variant": "#6f3800",
+                      "secondary-fixed": "#c6ecc7",
+                      "tertiary": "#663300",
+                      "secondary-container": "#c3e9c4",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "background": "#f8f9fa",
+                      "on-primary-fixed": "#001d32",
+                      "on-primary-fixed-variant": "#124a6f",
+                      "tertiary-fixed-dim": "#ffb780",
+                      "on-surface-variant": "#41474e",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#496a4d",
+                      "primary-container": "#2a5c82",
+                      "primary-fixed": "#cde5ff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-tint": "#316289",
+                      "primary": "#074469",
+                      "surface-container-low": "#f3f4f5",
+                      "tertiary-container": "#86480d",
+                      "primary-fixed-dim": "#9ccbf7",
+                      "on-primary-container": "#a5d4ff",
+                      "on-tertiary-container": "#ffc295",
+                      "on-surface": "#191c1d",
+                      "on-background": "#191c1d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px",
+                      "2xl": "1rem",
+                      "3xl": "1.5rem"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "gutter": "24px",
+                      "unit": "8px",
+                      "max-width": "1200px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Public Sans"],
+                      "body-md": ["Public Sans"],
+                      "headline-md": ["Public Sans"],
+                      "headline-lg-mobile": ["Public Sans"],
+                      "headline-lg": ["Public Sans"],
+                      "label-md": ["Public Sans"],
+                      "label-lg": ["Public Sans"]
+              },
+              "fontSize": {
+                      "body-lg": ["20px", {"lineHeight": "32px", "fontWeight": "400"}],
+                      "body-md": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-md": ["28px", {"lineHeight": "36px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["30px", {"lineHeight": "38px", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "label-lg": ["16px", {"lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Smooth progress animation */
+        @keyframes progress {
+            from { stroke-dashoffset: 440; }
+            to { stroke-dashoffset: 110; } /* 75% */
+        }
+        .meter-circle {
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            animation: progress 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-64 fixed left-0 top-0 bg-surface dark:bg-surface-container-lowest shadow-sm z-40">
+<div class="flex flex-col h-full p-4 space-y-2">
+<div class="mb-8 px-4 py-2">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">Family Guard</h1>
+</div>
+<div class="flex items-center px-4 py-4 mb-6 bg-surface-container rounded-xl">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center mr-3">
+<span class="material-symbols-outlined text-on-secondary-container fill-icon">shield_person</span>
+</div>
+<div>
+<p class="font-label-lg text-label-lg text-on-surface">Safety Status</p>
+<p class="font-label-md text-label-md text-secondary">Family Shield: Active</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard (Active) -->
+<a class="flex items-center px-4 py-3 bg-primary-container text-on-primary-container font-bold rounded-xl active:scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined mr-3 fill-icon">dashboard</span>
+<span class="font-label-lg text-label-lg">Dashboard</span>
+</a>
+<!-- Safety Roster (Inactive) -->
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3">group</span>
+<span class="font-label-lg text-label-lg">Safety Roster</span>
+</a>
+<!-- Drill Center (Inactive) -->
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3">record_voice_over</span>
+<span class="font-label-lg text-label-lg">Drill Center</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3">history</span>
+<span class="font-label-lg text-label-lg">History</span>
+</a>
+<!-- Crisis Report (Inactive) -->
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined mr-3">emergency_home</span>
+<span class="font-label-lg text-label-lg">Crisis Report</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 space-y-2 border-t border-surface-variant">
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-label-lg text-label-lg">Settings</span>
+</a>
+<a class="flex items-center px-4 py-3 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-xl" href="#">
+<span class="material-symbols-outlined mr-3">help</span>
+<span class="font-label-lg text-label-lg">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen pb-24 md:pb-0">
+<!-- TopAppBar (Mobile & Desktop) -->
+<header class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-max-width mx-auto bg-surface dark:bg-background bg-surface-container-low dark:bg-surface-container-highest shadow-sm shadow-[0_4px_20px_rgba(42,92,130,0.08)] sticky top-0 z-30">
+<div class="md:hidden font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">
+                Family Guard
+            </div>
+<div class="hidden md:block">
+<h2 class="font-headline-md text-headline-md text-on-surface">Dashboard Overview</h2>
+</div>
+<div class="flex items-center space-x-4 text-primary dark:text-primary-fixed-dim">
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">shield</span>
+</button>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-container-high transition-colors p-2 rounded-full cursor-pointer active:scale-95 transition-transform">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Content Canvas -->
+<div class="p-margin-mobile md:p-margin-desktop max-w-max-width mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Bento Box 1: Confidence Meter & CTA (Span 8) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-3xl p-8 shadow-[0_4px_20px_rgba(42,92,130,0.05)] border border-surface-variant flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute -top-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -left-24 w-64 h-64 bg-secondary/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="flex-1 space-y-6 z-10">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-on-surface mb-2">Preparedness Level</h2>
+<p class="font-body-lg text-on-surface-variant">Your household is on track. Keep up the regular drills to maintain confidence.</p>
+</div>
+<button class="w-full md:w-auto px-8 py-4 bg-primary hover:bg-primary/90 text-on-primary font-label-lg text-label-lg rounded-xl shadow-lg shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">campaign</span>
+                        Start Fire Drill
+                    </button>
+</div>
+<!-- Confidence Dial -->
+<div class="relative w-48 h-48 flex-shrink-0 z-10 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 160 160">
+<!-- Background Circle -->
+<circle class="text-surface-container-high" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<!-- Progress Circle (75%) -->
+<circle class="text-secondary meter-circle" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center justify-center">
+<span class="font-headline-lg text-on-surface font-bold">75%</span>
+<span class="font-label-md text-on-surface-variant uppercase tracking-wider">Confident</span>
+</div>
+</div>
+</div>
+<!-- Bento Box 2: Safety Roster Snapshot (Span 4) -->
+<div class="md:col-span-4 bg-surface-container-lowest rounded-3xl p-6 shadow-[0_4px_20px_rgba(42,92,130,0.05)] border border-surface-variant flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-on-surface">Household Roster</h3>
+<button class="text-primary hover:text-primary/80">
+<span class="material-symbols-outlined">manage_accounts</span>
+</button>
+</div>
+<div class="space-y-4 flex-1">
+<!-- Roster Item 1 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-lg">
+                            M
+                        </div>
+<div class="flex-1">
+<h4 class="font-label-lg text-on-surface">Mom</h4>
+<p class="font-label-md text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                                Practiced 2 days ago
+                            </p>
+</div>
+</div>
+<!-- Roster Item 2 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center font-bold text-lg">
+                            D
+                        </div>
+<div class="flex-1">
+<h4 class="font-label-lg text-on-surface">Dad</h4>
+<p class="font-label-md text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+                                Consent Signed
+                            </p>
+</div>
+</div>
+<!-- Roster Item 3 -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-surface-container-low transition-colors">
+<div class="w-12 h-12 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-bold text-lg">
+                            T
+                        </div>
+<div class="flex-1">
+<h4 class="font-label-lg text-on-surface">Timmy</h4>
+<p class="font-label-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                Needs Practice
+                            </p>
+</div>
+</div>
+</div>
+<button class="mt-4 w-full py-3 border-2 border-surface-variant text-on-surface-variant font-label-lg rounded-xl hover:bg-surface-container-low transition-colors">
+                    View Full Roster
+                </button>
+</div>
+<!-- Bento Box 3: Practice Drill Timeline (Span 12) -->
+<div class="md:col-span-12 bg-surface-container-lowest rounded-3xl p-8 shadow-[0_4px_20px_rgba(42,92,130,0.05)] border border-surface-variant">
+<div class="flex justify-between items-center mb-8">
+<h3 class="font-headline-md text-on-surface">Recent Activity &amp; Timeline</h3>
+<button class="text-primary hover:text-primary/80 font-label-lg flex items-center gap-1">
+                        View History <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="relative border-l-2 border-surface-variant ml-4 space-y-8 pb-4">
+<!-- Timeline Item 1 -->
+<div class="relative pl-8">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-secondary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface p-5 rounded-2xl border border-surface-variant">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-label-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">local_fire_department</span>
+                                    Fire Evacuation Drill
+                                </h4>
+<span class="font-label-md text-outline">Oct 24, 2023</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Successfully completed by Mom and Dad in 2m 15s. Excellent response time.</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-8">
+<div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-surface-container-lowest"></div>
+<div class="bg-surface p-5 rounded-2xl border border-surface-variant">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-label-lg text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">fact_check</span>
+                                    Safety Equipment Audit
+                                </h4>
+<span class="font-label-md text-outline">Oct 15, 2023</span>
+</div>
+<p class="font-body-md text-on-surface-variant">Smoke detectors tested. Batteries replaced in Hallway unit.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface dark:bg-surface-container-lowest shadow-[0_-4px_20px_rgba(42,92,130,0.08)] rounded-t-xl border-t border-surface-variant">
+<!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-2xl px-6 py-1 scale-100 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined fill-icon">home</span>
+<span class="font-label-md text-label-md-mobile mt-1">Home</span>
+</a>
+<!-- Roster (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-2xl px-4 py-1 scale-100 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md-mobile mt-1">Roster</span>
+</a>
+<!-- Drills (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-2xl px-4 py-1 scale-100 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md-mobile mt-1">Drills</span>
+</a>
+<!-- History (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-2xl px-4 py-1 scale-100 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-label-md text-label-md-mobile mt-1">History</span>
+</a>
+<!-- Crisis (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-container-high rounded-2xl px-4 py-1 scale-100 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">report</span>
+<span class="font-label-md text-label-md-mobile mt-1">Crisis</span>
+</a>
+</nav>
+</body></html>

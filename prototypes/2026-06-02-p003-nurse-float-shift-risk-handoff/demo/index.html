@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shift Board - Hospital Ops Command</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#b1f0ce",
+                    "secondary-container": "#aeeecb",
+                    "surface-variant": "#dfe3e7",
+                    "on-tertiary-container": "#eb851c",
+                    "on-secondary-fixed": "#002114",
+                    "primary": "#002046",
+                    "on-tertiary-fixed-variant": "#6e3900",
+                    "on-background": "#171c1f",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#d6e3ff",
+                    "tertiary-fixed-dim": "#ffb77d",
+                    "background": "#f6fafe",
+                    "on-primary-fixed-variant": "#2e476f",
+                    "secondary": "#2c694e",
+                    "on-secondary-container": "#316e52",
+                    "surface-container": "#eaeef2",
+                    "primary-container": "#1b365d",
+                    "on-surface": "#171c1f",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#361900",
+                    "outline": "#74777f",
+                    "outline-variant": "#c4c6cf",
+                    "tertiary-container": "#552b00",
+                    "surface-container-low": "#f0f4f8",
+                    "inverse-primary": "#aec7f7",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#e4e9ed",
+                    "surface-container-highest": "#dfe3e7",
+                    "on-secondary-fixed-variant": "#0e5138",
+                    "on-tertiary-fixed": "#2f1500",
+                    "error": "#ba1a1a",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f6fafe",
+                    "inverse-on-surface": "#edf1f5",
+                    "on-error": "#ffffff",
+                    "on-surface-variant": "#44474e",
+                    "primary-fixed-dim": "#aec7f7",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#87a0cd",
+                    "surface-tint": "#465f88",
+                    "surface": "#f6fafe",
+                    "inverse-surface": "#2c3134",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed": "#001b3d",
+                    "tertiary-fixed": "#ffdcc3",
+                    "surface-dim": "#d6dade",
+                    "secondary-fixed-dim": "#95d4b3"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "12px",
+                    "xs": "4px",
+                    "margin-desktop": "32px",
+                    "margin-mobile": "16px",
+                    "lg": "24px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "sm": "8px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-sm": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "data-tabular": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-sm": [
+                            "11px",
+                            {
+                                    "lineHeight": "14px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "data-tabular": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base styles to enforce Tailwind utilities */
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-surface flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar -->
+<aside class="bg-surface-container dark:bg-surface-container-low hidden lg:flex flex-col h-screen p-sm gap-xs docked left-0 h-full w-64 border-r border-outline-variant dark:border-outline flat no shadows transition-all duration-200 ease-in-out shrink-0 z-20">
+<div class="px-md py-lg border-b border-outline-variant mb-md flex flex-col gap-sm">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Shift Command</div>
+<div class="flex items-center gap-sm mt-xs">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface">Unit 4B Central</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Shift: 0700-1900</span>
+</div>
+</div>
+<button class="mt-md bg-primary text-on-primary font-body-md text-body-md py-sm px-md rounded flex items-center justify-center gap-xs hover:bg-on-primary-fixed-variant transition-colors w-full border border-primary">
+<span class="material-symbols-outlined" style="font-size: 18px;">add_alert</span>
+                Generate Escalation
+            </button>
+</div>
+<nav class="flex-1 flex flex-col gap-xs px-xs">
+<a class="bg-primary-container text-on-primary-container rounded-lg flex items-center gap-md px-md py-sm font-label-caps text-label-caps transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined icon-fill">dashboard</span>
+                Shift Board
+            </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">grid_3x3</span>
+                Risk Matrix
+            </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">groups</span>
+                Staffing
+            </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+                Escalation Notes
+            </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">history</span>
+                Incident Recap
+            </a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md px-xs pb-sm flex flex-col gap-xs">
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-variant flex items-center gap-md px-md py-sm font-label-caps text-label-caps rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden relative">
+<!-- TopNavBar (Mobile only since sidebar is on desktop) -->
+<header class="lg:hidden bg-surface dark:bg-inverse-surface flex justify-between items-center w-full px-margin-mobile h-16 docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows shrink-0 z-20">
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-display-lg text-display-lg font-bold text-primary dark:text-primary-fixed" style="font-size: 24px; line-height: 32px;">Shift Command</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="bg-primary text-on-primary font-body-md text-body-md px-sm py-xs rounded">Handover</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-mobile lg:p-margin-desktop bg-surface z-0 relative flex flex-col gap-lg">
+<!-- Global Risk Banners -->
+<div class="flex flex-col gap-sm w-full">
+<!-- Critical Banner -->
+<div class="w-full bg-error text-on-error px-md py-sm rounded flex items-center gap-md border border-error-container shadow-[0px_4px_6px_rgba(27,54,93,0.1)]">
+<span class="material-symbols-outlined font-bold">warning</span>
+<span class="font-data-tabular text-data-tabular font-bold">CRITICAL: Sitter gap in Room 412 (Violence Risk High). Float pool requested at 0815.</span>
+<button class="ml-auto bg-surface text-error font-label-caps text-label-caps px-sm py-xs rounded border border-error-container hover:bg-surface-variant transition-colors">Acknowledge</button>
+</div>
+<!-- Info Banner -->
+<div class="w-full bg-primary-container text-on-primary-container px-md py-sm rounded flex items-center gap-md border border-primary">
+<span class="material-symbols-outlined">schedule</span>
+<span class="font-data-tabular text-data-tabular">Upcoming shift change handoff begins in 45 minutes. Ensure all risk markers are updated.</span>
+</div>
+</div>
+<!-- Grid Layout Container -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter w-full">
+<!-- Patient Acuity Board (Spans 8 cols on desktop) -->
+<section class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col shadow-sm overflow-hidden">
+<header class="bg-surface-container border-b border-outline-variant px-md py-sm flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined">bed</span> Patient Acuity Grid
+                        </h2>
+<div class="flex gap-xs">
+<span class="bg-secondary text-on-secondary px-xs py-xs rounded font-label-sm text-label-sm">Safe Ratio: 1:4</span>
+<span class="bg-error-container text-on-error-container px-xs py-xs rounded font-label-sm text-label-sm border border-error">Current: 1:5.2</span>
+</div>
+</header>
+<div class="p-xs overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-on-surface-variant font-label-caps text-label-caps">
+<th class="p-xs font-bold w-16">Rm</th>
+<th class="p-xs font-bold w-20">Acuity</th>
+<th class="p-xs font-bold">Primary Nurse</th>
+<th class="p-xs font-bold w-24">Role</th>
+<th class="p-xs font-bold text-center w-24">Interventions</th>
+</tr>
+</thead>
+<tbody class="font-data-tabular text-data-tabular text-on-surface">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-xs font-bold">401</td>
+<td class="p-xs"><span class="inline-flex w-6 h-6 rounded bg-surface-variant border border-outline items-center justify-center text-on-surface font-bold text-xs">2</span></td>
+<td class="p-xs">Sarah Jenkins</td>
+<td class="p-xs"><span class="bg-primary text-on-primary px-1 py-0.5 rounded text-[10px] font-bold">RN</span></td>
+<td class="p-xs text-center">-</td>
+</tr>
+<!-- Row 2 - High Risk -->
+<tr class="border-b border-outline-variant bg-error-container/20 hover:bg-error-container/30">
+<td class="p-xs font-bold text-error">402</td>
+<td class="p-xs"><span class="inline-flex w-6 h-6 rounded bg-error text-on-error border border-error-container items-center justify-center font-bold text-xs shadow-sm">5</span></td>
+<td class="p-xs font-bold">Marcus Chen</td>
+<td class="p-xs"><span class="bg-primary text-on-primary px-1 py-0.5 rounded text-[10px] font-bold">RN</span></td>
+<td class="p-xs text-center"><span class="material-symbols-outlined text-error" style="font-size: 16px;">monitor_heart</span></td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-xs font-bold">403</td>
+<td class="p-xs"><span class="inline-flex w-6 h-6 rounded bg-surface-variant border border-outline items-center justify-center text-on-surface font-bold text-xs">3</span></td>
+<td class="p-xs">Sarah Jenkins</td>
+<td class="p-xs"><span class="bg-primary text-on-primary px-1 py-0.5 rounded text-[10px] font-bold">RN</span></td>
+<td class="p-xs text-center">-</td>
+</tr>
+<!-- Row 4 Float -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-xs font-bold">404</td>
+<td class="p-xs"><span class="inline-flex w-6 h-6 rounded bg-surface-variant border border-outline items-center justify-center text-on-surface font-bold text-xs">2</span></td>
+<td class="p-xs text-on-tertiary-container">David Ross (Float)</td>
+<td class="p-xs"><span class="bg-tertiary text-on-tertiary px-1 py-0.5 rounded text-[10px] font-bold border border-tertiary-container">LPN</span></td>
+<td class="p-xs text-center">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Violence and Sitter Risk Lane (Spans 4 cols on desktop) -->
+<section class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col shadow-sm">
+<header class="bg-error-container border-b border-outline-variant px-md py-sm flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-on-error-container flex items-center gap-xs">
+<span class="material-symbols-outlined">security</span> Risk Lane
+                        </h2>
+<span class="bg-error text-on-error px-xs py-xs rounded font-label-sm text-label-sm font-bold">2 Active</span>
+</header>
+<div class="p-sm flex flex-col gap-sm flex-1 overflow-y-auto">
+<!-- Risk Card 1 -->
+<div class="border border-error p-sm rounded bg-surface relative shadow-[0px_4px_6px_rgba(27,54,93,0.05)]">
+<div class="absolute top-0 right-0 bg-error text-on-error text-[10px] font-bold px-1 py-0.5 rounded-bl">VIOLENCE</div>
+<div class="flex justify-between items-start mb-xs">
+<div class="font-headline-md text-headline-md font-bold text-primary">Rm 412</div>
+<div class="bg-surface-variant text-on-surface px-1 py-0.5 rounded text-xs border border-outline font-data-tabular">Code Gray History</div>
+</div>
+<div class="font-data-tabular text-data-tabular text-on-surface-variant mb-sm">Sitter required 1:1. Current sitter on break in 10 mins.</div>
+<div class="flex gap-xs">
+<button class="flex-1 bg-error text-on-error font-label-caps text-label-caps py-1 rounded border border-error-container">Assign Coverage</button>
+</div>
+</div>
+<!-- Risk Card 2 -->
+<div class="border border-on-tertiary-container p-sm rounded bg-surface relative">
+<div class="absolute top-0 right-0 bg-on-tertiary-container text-on-primary text-[10px] font-bold px-1 py-0.5 rounded-bl">ELOPEMENT</div>
+<div class="flex justify-between items-start mb-xs">
+<div class="font-headline-md text-headline-md font-bold text-primary">Rm 418</div>
+</div>
+<div class="font-data-tabular text-data-tabular text-on-surface-variant mb-sm">Wandering risk. Bed alarm active.</div>
+<div class="flex gap-xs">
+<button class="flex-1 bg-surface text-on-surface-variant font-label-caps text-label-caps py-1 rounded border border-outline hover:bg-surface-variant transition-colors">Review Status</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Break Coverage Timeline (Spans full 12 cols) -->
+<section class="md:col-span-12 bg-surface-container-lowest border border-outline-variant rounded-lg flex flex-col shadow-sm mt-md overflow-hidden">
+<header class="bg-surface-container border-b border-outline-variant px-md py-sm flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined">timeline</span> Break Coverage Timeline
+                        </h2>
+<div class="font-label-sm text-label-sm text-on-surface-variant flex gap-md">
+<span class="flex items-center gap-1"><span class="w-3 h-3 bg-secondary rounded-sm"></span> On Unit</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 bg-surface-variant border border-outline rounded-sm"></span> Break</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 bg-error opacity-50 rounded-sm"></span> Gap</span>
+</div>
+</header>
+<div class="p-md overflow-x-auto">
+<div class="min-w-[800px]">
+<!-- Timeline Header -->
+<div class="flex border-b border-outline-variant pb-xs mb-xs font-label-caps text-label-caps text-on-surface-variant">
+<div class="w-48 shrink-0">Staff Member</div>
+<div class="flex-1 flex justify-between px-xs">
+<span>0800</span><span>0900</span><span>1000</span><span>1100</span><span>1200</span><span>1300</span><span>1400</span>
+</div>
+</div>
+<!-- Timeline Rows -->
+<div class="flex flex-col gap-xs font-data-tabular text-data-tabular">
+<!-- Nurse 1 -->
+<div class="flex items-center hover:bg-surface-container-low rounded p-xs">
+<div class="w-48 shrink-0 font-bold text-primary flex items-center gap-xs">
+<span class="bg-primary text-on-primary px-1 py-0.5 rounded text-[10px]">RN</span> Sarah J.
+                                    </div>
+<div class="flex-1 h-6 bg-secondary/20 rounded relative border border-secondary/30 overflow-hidden flex">
+<div class="w-full h-full bg-secondary"></div>
+<!-- Break segment (e.g. 10:00 - 10:30) -->
+<div class="absolute top-0 left-[33%] w-[8%] h-full bg-surface-variant border-x border-outline flex items-center justify-center">
+<span class="text-[8px] text-on-surface-variant font-bold">BRK</span>
+</div>
+</div>
+</div>
+<!-- Nurse 2 -->
+<div class="flex items-center hover:bg-surface-container-low rounded p-xs">
+<div class="w-48 shrink-0 font-bold text-primary flex items-center gap-xs">
+<span class="bg-primary text-on-primary px-1 py-0.5 rounded text-[10px]">RN</span> Marcus C.
+                                    </div>
+<div class="flex-1 h-6 bg-secondary/20 rounded relative border border-secondary/30 overflow-hidden flex">
+<div class="w-full h-full bg-secondary"></div>
+<!-- Break segment with GAP -->
+<div class="absolute top-0 left-[50%] w-[8%] h-full bg-surface-variant border-x border-outline flex items-center justify-center z-10">
+<span class="text-[8px] text-on-surface-variant font-bold">BRK</span>
+</div>
+<!-- Hatched Risk Overlay below safety threshold -->
+<div class="absolute top-0 left-[45%] w-[15%] h-full bg-error/30 flex items-center justify-center" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(186, 26, 26, 0.2) 4px, rgba(186, 26, 26, 0.2) 8px);">
+<span class="material-symbols-outlined text-error text-xs absolute top-[-4px] right-[-4px] bg-surface rounded-full">warning</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer (from JSON) -->
+<footer class="bg-surface-container-lowest dark:bg-surface-dim flex justify-between items-center px-margin-desktop py-sm w-full border-t border-outline-variant dark:border-outline flat no shadows z-20 shrink-0">
+<div class="font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant">© 2024 Hospital Ops Command. System Status: Operational.</div>
+<div class="flex gap-md font-label-sm text-label-sm">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Privacy Protocol</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Safety Standards</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Admin Console</a>
+</div>
+</footer>
+</div>
+</body></html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Share Fairness Card - ARCADE ROAST</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=JetBrains+Mono:wght@400;700&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-container": "#480063",
+                        "surface-container": "#20201c",
+                        "surface-variant": "#353530",
+                        "inverse-surface": "#e5e2db",
+                        "primary-container": "#39ff14",
+                        "primary-fixed": "#79ff5b",
+                        "surface-container-low": "#1c1c18",
+                        "on-tertiary": "#323200",
+                        "surface": "#131410",
+                        "on-secondary": "#520070",
+                        "inverse-primary": "#106e00",
+                        "tertiary-fixed": "#eaea00",
+                        "on-error-container": "#ffdad6",
+                        "error-container": "#93000a",
+                        "surface-tint": "#2ae500",
+                        "outline-variant": "#3c4b35",
+                        "surface-container-lowest": "#0e0e0b",
+                        "error": "#ffb4ab",
+                        "on-surface": "#e5e2db",
+                        "surface-container-high": "#2a2a26",
+                        "primary": "#efffe3",
+                        "on-tertiary-fixed-variant": "#494900",
+                        "secondary": "#ecb1ff",
+                        "surface-container-highest": "#353530",
+                        "on-primary-fixed": "#022100",
+                        "surface-dim": "#131410",
+                        "tertiary": "#fffdcc",
+                        "secondary-container": "#d05bff",
+                        "secondary-fixed-dim": "#ecb1ff",
+                        "surface-bright": "#3a3935",
+                        "outline": "#85967c",
+                        "inverse-on-surface": "#31312c",
+                        "on-tertiary-fixed": "#1d1d00",
+                        "tertiary-fixed-dim": "#cdcd00",
+                        "on-error": "#690005",
+                        "tertiary-container": "#e5e500",
+                        "primary-fixed-dim": "#2ae500",
+                        "on-secondary-fixed": "#320046",
+                        "secondary-fixed": "#f9d8ff",
+                        "on-background": "#e5e2db",
+                        "on-primary": "#053900",
+                        "on-primary-fixed-variant": "#095300",
+                        "on-primary-container": "#107100",
+                        "on-secondary-fixed-variant": "#75009e",
+                        "on-surface-variant": "#baccb0",
+                        "on-tertiary-container": "#656500",
+                        "background": "#131410"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "stack-lg": "32px",
+                        "stack-xs": "4px",
+                        "stack-xl": "64px",
+                        "stack-md": "16px",
+                        "grid-margin": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "receipt-data": ["JetBrains Mono"],
+                        "body-md": ["JetBrains Mono"],
+                        "label-caps": ["Space Mono"],
+                        "display-arcade": ["Anton"],
+                        "headline-lg-mobile": ["Anton"],
+                        "headline-lg": ["Anton"]
+                    },
+                    "fontSize": {
+                        "receipt-data": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "display-arcade": ["72px", {"lineHeight": "72px", "letterSpacing": "0.05em", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "32px", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "48px", "letterSpacing": "0.02em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glitch-scanline {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.2) 50%,
+                rgba(0,0,0,0.2)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            opacity: 0.1;
+        }
+        .arcade-button {
+            border: 3px solid #050505;
+            box-shadow: 4px 4px 0px 0px rgba(5,5,5,1);
+            transition: all 0.1s ease;
+        }
+        .arcade-button:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px rgba(5,5,5,1);
+        }
+        .jagged-edge {
+            background-image: radial-gradient(circle at 10px 0, transparent 10px, #e5e2db 11px);
+            background-size: 20px 20px;
+            background-repeat: repeat-x;
+            height: 20px;
+            width: 100%;
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            transform: rotate(180deg);
+        }
+        .dark .jagged-edge {
+            background-image: radial-gradient(circle at 10px 0, transparent 10px, #20201c 11px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen overflow-x-hidden font-body-md selection:bg-primary-container selection:text-on-primary-container relative">
+<div class="glitch-scanline"></div>
+<!-- TopNavBar (JSON) -->
+<nav class="hidden md:flex justify-between items-center w-full px-grid-margin py-stack-md max-w-[1200px] mx-auto docked full-width top border-b-4 border-on-background bg-background shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-40 relative">
+<div class="flex items-center gap-stack-md">
+<span class="text-headline-lg font-headline-lg text-primary uppercase italic">FEE ROAST ARCADE</span>
+</div>
+<div class="flex items-center gap-stack-lg">
+<span class="text-receipt-data font-receipt-data hidden"></span>
+<div class="flex items-center gap-stack-sm text-primary font-bold underline">
+<span class="text-label-caps font-label-caps">9999 CREDITS</span>
+</div>
+<div class="flex items-center gap-stack-sm text-on-surface-variant hover:text-primary transition-colors">
+<span class="text-label-caps font-label-caps">SCORE: 0</span>
+</div>
+</div>
+</nav>
+<!-- TopNavBar Mobile Fallback (Hidden on Desktop) -->
+<nav class="flex md:hidden justify-between items-center w-full px-grid-margin py-stack-md bg-background border-b-4 border-on-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-40 relative">
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-primary uppercase italic">FEE ROAST ARCADE</span>
+</nav>
+<div class="flex flex-col md:flex-row max-w-[1200px] mx-auto min-h-[calc(100vh-100px)]">
+<!-- SideNavBar (JSON) - Hidden on Mobile -->
+<aside class="hidden md:flex flex-col w-64 h-screen fixed left-0 top-0 pt-24 pb-stack-lg px-stack-md border-r-4 border-on-background bg-surface-container-low shadow-[4px_0px_0px_0px_rgba(0,0,0,1)] z-30">
+<div class="mb-stack-lg flex flex-col gap-stack-xs">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-secondary">PLAYER 1</h2>
+<p class="text-label-caps font-label-caps text-on-surface-variant">FEES ROASTED: 12</p>
+</div>
+<nav class="flex-1 flex flex-col gap-stack-sm">
+<!-- Navigation Items based on JSON. 'SHARE' is active based on context -->
+<a class="flex items-center gap-stack-md p-stack-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">upload_file</span>
+<span class="text-label-caps font-label-caps">UPLOAD</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">document_scanner</span>
+<span class="text-label-caps font-label-caps">SCAN</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">calculate</span>
+<span class="text-label-caps font-label-caps">CALCULATE</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-sm text-on-surface-variant hover:text-primary hover:bg-surface-variant transition-colors group" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="text-label-caps font-label-caps">ROAST</span>
+</a>
+<a class="flex items-center gap-stack-md p-stack-sm bg-primary-container text-on-primary-container border-2 border-on-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] group" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">share</span>
+<span class="text-label-caps font-label-caps">SHARE</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-md">
+<button class="w-full arcade-button bg-secondary text-on-secondary py-stack-sm px-stack-md flex justify-center items-center gap-stack-sm">
+<span class="material-symbols-outlined">monetization_on</span>
+<span class="text-label-caps font-label-caps">INSERT COIN</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-grid-margin relative flex justify-center items-start min-h-screen">
+<div class="w-full max-w-[600px] flex flex-col gap-stack-lg items-center pt-stack-md pb-stack-xl">
+<!-- Screen Title -->
+<div class="text-center mb-stack-md">
+<h1 class="text-display-arcade font-display-arcade text-primary mb-stack-xs leading-none drop-shadow-[4px_4px_0px_#050505]">YOUR ROAST</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">READY TO BROADCAST THE DAMAGE.</p>
+</div>
+<!-- The Share Card (Screenshot Target) -->
+<div class="w-full bg-surface-container border-4 border-on-background shadow-[8px_8px_0px_0px_#050505] relative mb-stack-lg rotate-1 flex flex-col z-10" id="share-card-target">
+<!-- Card Header -->
+<div class="bg-error p-stack-md border-b-4 border-on-background flex justify-between items-center" style="background-image: repeating-linear-gradient(45deg, #ffb4ab, #ffb4ab 10px, #050505 10px, #050505 20px);">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-background bg-error px-stack-xs inline-block">BURGER BROS. DINER</h2>
+<span class="material-symbols-outlined text-background text-[32px] bg-error rounded-full" data-weight="fill" style="font-variation-settings: 'FILL' 1;">local_dining</span>
+</div>
+<!-- Card Body (Paper Texture) -->
+<div class="bg-inverse-surface text-on-tertiary-fixed p-grid-margin relative flex-1" style="background-image: linear-gradient(to bottom, #e5e2db, #d8d5ce);">
+<!-- Fairness Grade -->
+<div class="flex flex-col items-center justify-center mb-stack-lg border-b-2 border-dashed border-on-tertiary-fixed pb-stack-md">
+<span class="text-label-caps font-label-caps uppercase tracking-widest mb-stack-xs">Fairness Grade</span>
+<div class="text-[120px] font-display-arcade text-error-container leading-none drop-shadow-[4px_4px_0px_#050505] -rotate-6">F</div>
+</div>
+<!-- Fee Breakdown -->
+<div class="mb-stack-lg">
+<h3 class="text-label-caps font-label-caps uppercase tracking-widest mb-stack-sm">Damage Report</h3>
+<!-- Row 1 -->
+<div class="flex justify-between items-end mb-stack-sm text-receipt-data font-receipt-data">
+<span>Kitchen Appl.</span>
+<span class="flex-1 border-b-2 border-dotted border-on-tertiary-fixed mx-stack-sm mb-1 opacity-50"></span>
+<span class="text-error-container">-$4.50</span>
+</div>
+<!-- Health Bar Row 1 -->
+<div class="w-full h-4 bg-outline-variant border-2 border-on-tertiary-fixed mb-stack-md flex">
+<div class="h-full bg-error-container w-[15%] border-r-2 border-on-tertiary-fixed"></div>
+<div class="h-full bg-error-container w-[15%] border-r-2 border-on-tertiary-fixed opacity-80"></div>
+</div>
+<!-- Row 2 -->
+<div class="flex justify-between items-end mb-stack-sm text-receipt-data font-receipt-data">
+<span>Dev. Fee</span>
+<span class="flex-1 border-b-2 border-dotted border-on-tertiary-fixed mx-stack-sm mb-1 opacity-50"></span>
+<span class="text-error-container">-$2.00</span>
+</div>
+<!-- Health Bar Row 2 -->
+<div class="w-full h-4 bg-outline-variant border-2 border-on-tertiary-fixed mb-stack-md flex">
+<div class="h-full bg-tertiary-container w-[10%] border-r-2 border-on-tertiary-fixed"></div>
+</div>
+</div>
+<!-- Total BS -->
+<div class="border-t-4 border-on-tertiary-fixed pt-stack-sm flex justify-between items-center mb-stack-lg">
+<span class="text-headline-lg-mobile font-headline-lg-mobile uppercase">Total BS Fees</span>
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-error-container">-$6.50</span>
+</div>
+<!-- AI Cheeky Response -->
+<div class="bg-surface-container-high text-on-surface p-stack-md border-2 border-on-tertiary-fixed relative mt-stack-md">
+<span class="absolute -top-3 left-4 bg-primary-container text-on-primary-container text-[10px] font-label-caps px-2 py-1 border-2 border-on-tertiary-fixed uppercase">Arcade Analysis</span>
+<p class="text-body-md font-body-md italic mt-2">"Paying a 'Kitchen Appreciation' fee suggests the kitchen didn't appreciate the base price of the burger. Consider packing a lunch next time."</p>
+</div>
+<!-- Bottom Perforation -->
+<div class="jagged-edge"></div>
+</div>
+</div>
+<!-- Share Actions -->
+<div class="w-full flex flex-col gap-stack-md mt-stack-lg z-20">
+<p class="text-label-caps font-label-caps text-center text-on-surface-variant uppercase">Select Channel to Broadcast</p>
+<div class="flex justify-center gap-stack-md flex-wrap">
+<button class="arcade-button bg-surface text-primary p-stack-md flex flex-col items-center justify-center gap-stack-sm w-[120px] hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[32px]">photo_camera</span>
+<span class="text-label-caps font-label-caps">IG STORY</span>
+</button>
+<button class="arcade-button bg-surface text-secondary p-stack-md flex flex-col items-center justify-center gap-stack-sm w-[120px] hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[32px]">tag</span>
+<span class="text-label-caps font-label-caps">POST TO X</span>
+</button>
+<button class="arcade-button bg-surface text-tertiary p-stack-md flex flex-col items-center justify-center gap-stack-sm w-[120px] hover:bg-surface-variant">
+<span class="material-symbols-outlined text-[32px]">movie</span>
+<span class="text-label-caps font-label-caps">TIKTOK</span>
+</button>
+</div>
+<button class="arcade-button bg-primary-container text-on-primary-container py-stack-md px-grid-margin flex justify-center items-center gap-stack-sm w-full mt-stack-sm">
+<span class="material-symbols-outlined">download</span>
+<span class="text-receipt-data font-receipt-data uppercase">Save Image to Device</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer (JSON) -->
+<footer class="w-full py-stack-lg px-grid-margin mt-stack-xl flex flex-col md:flex-row justify-between items-center gap-stack-md full-width border-t-4 border-on-background bg-surface-container-lowest relative z-40">
+<div class="text-receipt-data font-receipt-data text-tertiary">
+<span>© 2024 ARCADE ROAST - NO REFUNDS</span>
+</div>
+<div class="flex gap-stack-md flex-wrap justify-center">
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-on-surface hover:text-primary underline transition-all" href="#">Legal Disclaimers</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-on-surface hover:text-primary underline transition-all" href="#">Fairness Rules</a>
+<a class="text-label-caps font-label-caps text-on-surface-variant hover:text-on-surface hover:text-primary underline transition-all" href="#">Arcade API</a>
+</div>
+</footer>
+</body></html>

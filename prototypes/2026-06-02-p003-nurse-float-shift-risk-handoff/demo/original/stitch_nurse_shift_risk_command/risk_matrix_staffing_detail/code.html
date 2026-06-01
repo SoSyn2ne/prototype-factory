@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Matrix and Staffing Familiarity - Shift Command</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#b1f0ce",
+                        "secondary-container": "#aeeecb",
+                        "surface-variant": "#dfe3e7",
+                        "on-tertiary-container": "#eb851c",
+                        "on-secondary-fixed": "#002114",
+                        "primary": "#002046",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "on-background": "#171c1f",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "background": "#f6fafe",
+                        "on-primary-fixed-variant": "#2e476f",
+                        "secondary": "#2c694e",
+                        "on-secondary-container": "#316e52",
+                        "surface-container": "#eaeef2",
+                        "primary-container": "#1b365d",
+                        "on-surface": "#171c1f",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#361900",
+                        "outline": "#74777f",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary-container": "#552b00",
+                        "surface-container-low": "#f0f4f8",
+                        "inverse-primary": "#aec7f7",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e4e9ed",
+                        "surface-container-highest": "#dfe3e7",
+                        "on-secondary-fixed-variant": "#0e5138",
+                        "on-tertiary-fixed": "#2f1500",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f6fafe",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#44474e",
+                        "primary-fixed-dim": "#aec7f7",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#87a0cd",
+                        "surface-tint": "#465f88",
+                        "surface": "#f6fafe",
+                        "inverse-surface": "#2c3134",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#001b3d",
+                        "tertiary-fixed": "#ffdcc3",
+                        "surface-dim": "#d6dade",
+                        "secondary-fixed-dim": "#95d4b3"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "xs": "4px",
+                        "margin-desktop": "32px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "sm": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "data-tabular": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                        "data-tabular": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Utility for Material Symbols */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-icon {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop h-16">
+<div class="flex items-center gap-lg">
+<span class="font-display-lg text-display-lg font-bold text-primary">Shift Command</span>
+<nav class="hidden md:flex gap-xs">
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-sm py-xs rounded" href="#">Shift Board</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1 hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-sm py-xs" href="#">Risk Matrix</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-sm py-xs rounded" href="#">Staffing</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-sm py-xs rounded" href="#">Escalation</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-sm py-xs rounded" href="#">Incident Recap</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="pl-xl pr-sm py-xs border border-outline-variant rounded bg-surface-container-lowest font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Search..." type="text"/>
+</div>
+<button class="bg-surface-container-lowest border border-primary text-primary font-body-md text-body-md px-md py-xs rounded hover:bg-surface-container-low transition-colors">Save Shift State</button>
+<button class="bg-primary text-on-primary font-body-md text-body-md px-md py-xs rounded hover:opacity-90 transition-opacity">Handover</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant ml-sm">
+<img alt="Charge Nurse Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a healthcare worker in scrubs, well-lit in a clinical setting. The image is cropped tightly to the face and shoulders, conveying competence and readiness. The overall tone is practical and serious, fitting a medical operations command center aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYl4VI3YJHI_Ao7AQeH7W5_hRnK9gQvxFltTfjSJwsKu5DtGvmdI94EVNZx1iHiyLzvE9cGeZ012Sz6fe45qe6s0MAu6VBVdzbKUCCwNOI7Xe-V_Dhp6NY99mY-PrNPGxRte39XX4Or6n1HtY--ZS1LT7jgUOxFYSk4VYEOaEBn639g_BAqOeK2Xvk4j1O2b33JdduGgdoobo6TQnLvBTjV0Q65PqzPWgZ5KL_LMfDKcD49PDg0052f4tLlt10NpTv_jd0K-CRx2c"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<aside class="bg-surface-container border-r border-outline-variant hidden lg:flex flex-col h-full w-64 p-sm gap-xs">
+<div class="px-md py-sm mb-sm border-b border-outline-variant">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden">
+<img alt="Charge Nurse" class="w-full h-full object-cover" data-alt="A professional headshot of a healthcare worker in scrubs, well-lit in a clinical setting. The image is cropped tightly to the face and shoulders, conveying competence and readiness. The overall tone is practical and serious, fitting a medical operations command center aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrDkgSPpjDDFzQHcS664l532WDPbtgBMxYqWEvTzHtHjfsOfAGEesleLK62HeBxqRJNj8na7kbqJwZw-ZEvhA1ngXSVIwWMcOwBYFbzj35FhqhFZBb67v6De7joFLdVtUN2fLwrg5GyRMGY447rw-Qo16vbbCUWLKJsuB0_AYcoaQlV1gyQFW0sd1d-zXm4-7-wCsUZaBakcSja8WGXX7WfvkYVaLjJKHZbk6RycxWB2yutncHTJ9TqSskSHOxP_9InBZEWPG0HyI"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Unit 4B Central</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Shift: 0700-1900</p>
+</div>
+</div>
+<button class="w-full mt-sm bg-error text-on-error font-body-md text-body-md py-xs rounded hover:opacity-90 transition-opacity font-bold">Generate Escalation</button>
+</div>
+<nav class="flex-1 flex flex-col gap-unit">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">Shift Board</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container rounded-lg transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">grid_3x3</span>
+<span class="font-label-caps text-label-caps">Risk Matrix</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-label-caps text-label-caps">Staffing</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span class="font-label-caps text-label-caps">Escalation Notes</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-label-caps">Incident Recap</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-xs flex flex-col gap-unit">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto bg-surface p-margin-mobile md:p-margin-desktop">
+<div class="max-w-[1200px] mx-auto space-y-lg">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md border-b border-outline-variant pb-sm">
+<div>
+<h1 class="font-headline-md text-headline-md text-primary">Risk Matrix &amp; Staffing Familiarity</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-unit">Operational risk overview for current shift.</p>
+</div>
+<div class="flex gap-sm">
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-error-container text-on-error-container rounded font-label-caps text-label-caps border border-error">
+<span class="material-symbols-outlined text-[16px]">warning</span> Critical Risks: 2
+                        </span>
+<span class="inline-flex items-center gap-xs px-sm py-xs bg-surface-container-high text-on-surface rounded font-label-caps text-label-caps border border-outline-variant">
+                            Last Updated: 08:14
+                        </span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Float Staff Familiarity Matrix (Spans 8 cols on desktop) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-center mb-md border-b border-outline-variant pb-sm">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs">
+<span class="material-symbols-outlined">group_add</span>
+                                Float Staff Familiarity Matrix
+                            </h3>
+<button class="text-primary hover:bg-surface-container p-xs rounded transition-colors"><span class="material-symbols-outlined">filter_list</span></button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="font-label-caps text-label-caps text-on-surface-variant p-sm">Staff Name</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-sm">Role</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-sm">Home Unit</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-sm">4B Familiarity</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-sm">Action</th>
+</tr>
+</thead>
+<tbody class="font-data-tabular text-data-tabular">
+<tr class="border-b border-outline-variant hover:bg-surface-bright transition-colors">
+<td class="p-sm text-on-surface font-medium">Sarah Jenkins</td>
+<td class="p-sm"><span class="inline-flex px-xs py-[2px] bg-primary text-on-primary rounded text-[10px] font-bold uppercase tracking-wider">RN</span></td>
+<td class="p-sm text-on-surface-variant">ICU-East</td>
+<td class="p-sm">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] bg-error-container text-on-error-container border border-error rounded text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">new_releases</span> NEW
+                                            </span>
+</td>
+<td class="p-sm"><button class="text-primary underline text-[12px] hover:text-primary-container">Assign Buddy</button></td>
+</tr>
+<tr class="bg-surface border-b border-outline-variant hover:bg-surface-bright transition-colors">
+<td class="p-sm text-on-surface font-medium">Michael Chen</td>
+<td class="p-sm"><span class="inline-flex px-xs py-[2px] bg-secondary text-on-secondary rounded text-[10px] font-bold uppercase tracking-wider">LPN</span></td>
+<td class="p-sm text-on-surface-variant">Float Pool</td>
+<td class="p-sm">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] bg-tertiary-fixed text-on-tertiary-fixed border border-on-tertiary-container rounded text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> FAMILIAR
+                                            </span>
+</td>
+<td class="p-sm"><button class="text-primary underline text-[12px] hover:text-primary-container">View Skills</button></td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-bright transition-colors">
+<td class="p-sm text-on-surface font-medium">Elena Rodriguez</td>
+<td class="p-sm"><span class="inline-flex px-xs py-[2px] bg-primary text-on-primary rounded text-[10px] font-bold uppercase tracking-wider">RN</span></td>
+<td class="p-sm text-on-surface-variant">Telemetry</td>
+<td class="p-sm">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] bg-secondary-container text-on-secondary-container border border-secondary rounded text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">verified</span> EXPERT
+                                            </span>
+</td>
+<td class="p-sm"><button class="text-on-surface-variant text-[12px] cursor-not-allowed">No Action</button></td>
+</tr>
+<tr class="bg-surface border-b border-outline-variant hover:bg-surface-bright transition-colors">
+<td class="p-sm text-on-surface font-medium">David Kim</td>
+<td class="p-sm"><span class="inline-flex px-xs py-[2px] bg-surface-variant text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider border border-outline">CNA</span></td>
+<td class="p-sm text-on-surface-variant">Unit 4A</td>
+<td class="p-sm">
+<span class="inline-flex items-center gap-xs px-xs py-[2px] bg-error-container text-on-error-container border border-error rounded text-[11px] font-bold">
+<span class="material-symbols-outlined text-[14px]">new_releases</span> NEW
+                                            </span>
+</td>
+<td class="p-sm"><button class="text-primary underline text-[12px] hover:text-primary-container">Assign Buddy</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column (Spans 4 cols on desktop) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- Missing Support Role Flags -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-[0_1px_2px_rgba(0,0,0,0.05)] relative overflow-hidden">
+<!-- Subtle red accent line at top -->
+<div class="absolute top-0 left-0 w-full h-1 bg-error"></div>
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs mb-sm">
+<span class="material-symbols-outlined text-error">flag</span>
+                                Support Gaps
+                            </h3>
+<div class="space-y-sm">
+<div class="flex items-center justify-between p-sm bg-error-container border border-error rounded">
+<div class="flex items-center gap-sm">
+<span class="inline-flex px-xs py-[2px] bg-error text-on-error rounded text-[10px] font-bold uppercase tracking-wider">UC</span>
+<span class="font-body-md text-body-md text-on-error-container font-medium">Unit Clerk</span>
+</div>
+<span class="font-label-caps text-label-caps text-error">MISSING</span>
+</div>
+<div class="flex items-center justify-between p-sm bg-surface-variant border border-outline-variant rounded opacity-60">
+<div class="flex items-center gap-sm">
+<span class="inline-flex px-xs py-[2px] bg-surface-dim text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">TR</span>
+<span class="font-body-md text-body-md text-on-surface-variant font-medium">Transporter</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant"><span class="material-symbols-outlined text-[16px] align-middle">check</span> COVERED</span>
+</div>
+<div class="flex items-center justify-between p-sm bg-tertiary-fixed border border-on-tertiary-container rounded">
+<div class="flex items-center gap-sm">
+<span class="inline-flex px-xs py-[2px] bg-on-tertiary-container text-on-tertiary rounded text-[10px] font-bold uppercase tracking-wider">AID</span>
+<span class="font-body-md text-body-md text-on-tertiary-fixed-variant font-medium">Clinical Aid</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-tertiary-fixed-variant">1 OF 2 SHORT</span>
+</div>
+</div>
+<button class="w-full mt-sm border border-primary text-primary font-body-md text-body-md py-xs rounded hover:bg-surface-container-low transition-colors">Request Support</button>
+</div>
+<!-- Med Complexity Score -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+<h3 class="font-headline-sm text-headline-sm text-primary flex items-center gap-xs mb-sm border-b border-outline-variant pb-sm">
+<span class="material-symbols-outlined">science</span>
+                                Acuity &amp; Complexity
+                            </h3>
+<div class="flex items-end gap-md mb-md">
+<div class="text-[48px] font-bold text-on-tertiary-container leading-none">High</div>
+<div class="font-body-md text-body-md text-on-surface-variant pb-1">Overall Shift Complexity</div>
+</div>
+<div class="space-y-xs">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-unit text-on-surface">
+<span>IV Titration Load</span>
+<span class="font-bold">Severe (85%)</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-error h-full w-[85%]"></div>
+</div>
+</div>
+<div class="pt-unit">
+<div class="flex justify-between font-label-sm text-label-sm mb-unit text-on-surface">
+<span>Complex Med Pass</span>
+<span class="font-bold">Elevated (60%)</span>
+</div>
+<div class="w-full bg-surface-variant h-2 rounded-full overflow-hidden">
+<div class="bg-on-tertiary-container h-full w-[60%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-md p-sm bg-surface-container-low border border-outline-variant rounded text-body-md font-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-error align-middle mr-xs">info</span>
+                                Recommend assigning familiar RNs to Rooms 412, 415, 418 due to high titration needs.
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center px-margin-desktop py-sm w-full">
+<div class="font-label-caps text-label-caps text-on-surface-variant">© 2024 Hospital Ops Command. System Status: Operational.</div>
+<div class="flex gap-lg">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity duration-150" href="#">Privacy Protocol</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity duration-150" href="#">Safety Standards</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-opacity duration-150" href="#">Admin Console</a>
+</div>
+</footer>
+</body></html>

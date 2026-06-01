@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Household Safety Roster - Family Guard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "outline": "#72787f",
+                        "surface-dim": "#d9dadb",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2e3132",
+                        "tertiary-fixed": "#ffdcc4",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-fixed-dim": "#abd0ac",
+                        "on-secondary-fixed-variant": "#2d4e33",
+                        "secondary": "#456649",
+                        "outline-variant": "#c1c7cf",
+                        "on-tertiary-fixed": "#2f1400",
+                        "surface-container": "#edeeef",
+                        "surface": "#f8f9fa",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#01210a",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-high": "#e7e8e9",
+                        "inverse-primary": "#9ccbf7",
+                        "on-tertiary-fixed-variant": "#6f3800",
+                        "secondary-fixed": "#c6ecc7",
+                        "tertiary": "#663300",
+                        "secondary-container": "#c3e9c4",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9fa",
+                        "on-primary-fixed": "#001d32",
+                        "on-primary-fixed-variant": "#124a6f",
+                        "tertiary-fixed-dim": "#ffb780",
+                        "on-surface-variant": "#41474e",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#496a4d",
+                        "primary-container": "#2a5c82",
+                        "primary-fixed": "#cde5ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#316289",
+                        "primary": "#074469",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary-container": "#86480d",
+                        "primary-fixed-dim": "#9ccbf7",
+                        "on-primary-container": "#a5d4ff",
+                        "on-tertiary-container": "#ffc295",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "max-width": "1200px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "label-lg": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "body-md": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["30px", { "lineHeight": "38px", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "52px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom toggle switch styling */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #456649; /* secondary color */
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #c3e9c4; /* secondary-container */
+        }
+        .toggle-checkbox:checked + .toggle-label:after {
+            transform: translateX(100%);
+            border-color: white;
+            background-color: #456649;
+        }
+        
+        .toggle-label {
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #e1e3e4; /* surface-variant */
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+        
+        .toggle-label:after {
+            content: '';
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top App Bar -->
+<header class="md:hidden flex justify-between items-center px-margin-mobile py-4 w-full bg-surface shadow-[0_4px_20px_rgba(42,92,130,0.08)] sticky top-0 z-40">
+<div class="font-headline-md text-headline-md font-bold text-primary">Family Guard</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">shield</span>
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">account_circle</span>
+</div>
+</header>
+<!-- Desktop Side Nav Bar -->
+<nav class="hidden md:flex flex-col h-full w-64 fixed left-0 top-0 bg-surface shadow-sm p-4 space-y-2 z-40 bg-surface-container">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-8 px-4">Family Guard</div>
+<div class="flex items-center gap-3 px-4 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Safety Status</div>
+<div class="text-sm text-on-surface-variant">Family Shield: Active</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-3 rounded-xl font-label-lg text-label-lg mb-6 hover:bg-surface-tint transition-colors active:scale-[0.98]">
+            Start Fire Drill
+        </button>
+<div class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-container text-on-primary-container font-bold active:scale-[0.98] transition-transform font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined fill">group</span>
+                Safety Roster
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">record_voice_over</span>
+                Drill Center
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+                History
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">emergency_home</span>
+                Crisis Report
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-surface-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 active:scale-[0.98] font-label-lg text-label-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow md:ml-64 p-margin-mobile md:p-margin-desktop pb-32 md:pb-margin-desktop max-w-max-width mx-auto w-full">
+<header class="mb-12">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Household Safety Roster</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Manage your family's safety profiles. Ensure everyone is accounted for and prepared for any situation.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Roster List Section -->
+<section class="lg:col-span-2 space-y-6">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface">Family Members</h2>
+<button class="flex items-center gap-2 bg-primary-container text-on-primary-container px-4 py-2 rounded-full font-label-md text-label-md hover:bg-surface-tint hover:text-white transition-colors">
+<span class="material-symbols-outlined">add</span>
+                        Add Member
+                    </button>
+</div>
+<!-- Bento-style Roster Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Member Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(42,92,130,0.08)] border border-surface-variant relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<img alt="Profile" class="w-14 h-14 rounded-full object-cover border-2 border-surface" data-alt="A close-up portrait of a middle-aged man smiling gently, indoors with soft natural lighting. He is wearing a light blue shirt. The background is slightly blurred, conveying a warm, reassuring, and family-oriented mood consistent with a modern corporate safety application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeU5dTdGYYmonHGVCU_8cwn6BlYai-Kh8W8sAIZXNddPM6vQGMwsGcMzvURhcZLYqcqmDGRzur4A42p2C_tJq5G_3CjWPrh2XVqHNhrrmvPd5q3Vjazd13RZnrEHXTP7a96MMHNP2cbJSTrxooOzl6JJ8Jl28qB4NpQNX9vBTbV6uf6kmo9RkPV9l-kL-CKnFTp2CC-WjHBdm_9wkxw3YfT7lshpvQsT0o-wJY1ZOBqrUDXnKuuG0cGuEsBgfNEwQECluyEYpkpNka"/>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Michael Smith</h3>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Parent / Administrator</span>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-6 pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full text-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">verified</span>
+                                    High Confidence
+                                </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-label-md text-label-md text-on-surface-variant">Consent</span>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="toggle1" name="toggle1" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="toggle1"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Member Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(42,92,130,0.08)] border border-surface-variant relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-fixed-dim"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-headline-md text-headline-md border-2 border-surface">
+                                    S
+                                </div>
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">Sarah Smith</h3>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm">Child</span>
+</div>
+</div>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-6 pt-4 border-t border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-xs font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">help_outline</span>
+                                    Pending Setup
+                                </span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-sm font-label-md text-label-md text-on-surface-variant">Consent</span>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer z-10 opacity-0" id="toggle2" name="toggle2" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer" for="toggle2"></label>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Safe Word Section -->
+<section class="lg:col-span-1">
+<div class="bg-surface-container-lowest rounded-xl p-6 shadow-[0_4px_20px_rgba(42,92,130,0.08)] border border-surface-variant sticky top-24">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed">
+<span class="material-symbols-outlined">vpn_key</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface text-xl">Set Family Safe Word</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-6">
+                        Choose a word to verify identity during an emergency. It should be memorable for the family but impossible for strangers to guess.
+                    </p>
+<form class="space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2" for="safeword">Current Safe Word</label>
+<div class="relative">
+<input class="w-full px-4 py-3 rounded-lg border-2 border-surface-variant focus:border-primary focus:ring-0 bg-surface-bright text-on-surface font-body-md text-body-md pr-12 transition-colors" id="safeword" readonly="" type="password" value="applesauce"/>
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" onclick="const input = document.getElementById('safeword'); input.type = input.type === 'password' ? 'text' : 'password'; const icon = this.querySelector('span'); icon.textContent = input.type === 'password' ? 'visibility_off' : 'visibility';" type="button">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+</div>
+<button class="w-full bg-surface-container-high text-on-surface py-3 rounded-lg font-label-lg text-label-lg hover:bg-surface-variant transition-colors border border-surface-variant flex items-center justify-center gap-2" type="button">
+<span class="material-symbols-outlined">edit</span>
+                            Update Safe Word
+                        </button>
+</form>
+<div class="mt-8 bg-surface-container-low p-4 rounded-lg border-l-4 border-inverse-primary">
+<h4 class="font-label-lg text-label-lg text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-inverse-primary" style="font-size: 20px;">lightbulb</span>
+                            Tips for a good word
+                        </h4>
+<ul class="space-y-2 font-body-md text-body-md text-sm text-on-surface-variant pl-6 list-disc">
+<li>Avoid common pet names or addresses.</li>
+<li>Use an inside joke or a specific memory.</li>
+<li>Keep it to one or two simple words.</li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Mobile Bottom Nav Bar -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0_-4px_20px_rgba(42,92,130,0.08)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-md text-label-md-mobile text-xs mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-2xl px-6 py-1 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined fill">group</span>
+<span class="font-label-md text-label-md-mobile text-xs mt-1">Roster</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">campaign</span>
+<span class="font-label-md text-label-md-mobile text-xs mt-1">Drills</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-label-md text-label-md-mobile text-xs mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">report</span>
+<span class="font-label-md text-label-md-mobile text-xs mt-1">Crisis</span>
+</a>
+</nav>
+</body></html>
