@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analysis Hub | Panic Decoder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&amp;family=Space+Mono:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@100..900&amp;family=Space+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#4e3e00",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "inverse-surface": "#2e3132",
+                        "on-surface": "#191c1d",
+                        "on-background": "#191c1d",
+                        "surface-bright": "#f8f9fa",
+                        "primary-container": "#dc3135",
+                        "primary": "#b81120",
+                        "on-secondary-fixed": "#00201c",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#eec200",
+                        "secondary-container": "#62fae3",
+                        "on-secondary-container": "#007165",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#231b00",
+                        "tertiary-fixed": "#ffe083",
+                        "on-primary-container": "#fffbff",
+                        "on-primary-fixed-variant": "#930014",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#005047",
+                        "surface-container-low": "#f3f4f5",
+                        "inverse-on-surface": "#f0f1f2",
+                        "outline-variant": "#e4bdba",
+                        "secondary-fixed-dim": "#3cddc7",
+                        "inverse-primary": "#ffb3ae",
+                        "surface": "#f8f9fa",
+                        "tertiary": "#735c00",
+                        "on-primary-fixed": "#410004",
+                        "secondary-fixed": "#62fae3",
+                        "background": "#f8f9fa",
+                        "outline": "#906f6d",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "primary-fixed": "#ffdad7",
+                        "surface-variant": "#e1e3e4",
+                        "on-surface-variant": "#5b403e",
+                        "tertiary-container": "#cea700",
+                        "surface-container-highest": "#e1e3e4",
+                        "secondary": "#006b5f",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "surface-dim": "#d9dadb",
+                        "primary-fixed-dim": "#ffb3ae",
+                        "surface-tint": "#bb1522"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "stack-offset": "8px",
+                        "unit": "4px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "xl": "48px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Quicksand"],
+                        "body-sm": ["Quicksand"],
+                        "code-snippet": ["Space Mono"],
+                        "display-lg": ["Quicksand"],
+                        "headline-md": ["Quicksand"],
+                        "display-lg-mobile": ["Quicksand"],
+                        "label-sticker": ["Space Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "code-snippet": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "label-sticker": ["12px", {"lineHeight": "1", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .paper-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/handmade-paper.png");
+            background-repeat: repeat;
+        }
+        .grain-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+        }
+        .hard-shadow { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+        .hard-shadow-sm { box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); }
+        .hard-shadow-hover:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px 0px rgba(0,0,0,1); }
+        
+        /* Custom Range Slider */
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track { height: 8px; background: #191c1d; border-radius: 0; border: 2px solid black; }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 24px; width: 24px; background: #62fae3; border: 2px solid black; margin-top: -10px; cursor: pointer; box-shadow: 2px 2px 0px black; transform: rotate(4deg); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body-lg text-on-surface paper-texture min-h-screen pb-32">
+<div class="grain-overlay"></div>
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 flex justify-between items-center px-md py-sm bg-surface dark:bg-surface-container-highest border-b-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="emergency_home">emergency_home</span>
+<h1 class="font-headline-md text-headline-md text-primary border-2 border-black px-2 py-1 rotate-[-1deg] bg-surface-container-lowest">PANIC DECODER</h1>
+</div>
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] cursor-pointer transition-all" data-icon="warning">warning</span>
+</div>
+</header>
+<main class="max-w-6xl mx-auto px-md md:px-xl py-xl space-y-xl">
+<!-- Panic Trigger Highlighter -->
+<section class="space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined bg-tertiary-fixed text-on-tertiary-fixed p-1 border border-black rotate-2" data-icon="search_insights">search_insights</span>
+<h2 class="font-headline-md text-headline-md">Panic Trigger Highlighter</h2>
+</div>
+<div class="relative bg-surface-container-lowest border-2 border-black p-lg hard-shadow -rotate-[0.5deg]">
+<div class="absolute -top-3 -right-3 bg-secondary-container text-on-secondary-container font-label-sticker text-label-sticker px-3 py-1 border-2 border-black rotate-3 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    DECODED THREAD
+                </div>
+<div class="font-code-snippet text-code-snippet space-y-md">
+<p>
+                        "I heard from <span class="bg-primary-container text-on-primary-container px-1 border border-black">a friend of an AO</span> that this year's 
+                        acceptance rate is going to drop below 3%. I haven't slept in three days because my 
+                        <span class="bg-primary-container text-on-primary-container px-1 border border-black">SAT score is only a 1580</span> and 
+                        everyone on CollegeConfidential says that's basically a rejection. 
+                        <span class="bg-secondary-container text-on-secondary-container px-1 border border-black">Remember to check the official portal</span> 
+                        for your actual status. My neighbor's cousin got in with a 1400 last year, but 
+                        <span class="bg-primary-container text-on-primary-container px-1 border border-black">things have changed!</span>"
+                    </p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl items-start">
+<!-- Rumor vs Action Sorter -->
+<section class="md:col-span-8 space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined bg-secondary-fixed text-on-secondary-fixed p-1 border border-black -rotate-2" data-icon="splitscreen">splitscreen</span>
+<h2 class="font-headline-md text-headline-md">Rumor vs Action Sorter</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-lg relative">
+<!-- Rumors Column -->
+<div class="bg-primary-fixed border-2 border-black p-md hard-shadow rotate-[1deg] flex flex-col gap-sm min-h-[250px]">
+<div class="bg-primary text-on-primary font-label-sticker text-label-sticker px-2 py-1 border-2 border-black self-start -mt-6 rotate-[-2deg]">RUMORS / ANXIETY</div>
+<ul class="space-y-sm font-code-snippet text-code-snippet mt-4">
+<li class="border-b border-black pb-1 italic">"3% Acceptance Rate Scare"</li>
+<li class="border-b border-black pb-1 italic">"1580 is too low for Ivy"</li>
+<li class="border-b border-black pb-1 italic">"The Portal has a secret 'hidden' code"</li>
+</ul>
+</div>
+<!-- Actions Column -->
+<div class="bg-secondary-fixed border-2 border-black p-md hard-shadow -rotate-[1deg] flex flex-col gap-sm min-h-[250px]">
+<div class="bg-secondary text-on-secondary font-label-sticker text-label-sticker px-2 py-1 border-2 border-black self-start -mt-6 rotate-[2deg]">ACTIONABLE TRUTHS</div>
+<ul class="space-y-sm font-code-snippet text-code-snippet mt-4">
+<li class="border-b border-black pb-1 font-bold">✓ Check official portal links only</li>
+<li class="border-b border-black pb-1 font-bold">✓ Finalize FAFSA submission</li>
+<li class="border-b border-black pb-1 font-bold">✓ Update waitlist letters</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- Parent Emotion Tone Meter -->
+<section class="md:col-span-4 space-y-md">
+<div class="bg-tertiary-container text-on-tertiary-container border-2 border-black p-md hard-shadow rotate-[2deg]">
+<h3 class="font-headline-md text-headline-md mb-md">Parent Tone Meter</h3>
+<div class="space-y-lg">
+<div class="flex justify-between font-label-sticker text-label-sticker uppercase tracking-tighter">
+<span class="bg-primary px-1 text-white border border-black">Overwhelmed</span>
+<span class="bg-secondary px-1 text-white border border-black">Zen Guardian</span>
+</div>
+<input class="w-full h-4 bg-black cursor-pointer" max="100" min="0" type="range" value="45"/>
+<p class="text-body-sm italic text-center mt-4">Current state: "Slightly vibrating with stress but still making coffee."</p>
+</div>
+</div>
+<!-- Advice Source Credibility Chips -->
+<div class="pt-lg space-y-sm">
+<h4 class="font-label-sticker text-label-sticker uppercase text-on-surface-variant">Who's talking?</h4>
+<div class="flex flex-wrap gap-sm">
+<span class="bg-surface-container-highest border-2 border-black px-2 py-1 text-label-sticker rotate-[-3deg] hard-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="person">person</span> Just a Dad on CC
+                        </span>
+<span class="bg-tertiary-fixed border-2 border-black px-2 py-1 text-label-sticker rotate-[2deg] hard-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified">verified</span> AOs Friend
+                        </span>
+<span class="bg-primary-fixed border-2 border-black px-2 py-1 text-label-sticker rotate-[-1deg] hard-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="psychology">psychology</span> Anxious Student
+                        </span>
+<span class="bg-secondary-container border-2 border-black px-2 py-1 text-label-sticker rotate-[4deg] hard-shadow-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="school">school</span> Reality Check
+                        </span>
+</div>
+</div>
+</section>
+</div>
+<!-- Decision Deadline Lane -->
+<section class="space-y-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined bg-inverse-surface text-surface p-1 border border-black" data-icon="timeline">timeline</span>
+<h2 class="font-headline-md text-headline-md">Decision Deadline Lane</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-sm">
+<div class="relative group">
+<div class="bg-surface-container border-2 border-black p-md h-full rotate-[-1deg] transition-transform group-hover:scale-105 group-hover:z-10 bg-white">
+<div class="text-primary font-label-sticker text-[10px] mb-1">MAR 28</div>
+<div class="font-headline-md text-headline-md border-b-2 border-black pb-2 mb-2">Ivy Day</div>
+<p class="font-body-sm">Mass portal openings. High panic probability. Avoid Reddit for 24 hours.</p>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container border-2 border-black p-md h-full rotate-[1deg] transition-transform group-hover:scale-105 group-hover:z-10 bg-white">
+<div class="text-primary font-label-sticker text-[10px] mb-1">APR 01</div>
+<div class="font-headline-md text-headline-md border-b-2 border-black pb-2 mb-2">UC Decisions</div>
+<p class="font-body-sm">Final wave of state school notifications. Servers may lag.</p>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container border-2 border-black p-md h-full rotate-[-2deg] transition-transform group-hover:scale-105 group-hover:z-10 bg-white">
+<div class="text-primary font-label-sticker text-[10px] mb-1">APR 15</div>
+<div class="font-headline-md text-headline-md border-b-2 border-black pb-2 mb-2">Financial Aid</div>
+<p class="font-body-sm">FAFSA verification deadline for many institutional grants.</p>
+</div>
+</div>
+<div class="relative group">
+<div class="bg-surface-container border-2 border-black p-md h-full rotate-[0.5deg] transition-transform group-hover:scale-105 group-hover:z-10 bg-white">
+<div class="text-secondary font-label-sticker text-[10px] mb-1">MAY 01</div>
+<div class="font-headline-md text-headline-md border-b-2 border-black pb-2 mb-2">Decision Day</div>
+<p class="font-body-sm">The Finish Line. Commit, deposit, and breathe.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Aesthetic Imagery Section -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-lg mt-xl">
+<div class="relative h-64 border-2 border-black hard-shadow rotate-[-1deg] overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A moody, high-contrast black and white photograph of an old college library hallway. The lighting is dramatic with deep shadows and sharp highlights, fitting the modern brutalist aesthetic. The mood is academic yet slightly tense, reflecting the high-stakes environment of admissions. The composition is off-center and gritty." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-U77lixHHofpM-8bnlntiXkVFhx0UUelhfpFb04m_7OPyslsAZdVnDPakdOmHVzyTGdYqoQHPpw0XzqY2lANIyIo1SvjQDc06Z7NXnEFHkS6wpXpUrrbY759qFH-VKMhiwE_UOC84sSqLMwyntmzjMqTfhjYXlf3Zm3wQ5JOmGVi1VWRmQF_Tzuip26IehsUbu7sXmYCOTalCeJGrxX1EfN6uXbEeMFCQBxRm20qzAsOSYbTRnKgi-9fZuXyRDHI4SNsj-LSupt7t"/>
+<div class="absolute inset-0 bg-primary/10"></div>
+<div class="absolute bottom-4 left-4 bg-white border-2 border-black px-2 py-1 font-label-sticker rotate-2">STUDY VIBES</div>
+</div>
+<div class="relative h-64 border-2 border-black hard-shadow rotate-[1deg] overflow-hidden">
+<img class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A flat-lay photograph of a messy student desk featuring a laptop, half-empty coffee mugs, and scattered sticky notes. The lighting is harsh and direct, creating strong black shadows on a bright white surface. The color palette includes pops of vibrant red and teal markers. The vibe is a chaotic 'digital scrapbook' scene filled with energy and stress." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIDk3aCzjvJ_n9Lm2he3a8JauAo6xXtJt6XnYB5uHVWL0o0Cbi80mfYo3tv7bCop0istHcKyydbwxRJ9xek8N9xuPIQ99B3d3Nxsa8Dq83uHoHtvAGyINHSdMFhhR6zLzIn5uOsF2VuhjVDVLiIUSwzWZD0AqQW1bjrBlR4DOLfLUkLfYy_j3vZ5z56fdR9dz-u9QM50YSUiqkEQ0-OY0Konx4hw9axjm_4OS0E-qPHud9KlTKvtHidBi7VQpfe6w2oEHQapLK84by"/>
+<div class="absolute inset-0 bg-secondary/10"></div>
+<div class="absolute top-4 right-4 bg-white border-2 border-black px-2 py-1 font-label-sticker rotate-[-2deg]">THE HUB</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-lg pb-6 pt-sm bg-surface border-t-2 border-black shadow-[0_-4px_0px_0px_rgba(0,0,0,1)] z-[60]">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 hover:text-on-secondary-container" href="#">
+<span class="material-symbols-outlined" data-icon="content_paste">content_paste</span>
+<span class="font-label-sticker text-label-sticker">Paste</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container border-2 border-black rotate-1 p-xs transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-sticker text-label-sticker">Analyze</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-95 hover:text-on-secondary-container" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-sticker text-label-sticker">History</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for slider
+        const slider = document.querySelector('input[type="range"]');
+        const toneDesc = document.querySelector('input[type="range"] + p');
+        
+        slider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            let text = "";
+            if(val < 25) text = "Current state: 'Full-blown panic, checking CC every 2 minutes.'";
+            else if(val < 50) text = "Current state: 'Slightly vibrating with stress but still making coffee.'";
+            else if(val < 75) text = "Current state: 'Cautiously optimistic, only checking once an hour.'";
+            else text = "Current state: 'Zen Guardian. Whatever happens, happens. Deep breaths.'";
+            
+            toneDesc.textContent = text;
+        });
+
+        // Add subtle interaction sounds or visual feedbacks could go here
+    </script>
+</body></html>
