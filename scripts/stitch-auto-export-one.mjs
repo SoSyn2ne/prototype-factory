@@ -127,11 +127,20 @@ let rendered = false;
 while (Date.now() - waitStarted < renderWaitMs) {
   appFrame = page.frames().find((frame) => frame.url().includes('app-companion'));
   const body = await appFrame?.evaluate(() => document.body?.innerText || '').catch(() => '');
+  const generatedScreenCount = await appFrame?.evaluate(() => {
+    return [...document.querySelectorAll('button,[role=button],div')]
+      .filter((node) => {
+        const label = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
+        const rect = node.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && /^devices\s+.+/i.test(label);
+      }).length;
+  }).catch(() => 0);
   if (
     body
     && /내보내기|Export/.test(body)
-    && !/화면 생성 중|Crafting|Generating/i.test(body)
-    && /Would you like|How do these screens|I have designed|I built|The design|Downloaded screens|Logo|Design System|devices/i.test(body)
+    && !/화면 생성 중|Creating the UX flows|Crafting|Generating/i.test(body)
+    && generatedScreenCount > 0
+    && /Would you like|What would you like|How do these screens|I have designed|I built|I've developed|The design|Downloaded screens/i.test(body)
   ) {
     rendered = true;
     break;
