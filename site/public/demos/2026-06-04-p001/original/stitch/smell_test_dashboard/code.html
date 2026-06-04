@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Smell Test AI - Screening Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-high": "#222a3d",
+                      "on-secondary": "#233143",
+                      "surface-tint": "#7bd0ff",
+                      "tertiary": "#ffc176",
+                      "surface-container-low": "#131b2e",
+                      "on-error-container": "#ffdad6",
+                      "on-surface": "#dae2fd",
+                      "surface-variant": "#2d3449",
+                      "surface-container": "#171f33",
+                      "surface": "#0b1326",
+                      "surface-dim": "#0b1326",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-primary": "#00354a",
+                      "on-background": "#dae2fd",
+                      "primary-fixed": "#c4e7ff",
+                      "error-container": "#93000a",
+                      "on-tertiary-container": "#613b00",
+                      "primary": "#8ed5ff",
+                      "background": "#0b1326",
+                      "inverse-primary": "#00668a",
+                      "on-primary-fixed-variant": "#004c69",
+                      "primary-fixed-dim": "#7bd0ff",
+                      "on-surface-variant": "#bdc8d1",
+                      "error": "#ffb4ab",
+                      "secondary-fixed-dim": "#b9c8de",
+                      "secondary-container": "#39485a",
+                      "surface-container-lowest": "#060e20",
+                      "secondary": "#b9c8de",
+                      "inverse-on-surface": "#283044",
+                      "tertiary-fixed": "#ffddb8",
+                      "primary-container": "#38bdf8",
+                      "surface-container-highest": "#2d3449",
+                      "surface-bright": "#31394d",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "outline-variant": "#3e484f",
+                      "on-secondary-fixed": "#0d1c2d",
+                      "on-primary-fixed": "#001e2c",
+                      "secondary-fixed": "#d4e4fa",
+                      "on-tertiary": "#472a00",
+                      "on-secondary-container": "#a7b6cc",
+                      "on-secondary-fixed-variant": "#39485a",
+                      "outline": "#87929a",
+                      "tertiary-fixed-dim": "#ffb960",
+                      "tertiary-container": "#f1a02b",
+                      "on-primary-container": "#004965",
+                      "inverse-surface": "#dae2fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-margin": "1.5rem",
+                      "unit": "4px",
+                      "gutter": "0.75rem",
+                      "row-height-standard": "40px",
+                      "row-height-dense": "32px"
+              },
+              "fontFamily": {
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-sm": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dense tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b1326; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2d3449; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3e484f; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm antialiased h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-high dark:bg-surface-container-high text-primary dark:text-primary font-headline-sm text-headline-sm flex justify-between items-center w-full px-gutter h-row-height-standard border-b border-outline-variant shrink-0 relative z-20">
+<div class="flex items-center gap-4">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary">Smell Test AI</div>
+<!-- Search on Left -->
+<div class="hidden md:flex items-center bg-surface-variant rounded px-2 py-1 border border-outline-variant focus-within:border-primary transition-colors ml-4">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">search</span>
+<input class="bg-transparent border-none text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant focus:ring-0 py-0 h-6 w-64 ml-2" placeholder="Search applicant, SSN, or ID..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<!-- Navigation items -->
+<div class="hidden lg:flex items-center h-full gap-4 mr-4">
+<!-- Assuming this is a general view, no specific active tab from JSON if not explicitly passed, but we'll adapt a typical header if needed. Since TopNavBar doesn't have tab_labels in JSON, just using actions. -->
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 rounded hover:opacity-80 transition-opacity flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">edit_document</span>
+                Compose Proof Request
+            </button>
+<div class="flex items-center gap-2">
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors p-1 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors p-1 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline overflow-hidden ml-2">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A close-up, professional headshot of a mature male operator in a dark, high-tech command center environment. The lighting is cinematic, with cool blue undertones illuminating his face against a dark, minimalist background. The style is clinical, observant, and authoritative, matching the high-stakes, dark-mode leasing operations aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6iVwwrHKEkvl0RnPAX97tvPDWadUqhUmze5QuA5H-RdgBMPLb5CU37oWai-i3VCbelF7VHr4Ftdxs5AsItT5iuH-P2vRLrjETPRO6WI2BpFd9aI7Ouv5oMlkoWQ4Y5y-PHffg_FtwzfTTiMQWsNfzKziRF8YhFsUMN1xC54rjY73z10ql4OMoUdA9abwnPyLG8_xTm7P-D4Dok0MJ7OwQ4iGy9pNOJokZSaf5YqV1C0vaeHl6xUhOpnMC50ZCetSzsVB69_DNAbw"/>
+</div>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-body-sm text-body-sm w-64 border-r border-outline-variant flex flex-col h-full p-gutter gap-unit shrink-0 z-10">
+<!-- Header section of SideNav -->
+<div class="flex flex-col mb-4 p-2 bg-surface-variant rounded border border-outline-variant">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded border border-outline overflow-hidden bg-surface-container">
+<img alt="Applicant Avatar" class="w-full h-full object-cover" data-alt="A clinical, straight-on headshot of a male applicant, resembling a passport or ID photo. The background is a stark, neutral gray. The lighting is flat and utilitarian, emphasizing clarity and information density. The mood is serious and objective, fitting for a dark-mode, high-stakes fraud detection interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKxSq0JXquaBkLfDvQ0pdQyfSxNqOj6niKMiqm8UfiSj85l_tNfX9eWKpP_xlGJ1fe5ZZCmwAOVvOah3CLfu4Kn9r2cNe7_jfhmKItpeNX7rHg1dSmyKlGQuTVX9WZ8i3uoa5WY0HkJIrSwAWFaHuFroI0-HoTr6gPJH3uw2L5Ss1R5_X644Qehj-wViC8aUDj0zLPOkt5JW8x-4EUBsaAjAeLsMm4EVWptVVZ9VdUpzp68c5ikiodfRHeHkvq5K8hLQ2XlF565gc"/>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface">John Doe</div>
+<div class="font-data-mono text-data-mono text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+                            Risk Score: High
+                        </div>
+</div>
+</div>
+<button class="w-full border border-primary text-primary hover:bg-surface-variant py-1 rounded transition-colors font-label-caps text-label-caps flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">play_arrow</span>
+                    Run New Test
+                </button>
+</div>
+<!-- Tabs -->
+<nav class="flex-1 flex flex-col gap-1">
+<!-- Active Tab: Smell Test -->
+<a class="bg-secondary-container text-on-secondary-container rounded-lg font-bold flex items-center gap-2 p-2 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-weight="fill">analytics</span>
+                    Smell Test
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-2 p-2 rounded transition-all duration-200" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                    Employer Verification
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-2 p-2 rounded transition-all duration-200" href="#">
+<span class="material-symbols-outlined">history</span>
+                    Decision Log
+                </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-outline-variant pt-2 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-2 p-2 rounded transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+<a class="text-on-surface-variant hover:bg-surface-variant flex items-center gap-2 p-2 rounded transition-all duration-200" href="#">
+<span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col bg-surface overflow-hidden relative">
+<!-- Risk Header / Disclaimer -->
+<header class="bg-surface-container px-container-margin py-3 border-b border-outline-variant flex justify-between items-center shrink-0">
+<div class="flex items-center gap-3">
+<div class="bg-tertiary-container/20 border border-tertiary text-tertiary px-2 py-1 rounded font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">gavel</span>
+                        Disclaimer
+                    </div>
+<span class="font-body-md text-body-md text-on-surface-variant">Final residency decisions must be made by the human officer. Automated findings are for internal review only.</span>
+</div>
+<div class="flex gap-2">
+<button class="border border-outline-variant text-on-surface hover:bg-surface-variant px-3 py-1 rounded font-label-caps text-label-caps transition-colors">Reject Applicant</button>
+<button class="bg-primary-container text-on-primary-container px-3 py-1 rounded font-label-caps text-label-caps hover:opacity-80 transition-opacity">Request Override</button>
+</div>
+</header>
+<!-- Workspace: Two Column Layout (Stack + Details) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Column: Document Intake Stack -->
+<div class="w-72 border-r border-outline-variant bg-surface-dim flex flex-col overflow-y-auto">
+<div class="p-3 border-b border-outline-variant sticky top-0 bg-surface-dim z-10 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface">Document Stack</h2>
+<span class="font-data-mono text-data-mono bg-surface-variant px-1 rounded text-on-surface-variant">4 items</span>
+</div>
+<div class="p-2 flex flex-col gap-2">
+<!-- Doc Item 1 (Active) -->
+<div class="bg-surface-container border border-tertiary rounded p-2 cursor-pointer relative overflow-hidden group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex justify-between items-start mb-1 ml-1">
+<div class="font-body-sm text-body-sm font-bold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">description</span>
+                                    Paystub_Oct2023.pdf
+                                </div>
+<span class="material-symbols-outlined text-tertiary text-[16px]">warning</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant ml-1 mb-2">Uploaded: 10/24/2023</div>
+<div class="bg-tertiary-container/10 border border-tertiary/30 rounded px-1 py-0.5 ml-1 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-label-caps text-label-caps text-tertiary">Math Anomaly</span>
+</div>
+</div>
+<!-- Doc Item 2 -->
+<div class="bg-surface border border-outline-variant hover:border-outline rounded p-2 cursor-pointer transition-colors ml-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-sm text-body-sm text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">description</span>
+                                    W2_2022_Form.pdf
+                                </div>
+<span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant mb-2">Uploaded: 10/24/2023</div>
+<div class="bg-primary/10 border border-primary/30 rounded px-1 py-0.5 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+<span class="font-label-caps text-label-caps text-primary">Verified</span>
+</div>
+</div>
+<!-- Doc Item 3 -->
+<div class="bg-surface border border-outline-variant hover:border-outline rounded p-2 cursor-pointer transition-colors ml-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-body-sm text-body-sm text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">account_balance</span>
+                                    BankStmt_Sept.pdf
+                                </div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">hourglass_empty</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant mb-2">Uploaded: 10/24/2023</div>
+<div class="bg-surface-variant border border-outline-variant rounded px-1 py-0.5 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Pending OCR</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Detail View (Math Consistency Smell Test) -->
+<div class="flex-1 flex flex-col bg-surface overflow-y-auto">
+<!-- Alert Banner -->
+<div class="m-container-margin mb-4 bg-tertiary-container/10 border border-tertiary rounded p-4 flex items-start gap-3 shadow-[inset_0_1px_0_rgba(255,193,118,0.2)]">
+<span class="material-symbols-outlined text-tertiary text-[24px] mt-0.5">warning</span>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-tertiary mb-1">Amber Warning - Math Mismatch</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                                Smell Test AI has detected structural inconsistencies in the provided paystub. The calculated Net Pay significantly exceeds the stated Gross Pay minus deductions. Tax withholding rates also fall outside standard state/federal brackets for this income level.
+                            </p>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Split View: Viewer + Tables -->
+<div class="px-container-margin pb-container-margin grid grid-cols-1 xl:grid-cols-2 gap-4 flex-1">
+<!-- Document Viewer Canvas -->
+<div class="bg-surface-container-high border border-outline-variant rounded flex flex-col min-h-[500px]">
+<div class="p-2 border-b border-outline-variant bg-surface-container flex justify-between items-center rounded-t">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface">Source Extraction</span>
+<span class="font-data-mono text-data-mono text-tertiary bg-tertiary/10 px-1 rounded">Confidence: 94%</span>
+</div>
+<div class="flex gap-1">
+<button class="p-1 text-on-surface-variant hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-[16px]">zoom_in</span></button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-variant rounded"><span class="material-symbols-outlined text-[16px]">zoom_out</span></button>
+</div>
+</div>
+<div class="flex-1 bg-[#e2e8f0] p-4 flex justify-center items-start overflow-auto relative dark:bg-[#cbd5e1] rounded-b">
+<!-- Simulated Document -->
+<div class="bg-white text-black p-6 w-full max-w-[400px] shadow-sm font-data-mono text-data-mono text-[10px] leading-tight border border-gray-300 relative">
+<div class="border-b border-black pb-2 mb-2 flex justify-between">
+<div><strong>ACME CORP INC.</strong><br/>123 Main St, Anytown</div>
+<div class="text-right"><strong>EARNINGS STATEMENT</strong><br/>Period: 10/01/23 - 10/15/23</div>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div>Emp Name: John Doe<br/>SSN: ***-**-1234</div>
+<div class="text-right">Pay Date: 10/20/2023</div>
+</div>
+<table class="w-full mb-4 border-collapse">
+<tbody><tr class="border-b border-gray-400"><th class="text-left pb-1">Earnings</th><th class="text-right pb-1">Rate</th><th class="text-right pb-1">Hours</th><th class="text-right pb-1">Current</th></tr>
+<tr><td class="py-1">Regular</td><td class="text-right">$25.00</td><td class="text-right">80.00</td><td class="text-right">$2,000.00</td></tr>
+<tr><td class="py-1">Overtime</td><td class="text-right">$37.50</td><td class="text-right">10.00</td><td class="text-right">$375.00</td></tr>
+<tr class="font-bold border-t border-gray-300"><td class="pt-1" colspan="3">Gross Earnings:</td><td class="text-right pt-1">$2,375.00</td></tr>
+</tbody></table>
+<!-- Highlighted Anomaly Box on Doc -->
+<div class="absolute border-2 border-red-500 bg-red-500/10 p-1 -ml-1 -mr-1" style="top: 240px; width: calc(100% + 8px);"></div>
+<table class="w-full mb-4 border-collapse">
+<tbody><tr class="border-b border-gray-400"><th class="text-left pb-1">Taxes/Deductions</th><th class="text-right pb-1">Current</th></tr>
+<tr><td class="py-1">Fed Income Tax</td><td class="text-right">-$210.50</td></tr>
+<tr><td class="py-1">Social Security</td><td class="text-right">-$147.25</td></tr>
+<tr><td class="py-1">Medicare</td><td class="text-right">-$34.43</td></tr>
+<tr class="font-bold border-t border-gray-300 text-red-600"><td class="pt-1">Total Deductions:</td><td class="text-right pt-1">-$392.18</td></tr>
+</tbody></table>
+<div class="border-t-2 border-black pt-2 flex justify-between font-bold text-[12px] relative z-10">
+<span class="text-red-600">NET PAY:</span>
+<span class="text-red-600">$2,850.00</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Data & Operator Dense Tables -->
+<div class="flex flex-col gap-4">
+<!-- Risk Meter -->
+<div class="bg-surface-container border border-outline-variant rounded p-3">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-label-caps text-label-caps text-on-surface">Document Risk Distribution</h4>
+<span class="font-data-mono text-data-mono text-tertiary">Anomalies Detected: 2</span>
+</div>
+<div class="w-full h-2 rounded overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 40%" title="Verified Points"></div>
+<div class="bg-outline h-full" style="width: 10%" title="Unverified"></div>
+<div class="bg-tertiary h-full" style="width: 30%" title="Warnings"></div>
+<div class="bg-error h-full" style="width: 20%" title="Critical Risk"></div>
+</div>
+<div class="flex justify-between mt-2 font-data-mono text-data-mono text-[10px] text-on-surface-variant">
+<span>Identity: OK</span>
+<span>Dates: OK</span>
+<span class="text-tertiary">Math: FAIL</span>
+</div>
+</div>
+<!-- Operator Dense Table: Math Reconciliation -->
+<div class="bg-surface-container border border-outline-variant rounded flex flex-col flex-1">
+<div class="p-2 border-b border-outline-variant bg-surface-variant rounded-t flex justify-between items-center">
+<h4 class="font-label-caps text-label-caps text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calculate</span>
+                                        Reconciliation Engine
+                                    </h4>
+<button class="text-primary font-data-mono text-data-mono hover:underline">View Raw Log</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-mono text-data-mono whitespace-nowrap">
+<thead class="bg-surface-container-high border-b border-outline-variant text-on-surface-variant">
+<tr>
+<th class="px-3 py-2 font-normal">Field Name</th>
+<th class="px-3 py-2 font-normal text-right">Extracted Value</th>
+<th class="px-3 py-2 font-normal text-right">System Calc</th>
+<th class="px-3 py-2 font-normal text-center">Variance</th>
+<th class="px-3 py-2 font-normal w-8"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant h-row-height-dense hover:bg-surface-variant/50 transition-colors">
+<td class="px-3 py-1 text-on-surface">Gross Pay</td>
+<td class="px-3 py-1 text-right">$2,375.00</td>
+<td class="px-3 py-1 text-right text-on-surface-variant">$2,375.00</td>
+<td class="px-3 py-1 text-center text-primary">0.00</td>
+<td class="px-3 py-1 text-center"><span class="material-symbols-outlined text-primary text-[14px]">check</span></td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface-container-high h-row-height-dense hover:bg-surface-variant/50 transition-colors">
+<td class="px-3 py-1 text-on-surface">Total Deductions</td>
+<td class="px-3 py-1 text-right">-$392.18</td>
+<td class="px-3 py-1 text-right text-on-surface-variant">-$392.18</td>
+<td class="px-3 py-1 text-center text-primary">0.00</td>
+<td class="px-3 py-1 text-center"><span class="material-symbols-outlined text-primary text-[14px]">check</span></td>
+</tr>
+<tr class="border-b border-tertiary/50 bg-tertiary-container/10 h-row-height-dense">
+<td class="px-3 py-1 text-tertiary font-bold">Net Pay</td>
+<td class="px-3 py-1 text-right text-tertiary font-bold">$2,850.00</td>
+<td class="px-3 py-1 text-right text-on-surface-variant line-through">$1,982.82</td>
+<td class="px-3 py-1 text-center text-tertiary font-bold">+$867.18</td>
+<td class="px-3 py-1 text-center"><span class="material-symbols-outlined text-tertiary text-[14px]">priority_high</span></td>
+</tr>
+<tr class="border-b border-outline-variant h-row-height-dense hover:bg-surface-variant/50 transition-colors">
+<td class="px-3 py-1 text-on-surface">Est. Tax Bracket</td>
+<td class="px-3 py-1 text-right">12%</td>
+<td class="px-3 py-1 text-right text-on-surface-variant">22%</td>
+<td class="px-3 py-1 text-center text-tertiary">Mismatch</td>
+<td class="px-3 py-1 text-center"><span class="material-symbols-outlined text-tertiary text-[14px]">warning</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 bg-surface-container mt-auto">
+<div class="text-body-sm font-body-sm text-on-surface-variant mb-2">Operator Action Required:</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-surface-variant border border-outline-variant hover:border-outline text-on-surface py-1 rounded font-body-sm transition-colors text-center">Mark as Fraud</button>
+<button class="flex-1 bg-surface-variant border border-outline-variant hover:border-outline text-on-surface py-1 rounded font-body-sm transition-colors text-center">Request W2</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-on-surface-variant dark:text-on-surface-variant font-data-mono text-data-mono flex justify-between items-center w-full px-gutter py-2 border-t border-outline-variant shrink-0 z-20">
+<div class="opacity-80">LEGAL DISCLAIMER: Automated findings are for internal review only. All final residency decisions must be made by a human officer.</div>
+<div class="flex gap-4">
+<a class="hover:text-primary transition-colors opacity-80" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors opacity-80" href="#">Compliance Guidelines</a>
+</div>
+</footer>
+</body></html>

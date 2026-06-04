@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Serene Ledger - Handoff Packet</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-primary": "#a8c8ff",
+                        "on-background": "#1b1c1a",
+                        "surface": "#faf9f5",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface-container-high": "#e9e8e4",
+                        "surface-dim": "#dbdad6",
+                        "surface-container-highest": "#e3e2df",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary-container": "#663500",
+                        "primary": "#00376f",
+                        "on-primary-fixed-variant": "#134684",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "outline-variant": "#c3c6d2",
+                        "surface-tint": "#325f9e",
+                        "secondary-fixed": "#ffdcc3",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "error": "#ba1a1a",
+                        "surface-container": "#efeeea",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434750",
+                        "on-primary-container": "#9dc1ff",
+                        "secondary-container": "#fe932c",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#2f1500",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-on-surface": "#f2f1ed",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f4f4f0",
+                        "background": "#faf9f5",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f312e",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "secondary": "#904d00",
+                        "on-surface": "#1b1c1a",
+                        "primary-container": "#1e4e8c",
+                        "tertiary-container": "#a1000e",
+                        "on-primary-fixed": "#001b3d",
+                        "on-tertiary-fixed": "#410002",
+                        "primary-fixed-dim": "#a8c8ff",
+                        "outline": "#737781",
+                        "surface-variant": "#e3e2df",
+                        "on-tertiary-container": "#ffaaa0",
+                        "tertiary": "#760007",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding-desktop": "64px",
+                        "container-padding-mobile": "24px",
+                        "unit": "8px",
+                        "stack-gap": "32px",
+                        "section-margin": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Atkinson Hyperlegible Next"],
+                        "display-lg": ["Atkinson Hyperlegible Next"],
+                        "body-md": ["Atkinson Hyperlegible Next"],
+                        "body-lg": ["Atkinson Hyperlegible Next"],
+                        "display-lg-mobile": ["Atkinson Hyperlegible Next"],
+                        "status-indicator": ["Atkinson Hyperlegible Next"],
+                        "label-caps": ["Atkinson Hyperlegible Next"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "30px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "status-indicator": ["16px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-caps": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .zebra-row:nth-child(even) { background-color: #faf9f5; }
+        .zebra-row:nth-child(odd) { background-color: #ffffff; }
+        
+        .shadow-level-2 {
+            box-shadow: 0 4px 12px rgba(254, 147, 44, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim w-full top-0 sticky bg-surface border-b border-outline-variant dark:border-outline z-50">
+<div class="flex justify-between items-center h-20 px-container-padding-mobile md:px-container-padding-desktop max-w-[1200px] mx-auto w-full">
+<div class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary dark:text-inverse-primary tracking-tight">
+                Serene Ledger
+            </div>
+<nav class="hidden md:flex gap-6 items-center h-full">
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 h-full flex items-center" href="#">Dashboard</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 h-full flex items-center mt-1" href="#">Compliance</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80 h-full flex items-center" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-surface border border-outline-variant text-on-surface-variant px-4 py-2 rounded-full font-body-md hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+                    Help Center
+                </button>
+<button class="flex items-center gap-2 bg-primary text-on-primary px-6 py-2 rounded-full font-body-md hover:bg-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined text-[20px]" data-icon="upload_file">upload_file</span>
+                    Upload Receipt
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant hidden md:block">
+<img alt="Caregiver Profile" class="w-full h-full object-cover" data-alt="A small, circular profile portrait of a compassionate-looking middle-aged woman, representing a family caregiver. The lighting is soft and natural, emphasizing a reassuring and empathetic mood. The background is a blurred, warm, modern home environment. This image is used as an avatar in a clean, modern corporate UI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC6Mt8oLHMt71twviZg79y5wCN2RuPNlC8uhEp8QV-3uRq63eowSwwnGYRD-fXugzfIHLsArvY5NlYtgOuC4PGgJzEzr-8bVAKd9OnKN6ZtRk36w7wFV1FFExvri713FbQhMaoZKdMpCm1R55rm2s9Cvjvgcia_3HZAB6irOCZakvAu3r8qO4cSyK1nRKu2WNudE4CtA3weEcBH0jZTDJVsNpj78PhS2kWBvdC0_ceLiD52fSxHVVOPKpYh2iynSztntU5_irSkXZXn"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-[1200px] mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex bg-surface-container dark:bg-surface-container-high h-[calc(100vh-80px)] w-64 fixed left-0 top-20 bg-surface-container-low border-r border-outline-variant z-40 flex-col py-8 justify-between">
+<div class="flex flex-col gap-stack-gap px-4">
+<div class="flex items-center gap-3 px-2">
+<div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined" data-icon="assured_workload">assured_workload</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-tight">Medicaid Manager</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant opacity-80 mt-1">Status: Active Spenddown</p>
+</div>
+</div>
+<nav class="space-y-2 mt-4">
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="folder_shared">folder_shared</span>
+<span class="font-body-md text-body-md">Document Vault</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-body-md text-body-md">Spenddown Ledger</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-primary font-bold bg-white dark:bg-surface-bright shadow-sm border border-outline-variant" href="#">
+<span class="material-symbols-outlined" data-icon="description" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-body-md text-body-md">Handoff Packet</span>
+</a>
+<a class="flex items-center gap-3 p-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="notification_important">notification_important</span>
+<span class="font-body-md text-body-md">Renewal Alerts</span>
+</a>
+</nav>
+</div>
+<div class="px-4 space-y-4">
+<button class="w-full bg-primary text-on-primary py-3 rounded-full font-body-md hover:bg-primary-container transition-colors shadow-level-2">
+                    Start New Handoff
+                </button>
+<div class="border-t border-outline-variant pt-4 space-y-2">
+<a class="flex items-center gap-3 p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-body-md text-body-md">Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 p-container-padding-mobile md:p-container-padding-desktop">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-section-margin gap-4">
+<div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-background mb-2">Medicaid Spenddown Paper Trail</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A comprehensive summary of financial compliance for elder-law professionals.</p>
+</div>
+<div class="flex gap-3 w-full md:w-auto">
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface border border-outline-variant text-on-surface-variant px-6 py-3 rounded-full font-body-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+                        Share Secure Link
+                    </button>
+<button class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-full font-body-md hover:bg-primary-container transition-colors shadow-level-2">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Download PDF
+                    </button>
+</div>
+</div>
+<!-- Disclaimer Callout -->
+<div class="bg-[#fff9e6] border-l-4 border-primary p-6 rounded-r-lg mb-stack-gap flex gap-4 items-start shadow-sm">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="info">info</span>
+<div>
+<h3 class="font-status-indicator text-status-indicator text-on-background mb-1">Informational Summary Only</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">This document is a factual summary of submitted receipts, bank statements, and logged expenses. It is designed to assist attorneys and social workers in case preparation. <strong>This does not constitute legal advice or formal Medicaid approval.</strong></p>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-section-margin">
+<!-- Household Summary Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 lg:col-span-1 flex flex-col shadow-sm relative overflow-hidden">
+<!-- Subtle texture background -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#00376f 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="flex items-center justify-between mb-6 relative z-10">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+                            Household Summary
+                        </h2>
+</div>
+<div class="space-y-4 relative z-10 flex-1">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Applicant Name</p>
+<p class="font-body-lg text-body-lg text-on-background">Eleanor Vance</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Case Number</p>
+<p class="font-body-lg text-body-lg text-on-background">MC-2024-88492A</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Primary Representative</p>
+<p class="font-body-lg text-body-lg text-on-background">Dr. John Vance (Son)</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">County of Residence</p>
+<p class="font-body-lg text-body-lg text-on-background">Suffolk County, NY</p>
+</div>
+</div>
+</div>
+<!-- Progress & Assets Column -->
+<div class="lg:col-span-2 flex flex-col gap-gutter">
+<!-- Spenddown Progress -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="trending_down">trending_down</span>
+                            Spenddown Progress
+                        </h2>
+<div class="mb-6">
+<div class="flex justify-between items-end mb-2">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Target Amount to Spend</p>
+<p class="font-display-lg-mobile text-display-lg-mobile text-on-background">$45,000.00</p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant">Verified Spent</p>
+<p class="font-headline-md text-headline-md text-primary">$38,500.00</p>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="w-full bg-surface-container-high rounded-full h-4 overflow-hidden relative">
+<div class="bg-primary h-full rounded-full absolute left-0 top-0" style="width: 85%;"></div>
+</div>
+<div class="flex justify-between mt-2">
+<p class="font-body-md text-body-md text-on-surface-variant">85% Complete</p>
+<p class="font-status-indicator text-status-indicator text-secondary">$6,500.00 Remaining</p>
+</div>
+</div>
+</div>
+<!-- Asset Snapshot -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm flex-1">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+                            Asset Snapshot (Current Month)
+                        </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="p-4 bg-surface rounded-lg border border-surface-variant">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Checking Acct (...4432)</p>
+<p class="font-body-lg text-body-lg text-on-background">$2,145.50</p>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-variant">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Savings Acct (...9901)</p>
+<p class="font-body-lg text-body-lg text-on-background">$14,000.00</p>
+</div>
+<div class="p-4 bg-surface rounded-lg border border-surface-variant">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Prepaid Funeral Trst</p>
+<p class="font-body-lg text-body-lg text-on-background">$8,500.00</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Ledger & Missing Docs Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-section-margin">
+<!-- Action Ledger (Zebra Striped) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl lg:col-span-2 overflow-hidden shadow-sm flex flex-col">
+<div class="p-6 border-b border-outline-variant bg-surface flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="receipt_long">receipt_long</span>
+                            Recent Eligible Expenses
+                        </h2>
+<a class="font-status-indicator text-status-indicator text-primary hover:underline" href="#">View Full Ledger</a>
+</div>
+<div class="flex-1 overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant whitespace-nowrap">Date</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant">Description</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant whitespace-nowrap">Amount</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="zebra-row h-[64px] border-b border-surface-variant">
+<td class="p-4 font-body-md text-body-md whitespace-nowrap">Oct 12, 2024</td>
+<td class="p-4 font-body-md text-body-md">Sunrise Senior Living - Monthly Rent</td>
+<td class="p-4 font-body-md text-body-md font-semibold">-$4,200.00</td>
+<td class="p-4">
+<div class="inline-flex items-center gap-1 bg-primary text-on-primary px-3 py-1 rounded-full font-status-indicator text-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                                            Verified
+                                        </div>
+</td>
+</tr>
+<tr class="zebra-row h-[64px] border-b border-surface-variant">
+<td class="p-4 font-body-md text-body-md whitespace-nowrap">Oct 05, 2024</td>
+<td class="p-4 font-body-md text-body-md">CVS Pharmacy - Prescriptions</td>
+<td class="p-4 font-body-md text-body-md font-semibold">-$245.50</td>
+<td class="p-4">
+<div class="inline-flex items-center gap-1 bg-primary text-on-primary px-3 py-1 rounded-full font-status-indicator text-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                                            Verified
+                                        </div>
+</td>
+</tr>
+<tr class="zebra-row h-[64px] border-b border-surface-variant">
+<td class="p-4 font-body-md text-body-md whitespace-nowrap">Sep 28, 2024</td>
+<td class="p-4 font-body-md text-body-md">Home Care Assist - Weekly Nursing</td>
+<td class="p-4 font-body-md text-body-md font-semibold">-$1,100.00</td>
+<td class="p-4">
+<div class="inline-flex items-center gap-1 bg-[#fff0ca] text-on-secondary-container px-3 py-1 rounded-full font-status-indicator text-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                                            Pending
+                                        </div>
+</td>
+</tr>
+<tr class="zebra-row h-[64px]">
+<td class="p-4 font-body-md text-body-md whitespace-nowrap">Sep 15, 2024</td>
+<td class="p-4 font-body-md text-body-md">Advanced Dental - Denture Repair</td>
+<td class="p-4 font-body-md text-body-md font-semibold">-$850.00</td>
+<td class="p-4">
+<div class="inline-flex items-center gap-1 bg-[#ffdad6] text-on-tertiary-fixed-variant px-3 py-1 rounded-full font-status-indicator text-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="error">error</span>
+                                            Missing
+                                        </div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Missing Documentation List -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 lg:col-span-1 shadow-sm flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-background flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+                        Missing Documentation
+                    </h2>
+<div class="space-y-4 flex-1">
+<!-- Missing Item -->
+<div class="p-4 border border-outline-variant rounded-lg bg-surface flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h4 class="font-status-indicator text-status-indicator text-on-background">Dental Receipt</h4>
+<span class="bg-[#ffdad6] text-on-tertiary-fixed-variant px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Required</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Invoice for $850.00 from Advanced Dental on Sep 15 lacks proof of payment.</p>
+<button class="text-primary font-status-indicator text-status-indicator self-start mt-2 hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="upload">upload</span> Upload Now
+                            </button>
+</div>
+<!-- Missing Item -->
+<div class="p-4 border border-outline-variant rounded-lg bg-surface flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<h4 class="font-status-indicator text-status-indicator text-on-background">Sept Bank Statement</h4>
+<span class="bg-[#ffdad6] text-on-tertiary-fixed-variant px-2 py-0.5 rounded text-xs font-bold uppercase tracking-wider">Required</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Checking Account (...4432) full statement for September 2024 is missing.</p>
+<button class="text-primary font-status-indicator text-status-indicator self-start mt-2 hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="upload">upload</span> Upload Now
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container w-full mt-auto bg-surface-container-lowest border-t border-outline-variant py-12 px-container-padding-mobile md:px-container-padding-desktop">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto gap-6">
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                © 2024 Serene Ledger Compliance Systems
+            </div>
+<nav class="flex flex-wrap justify-center gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Not Legal Advice Disclaimer</a>
+</nav>
+</div>
+</footer>
+</body></html>

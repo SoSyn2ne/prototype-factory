@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Scenario Builder - Main Street Lease Shock Counter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#edeeef",
+                      "primary-container": "#1b2b48",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e1e3e4",
+                      "surface": "#f8f9fa",
+                      "secondary": "#555f70",
+                      "on-primary-container": "#8393b5",
+                      "surface-container-low": "#f3f4f5",
+                      "primary-fixed-dim": "#b7c7eb",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "surface-tint": "#4f5e7e",
+                      "surface-dim": "#d9dadb",
+                      "background": "#f8f9fa",
+                      "outline-variant": "#c5c6ce",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#121c2a",
+                      "secondary-container": "#d6e0f4",
+                      "tertiary-container": "#4b1e00",
+                      "tertiary": "#2b0e00",
+                      "inverse-surface": "#2e3132",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#ffdbca",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary": "#ffffff",
+                      "outline": "#75777e",
+                      "secondary-fixed": "#d9e3f7",
+                      "on-tertiary-fixed-variant": "#763300",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb68e",
+                      "on-primary-fixed-variant": "#374765",
+                      "on-surface-variant": "#44474d",
+                      "on-tertiary-fixed": "#331200",
+                      "secondary-fixed-dim": "#bdc7db",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#596374",
+                      "inverse-primary": "#b7c7eb",
+                      "primary": "#041632",
+                      "on-surface": "#191c1d",
+                      "on-tertiary-container": "#e1752e",
+                      "primary-fixed": "#d7e2ff",
+                      "on-secondary-fixed-variant": "#3d4757",
+                      "surface-container-high": "#e7e8e9",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#091b37"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display": ["Inter"],
+                      "body-md": ["Inter"],
+                      "data-mono": ["JetBrains Mono"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "data-mono": ["13px", {"lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar for high-end feel */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: theme('colors.surface-container-low'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.outline-variant'); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline'); }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col pt-16 md:pl-64">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-container fixed top-0 w-full z-50 border-b border-secondary/15 dark:border-secondary/30 flex justify-between items-center px-margin-desktop py-4 h-16 transition-all duration-200 ease-in-out">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Main Street Lease Shock Counter</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-6 items-center border-r border-secondary/15 pr-6">
+<!-- No Nav items here as per SideNavBar spec -->
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="text-primary dark:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="help" class="text-primary dark:text-primary-fixed hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container overflow-hidden border border-secondary/15 cursor-pointer active:opacity-80">
+<img alt="Financial Analyst Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyNYyKoBSfkIGRB3FwL8lVcVSnXzVYTM_mmJXrNvxDp1bDp69C9_qwoviUTuaxArqlH8pMHJvcdFiZLEkGSXBSumgXw2a9uCHMA4LrWLfgRdBChKbX5X2aWLlRbZ01DK6TdiZfp6AeT3c4nmN1QaSznlPwxaWFYxta8g0BXSaPo9iqj-wqU-x7qx-_PXhSP4TygCQ6pWkrlU1RkezjnLikJ9vr4fUfjlrsISUETUj4qtDjbDRHxRvXLUmuTRA4bBJeFXv9qgJMqsfK"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="bg-surface-container-low dark:bg-surface-dim fixed left-0 top-16 h-[calc(100vh-64px)] w-64 border-r border-secondary/15 hidden md:flex flex-col z-40 transition-all duration-200 ease-in-out">
+<div class="p-6 border-b border-secondary/15">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded bg-primary text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined icon-fill">account_balance</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary truncate" title="Active Lease Rail">Active Lease Rail</h2>
+<p class="font-body-sm text-body-sm text-secondary truncate">Current Analysis Status</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-headline-md text-body-md py-2 px-4 rounded hover:bg-primary/90 transition-colors cursor-pointer active:opacity-80 border border-primary text-center">
+                Generate Memo
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="payments">payments</span>
+<span class="font-label-caps text-label-caps">Rent Analysis</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-caps text-label-caps">CAM Audit</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-primary text-on-primary font-bold hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="trending_up">trending_up</span>
+<span class="font-label-caps text-label-caps">CPI Adjustments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="account_balance">account_balance</span>
+<span class="font-label-caps text-label-caps">Tax Pass-throughs</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-secondary/15">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary hover:bg-surface-container-high hover:bg-surface-container-high dark:hover:bg-secondary-container transition-all transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl" data-icon="contact_support">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop bg-background overflow-x-hidden">
+<div class="max-w-container-max mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:justify-between md:items-end gap-4 border-b border-secondary/15 pb-6">
+<div>
+<h1 class="font-display text-display text-on-surface">Scenario Builder</h1>
+<p class="font-body-lg text-body-lg text-secondary mt-2 max-w-2xl">Evaluate negotiation paths against the proposed rent shock. The Counteroffer represents the optimized strategic target balancing cost and operational stability.</p>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 border border-secondary/30 text-primary font-body-md text-body-md rounded hover:bg-surface-container transition-colors">Export Models</button>
+<button class="px-4 py-2 bg-primary text-on-primary font-body-md text-body-md rounded hover:bg-primary/90 transition-colors">Finalize Strategy</button>
+</div>
+</div>
+<!-- Bento Grid Layout for Scenarios -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-gutter">
+<!-- Scenario 1: Stay (New Terms) -->
+<div class="bg-surface border border-secondary/15 rounded-lg p-6 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="inline-block px-2 py-1 bg-surface-container text-secondary font-label-caps text-label-caps rounded mb-2">Scenario 1</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Stay (New Terms)</h3>
+</div>
+<span class="material-symbols-outlined text-secondary text-2xl">home_work</span>
+</div>
+<div class="space-y-4 mb-8 flex-1">
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Total 5-Year Cost</span>
+<span class="font-data-mono text-data-mono text-error">$1,245,000</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">NPV</span>
+<span class="font-data-mono text-data-mono">$1,080,500</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Relocation Risk</span>
+<span class="font-body-sm text-body-sm text-on-surface">None</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Concession Opportunity</span>
+<span class="font-body-sm text-body-sm text-error">Low</span>
+</div>
+</div>
+<div class="pt-4 border-t border-secondary/15">
+<p class="font-body-sm text-body-sm text-secondary mb-3">Impact Summary</p>
+<div class="w-full h-2 bg-surface-container rounded overflow-hidden flex">
+<div class="h-full bg-error w-[85%]" title="Base Rent"></div>
+<div class="h-full bg-secondary-container w-[15%]" title="Opex"></div>
+</div>
+</div>
+</div>
+<!-- Scenario 2: Counteroffer (Target) - VISUALLY EMPHASIZED -->
+<div class="bg-surface border-2 border-primary rounded-lg p-6 flex flex-col relative shadow-[0_0_0_4px_theme('colors.primary-fixed-dim')] z-10 scale-[1.02]">
+<div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-on-primary px-3 py-1 rounded font-label-caps text-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span> Recommended
+                    </div>
+<div class="flex justify-between items-start mb-6 mt-2">
+<div>
+<span class="inline-block px-2 py-1 bg-primary-fixed text-primary font-label-caps text-label-caps rounded mb-2">Scenario 2</span>
+<h3 class="font-headline-lg text-headline-lg text-primary">Counteroffer (Target)</h3>
+</div>
+<span class="material-symbols-outlined text-primary text-3xl icon-fill">target</span>
+</div>
+<div class="space-y-4 mb-8 flex-1">
+<div class="flex justify-between items-center py-2 border-b border-primary/10">
+<span class="font-body-sm text-body-sm text-secondary font-medium">Total 5-Year Cost</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">$985,000</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/10">
+<span class="font-body-sm text-body-sm text-secondary font-medium">NPV</span>
+<span class="font-data-mono text-data-mono font-bold">$840,200</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/10">
+<span class="font-body-sm text-body-sm text-secondary font-medium">Relocation Risk</span>
+<span class="font-body-sm text-body-sm text-on-surface">None</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-primary/10">
+<span class="font-body-sm text-body-sm text-secondary font-medium">Concession Opportunity</span>
+<span class="font-body-sm text-body-sm text-tertiary-container font-medium">High</span>
+</div>
+</div>
+<div class="pt-4 border-t border-primary/20 bg-surface-bright -mx-6 px-6 -mb-6 pb-6 rounded-b-lg">
+<p class="font-label-caps text-label-caps text-primary mb-3">Concession Yield</p>
+<div class="w-full h-3 bg-surface-container rounded overflow-hidden flex">
+<div class="h-full bg-primary w-[60%]" title="Base Rent"></div>
+<div class="h-full bg-secondary-container w-[15%]" title="Opex"></div>
+<div class="h-full bg-tertiary-container w-[25%]" title="Concessions"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="font-body-sm text-body-sm text-secondary">Projected Savings:</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">-$260,000</span>
+</div>
+</div>
+</div>
+<!-- Scenario 3: Move (Relocate) -->
+<div class="bg-surface border border-secondary/15 rounded-lg p-6 flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="inline-block px-2 py-1 bg-surface-container text-secondary font-label-caps text-label-caps rounded mb-2">Scenario 3</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Move (Relocate)</h3>
+</div>
+<span class="material-symbols-outlined text-secondary text-2xl">local_shipping</span>
+</div>
+<div class="space-y-4 mb-8 flex-1">
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Total 5-Year Cost</span>
+<span class="font-data-mono text-data-mono">$1,120,000</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">NPV</span>
+<span class="font-data-mono text-data-mono">$960,000</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Relocation Risk</span>
+<span class="font-body-sm text-body-sm text-error">High</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-secondary/10">
+<span class="font-body-sm text-body-sm text-secondary">Concession Opportunity</span>
+<span class="font-body-sm text-body-sm text-on-surface">Moderate</span>
+</div>
+</div>
+<div class="pt-4 border-t border-secondary/15">
+<p class="font-body-sm text-body-sm text-secondary mb-3">Impact Summary</p>
+<div class="w-full h-2 bg-surface-container rounded overflow-hidden flex">
+<div class="h-full bg-secondary w-[50%]" title="Base Rent"></div>
+<div class="h-full bg-outline-variant w-[20%]" title="Opex"></div>
+<div class="h-full bg-error w-[30%]" title="Capex/Moving"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Landlord Concession Checklist & Details Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mt-8">
+<!-- Checklist Pane -->
+<div class="lg:col-span-1 bg-surface border border-secondary/15 rounded-lg p-6">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-secondary/15 pb-2">Landlord Concession Checklist</h4>
+<p class="font-body-sm text-body-sm text-secondary mb-4">Target requirements for Counteroffer scenario.</p>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-secondary/10 hover:border-primary/30 transition-colors">
+<div class="w-5 h-5 rounded bg-primary text-on-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface font-medium block">Free rent months</span>
+<span class="font-body-sm text-body-sm text-secondary">Targeting 3 months outside base term</span>
+</div>
+</li>
+<li class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-secondary/10 hover:border-primary/30 transition-colors">
+<div class="w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0 mt-0.5 bg-surface">
+<!-- empty checkbox -->
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface font-medium block">TI Allowance</span>
+<span class="font-body-sm text-body-sm text-secondary">$25/RSF for minor updates</span>
+</div>
+</li>
+<li class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-secondary/10 hover:border-primary/30 transition-colors">
+<div class="w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0 mt-0.5 bg-surface">
+<!-- empty checkbox -->
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface font-medium block">Exterior Signage</span>
+<span class="font-body-sm text-body-sm text-secondary">Monument sign priority retention</span>
+</div>
+</li>
+<li class="flex items-start gap-3 p-3 bg-surface-container-low rounded border border-secondary/10 hover:border-primary/30 transition-colors">
+<div class="w-5 h-5 rounded border border-outline flex items-center justify-center shrink-0 mt-0.5 bg-surface">
+<!-- empty checkbox -->
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface font-medium block">HVAC Replacement Cap</span>
+<span class="font-body-sm text-body-sm text-secondary">Limit exposure to $5k annually</span>
+</div>
+</li>
+</ul>
+<button class="mt-6 w-full py-2 border border-dashed border-secondary/50 text-secondary font-body-sm text-body-sm rounded hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> Add Concession Requirement
+                    </button>
+</div>
+<!-- Waterfall Chart / Visual Data Area -->
+<div class="lg:col-span-2 bg-surface border border-secondary/15 rounded-lg p-6">
+<div class="flex justify-between items-center mb-6 border-b border-secondary/15 pb-2">
+<h4 class="font-headline-md text-headline-md text-on-surface">5-Year Cash Flow Variance</h4>
+<span class="font-label-caps text-label-caps text-secondary bg-surface-container px-2 py-1 rounded">Target vs. Stay</span>
+</div>
+<!-- Abstract representation of a dense financial chart -->
+<div class="h-64 relative w-full flex items-end justify-between px-4 pb-8 pt-4">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none opacity-20 border-b border-secondary">
+<div class="border-b border-secondary w-full"></div>
+<div class="border-b border-secondary w-full"></div>
+<div class="border-b border-secondary w-full"></div>
+<div class="border-b border-secondary w-full"></div>
+<div class="border-b border-secondary w-full"></div>
+</div>
+<!-- Y-axis labels -->
+<div class="absolute left-0 h-full flex flex-col justify-between text-[10px] text-secondary pb-8 pointer-events-none -ml-2">
+<span>$300k</span>
+<span>$200k</span>
+<span>$100k</span>
+<span>$0</span>
+</div>
+<!-- Bars -->
+<div class="w-[12%] h-[90%] bg-primary relative group">
+<div class="absolute -top-6 w-full text-center font-data-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">$280k</div>
+<div class="absolute -bottom-6 w-full text-center font-label-caps text-[10px] text-secondary">Year 1</div>
+</div>
+<div class="w-[12%] h-[85%] bg-primary relative group">
+<div class="absolute -top-6 w-full text-center font-data-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">$265k</div>
+<div class="absolute -bottom-6 w-full text-center font-label-caps text-[10px] text-secondary">Year 2</div>
+</div>
+<div class="w-[12%] h-[80%] bg-primary relative group">
+<div class="absolute -top-6 w-full text-center font-data-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">$250k</div>
+<div class="absolute -bottom-6 w-full text-center font-label-caps text-[10px] text-secondary">Year 3</div>
+</div>
+<div class="w-[12%] h-[75%] bg-primary relative group">
+<div class="absolute -top-6 w-full text-center font-data-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">$235k</div>
+<div class="absolute -bottom-6 w-full text-center font-label-caps text-[10px] text-secondary">Year 4</div>
+</div>
+<div class="w-[12%] h-[70%] bg-primary relative group">
+<div class="absolute -top-6 w-full text-center font-data-mono text-[10px] opacity-0 group-hover:opacity-100 transition-opacity">$220k</div>
+<div class="absolute -bottom-6 w-full text-center font-label-caps text-[10px] text-secondary">Year 5</div>
+</div>
+<!-- Waterfall adjustment overlay (Abstracted) -->
+<div class="absolute w-full h-full pointer-events-none flex items-end justify-between px-4 pb-8 pt-4">
+<div class="w-[12%] h-[15%] mb-[75%] bg-error opacity-80 border border-on-error"></div>
+<div class="w-[12%] h-[10%] mb-[75%] bg-error opacity-80 border border-on-error"></div>
+<div class="w-[12%] h-[8%] mb-[72%] bg-error opacity-80 border border-on-error"></div>
+<div class="w-[12%] h-[5%] mb-[70%] bg-error opacity-80 border border-on-error"></div>
+<div class="w-[12%] h-[2%] mb-[68%] bg-error opacity-80 border border-on-error"></div>
+</div>
+</div>
+<div class="mt-4 flex gap-4 text-xs">
+<div class="flex items-center gap-1"><div class="w-3 h-3 bg-primary"></div><span class="font-body-sm text-secondary">Target Base Rent</span></div>
+<div class="flex items-center gap-1"><div class="w-3 h-3 bg-error"></div><span class="font-body-sm text-secondary">Original Shock Increase</span></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

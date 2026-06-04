@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Intake Dashboard - Serene Ledger</title>
+<!-- Tailwind CSS via CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-primary": "#a8c8ff",
+                        "on-background": "#1b1c1a",
+                        "surface": "#faf9f5",
+                        "on-tertiary-fixed-variant": "#93000b",
+                        "surface-container-high": "#e9e8e4",
+                        "surface-dim": "#dbdad6",
+                        "surface-container-highest": "#e3e2df",
+                        "surface-bright": "#faf9f5",
+                        "on-secondary-container": "#663500",
+                        "primary": "#00376f",
+                        "on-primary-fixed-variant": "#134684",
+                        "tertiary-fixed-dim": "#ffb4ab",
+                        "outline-variant": "#c3c6d2",
+                        "surface-tint": "#325f9e",
+                        "secondary-fixed": "#ffdcc3",
+                        "tertiary-fixed": "#ffdad6",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "error": "#ba1a1a",
+                        "surface-container": "#efeeea",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434750",
+                        "on-primary-container": "#9dc1ff",
+                        "secondary-container": "#fe932c",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#2f1500",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "inverse-on-surface": "#f2f1ed",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#f4f4f0",
+                        "background": "#faf9f5",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2f312e",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "secondary": "#904d00",
+                        "on-surface": "#1b1c1a",
+                        "primary-container": "#1e4e8c",
+                        "tertiary-container": "#a1000e",
+                        "on-primary-fixed": "#001b3d",
+                        "on-tertiary-fixed": "#410002",
+                        "primary-fixed-dim": "#a8c8ff",
+                        "outline": "#737781",
+                        "surface-variant": "#e3e2df",
+                        "on-tertiary-container": "#ffaaa0",
+                        "tertiary": "#760007",
+                        "on-error-container": "#93000a"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "container-padding-desktop": "64px",
+                        "container-padding-mobile": "24px",
+                        "unit": "8px",
+                        "stack-gap": "32px",
+                        "section-margin": "48px",
+                        "gutter": "24px"
+                    },
+                    fontFamily: {
+                        "headline-md": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "display-lg": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "body-md": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "body-lg": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "display-lg-mobile": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "status-indicator": ["Atkinson Hyperlegible Next", "sans-serif"],
+                        "label-caps": ["Atkinson Hyperlegible Next", "sans-serif"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-lg": ["20px", { "lineHeight": "30px", "fontWeight": "400" }],
+                        "display-lg-mobile": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "status-indicator": ["16px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "label-caps": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    },
+                    boxShadow: {
+                        'level-2': '0 10px 25px -5px rgba(254, 147, 44, 0.06), 0 8px 10px -6px rgba(254, 147, 44, 0.04)',
+                    }
+                }
+            }
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer utilities {
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .icon-fill {
+                font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            
+            /* Input Base Styles */
+            .input-field {
+                @apply w-full bg-surface-container-lowest border border-outline-variant rounded-lg p-3 text-on-surface font-body-md text-body-md transition-all duration-200 outline-none;
+            }
+            .input-field:focus {
+                @apply border-primary ring-2 ring-primary-fixed border-transparent;
+            }
+            .input-label {
+                @apply block font-body-md text-body-md font-semibold text-on-surface mb-2;
+            }
+
+            /* Component Level Shadows */
+            .card-level-1 {
+                @apply bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden transition-shadow duration-300;
+            }
+            .card-level-1:hover {
+                @apply shadow-level-2;
+            }
+
+            /* Tooltip */
+            .tooltip-trigger {
+                position: relative;
+                display: inline-block;
+            }
+            .tooltip-content {
+                visibility: hidden;
+                width: 280px;
+                background-color: theme('colors.inverse-surface');
+                color: theme('colors.inverse-on-surface');
+                text-align: left;
+                border-radius: theme('borderRadius.lg');
+                padding: theme('spacing.unit') theme('spacing.unit');
+                position: absolute;
+                z-index: 10;
+                bottom: 125%;
+                left: 50%;
+                margin-left: -140px;
+                opacity: 0;
+                transition: opacity 0.3s;
+                font-family: 'Atkinson Hyperlegible Next', sans-serif;
+                font-size: 14px;
+                line-height: 20px;
+                font-weight: 400;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            .tooltip-content::after {
+                content: "";
+                position: absolute;
+                top: 100%;
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: theme('colors.inverse-surface') transparent transparent transparent;
+            }
+            .tooltip-trigger:hover .tooltip-content {
+                visibility: visible;
+                opacity: 1;
+            }
+            
+            /* Hide scrollbar for clean UI */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: theme('colors.surface');
+            }
+            ::-webkit-scrollbar-thumb {
+                background: theme('colors.outline-variant');
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: theme('colors.outline');
+            }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-background min-h-screen flex font-body-md selection:bg-primary-fixed selection:text-on-primary-container">
+<!-- JSON: SideNavBar (Level 0 Base element) -->
+<nav class="bg-surface-container dark:bg-surface-container-high h-screen w-64 fixed left-0 top-0 flex flex-col gap-stack-gap h-full py-8 border-r border-outline-variant z-20 overflow-y-auto hidden md:flex">
+<div class="px-6 pb-4">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary">Medicaid Manager</h1>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Status: Active Spenddown</p>
+</div>
+<div class="px-4 flex-1">
+<button class="w-full bg-primary text-on-primary rounded-full py-3 px-4 font-label-caps text-label-caps font-bold mb-6 hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                Start New Handoff
+            </button>
+<ul class="p-4 space-y-4">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="folder_shared">folder_shared</span>
+                        Document Vault
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="account_balance_wallet">account_balance_wallet</span>
+                        Spenddown Ledger
+                    </a>
+</li>
+<!-- ACTIVE STATE APPLIED HERE -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 text-primary font-bold bg-white dark:bg-surface-bright rounded-lg shadow-sm font-body-md text-body-md" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="description">description</span>
+                        Handoff Packet
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="notification_important">notification_important</span>
+                        Renewal Alerts
+                    </a>
+</li>
+</ul>
+</div>
+<div class="px-4 mt-auto">
+<ul class="p-4 space-y-4 border-t border-outline-variant pt-6">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all font-body-md text-body-md group" href="#">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="logout">logout</span>
+                        Log Out
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- Header Banner Image -->
+<div class="h-48 w-full bg-cover bg-center relative" data-alt="A serene, soft-focus landscape image representing calm and stability. The scene features gentle rolling hills illuminated by warm, diffused morning sunlight, creating a high-key, reassuring aesthetic. The color palette emphasizes pale earth tones, soft whites, and a touch of primary blue in the sky, perfectly aligning with a modern corporate yet empathetic visual style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDDNMUfCuTDt08LYD414i1eEoZr2JRk01ET4G3wXwVrYrym_fC6GGE299AD1EMYc6xSlGB8tOJDK4SP1bsSJEzrgwEnRQG40U5PDSGobVqQx5XG-SpchnDjYAcvRy3tK6Bc6-_lr_Fn4OXgrFbkyIVfa9F3UWXlwFtobnhusdnXIwPN-P3NZw7q68N-TnlqNOjuEGa5P8LTuC0b4mUBY5yoiYqM2EE5qFcej8XQurTww1YLZj27OMclA57HhGg2Sa8vSx7Q4h0hvVbV');">
+<div class="absolute inset-0 bg-surface/80 backdrop-blur-sm"></div>
+<div class="absolute inset-0 flex flex-col justify-center px-container-padding-mobile md:px-container-padding-desktop max-w-[1200px] mx-auto w-full">
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface mb-2">Intake Dashboard</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Configure household details to establish your Medicaid Paper Trail baseline for Ohio.</p>
+</div>
+</div>
+<div class="p-container-padding-mobile md:p-container-padding-desktop flex-1 max-w-[1200px] mx-auto w-full">
+<!-- Disclaimer Banner -->
+<div class="bg-error-container/30 border-l-4 border-error p-4 rounded-r-lg mb-8 flex items-start gap-4">
+<span class="material-symbols-outlined text-error mt-1" data-icon="gavel">gavel</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg mb-1">Important Legal Notice</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">The information managed in this dashboard is for organizational and preparatory purposes only. Serene Ledger does not provide legal, financial, or Medicaid planning advice. Please consult with a qualified elder law attorney regarding your specific case.</p>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-gap">
+<!-- Column 1: Configuration (Span 4) -->
+<div class="lg:col-span-4 flex flex-col gap-stack-gap">
+<!-- Household Setup Card -->
+<div class="card-level-1 p-6">
+<div class="flex items-center gap-3 mb-6 border-b border-outline-variant pb-4">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="settings_accessibility">settings_accessibility</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Household Setup</h3>
+</div>
+<form class="space-y-6">
+<div>
+<label class="input-label flex items-center gap-2">
+                                    State of Residence
+                                    <div class="tooltip-trigger cursor-help">
+<span class="material-symbols-outlined text-outline-variant text-sm" data-icon="info">info</span>
+<div class="tooltip-content font-body-md">Medicaid rules vary significantly by state. Ensure this matches where the application will be filed.</div>
+</div>
+</label>
+<select class="input-field appearance-none bg-no-repeat" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23737781%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-position: right 1rem top 50%; background-size: 0.65rem auto;">
+<option selected="" value="OH">Ohio (OH)</option>
+<option value="PA">Pennsylvania (PA)</option>
+<option value="MI">Michigan (MI)</option>
+</select>
+</div>
+<div>
+<label class="input-label">Marital Status</label>
+<select class="input-field appearance-none bg-no-repeat" style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23737781%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-position: right 1rem top 50%; background-size: 0.65rem auto;">
+<option selected="" value="married">Married</option>
+<option value="single">Single / Widowed</option>
+</select>
+</div>
+<div>
+<label class="input-label">Living Arrangement</label>
+<div class="space-y-3">
+<label class="flex items-start gap-3 p-3 border border-primary bg-primary-fixed/20 rounded-lg cursor-pointer transition-colors">
+<input checked="" class="mt-1 text-primary focus:ring-primary w-5 h-5" name="living" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface">One spouse in facility, one at home</span>
+</label>
+<label class="flex items-start gap-3 p-3 border border-outline-variant rounded-lg hover:bg-surface-container cursor-pointer transition-colors">
+<input class="mt-1 text-primary focus:ring-primary w-5 h-5" name="living" type="radio"/>
+<span class="font-body-md text-body-md text-on-surface-variant">Both spouses in facility</span>
+</label>
+</div>
+</div>
+<button class="w-full mt-4 bg-surface text-primary border border-outline-variant hover:border-primary rounded-full py-3 px-4 font-label-caps text-label-caps font-bold transition-all shadow-sm" type="button">
+                                Save Configuration
+                            </button>
+</form>
+</div>
+</div>
+<!-- Column 2: Status & Rules (Span 8) -->
+<div class="lg:col-span-8 flex flex-col gap-stack-gap">
+<!-- Guidance Callout -->
+<div class="bg-[#fff8e1] border-l-4 border-primary p-5 rounded-r-lg shadow-sm">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="lightbulb">lightbulb</span>
+<h4 class="font-status-indicator text-status-indicator text-on-surface">Ohio Spousal Impoverishment Rules</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Because you selected "Married" and "One spouse at home" in Ohio, John is considered the <strong>Community Spouse</strong>. Ohio rules allow him to keep a portion of the couple's combined assets (the CSRA) to prevent impoverishment. Accurately establishing the "Snapshot Date" assets is your first critical step.
+                        </p>
+</div>
+<!-- Current Status Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Mary's Card -->
+<div class="card-level-1 bg-white relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary-container"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Mary</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Institutionalized Spouse</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="bed">bed</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Current Location</span>
+<span class="font-body-md text-body-md text-on-surface">Oakwood Nursing Pavilion</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Application Status</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-status-indicator text-status-indicator w-fit">
+<span class="material-symbols-outlined text-[18px]" data-icon="pending_actions">pending_actions</span>
+                                            Pending Level of Care
+                                        </span>
+</div>
+</div>
+</div>
+</div>
+<!-- John's Card -->
+<div class="card-level-1 bg-white relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">John</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Community Spouse</p>
+</div>
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="home">home</span>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Current Location</span>
+<span class="font-body-md text-body-md text-on-surface">Primary Residence</span>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">CSRA Assessment</span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-error-container text-on-error-container font-status-indicator text-status-indicator w-fit">
+<span class="material-symbols-outlined text-[18px]" data-icon="error">error</span>
+                                            Missing Baseline Assets
+                                        </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Ledger -->
+<div class="card-level-1 mt-2">
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-on-surface">Required Initial Documentation</h3>
+<button class="text-primary font-label-caps text-label-caps hover:underline flex items-center gap-1">
+                                View Full Checklist <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="flex flex-col">
+<!-- Zebra Stripe Row 1 -->
+<div class="flex items-center justify-between p-4 bg-surface min-h-[64px] border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error-container" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h4 class="font-status-indicator text-status-indicator text-on-surface">5 Years Financial Statements</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Required for Ohio look-back period.</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-error-container/50 text-on-error-container border border-error/20 font-status-indicator text-sm">
+                                    Missing
+                                </span>
+</div>
+<!-- Zebra Stripe Row 2 -->
+<div class="flex items-center justify-between p-4 bg-surface-container-lowest min-h-[64px] border-b border-outline-variant/50 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="favorite">favorite</span>
+</div>
+<div>
+<h4 class="font-status-indicator text-status-indicator text-on-surface">Marriage Certificate</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Establishes spousal relationship.</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary border border-primary text-on-primary font-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                                    Verified
+                                </span>
+</div>
+<!-- Zebra Stripe Row 3 -->
+<div class="flex items-center justify-between p-4 bg-surface min-h-[64px] hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant" data-icon="real_estate_agent">real_estate_agent</span>
+</div>
+<div>
+<h4 class="font-status-indicator text-status-indicator text-on-surface">Primary Residence Deed</h4>
+<p class="font-body-md text-sm text-on-surface-variant">Requires review for intent to return.</p>
+</div>
+</div>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant border border-secondary/20 font-status-indicator text-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span>
+                                    Pending Review
+                                </span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-lowest border-t border-outline-variant flex justify-end">
+<button class="bg-primary text-on-primary rounded-full py-3 px-8 font-label-caps text-label-caps font-bold hover:bg-primary-container hover:text-on-primary-container transition-colors shadow-sm flex items-center gap-2">
+                                Upload Documents
+                                <span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- JSON: Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container w-full mt-auto border-t border-outline-variant py-12 px-container-padding-desktop">
+<div class="flex flex-col md:flex-row justify-between items-center max-w-[1200px] mx-auto gap-6">
+<div class="font-label-caps text-label-caps text-on-surface-variant">
+                    © 2024 Serene Ledger Compliance Systems
+                </div>
+<div class="flex flex-wrap justify-center gap-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity" href="#">Not Legal Advice Disclaimer</a>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Main Analysis Dashboard - Main Street Lease Shock Counter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#edeeef",
+                      "primary-container": "#1b2b48",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e1e3e4",
+                      "surface": "#f8f9fa",
+                      "secondary": "#555f70",
+                      "on-primary-container": "#8393b5",
+                      "surface-container-low": "#f3f4f5",
+                      "primary-fixed-dim": "#b7c7eb",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "surface-tint": "#4f5e7e",
+                      "surface-dim": "#d9dadb",
+                      "background": "#f8f9fa",
+                      "outline-variant": "#c5c6ce",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#121c2a",
+                      "secondary-container": "#d6e0f4",
+                      "tertiary-container": "#4b1e00",
+                      "tertiary": "#2b0e00",
+                      "inverse-surface": "#2e3132",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#ffdbca",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary": "#ffffff",
+                      "outline": "#75777e",
+                      "secondary-fixed": "#d9e3f7",
+                      "on-tertiary-fixed-variant": "#763300",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb68e",
+                      "on-primary-fixed-variant": "#374765",
+                      "on-surface-variant": "#44474d",
+                      "on-tertiary-fixed": "#331200",
+                      "secondary-fixed-dim": "#bdc7db",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#596374",
+                      "inverse-primary": "#b7c7eb",
+                      "primary": "#041632",
+                      "on-surface": "#191c1d",
+                      "on-tertiary-container": "#e1752e",
+                      "primary-fixed": "#d7e2ff",
+                      "on-secondary-fixed-variant": "#3d4757",
+                      "surface-container-high": "#e7e8e9",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#091b37"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "display": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-mono": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+      </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col md:flex-row antialiased">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-[calc(100vh-64px)] w-64 fixed left-0 top-16 bg-surface-container-low border-r border-secondary/15 transition-all duration-200 ease-in-out z-40">
+<div class="px-6 py-8 border-b border-secondary/15">
+<div class="flex items-center gap-3 mb-2">
+<span aria-label="Lease Portfolio Icon" class="material-symbols-outlined text-primary text-2xl">business</span>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">Active Lease Rail</h2>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">Current Analysis Status</p>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary text-on-primary font-bold font-label-caps text-label-caps rounded transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-xl">payments</span>
+                        Rent Analysis
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-caps text-label-caps rounded" href="#">
+<span class="material-symbols-outlined text-xl">receipt_long</span>
+                        CAM Audit
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-caps text-label-caps rounded" href="#">
+<span class="material-symbols-outlined text-xl">trending_up</span>
+                        CPI Adjustments
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-caps text-label-caps rounded" href="#">
+<span class="material-symbols-outlined text-xl">account_balance</span>
+                        Tax Pass-throughs
+                    </a>
+</li>
+</ul>
+</div>
+<div class="p-4 border-t border-secondary/15">
+<button class="w-full bg-primary text-on-primary font-body-md font-medium py-2 rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                Generate Memo
+            </button>
+<ul class="mt-4 space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-caps text-label-caps rounded" href="#">
+<span class="material-symbols-outlined text-xl">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-caps text-label-caps rounded" href="#">
+<span class="material-symbols-outlined text-xl">contact_support</span>
+                        Support
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-h-screen w-full md:pl-64 pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface border-b border-secondary/15 flex justify-between items-center px-margin-desktop py-4 h-16 transition-colors">
+<div class="flex items-center gap-4">
+<div class="md:hidden">
+<button class="text-primary p-1 hover:bg-surface-container-high rounded cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary">Main Street Lease Shock Counter</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+<input class="pl-3 pr-8 py-1.5 bg-surface-container-low border border-secondary/15 rounded text-sm font-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-48 text-on-surface" placeholder="Search analysis..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="text-secondary p-1 hover:bg-surface-container-high rounded cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-secondary p-1 hover:bg-surface-container-high rounded cursor-pointer active:opacity-80 transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-sm ml-2 cursor-pointer active:opacity-80 hover:opacity-90 border border-secondary/15 overflow-hidden">
+<img alt="Financial Analyst Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a financial analyst in a modern corporate setting. The lighting is bright and clean, emphasizing a serious, analytical mood. The color palette is muted, featuring professional navy and crisp whites to match a formal banking or credit rating agency aesthetic. High definition, realistic rendering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9cVuCedTp9wqUdMteQLA86K7kiMB9MCJZxRDFcXspQR0C4RLUAxn0jTVNDriM6hlfpuntYmu7sP7vp31TgfvUuopUCTAs-KD2Jm5Rab0mmdVNspSzJzCZzahSm8Wbi5p7Ci1Wf32Voo2ixePiCCiopjh6aDstgQVsMZHc7TMpbqu3QKu_gC9yfkQjON_3xpo2qBV7kpyUdBBrsYjvc9J-i_7k6dtEo9MgIn0MtDlc5hvyjup-pGiBtnIR9ZS37pB7wBPr_iGlauTI"/>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop bg-background max-w-container-max mx-auto w-full">
+<!-- Dashboard Header / Alert -->
+<div class="mb-8">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+<div>
+<h2 class="font-display text-display text-primary">Renewal Analysis: 124 Main St.</h2>
+<p class="font-body-lg text-body-lg text-secondary mt-1">1,500 sq ft Cafe Space • Lease expires in 90 days</p>
+</div>
+<div class="bg-error-container border border-error/30 px-4 py-3 rounded flex items-center gap-3">
+<span class="material-symbols-outlined text-error text-2xl">warning</span>
+<div>
+<span class="font-label-caps text-label-caps text-on-error-container block opacity-80">RENEWAL SHOCK ALERT</span>
+<span class="font-headline-md text-headline-md text-on-error-container font-bold">+26.2% Total Increase</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Primary Analysis (occupies 8 cols on large screens) -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Waterfall Chart Card -->
+<div class="bg-surface border border-secondary/15 rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Occupancy Cost Waterfall</h3>
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+<!-- Simulated Waterfall Chart Layout -->
+<div class="h-64 relative flex items-end justify-between px-4 pb-8 border-b border-secondary/15">
+<!-- Y-Axis Labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between text-secondary font-data-mono text-data-mono pr-2 pb-8">
+<span>$6k</span>
+<span>$5k</span>
+<span>$4k</span>
+<span>$3k</span>
+</div>
+<!-- Current Base -->
+<div class="w-1/6 flex flex-col items-center group">
+<div class="w-full bg-primary border border-secondary/15 h-[50%] transition-all relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-data-mono text-primary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-secondary/15">$3,200</div>
+</div>
+<span class="mt-4 font-label-caps text-label-caps text-secondary text-center">Current<br/>Base</span>
+</div>
+<!-- Base Increase -->
+<div class="w-1/6 flex flex-col items-center group relative h-full justify-end">
+<div class="w-full border-t border-dashed border-secondary/30 absolute bottom-[50%] left-[-100%] right-0 pointer-events-none"></div>
+<div class="w-full bg-error border border-secondary/15 h-[15%] mb-[50%] transition-all relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-data-mono text-error opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-secondary/15">+$480</div>
+</div>
+<span class="mt-4 font-label-caps text-label-caps text-secondary text-center absolute -bottom-8">Base<br/>Bump</span>
+</div>
+<!-- CAM Adj -->
+<div class="w-1/6 flex flex-col items-center group relative h-full justify-end">
+<div class="w-full border-t border-dashed border-secondary/30 absolute bottom-[65%] left-[-100%] right-0 pointer-events-none"></div>
+<div class="w-full bg-error border border-secondary/15 h-[8%] mb-[65%] transition-all relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-data-mono text-error opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-secondary/15">+$250</div>
+</div>
+<span class="mt-4 font-label-caps text-label-caps text-secondary text-center absolute -bottom-8">CAM<br/>Audit</span>
+</div>
+<!-- Tax -->
+<div class="w-1/6 flex flex-col items-center group relative h-full justify-end">
+<div class="w-full border-t border-dashed border-secondary/30 absolute bottom-[73%] left-[-100%] right-0 pointer-events-none"></div>
+<div class="w-full bg-error border border-secondary/15 h-[12%] mb-[73%] transition-all relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-data-mono text-error opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-secondary/15">+$370</div>
+</div>
+<span class="mt-4 font-label-caps text-label-caps text-secondary text-center absolute -bottom-8">Tax<br/>Pass</span>
+</div>
+<!-- Proposed Total -->
+<div class="w-1/6 flex flex-col items-center group h-full justify-end">
+<div class="w-full border-t border-dashed border-secondary/30 absolute bottom-[85%] left-[-100%] right-0 pointer-events-none"></div>
+<div class="w-full bg-primary-container border border-secondary/15 h-[85%] transition-all relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-data-mono text-primary-container font-bold opacity-100 whitespace-nowrap bg-surface px-1 border border-secondary/15">$5,300</div>
+</div>
+<span class="mt-4 font-label-caps text-label-caps text-primary text-center absolute -bottom-8 font-bold">Proposed<br/>Total</span>
+</div>
+</div>
+</div>
+<!-- Summary Table -->
+<div class="bg-surface border border-secondary/15 rounded overflow-hidden">
+<div class="px-6 py-4 border-b border-secondary/15 bg-surface-container-lowest">
+<h3 class="font-headline-md text-headline-md text-primary">Monthly Cost Breakdown</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-primary text-on-primary">
+<th class="py-3 px-6 font-label-caps text-label-caps font-bold">Component</th>
+<th class="py-3 px-6 font-label-caps text-label-caps font-bold text-right">Current ($)</th>
+<th class="py-3 px-6 font-label-caps text-label-caps font-bold text-right">Proposed ($)</th>
+<th class="py-3 px-6 font-label-caps text-label-caps font-bold text-right">Δ (%)</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-secondary">
+<tr class="border-b border-secondary/15 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-6 text-primary font-body-sm font-medium">Base Rent</td>
+<td class="py-3 px-6 text-right">3,200.00</td>
+<td class="py-3 px-6 text-right">3,680.00</td>
+<td class="py-3 px-6 text-right text-error">+15.0%</td>
+</tr>
+<tr class="border-b border-secondary/15 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-6 text-primary font-body-sm font-medium">CAM Charges</td>
+<td class="py-3 px-6 text-right">600.00</td>
+<td class="py-3 px-6 text-right">850.00</td>
+<td class="py-3 px-6 text-right text-error">+41.6%</td>
+</tr>
+<tr class="border-b border-secondary/15 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-6 text-primary font-body-sm font-medium">Taxes &amp; Ins</td>
+<td class="py-3 px-6 text-right">400.00</td>
+<td class="py-3 px-6 text-right">770.00</td>
+<td class="py-3 px-6 text-right text-error">+92.5%</td>
+</tr>
+<tr class="bg-surface-container-low font-bold border-t-2 border-secondary/30">
+<td class="py-4 px-6 text-primary font-body-md">Total Monthly</td>
+<td class="py-4 px-6 text-right text-primary">4,200.00</td>
+<td class="py-4 px-6 text-right text-primary">5,300.00</td>
+<td class="py-4 px-6 text-right text-error text-headline-md">+26.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column: Context & Leverage (occupies 4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Leverage Meter -->
+<div class="bg-surface border border-secondary/15 rounded p-6">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Walk-away Leverage</h3>
+<!-- Linear Gauge -->
+<div class="mb-6 relative">
+<div class="flex h-4 border border-secondary/15 rounded-sm overflow-hidden">
+<div class="w-1/4 bg-error/80 border-r border-secondary/15"></div>
+<div class="w-1/4 bg-tertiary-fixed-dim/80 border-r border-secondary/15"></div>
+<div class="w-1/4 bg-primary-fixed-dim/80 border-r border-secondary/15"></div>
+<div class="w-1/4 bg-[#146c43]/80"></div> <!-- Success substitute -->
+</div>
+<!-- Marker -->
+<div class="absolute top-[-8px] bottom-[-8px] w-1 bg-primary left-[65%] shadow-sm transform -translate-x-1/2 border border-surface flex items-center justify-center">
+<div class="w-3 h-3 bg-primary rounded-full absolute -top-2"></div>
+</div>
+</div>
+<div class="flex justify-between font-label-caps text-label-caps text-secondary mb-4">
+<span>Weak</span>
+<span class="text-primary font-bold">Med-High</span>
+<span>Strong</span>
+</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<div class="w-1 h-full bg-[#146c43] self-stretch rounded-sm"></div>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-primary">High Vacancy in Area</p>
+<p class="font-body-sm text-body-sm text-secondary mt-1">3 similar retail units available within 0.5 miles.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="w-1 h-full bg-[#146c43] self-stretch rounded-sm"></div>
+<div>
+<p class="font-body-sm text-body-sm font-bold text-primary">Tenant Improvements</p>
+<p class="font-body-sm text-body-sm text-secondary mt-1">You invested $45k in build-out; landlord wants to retain cafe use.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Red Flag Rail / Context -->
+<div class="bg-surface border border-secondary/15 rounded p-6 flex-1">
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Clause Alerts</h3>
+<div class="space-y-4">
+<!-- Alert Item -->
+<div class="flex border border-error/20 bg-error-container/10 rounded overflow-hidden">
+<div class="w-1 bg-error shrink-0"></div>
+<div class="p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-error text-sm">gavel</span>
+<span class="font-label-caps text-label-caps text-error font-bold">Uncapped CAM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">Section 4.2 allows landlord to pass through capital improvements as operating expenses without an annual cap.</p>
+</div>
+</div>
+<!-- Alert Item -->
+<div class="flex border border-tertiary-container/20 bg-tertiary-fixed/20 rounded overflow-hidden">
+<div class="w-1 bg-tertiary-container shrink-0"></div>
+<div class="p-3">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-tertiary-container text-sm">history</span>
+<span class="font-label-caps text-label-caps text-tertiary-container font-bold">CPI Floor</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface">Proposed escalator mandates a minimum 4% annual increase regardless of actual CPI metrics.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
