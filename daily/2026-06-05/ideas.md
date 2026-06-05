@@ -278,3 +278,232 @@ playful-experimental
 ### Stitch prompt
 Create a responsive web app prototype called "Real-Date Proof Booth" for dating-app users, singles-event hosts, friend groups, dating coaches, and people tired of AI photos, fake profiles, and awkward "are you a bot?" conversations. The app should let a user make a lightweight proof-of-human card using fresh prompts, friend attestations, photo-context notes, boundaries, and event-mode checks, then create a shareable profile insert or party slide that signals authenticity without exposing private ID. Required sections: proof booth hero with real/recent/respectful status, fresh prompt camera strip, friend attestation collector with consent controls, AI-photo suspicion explainer, boundary and privacy toggles, date-safe share card generator, singles-event wall mode, and report/ban appeal note stash. Use playful sample content for a Friday singles mixer, a friend quote, a recent cafe photo note, and a privacy-safe "ask me live" proof. Design direction: use the `playful-experimental` profile with a bold, memorable first screen, lively contrast, playful verification stickers, clean readable hierarchy, and a shareable booth-like workflow that feels fun rather than paranoid.
 
+## Domestic correction pass - operator feedback
+
+Feedback: the first 2026-06-05 batch leaned too heavily on overseas communities and US-specific systems, leaving weak domestic usefulness. Keep the original batch as shipped history, but use the following Korea-first replacements for the next Stitch/prototype generation pass or same-day redo.
+
+Correction rule added for this pass:
+- Start from Korean users, Korean policy/market friction, Korean payment/housing/education/health workflows, and Korean shame/status triggers.
+- Use overseas community posts only as analogy, not as direct product source.
+- Each selected candidate must be usable in Korea without translating a US institution like FAFSA, US card surcharging, or US prior-auth rules.
+
+### Domestic signals
+
+#### K1 - Korea small-merchant card fee pressure and fee-rate policy changes
+- URL: https://www.hankookilbo.com/news/article/A2026021215120004577
+- Bucket: domestic small business / payments
+- Observed complaint/desire: Small merchants still care about card fee burden even as preferential rates change, because fixed operating costs and platform/POS fees stack on top.
+- Who feels it: Cafes, salons, small clinics, gyms, taxis, food-truck operators, franchisees, and POS/payment agency reps.
+- Trigger moment: Monthly card/POS/PG settlement arrives or the owner compares cash, card, Naver Pay, Kakao Pay, delivery-app, and Zero Pay flows.
+- Existing workaround: Spreadsheet settlement checks, POS exports, accountant calls, handwritten cash-discount messaging, and guessing which payment channel eats margin.
+- Domestic product angle: Korean settlement mix and tax/POS reconciliation, not US surcharge legality.
+
+#### K2 - Academy fee overcharging and private-education price anxiety
+- URL: https://gall.dcinside.com/board/view/?id=gukjenews&no=25536
+- Bucket: domestic education / parent anxiety
+- Observed complaint/desire: Korean authorities are cracking down on illegal academy fee practices and high-priced short courses, while parents still fear falling behind.
+- Who feels it: Parents of elementary/middle/high-school students, hagwon operators, study-room owners, and local education offices.
+- Trigger moment: A parent receives a new monthly fee notice, add-on workbook fee, intensive vacation class offer, or "top class" placement pitch.
+- Existing workaround: Mom-cafe screenshots, comparing neighborhood price lists, asking other parents privately, and arguing with the academy desk.
+- Domestic product angle: Hagwon fee transparency and social-pressure budgeting.
+
+#### K3 - 2026 third-grade after-school voucher and local program confusion
+- URL: https://issuefeed.dcinside.com/content/2141842
+- Bucket: domestic education / care logistics
+- Observed complaint/desire: 2026 after-school vouchers and local community programs can reduce costs, but parents must compare eligibility, school programs, local youth centers, payment paths, pickup logistics, and quality.
+- Who feels it: Elementary parents, school admin offices, local governments, after-school providers, and working parents.
+- Trigger moment: The family must choose between hagwon, after-school, care center, and local voucher programs before a semester deadline.
+- Existing workaround: KakaoTalk class rooms, school letters, district notices, and handwritten pickup schedules.
+- Domestic product angle: "사교육비 방어" through voucher-aware scheduling and trust checks.
+
+#### K4 - Seoul/private university tuition hikes and student cost-shift frustration
+- URL: https://gall.dcinside.com/board/view/?id=catholic&no=117903&page=1
+- Bucket: domestic education / youth cost pressure
+- Observed complaint/desire: Students complain that universities raise tuition without enough consent or visible value, while scholarships and family budgets lag.
+- Who feels it: University students, parents, student councils, scholarship offices, and part-time working students.
+- Trigger moment: Tuition bill lands, registration deadline approaches, or the student has to justify the increase to parents.
+- Existing workaround: Student-council posts, Excel budgets, scholarship portal checks, part-time job shifts, and installment plans.
+- Domestic product angle: Korean tuition negotiation, scholarship, and family budget truce room.
+
+#### K5 - Jeonse fraud, deposit-return fear, and support-process complexity
+- URLs: https://tilit.molit.go.kr/USR/BORD0201/m_11314/DTL.jsp?id=gtw0304&idx=22904&mode=view and https://www.opm.go.kr/opm/news/press-release.do?articleNo=162108&attachNo=153785&mode=download
+- Bucket: domestic housing / asset defense
+- Observed complaint/desire: Young renters must understand deposit protection, guarantee insurance, landlord risk, move-out timing, fixed-date paperwork, and relief programs after repeated jeonse fraud cases.
+- Who feels it: Young renters, newlyweds, parents co-signing deposits, real-estate agents, legal aid centers, and local counselors.
+- Trigger moment: Lease renewal, move-out notice, landlord asks for delay, guarantee subscription fails, or registry/debt information looks suspicious.
+- Existing workaround: Naver Cafe posts, law-office calls, broker reassurance, screenshots of 등기부등본, and late-night deposit panic.
+- Domestic product angle: Korea-specific deposit-return proof desk.
+
+#### K6 - Wage arrears and hidden unpaid labor
+- URL: https://www.moel.go.kr/news/enews/report/enewsView.do?news_seq=19009
+- Bucket: domestic work / survival money
+- Observed complaint/desire: Labor authorities are finding hidden wage arrears and unpaid severance; employees often do not know how to assemble proof or escalate.
+- Who feels it: Startup employees, IT agency staff, construction/retail/service workers, foreign workers, and small-company HR teams.
+- Trigger moment: Payday slips, resignation, severance deadline, boss delays payment, or coworkers start whispering about unpaid wages.
+- Existing workaround: KakaoTalk screenshots, payslip folders, Labor Portal complaints, group chats, and attorney/labor-consultant calls.
+- Domestic product angle: proof locker and complaint timeline for Korean labor claims.
+
+#### K7 - Health-insurance and real medical-cost burden
+- URL: https://www.mohw.go.kr/board.es?act=view&bid=0027&cg_code=&list_no=1487279&mid=a10503010200&tag=
+- Bucket: domestic health / household budget
+- Observed complaint/desire: Health-insurance premiums and out-of-pocket medical expenses remain sensitive under inflation; households want to understand what is covered, what is not, and how to reduce surprise bills.
+- Who feels it: Families with parents in treatment, chronic-disease patients, freelancers paying regional premiums, and caregivers.
+- Trigger moment: Annual premium notice, hospital estimate, non-covered treatment recommendation, or parent discharge planning.
+- Existing workaround: Insurance app screenshots, hospital billing counters, Naver Knowledge answers, and family KakaoTalk debates.
+- Domestic product angle: Korean bill-cover split, 실손/건보/비급여 triage, and family payment plan.
+
+#### K8 - Lunch-hour dating and office-worker relationship fatigue
+- URL: https://www.teamblind.com/kr/post/%ED%87%B4%EA%B7%BC-%ED%9B%84-%EB%A7%90%EA%B3%A0-%EC%A0%90%EC%8B%AC%EC%8B%9C%EA%B0%84%EC%97%90-%EB%A7%8C%EB%82%98%EB%8A%94-%EC%A7%81%EC%9E%A5%EC%9D%B8-%EC%86%8C%EA%B0%9C%ED%8C%85-%EC%95%B1-%EB%A7%8C%EB%93%A4%EC%97%88%EC%96%B4%EC%9A%94-11llas5e
+- Bucket: domestic loneliness / workplace dating
+- Observed complaint/desire: Korean office workers want dating options that do not consume evenings/weekends or expose too much identity, with location and company-verification constraints.
+- Who feels it: Gangnam/Pangyo/Yeouido office workers, lunch-break daters, dating-service makers, and people tired after work.
+- Trigger moment: User wants to meet someone but has overtime, commute fatigue, and privacy concerns.
+- Existing workaround: Blind posts, company-email verification, lunch-window matching, and small-region experiments.
+- Domestic product angle: Korean office lunch-date scheduling and reputation-safe exit.
+
+## Korea-first replacement candidates
+
+### kp001 - Practical / Commercial
+
+### Title
+사장님 정산 누수 지도
+
+### One-liner
+카드, 간편결제, 배달앱, POS 정산이 어디서 새는지 보여주는 한국형 소상공인 마진 방어 데스크.
+
+### Target user
+카페, 미용실, 작은 병원, 헬스장, 음식점, 개인택시, 프랜차이즈 점주, 세무대리인, POS/PG 영업 담당자.
+
+### Key UX
+점주가 카드사/POS/배달앱/간편결제 정산 데이터를 붙여 넣으면 실제 입금액, 수수료, 부가세, 배달 중개비, 할인쿠폰 부담, 현금영수증 누락 위험을 한 화면에서 비교하고 다음 달 결제 믹스 조정안을 만든다.
+
+### Required UI sections
+- 오늘 입금/누락 헤더
+- 카드/POS/간편결제/배달앱 정산 비교표
+- 메뉴별 마진 방어 계산기
+- 쿠폰/배달비/포장할인 부담 분리 뷰
+- 세무 증빙 체크리스트
+- 결제수단별 손익 시뮬레이터
+- 직원용 결제 안내 문구 생성기
+- 다음 달 정산 캘린더와 이상 알림
+
+### Assigned design profile
+operator-dense
+
+### Theme
+자산 방어
+
+### Source signal references
+- K1
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "사장님 정산 누수 지도" for cafe owners, salons, small clinics, gyms, restaurants, taxi operators, franchisees, tax accountants, and POS/PG sales reps. The app should let the owner paste or import Korean card/POS/Naver Pay/Kakao Pay/delivery-app settlement rows, then compare actual deposits, card fees, POS fees, PG fees, delivery commissions, coupon burden, VAT, cash-receipt gaps, and margin leakage by menu item. Required sections: today deposit/leak header, card/POS/simple-pay/delivery settlement table, menu margin defense calculator, coupon/delivery/packaging discount burden split, tax evidence checklist, payment-method profit simulator, staff payment script generator, and next-month settlement calendar with anomaly alerts. Use realistic Korean sample data for a 17-pyeong cafe, a hair salon, and a small clinic. Design direction: compact operator desk, dense tables, clear won amounts, red leak markers, Naver/Kakao/card/POS lanes, and practical owner controls.
+
+### kp002 - Practical / Commercial
+
+### Title
+학원비 압박 방어실
+
+### One-liner
+엄마표 불안, 학원 추가비, 방과후 바우처를 같이 비교해 사교육비 폭주를 막는 학부모 의사결정실.
+
+### Target user
+초등/중등 학부모, 맞벌이 부모, 지역 공부방, 방과후학교 담당자, 교육비 상담자, 학원 원장.
+
+### Key UX
+부모가 월 학원비, 교재비, 특강비, 차량비, 방과후 바우처, 아이 픽업 동선, 시험/선행 압박을 입력하면 "진짜 필요한 과목", "불안 때문에 넣은 과목", "바우처로 대체 가능한 과목"을 분리한다.
+
+### Required UI sections
+- 월 사교육비 압박 헤더
+- 학원/교재/특강/차량비 분해표
+- 방과후 바우처 및 지역 프로그램 매칭
+- 아이 시간표와 픽업 동선 보드
+- 선행/내신/돌봄 목적 분류
+- 옆집 비교 불안 메모장
+- 학원 상담 질문 리스트
+- 다음 달 줄일 수 있는 1순위 추천
+
+### Assigned design profile
+calm-consumer
+
+### Theme
+사교육
+
+### Source signal references
+- K2
+- K3
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "학원비 압박 방어실" for elementary and middle-school parents, working parents, local study rooms, after-school program staff, education-cost counselors, and academy owners. The app should help a parent enter monthly hagwon fees, workbook fees, vacation intensive classes, shuttle fees, after-school vouchers, local community programs, pickup routes, child fatigue, and exam/advance-learning anxiety, then separate necessary classes from fear-driven spending and voucher-replaceable options. Required sections: monthly private-education pressure header, academy/workbook/intensive/shuttle cost breakdown, after-school voucher and local program matcher, child timetable and pickup route board, purpose tags for advance learning/internal grades/care, neighborhood comparison anxiety notes, academy consultation question list, and next-month cut candidate recommendation. Use realistic Korean sample data for a third-grade student and a middle-school math/English schedule. Design direction: calm but concrete parent dashboard, won-denominated costs, school-letter style notices, soft urgency states, and practical family controls.
+
+### kp003 - Practical / Commercial
+
+### Title
+전세보증금 탈출 파일
+
+### One-liner
+퇴거 전 보증금 반환 위험을 증거, 일정, 등기부, 보증보험, 내용증명으로 묶는 청년 세입자 방어실.
+
+### Target user
+청년 세입자, 신혼부부, 부모가 보증금을 도와준 가족, 전세사기 피해 상담소, 공인중개사, 법률구조 담당자.
+
+### Key UX
+세입자가 계약서, 등기부등본, 확정일자, 보증보험, 집주인 대화, 퇴거 예정일, 다음 집 잔금일을 넣으면 반환 위험 점수, 해야 할 연락, 내용증명 타이밍, 상담기관 체크리스트를 만든다.
+
+### Required UI sections
+- 보증금 위험 헤더와 D-day
+- 계약/등기/확정일자/보증보험 증거함
+- 집주인 연락 타임라인
+- 다음 집 잔금일 충돌 경고
+- 내용증명 초안 생성기
+- 전세사기 지원/상담 경로 체크리스트
+- 가족 공유용 상황 요약
+- 이사 전 마지막 14일 액션 플랜
+
+### Assigned design profile
+field-ops
+
+### Theme
+자산 방어
+
+### Source signal references
+- K5
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "전세보증금 탈출 파일" for young renters, newlyweds, families who helped with a deposit, jeonse-fraud counseling centers, real-estate agents, and legal-aid staff. The app should let the renter organize lease contract data, registry extract, fixed-date proof, guarantee insurance status, landlord messages, move-out date, next-home balance date, and repair/deposit deductions, then produce a deposit-return risk score, required contacts, certified-mail timing, counseling checklist, and family-safe summary. Required sections: deposit risk header with D-day, contract/registry/fixed-date/guarantee evidence locker, landlord contact timeline, next-home balance-date conflict warning, certified-mail draft builder, jeonse-fraud support and counseling checklist, family share summary, and final 14-day action plan. Use realistic Korean sample data for a Seoul officetel renter and a newlywed villa lease. Design direction: serious field-ops interface, high-trust document surfaces, Korean legal terms, date-driven urgency, and clear next-action controls.
+
+### kp004 - Fun / Experimental
+
+### Title
+점심 소개팅 안전출구
+
+### One-liner
+퇴근 후 에너지가 없는 직장인을 위해 점심 90분 안에 만나고 깔끔하게 빠져나오는 한국형 소개팅 운영 보드.
+
+### Target user
+강남, 판교, 여의도, 광화문 직장인, 직장인 소개팅 서비스 운영자, 친구 소개 주선자, 싱글 모임 호스트.
+
+### Key UX
+사용자가 회사 인증 수준, 점심 가능 시간, 동선, 밥값 예산, 연락처 공개 여부, 거절 문구를 설정하면 11:30 신청, 12:10 만남, 13:20 종료, 14:00 자동 정리 흐름으로 부담 없는 만남을 만든다.
+
+### Required UI sections
+- 오늘 점심 매칭 헤더
+- 회사/지역/시간대 인증 상태
+- 90분 데이트 동선 추천
+- 밥값/카페 비용 부담 설정
+- 연락처 비공개 종료 규칙
+- 어색하지 않은 거절 문구 생성기
+- 친구에게 보내는 안전 체크인
+- 다음 만남 여부 선택 카드
+
+### Assigned design profile
+playful-experimental
+
+### Theme
+외로움
+
+### Source signal references
+- K8
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "점심 소개팅 안전출구" for office workers in Gangnam, Pangyo, Yeouido, and Gwanghwamun, lunch-date service operators, friend matchmakers, and singles-event hosts. The app should let a user set company verification level, lunch availability, walking route, meal budget, contact-sharing boundary, refusal copy, and friend safety check-in, then run a lightweight 11:30 apply, 12:10 meet, 13:20 wrap-up, 14:00 auto-close dating flow. Required sections: today's lunch-match header, company/region/time verification status, 90-minute route recommendation, meal/cafe cost settings, contact-private ending rules, polite refusal copy generator, friend safety check-in, and next-meeting decision card. Use realistic Korean sample data for a Gangnam office worker, a Pangyo developer, and a Yeouido finance worker. Design direction: playful but privacy-safe, Korean workplace cues, bright lunch-time energy, compact flow states, and a clean exit mechanic that reduces shame and fatigue.
