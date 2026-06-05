@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cluster Tree Explorer - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#adc6ff",
+                        "inverse-primary": "#bcc7de",
+                        "primary": "#091426",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#c9e6ff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "primary-fixed": "#d8e3fb",
+                        "tertiary-container": "#002c42",
+                        "primary-container": "#1e293b",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "surface-container-high": "#dce9ff",
+                        "secondary-container": "#2170e4",
+                        "on-primary-container": "#8590a6",
+                        "on-tertiary-fixed": "#001e2f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#001a42",
+                        "primary-fixed-dim": "#bcc7de",
+                        "outline": "#75777d",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c5c6cd",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#545f73",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#111c2d",
+                        "surface-variant": "#d3e4fe",
+                        "background": "#f8f9ff",
+                        "on-secondary-container": "#fefcff",
+                        "on-surface": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-tertiary-container": "#0099d9",
+                        "surface-dim": "#cbdbf5",
+                        "tertiary": "#001624",
+                        "secondary": "#0058be",
+                        "surface-container": "#e5eeff",
+                        "inverse-surface": "#213145",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#45474c",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-background": "#0b1c30",
+                        "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-padding": "1rem",
+                        "tight-gap": "0.25rem",
+                        "sidebar-width": "280px",
+                        "header-height": "48px",
+                        "element-gap": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "mono-sm": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "mono-md": ["JetBrains Mono"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "mono-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "mono-md": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tree-line {
+            position: relative;
+        }
+        .tree-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 24px;
+            bottom: -8px;
+            width: 1px;
+            background-color: #c5c6cd; /* outline-variant */
+            z-index: 1;
+        }
+        .tree-item-last .tree-line::before {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-sm h-screen overflow-hidden flex flex-col">
+<!-- Top Navigation Bar -->
+<header class="bg-surface text-primary font-body-md docked full-width top-0 border-b border-outline-variant flat no shadows fixed top-0 w-full z-50 flex items-center justify-between px-container-padding h-header-height shrink-0 box-border">
+<!-- Left: Branding & Search -->
+<div class="flex items-center gap-6 h-full">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="account_tree">account_tree</span>
+                Cluster Tree Explorer
+            </div>
+<!-- Quick Search -->
+<div class="relative flex items-center w-64 ml-4">
+<span class="material-symbols-outlined absolute left-2 text-on-surface-variant text-[18px]" data-icon="search">search</span>
+<input class="w-full h-8 pl-8 pr-10 bg-surface-container-lowest border border-outline-variant rounded text-on-surface font-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-colors placeholder:text-on-surface-variant" placeholder="Search clusters..." type="text"/>
+<div class="absolute right-2 font-mono-sm text-mono-sm text-on-surface-variant bg-surface px-1 rounded border border-outline-variant shadow-sm flex items-center pointer-events-none">
+                    Cmd+K
+                </div>
+</div>
+</div>
+<!-- Middle: Navigation Links -->
+<nav class="hidden md:flex h-full items-center gap-1 flex-1 justify-center px-4">
+<a class="h-full flex items-center px-3 text-secondary border-b-2 border-secondary pb-1 hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80" href="#">
+                Cluster Board
+            </a>
+<a class="h-full flex items-center px-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80" href="#">
+                Active Runs
+            </a>
+<a class="h-full flex items-center px-3 text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80" href="#">
+                Archive
+            </a>
+</nav>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-3 h-full">
+<button class="h-7 px-3 bg-primary-container text-on-primary-container rounded font-body-sm font-medium hover:bg-surface-tint hover:text-white transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="play_arrow">play_arrow</span>
+                Deploy Build
+            </button>
+<div class="flex items-center gap-1 border-l border-outline-variant pl-3 ml-1">
+<button aria-label="terminal" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="terminal">terminal</span>
+</button>
+<button aria-label="notifications" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded transition-colors cursor-pointer active:opacity-80 relative">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button aria-label="settings" class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant ml-2 overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A close up professional headshot of a technical operator. Soft, high key studio lighting. Neutral background. Highly detailed and realistic portrait. Clean corporate aesthetic matching a modern dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZr8ZJ7RTw59CrjyEuVdR9VEfg7_gpQEWuClucdg957GeypPNFAd4NX0ELoZ4KZM--GC4mhLpg34Z61zzudJWcJNyABOzQIiGVBBIykc5VvDKu6xtWZbyW8744ImQ6XGL6KH_1eOZF7pKoQsVc-GbA04sUvBbnRsMQiFO5YzrNqmz_gY1xFFXFlSzF6AEd8ATEhdp-gv_Y6sFmJRPJKa2chijGF-t3Y8XapjscEMHQGqmtHvKTIqyPBg8e4yACZJMIXu3fMYb0oOg"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Workspace Container -->
+<div class="flex flex-1 pt-header-height h-full box-border overflow-hidden">
+<!-- Far Left: Side Navigation (Narrow Toolbar Style) -->
+<nav class="w-14 bg-surface-container-low text-primary font-body-sm docked full-height left-0 border-r border-outline-variant flat no shadows flex flex-col py-element-gap z-40 shrink-0 h-full overflow-y-auto box-border transition-all duration-200 ease-in-out">
+<div class="flex-1 flex flex-col gap-1 px-2 mt-2">
+<a class="w-10 h-10 flex items-center justify-center rounded text-secondary bg-surface-container-high border-l-4 border-secondary transition-all duration-200 ease-in-out group relative" href="#" title="File Tree">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<div class="absolute left-12 px-2 py-1 bg-inverse-surface text-inverse-on-surface font-body-sm rounded whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 z-50 transition-opacity">File Tree</div>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out border-l-4 border-transparent group relative" href="#" title="Git History">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<div class="absolute left-12 px-2 py-1 bg-inverse-surface text-inverse-on-surface font-body-sm rounded whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 z-50 transition-opacity">Git History</div>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out border-l-4 border-transparent group relative" href="#" title="Modules">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+<div class="absolute left-12 px-2 py-1 bg-inverse-surface text-inverse-on-surface font-body-sm rounded whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 z-50 transition-opacity">Modules</div>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out border-l-4 border-transparent group relative" href="#" title="Sensors">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+<div class="absolute left-12 px-2 py-1 bg-inverse-surface text-inverse-on-surface font-body-sm rounded whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 z-50 transition-opacity">Sensors</div>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out border-l-4 border-transparent group relative" href="#" title="Metrics">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<div class="absolute left-12 px-2 py-1 bg-inverse-surface text-inverse-on-surface font-body-sm rounded whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 z-50 transition-opacity">Metrics</div>
+</a>
+</div>
+<div class="flex flex-col gap-1 px-2 mt-auto mb-2 border-t border-outline-variant pt-2">
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Keyboard Shortcuts">
+<span class="material-symbols-outlined text-[20px]" data-icon="keyboard">keyboard</span>
+</a>
+<a class="w-10 h-10 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container transition-all duration-200 ease-in-out group relative" href="#" title="Help">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+</a>
+<div class="w-10 h-10 mt-2 flex items-center justify-center rounded-full bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer" title="Root Node">
+<span class="font-label-caps text-label-caps uppercase text-primary">RN</span>
+</div>
+</div>
+</nav>
+<!-- Middle Left: Collapsible Tree Sidebar -->
+<aside class="w-64 bg-surface border-r border-outline-variant flex flex-col shrink-0 h-full overflow-hidden">
+<div class="h-10 px-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest shrink-0">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Explorer Hierarchy</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="unfold_more">unfold_more</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto py-2 px-2 font-mono-sm text-mono-sm">
+<!-- Tree Root -->
+<div class="flex flex-col gap-1">
+<!-- Group 1 -->
+<div class="tree-line">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="folder_open">folder_open</span>
+<span class="truncate">[Date] 2023-10-27</span>
+</div>
+<div class="pl-4 flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="article">article</span>
+<span class="truncate">build_manifest.yaml</span>
+</div>
+</div>
+</div>
+<!-- Group 2 (Active/Expanded) -->
+<div class="tree-line">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface font-medium bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="folder_open">folder_open</span>
+<span class="truncate">[Theme] Wearables</span>
+</div>
+<div class="pl-4 flex flex-col gap-1 mt-1">
+<div class="tree-line">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="folder">folder</span>
+<span class="truncate">[Market] EMEA</span>
+</div>
+<div class="pl-4 flex flex-col gap-1 mt-1">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded bg-secondary-fixed-dim bg-opacity-20 border-l-2 border-secondary cursor-pointer text-primary">
+<span class="material-symbols-outlined text-[16px] text-secondary" data-icon="developer_board">developer_board</span>
+<span class="truncate">Hydra-Link-V2</span>
+</div>
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]" data-icon="developer_board">developer_board</span>
+<span class="truncate">Nexus-Frame-Alpha</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Group 3 -->
+<div class="tree-line tree-item-last">
+<div class="flex items-center gap-1.5 px-2 py-1 rounded hover:bg-surface-container-low cursor-pointer text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="folder">folder</span>
+<span class="truncate">[Theme] Robotics</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-3 border-t border-outline-variant bg-surface-container-lowest shrink-0">
+<button class="w-full flex items-center justify-center gap-2 py-1.5 border border-outline-variant rounded font-body-sm text-on-surface hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+                    New Branch
+                </button>
+</div>
+</aside>
+<!-- Main Center: Cluster Board -->
+<main class="flex-1 bg-background h-full flex flex-col overflow-hidden min-w-[500px]">
+<!-- Board Header -->
+<div class="h-14 px-6 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest shrink-0">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">EMEA Wearables Review</h1>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-mono-sm text-mono-sm">12 Nodes</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 bg-surface border border-outline-variant rounded font-body-sm text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-1 text-mono-sm">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-low transition-colors" title="Grid View">
+<span class="material-symbols-outlined" data-icon="grid_view" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded text-on-surface-variant hover:bg-surface-container-low transition-colors" title="List View">
+<span class="material-symbols-outlined" data-icon="view_list">view_list</span>
+</button>
+</div>
+</div>
+<!-- Board Content (Grid) -->
+<div class="flex-1 overflow-y-auto p-6 bg-surface-bright">
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 auto-rows-max">
+<!-- Card 1 (Active) -->
+<div class="bg-surface-container-lowest border border-secondary rounded shadow-[0_0_0_1px_rgba(33,112,228,0.5)] flex flex-col cursor-pointer relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="p-3 border-b border-outline-variant flex justify-between items-start pl-4">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-0.5">Hydra-Link-V2</h3>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="commit">commit</span>
+                                    #a1b2c3d
+                                </div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed bg-opacity-30 text-on-secondary-fixed-variant font-label-caps text-label-caps">In-Review</span>
+</div>
+<div class="p-3 pl-4 flex-1 flex flex-col gap-3 justify-between">
+<div class="flex items-center gap-4 text-mono-sm text-on-surface-variant">
+<div>
+<span class="block text-[10px] uppercase tracking-wider mb-0.5">Temp</span>
+<span class="text-on-surface font-medium">42.5°C</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-wider mb-0.5">Power</span>
+<span class="text-on-surface font-medium">1.2W</span>
+</div>
+<div class="ml-auto">
+<!-- Sparkline placeholder -->
+<svg fill="none" height="16" viewbox="0 0 40 16" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 12L8 8L15 14L24 5L32 10L39 2" stroke="#2170e4" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col cursor-pointer hover:bg-surface-container-low transition-colors group">
+<div class="p-3 border-b border-outline-variant flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-0.5">Nexus-Frame-Alpha</h3>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="commit">commit</span>
+                                    #f9e8d7c
+                                </div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed bg-opacity-30 text-on-tertiary-fixed-variant font-label-caps text-label-caps">Testing</span>
+</div>
+<div class="p-3 flex-1 flex flex-col gap-3 justify-between">
+<div class="flex items-center gap-4 text-mono-sm text-on-surface-variant">
+<div>
+<span class="block text-[10px] uppercase tracking-wider mb-0.5">Temp</span>
+<span class="text-on-surface font-medium">38.1°C</span>
+</div>
+<div>
+<span class="block text-[10px] uppercase tracking-wider mb-0.5">Power</span>
+<span class="text-on-surface font-medium">0.8W</span>
+</div>
+<div class="ml-auto">
+<svg fill="none" height="16" viewbox="0 0 40 16" width="40" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 8L10 8L15 14L20 2L25 10L32 6L39 8" stroke="#75777d" stroke-linecap="round" stroke-width="1.5"></path>
+</svg>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col cursor-pointer hover:bg-surface-container-low transition-colors group opacity-80">
+<div class="p-3 border-b border-outline-variant flex justify-between items-start">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-0.5">Optic-Band-Legacy</h3>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]" data-icon="commit">commit</span>
+                                    #b2c3d4e
+                                </div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error-container bg-opacity-30 text-on-error-container font-label-caps text-label-caps">Blocked</span>
+</div>
+<div class="p-3 flex-1 flex flex-col gap-3 justify-between">
+<div class="flex items-center gap-4 text-mono-sm text-on-surface-variant">
+<div>
+<span class="block text-[10px] uppercase tracking-wider mb-0.5">Err</span>
+<span class="text-error font-medium">E-409</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Far Right: Detail Preview Pane -->
+<aside class="w-80 bg-surface border-l border-outline-variant flex flex-col shrink-0 h-full overflow-hidden hidden lg:flex">
+<!-- Header -->
+<div class="h-14 px-4 border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest shrink-0">
+<span class="font-headline-sm text-headline-sm text-on-surface font-semibold">Node Inspector</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="close">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<!-- Top Identity Section -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex justify-between items-start mb-2">
+<h2 class="font-headline-sm text-[20px] leading-tight text-on-surface font-bold">Hydra-Link-V2</h2>
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed bg-opacity-30 text-on-secondary-fixed-variant font-label-caps text-label-caps border border-secondary-fixed-dim">In-Review</span>
+</div>
+<div class="font-mono-sm text-mono-sm text-on-surface-variant flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[14px]" data-icon="history">history</span>
+                        Updated 12m ago by Operator 4
+                    </div>
+<div class="flex gap-2">
+<button class="flex-1 h-8 bg-primary-container text-on-primary-container rounded font-body-sm font-medium hover:bg-surface-tint hover:text-white transition-colors">
+                            View Console
+                        </button>
+<button class="w-8 h-8 border border-outline-variant rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+</div>
+<!-- BOM Summary -->
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center justify-between mb-3 cursor-pointer group">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider group-hover:text-primary transition-colors">Bill of Materials (BOM)</h3>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary transition-colors" data-icon="expand_less">expand_less</span>
+</div>
+<table class="w-full font-mono-sm text-mono-sm text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant text-on-surface-variant">
+<th class="py-1 font-normal">Component</th>
+<th class="py-1 font-normal text-right">Rev</th>
+<th class="py-1 font-normal text-right">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant border-opacity-50 hover:bg-surface-container-low transition-colors">
+<td class="py-1.5 text-on-surface truncate pr-2">Core_MCU_A1</td>
+<td class="py-1.5 text-right text-on-surface-variant">v1.2</td>
+<td class="py-1.5 text-right"><span class="w-2 h-2 rounded-full bg-[#10b981] inline-block"></span></td>
+</tr>
+<tr class="border-b border-outline-variant border-opacity-50 hover:bg-surface-container-low transition-colors">
+<td class="py-1.5 text-on-surface truncate pr-2">Sensor_Array_X</td>
+<td class="py-1.5 text-right text-on-surface-variant">v0.9</td>
+<td class="py-1.5 text-right"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span></td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-1.5 text-on-surface truncate pr-2">Power_Reg_Mini</td>
+<td class="py-1.5 text-right text-on-surface-variant">v2.0</td>
+<td class="py-1.5 text-right"><span class="w-2 h-2 rounded-full bg-[#10b981] inline-block"></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Recent Commits -->
+<div class="p-4 border-b border-outline-variant">
+<div class="flex items-center justify-between mb-3 cursor-pointer group">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider group-hover:text-primary transition-colors">Recent Commits</h3>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary transition-colors" data-icon="expand_less">expand_less</span>
+</div>
+<div class="flex flex-col gap-3 relative before:absolute before:left-[7px] before:top-2 before:bottom-2 before:w-[1px] before:bg-outline-variant">
+<div class="flex gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full bg-surface border-2 border-secondary flex-shrink-0 mt-0.5"></div>
+<div class="flex-1">
+<div class="font-mono-sm text-mono-sm text-primary mb-0.5">#a1b2c3d</div>
+<p class="font-body-sm text-on-surface mb-1 leading-snug">Calibrated thermal limits for chassis tolerance.</p>
+<span class="font-mono-sm text-[10px] text-on-surface-variant">12m ago</span>
+</div>
+</div>
+<div class="flex gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full bg-surface border-2 border-outline-variant flex-shrink-0 mt-0.5"></div>
+<div class="flex-1">
+<div class="font-mono-sm text-mono-sm text-on-surface-variant mb-0.5">#9x8y7z6</div>
+<p class="font-body-sm text-on-surface mb-1 leading-snug opacity-80">Initial BOM import from upstream.</p>
+<span class="font-mono-sm text-[10px] text-on-surface-variant">2h ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Operator Notes -->
+<div class="p-4">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Notes</h3>
+<button class="text-secondary font-mono-sm text-[11px] hover:underline">Edit</button>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded p-3 font-mono-sm text-mono-sm text-on-surface leading-relaxed shadow-sm">
+                        &gt; Warning: Heat dissipation in zone 4 slightly above spec. Monitor closely during stress test sequence alpha.
+                    </div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>
