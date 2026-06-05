@@ -280,12 +280,13 @@ Create a responsive web app prototype called "Real-Date Proof Booth" for dating-
 
 ## Domestic correction pass - operator feedback
 
-Feedback: the first 2026-06-05 batch leaned too heavily on overseas communities and US-specific systems, leaving weak domestic usefulness. Keep the original batch as shipped history, but use the following Korea-first replacements for the next Stitch/prototype generation pass or same-day redo.
+Feedback: the first 2026-06-05 batch leaned too heavily on overseas communities and US-specific systems, leaving weak domestic usefulness. Keep the original batch as shipped history, but use the following Korea-first replacement pool for the next Stitch/prototype generation pass or same-day redo.
 
 Correction rule added for this pass:
 - Start from Korean users, Korean policy/market friction, Korean payment/housing/education/health workflows, and Korean shame/status triggers.
 - Use overseas community posts only as analogy, not as direct product source.
 - Each selected candidate must be usable in Korea without translating a US institution like FAFSA, US card surcharging, or US prior-auth rules.
+- Keep 8 Korea-first candidates in Phase A so p001-p004 can be selected from a stronger domestic pool instead of forcing the first four ideas.
 
 ### Domestic signals
 
@@ -361,7 +362,9 @@ Correction rule added for this pass:
 - Existing workaround: Blind posts, company-email verification, lunch-window matching, and small-region experiments.
 - Domestic product angle: Korean office lunch-date scheduling and reputation-safe exit.
 
-## Korea-first replacement candidates
+## Korea-first replacement pool - 8 candidates
+
+Selection intent: use kp001-kp004 as the strongest same-day redo set if only four Stitch projects are generated. Keep kp005-kp008 as replacement cards or next-batch candidates when the daily theme mix needs more work/health/family coverage.
 
 ### kp001 - Practical / Commercial
 
@@ -507,3 +510,147 @@ playful-experimental
 
 ### Stitch prompt
 Create a responsive Korean web app prototype called "점심 소개팅 안전출구" for office workers in Gangnam, Pangyo, Yeouido, and Gwanghwamun, lunch-date service operators, friend matchmakers, and singles-event hosts. The app should let a user set company verification level, lunch availability, walking route, meal budget, contact-sharing boundary, refusal copy, and friend safety check-in, then run a lightweight 11:30 apply, 12:10 meet, 13:20 wrap-up, 14:00 auto-close dating flow. Required sections: today's lunch-match header, company/region/time verification status, 90-minute route recommendation, meal/cafe cost settings, contact-private ending rules, polite refusal copy generator, friend safety check-in, and next-meeting decision card. Use realistic Korean sample data for a Gangnam office worker, a Pangyo developer, and a Yeouido finance worker. Design direction: playful but privacy-safe, Korean workplace cues, bright lunch-time energy, compact flow states, and a clean exit mechanic that reduces shame and fatigue.
+
+### kp005 - Practical / Commercial
+
+### Title
+임금체불 증거 금고
+
+### One-liner
+월급, 퇴직금, 연장근로가 밀렸을 때 카톡·급여명세서·출퇴근 기록을 노동청 신고 파일로 묶는 생존 돈 회수 도구.
+
+### Target user
+스타트업 직원, IT 외주사 직원, 건설/도소매/서비스 노동자, 외국인 노동자, 프리랜서처럼 일하지만 근로자성 입증이 필요한 사람, 노무사 사무소.
+
+### Key UX
+사용자가 급여일, 미지급 금액, 근무기간, 퇴사일, 출퇴근 기록, 업무지시 카톡, 급여명세서, 4대보험 상태를 넣으면 체불액 타임라인, 증거 누락, 노동포털 신고 초안, 동료 공동 대응 메모를 만든다.
+
+### Required UI sections
+- 체불 총액과 신고 D-day 헤더
+- 급여/퇴직금/연장근로 분해표
+- 카톡/메일/출퇴근 증거 업로드 금고
+- 근로자성 체크리스트
+- 노동포털 신고 초안 생성기
+- 사업주 연락 기록 타임라인
+- 동료 공동 대응 보드
+- 노무사 상담용 1페이지 요약
+
+### Assigned design profile
+field-ops
+
+### Theme
+자산 방어
+
+### Source signal references
+- K6
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "임금체불 증거 금고" for startup employees, IT agency staff, construction/retail/service workers, foreign workers, quasi-freelancers who need to prove worker status, and labor attorney offices. The app should let a user enter payday, unpaid wages, unpaid severance, overtime, work period, resignation date, attendance logs, KakaoTalk work orders, payslips, and four-insurance status, then generate a wage-arrears timeline, missing-evidence checklist, Korean Labor Portal complaint draft, coworker coordination notes, and attorney-ready summary. Required sections: unpaid total and filing D-day header, wage/severance/overtime breakdown, KakaoTalk/email/attendance evidence locker, worker-status checklist, Labor Portal complaint draft builder, employer contact timeline, coworker joint-action board, and one-page labor-consultant summary. Use realistic Korean sample data for an unpaid startup developer and a retail worker. Design direction: serious field-ops evidence desk, Korean labor terms, high-confidence document states, clean proof timeline, and action-first complaint controls.
+
+### kp006 - Practical / Commercial
+
+### Title
+실손·건보 병원비 분해기
+
+### One-liner
+병원비 견적서를 급여, 비급여, 실손, 가족 부담으로 쪼개 갑작스러운 의료비 쇼크를 줄이는 한국형 비용 트리아지.
+
+### Target user
+부모님 병원비를 챙기는 가족, 만성질환자, 프리랜서/지역가입자, 실손보험 가입자, 병원 원무 상담 담당자, 보험설계사.
+
+### Key UX
+사용자가 진료비 세부내역서, 비급여 항목, 실손 세대, 자기부담률, 건강보험 자격, 가족별 부담 가능액을 입력하면 실제 본인부담, 청구 가능액, 빠진 서류, 가족 분담안을 계산한다.
+
+### Required UI sections
+- 예상 본인부담 쇼크 헤더
+- 급여/비급여/선택진료/소모품 비용 분해표
+- 실손 세대별 청구 가능성 체크
+- 병원 서류 요청 리스트
+- 가족별 부담 시나리오
+- 지역가입자 보험료 영향 메모
+- 추가 진료 전 질문 카드
+- 보험금 청구 패킷 미리보기
+
+### Assigned design profile
+calm-consumer
+
+### Theme
+건강
+
+### Source signal references
+- K7
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "실손·건보 병원비 분해기" for families managing parents' hospital bills, chronic-disease patients, freelancers and regional health-insurance payers, indemnity-insurance holders, hospital billing counselors, and insurance planners. The app should let a user enter a Korean medical bill estimate, detailed treatment statement, covered and non-covered items, indemnity-insurance generation, deductible rate, National Health Insurance status, and family contribution limits, then calculate real out-of-pocket burden, claimable amount, missing documents, and family payment split. Required sections: expected out-of-pocket shock header, covered/non-covered/supplies cost breakdown, indemnity-generation claimability check, hospital document request list, family burden scenarios, regional premium impact notes, pre-treatment question cards, and insurance claim packet preview. Use realistic Korean sample data for parent discharge planning and a non-covered injection recommendation. Design direction: calm healthcare cost console, plain Korean labels, won-denominated bill rows, gentle urgency, and family decision controls.
+
+### kp007 - Practical / Commercial
+
+### Title
+등록금 가족 협상실
+
+### One-liner
+오른 등록금, 장학금, 알바 시간, 부모 지원을 한 테이블에 올려 가족 싸움 없이 학기 예산을 합의하는 대학생 비용 조정실.
+
+### Target user
+대학생, 학부모, 학생회, 장학 담당자, 학자금 대출 상담자, 등록금 인상에 민감한 사립대 재학생.
+
+### Key UX
+학생이 등록금 고지서, 인상률, 장학금 가능성, 학자금 대출, 월세/교통비, 알바 가능 시간, 부모 지원 한도를 넣으면 가족 협상안, 학교 질의 카드, 장학금 체크리스트, 학기별 현금흐름을 만든다.
+
+### Required UI sections
+- 이번 학기 부족액 헤더
+- 등록금/생활비/교재비/교통비 분해표
+- 장학금·국가장학금·교내근로 체크리스트
+- 알바 시간과 성적 리스크 시뮬레이터
+- 부모 지원 요청 스크립트
+- 학생회/학교 질의 카드
+- 분납/대출/장학 조합 비교
+- 가족 합의 기록
+
+### Assigned design profile
+calm-consumer
+
+### Theme
+사교육
+
+### Source signal references
+- K4
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "등록금 가족 협상실" for university students, parents, student councils, scholarship offices, student-loan counselors, and private-university students sensitive to tuition hikes. The app should let a student enter tuition bill, increase rate, scholarship odds, national scholarship status, student-loan options, rent, transportation, textbooks, available part-time work hours, grade risk, and parent support ceiling, then produce a family negotiation plan, school question cards, scholarship checklist, installment/loan comparison, and semester cash-flow plan. Required sections: this-semester shortfall header, tuition/living/textbook/transport breakdown, scholarship/national-scholarship/campus-work checklist, part-time-hours and grade-risk simulator, parent-support request script, student-council/school question cards, installment/loan/scholarship mix comparison, and family agreement log. Use realistic Korean sample data for a Seoul private-university student facing a 2.7% tuition increase. Design direction: calm but tense student finance room, family-friendly language, won-denominated choices, gentle conflict mediation, and practical scholarship controls.
+
+### kp008 - Practical / Commercial / Care Ops
+
+### Title
+부모님 간병비 교대 보드
+
+### One-liner
+형제자매가 간병 시간, 병원비, 실손 청구, 보호자 교대를 눈치 싸움 없이 나누는 가족 돌봄 운영판.
+
+### Target user
+입원한 부모를 돌보는 자녀들, 멀리 사는 형제자매, 배우자 보호자, 병원 원무 상담 담당자, 방문요양/간병 서비스 코디네이터.
+
+### Key UX
+가족이 입원 일정, 보호자 필요 시간, 간병인 견적, 병원비, 보험 청구, 형제별 가능한 시간과 부담 가능 금액을 입력하면 공평한 교대표, 비용 분담안, 빠진 서류, 감정 충돌 위험을 보여준다.
+
+### Required UI sections
+- 이번 주 돌봄 공백 헤더
+- 병원 일정과 보호자 필요 시간표
+- 형제별 가능 시간/거리/비용 부담표
+- 간병인 견적 비교
+- 실손/건보/병원비 서류 체크리스트
+- 가족 단톡 공유용 교대표
+- 불공정 부담 경고
+- 퇴원 후 방문요양 전환 계획
+
+### Assigned design profile
+field-ops
+
+### Theme
+건강
+
+### Source signal references
+- K7
+
+### Stitch prompt
+Create a responsive Korean web app prototype called "부모님 간병비 교대 보드" for adult children caring for a hospitalized parent, siblings living far apart, spouse caregivers, hospital billing counselors, and caregiver-service coordinators. The app should let a family enter hospitalization schedule, required guardian hours, caregiver quotes, hospital bills, indemnity/National Health Insurance documents, each sibling's available time, travel distance, and payment capacity, then create a fair shift schedule, cost-sharing proposal, missing-document checklist, conflict-risk warning, and discharge-to-home-care plan. Required sections: this-week care gap header, hospital schedule and guardian-hours board, sibling availability/distance/payment table, caregiver quote comparison, indemnity/NHI/hospital document checklist, KakaoTalk-shareable family shift table, unfair-burden warning, and post-discharge home-care transition plan. Use realistic Korean sample data for three siblings splitting a parent's seven-day hospital stay. Design direction: practical care-ops dashboard, respectful family language, clear schedule grids, cost fairness indicators, and calm healthcare urgency.
