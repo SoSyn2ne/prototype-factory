@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>부모님 간병비 교대 보드</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffddba",
+                        "inverse-primary": "#9dd761",
+                        "primary-container": "#7cb342",
+                        "primary-fixed": "#b8f47a",
+                        "primary-fixed-dim": "#9dd761",
+                        "surface-container-low": "#e7f6ff",
+                        "on-primary-container": "#234100",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#0060a8",
+                        "on-tertiary-fixed-variant": "#663d00",
+                        "tertiary-fixed-dim": "#ffb865",
+                        "surface-bright": "#f4faff",
+                        "primary": "#3c6a00",
+                        "secondary-fixed-dim": "#a2c9ff",
+                        "surface-container": "#dff1fb",
+                        "on-secondary-fixed": "#001c38",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-container": "#003663",
+                        "tertiary-container": "#e79000",
+                        "surface-container-high": "#d9ebf5",
+                        "surface-variant": "#d4e5ef",
+                        "tertiary": "#875200",
+                        "surface-tint": "#3c6a00",
+                        "surface-dim": "#cbdde7",
+                        "surface-container-highest": "#d4e5ef",
+                        "on-primary-fixed": "#0e2000",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#424939",
+                        "background": "#f4faff",
+                        "outline-variant": "#c2c9b5",
+                        "inverse-on-surface": "#e2f3fd",
+                        "secondary-fixed": "#d3e4ff",
+                        "outline": "#737a68",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#47a1ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#553200",
+                        "on-primary-fixed-variant": "#2c5000",
+                        "on-surface": "#0d1e25",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface": "#f4faff",
+                        "inverse-surface": "#23333a",
+                        "on-secondary-fixed-variant": "#004881",
+                        "on-background": "#0d1e25"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "schedule-row-height": "64px",
+                        "base": "8px",
+                        "container-padding": "24px",
+                        "section-gap": "32px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Noto Sans"],
+                        "body-sm": ["Noto Sans"],
+                        "headline-md": ["Noto Sans"],
+                        "label-lg": ["Noto Sans"],
+                        "body-lg": ["Noto Sans"],
+                        "label-md": ["Noto Sans"],
+                        "headline-lg-mobile": ["Noto Sans"],
+                        "body-md": ["Noto Sans"],
+                        "headline-sm": ["Noto Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-lg": ["14px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Noto Sans', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined[data-weight="fill"] { font-variation-settings: 'FILL' 1; }
+        
+        /* Ambient Shadow Utilities */
+        .ambient-shadow {
+            box-shadow: 0 2px 8px rgba(13, 30, 37, 0.04);
+        }
+        .modal-shadow {
+            box-shadow: 0 4px 16px rgba(13, 30, 37, 0.12);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden bg-surface dark:bg-surface-dim border-b border-surface-variant dark:border-outline-variant w-full h-16 sticky top-0 z-50 flex justify-between items-center px-container-padding">
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed-dim">
+            부모님 간병비 교대 보드
+        </div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-low transition-colors rounded-full p-1" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:bg-surface-container-low transition-colors rounded-full p-1" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col w-64 border-r border-surface-variant dark:border-outline-variant h-screen sticky top-0 bg-surface-bright dark:bg-surface-container-lowest shadow-sm dark:shadow-none shrink-0">
+<div class="p-container-padding border-b border-surface-variant flex flex-col items-center">
+<div class="w-20 h-20 bg-surface-container-high rounded-full mb-4 flex items-center justify-center overflow-hidden">
+<img alt="환자 프로필 이미지" class="w-full h-full object-cover" data-alt="A dignified portrait of an elderly Asian man with kind eyes, conveying a sense of respect and care in a soft, natural lighting setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-p6gZqyDJoAEleOGKudW3AKb2R9HIwsbq69F2NE6WS8eFeSzHGd_9foq9DS7lqtI6IxxoN5YdTZnGiRSSmPHIOWa-6s9qiQXABv8hk57VV7mtB9zHBTAXPCi0KgryFOkvoCIQosZFeuo2VNm6HU9tncdp_yxDri-UiajagRXv0nu0S9rPp6N6J_cL9sVA1iCQo3T7tZ8r1C-nnupDjY-cFQt5bZsAiPou6NbiXCK0lko7EO1DN7ltKu9tqdi5RtX1F-N1SoqePjHt"/>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary text-center">김철수 부친님</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">상태: 안정적 | 일반병동 502호</p>
+</div>
+<div class="flex-1 py-section-gap px-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg px-4 py-3 hover:bg-surface-container-high transition-all active:translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today" data-weight="fill">calendar_today</span>
+<span class="font-label-lg text-label-lg">간병 스케줄</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label-lg text-label-lg">비용 정산</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-label-lg text-label-lg">서류 및 보험</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline px-4 py-3 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="home_health">home_health</span>
+<span class="font-label-lg text-label-lg">재가 케어 플랜</span>
+</a>
+</div>
+<div class="p-4 border-t border-surface-variant">
+<button class="w-full bg-primary text-on-primary rounded-lg py-3 font-label-lg text-label-lg hover:bg-primary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">edit_document</span>
+                간병 일지 작성
+            </button>
+<div class="mt-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline px-4 py-2 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-lg text-label-lg">도움말</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-outline px-4 py-2 hover:bg-surface-container-high rounded-lg transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-lg text-label-lg">로그아웃</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-[1280px] mx-auto p-container-padding flex flex-col gap-section-gap overflow-y-auto">
+<!-- Header & TopAppBar (Desktop Context) -->
+<div class="hidden md:flex justify-between items-center pb-4 border-b border-surface-variant">
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface">김철수 부친님 | 일반병동</h1>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors rounded-full p-2" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors rounded-full p-2" data-icon="settings">settings</span>
+</div>
+</div>
+<!-- 1. Care Gap Alert -->
+<section class="bg-error-container text-on-error-container rounded-xl p-4 flex items-start gap-4 border border-error/20 ambient-shadow">
+<span class="material-symbols-outlined text-error mt-1" data-icon="warning">warning</span>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm font-semibold mb-1">스케줄 공백 알림</h3>
+<p class="font-body-md text-body-md">이번 주 <strong>수요일 오후 (14:00 - 18:00)</strong>, 4시간 동안 배정된 보호자나 간병인이 없습니다. 가족 간 협의가 필요합니다.</p>
+</div>
+<button class="bg-error text-on-error px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-error/90 transition-colors whitespace-nowrap">
+                배정하기
+            </button>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column (Grid: 8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-section-gap">
+<!-- 2. 7-Day Shift Table (Bento Style) -->
+<section class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant overflow-hidden">
+<div class="p-4 border-b border-surface-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-headline-md text-headline-md font-semibold text-on-surface">주간 스케줄 (10.23 - 10.29)</h3>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant"><div class="w-3 h-3 rounded-full bg-secondary"></div>영수(장남)</span>
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant"><div class="w-3 h-3 rounded-full bg-tertiary-container"></div>미영(장녀)</span>
+<span class="flex items-center gap-1 font-label-md text-label-md text-on-surface-variant"><div class="w-3 h-3 rounded-full bg-primary-container"></div>지훈(차남)</span>
+</div>
+</div>
+<div class="p-4 overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[600px]">
+<thead>
+<tr class="border-b border-surface-variant">
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold">구분</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">월</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">화</th>
+<th class="py-2 font-label-md text-label-md text-error font-semibold text-center">수 (공백)</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">목</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">금</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">토</th>
+<th class="py-2 font-label-md text-label-md text-on-surface-variant font-semibold text-center">일</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-surface-variant/50 h-[48px]">
+<td class="py-2 font-medium">오전<br/><span class="text-[10px] text-outline">08:00 - 14:00</span></td>
+<td class="p-1"><div class="bg-secondary/20 border border-secondary/40 text-secondary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">영수</div></td>
+<td class="p-1"><div class="bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">미영</div></td>
+<td class="p-1"><div class="bg-primary-container/20 border border-primary-container/40 text-on-primary-container rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">지훈</div></td>
+<td class="p-1"><div class="bg-secondary/20 border border-secondary/40 text-secondary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">영수</div></td>
+<td class="p-1"><div class="bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">미영</div></td>
+<td class="p-1"><div class="bg-primary-container/20 border border-primary-container/40 text-on-primary-container rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">지훈</div></td>
+<td class="p-1"><div class="bg-secondary/20 border border-secondary/40 text-secondary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">영수</div></td>
+</tr>
+<tr class="h-[48px]">
+<td class="py-2 font-medium">오후<br/><span class="text-[10px] text-outline">14:00 - 20:00</span></td>
+<td class="p-1"><div class="bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">미영</div></td>
+<td class="p-1"><div class="bg-primary-container/20 border border-primary-container/40 text-on-primary-container rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">지훈</div></td>
+<td class="p-1"><div class="border-2 border-dashed border-error/50 text-error rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center bg-error-container/30">공백</div></td>
+<td class="p-1"><div class="bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">미영</div></td>
+<td class="p-1"><div class="bg-primary-container/20 border border-primary-container/40 text-on-primary-container rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">지훈</div></td>
+<td class="p-1"><div class="bg-secondary/20 border border-secondary/40 text-secondary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">영수</div></td>
+<td class="p-1"><div class="bg-tertiary-container/20 border border-tertiary-container/40 text-tertiary rounded p-2 text-center text-xs font-semibold h-full flex items-center justify-center">미영</div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3. Sibling Contribution & Fairness (Combined Glassmorphism/Bento) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Sibling Details -->
+<section class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant p-5 flex flex-col gap-4">
+<h3 class="font-headline-sm text-headline-sm font-semibold border-b border-surface-variant pb-2">가족 참여 현황</h3>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-lg border border-surface-variant bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center text-white font-bold text-sm">영수</div>
+<div>
+<p class="font-label-md text-label-md">장남 (서울, 15km)</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant">비용 여력: 중 | 주말 가능</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-secondary">24h</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border border-surface-variant bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-white font-bold text-sm">미영</div>
+<div>
+<p class="font-label-md text-label-md">장녀 (경기, 45km)</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant">비용 여력: 하 | 평일 낮 가능</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-tertiary-container">36h</p>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border border-surface-variant bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-white font-bold text-sm">지훈</div>
+<div>
+<p class="font-label-md text-label-md">차남 (인천, 30km)</p>
+<p class="font-body-sm text-[11px] text-on-surface-variant">비용 여력: 상 | 야간 가능</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-headline-sm text-headline-sm text-primary-container">18h</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Fairness Meter -->
+<section class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant p-5 flex flex-col justify-between">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-semibold border-b border-surface-variant pb-2 flex justify-between items-center">
+                                부담 균형도
+                                <span class="material-symbols-outlined text-outline text-sm" data-icon="info">info</span>
+</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 mb-4">현재 <strong class="text-tertiary">미영(장녀)</strong>님의 교대 시간이 다른 형제 대비 40% 이상 많습니다. 갈등 예방을 위해 조정이 권장됩니다.</p>
+</div>
+<div>
+<div class="h-4 w-full rounded-full bg-surface-variant flex overflow-hidden mb-2">
+<div class="bg-secondary h-full" style="width: 30%"></div>
+<div class="bg-tertiary-container h-full" style="width: 47%"></div>
+<div class="bg-primary-container h-full" style="width: 23%"></div>
+</div>
+<div class="flex justify-between font-label-md text-[10px] text-on-surface-variant">
+<span>영수 (30%)</span>
+<span class="text-tertiary font-bold">미영 (47%) ⚠️</span>
+<span>지훈 (23%)</span>
+</div>
+<button class="w-full mt-4 border border-outline text-on-surface rounded-lg py-2 font-label-md hover:bg-surface-container-low transition-colors">스케줄 재조정 제안</button>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Column (Grid: 4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-section-gap">
+<!-- 4. Expense & Billing -->
+<section class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant p-5">
+<h3 class="font-headline-sm text-headline-sm font-semibold border-b border-surface-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance_wallet">account_balance_wallet</span>
+                        비용 및 정산
+                    </h3>
+<div class="mt-4 space-y-4">
+<div class="bg-surface-bright rounded-lg p-3 border border-surface-variant">
+<p class="font-label-md text-on-surface-variant mb-1">현재 누적 병원비</p>
+<div class="flex items-end justify-between">
+<span class="font-headline-md font-bold">₩ 1,250,000</span>
+<span class="text-xs text-primary font-semibold flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_downward</span>실손 청구 가능</span>
+</div>
+</div>
+<div>
+<p class="font-label-md text-on-surface-variant mb-2">간병인 업체 비교 (일당)</p>
+<div class="space-y-2">
+<div class="flex justify-between items-center p-2 rounded border border-surface-variant bg-surface-container-lowest">
+<span class="font-body-sm font-medium">A 에이전시 (내국인)</span>
+<span class="font-label-md">₩ 150,000</span>
+</div>
+<div class="flex justify-between items-center p-2 rounded border border-surface-variant bg-surface-container-lowest opacity-70">
+<span class="font-body-sm font-medium">B 에이전시 (조선족)</span>
+<span class="font-label-md">₩ 120,000</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Document Checklist -->
+<section class="bg-surface-container-lowest rounded-xl ambient-shadow border border-surface-variant p-5">
+<h3 class="font-headline-sm text-headline-sm font-semibold border-b border-surface-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="checklist">checklist</span>
+                        서류 준비 상태
+                    </h3>
+<ul class="mt-4 space-y-3">
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-body-sm">
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="check_circle" data-weight="fill">check_circle</span>
+                                실손보험 청구서류
+                            </div>
+<span class="bg-primary/10 text-primary px-2 py-1 rounded-full text-[10px] font-bold">준비완료</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-body-sm">
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+                                건강보험 산정특례
+                            </div>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded-full text-[10px] font-bold">대기중</span>
+</li>
+<li class="flex items-center justify-between">
+<div class="flex items-center gap-2 font-body-sm">
+<span class="material-symbols-outlined text-tertiary text-[18px]" data-icon="error" data-weight="fill">error</span>
+                                퇴원수속 및 진단서
+                            </div>
+<span class="bg-tertiary-container/20 text-tertiary px-2 py-1 rounded-full text-[10px] font-bold">누락(금요일 필요)</span>
+</li>
+</ul>
+</section>
+<!-- 7. Post-Discharge & 8. Share -->
+<section class="bg-surface-container-low rounded-xl ambient-shadow border border-secondary/20 p-5 flex flex-col justify-between h-full">
+<div>
+<h3 class="font-headline-sm text-headline-sm font-semibold text-secondary mb-2">퇴원 후 자택 플랜</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">퇴원 예정일: 10월 30일 (월)</p>
+<div class="space-y-2 mb-4">
+<label class="flex items-center gap-2 font-body-sm">
+<input class="rounded border-outline text-secondary focus:ring-secondary h-4 w-4" type="checkbox"/>
+                                전동 침대 대여 신청
+                            </label>
+<label class="flex items-center gap-2 font-body-sm">
+<input class="rounded border-outline text-secondary focus:ring-secondary h-4 w-4" type="checkbox"/>
+                                방문 간호 서비스 예약
+                            </label>
+<label class="flex items-center gap-2 font-body-sm">
+<input class="rounded border-outline text-secondary focus:ring-secondary h-4 w-4" type="checkbox"/>
+                                주거지 휠체어 동선 정리
+                            </label>
+</div>
+</div>
+<button class="w-full bg-[#FEE500] text-[#000000] rounded-lg py-3 font-label-lg hover:bg-[#FEE500]/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                        카카오톡 가족방 공유하기
+                    </button>
+</section>
+</div>
+</div>
+</main>
+</body></html>
