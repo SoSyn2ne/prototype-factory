@@ -286,7 +286,7 @@ Correction rule added for this pass:
 - Start from Korean users, Korean policy/market friction, Korean payment/housing/education/health workflows, and Korean shame/status triggers.
 - Use overseas community posts only as analogy, not as direct product source.
 - Each selected candidate must be usable in Korea without translating a US institution like FAFSA, US card surcharging, or US prior-auth rules.
-- Keep 8 Korea-first candidates in Phase A so p001-p004 can be selected from a stronger domestic pool instead of forcing the first four ideas.
+- Follow-up operator decision: do not make every future pool domestic-only. Use a balanced 8-candidate pool: 4 Korea-first candidates and 4 overseas/global candidates, then select p001-p004 with at least 2 domestic picks.
 
 ### Domestic signals
 
@@ -364,7 +364,7 @@ Correction rule added for this pass:
 
 ## Korea-first replacement pool - 8 candidates
 
-Selection intent: use kp001-kp004 as the strongest same-day redo set if only four Stitch projects are generated. Keep kp005-kp008 as replacement cards or next-batch candidates when the daily theme mix needs more work/health/family coverage.
+Selection intent for this correction file: preserve 8 Korea-first options because the day had already shipped overseas-heavy demos. For future Phase A runs, use this as the domestic half of a balanced pool, not as a domestic-only mandate: 4 domestic + 4 overseas/global, then select p001-p004 with at least 2 domestic picks.
 
 ### kp001 - Practical / Commercial
 
