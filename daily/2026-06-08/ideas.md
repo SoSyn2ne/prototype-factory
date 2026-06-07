@@ -52,6 +52,43 @@
 - Raw signal: Local subsidy windows for young adults and newlyweds create a document/timing problem layered on top of rent and deposit pressure.
 - Source: https://www.reddit.com/r/Living_in_Korea/comments/1qufnh5/dongjakgu_seoul_announces_2026_housing_subsidies/
 
+## Korean community supplement
+
+### K1 - TheQoo, classroom smartphone ban debate, crawled Jun 8 2026
+- Bucket: Korean community / education policy
+- Raw signal: A Korean community repost of the 2026 classroom smartphone-ban law shows the local policy frame: teachers gain clearer enforcement ground, while student-rights groups object to loss of possession/discussion rights.
+- Source: https://theqoo.net/square/3890660924
+
+### K2 - Ppomppu, elementary teacher burden and parent complaints, May 9 2026
+- Bucket: Korean community / school operations
+- Raw signal: A Ppomppu discussion around field-trip responsibility highlights teachers' fear of legal liability and parent complaints over small details like activity photos, reinforcing the need for admin-side exception and response workflows.
+- Source: https://www.ppomppu.co.kr/zboard/view.php?id=freeboard&no=9933083
+
+### K3 - Ppomppu real-estate forum, Seoul jeonse/wolse listings under 30,000, Apr 9 2026
+- Bucket: Korean community / housing anxiety
+- Raw signal: Korean renters and investors discuss Seoul apartment jeonse/wolse listings falling below 30,000 for the first time in the tracked data, with policy blame and "what is the rent plan?" anxiety.
+- Source: https://m.ppomppu.co.kr/new/bbs_view.php?id=house&no=250290
+
+### K4 - Ppomppu real-estate forum, newlywed jeonse shortage, Mar 15 2026
+- Bucket: Korean community / housing anxiety
+- Raw signal: A post about newlyweds unable to find jeonse homes surfaces wedding-timing pressure, broker-calling behavior, and the fear that couples will be forced into higher monthly rent.
+- Source: https://m.ppomppu.co.kr/new/bbs_view.php?id=house&no=249078
+
+### K5 - 82cook, Airbnb cleaning-fee labor pricing, Sep 16 2025
+- Bucket: Korean community / niche operator workflow
+- Raw signal: A user asked how much to charge for Airbnb turnover cleaning after a friend's unit took nearly four hours plus coin-laundry drying time; replies debate hourly vs per-turnover pricing and pass-through laundry costs.
+- Source: https://www.82cook.com/entiz/read.php?bn=15&num=4086235
+
+### K6 - DCInside travel gallery, Airbnb cleaning fee and refund dispute, crawled 2026
+- Bucket: Korean community / guest trust dispute
+- Raw signal: A Korean Airbnb guest described paying a cleaning fee, doing basic cleanup, then facing a refund refusal over bedding and item placement, showing checkout-task ambiguity and cleaning-fee resentment.
+- Source: https://gall.dcinside.com/board/view/?id=travel&no=67577
+
+### K7 - Ppomppu overseas-purchase forum, personal customs-code mismatch, crawled 2026
+- Bucket: Korean community / import workflow
+- Raw signal: Overseas shoppers discuss customs-code mismatch notices, identity verification, and customs-system errors, with comments about importers abusing personal customs codes and sellers needing more formal import handling.
+- Source: https://m.ppomppu.co.kr/new/bbs_view.php?id=oversea&no=796672
+
 ## Novelty / Duplicate Check
 
 Checked the last 7 PF daily batches from 2026-05-29 through 2026-06-05.
@@ -95,7 +132,7 @@ field-ops
 사교육 / 건강 - attention protection, classroom control, parent anxiety, and status pressure around "exceptions."
 
 ### Source signal references
-S1, S2, S3
+S1, S2, S3, K1, K2
 
 ### Stitch prompt
 Build a production-grade web app prototype called "Bell-to-Bell Exception Room" for school leaders enforcing a student phone ban. The main workflow is a live enforcement room: an operations header with today status, an enforcement heatmap by period/location, an exception queue with parent reason and expiry, a consequence consistency table, a parent pressure inbox, and a rollout checklist. Include realistic sample data for high-school periods, hallway zones, cafeteria, medical exception, parent complaint, and teacher buy-in gaps. Design direction: use the field-ops profile with disciplined slate/steel surfaces, a restrained cyan or orange action accent, compact high-pressure controls, and legible tables that feel reliable during a school-day incident. Do not make a marketing landing page; the first screen must be the working app.
@@ -130,7 +167,7 @@ playful-experimental
 외로움 / 자산 방어 - roommate dependence, rent anxiety, deposit fear, and social compatibility under pressure.
 
 ### Source signal references
-S9, S10
+S9, S10, K3, K4
 
 ### Stitch prompt
 Build a playful but usable web app prototype called "Seoul Rent Cliff Roommate Draft" for young Seoul renters choosing between scarce listings, roommates, deposits, and subsidy deadlines. The main screen is a draft-board interface with apartment cards, roommate candidate cards, subsidy window tracker, deposit risk meter, lifestyle red-flag board, and a monthly-burn split simulator. Use realistic Seoul examples: 1M KRW monthly rent pressure, shrinking jeonse supply, youth/newlywed support documents, commute neighborhoods, and awkward roommate constraints. Design direction: use the playful-experimental profile with a memorable draft-night composition, bold contrast, witty ranking chips, and a shareable first impression while keeping one obvious decision workflow. Do not make a marketing landing page; the first screen must be the working app.
@@ -165,7 +202,7 @@ operator-dense
 자산 방어 - protecting small-host margin without triggering fee resentment or platform disputes.
 
 ### Source signal references
-S6, S7
+S6, S7, K5, K6
 
 ### Stitch prompt
 Build a B2B operator web app prototype called "Turnover Fee Margin Calibrator" for short-term-rental hosts deciding how to price cleaning and checkout tasks. The first screen should be a dense host console with a turnover cost model, fee strategy switcher, guest backlash meter, stay-length calendar simulator, checkout task policy editor, cleaner/cohost quote comparison, and a recommended listing-message snippet. Use realistic host data: studio vs 3-bedroom, cleaner quote, supplies, laundry, deep-clean reserve, one-night vs long-stay margin, and a post-booking fee dispute warning. Design direction: use the operator-dense profile with crisp compact tables, practical margin KPIs, charcoal/fog surfaces, and one sharp urgency accent for risky fee choices. Do not make a marketing landing page; the first screen must be the working app.
@@ -200,7 +237,7 @@ financial-analyst
 자산 방어 - preventing customs holds, surprise bonds, duty exposure, and compliance-driven cash lockups.
 
 ### Source signal references
-S4, S5
+S4, S5, K7
 
 ### Stitch prompt
 Build an institutional compliance web app prototype called "Importer Good-Standing Binder" for small importers preparing for tighter customs and importer-of-record scrutiny. The main screen is an analytical workbench with an IOR good-standing checklist, shipment risk queue, disclosure/certification tracker, supplier ownership watchlist, broker task handoff, de minimis transition timeline, SKU impact table, and a readiness memo generator. Use realistic sample rows for apparel, electronics accessories, beauty goods, HS codes, country flags, bond exposure, missing supplier certification, and founder signoff. Design direction: use the financial-analyst profile with ink/graphite/off-white surfaces, muted green confidence cues, restrained warning tones, and premium data-forward comparisons. Do not make a marketing landing page; the first screen must be the working app.
