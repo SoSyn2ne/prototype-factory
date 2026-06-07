@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ComplianceCore - Importer Good-Standing Binder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#868380",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e5e2e3",
+                        "secondary-fixed": "#d9e3f4",
+                        "on-secondary-container": "#596372",
+                        "inverse-primary": "#c8c6c7",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed": "#1c1b19",
+                        "on-primary-container": "#858384",
+                        "outline-variant": "#c7c6ca",
+                        "on-primary-fixed-variant": "#474647",
+                        "on-surface-variant": "#46474a",
+                        "background": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary": "#000000",
+                        "on-secondary-fixed": "#121c28",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "error": "#ba1a1a",
+                        "on-surface": "#191c1d",
+                        "on-tertiary-fixed-variant": "#484644",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d6e0f1",
+                        "primary-container": "#1b1b1c",
+                        "on-secondary-fixed-variant": "#3e4755",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-fixed-dim": "#cac6c2",
+                        "surface-tint": "#5f5e5f",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#555f6d",
+                        "secondary-fixed-dim": "#bdc7d8",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "surface-variant": "#e1e3e4",
+                        "tertiary-fixed": "#e6e2de",
+                        "surface": "#f8f9fa",
+                        "tertiary-container": "#1c1b19",
+                        "outline": "#76777b",
+                        "surface-dim": "#d9dadb",
+                        "primary": "#000000",
+                        "on-primary-fixed": "#1b1b1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "density-sm": "4px",
+                        "density-lg": "12px",
+                        "container-max": "1440px",
+                        "density-md": "8px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "mono-data": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "data-table": ["Inter"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "mono-data": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "data-table": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] bg-primary-container dark:bg-tertiary-container border-r border-outline dark:border-on-tertiary-container flex flex-col py-margin gap-density-lg transition-all duration-200 ease-in-out z-20 md:flex hidden">
+<div class="px-margin mb-6">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-8 h-8 rounded bg-on-primary text-primary flex items-center justify-center font-bold">
+                    GC
+                </div>
+<div>
+<h1 class="text-on-primary font-label-caps text-label-caps uppercase tracking-wider">Global Compliance</h1>
+<p class="text-on-primary-container text-xs">Institutional Tier</p>
+</div>
+</div>
+<button class="w-full bg-on-primary text-primary hover:bg-on-primary/90 py-2 px-4 rounded font-label-caps text-label-caps flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                New Filing
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto px-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-body-md text-body-md">Risk Queue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 border-l-4 border-on-primary dark:border-on-tertiary bg-on-primary-fixed-variant dark:bg-on-tertiary-fixed-variant text-on-primary dark:text-on-tertiary transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">business</span>
+<span class="font-body-md text-body-md">Importers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-body-md text-body-md">Checklists</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-body-md text-body-md">Audit Log</span>
+</a>
+</div>
+<div class="mt-auto px-4 flex flex-col gap-1 border-t border-on-primary-fixed-variant pt-4">
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container hover:bg-on-primary-fixed-variant/50 transition-colors" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-body-md text-body-md">Archive</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-[240px] min-w-0">
+<!-- TopNavBar -->
+<header class="w-full h-14 bg-surface dark:bg-surface-container-low border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin shrink-0 z-10">
+<div class="flex items-center gap-4">
+<div class="font-display-lg text-display-lg font-bold text-tertiary dark:text-tertiary-fixed md:hidden">CC</div>
+<div class="relative w-64 hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full h-8 pl-9 pr-3 bg-surface-container border border-outline-variant rounded text-sm focus:border-primary focus:ring-0 transition-colors" placeholder="Search entity, SKU, or tracking..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors p-2 rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors p-2 rounded">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-secondary dark:text-secondary-fixed-dim hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors p-2 rounded">
+<span class="material-symbols-outlined">help</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<button class="flex items-center gap-2 text-primary font-body-md text-body-md hover:opacity-80 transition-opacity">
+<span>Entity Switcher</span>
+<span class="material-symbols-outlined text-sm">unfold_more</span>
+</button>
+<img alt="User Profile" class="w-8 h-8 rounded border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcawSNz0s3QOk8BHKNNPnPLeoMG-pg0POMuTIqb1s95SXEwBhqrda-lv5VuHm-tY7TnyBhqoDQsuX4o-PkVz3Y4eTE_QDkVV361JDze5rNKEI0mO54W9b8hnE5uNbSZjeI_CKvJmJMGYK5Hphm49-_KoA85UauKpj_9JkRVi27Er2NrE5QWcGFUVnFd6jN-aeCpFvVqBQZLYDBPinIUpSUlBpODP0oCtaCTLMBq-N2Vsh5ydgUYTp2DpnJMvI3gSAJAOjtxDYiwgX8"/>
+</div>
+</header>
+<!-- Workbench Canvas -->
+<main class="flex-1 overflow-y-auto p-margin bg-background">
+<div class="max-w-container-max mx-auto space-y-gutter">
+<header class="mb-8">
+<h1 class="font-headline-md text-headline-md text-on-surface">Importer Good-Standing Binder</h1>
+<p class="text-secondary mt-1">Acme Global Trading Corp (ID: IOR-9942A)</p>
+</header>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Left Column (Wider) -->
+<div class="col-span-12 xl:col-span-8 space-y-gutter">
+<!-- Section 1 & 3: IOR Checklist & Attestations (Bento style) -->
+<div class="grid grid-cols-2 gap-gutter">
+<!-- IOR Good-Standing Checklist -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<h2 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest border-b border-outline-variant pb-2">IOR Verification Status</h2>
+<div class="space-y-3 flex-1">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">Entity Verification</span>
+<span class="bg-[#e6f4ea] text-[#137333] px-2 py-0.5 rounded font-mono-data text-mono-data border border-[#ceead6]">VERIFIED</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">Continuous Bond</span>
+<div class="text-right">
+<span class="bg-[#fff0e0] text-[#b06000] px-2 py-0.5 rounded font-mono-data text-mono-data border border-[#fce8d5]">$50K (Req: $250K)</span>
+</div>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">Domestic Asset Proof</span>
+<span class="bg-[#e6f4ea] text-[#137333] px-2 py-0.5 rounded font-mono-data text-mono-data border border-[#ceead6]">ON FILE</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">POA / Contact</span>
+<span class="bg-[#fce8e6] text-[#c5221f] px-2 py-0.5 rounded font-mono-data text-mono-data border border-[#fad2cf]">EXPIRED</span>
+</div>
+</div>
+</div>
+<!-- Disclosure/Certification Tracker -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<h2 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest border-b border-outline-variant pb-2">Attestations &amp; Certs</h2>
+<div class="space-y-3 flex-1">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">Anti-Evasion Attestation</span>
+<span class="text-secondary font-mono-data text-mono-data">Q3 2023 - VALID</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">UFLPA Admissibility Pkt</span>
+<span class="text-error font-mono-data text-mono-data">PENDING REVIEW</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface">C-TPAT Certification</span>
+<span class="text-secondary font-mono-data text-mono-data">ACTIVE (Tier 2)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Shipment Risk Queue -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden flex flex-col">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h2 class="font-label-caps text-label-caps text-secondary uppercase tracking-widest">Active Shipment Risk Queue</h2>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-table text-data-table border-collapse">
+<thead class="bg-surface-container-low border-b border-outline-variant text-secondary font-label-caps text-label-caps uppercase">
+<tr>
+<th class="py-2 px-4 font-normal">Supplier</th>
+<th class="py-2 px-4 font-normal">HS Code</th>
+<th class="py-2 px-4 font-normal">Orig</th>
+<th class="py-2 px-4 font-normal text-right">Exposure</th>
+<th class="py-2 px-4 font-normal">Doc Gaps</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-4">Zhejiang Apparel Co</td>
+<td class="py-2 px-4 font-mono-data">6109.10</td>
+<td class="py-2 px-4">CN</td>
+<td class="py-2 px-4 text-right font-mono-data text-error">$14,200</td>
+<td class="py-2 px-4 text-error text-xs">Missing COO, UFLPA Form</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-4">Seoul Electronics Ltd</td>
+<td class="py-2 px-4 font-mono-data">8517.12</td>
+<td class="py-2 px-4">KR</td>
+<td class="py-2 px-4 text-right font-mono-data">$450</td>
+<td class="py-2 px-4 text-secondary text-xs">None</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-4">Ho Chi Minh Textiles</td>
+<td class="py-2 px-4 font-mono-data">6204.62</td>
+<td class="py-2 px-4">VN</td>
+<td class="py-2 px-4 text-right font-mono-data text-[#b06000]">$3,100</td>
+<td class="py-2 px-4 text-[#b06000] text-xs">Pending MID verification</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Section 6: De minimis Transition Timeline & SKU Impact Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col">
+<h2 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest border-b border-outline-variant pb-2">De minimis Impact Forecast (Section 321)</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-table text-data-table">
+<thead class="text-secondary font-label-caps text-label-caps border-b border-outline-variant">
+<tr>
+<th class="py-2 font-normal">SKU Class</th>
+<th class="py-2 font-normal text-right">Current Duty (Under $800)</th>
+<th class="py-2 font-normal text-right">Forecast Duty (Proposed Rev)</th>
+<th class="py-2 font-normal text-right">Margin Impact</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-mono-data">
+<tr>
+<td class="py-2 font-body-md">Silk Blouse (Ch. 62)</td>
+<td class="py-2 text-right">$0.00</td>
+<td class="py-2 text-right text-error">$4.50</td>
+<td class="py-2 text-right text-error">-12.5%</td>
+</tr>
+<tr>
+<td class="py-2 font-body-md">Wireless Earbuds (Ch. 85)</td>
+<td class="py-2 text-right">$0.00</td>
+<td class="py-2 text-right text-[#b06000]">$1.20</td>
+<td class="py-2 text-right text-[#b06000]">-4.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- Right Column (Narrower) -->
+<div class="col-span-12 xl:col-span-4 space-y-gutter">
+<!-- Section 4: Supplier Ownership Watchlist -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<h2 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest border-b border-outline-variant pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-base">policy</span>
+                                Entity Watchlist Flags
+                            </h2>
+<div class="space-y-4">
+<div class="border-l-2 border-error pl-3">
+<div class="text-sm font-medium">Zhejiang Apparel Co</div>
+<div class="text-xs text-secondary mt-1">Flagged: Sub-tier supplier overlap with UFLPA entity list. Requires immediate supply chain mapping.</div>
+</div>
+<div class="border-l-2 border-[#b06000] pl-3">
+<div class="text-sm font-medium">Global Logistics HK</div>
+<div class="text-xs text-secondary mt-1">Flagged: High proportion of transshipment activity detected in last 90 days.</div>
+</div>
+</div>
+</div>
+<!-- Section 5: Broker Task Handoff -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<h2 class="font-label-caps text-label-caps text-secondary mb-4 uppercase tracking-widest border-b border-outline-variant pb-2">Broker Handoff Tasks</h2>
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<input class="mt-1 border-outline-variant text-primary rounded-sm focus:ring-primary w-3.5 h-3.5" type="checkbox"/>
+<div class="text-sm">
+<span class="font-medium">File updated POA</span>
+<div class="text-xs text-secondary flex justify-between mt-0.5">
+<span>Owner: J. Smith</span>
+<span class="text-error">Due: Today</span>
+</div>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<input class="mt-1 border-outline-variant text-primary rounded-sm focus:ring-primary w-3.5 h-3.5" type="checkbox"/>
+<div class="text-sm">
+<span class="font-medium">Increase Continuous Bond</span>
+<div class="text-xs text-secondary flex justify-between mt-0.5">
+<span>Owner: Finance</span>
+<span class="text-[#b06000]">Due: 10/15</span>
+</div>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<input class="mt-1 border-outline-variant text-primary rounded-sm focus:ring-primary w-3.5 h-3.5" type="checkbox"/>
+<div class="text-sm">
+<span class="font-medium">Submit COO for Entry #8821</span>
+<div class="text-xs text-secondary flex justify-between mt-0.5">
+<span>Owner: A. Chen</span>
+<span>Due: 10/18</span>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<!-- Section 7: Executive Readiness Memo -->
+<div class="bg-primary-container text-on-primary-container p-4 rounded border border-primary-container flex flex-col justify-between mt-auto">
+<div>
+<h2 class="font-label-caps text-label-caps text-on-primary mb-2 uppercase tracking-widest">Executive Briefing</h2>
+<p class="text-sm text-on-primary-container mb-4">Compile current risk exposure, bond deficiencies, and attestation gaps into a standardized memo for CFO signoff.</p>
+</div>
+<button class="w-full bg-on-primary text-primary hover:bg-on-primary/90 py-2 px-4 rounded font-medium text-sm transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">description</span>
+                                Generate Memo
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

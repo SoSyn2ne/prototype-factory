@@ -135,12 +135,18 @@ while (Date.now() - waitStarted < renderWaitMs) {
         return rect.width > 0 && rect.height > 0 && /^devices\s+.+/i.test(label);
       }).length;
   }).catch(() => 0);
+  const renderedPreviewCount = page.frames()
+    .filter((frame) => frame.url() === 'about:srcdoc')
+    .length;
   if (
     body
     && /내보내기|Export/.test(body)
     && !/화면 생성 중|Creating the UX flows|Crafting|Generating/i.test(body)
-    && generatedScreenCount > 0
-    && /Would you like|What would you like|How do these screens|I have designed|I built|I've developed|The design|Downloaded screens/i.test(body)
+    && (generatedScreenCount > 0 || renderedPreviewCount > 0)
+    && (
+      renderedPreviewCount > 0
+      || /Would you like|What would you like|How do these screens|I have designed|I built|I've developed|The design|Downloaded screens/i.test(body)
+    )
   ) {
     rendered = true;
     break;

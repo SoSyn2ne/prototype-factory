@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Turnover Fee Margin Calibrator</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#1a1b22",
+                      "on-primary-container": "#858384",
+                      "tertiary-container": "#2f1500",
+                      "tertiary-fixed": "#ffdcc3",
+                      "surface-container": "#eeedf7",
+                      "surface-tint": "#5f5e5f",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "secondary": "#5d5e60",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "surface-container-highest": "#e3e1ec",
+                      "on-tertiary-fixed": "#2f1500",
+                      "primary": "#000000",
+                      "secondary-fixed": "#e2e2e3",
+                      "on-tertiary-fixed-variant": "#6e3900",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-low": "#f4f2fd",
+                      "outline-variant": "#c7c6ca",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#c76c00",
+                      "on-surface-variant": "#46474a",
+                      "on-secondary-container": "#616364",
+                      "surface-variant": "#e3e1ec",
+                      "on-secondary-fixed": "#1a1c1d",
+                      "surface": "#fbf8ff",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#e5e2e3",
+                      "primary-fixed-dim": "#c8c6c7",
+                      "inverse-surface": "#2f3038",
+                      "on-primary-fixed": "#1b1b1c",
+                      "surface-container-high": "#e8e7f1",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#454748",
+                      "inverse-on-surface": "#f1effa",
+                      "secondary-container": "#dfdfe0",
+                      "inverse-primary": "#c8c6c7",
+                      "background": "#fbf8ff",
+                      "tertiary-fixed-dim": "#ffb77d",
+                      "outline": "#76777b",
+                      "tertiary": "#000000",
+                      "surface-dim": "#dad9e3",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#1b1b1c",
+                      "surface-bright": "#fbf8ff",
+                      "on-primary-fixed-variant": "#474647",
+                      "on-background": "#1a1b22"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "12px",
+                      "density-compact": "4px",
+                      "margin-page": "24px",
+                      "padding-card": "12px",
+                      "unit": "4px",
+                      "density-comfortable": "8px"
+              },
+              "fontFamily": {
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "10px",
+                              {
+                                      "lineHeight": "12px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Base resets and utility overrides for high density */
+        body { @apply bg-surface text-on-surface antialiased; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar for density */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { @apply bg-surface; }
+        ::-webkit-scrollbar-thumb { @apply bg-outline-variant rounded-full; }
+        ::-webkit-scrollbar-thumb:hover { @apply bg-outline; }
+    </style>
+</head>
+<body class="flex h-screen w-full overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-on-surface dark:bg-on-surface text-on-primary dark:text-on-primary font-body-sm text-body-sm fixed left-0 top-0 h-screen w-[240px] z-50">
+<div class="flex flex-col h-full py-gutter">
+<!-- Header Brand -->
+<div class="px-margin-page mb-8">
+<div class="flex items-center gap-density-comfortable">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-primary icon-fill" data-icon="person" data-weight="fill">person</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-on-primary">STR Ops</h1>
+<p class="font-label-caps text-label-caps text-on-primary-container">High-Volume Console</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 flex flex-col">
+<!-- Portfolio -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-base">domain</span>
+<span>Portfolio</span>
+</a>
+<!-- Operations -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-base">cleaning_services</span>
+<span>Operations</span>
+</a>
+<!-- Fee Engine (Active State) -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary font-bold border-r-2 border-on-primary bg-primary-container/20" href="#">
+<span class="material-symbols-outlined text-base icon-fill">calculate</span>
+<span>Fee Engine</span>
+</a>
+<!-- Analytics -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-base">insert_chart</span>
+<span>Analytics</span>
+</a>
+<!-- Settings -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-base">settings</span>
+<span>Settings</span>
+</a>
+<!-- Support -->
+<a class="flex items-center gap-density-comfortable px-margin-page py-density-comfortable text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined text-base">help</span>
+<span>Support</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="px-margin-page mt-4 mb-8">
+<button class="w-full bg-primary text-on-primary py-density-comfortable rounded-DEFAULT font-body-sm text-body-sm hover:bg-primary-container border border-outline-variant transition-colors">
+                    New Property
+                </button>
+</div>
+<!-- Footer -->
+<div class="border-t border-outline-variant pt-4 px-margin-page">
+<a class="flex items-center gap-density-comfortable py-density-compact text-on-primary-container hover:text-on-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-base">logout</span>
+<span>Log Out</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-[240px] flex-1 flex flex-col h-screen relative w-[calc(100%-240px)]">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary font-headline-md text-headline-md docked full-width top-0 sticky z-40 border-b border-outline-variant">
+<div class="flex justify-between items-center w-full px-margin-page h-14">
+<div class="flex items-center gap-margin-page">
+<span class="font-headline-md text-headline-md font-black text-primary">Turnover Fee Margin Calibrator</span>
+<nav class="hidden md:flex gap-gutter font-body-sm text-body-sm">
+<!-- Dashboard (Active) -->
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<!-- Simulator -->
+<a class="text-on-surface-variant hover:text-primary transition-all pb-1" href="#">Simulator</a>
+<!-- Comparison -->
+<a class="text-on-surface-variant hover:text-primary transition-all pb-1" href="#">Comparison</a>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<!-- Search placeholder logic (on_right) implies tools on right -->
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-page bg-surface-container-low">
+<!-- Context Header -->
+<div class="flex justify-between items-end mb-gutter">
+<div>
+<h2 class="font-body-lg text-body-lg text-on-surface-variant">Asset Context: <span class="font-bold text-on-surface">3-Bedroom Unit (Urban Core)</span></h2>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-density-compact">Base Rate: $250/nt | Est. Occupancy: 72%</p>
+</div>
+<div class="flex gap-density-comfortable">
+<span class="bg-surface-container-highest px-2 py-1 rounded-DEFAULT font-label-caps text-label-caps border border-outline-variant">DATA FRESHNESS: LIVE</span>
+</div>
+</div>
+<!-- Bento Grid -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- 1. Turnover Cost Model -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card flex flex-col">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">receipt_long</span> Turnover Cost Model</h3>
+<div class="flex-1 flex flex-col gap-1">
+<div class="flex justify-between font-body-sm text-body-sm border-b border-surface-variant pb-1">
+<span>Cleaner Quote</span><span class="font-data-mono text-data-mono">$150.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm border-b border-surface-variant pb-1">
+<span>Supplies</span><span class="font-data-mono text-data-mono">$15.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm border-b border-surface-variant pb-1">
+<span>Laundry Offsite</span><span class="font-data-mono text-data-mono">$20.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm border-b border-surface-variant pb-1">
+<span>Restock Kit</span><span class="font-data-mono text-data-mono">$10.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm border-b border-surface-variant pb-1">
+<span>Host Admin Time</span><span class="font-data-mono text-data-mono text-on-surface-variant">$50.00</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm pb-1">
+<span>Deep-Clean Reserve</span><span class="font-data-mono text-data-mono text-on-surface-variant">$25.00</span>
+</div>
+</div>
+<div class="mt-auto pt-gutter border-t border-outline-variant flex justify-between items-center bg-surface px-2 py-1 -mx-2 -mb-2 mt-2 rounded-b-DEFAULT">
+<span class="font-body-sm text-body-sm font-bold">Total Hard Cost</span>
+<span class="font-data-mono text-data-mono font-bold text-on-error-container">$270.00</span>
+</div>
+</div>
+<!-- 2. Fee Strategy Switcher -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">toggle_on</span> Fee Strategy Switcher</h3>
+<div class="flex flex-col gap-density-comfortable">
+<label class="flex items-center gap-density-comfortable p-2 border border-outline-variant rounded-DEFAULT bg-surface-container cursor-pointer hover:bg-surface-variant transition-colors">
+<input checked="" class="text-primary focus:ring-primary border-outline-variant" name="strategy" type="radio"/>
+<span class="font-body-sm text-body-sm font-bold flex-1">Explicit Cleaning Fee</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Standard</span>
+</label>
+<label class="flex items-center gap-density-comfortable p-2 border border-outline-variant rounded-DEFAULT hover:bg-surface-variant transition-colors cursor-pointer">
+<input class="text-primary focus:ring-primary border-outline-variant" name="strategy" type="radio"/>
+<span class="font-body-sm text-body-sm flex-1">Baked into Nightly Rate</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Mid-Risk</span>
+</label>
+<label class="flex items-center gap-density-comfortable p-2 border border-on-tertiary-container rounded-DEFAULT bg-[#fff8f1] cursor-pointer">
+<input class="text-on-tertiary-container focus:ring-on-tertiary-container border-on-tertiary-container" name="strategy" type="radio"/>
+<span class="font-body-sm text-body-sm font-bold text-on-tertiary-container flex-1">No-Fee Positioning</span>
+<span class="material-symbols-outlined text-[16px] text-on-tertiary-container">warning</span>
+</label>
+<label class="flex items-center gap-density-comfortable p-2 border border-outline-variant rounded-DEFAULT hover:bg-surface-variant transition-colors cursor-pointer">
+<input class="text-primary focus:ring-primary border-outline-variant" name="strategy" type="radio"/>
+<span class="font-body-sm text-body-sm flex-1">Long-Stay Spread</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">Volume</span>
+</label>
+</div>
+</div>
+<!-- 3. Guest Backlash Meter -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card flex flex-col">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">speed</span> Guest Backlash Meter</h3>
+<div class="flex-1 flex flex-col justify-center items-center py-4">
+<div class="w-full h-4 bg-surface-variant rounded-full overflow-hidden flex border border-outline-variant">
+<div class="h-full bg-secondary w-1/3"></div>
+<div class="h-full bg-on-tertiary-container w-1/3"></div>
+<div class="h-full bg-error opacity-20 w-1/3"></div>
+</div>
+<div class="flex justify-between w-full mt-2 font-label-caps text-label-caps text-on-surface-variant">
+<span>Low</span>
+<span class="text-on-tertiary-container font-bold">ELEVATED RISK</span>
+<span>Critical</span>
+</div>
+</div>
+<div class="mt-auto space-y-1">
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-surface-variant">Post-Booking Asks:</span>
+<span class="font-bold text-on-surface">Moderate</span>
+</div>
+<div class="flex justify-between font-body-sm text-body-sm">
+<span class="text-on-surface-variant">Chore Burden:</span>
+<span class="font-bold text-on-tertiary-container">High (Laundry Req)</span>
+</div>
+</div>
+</div>
+<!-- 4. Stay-Length Calendar Simulator -->
+<div class="col-span-12 md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">calendar_month</span> Stay-Length Margin Simulator (Net after $270 Hard Cost)</h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant">Stay Length</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-right">Gross Rev ($250/nt)</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-right">Collected Fee</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-right">Net Margin</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-center">Status</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-surface-variant hover:bg-surface-container-low">
+<td class="py-2">1 Night</td>
+<td class="py-2 text-right">$250.00</td>
+<td class="py-2 text-right">$150.00</td>
+<td class="py-2 text-right text-error">-$120.00</td>
+<td class="py-2 text-center"><span class="bg-error/10 text-error px-1 rounded-DEFAULT">LOSS</span></td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low">
+<td class="py-2">2 Nights</td>
+<td class="py-2 text-right">$500.00</td>
+<td class="py-2 text-right">$150.00</td>
+<td class="py-2 text-right">$130.00</td>
+<td class="py-2 text-center"><span class="bg-on-tertiary-container/10 text-on-tertiary-container px-1 rounded-DEFAULT">TIGHT</span></td>
+</tr>
+<tr class="border-b border-surface-variant hover:bg-surface-container-low">
+<td class="py-2">5 Nights</td>
+<td class="py-2 text-right">$1,250.00</td>
+<td class="py-2 text-right">$150.00</td>
+<td class="py-2 text-right">$880.00</td>
+<td class="py-2 text-center"><span class="bg-[#e6f4ea] text-[#137333] px-1 rounded-DEFAULT">HEALTHY</span></td>
+</tr>
+<tr class="hover:bg-surface-container-low">
+<td class="py-2">14 Nights</td>
+<td class="py-2 text-right">$3,500.00</td>
+<td class="py-2 text-right">$150.00</td>
+<td class="py-2 text-right">$3,130.00</td>
+<td class="py-2 text-center"><span class="bg-[#e6f4ea] text-[#137333] px-1 rounded-DEFAULT">OPTIMAL</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 6. Cleaner/Cohost Quote Comparison -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">group</span> Fulfillment Sourcing</h3>
+<table class="w-full text-left border-collapse font-body-sm text-body-sm">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-1 font-label-caps text-label-caps">Vendor</th>
+<th class="py-1 font-label-caps text-label-caps text-right">Cost</th>
+<th class="py-1 font-label-caps text-label-caps text-center">Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-surface-variant">
+<td class="py-2 font-bold">Pro Cleaner Network</td>
+<td class="py-2 text-right font-data-mono text-data-mono">$150</td>
+<td class="py-2 text-center text-on-surface-variant">Low</td>
+</tr>
+<tr class="border-b border-surface-variant bg-surface-container-low">
+<td class="py-2 font-bold">Cohost Team (Internal)</td>
+<td class="py-2 text-right font-data-mono text-data-mono">$110</td>
+<td class="py-2 text-center text-on-tertiary-container font-bold">Med</td>
+</tr>
+<tr>
+<td class="py-2 font-bold text-on-surface-variant">TaskRabbit (Ad-hoc)</td>
+<td class="py-2 text-right font-data-mono text-data-mono text-on-surface-variant">$90</td>
+<td class="py-2 text-center text-error font-bold">High</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- 5. Checkout Task Policy Editor -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card flex flex-col">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1 justify-between">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">edit_document</span> Checkout Task Policy (Guest Copy)</span>
+<button class="hover:bg-surface-variant p-1 rounded"><span class="material-symbols-outlined text-[14px]">content_copy</span></button>
+</h3>
+<textarea class="w-full flex-1 bg-surface-container-low border border-outline-variant rounded-DEFAULT p-2 font-body-sm text-body-sm focus:ring-primary focus:border-primary resize-none" rows="4">The cleaning fee covers professional laundering of all linens, deep sanitation of wet rooms, and property resetting. We kindly ask that you start the dishwasher and lock the door behind you. No stripping beds required.</textarea>
+<div class="mt-2 text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Length: 210 Chars | Tone: Authoritative/Polite</span>
+</div>
+</div>
+<!-- 7. Booking Decision Panel -->
+<div class="col-span-12 md:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-padding-card flex flex-col bg-gradient-to-br from-surface-container-lowest to-surface-container">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-density-comfortable flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">check_circle</span> Recommendation Engine</h3>
+<div class="flex-1 flex flex-col gap-gutter">
+<div class="flex items-center justify-between border-b border-outline-variant pb-2">
+<span class="font-body-sm text-body-sm font-bold">Computed Optimal Fee (Public):</span>
+<span class="font-data-mono text-data-mono text-[20px] font-bold">$185.00</span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<strong>Rationale:</strong> Absorbs $85 of hard cost into nightly rate to remain competitive in search ranking, while explicitly passing $185 to discourage 1-night bookings. Requires strict 2-night minimum.
+                        </div>
+<button class="mt-auto w-full bg-primary text-on-primary py-2 rounded-DEFAULT font-body-sm text-body-sm font-bold hover:bg-primary-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">publish</span> Apply Rule to PMS
+                        </button>
+</div>
+</div>
+</div>
+<div class="mt-gutter text-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">CONFIDENTIAL | STR OPS HIGH-VOLUME CONSOLE V2.4</span>
+</div>
+</main>
+</div>
+</body></html>

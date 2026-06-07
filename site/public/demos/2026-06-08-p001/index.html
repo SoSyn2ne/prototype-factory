@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Operations - Bell-to-Bell Exception Room</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb599",
+                        "primary": "#6cd3f7",
+                        "inverse-primary": "#006780",
+                        "outline": "#879298",
+                        "on-background": "#e0e3e5",
+                        "outline-variant": "#3e484d",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#1c2a3d",
+                        "on-primary-fixed-variant": "#004e61",
+                        "tertiary": "#b9c7e0",
+                        "primary-container": "#269dbe",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed": "#370e00",
+                        "surface-tint": "#6cd3f7",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "on-primary-fixed": "#001f28",
+                        "on-primary-container": "#002e3b",
+                        "on-secondary-fixed-variant": "#7f2b00",
+                        "on-surface-variant": "#bdc8ce",
+                        "on-secondary": "#5a1c00",
+                        "secondary": "#ffb599",
+                        "on-primary": "#003543",
+                        "surface-container": "#1d2022",
+                        "surface-bright": "#363a3b",
+                        "on-secondary-container": "#4f1700",
+                        "surface-dim": "#101415",
+                        "inverse-surface": "#e0e3e5",
+                        "inverse-on-surface": "#2d3133",
+                        "tertiary-fixed": "#d5e3fd",
+                        "background": "#101415",
+                        "secondary-container": "#f66018",
+                        "surface-variant": "#323537",
+                        "surface": "#101415",
+                        "surface-container-high": "#272a2c",
+                        "on-surface": "#e0e3e5",
+                        "secondary-fixed": "#ffdbce",
+                        "on-error": "#690005",
+                        "primary-fixed": "#b7eaff",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "tertiary-container": "#8392a9",
+                        "on-tertiary": "#233144",
+                        "primary-fixed-dim": "#6cd3f7",
+                        "surface-container-low": "#191c1e",
+                        "surface-container-highest": "#323537",
+                        "surface-container-lowest": "#0b0f10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-compact": "4px",
+                        "max-width-desktop": "1440px",
+                        "gutter": "12px",
+                        "container-padding": "16px",
+                        "unit": "4px",
+                        "stack-default": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #101415; color: #e0e3e5; }
+        .table-stripe:nth-child(even) { background-color: #1d2022; }
+        .table-stripe:nth-child(odd) { background-color: #101415; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #101415; }
+        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3e484d; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden pt-14 md:pl-64 pb-8">
+<!-- TopNavBar -->
+<header class="bg-surface-container dark:bg-surface-container fixed top-0 left-0 w-full z-50 border-b border-outline-variant dark:border-outline-variant flat no shadows transition-colors duration-200 flex justify-between items-center px-gutter h-14">
+<div class="flex items-center gap-4 pl-0 md:pl-64 transition-all duration-200 w-full">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary pl-4 md:pl-0">Bell-to-Bell Exception Room</span>
+<div class="flex-grow flex justify-end items-center gap-4">
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright dark:hover:bg-surface-bright p-2 rounded-DEFAULT transition-colors duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">notifications</span>
+</button>
+<button class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-bright dark:hover:bg-surface-bright p-2 rounded-DEFAULT transition-colors duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+</button>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-outline-variant" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMaR_npfT4biuEpF-pRPuaUvbF0kmCCRP9QArhky-ATapb2NOnlVQ2j6saXrMt2_QIpeseDeBYzu7CM1QaI0lQzE5R7DNdFssDxWiyydOp0D-IDWQpvvxawM7-GNJoP2wpoVeUgZw2LiIRHAMcA8vXhsJiKmSy3u6XuILwSCYiP2zwnTW1MJzUiV1HZsr3OYVLvaX0SmdkhhDTEkNHXdDTyJlfMczj2pWSGFd-Cn9DW_owVoK3nkt5dC7W4ZhUSZBGDiMCdFmdl4s"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex bg-surface-dim dark:bg-surface-dim fixed left-0 top-14 h-[calc(100vh-3.5rem)] w-64 border-r border-outline-variant dark:border-outline-variant flat no shadows transition-all duration-150 ease-in-out flex-col py-stack-default gap-unit z-40">
+<div class="px-container-padding py-stack-default flex items-center gap-3 border-b border-outline-variant mb-unit">
+<img alt="School Logo" class="w-10 h-10 rounded-DEFAULT" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxgX323ny6Ons_WHBVZXYaH6rXM0X5Y-dA_g89ycnjPaF2m8RLDvGf_fL7MHDhfAJ8rMvP952MjDWcKnx8bUjqbfZJ0yp7HocsdGLqTngyZ5Levriy0Lp8AgDPxbzNYdUB6R02S8zpcQQqkpGf9LBGcxBuBQtqPF5wVnHfFMiUBggey1ts5a_HtK8TqISETP77yUxXuYz9MAv42StSwmEdWopLhieSjvLzPaRjpAwYl0RnInjV1WLtQGCwuslzVkmDCzAYE1As37I"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-on-surface">Admin Control</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase">Operational Phase</p>
+</div>
+</div>
+<div class="flex-grow flex flex-col gap-unit px-unit overflow-y-auto">
+<a class="bg-secondary-container text-on-secondary-container dark:bg-secondary-container dark:text-on-secondary-container font-bold font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sensors</span> Live Operations
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">assignment_late</span> Exception Queue
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">analytics</span> Consistency Analytics
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">mail</span> Parent Inbox
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">fact_check</span> Rollout Checklist
+            </a>
+</div>
+<div class="mt-auto px-unit pt-unit border-t border-outline-variant flex flex-col gap-unit">
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">help</span> Support
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-label-md text-label-md flex items-center gap-3 px-3 py-2 rounded-DEFAULT hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-150 mb-2" href="#">
+<span class="material-symbols-outlined">history</span> Logs
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="p-gutter max-w-max-width-desktop mx-auto min-h-screen">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Enforcement Heatmap -->
+<section class="col-span-1 md:col-span-8 bg-surface-container border border-outline-variant rounded-lg p-container-padding flex flex-col">
+<div class="flex justify-between items-center mb-stack-default">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Enforcement Heatmap</h3>
+<span class="font-label-sm text-label-sm text-outline px-2 py-1 border border-outline-variant rounded-DEFAULT uppercase">Live</span>
+</div>
+<div class="flex-grow overflow-x-auto">
+<div class="min-w-[600px] grid grid-cols-8 gap-[1px] bg-outline-variant p-[1px] rounded-DEFAULT">
+<!-- Header Row -->
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">Loc \ Per</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P1</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P2</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P3</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P4</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P5</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P6</div>
+<div class="bg-surface-container-high p-2 flex items-center justify-center font-label-sm text-label-sm text-on-surface-variant uppercase">P7</div>
+<!-- Hallway A -->
+<div class="bg-surface-container-low p-2 font-body-sm text-body-sm text-on-surface">Hallway A</div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/30 border border-primary/40"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-secondary-container/40 border border-secondary-container/50"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/20 border border-primary/30"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/50 border border-primary/60"></div></div>
+<!-- Hallway B -->
+<div class="bg-surface-container-low p-2 font-body-sm text-body-sm text-on-surface">Hallway B</div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/20 border border-primary/30"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/40 border border-primary/50"></div></div>
+<!-- Cafeteria -->
+<div class="bg-surface-container-low p-2 font-body-sm text-body-sm text-on-surface">Cafeteria</div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-secondary-container/80 border border-secondary-container"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-secondary-container/60 border border-secondary-container/70"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/5 border border-primary/10"></div></div>
+<!-- Science Wing -->
+<div class="bg-surface-container-low p-2 font-body-sm text-body-sm text-on-surface">Science W.</div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/20 border border-primary/30"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/30 border border-primary/40"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/20 border border-primary/30"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/10 border border-primary/20"></div></div>
+<div class="bg-surface-container p-2 flex items-center justify-center"><div class="w-full h-full min-h-[24px] rounded-sm bg-primary/20 border border-primary/30"></div></div>
+</div>
+</div>
+</section>
+<!-- Admin Tools -->
+<section class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container border border-outline-variant rounded-lg p-container-padding">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-default flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">record_voice_over</span> Daily Huddle Script
+                    </h3>
+<div class="bg-surface-dim border border-outline-variant rounded-DEFAULT p-3 mb-3 h-24 overflow-y-auto font-body-sm text-body-sm text-on-surface-variant">
+                        "Team, focus on transition periods 4 and 5 today. Cafeteria sweeps need to be tighter. Ensure all medical exceptions are visually verified via the lanyard system before engagement."
+                    </div>
+<button class="w-full bg-surface-variant hover:bg-surface-bright text-on-surface font-label-md text-label-md py-2 rounded-DEFAULT transition-colors border border-outline-variant flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">print</span> Printable Policy Card
+                    </button>
+</div>
+<!-- Rollout Checklist -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-container-padding flex-grow flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-default flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">checklist</span> Rollout Checklist
+                    </h3>
+<div class="flex flex-col gap-2 flex-grow">
+<label class="flex items-center gap-3 p-2 hover:bg-surface-bright rounded-DEFAULT cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<input checked="" class="form-checkbox bg-surface-dim border-outline-variant text-primary rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface line-through opacity-70">Student Town Hall</span>
+</label>
+<label class="flex items-center gap-3 p-2 hover:bg-surface-bright rounded-DEFAULT cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<input checked="" class="form-checkbox bg-surface-dim border-outline-variant text-primary rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface line-through opacity-70">Signage Audit</span>
+</label>
+<label class="flex items-center gap-3 p-2 hover:bg-surface-bright rounded-DEFAULT cursor-pointer transition-colors border border-transparent hover:border-outline-variant">
+<input class="form-checkbox bg-surface-dim border-outline-variant text-primary rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface">Storage Bin Prep</span>
+</label>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<div class="flex justify-between items-end mb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Staff Buy-in Meter</span>
+<span class="font-label-md text-label-md text-primary font-bold">78%</span>
+</div>
+<div class="h-2 w-full bg-surface-dim rounded-full overflow-hidden border border-outline-variant">
+<div class="h-full bg-primary" style="width: 78%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Exception Queue -->
+<section class="col-span-1 md:col-span-12 bg-surface-container border border-outline-variant rounded-lg flex flex-col overflow-hidden">
+<div class="bg-secondary-container/20 border-b border-secondary-container/40 p-3 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-secondary-fixed flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">warning</span> Exception Queue
+                    </h3>
+<span class="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-2 py-0.5 rounded-DEFAULT uppercase">3 Urgent</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high border-b border-outline-variant">
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap">Student</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap">Parent Reason</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap text-center">IEP</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap">Approval Owner</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant uppercase whitespace-nowrap text-right">Expiry</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="table-stripe border-b border-outline-variant/50 hover:bg-surface-bright/50 transition-colors">
+<td class="p-3 text-on-surface font-medium">Jackson, M.</td>
+<td class="p-3 text-on-surface-variant">Medical/Glucose Monitor</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-primary text-[18px]">medical_services</span></td>
+<td class="p-3 text-on-surface-variant">Admin Sarah T.</td>
+<td class="p-3 text-right text-secondary-fixed font-label-md">12m remaining</td>
+</tr>
+<tr class="table-stripe border-b border-outline-variant/50 hover:bg-surface-bright/50 transition-colors">
+<td class="p-3 text-on-surface font-medium">Chen, L.</td>
+<td class="p-3 text-on-surface-variant">Emergency Contact (Family)</td>
+<td class="p-3 text-center text-outline-variant">-</td>
+<td class="p-3 text-on-surface-variant">VP Davis R.</td>
+<td class="p-3 text-right text-error font-label-md">EXPIRED 2m</td>
+</tr>
+<tr class="table-stripe border-b border-outline-variant/50 hover:bg-surface-bright/50 transition-colors">
+<td class="p-3 text-on-surface font-medium">Smith, J.</td>
+<td class="p-3 text-on-surface-variant">Anxiety Protocol</td>
+<td class="p-3 text-center"><span class="material-symbols-outlined text-primary text-[18px]">psychology</span></td>
+<td class="p-3 text-on-surface-variant">Counselor B.</td>
+<td class="p-3 text-right text-on-surface-variant font-label-md">45m remaining</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Consistency & Parent Inbox Row -->
+<div class="col-span-1 md:col-span-12 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Consequence Consistency Table -->
+<section class="bg-surface-container border border-outline-variant rounded-lg p-container-padding flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-default flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">balance</span> Consequence Consistency
+                    </h3>
+<div class="overflow-x-auto flex-grow">
+<table class="w-full text-left border-collapse border border-outline-variant rounded-DEFAULT overflow-hidden block md:table">
+<thead class="block md:table-header-group">
+<tr class="bg-surface-container-high border-b border-outline-variant block md:table-row">
+<th class="p-2 font-label-sm text-label-sm text-on-surface-variant uppercase block md:table-cell">Incident Type</th>
+<th class="p-2 font-label-sm text-label-sm text-on-surface-variant uppercase block md:table-cell">Official Policy</th>
+<th class="p-2 font-label-sm text-label-sm text-on-surface-variant uppercase block md:table-cell">Actual Action</th>
+<th class="p-2 font-label-sm text-label-sm text-on-surface-variant uppercase text-center block md:table-cell">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm block md:table-row-group">
+<tr class="border-b border-outline-variant/50 block md:table-row">
+<td class="p-2 text-on-surface font-medium block md:table-cell">Phone Visible (1st)</td>
+<td class="p-2 text-on-surface-variant block md:table-cell">Warning + Log</td>
+<td class="p-2 text-on-surface-variant block md:table-cell">Warning + Log</td>
+<td class="p-2 text-center block md:table-cell"><span class="material-symbols-outlined text-primary text-[16px]">check_circle</span></td>
+</tr>
+<tr class="border-b border-outline-variant/50 block md:table-row bg-error-container/10">
+<td class="p-2 text-on-surface font-medium block md:table-cell">Phone Used (2nd)</td>
+<td class="p-2 text-on-surface-variant block md:table-cell">Confiscation EOD</td>
+<td class="p-2 text-on-surface-variant block md:table-cell">Warning only</td>
+<td class="p-2 text-center block md:table-cell"><span class="material-symbols-outlined text-error text-[16px]">cancel</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Parent Pressure Inbox -->
+<section class="bg-surface-container border border-outline-variant rounded-lg p-container-padding flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-stack-default flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">forum</span> Parent Pressure Inbox
+                    </h3>
+<div class="flex flex-col gap-2 flex-grow">
+<div class="bg-surface-dim border border-outline-variant p-3 rounded-DEFAULT hover:border-outline transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md text-label-md font-bold text-on-surface">P. Thompson</span>
+<span class="bg-tertiary-container/20 text-tertiary font-label-sm text-label-sm px-2 py-0.5 rounded-DEFAULT border border-tertiary/30">Empathy-First</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2">"My daughter needs her phone to coordinate pickup..."</p>
+<div class="font-label-sm text-label-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> Owner: Counselor M.
+                            </div>
+</div>
+<div class="bg-surface-dim border border-secondary-container/50 p-3 rounded-DEFAULT hover:border-secondary-container transition-colors cursor-pointer">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-md text-label-md font-bold text-on-surface">R. Martinez</span>
+<span class="bg-secondary-container/20 text-secondary-fixed-dim font-label-sm text-label-sm px-2 py-0.5 rounded-DEFAULT border border-secondary-container/50">Escalate</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate mb-2">"I pay for that device, you have no right to..."</p>
+<div class="font-label-sm text-label-sm text-secondary-fixed-dim flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">person</span> Owner: Principal H.
+                            </div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest fixed bottom-0 right-0 w-full md:w-[calc(100%-16rem)] border-t border-outline-variant dark:border-outline-variant flat no shadows transition-opacity duration-200 flex justify-between items-center px-gutter h-8 z-40 hidden md:flex">
+<span class="font-label-sm text-label-sm text-outline dark:text-outline font-label-md text-label-md font-bold">© 2024 Bell-to-Bell Operations. All Rights Reserved.</span>
+<div class="flex gap-4 font-label-sm text-label-sm">
+<a class="text-outline hover:text-on-surface dark:hover:text-on-surface transition-colors" href="#">Compliance Policy</a>
+<a class="text-outline hover:text-on-surface dark:hover:text-on-surface transition-colors" href="#">Emergency Protocols</a>
+<a class="text-outline hover:text-on-surface dark:hover:text-on-surface transition-colors" href="#">System Status</a>
+</div>
+</footer>
+<!-- Mobile Nav Spacer -->
+<div class="h-8 md:hidden"></div>
+</body></html>
