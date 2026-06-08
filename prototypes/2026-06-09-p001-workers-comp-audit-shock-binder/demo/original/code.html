@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Workers Comp Audit Shock Binder - Audit Room</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Setup -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline": "#747878",
+                    "on-secondary-container": "#586377",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#d5e0f7",
+                    "tertiary-fixed": "#e6e2de",
+                    "primary-fixed": "#e4e2e1",
+                    "surface-container-highest": "#e5e2e1",
+                    "primary-fixed-dim": "#c8c6c6",
+                    "surface-dim": "#ddd9d8",
+                    "primary": "#181919",
+                    "surface-variant": "#e5e2e1",
+                    "on-primary-container": "#959494",
+                    "on-secondary": "#ffffff",
+                    "background": "#fdf8f8",
+                    "inverse-primary": "#c8c6c6",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#2d2d2d",
+                    "on-surface-variant": "#444748",
+                    "surface-bright": "#fdf8f8",
+                    "secondary": "#545f72",
+                    "tertiary-container": "#2e2d2b",
+                    "outline-variant": "#c4c7c7",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-tertiary-fixed-variant": "#484644",
+                    "surface-container-high": "#ebe7e7",
+                    "secondary-fixed": "#d8e3fa",
+                    "on-secondary-fixed-variant": "#3c475a",
+                    "surface-container": "#f1edec",
+                    "error": "#ba1a1a",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f7f3f2",
+                    "on-secondary-fixed": "#111c2c",
+                    "surface": "#fdf8f8",
+                    "on-tertiary-container": "#979491",
+                    "inverse-on-surface": "#f4f0ef",
+                    "on-primary-fixed": "#1b1c1c",
+                    "secondary-fixed-dim": "#bcc7dd",
+                    "surface-tint": "#5f5e5e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#1c1b1b",
+                    "inverse-surface": "#313030",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-fixed": "#1c1b1a",
+                    "on-background": "#1c1b1b",
+                    "tertiary-fixed-dim": "#c9c6c3",
+                    "tertiary": "#191917"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "container-padding": "1.5rem",
+                    "gutter": "1rem",
+                    "row-height-standard": "44px",
+                    "row-height-compact": "32px",
+                    "sidebar-width": "240px"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"],
+                    "display-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "label-sm": ["10px", {"lineHeight": "12px", "fontWeight": "500"}],
+                    "display-sm": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "headline-sm": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean dashboard look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c4c7c7; /* outline-variant */
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md flex h-screen overflow-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- JSON Component: SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col z-40 bg-primary dark:bg-tertiary-container text-on-primary w-sidebar-width border-r border-outline-variant flat no shadows transition-all duration-150 ease-in-out">
+<div class="p-container-padding border-b border-outline-variant">
+<h1 class="font-headline-sm text-headline-sm text-on-primary">Audit Workspace</h1>
+<p class="font-label-sm text-label-sm text-on-primary-container mt-1 uppercase tracking-wider">Risk Management</p>
+</div>
+<nav class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto font-label-md text-label-md">
+<!-- Active Tab: Audit Room -->
+<a class="flex items-center gap-3 px-4 py-2 bg-secondary dark:bg-secondary-fixed-dim text-on-secondary dark:text-on-secondary-fixed border-l-4 border-slate-500 hover:bg-primary-container dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined text-on-secondary" style="font-size: 18px;">gavel</span>
+                Audit Room
+            </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-fixed-variant hover:bg-primary-container dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">inventory_2</span>
+                COI Vault
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-fixed-variant hover:bg-primary-container dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">receipt_long</span>
+                Payroll Ledger
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-fixed-variant hover:bg-primary-container dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">edit_note</span>
+                Dispute Builder
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container dark:text-on-tertiary-fixed-variant hover:bg-primary-container dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">fact_check</span>
+                Renewal Checklist
+            </a>
+</nav>
+<div class="mt-auto border-t border-outline-variant py-4 flex flex-col gap-1 font-label-md text-label-md">
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container hover:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined" style="font-size: 18px;">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Area Wrapper -->
+<div class="flex-1 ml-[240px] flex flex-col h-screen relative">
+<!-- Header Group -->
+<div class="fixed top-0 right-0 w-[calc(100%-240px)] z-30">
+<!-- JSON Component: TopNavBar -->
+<header class="bg-surface dark:bg-surface-container text-primary dark:text-primary-fixed border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-container-padding h-row-height-standard">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full max-w-xs">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-outline" style="font-size: 18px;">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant text-body-sm font-body-sm text-on-surface rounded pl-8 pr-3 py-1 focus:outline-none focus:border-primary focus:border-2 transition-all" placeholder="Search entity, code, or COI..." type="text"/>
+</div>
+</div>
+<div class="flex-1 text-center">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Workers Comp Audit Shock Binder</span>
+</div>
+<div class="flex items-center justify-end gap-3 w-1/3">
+<button class="text-on-surface-variant hover:bg-surface-container-low p-1 rounded transition-colors opacity-80 hover:opacity-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-6 w-px bg-outline-variant mx-1"></div>
+<div class="w-7 h-7 rounded-full bg-surface-container-high border border-outline overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-outline" style="font-size: 16px;">person</span>
+</div>
+</div>
+</header>
+<!-- JSON Component: TopAppBar (Small) -->
+<div class="bg-error-container dark:bg-error-container text-on-error-container border-b border-error flat no shadows sticky top-row-height-standard w-full z-30 flex items-center px-container-padding h-row-height-compact cursor-default">
+<span class="material-symbols-outlined mr-2" style="font-size: 16px;">warning</span>
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold">Premium Exposure: $142.5k | Pending Forecast: +12% Shock</span>
+</div>
+</div>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto mt-[76px] mb-[44px] p-container-padding">
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter max-w-7xl mx-auto">
+<!-- Hero Section: Audit Shock Forecast Widget -->
+<div class="col-span-12 bg-surface-container-lowest border border-outline-variant rounded relative overflow-hidden flex items-center justify-between p-6">
+<!-- Warning Accent Strip -->
+<div class="absolute top-0 left-0 w-full h-1 bg-error"></div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined" style="font-size: 20px;">trending_up</span>
+<h2 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wide">Estimated Audit Premium Shock</h2>
+</div>
+<div class="font-display-sm text-display-sm text-on-surface mt-1">$42,150</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 max-w-md">Immediate cash-flow liability triggered by unresolved subcontractor classification shifts and expired COIs.</p>
+</div>
+<!-- Mini Chart Visualization (CSS based for pure utility) -->
+<div class="hidden md:flex items-end gap-2 h-16 w-48 border-b border-l border-outline-variant pb-1 pl-1 relative">
+<!-- Y-axis marks -->
+<div class="absolute -left-1 bottom-0 w-1 h-px bg-outline-variant"></div>
+<div class="absolute -left-1 top-0 w-1 h-px bg-outline-variant"></div>
+<!-- Budgeted Bar -->
+<div class="w-8 bg-surface-container-high h-3/5 rounded-t group relative">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label-sm text-label-sm bg-inverse-surface text-inverse-on-surface px-1 py-0.5 rounded pointer-events-none whitespace-nowrap z-10">Budget</div>
+</div>
+<!-- Actual/Projected Bar (Amber/Error colored) -->
+<div class="w-8 bg-error opacity-90 h-full rounded-t group relative ml-4">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label-sm text-label-sm bg-inverse-surface text-inverse-on-surface px-1 py-0.5 rounded pointer-events-none whitespace-nowrap z-10">Projected</div>
+<!-- Trend indicator -->
+<div class="absolute -top-3 -right-2 text-error">
+<span class="material-symbols-outlined" style="font-size: 14px;">arrow_upward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Subcontractor COI Vault Table -->
+<div class="col-span-12 xl:col-span-8 bg-surface-container-lowest border border-outline-variant rounded flex flex-col overflow-hidden">
+<div class="bg-primary-container text-on-primary px-4 py-3 flex justify-between items-center border-b border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">shield_locked</span>
+                            Subcontractor COI Vault
+                        </h3>
+<button class="font-label-sm text-label-sm border border-outline bg-transparent hover:bg-surface-tint text-on-primary px-2 py-1 rounded transition-colors">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead>
+<tr class="bg-surface-container font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider border-b border-outline-variant">
+<th class="px-4 py-2 font-medium">Entity Name</th>
+<th class="px-4 py-2 font-medium">Trade Class</th>
+<th class="px-4 py-2 font-medium">COI Status</th>
+<th class="px-4 py-2 font-medium text-right">Audit Risk</th>
+<th class="px-4 py-2 font-medium text-center">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors bg-error-container/10">
+<td class="px-4 py-3 font-medium text-on-surface">CleanSlate Services</td>
+<td class="px-4 py-3 text-on-surface-variant">Code 9014 (Janitorial)</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm border border-error/20">
+<span class="material-symbols-outlined" style="font-size: 12px; font-variation-settings: 'FILL' 1;">error</span>
+                                            Expired
+                                        </span>
+</td>
+<td class="px-4 py-3 text-right text-error font-medium">High Exposure</td>
+<td class="px-4 py-3 text-center">
+<button class="text-secondary hover:text-primary transition-colors" title="Request COI">
+<span class="material-symbols-outlined" style="font-size: 18px;">mail</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-4 py-3 font-medium text-on-surface">Elite GC</td>
+<td class="px-4 py-3 text-on-surface-variant">Code 5606 (Supervision)</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-surface-container-high text-on-surface px-2 py-0.5 rounded-sm font-label-sm text-label-sm border border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 12px;">check_circle</span>
+                                            Valid
+                                        </span>
+</td>
+<td class="px-4 py-3 text-right text-outline font-medium">Low</td>
+<td class="px-4 py-3 text-center">
+<button class="text-outline hover:text-primary transition-colors" title="View Document">
+<span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors bg-error-container/10">
+<td class="px-4 py-3 font-medium text-on-surface">Apex Drywall Inc.</td>
+<td class="px-4 py-3 text-on-surface-variant">Code 5445 (Wallboard)</td>
+<td class="px-4 py-3">
+<span class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm border border-error/20">
+<span class="material-symbols-outlined" style="font-size: 12px; font-variation-settings: 'FILL' 1;">warning</span>
+                                            Missing
+                                        </span>
+</td>
+<td class="px-4 py-3 text-right text-error font-medium">High Exposure</td>
+<td class="px-4 py-3 text-center">
+<button class="text-secondary hover:text-primary transition-colors" title="Request COI">
+<span class="material-symbols-outlined" style="font-size: 18px;">mail</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Bookkeeper Renewal Checklist -->
+<div class="col-span-12 md:col-span-6 xl:col-span-4 bg-surface-container-lowest border border-outline-variant rounded flex flex-col h-full">
+<div class="bg-primary-container text-on-primary px-4 py-3 border-b border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">checklist</span>
+                            Renewal Checklist
+                        </h3>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-3 font-body-sm text-body-sm">
+<label class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded cursor-pointer transition-colors group">
+<input class="mt-0.5 rounded-sm border-outline text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors text-on-surface">Review 1099 Subcontractor List</span>
+</label>
+<label class="flex items-start gap-3 p-2 bg-error-container/20 rounded cursor-pointer transition-colors group border border-error-container">
+<input class="mt-0.5 rounded-sm border-error text-error focus:ring-error focus:ring-offset-surface" type="checkbox"/>
+<span class="text-on-error-container font-medium flex-1">
+                                Validate Exemption Certs
+                                <span class="block font-label-sm text-label-sm text-error mt-1">2 missing for dry-wall subs</span>
+</span>
+</label>
+<label class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded cursor-pointer transition-colors group">
+<input class="mt-0.5 rounded-sm border-outline text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors text-on-surface">Reconcile Q3 Payroll Figures</span>
+</label>
+<label class="flex items-start gap-3 p-2 hover:bg-surface-container-low rounded cursor-pointer transition-colors group">
+<input class="mt-0.5 rounded-sm border-outline text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors text-on-surface">Confirm Officer Exclusions</span>
+</label>
+</div>
+<div class="p-3 border-t border-outline-variant bg-surface-container text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">1 of 4 Tasks Completed</span>
+</div>
+</div>
+<!-- Payroll Classification Ledger -->
+<div class="col-span-12 md:col-span-6 xl:col-span-6 bg-surface-container-lowest border border-outline-variant rounded flex flex-col">
+<div class="px-4 py-3 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">receipt_long</span>
+                            Classification Ledger
+                        </h3>
+</div>
+<div class="p-0">
+<table class="w-full text-left border-collapse">
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="px-4 py-3 w-8 text-outline">
+<span class="material-symbols-outlined" style="font-size: 16px;">swap_horiz</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-on-surface font-medium">Reclassification Alert</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm mt-0.5 font-mono bg-surface-container inline-block px-1 rounded">9014 (Janitorial) → 5606 (Supervision)</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-error font-medium">+$8,400 Est.</div>
+<div class="text-outline font-label-sm text-label-sm mt-0.5">Rate Diff: 12.4%</div>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="px-4 py-3 w-8 text-outline">
+<span class="material-symbols-outlined" style="font-size: 16px;">add_circle</span>
+</td>
+<td class="px-4 py-3">
+<div class="text-on-surface font-medium">Uninsured Sub Remuneration</div>
+<div class="text-on-surface-variant font-label-sm text-label-sm mt-0.5">CleanSlate Services added to gross</div>
+</td>
+<td class="px-4 py-3 text-right">
+<div class="text-error font-medium">+$14,200 Est.</div>
+<div class="text-outline font-label-sm text-label-sm mt-0.5">Audit Inclusion</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Compliance Investigator Inbox -->
+<div class="col-span-12 md:col-span-6 xl:col-span-6 bg-surface-container-lowest border border-outline-variant rounded flex flex-col">
+<div class="px-4 py-3 border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" style="font-size: 18px;">inbox</span>
+                            Investigator Inbox
+                        </h3>
+<span class="bg-primary text-on-primary font-label-sm text-label-sm px-2 py-0.5 rounded-full">3 New</span>
+</div>
+<div class="flex flex-col">
+<div class="p-3 border-b border-outline-variant hover:bg-surface-container-low transition-colors flex gap-3 items-start cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-error-container text-on-error-container flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">timer</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Lapse Notice: 2 months overdue</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Carrier indicates a coverage gap from Jan 1 to March 1. Requires immediate documentation of operational halt.</p>
+<span class="font-label-sm text-label-sm text-outline mt-2 block">Today, 09:41 AM</span>
+</div>
+</div>
+<div class="p-3 border-b border-outline-variant hover:bg-surface-container-low transition-colors flex gap-3 items-start cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">mail</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Surprise Premium Bill of $15k</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Underwriter Note: Endorsement generated based on preliminary Q1 payroll estimates exceeding threshold.</p>
+<span class="font-label-sm text-label-sm text-outline mt-2 block">Yesterday</span>
+</div>
+</div>
+<div class="p-3 hover:bg-surface-container-low transition-colors flex gap-3 items-start cursor-pointer group">
+<div class="w-8 h-8 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center shrink-0 mt-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">gavel</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors">Insurer Request: Exemption Certs</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 line-clamp-2">Please upload DWC-11 forms for all independent contractors listed on Schedule C.</p>
+<span class="font-label-sm text-label-sm text-outline mt-2 block">Oct 24</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Persistent Element: Cash-Flow Impact Strip -->
+<footer class="fixed bottom-0 right-0 w-[calc(100%-240px)] z-50 bg-inverse-surface text-inverse-on-surface h-[44px] flex items-center px-container-padding border-t border-outline-variant justify-between shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-inverse-primary" style="font-size: 20px;">account_balance_wallet</span>
+<span class="font-headline-sm text-headline-sm">Cash-Flow Impact Analysis</span>
+</div>
+<div class="flex items-center gap-6 font-label-md text-label-md">
+<div class="flex items-center gap-2">
+<span class="text-outline">Immediate Liability:</span>
+<span class="font-bold text-error bg-error-container/20 px-2 py-0.5 rounded border border-error/30">$12,400</span>
+</div>
+<div class="w-px h-4 bg-outline"></div>
+<div class="flex items-center gap-2">
+<span class="text-outline">Projected Bill:</span>
+<span class="font-bold text-inverse-on-surface">$29,750</span>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

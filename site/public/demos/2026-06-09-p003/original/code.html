@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Panic Grid Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#4d614e",
+                        "surface-bright": "#fbf9f4",
+                        "on-secondary-fixed-variant": "#6b3928",
+                        "on-primary-fixed": "#0d1f11",
+                        "outline": "#737872",
+                        "on-background": "#1b1c19",
+                        "primary-fixed-dim": "#b6ccb5",
+                        "surface-dim": "#dbdad5",
+                        "tertiary-fixed-dim": "#ebc080",
+                        "on-tertiary-fixed-variant": "#5e410c",
+                        "on-primary-container": "#f7fff3",
+                        "on-surface": "#1b1c19",
+                        "outline-variant": "#c3c8c0",
+                        "background": "#fbf9f4",
+                        "tertiary-fixed": "#ffddaf",
+                        "inverse-on-surface": "#f2f1ec",
+                        "secondary-fixed": "#ffdbd0",
+                        "primary-fixed": "#d2e9d0",
+                        "surface-container-low": "#f5f3ee",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#f0eee9",
+                        "secondary": "#87503e",
+                        "inverse-surface": "#30312e",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#765621",
+                        "on-tertiary-container": "#fffbff",
+                        "primary-container": "#657a66",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface-container-high": "#eae8e3",
+                        "secondary-fixed-dim": "#feb59e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#384b3a",
+                        "on-secondary-container": "#794433",
+                        "on-secondary-fixed": "#360f04",
+                        "on-surface-variant": "#434842",
+                        "surface-variant": "#e4e2dd",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#4f6350",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#feb59e",
+                        "on-tertiary-fixed": "#281800",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#b6ccb5",
+                        "tertiary-container": "#916f37",
+                        "surface": "#fbf9f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "base": "8px",
+                        "stack-lg": "32px",
+                        "gutter": "16px",
+                        "container-padding-desktop": "40px",
+                        "container-padding-mobile": "16px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-xl-mobile": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl-mobile": ["32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.surface'); }
+        
+        /* Soft, ambient shadows for widgets */
+        .ambient-shadow {
+            box-shadow: 0 4px 20px 0 rgba(107, 57, 40, 0.04);
+        }
+        
+        /* Minimal custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline-variant'); }
+
+        .widget-card {
+            background-color: theme('colors.surface-container-lowest');
+            border-radius: theme('borderRadius.xl');
+            padding: theme('spacing.stack-md');
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .widget-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(107, 57, 40, 0.06);
+        }
+    </style>
+</head>
+<body class="text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-lowest shadow-sm flex flex-col h-full py-stack-lg px-gutter z-50">
+<div class="mb-stack-lg px-2">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim">Panic Grid</h1>
+</div>
+<div class="flex items-center space-x-3 mb-stack-lg px-2 pb-6 border-b border-surface-variant">
+<div class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center overflow-hidden">
+<img alt="Family Profile Avatar" class="w-full h-full object-cover" data-alt="A warm, candid portrait of a young family smiling outdoors. The image conveys calm reliability and happiness, matching the soft, beige and sage green branding of the application. The lighting is soft and natural, creating a gentle, welcoming mood without high-contrast stress." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlj9tN3QJcal_jSD7kpzJke9dFrapYFHLirL_r7DCstJEuvF1jlA1TpmgjL5CNtxODNstR7Ov2MO_adYqts2eKM3jJCP-lMCAzGAIAhCmYG1ejpN08B95KUp6suPY6QGc4Q0uIP8JYy7FYinIUk__yDd4kPXN3_8jmZySvH0FM3HDSm395vcJGoeddA8aWsbjhZ2G5p8fVPrGv5S9Hr3ANjnRBPqv-fdF9AqvUoh7OPHFhM1KRdxqBiOX_u_wrMJNr5G_l3sQhK1Bq"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">The Miller Family</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Managing 2 children</p>
+</div>
+</div>
+<ul class="flex-grow space-y-2">
+<li>
+<a class="flex items-center px-4 py-3 rounded-lg text-primary font-bold border-r-4 border-primary bg-primary-container/10 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3" data-weight="fill">calendar_view_month</span>
+<span class="font-label-md text-label-md">Summer Grid</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3">explore</span>
+<span class="font-label-md text-label-md">Camp Directory</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors duration-200 scale-95 active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined mr-3">payments</span>
+<span class="font-label-md text-label-md">Budget</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto pt-6">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md mb-6 hover:bg-surface-tint transition-colors shadow-sm scale-95 active:scale-90 transition-transform">
+                Add New Camp
+            </button>
+<ul class="space-y-1">
+<li>
+<a class="flex items-center px-4 py-2 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-4 py-2 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-primary hover:bg-surface-container-highest dark:hover:bg-surface-container-high transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mr-3 text-sm">help</span>
+<span class="font-label-sm text-label-sm">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-grow bg-surface min-h-screen">
+<!-- TopNavBar (Structural adherence to TopAppBar without border logic) -->
+<header class="docked full-width top-0 sticky z-40 bg-surface dark:bg-surface-dim shadow-sm flex justify-between items-center w-full px-container-padding-desktop py-stack-sm ml-0">
+<div class="flex items-center gap-4">
+<span class="font-label-md text-label-md text-on-surface-variant">Registration Radar Active</span>
+</div>
+<div class="flex items-center space-x-4">
+<button class="text-primary font-label-md text-label-md px-4 py-2 border border-outline-variant rounded-full hover:bg-surface-container-low transition-colors duration-200">
+                    Waitlist Info
+                </button>
+<button class="bg-error-container text-on-error-container font-label-md text-label-md px-4 py-2 rounded-full hover:bg-error/20 transition-colors duration-200">
+                    Emergency Options
+                </button>
+<div class="flex space-x-2 pl-4 border-l border-surface-variant">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200">
+<img alt="Switch Child Profile" class="w-8 h-8 rounded-full object-cover" data-alt="A small, circular avatar image showing two smiling children looking warmly at the camera. The setting is bright and cheerful, utilizing soft, warm light consistent with a calm, family-oriented application aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvZf81sOKceFkNJKTC9RvS9c-0FbikP8FBRIZltz9ADyyB-b0EjljV8empH7W03vLGx2zweHgfFGKg1ZBhh7Q-k1utOwi1CypMVU6rE2G2B2UjMCJ_6vSgHFLzVTMItF7eLsJiXgdQgkYa02CaMJ9cXStVyGZg2HjIYxJbqNi9NYIOsuNHFEwOoYx_9uySsq3WzuZdBFfwMvdlVCHVLYGK3c56fNz8Qlx_nWR-d2iGsXWsM3PtiyHTeMBI0w-DOAy0KY2AiPE4UgFk"/>
+</button>
+</div>
+</div>
+</header>
+<div class="p-container-padding-desktop max-w-7xl mx-auto space-y-stack-lg">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-stack-md">
+<div>
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-2">Summer Grid Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Visualizing coverage for Leo (6) &amp; Maya (9).</p>
+</div>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">verified</span>
+<span class="font-label-md text-label-md">Currently 65% Covered</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Main Grid - Summer Table (Spans 8 columns) -->
+<div class="lg:col-span-8 widget-card ambient-shadow flex flex-col h-full">
+<div class="flex justify-between items-center mb-stack-md border-b border-surface-variant pb-2">
+<h3 class="font-headline-md text-headline-md text-on-surface">Weekly Planner</h3>
+<div class="flex gap-2 text-sm">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Covered</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary-container"></span> Gap/Issue</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="font-label-md text-label-md text-on-surface-variant border-b border-surface-variant">
+<th class="pb-3 pr-4 font-semibold w-1/4">Week</th>
+<th class="pb-3 px-4 font-semibold w-1/3">Leo (6)</th>
+<th class="pb-3 px-4 font-semibold w-1/3">Maya (9)</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<!-- Week 1: Covered -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 pr-4">
+<div class="font-label-md text-label-md">Week 1</div>
+<div class="text-xs text-on-surface-variant">Jun 12 - 16</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-primary-container/20 border-l-4 border-primary rounded-r-md p-3">
+<div class="font-label-md text-primary">Parks &amp; Rec</div>
+<div class="text-xs text-on-surface-variant">9:00 - 4:00</div>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-primary-container/20 border-l-4 border-primary rounded-r-md p-3">
+<div class="font-label-md text-primary">Creative Arts</div>
+<div class="text-xs text-on-surface-variant">9:00 - 4:00</div>
+</div>
+</td>
+</tr>
+<!-- Week 2: Mismatch -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 pr-4">
+<div class="font-label-md text-label-md">Week 2</div>
+<div class="text-xs text-on-surface-variant">Jun 19 - 23</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-secondary-container/20 border-l-4 border-secondary rounded-r-md p-3">
+<div class="font-label-md text-on-secondary-container">Soccer Camp</div>
+<div class="text-xs font-semibold text-secondary">Ends at 3:00 (Gap)</div>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-primary-container/20 border-l-4 border-primary rounded-r-md p-3">
+<div class="font-label-md text-primary">Swim Camp</div>
+<div class="text-xs text-on-surface-variant">8:00 - 4:00</div>
+</div>
+</td>
+</tr>
+<!-- Week 3: PTO -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 pr-4">
+<div class="font-label-md text-label-md">Week 3</div>
+<div class="text-xs text-on-surface-variant">Jun 26 - 30</div>
+</td>
+<td class="py-4 px-2 text-center" colspan="2">
+<div class="bg-surface-variant rounded-md p-3 flex items-center justify-center gap-2 border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-outline">flight_takeoff</span>
+<span class="font-label-md text-on-surface-variant">Family Vacation (PTO) - No Camp Needed</span>
+</div>
+</td>
+</tr>
+<!-- Week 4: Waitlist -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 pr-4">
+<div class="font-label-md text-label-md">Week 4</div>
+<div class="text-xs text-on-surface-variant">Jul 3 - 7</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-tertiary-container/10 border border-tertiary border-dashed rounded-md p-3">
+<div class="font-label-md text-tertiary">STEM Camp</div>
+<div class="text-xs font-semibold text-on-tertiary-container">Waitlist: #4</div>
+</div>
+</td>
+<td class="py-4 px-2">
+<div class="bg-primary-container/20 border-l-4 border-primary rounded-r-md p-3">
+<div class="font-label-md text-primary">Robot Builders</div>
+<div class="text-xs text-on-surface-variant">9:00 - 3:30</div>
+</div>
+</td>
+</tr>
+<!-- Week 5: Gap -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 pr-4">
+<div class="font-label-md text-label-md">Week 5</div>
+<div class="text-xs text-on-surface-variant">Jul 10 - 14</div>
+</td>
+<td class="py-4 px-2" colspan="2">
+<div class="bg-error-container/20 border border-error border-dashed rounded-md p-3 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-error-container/30 transition-colors">
+<span class="material-symbols-outlined text-error mb-1">warning</span>
+<span class="font-label-md text-error">Uncovered Gap</span>
+<span class="text-xs text-on-surface-variant">Click to find camps</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Side Widgets (Spans 4 columns) -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Registration Launch Radar -->
+<div class="widget-card ambient-shadow bg-surface-bright border-l-4 border-tertiary">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-tertiary">radar</span>
+<h4 class="font-label-md text-label-md text-on-surface">Registration Radar</h4>
+</div>
+<p class="font-body-md text-body-md text-on-surface mb-1">Science Center Registration</p>
+<p class="font-label-md text-label-md text-tertiary mb-3">Next Tuesday, 9:00 AM</p>
+<button class="w-full border border-tertiary text-tertiary rounded-lg py-2 font-label-md hover:bg-tertiary/5 transition-colors">Set Alarm</button>
+</div>
+<!-- Budget Burn Meter -->
+<div class="widget-card ambient-shadow">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-label-md text-label-md text-on-surface">Budget Burn Meter</h4>
+<span class="material-symbols-outlined text-outline text-sm">account_balance_wallet</span>
+</div>
+<div class="flex justify-between items-end mb-2">
+<span class="font-headline-md text-headline-md text-on-surface">$2,400</span>
+<span class="font-label-sm text-on-surface-variant">of $4,000</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-2.5 mb-3 overflow-hidden">
+<div class="bg-primary h-2.5 rounded-full" style="width: 60%"></div>
+</div>
+<p class="font-label-sm text-xs text-on-surface-variant flex items-start gap-1">
+<span class="material-symbols-outlined text-[14px]">info</span>
+                            Includes $300 deposit for backup camp.
+                        </p>
+</div>
+<!-- Refund Cliff Timeline -->
+<div class="widget-card ambient-shadow bg-secondary-container/10">
+<h4 class="font-label-md text-label-md text-secondary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined">history_toggle_off</span>
+                            Refund Cliff Alert
+                        </h4>
+<div class="p-3 bg-surface-container-lowest rounded-lg border border-secondary/20">
+<p class="font-body-md text-sm text-on-surface mb-2">50% Refund Window closing for July camps.</p>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="font-label-sm font-bold">Ends in 3 days</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row Widgets (Spans full width or split) -->
+<!-- Backup Stack -->
+<div class="lg:col-span-6 widget-card ambient-shadow">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined">layers</span>
+                        Backup Stack
+                    </h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="p-4 border border-outline-variant rounded-xl hover:border-primary transition-colors cursor-pointer flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-on-surface-variant">contact_emergency</span>
+</div>
+<h4 class="font-label-md text-on-surface mb-1">Emergency Sitters</h4>
+<p class="text-xs text-on-surface-variant">3 Contacts Available</p>
+</div>
+<div class="p-4 border border-outline-variant rounded-xl hover:border-tertiary transition-colors cursor-pointer flex flex-col items-center text-center">
+<div class="w-12 h-12 rounded-full bg-surface-variant flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-on-surface-variant">hourglass_empty</span>
+</div>
+<h4 class="font-label-md text-on-surface mb-1">Waitlist Status</h4>
+<p class="text-xs text-on-surface-variant">1 Active Waitlist</p>
+</div>
+</div>
+</div>
+<!-- Parent Message Pack -->
+<div class="lg:col-span-6 widget-card ambient-shadow bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-md flex items-center gap-2">
+<span class="material-symbols-outlined">note_stack</span>
+                        Parent Message Pack
+                    </h3>
+<div class="space-y-3">
+<div class="p-3 bg-surface-container-lowest rounded-lg border-l-4 border-tertiary flex gap-3 items-start">
+<span class="material-symbols-outlined text-tertiary text-sm mt-0.5">campaign</span>
+<p class="font-body-md text-sm text-on-surface">Don't forget to pack a brown-bag lunch for Maya on Wednesday (Swim Camp field trip).</p>
+</div>
+<div class="p-3 bg-surface-container-lowest rounded-lg border-l-4 border-outline-variant flex gap-3 items-start opacity-70">
+<span class="material-symbols-outlined text-outline text-sm mt-0.5">check_circle</span>
+<p class="font-body-md text-sm text-on-surface line-through">Pay balance for Leo's Soccer Camp.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
