@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Search Citation Repair Bay</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#3b0900",
+                        "surface-container-high": "#eae7e8",
+                        "surface-tint": "#0054d6",
+                        "surface-variant": "#e5e2e3",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "primary-container": "#0066ff",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "outline": "#727687",
+                        "tertiary": "#a33200",
+                        "surface-container-highest": "#e5e2e3",
+                        "tertiary-container": "#cc4204",
+                        "inverse-surface": "#303031",
+                        "tertiary-fixed": "#ffdbd0",
+                        "secondary-fixed": "#ffdbd1",
+                        "surface-container": "#f0edee",
+                        "surface-dim": "#dcd9da",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "tertiary-fixed-dim": "#ffb59d",
+                        "on-secondary-fixed-variant": "#862200",
+                        "outline-variant": "#c2c6d8",
+                        "inverse-on-surface": "#f3f0f1",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#f8f7ff",
+                        "on-error": "#ffffff",
+                        "background": "#fcf8f9",
+                        "inverse-primary": "#b3c5ff",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-primary-fixed": "#001849",
+                        "primary-fixed": "#dae1ff",
+                        "surface-container-low": "#f6f3f4",
+                        "on-surface-variant": "#424656",
+                        "on-tertiary-fixed": "#390c00",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1b1b1c",
+                        "on-secondary-container": "#541100",
+                        "error-container": "#ffdad6",
+                        "secondary": "#b02f00",
+                        "secondary-container": "#ff5722",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#fcf8f9",
+                        "primary": "#0050cb",
+                        "surface": "#fcf8f9",
+                        "on-background": "#1b1b1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "density-regular": "8px",
+                        "container-padding": "24px",
+                        "density-compact": "4px",
+                        "gutter": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter", "sans-serif"],
+                        "mono-sm": ["JetBrains Mono", "monospace"],
+                        "label-sm": ["Inter", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "label-md": ["Inter", "sans-serif"],
+                        "body-sm": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"],
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "mono-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "label-sm": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-sm": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "display": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for inner panes */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c2c6d8; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #727687; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-hidden flex h-screen">
+<!-- SideNavBar (Left) -->
+<nav class="w-sidebar-width h-screen border-r border-outline-variant bg-surface-container-lowest flex flex-col fixed left-0 top-0 overflow-y-auto shrink-0 z-50">
+<div class="p-container-padding flex items-center gap-gutter border-b border-outline-variant bg-surface-container-lowest">
+<img alt="System Logo" class="w-8 h-8 rounded-full" data-alt="A highly realistic, professional corporate headshot of a technical system operator working in an AI command center. The subject is well-lit with crisp, cool, light-mode studio lighting. The background is a clean, minimal office environment featuring subtle, high-tech monitors and sleek architectural lines. The color palette leans towards pristine whites, deep blacks, and sharp electric blue accents, reflecting a modern, authoritative, and precise atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfJlq3kjCSGl0UeZtPPoO5T9IfSPDXGEfx4ms4cEi1j2y_fpf4DKdm077De0UV8edVXUot4V9McpCVzNJcKIcFlylSTxCSF_WR7VCg8AdXQMnoVJ_kWEM9weCVQwbaeSj2FVBBUSkuRqsjCvJfA8rqHaOtGKO5s_NhXY9OVv-kI0DkL_gYwziikmvSj4XeNNmDjDQNcW_FBVU0AiE34Z0WTCkHEZaaZi_0FXeafaT2xUnoMSohX0kZcSNyTV7suctFQ-KfOe5t9g4"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-on-surface uppercase tracking-tight">CONTROL_UNIT</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">V.04_PROD</p>
+</div>
+</div>
+<div class="px-4 py-6">
+<button class="w-full bg-primary text-on-primary rounded-DEFAULT py-2 px-4 font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                NEW_REPAIR_PACKET
+            </button>
+</div>
+<div class="flex-1 px-2 space-y-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-2 my-1 bg-primary-container text-on-primary-container font-bold rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">build_circle</span>
+<span class="font-label-md text-label-md">Repair Bay</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 my-1 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">visibility</span>
+<span class="font-label-md text-label-md">Watchlist</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 my-1 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-md text-label-md">Archive</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 my-1 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+<span class="font-label-md text-label-md">Packet Export</span>
+</a>
+</div>
+<div class="px-2 pb-6 pt-4 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 my-1 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="font-label-md text-label-md">Docs</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 my-1 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all rounded-lg cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area Wrapper -->
+<div class="ml-sidebar-width mr-sidebar-width flex-1 flex flex-col h-screen overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="w-full h-14 bg-background border-b border-outline-variant flex justify-between items-center px-container-padding sticky top-0 z-50 shrink-0">
+<div class="flex items-center gap-gutter">
+<div class="font-display text-display text-primary tracking-tighter uppercase mr-4">
+                    VERIFY_OS_BETA
+                </div>
+<!-- Search Bar (on_left configuration) -->
+<div class="relative hidden lg:block w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT pl-8 pr-3 py-1.5 font-body-sm text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors text-on-surface placeholder:text-on-surface-variant" placeholder="Query entity or citation..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-1.5 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center">
+<span class="material-symbols-outlined">monitor_heart</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-1.5 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-1.5 rounded-full cursor-pointer active:opacity-80 flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden ml-2 cursor-pointer">
+<img alt="Operator Avatar" class="w-full h-full object-cover" data-alt="A highly realistic, professional corporate headshot of a technical system operator working in an AI command center. The subject is well-lit with crisp, cool, light-mode studio lighting. The background is a clean, minimal office environment featuring subtle, high-tech monitors and sleek architectural lines. The color palette leans towards pristine whites, deep blacks, and sharp electric blue accents, reflecting a modern, authoritative, and precise atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO3Co6o2UehoYMlOvu9ADg8aNEnUlQ6aW4HyZE9dJUEs8942mWZQX9IAL3lF5H-n1FvB2NDMBJqG9Zdt3rijIJXCG-m2q4_j4M91SzEkVqWB_JF5eOhusixo1C88Mw1V4RiPigDX0VjWYrbX22oU5rAS_hfJgdr1iOKjqU3MA5QLWWKB6aYOtxGexnweDpe9Obrw9gdVoWZlYlscpo898S3fBTRp9GQ51Zv-ioTnVKv82n5_Cyg4XH9glxyuqBg-6CL-LfHZIn3Tw"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding flex flex-col gap-container-padding bg-surface">
+<!-- Brand Fact Card -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-container-padding flex flex-col md:flex-row justify-between items-start md:items-center gap-4 shadow-sm">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm uppercase tracking-wider">Primary Entity</span>
+<span class="text-on-surface-variant font-mono-sm text-mono-sm">ID: PLD-8821</span>
+</div>
+<h2 class="font-display text-display text-on-surface font-bold tracking-tight mb-2">Pearl Street Dental</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">location_on</span>
+                        124 Pearl St, Boulder, CO 80302
+                    </p>
+</div>
+<div class="bg-error-container text-on-error-container p-gutter rounded-lg border border-error/20 max-w-sm">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined" style="font-size: 18px;">warning</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-wider">Competitor Collision Detected</span>
+</div>
+<p class="font-body-sm text-body-sm mt-1">High semantic overlap with "Pearl River Dental". AI engines are hallucinating mixed attributes.</p>
+</div>
+</section>
+<!-- AI Answer Comparison Lanes -->
+<section>
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Live Search Generative Experience Scrape</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">sync</span> Last scan: 2 mins ago
+                    </span>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-4 snap-x">
+<!-- Lane 1 -->
+<div class="min-w-[320px] w-[320px] shrink-0 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 snap-start flex flex-col hover:border-outline transition-colors relative group">
+<div class="flex items-center justify-between mb-3 border-b border-outline-variant pb-2">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">psychiatry</span> Google AI Overview
+                            </span>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm">Location Error</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic mb-4 line-clamp-4 flex-1">
+                            "Pearl Street Dental is a highly rated clinic located near the Pearl River reservoir. Patients praise their modern facilities..."
+                        </p>
+<div class="mt-auto pt-3 border-t border-surface-variant flex justify-between items-center">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Conf: 88%</span>
+<button class="bg-secondary text-on-secondary px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm flex items-center gap-1 hover:opacity-90">
+<span class="material-symbols-outlined" style="font-size: 14px;">build</span> Patch
+                            </button>
+</div>
+</div>
+<!-- Lane 2 -->
+<div class="min-w-[320px] w-[320px] shrink-0 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 snap-start flex flex-col hover:border-outline transition-colors relative group">
+<div class="flex items-center justify-between mb-3 border-b border-outline-variant pb-2">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-tint">chat_bubble</span> ChatGPT (GPT-4)
+                            </span>
+<span class="bg-error text-on-error px-2 py-0.5 rounded-sm font-label-sm text-label-sm">Hallucination</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic mb-4 line-clamp-4 flex-1">
+                            "They specialize in aquatic orthodontics and are the premier dental office in the Pearl River neighborhood."
+                        </p>
+<div class="mt-auto pt-3 border-t border-surface-variant flex justify-between items-center">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Conf: 92%</span>
+<button class="bg-secondary text-on-secondary px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm flex items-center gap-1 hover:opacity-90">
+<span class="material-symbols-outlined" style="font-size: 14px;">build</span> Patch
+                            </button>
+</div>
+</div>
+<!-- Lane 3 -->
+<div class="min-w-[320px] w-[320px] shrink-0 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 snap-start flex flex-col hover:border-outline transition-colors relative group">
+<div class="flex items-center justify-between mb-3 border-b border-outline-variant pb-2">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface">search_insights</span> Perplexity AI
+                            </span>
+<span class="bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-sm font-label-sm text-label-sm">Wrong Contact</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic mb-4 line-clamp-4 flex-1">
+                            "To book an appointment at Pearl Street Dental, call their main line at 555-0199 [competitor number]."
+                        </p>
+<div class="mt-auto pt-3 border-t border-surface-variant flex justify-between items-center">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Conf: 76%</span>
+<button class="bg-secondary text-on-secondary px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm flex items-center gap-1 hover:opacity-90">
+<span class="material-symbols-outlined" style="font-size: 14px;">build</span> Patch
+                            </button>
+</div>
+</div>
+<!-- Lane 4 -->
+<div class="min-w-[320px] w-[320px] shrink-0 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 snap-start flex flex-col hover:border-outline transition-colors relative group">
+<div class="flex items-center justify-between mb-3 border-b border-outline-variant pb-2">
+<span class="font-label-md text-label-md font-bold text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant">local_activity</span> Local Search Algo
+                            </span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded-sm font-label-sm text-label-sm">Mixed Signals</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic mb-4 line-clamp-4 flex-1">
+                            Listing shows 4.8 stars but reviews mention "dr. smith" who works at Pearl River Dental. Photos are mixed.
+                        </p>
+<div class="mt-auto pt-3 border-t border-surface-variant flex justify-between items-center">
+<span class="font-mono-sm text-mono-sm text-on-surface-variant">Conf: N/A</span>
+<button class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-DEFAULT font-label-sm text-label-sm flex items-center gap-1 hover:bg-surface-dim transition-colors border border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 14px;">visibility</span> Inspect
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Lower Section -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Citation Gap Table (col-span-8) -->
+<div class="md:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">table_chart</span> Citation Gap Analysis
+                    </h3>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr>
+<th class="font-label-sm text-label-sm text-on-surface-variant border-b border-outline-variant pb-2 font-semibold">Data Source</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant border-b border-outline-variant pb-2 font-semibold">AI Usage Weight</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant border-b border-outline-variant pb-2 font-semibold">Data Status</th>
+<th class="font-label-sm text-label-sm text-on-surface-variant border-b border-outline-variant pb-2 font-semibold text-right">Action Required</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="hover:bg-surface-container-low transition-colors group cursor-default">
+<td class="py-3 border-b border-outline-variant/50 text-on-surface font-medium">Yelp Local</td>
+<td class="py-3 border-b border-outline-variant/50 text-on-surface-variant">High (ChatGPT/Perplexity)</td>
+<td class="py-3 border-b border-outline-variant/50">
+<span class="text-error font-medium flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">close</span> Mismatch (Phone)</span>
+</td>
+<td class="py-3 border-b border-outline-variant/50 text-right">
+<button class="bg-secondary text-on-secondary px-2 py-1 rounded font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">Push Update</button>
+<span class="bg-error text-on-error px-2 py-0.5 rounded-sm font-label-sm text-label-sm ml-2 group-hover:hidden">Urgent</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-default">
+<td class="py-3 border-b border-outline-variant/50 text-on-surface font-medium">Google Business Profile</td>
+<td class="py-3 border-b border-outline-variant/50 text-on-surface-variant">Critical (Google AI)</td>
+<td class="py-3 border-b border-outline-variant/50">
+<span class="text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">horizontal_rule</span> Missing Categories</span>
+</td>
+<td class="py-3 border-b border-outline-variant/50 text-right">
+<button class="border border-outline-variant text-on-surface-variant px-2 py-1 rounded font-label-sm text-label-sm hover:bg-surface-dim">Optimize</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-default">
+<td class="py-3 border-b border-outline-variant/50 text-on-surface font-medium">Healthgrades</td>
+<td class="py-3 border-b border-outline-variant/50 text-on-surface-variant">Medium</td>
+<td class="py-3 border-b border-outline-variant/50">
+<span class="text-primary font-medium flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">check</span> Verified</span>
+</td>
+<td class="py-3 border-b border-outline-variant/50 text-right">
+<span class="text-on-surface-variant font-mono-sm text-mono-sm">Locked</span>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors group cursor-default">
+<td class="py-3 text-on-surface font-medium">Apple Maps</td>
+<td class="py-3 text-on-surface-variant">Medium</td>
+<td class="py-3">
+<span class="text-error font-medium flex items-center gap-1"><span class="material-symbols-outlined" style="font-size: 14px;">close</span> Incorrect Pin</span>
+</td>
+<td class="py-3 text-right">
+<button class="bg-secondary text-on-secondary px-2 py-1 rounded font-label-sm text-label-sm opacity-0 group-hover:opacity-100 transition-opacity">Push Update</button>
+<span class="bg-error text-on-error px-2 py-0.5 rounded-sm font-label-sm text-label-sm ml-2 group-hover:hidden">Urgent</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Prioritized Repair Queue (col-span-4) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">playlist_add_check</span> Repair Queue
+                        </h3>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded-full font-mono-sm text-mono-sm">3 items</span>
+</div>
+<div class="flex flex-col gap-2 flex-1">
+<div class="border border-outline-variant rounded-lg p-3 hover:bg-surface-container-low transition-colors flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary mt-0.5" style="font-size: 18px;">code</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Inject Schema.org Payload</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Add 'sameAs' strict disambiguation tags.</p>
+</div>
+<button class="text-secondary hover:bg-secondary/10 p-1 rounded transition-colors"><span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span></button>
+</div>
+<div class="border border-error/30 bg-error-container/20 rounded-lg p-3 hover:bg-error-container/40 transition-colors flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5" style="font-size: 18px;">pin_drop</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Override Yelp Coordinates</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">API push required to fix maps routing.</p>
+</div>
+<button class="text-error hover:bg-error/10 p-1 rounded transition-colors"><span class="material-symbols-outlined" style="font-size: 20px;">bolt</span></button>
+</div>
+<div class="border border-outline-variant rounded-lg p-3 hover:bg-surface-container-low transition-colors flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5" style="font-size: 18px;">alt_route</span>
+<div class="flex-1">
+<p class="font-label-md text-label-md text-on-surface font-medium">Niche Citation Disambiguation</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Submit 5 specialized directory profiles.</p>
+</div>
+<button class="text-primary hover:bg-primary/10 p-1 rounded transition-colors"><span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span></button>
+</div>
+</div>
+</div>
+<!-- Competitor Mention Map (col-span-4) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-0 flex flex-col shadow-sm overflow-hidden relative min-h-[200px]">
+<div class="absolute top-0 left-0 w-full p-3 bg-gradient-to-b from-surface-container-lowest to-transparent z-10 flex justify-between items-start pointer-events-none">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 drop-shadow-md bg-surface-container-lowest/80 px-2 py-1 rounded backdrop-blur-sm">
+<span class="material-symbols-outlined">map</span> Spatial Conflict
+                        </h3>
+</div>
+<img alt="Map Data" class="absolute inset-0 w-full h-full object-cover opacity-80" data-alt="A highly detailed, modern digital map interface displaying the geographic region between Pearl Street and Pearl River. The map utilizes a clean, utility-focused light-mode aesthetic, akin to high-end data visualization software. The cartography is precise, featuring stark white and subtle grey landmasses, intersected by sharp, thin lines representing roads and borders. Several vivid safety-orange error markers indicate incorrect citation coordinates, contrasting strongly against the minimalist background. The overall mood is analytical and authoritative." data-location="Pearl River, NY" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE70W-d8MyI0ot7mkFid8rNwd77dl-Xv26hIarm-8lMywIoyA16cIXtt_fK5r6RGksUXXnJ2tZUHbJpn0TaL-VVAYSCps-Ji6ibPqZbYEcvYkgMBthVX4lSIs02S7D_rTFZmsNdn_-TKsKsiGlFGMx0y8bU4Ljs--lIHuglHPjxLrFqMO8Kbmt_GO5jIEVh7N6b5j73cF0kRO8nE7An5-zgBDTibvbhuTaIpQNG4kgK4rRQWALErz9gMJ9nr87m77yCbdP3iwzTrY"/>
+<!-- Overlay markers simulated -->
+<div class="absolute top-1/3 left-1/4 w-3 h-3 bg-error rounded-full border-2 border-surface shadow-[0_0_10px_rgba(186,26,26,0.8)] animate-pulse"></div>
+<div class="absolute bottom-1/3 right-1/4 w-3 h-3 bg-primary rounded-full border-2 border-surface shadow-[0_0_10px_rgba(0,80,203,0.8)]"></div>
+<div class="absolute bottom-3 right-3 z-10 bg-surface-container-lowest/90 backdrop-blur-sm border border-outline-variant px-2 py-1 rounded font-mono-sm text-mono-sm text-on-surface-variant flex flex-col pointer-events-auto">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span> Actual location</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-error inline-block"></span> AI Hallucination</span>
+</div>
+</div>
+<!-- Citation Patch Snippets (col-span-5) -->
+<div class="md:col-span-5 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col shadow-sm">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">data_object</span> JSON-LD Patch Payload
+                        </h3>
+<button class="text-on-surface-variant hover:text-on-surface p-1 rounded hover:bg-surface-variant transition-colors flex items-center gap-1 font-label-sm text-label-sm">
+<span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span> Copy
+                        </button>
+</div>
+<div class="bg-inverse-surface text-inverse-on-surface rounded-lg p-3 font-mono-sm text-mono-sm overflow-x-auto flex-1 border border-outline-variant">
+<pre class="m-0 leading-relaxed text-[11px] text-[#c2c6d8]">{
+  <span class="text-[#b3c5ff]">"@context"</span>: "https://schema.org",
+  <span class="text-[#b3c5ff]">"@type"</span>: "Dentist",
+  <span class="text-[#b3c5ff]">"name"</span>: "Pearl Street Dental",
+  <span class="text-[#b3c5ff]">"disambiguatingDescription"</span>: 
+    "Located in Boulder, CO. Not affiliated with Pearl River.",
+  <span class="text-[#ffb59d]">"sameAs"</span>: [
+    "https://www.yelp.com/biz/pearl-st-dental-boulder",
+    "https://twitter.com/pearlstdental"
+  ],
+  <span class="text-[#ffb59d]">"telephone"</span>: "+1-303-555-0100"
+}
+</pre>
+</div>
+</div>
+<!-- Weekly Watchlist (col-span-3) -->
+<div class="md:col-span-3 bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col shadow-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3 flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined">radar</span> Sentinel Trackers
+                    </h3>
+<ul class="flex flex-col gap-3 flex-1 overflow-y-auto pr-1">
+<li class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low transition-colors cursor-default border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" style="font-size: 16px;">trending_up</span>
+<span class="font-body-sm text-body-sm text-on-surface">"Pearl River" mentions</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-error font-medium">+12%</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low transition-colors cursor-default border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">trending_down</span>
+<span class="font-body-sm text-body-sm text-on-surface">Wrong phone calls</span>
+</div>
+<span class="font-mono-sm text-mono-sm text-primary font-medium">-5%</span>
+</li>
+<li class="flex items-center justify-between p-2 rounded hover:bg-surface-container-low transition-colors cursor-default border border-transparent hover:border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size: 16px;">horizontal_rule</span>
+<span class="font-body-sm text-body-sm text-on-surface">Yelp Sync Status</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-variant px-1.5 py-0.5 rounded">Pending</span>
+</li>
+</ul>
+</div>
+</section>
+</main>
+</div>
+<!-- NavigationDrawer (Right - Packet Export Tray) -->
+<aside class="fixed right-0 top-0 h-full z-40 w-sidebar-width border-l border-outline-variant bg-surface-container-high shadow-md flex flex-col shrink-0">
+<div class="p-container-padding border-b border-outline-variant bg-surface-container-highest flex items-center justify-between">
+<h2 class="font-label-sm text-label-sm uppercase tracking-widest text-secondary font-bold">Repair Packet</h2>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:opacity-80">close</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 cursor-default">
+<div class="flex flex-col gap-2">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Staged Payloads</h3>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant flex items-center gap-3 shadow-sm group">
+<span class="material-symbols-outlined text-primary">data_object</span>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-body-sm text-on-surface truncate">schema_patch_v2.json</p>
+<p class="font-mono-sm text-mono-sm text-on-surface-variant">1.2kb</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer group-hover:text-error transition-colors" style="font-size: 18px;">delete</span>
+</div>
+<div class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant flex items-center gap-3 shadow-sm group">
+<span class="material-symbols-outlined text-primary">api</span>
+<div class="flex-1 min-w-0">
+<p class="font-body-sm text-body-sm text-on-surface truncate">yelp_api_override.req</p>
+<p class="font-mono-sm text-mono-sm text-on-surface-variant">0.8kb</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer group-hover:text-error transition-colors" style="font-size: 18px;">delete</span>
+</div>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-3 flex items-center justify-between">
+                    Total size: <span class="font-mono-sm text-mono-sm font-medium text-on-surface">2.0kb</span>
+</p>
+<button class="w-full bg-secondary text-on-secondary rounded-DEFAULT py-2 font-headline-sm text-headline-sm flex items-center justify-center gap-2 hover:bg-tertiary transition-colors shadow-sm">
+<span class="material-symbols-outlined">send</span> Deploy Packet
+                </button>
+</div>
+</div>
+</aside>
+</body></html>

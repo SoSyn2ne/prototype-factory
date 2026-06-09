@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resolution &amp; Recall Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#3c5f7f",
+                        "on-tertiary-fixed-variant": "#264969",
+                        "tertiary-fixed-dim": "#a7caef",
+                        "surface-bright": "#faf9f7",
+                        "inverse-surface": "#2f3130",
+                        "surface": "#faf9f7",
+                        "secondary": "#825516",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#001d33",
+                        "surface-variant": "#e3e2e0",
+                        "surface-container-highest": "#e3e2e0",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#663e00",
+                        "on-primary-container": "#f5fff8",
+                        "surface-container-low": "#f4f3f1",
+                        "on-primary-fixed-variant": "#2c4d40",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#fec178",
+                        "on-tertiary-container": "#fdfcff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#dadad8",
+                        "on-background": "#1a1c1b",
+                        "on-surface-variant": "#414844",
+                        "surface-container": "#efeeec",
+                        "on-secondary-fixed": "#2b1700",
+                        "primary-fixed": "#c5ebd8",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed": "#ffddb9",
+                        "outline-variant": "#c1c8c3",
+                        "surface-container-high": "#e9e8e6",
+                        "outline": "#717974",
+                        "primary-container": "#597c6c",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#f8bb73",
+                        "error-container": "#ffdad6",
+                        "background": "#faf9f7",
+                        "tertiary-container": "#567899",
+                        "primary": "#416354",
+                        "inverse-primary": "#aacfbd",
+                        "tertiary-fixed": "#cfe5ff",
+                        "inverse-on-surface": "#f1f1ef",
+                        "on-error-container": "#93000a",
+                        "on-secondary-container": "#784d0d",
+                        "on-primary-fixed": "#002116",
+                        "on-surface": "#1a1c1b",
+                        "surface-tint": "#436557",
+                        "primary-fixed-dim": "#aacfbd"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "container-max": "1140px",
+                        "lg": "32px",
+                        "md": "24px",
+                        "sm": "16px",
+                        "base": "4px",
+                        "xs": "8px",
+                        "xl": "48px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "title-md": ["Public Sans"],
+                        "headline-lg-mobile": ["Public Sans"],
+                        "headline-lg": ["Public Sans"],
+                        "body-lg": ["Public Sans"],
+                        "label-md": ["Public Sans"],
+                        "label-sm": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Public Sans', sans-serif; background-color: #faf9f7; color: #1a1c1b; }
+        .ambient-shadow { box-shadow: 0 4px 20px rgba(107, 142, 126, 0.08); }
+        .glass-card { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-highest text-tertiary dark:text-tertiary-fixed-dim font-label-md text-label-md h-screen w-64 fixed left-0 top-0 flex flex-col h-full border-r border-outline-variant z-20 transition-all duration-200 hidden md:flex">
+<div class="p-gutter border-b border-outline-variant flex items-center gap-sm">
+<img alt="Teacher Profile" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoXMbCvcyQdRar8aWg7kDTxG-Ggyu9nF9g48vJrvcibIK1tdie6gxuXIwro72bHwUhBCQb4ogZ58jP520VHD__XmKThjgZh5msDlFuxFCi3q9kj7l6Q5o3CMJBFKfkbveNtt_YbIGlicvZszGW9BNtIqU5-fYBt5yK8PX6y85z1Q8RlTwzlGfuV9JCHv9UxDPbYFwy2UXHP8yx2_1jh-w7PxiqhHfkJNX_piC-ZW3mviqnFvJu9bnik6e-M5vhWtISZ6pQhd0-SxA"/>
+<div>
+<h2 class="font-title-md text-title-md text-on-surface">Case Workspace</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Jane Doe - AI Analysis</p>
+</div>
+</div>
+<div class="p-md">
+<button class="w-full bg-primary text-on-primary py-xs px-sm rounded-full font-label-md text-label-md flex items-center justify-center gap-xs hover:bg-primary-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                Add Evidence
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto py-sm">
+<a class="flex items-center gap-sm px-gutter py-sm text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors" href="#">
+<span class="material-symbols-outlined">assignment_late</span>
+                Intake
+            </a>
+<a class="flex items-center gap-sm px-gutter py-sm text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                Evidence
+            </a>
+<a class="flex items-center gap-sm px-gutter py-sm text-primary dark:text-inverse-primary border-r-4 border-primary hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors bg-primary-container/10" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                Recall Check
+            </a>
+<a class="flex items-center gap-sm px-gutter py-sm text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors" href="#">
+<span class="material-symbols-outlined">handshake</span>
+                Resolution
+            </a>
+<a class="flex items-center gap-sm px-gutter py-sm text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors" href="#">
+<span class="material-symbols-outlined">ios_share</span>
+                Export
+            </a>
+</div>
+<div class="border-t border-outline-variant p-sm">
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors rounded-lg" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+                Objective Tips
+            </a>
+<a class="flex items-center gap-sm px-md py-xs text-on-surface-variant dark:text-outline hover:bg-surface-container-high dark:hover:bg-on-tertiary-fixed-variant transition-colors rounded-lg mt-base" href="#">
+<span class="material-symbols-outlined">potted_plant</span>
+                Calm Reminders
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col h-screen overflow-hidden relative">
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden bg-surface dark:bg-on-background text-primary dark:text-primary-fixed-dim w-full top-0 border-b border-outline-variant flex justify-between items-center px-gutter py-xs z-30">
+<div class="font-display-lg text-display-lg text-primary dark:text-primary-fixed-dim">IntegrityGuide</div>
+<div class="flex gap-sm">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-xs rounded-full active:scale-95 duration-150"><span class="material-symbols-outlined">admin_panel_settings</span></button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-xs rounded-full active:scale-95 duration-150"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-xs rounded-full active:scale-95 duration-150"><span class="material-symbols-outlined">account_circle</span></button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto p-gutter lg:p-lg pb-32">
+<div class="max-w-container-max mx-auto space-y-lg">
+<header class="mb-lg flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg md:text-headline-lg text-on-background">Resolution &amp; Recall Builder</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">Prepare objective questions and establish a supportive path forward.</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container px-sm py-xs rounded-full border border-outline-variant">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Admin-Copy Mode</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-surface-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Recall & Restoration -->
+<div class="col-span-1 lg:col-span-8 space-y-gutter">
+<!-- Student Recall Check Builder -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md ambient-shadow">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-xs rounded-lg">psychology</span>
+<h2 class="font-title-md text-title-md text-on-surface">Student Recall Check Builder</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">Select 3-5 fair questions to evaluate the student's understanding of their submitted work.</p>
+<div class="space-y-sm">
+<!-- Question Item 1 -->
+<div class="flex items-start gap-sm p-sm rounded-lg border border-outline-variant bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="mt-1">
+<input checked="" class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary focus:ring-2" type="checkbox"/>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Can you explain the connection between this quote and your thesis?</p>
+<div class="flex gap-xs mt-xs">
+<span class="px-2 py-1 rounded-full bg-tertiary/10 text-tertiary font-label-sm text-label-sm">Source Validation</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-on-surface-variant p-xs hover:bg-surface-container rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+<!-- Question Item 2 -->
+<div class="flex items-start gap-sm p-sm rounded-lg border border-outline-variant bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="mt-1">
+<input checked="" class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary focus:ring-2" type="checkbox"/>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">Walk me through your drafting process for this particular paragraph.</p>
+<div class="flex gap-xs mt-xs">
+<span class="px-2 py-1 rounded-full bg-secondary/10 text-secondary font-label-sm text-label-sm">Process</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-on-surface-variant p-xs hover:bg-surface-container rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+<!-- Question Item 3 -->
+<div class="flex items-start gap-sm p-sm rounded-lg border border-outline-variant bg-surface hover:bg-surface-container-low transition-colors cursor-pointer group">
+<div class="mt-1">
+<input class="w-4 h-4 text-primary bg-surface border-outline-variant rounded focus:ring-primary focus:ring-2" type="checkbox"/>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md text-on-surface">What does the term [Specific Vocabulary] mean in the context of your argument?</p>
+<div class="flex gap-xs mt-xs">
+<span class="px-2 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm">Vocabulary</span>
+</div>
+</div>
+<button class="opacity-0 group-hover:opacity-100 text-on-surface-variant p-xs hover:bg-surface-container rounded-full transition-all"><span class="material-symbols-outlined">edit</span></button>
+</div>
+<button class="w-full py-sm border border-dashed border-outline text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center justify-center gap-xs mt-sm">
+<span class="material-symbols-outlined">add</span> Custom Question
+                                </button>
+</div>
+</section>
+<!-- Student Restoration Plan -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-md ambient-shadow">
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary bg-secondary-container/30 p-xs rounded-lg">favorite</span>
+<h2 class="font-title-md text-title-md text-on-surface">Student Restoration Plan</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Draft Path Forward</span>
+</div>
+<textarea class="w-full h-32 p-sm border border-outline-variant rounded-lg bg-surface font-body-md text-body-md text-on-surface focus:ring-1 focus:ring-primary focus:border-primary resize-none" placeholder="e.g., Re-write under supervision focusing on proper citation formatting..."></textarea>
+<div class="flex gap-sm mt-sm">
+<button class="px-sm py-xs bg-surface-container text-on-surface rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors">Insert Template: Supervised Rewrite</button>
+<button class="px-sm py-xs bg-surface-container text-on-surface rounded-full font-label-sm text-label-sm hover:bg-surface-container-high transition-colors">Insert Template: Citation Workshop</button>
+</div>
+</section>
+</div>
+<!-- Right Column: Consequence Matrix & Actions -->
+<div class="col-span-1 lg:col-span-4 space-y-gutter">
+<!-- Consequence Matrix -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden ambient-shadow">
+<div class="p-md border-b border-outline-variant bg-surface-container-low">
+<h2 class="font-title-md text-title-md text-on-surface flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary">gavel</span>
+                                    Consequence Matrix
+                                </h2>
+</div>
+<div class="p-0">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#F9F8F6] font-label-sm text-label-sm text-on-surface-variant">
+<th class="py-xs px-sm font-medium">Severity</th>
+<th class="py-xs px-sm font-medium">Recommended Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-surface-container">
+<td class="py-sm px-sm text-on-surface flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-secondary"></div> Minor
+                                            </td>
+<td class="py-sm px-sm text-on-surface-variant">Warning &amp; Rewrite</td>
+</tr>
+<tr class="border-b border-surface-container bg-primary/5">
+<td class="py-sm px-sm text-on-surface flex items-center gap-xs font-medium">
+<div class="w-2 h-2 rounded-full bg-primary"></div> Moderate
+                                            </td>
+<td class="py-sm px-sm text-on-surface-variant font-medium">Partial Credit &amp; Parent Contact</td>
+</tr>
+<tr>
+<td class="py-sm px-sm text-on-surface flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-error"></div> Severe
+                                            </td>
+<td class="py-sm px-sm text-on-surface-variant">Zero Credit &amp; Admin Referral</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-sm bg-surface-container-low border-t border-outline-variant text-center">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Based on school policy v2.4</span>
+</div>
+</section>
+<!-- Action Card -->
+<section class="glass-card rounded-xl p-md text-center">
+<span class="material-symbols-outlined text-primary text-display-lg mb-sm">task_alt</span>
+<h3 class="font-title-md text-title-md text-on-surface mb-xs">Ready for Conference</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">All required fields are complete. You can now generate the packet for the parent meeting.</p>
+<button class="w-full bg-primary text-on-primary py-sm px-md rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm flex items-center justify-center gap-sm">
+                                Generate Parent Packet
+                                <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</section>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-surface-container-high text-primary dark:text-primary-fixed font-label-sm text-label-sm w-full fixed bottom-0 z-40 border-t border-outline-variant md:ml-64 w-[calc(100%-16rem)] flex justify-between items-center px-gutter py-sm mx-auto">
+<div class="font-label-md text-label-md font-bold text-on-surface">Academic Integrity Suite © 2024</div>
+<div class="flex gap-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Teacher Support</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Policy Guide</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Privacy</a>
+</div>
+</footer>
+</main>
+</body></html>

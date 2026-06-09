@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grocery BNPL Stress Thermometer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&amp;family=JetBrains+Mono:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "surface-container-high": "#e8e8e6",
+                            "secondary-container": "#ffbf00",
+                            "secondary-fixed-dim": "#fbbc00",
+                            "secondary-fixed": "#ffdfa0",
+                            "inverse-surface": "#2f3130",
+                            "on-secondary-container": "#6d5000",
+                            "surface-variant": "#e2e3e1",
+                            "surface-container-low": "#f4f4f2",
+                            "tertiary": "#c00014",
+                            "outline": "#6b7c65",
+                            "primary-fixed-dim": "#00e639",
+                            "on-error-container": "#93000a",
+                            "surface-bright": "#f9f9f7",
+                            "on-primary-fixed": "#002203",
+                            "tertiary-container": "#ffd2cd",
+                            "on-primary": "#ffffff",
+                            "on-tertiary": "#ffffff",
+                            "surface-dim": "#dadad8",
+                            "outline-variant": "#b9ccb2",
+                            "secondary": "#795900",
+                            "primary-fixed": "#72ff70",
+                            "on-surface": "#1a1c1b",
+                            "on-tertiary-fixed-variant": "#93000c",
+                            "error-container": "#ffdad6",
+                            "primary-container": "#00ff41",
+                            "surface-container-lowest": "#ffffff",
+                            "on-tertiary-fixed": "#410002",
+                            "inverse-primary": "#00e639",
+                            "inverse-on-surface": "#f1f1ef",
+                            "background": "#f9f9f7",
+                            "tertiary-fixed": "#ffdad6",
+                            "on-surface-variant": "#3b4b37",
+                            "on-secondary-fixed": "#261a00",
+                            "on-secondary-fixed-variant": "#5c4300",
+                            "on-primary-fixed-variant": "#00530e",
+                            "surface-tint": "#006e16",
+                            "on-tertiary-container": "#c40015",
+                            "surface-container-highest": "#e2e3e1",
+                            "on-primary-container": "#007117",
+                            "tertiary-fixed-dim": "#ffb4ab",
+                            "surface": "#f9f9f7",
+                            "surface-container": "#eeeeec",
+                            "on-background": "#1a1c1b",
+                            "on-secondary": "#ffffff",
+                            "primary": "#006e16",
+                            "error": "#ba1a1a",
+                            "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "unit": "4px",
+                            "gutter": "16px",
+                            "margin": "20px",
+                            "stack-gap": "2px",
+                            "receipt-padding": "24px"
+                    },
+                    "fontFamily": {
+                            "display-xl": [
+                                    "Plus Jakarta Sans"
+                            ],
+                            "label-caps": [
+                                    "JetBrains Mono"
+                            ],
+                            "headline-lg": [
+                                    "Plus Jakarta Sans"
+                            ],
+                            "headline-lg-mobile": [
+                                    "Plus Jakarta Sans"
+                            ],
+                            "data-mono-sm": [
+                                    "JetBrains Mono"
+                            ],
+                            "body-md": [
+                                    "Plus Jakarta Sans"
+                            ],
+                            "data-mono-lg": [
+                                    "JetBrains Mono"
+                            ]
+                    },
+                    "fontSize": {
+                            "display-xl": [
+                                    "48px",
+                                    {
+                                            "lineHeight": "52px",
+                                            "letterSpacing": "-0.02em",
+                                            "fontWeight": "800"
+                                    }
+                            ],
+                            "label-caps": [
+                                    "12px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "headline-lg": [
+                                    "32px",
+                                    {
+                                            "lineHeight": "40px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "headline-lg-mobile": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "30px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "data-mono-sm": [
+                                    "14px",
+                                    {
+                                            "lineHeight": "18px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "body-md": [
+                                    "16px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "500"
+                                    }
+                            ],
+                            "data-mono-lg": [
+                                    "20px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "600"
+                                    }
+                            ]
+                    }
+            },
+                },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .receipt-edge-top {
+            background-image: radial-gradient(circle at 50% 0, transparent 4px, theme('colors.surface-container-lowest') 5px);
+            background-size: 12px 10px;
+            background-repeat: repeat-x;
+            height: 10px;
+            width: 100%;
+        }
+
+        .receipt-edge-bottom {
+            background-image: radial-gradient(circle at 50% 10px, transparent 4px, theme('colors.surface-container-lowest') 5px);
+            background-size: 12px 10px;
+            background-repeat: repeat-x;
+            background-position: bottom;
+            height: 10px;
+            width: 100%;
+        }
+
+        .perforation {
+            border-bottom: 2px dashed theme('colors.outline-variant');
+        }
+
+        .paper-shadow {
+            box-shadow: 4px 4px 0px 0px theme('colors.on-surface');
+        }
+        
+        .marker-highlight-green {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+        
+        .marker-highlight-green::before {
+            content: "";
+            position: absolute;
+            top: 10%;
+            left: -5%;
+            width: 110%;
+            height: 80%;
+            background-color: theme('colors.primary-container');
+            opacity: 0.8;
+            z-index: -1;
+            transform: rotate(-1deg);
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-md h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- Side Navigation (Web) -->
+<nav class="hidden md:flex flex-col h-screen p-gutter bg-surface-container-lowest border-r-2 border-on-surface shadow-[4px_0px_0px_0px_rgba(0,0,0,1)] w-64 flex-shrink-0 z-20">
+<div class="mb-8">
+<h1 class="font-display-xl text-display-xl text-on-surface mb-2 uppercase tracking-tighter">DebtHeat</h1>
+<div class="perforation mb-4"></div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center border border-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface">Stress Index</div>
+<div class="font-data-mono-sm text-data-mono-sm text-tertiary">Level: High Heat</div>
+</div>
+</div>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 p-3 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-bold border-2 border-on-surface active:translate-y-0.5 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-caps text-label-caps">Receipt Lab</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:translate-x-1 transition-transform active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label-caps text-label-caps">Payday Cal</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:translate-x-1 transition-transform active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined">layers</span>
+<span class="font-label-caps text-label-caps">Debt Pile</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 p-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:translate-x-1 transition-transform active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined">health_and_safety</span>
+<span class="font-label-caps text-label-caps">Relief</span>
+</a>
+</li>
+</ul>
+<button class="mt-auto w-full p-3 bg-primary-container text-on-primary-container font-label-caps text-label-caps border-2 border-on-surface paper-shadow active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+            Add Receipt
+        </button>
+</nav>
+<!-- Top App Bar (Mobile) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin py-unit bg-surface border-b border-dashed border-outline-variant z-20">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile uppercase tracking-tighter text-primary">DebtHeat</h1>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-transform duration-75 active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-full transition-transform duration-75 active:scale-95">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow overflow-y-auto p-gutter md:p-margin flex flex-col gap-margin bg-surface-container-high pb-24 md:pb-margin">
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter flex-grow">
+<!-- Left Column: Receipt Inbox -->
+<section class="flex flex-col gap-stack-gap">
+<div class="bg-surface-container-lowest border border-on-surface paper-shadow p-receipt-padding relative">
+<div class="receipt-edge-top absolute top-0 left-0"></div>
+<div class="pt-2 mb-4 perforation pb-2 flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase">Receipt Inbox</h2>
+<span class="material-symbols-outlined text-outline">inbox</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Receipt Card: Groceries -->
+<div class="border border-on-surface bg-surface p-3 cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform" draggable="true">
+<div class="flex justify-between items-start mb-2">
+<div class="font-data-mono-sm text-data-mono-sm font-bold">#GROC-882</div>
+<div class="font-data-mono-lg text-data-mono-lg">$45.00</div>
+</div>
+<div class="font-body-md text-on-surface-variant mb-2">Trader Joe's</div>
+<div class="flex gap-1">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 text-[10px] font-label-caps uppercase border border-on-surface">BNPL Split</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 text-[10px] font-label-caps uppercase border border-on-surface">1 of 4</span>
+</div>
+</div>
+<!-- Receipt Card: Fuel -->
+<div class="border border-on-surface bg-surface p-3 cursor-grab active:cursor-grabbing hover:-translate-y-1 transition-transform" draggable="true">
+<div class="flex justify-between items-start mb-2">
+<div class="font-data-mono-sm text-data-mono-sm font-bold">#FUEL-109</div>
+<div class="font-data-mono-lg text-data-mono-lg">$30.00</div>
+</div>
+<div class="font-body-md text-on-surface-variant mb-2">Shell Station</div>
+<div class="flex gap-1">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 text-[10px] font-label-caps uppercase border border-on-surface">Pending</span>
+</div>
+</div>
+</div>
+<div class="receipt-edge-bottom absolute bottom-0 left-0"></div>
+</div>
+</section>
+<!-- Middle Column: The Heat Map & Debt Pile -->
+<section class="flex flex-col gap-margin">
+<div class="bg-surface-container-lowest border border-on-surface paper-shadow p-receipt-padding">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase mb-4 perforation pb-2">Payday Calendar</h2>
+<div class="grid grid-cols-7 gap-1 mb-2 font-data-mono-sm text-center text-on-surface-variant">
+<div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+</div>
+<div class="grid grid-cols-7 gap-1 font-data-mono-sm text-center">
+<div class="p-1 opacity-50">28</div><div class="p-1 opacity-50">29</div><div class="p-1 opacity-50">30</div>
+<div class="p-1 border border-on-surface">1</div>
+<div class="p-1 border border-on-surface bg-secondary-container text-on-secondary-container font-bold">2</div>
+<div class="p-1 border border-on-surface">3</div>
+<div class="p-1 border border-on-surface">4</div>
+<!-- ... simplified calendar for brevity ... -->
+<div class="p-1 border border-on-surface bg-tertiary-container text-on-tertiary-container font-bold col-start-5">15</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-on-surface paper-shadow p-receipt-padding flex-grow flex flex-col">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase mb-4 perforation pb-2">Debt Pile</h2>
+<div class="flex-grow flex flex-col justify-end gap-stack-gap pb-4">
+<!-- Stacked Blocks -->
+<div class="bg-tertiary text-on-tertiary p-2 border border-on-surface text-center font-data-mono-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Delivery $28</div>
+<div class="bg-secondary-container text-on-secondary-container p-2 border border-on-surface text-center font-data-mono-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Groceries $45</div>
+<div class="bg-primary-container text-on-primary-container p-2 border border-on-surface text-center font-data-mono-sm font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">Base $150</div>
+</div>
+<!-- Drop Zone -->
+<div class="border-2 border-dashed border-outline-variant bg-surface-variant p-6 text-center text-on-surface-variant font-label-caps mt-auto">
+<span class="material-symbols-outlined block text-3xl mb-2">move_down</span>
+                        Drag a receipt here
+                    </div>
+</div>
+</section>
+<!-- Right Column: Stress Analytics -->
+<section class="flex flex-col gap-margin">
+<div class="bg-surface-container-lowest border border-on-surface paper-shadow p-receipt-padding relative overflow-hidden">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase mb-4 perforation pb-2 z-10 relative">Stress Thermometer</h2>
+<!-- Thermometer Visual -->
+<div class="flex items-center justify-center py-8 z-10 relative">
+<div class="w-16 h-48 border-2 border-on-surface rounded-full p-1 relative flex flex-col justify-end bg-surface">
+<div class="w-full h-2/3 bg-secondary rounded-full relative overflow-hidden">
+<!-- Liquid effect placeholder -->
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-tertiary via-secondary to-secondary-container opacity-80"></div>
+</div>
+</div>
+<div class="ml-6 font-display-xl text-display-xl marker-highlight-green text-on-surface">Medium Heat</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Bottom App Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-highest border-t-2 border-on-surface rounded-t-xl shadow-[0px_-4px_0px_0px_rgba(0,0,0,1)]">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg border-2 border-on-surface py-1 px-3 active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">science</span>
+<span class="font-label-caps text-label-caps mt-1">Lab</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim rounded-lg active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">event_repeat</span>
+<span class="font-label-caps text-label-caps mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim rounded-lg active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">view_column</span>
+<span class="font-label-caps text-label-caps mt-1">Piles</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-secondary-fixed-dim rounded-lg active:scale-90 transition-all" href="#">
+<span class="material-symbols-outlined">receipt</span>
+<span class="font-label-caps text-label-caps mt-1">Impact</span>
+</a>
+</nav>
+</body></html>
