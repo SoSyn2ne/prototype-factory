@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VetCare Compassionate Triage - Shareable Care Plan</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS (w/ Theme Config injected by script) -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#c8c6c3",
+                    "inverse-primary": "#6bd8cb",
+                    "on-primary-fixed": "#00201d",
+                    "surface": "#f8f9ff",
+                    "surface-container": "#e6eeff",
+                    "error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ffb77d",
+                    "surface-container-highest": "#d9e3f6",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#008378",
+                    "primary": "#00685f",
+                    "on-secondary-fixed": "#2f1500",
+                    "secondary-fixed": "#ffdcc3",
+                    "on-surface-variant": "#3d4947",
+                    "tertiary-fixed": "#e4e2de",
+                    "error": "#ba1a1a",
+                    "surface-bright": "#f8f9ff",
+                    "on-secondary-container": "#663500",
+                    "on-secondary-fixed-variant": "#6e3900",
+                    "on-primary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#89f5e7",
+                    "tertiary-container": "#757572",
+                    "tertiary": "#5c5c59",
+                    "on-primary-container": "#f4fffc",
+                    "on-error": "#ffffff",
+                    "secondary": "#904d00",
+                    "surface-container-low": "#eff4ff",
+                    "on-primary-fixed-variant": "#005049",
+                    "on-error-container": "#93000a",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-tertiary-fixed-variant": "#474744",
+                    "outline": "#6d7a77",
+                    "secondary-container": "#fe932c",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#dee9fc",
+                    "surface-dim": "#d0dbed",
+                    "on-surface": "#121c2a",
+                    "inverse-surface": "#27313f",
+                    "surface-tint": "#006a61",
+                    "on-background": "#121c2a",
+                    "surface-variant": "#d9e3f6",
+                    "on-tertiary-container": "#fefcf8",
+                    "primary-fixed-dim": "#6bd8cb",
+                    "outline-variant": "#bcc9c6",
+                    "on-tertiary-fixed": "#1b1c1a",
+                    "background": "#f8f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "container-padding": "20px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "gutter": "16px",
+                    "md": "24px",
+                    "xl": "64px",
+                    "xs": "4px",
+                    "lg": "40px"
+            },
+            "fontFamily": {
+                    "label-md": ["Manrope"],
+                    "body-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "headline-sm": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "body-lg": ["Manrope"],
+                    "label-sm": ["Manrope"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                    "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                    "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+      body {
+        font-family: 'Manrope', sans-serif;
+        background-color: #f8f9ff;
+        color: #121c2a;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+      }
+      .soft-shadow {
+        box-shadow: 0px 4px 20px rgba(31, 41, 55, 0.04);
+      }
+      .elevated-shadow {
+        box-shadow: 0px 8px 30px rgba(31, 41, 55, 0.08);
+      }
+      .progress-bar-fill {
+        transition: width 1s ease-in-out;
+      }
+    </style>
+</head>
+<body class="bg-background flex flex-col min-h-screen antialiased">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-inverse-surface shadow-sm z-50 sticky top-0">
+<div class="flex justify-between items-center w-full px-container-padding py-base max-w-[1040px] mx-auto">
+<div class="text-headline-md font-headline-md text-primary dark:text-inverse-primary tracking-tight">
+                VetCare Connect
+            </div>
+<nav class="hidden md:flex space-x-gutter">
+<!-- Navigation items omitted as this is a destination screen, but structure kept for consistency -->
+<div class="text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 px-3 py-2 rounded-md font-label-md text-label-md cursor-pointer">
+                    Home
+                 </div>
+<div class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary hover:bg-surface-container dark:hover:bg-surface-container-high transition-all duration-200 px-3 py-2 rounded-md font-label-md text-label-md cursor-pointer">
+                    Care Plan Progress
+                 </div>
+</nav>
+<div>
+<button class="bg-surface-container-low text-primary border border-outline-variant px-4 py-2 rounded-full font-label-md text-label-md hover:bg-surface-container transition-colors duration-200">
+                    Need Help Now?
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow w-full max-w-[1040px] mx-auto px-container-padding py-lg flex flex-col md:flex-row gap-lg relative">
+<!-- Left Column: Context & Progress -->
+<div class="w-full md:w-1/3 flex flex-col gap-md sticky top-24 self-start">
+<!-- Hero / Title -->
+<div class="mb-sm">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-xs">
+                    Your Shareable Care Plan
+                </h1>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                    You've moved from panic to a structured plan. Here is a summary of your decisions and next steps for Bella.
+                </p>
+</div>
+<!-- Progress Tracker -->
+<div class="bg-surface-container-lowest rounded-xl p-md soft-shadow">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Journey Progress</h2>
+<div class="relative pt-1">
+<div class="flex mb-2 items-center justify-between">
+<div>
+<span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-secondary bg-secondary-fixed">
+                                Panic
+                            </span>
+</div>
+<div class="text-right">
+<span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-primary bg-primary-fixed">
+                                Plan
+                            </span>
+</div>
+</div>
+<div class="overflow-hidden h-2 mb-4 text-xs flex rounded-full bg-surface-container-high">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary progress-bar-fill" style="width: 100%"></div>
+</div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2 text-center">
+                    You've completed all triage steps.
+                </p>
+</div>
+<!-- Guilt Relief Component -->
+<div class="glass-card rounded-xl p-md soft-shadow border-l-4 border-primary">
+<div class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Take a Breath</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                            Making decisions under pressure is incredibly hard. You have taken concrete, thoughtful steps to ensure Bella gets the care she needs while managing your family's resources responsibly. You are doing a great job.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-sm mt-sm">
+<button class="bg-primary text-on-primary py-4 px-6 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary-container hover:text-on-primary-container transition-colors elevated-shadow">
+<span class="material-symbols-outlined">share</span>
+                    Share with Family
+                </button>
+<button class="bg-surface-container-lowest text-primary border border-primary py-4 px-6 rounded-lg font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container transition-colors soft-shadow">
+<span class="material-symbols-outlined">print</span>
+                    Print for Vet
+                </button>
+</div>
+</div>
+<!-- Right Column: Bento Grid of Details -->
+<div class="w-full md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Chosen Path Summary -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest rounded-xl p-md soft-shadow">
+<div class="flex items-center gap-sm mb-md">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">route</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Chosen Pathway</h2>
+</div>
+<div class="bg-surface p-sm rounded-lg border border-outline-variant mb-sm">
+<div class="flex justify-between items-center mb-xs">
+<span class="font-label-md text-label-md text-on-surface">Diagnosis:</span>
+<span class="font-label-md text-label-md text-error bg-error-container px-2 py-1 rounded-md">Cruciate Ligament Tear</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Conservative management with physical therapy and anti-inflammatory medication for 4 weeks, followed by re-evaluation for potential TPLO surgery if improvement is insufficient.
+                    </p>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-surface-container-low p-sm rounded-lg">
+<span class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Estimated Initial Cost</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">$450 - $600</span>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg">
+<span class="block font-label-sm text-label-sm text-on-surface-variant mb-1">Timeline</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">4 Weeks</span>
+</div>
+</div>
+</div>
+<!-- Next Steps -->
+<div class="col-span-1 bg-surface-container-lowest rounded-xl p-md soft-shadow">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Immediate Next Steps</h2>
+</div>
+<ul class="space-y-3 mt-sm">
+<li class="flex items-start gap-sm pb-2 border-b border-surface-variant">
+<div class="mt-1 w-5 h-5 rounded-full border-2 border-primary flex-shrink-0 cursor-pointer hover:bg-primary-fixed transition-colors"></div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Call Dr. Smith's Office</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Schedule PT consultation for Bella.</p>
+<p class="font-label-sm text-label-sm text-primary mt-1">555-0192</p>
+</div>
+</li>
+<li class="flex items-start gap-sm pb-2 border-b border-surface-variant">
+<div class="mt-1 w-5 h-5 rounded-full border-2 border-primary flex-shrink-0 cursor-pointer hover:bg-primary-fixed transition-colors"></div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Pick up Carprofen</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">From Main St. Pharmacy before 5 PM.</p>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<div class="mt-1 w-5 h-5 rounded-full border-2 border-outline flex-shrink-0 cursor-pointer hover:bg-surface-variant transition-colors"></div>
+<div>
+<p class="font-label-md text-label-md text-outline">Restrict Activity</p>
+<p class="font-label-sm text-label-sm text-outline-variant">Set up recovery crate in living room.</p>
+</div>
+</li>
+</ul>
+</div>
+<!-- Selected Clinics -->
+<div class="col-span-1 bg-surface-container-lowest rounded-xl p-md soft-shadow">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">local_hospital</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Selected Clinics</h2>
+</div>
+<div class="space-y-sm mt-sm">
+<!-- Clinic 1 -->
+<div class="bg-surface p-sm rounded-lg border border-outline-variant flex items-center justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Oakwood Animal Hospital</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Primary Care & PT</p>
+</div>
+<span class="material-symbols-outlined text-primary cursor-pointer hover:scale-110 transition-transform">call</span>
+</div>
+<!-- Clinic 2 -->
+<div class="bg-surface p-sm rounded-lg border border-outline-variant flex items-center justify-between opacity-70">
+<div>
+<p class="font-label-md text-label-md text-on-surface">Westside Surgical Center</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Backup: Surgery</p>
+</div>
+<span class="material-symbols-outlined text-outline cursor-pointer hover:scale-110 transition-transform">info</span>
+</div>
+</div>
+</div>
+<!-- Balance Graphic (Debt Fear vs Health) -->
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest rounded-xl p-md soft-shadow relative overflow-hidden">
+<!-- Background subtle pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(#00685f 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="relative z-10">
+<div class="flex items-center justify-between mb-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Decision Balance</h2>
+<span class="material-symbols-outlined text-primary">balance</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md">
+                        This visual confirms that your chosen path prioritizes Bella's immediate well-being while maintaining a sustainable financial boundary for your family.
+                    </p>
+<div class="flex items-center justify-between mt-sm px-4">
+<!-- Financial Stability Side -->
+<div class="flex flex-col items-center w-1/3">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Financial Stability</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center mt-1">Preserved</span>
+</div>
+<!-- Fulcrum / Indicator -->
+<div class="w-1/3 flex flex-col items-center justify-center relative">
+<div class="h-1 w-full bg-surface-variant rounded-full absolute top-8"></div>
+<div class="h-3 w-3 rounded-full bg-primary absolute top-7 z-10 shadow-md"></div>
+<!-- Triangle fulcrum -->
+<div class="w-0 h-0 border-l-[10px] border-l-transparent border-b-[15px] border-b-outline-variant border-r-[10px] border-r-transparent mt-12"></div>
+</div>
+<!-- Pet Health Side -->
+<div class="flex flex-col items-center w-1/3">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-2 shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">pets</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface text-center">Bella's Health</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-center mt-1">Prioritized</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant mt-auto">
+<div class="w-full py-md px-container-padding flex flex-col md:flex-row justify-between items-center max-w-[1040px] mx-auto gap-4">
+<div class="font-label-md text-label-md font-bold text-on-surface">
+                © 2024 VetCare Compassionate Triage
+            </div>
+<nav class="flex gap-gutter">
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim font-semibold hover:underline hover:text-primary transition-opacity duration-200" href="#">
+                    Care Plan Progress
+                 </a>
+<a class="font-label-sm text-label-sm text-on-tertiary-fixed-variant dark:text-tertiary-fixed-dim hover:underline hover:text-primary transition-opacity duration-200" href="#">
+                    Privacy Policy
+                 </a>
+<a class="font-label-sm text-label-sm text-on-tertiary-fixed-variant dark:text-tertiary-fixed-dim hover:underline hover:text-primary transition-opacity duration-200" href="#">
+                    Medical Authority
+                 </a>
+</nav>
+</div>
+</footer>
+</body></html>

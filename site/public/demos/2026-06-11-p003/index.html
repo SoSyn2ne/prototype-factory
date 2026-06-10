@@ -1,59 +1,335 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Freelancer Tax Receipt Panic Binder - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-11-p003</p>
-        <h1>Freelancer Tax Receipt Panic Binder</h1>
-        <p>Korean freelancers assemble income, receipts, and deduction doubts into a clean June filing binder instead of guessing through HomeTax.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프리랜서 세금 영수증 패닉 바인더 - 대시보드</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Source+Serif+4:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e5e2e3",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#410006",
+                        "on-primary-fixed": "#1b1b1c",
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-container-highest": "#e4e2dd",
+                        "secondary-fixed-dim": "#a1d2aa",
+                        "secondary-fixed": "#bcefc5",
+                        "surface-dim": "#dbdad5",
+                        "error-container": "#ffdad6",
+                        "secondary": "#3a6847",
+                        "outline-variant": "#c7c6ca",
+                        "secondary-container": "#bcefc5",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777b",
+                        "on-secondary-fixed": "#00210d",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "primary-container": "#1b1b1c",
+                        "on-secondary-container": "#406e4d",
+                        "background": "#fbf9f4",
+                        "on-primary-fixed-variant": "#474647",
+                        "on-background": "#1b1c19",
+                        "tertiary": "#000000",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#46474a",
+                        "surface-bright": "#fbf9f4",
+                        "surface-container-high": "#eae8e3",
+                        "surface-container": "#f0eee9",
+                        "surface-variant": "#e4e2dd",
+                        "inverse-surface": "#30312e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "on-tertiary-fixed-variant": "#80272a",
+                        "surface": "#fbf9f4",
+                        "on-tertiary-container": "#cf6261",
+                        "on-primary-container": "#858384",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#ffdad8",
+                        "inverse-primary": "#c8c6c7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#225031",
+                        "surface-container-low": "#f5f3ee",
+                        "on-tertiary-fixed": "#410006",
+                        "on-surface": "#1b1c19",
+                        "surface-tint": "#5f5e5f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "display-lg": ["Source Serif 4"],
+                        "display-lg-mobile": ["Source Serif 4"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Source Serif 4"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f4; /* surface/background */
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none" /><line x1="0" y1="99" x2="100" y2="99" stroke="%23e4e2dd" stroke-width="1"/></svg>'); /* faint grid to mimic ledger paper */
+            color: #1b1c19; /* on-surface */
+        }
+        /* Ledger style inputs */
+        input.ledger-input {
+            border: none;
+            border-bottom: 1px solid #000000;
+            background: transparent;
+            border-radius: 0;
+        }
+        input.ledger-input:focus {
+            outline: none;
+            border-bottom: 2px solid #000000;
+        }
+        /* Paper texture overlay for cards */
+        .binder-card {
+            background-color: #f5f3ee; /* surface-container-low */
+            border-top: 3px solid #000000; /* Binder Header */
+            border-left: 1px solid #c7c6ca;
+            border-right: 1px solid #c7c6ca;
+            border-bottom: 1px solid #c7c6ca;
+            box-shadow: 0 1px 3px rgba(26, 26, 27, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body-lg text-body-lg text-on-surface bg-background">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-margin-desktop h-16 w-full fixed top-0 z-50 bg-background border-b-2 border-primary dark:border-primary-fixed transition-opacity duration-150 active:opacity-70">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">
+                프리랜서 세금 영수증 패닉 바인더
+            </span>
+<nav class="hidden md:flex gap-6 ml-8">
+<!-- Navigation Link -->
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary pb-1" href="#">
+                    2024년 귀속
+                </a>
+</nav>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed">
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-highest p-2 rounded-DEFAULT flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-container dark:hover:bg-surface-container-highest p-2 rounded-DEFAULT flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-primary ml-2">
+<img alt="사용자 프로필" class="w-full h-full object-cover" data-alt="A professional headshot of a serious individual in a minimal, high-key lit environment, reflecting an authoritative and meticulous mood. The lighting is bright and even, highlighting sharp details. The color palette emphasizes deep blacks, pristine whites, and subtle skin tones against a clean background, fitting a modern, legally sound tax application interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqMsWdAi_IZ4SFkY5rrHgTuQyffpOk-1NCHjWDNZKYz_Vqtum1KitVWm8jPW7b9IxVLD9WrpA_Cjef_jlwFlQLlprLU5ZYrcWwFL4QwlFQwyiL0TMRamE0AsA2ljwvdkiWbTznyGW8C9OS6DKaxKoPT4oPJt3-5f25ps9vUoYI5AytHRPaXIYlr5NRWvbccA8Tcawpvtv0j06BroJh29jiPJiEeunhr-yEIUR0OFef25wKQWUEK1WGDAMM55gVCgrr2I7QjNOWh8gx"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar & Main Content Wrapper -->
+<div class="flex pt-16 h-screen">
+<!-- SideNavBar (Hidden on Mobile) -->
+<aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col border-r border-outline-variant bg-surface dark:bg-surface font-body-md text-body-md">
+<div class="p-4 border-b border-outline-variant flex flex-col items-center">
+<div class="w-16 h-16 rounded-full overflow-hidden border border-outline mb-2">
+<img alt="홍길동 세무 바인더" class="w-full h-full object-cover" data-alt="A close-up of an open, heavily used professional tax binder filled with neatly organized financial documents and ledger paper. The scene is shot from a top-down perspective under stark, clinical white lighting, creating a tactile and meticulous mood. The color palette is dominated by stark whites, graphite grays, and the stark black ink of printed text, emphasizing a paper-trail reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpnFfqUAj6KybRTc2v59e-cpVdNGkVqvh1AFUdr5QmzU98ce1-YFNaWW90u0djO5evvejmy6Nf5d8IE30-CcnhMl4LrY3E9VEGqKK_O0SYovgYEjkTtvx24bIo6m1VcWT_KsHVUoMQy3-Mx8b7fEzLjFRmPk9mCeoE53bYdc1NNg5eK47ZRN0InUawt0koE8XxgK_M8AGXmh9OL7iCVr1hR1ED0ayjdUyTi5BRNaNlPAS3Z24NyRMTs1YZ2zWE4Aal6mWCKp8GVZEZ"/>
+</div>
+<h2 class="font-headline-md text-headline-md font-bold text-primary">신고 마감 D-42</h2>
+<span class="text-on-surface-variant text-sm mt-1">종합소득세 확정신고</span>
+</div>
+<nav class="flex-1 py-4 flex flex-col gap-1 px-2">
+<!-- Tab 1 (Active based on Intent: Dashboard -> Income Sources breakdown) -->
+<a class="flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold border-l-4 border-primary transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+                    소득 발생처
+                </a>
+<!-- Tab 2 -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+                    증빙 서류 수집
+                </a>
+<!-- Tab 3 -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="filter_alt">filter_alt</span>
+                    공제 항목 분류
+                </a>
+<!-- Tab 4 -->
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share">ios_share</span>
+                    신고서 내보내기
+                </a>
+</nav>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary py-2 px-4 hover:opacity-90 transition-opacity font-bold flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                    영수증 즉시 추가
+                </button>
+</div>
+<div class="px-2 py-4 border-t border-outline-variant flex flex-col gap-1 bg-surface-container-low">
+<a class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="link">link</span>
+                    홈택스 연결
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-sm text-on-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="verified">verified</span>
+                    모두채움 확인
+                </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop overflow-y-auto w-full">
+<div class="max-w-container-max mx-auto space-y-12">
+<!-- Header / Hero Quote -->
+<section class="border-b-2 border-primary pb-8">
+<div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+<div>
+<h1 class="font-display-lg-mobile md:font-display-lg text-primary mb-4 leading-tight">
+                                Your June deadline is close and your receipts still do not tell a story.
+                            </h1>
+<p class="font-headline-md text-headline-md text-on-surface-variant italic">
+                                "영수증과 소득 내역을 어디까지 모아야 하는지 모르겠어요."
+                            </p>
+</div>
+<div class="flex flex-col items-end text-right min-w-[200px]">
+<span class="font-label-sm text-label-sm text-error mb-1 tracking-widest uppercase">Action Required</span>
+<div class="text-4xl md:text-5xl font-bold font-data-mono text-primary bg-error-container px-4 py-2 border border-error">
+                                D-42
+                            </div>
+</div>
+</div>
+</section>
+<!-- Status Bento Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Evidence vs Income Pressure Card -->
+<div class="lg:col-span-2 binder-card p-6 flex flex-col">
+<div class="flex justify-between items-center mb-6 border-b border-outline-variant pb-2">
+<h3 class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Evidence Discrepancy</h3>
+<span class="material-symbols-outlined text-primary">warning</span>
+</div>
+<div class="flex-1 flex flex-col justify-center gap-8">
+<!-- Unverified Income Bar -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-data-mono text-data-mono text-on-surface">Unverified Income (Est.)</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">₩ 42,500,000</span>
+</div>
+<div class="w-full h-4 bg-surface-variant border border-outline relative">
+<div class="absolute top-0 left-0 h-full bg-primary w-[85%]"></div>
+<!-- Hatched pattern overlay for tactile feel -->
+<div class="absolute top-0 left-0 h-full w-[85%] opacity-30" style="background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, #fff 2px, #fff 4px);"></div>
+</div>
+</div>
+<!-- Evidence Collected Bar -->
+<div>
+<div class="flex justify-between mb-2">
+<span class="font-data-mono text-data-mono text-on-surface">Evidence Collected</span>
+<span class="font-data-mono text-data-mono text-secondary font-bold">₩ 12,000,000</span>
+</div>
+<div class="w-full h-4 bg-surface-variant border border-outline relative">
+<div class="absolute top-0 left-0 h-full bg-secondary w-[28%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant text-right">
+<span class="font-label-sm text-label-sm text-error">Gap: ₩ 30,500,000 Requires Documentation</span>
+</div>
+</div>
+<!-- HomeTax / ModuChaeum Status Panel -->
+<div class="binder-card p-6 flex flex-col justify-between bg-error-container/20 border-l-4 border-l-error">
+<div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-4">
+<h3 class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Integration Status</h3>
+<span class="material-symbols-outlined text-error">link_off</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-error mb-2">HomeTax Not Linked</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                                국세청 연동이 해제되어 모두채움(ModuChaeum) 데이터를 가져올 수 없습니다. 정확한 신고를 위해 즉시 연결이 필요합니다.
+                            </p>
+</div>
+<button class="w-full border-2 border-error text-error py-3 font-bold hover:bg-error hover:text-on-error transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="sync_problem">sync_problem</span>
+                            홈택스 재연결
+                        </button>
+</div>
+</section>
+<!-- Income Breakdown Ledger Table -->
+<section class="binder-card overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-container flex justify-between items-center">
+<h3 class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant">Income Breakdown (2024)</h3>
+<button class="text-primary hover:text-surface-tint">
+<span class="material-symbols-outlined">download</span>
+</button>
+</div>
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[600px]">
+<thead>
+<tr>
+<th class="p-4 border-b-2 border-primary font-label-sm text-label-sm text-on-surface-variant w-1/3">Source Type</th>
+<th class="p-4 border-b-2 border-primary font-label-sm text-label-sm text-on-surface-variant w-1/3">Description</th>
+<th class="p-4 border-b-2 border-primary font-label-sm text-label-sm text-on-surface-variant text-right w-1/3">Amount (Est.)</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 border-b border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-primary rounded-full"></div>
+                                        3.3% 사업소득
+                                    </td>
+<td class="p-4 border-b border-outline-variant text-on-surface-variant group-hover:text-primary transition-colors">Contract Work</td>
+<td class="p-4 border-b border-outline-variant text-right">₩ 28,000,000</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 border-b border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-secondary rounded-full"></div>
+                                        원고료
+                                    </td>
+<td class="p-4 border-b border-outline-variant text-on-surface-variant group-hover:text-primary transition-colors">Writing Royalties</td>
+<td class="p-4 border-b border-outline-variant text-right">₩ 8,500,000</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors group">
+<td class="p-4 border-b border-outline-variant flex items-center gap-2">
+<div class="w-2 h-2 bg-tertiary-container rounded-full"></div>
+                                        강연료
+                                    </td>
+<td class="p-4 border-b border-outline-variant text-on-surface-variant group-hover:text-primary transition-colors">Speaking Fees</td>
+<td class="p-4 border-b border-outline-variant text-right">₩ 6,000,000</td>
+</tr>
+</tbody>
+<tfoot class="bg-surface-container-high">
+<tr>
+<td class="p-4 font-label-sm text-label-sm text-right uppercase tracking-widest text-on-surface-variant" colspan="2">Total Expected Income</td>
+<td class="p-4 font-data-mono text-data-mono font-bold text-right border-t-2 border-primary text-primary">₩ 42,500,000</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

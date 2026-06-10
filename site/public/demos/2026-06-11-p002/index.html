@@ -1,59 +1,365 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pet Surgery Quote Second-Opinion Map - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-11-p002</p>
-        <h1>Pet Surgery Quote Second-Opinion Map</h1>
-        <p>Pet owners compare scary vet quotes, aid options, and second-opinion routes before delaying care or taking on panic debt.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Map | VetCare Compassionate Triage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#c8c6c3",
+                        "inverse-primary": "#6bd8cb",
+                        "on-primary-fixed": "#00201d",
+                        "surface": "#f8f9ff",
+                        "surface-container": "#e6eeff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "surface-container-highest": "#d9e3f6",
+                        "on-tertiary": "#ffffff",
+                        "primary-container": "#008378",
+                        "primary": "#00685f",
+                        "on-secondary-fixed": "#2f1500",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-surface-variant": "#3d4947",
+                        "tertiary-fixed": "#e4e2de",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-container": "#663500",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#89f5e7",
+                        "tertiary-container": "#757572",
+                        "tertiary": "#5c5c59",
+                        "on-primary-container": "#f4fffc",
+                        "on-error": "#ffffff",
+                        "secondary": "#904d00",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed-variant": "#005049",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-tertiary-fixed-variant": "#474744",
+                        "outline": "#6d7a77",
+                        "secondary-container": "#fe932c",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dee9fc",
+                        "surface-dim": "#d0dbed",
+                        "on-surface": "#121c2a",
+                        "inverse-surface": "#27313f",
+                        "surface-tint": "#006a61",
+                        "on-background": "#121c2a",
+                        "surface-variant": "#d9e3f6",
+                        "on-tertiary-container": "#fefcf8",
+                        "primary-fixed-dim": "#6bd8cb",
+                        "outline-variant": "#bcc9c6",
+                        "on-tertiary-fixed": "#1b1c1a",
+                        "background": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "20px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "gutter": "16px",
+                        "md": "24px",
+                        "xl": "64px",
+                        "xs": "4px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "headline-sm": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-sm": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["26px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #FDFBF7; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0px 8px 30px rgba(31, 41, 55, 0.06);
+        }
+        .soft-shadow {
+            box-shadow: 0px 4px 20px rgba(31, 41, 55, 0.04);
+        }
+        .inset-list-item:not(:last-child) {
+            border-bottom: 1px solid #E5E7EB;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-surface-container-low h-full w-64 left-0 top-0 fixed flex-col pt-20 z-50">
+<div class="px-container-padding mb-xl">
+<h1 class="font-headline-sm text-headline-sm text-primary">VetCare Connect</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">Panic to Action</p>
+<p class="font-label-sm text-label-sm text-tertiary mt-xs">Guided Triage</p>
+</div>
+<ul class="flex-1 space-y-sm">
+<li>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface-variant px-4 py-2 hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-container-high transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-sm" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md">Quote Shock</span>
+</a>
+</li>
+<li>
+<a class="flex items-center text-primary dark:text-inverse-primary font-bold border-l-4 border-primary px-4 py-2 transition-colors duration-300 bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined mr-sm" data-icon="map" data-weight="fill">map</span>
+<span class="font-label-md text-label-md">Map</span>
+</a>
+</li>
+<li>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface-variant px-4 py-2 hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-container-high transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-sm" data-icon="warning">warning</span>
+<span class="font-label-md text-label-md">Risk</span>
+</a>
+</li>
+<li>
+<a class="flex items-center text-on-surface-variant dark:text-on-surface-variant px-4 py-2 hover:text-primary dark:hover:text-inverse-primary hover:bg-surface-container-high transition-colors duration-300" href="#">
+<span class="material-symbols-outlined mr-sm" data-icon="credit_score">credit_score</span>
+<span class="font-label-md text-label-md">Payment</span>
+</a>
+</li>
+</ul>
+<div class="p-container-padding mb-md">
+<button class="w-full bg-error text-on-error py-sm px-md rounded-lg font-label-md text-label-md flex justify-center items-center shadow-sm hover:bg-on-error-container transition-colors">
+<span class="material-symbols-outlined mr-xs" data-icon="emergency">emergency</span>
+                Emergency Support
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 relative h-full flex flex-col md:flex-row bg-[#FDFBF7]">
+<!-- Left/Top Map Area -->
+<div class="flex-1 relative h-[512px] md:h-full z-10">
+<!-- Simulated Map Background -->
+<div class="absolute inset-0 bg-surface-dim overflow-hidden">
+<img alt="Map background" class="w-full h-full object-cover opacity-60 mix-blend-multiply" data-location="Austin" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARnXBSl4WZwLKKHwIWcWiogzVzdrrHk3a0w48-0uPNgpNqQETygqGT6_1m0Hy1ggDP_-ulpsmNu07WoXkLGZDVx3h7jd8kYaGhfSEPCiOP_YCtLzzJPn60xLv60PTDs9F8NbEZe4DC070Ja4TBN73BfSm0YrC-brs87DvMZheVTdM3ZKe3tre0I_9RQxqKAfD6CbtPk-A4rsIiH-mfmyammaVpkXRgdaXlGqpOX28Bhhe0ox73am7K2iYcFq0MrETKu1nrb1Fp0X-5"/>
+</div>
+<!-- Map Controls Overlay -->
+<div class="absolute top-md left-md right-md flex flex-wrap gap-sm z-20">
+<div class="glass-card rounded-xl p-xs flex items-center">
+<span class="material-symbols-outlined text-tertiary mx-sm" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md text-on-surface w-48 md:w-64 placeholder-tertiary" placeholder="Search near Austin, TX..." type="text"/>
+</div>
+<div class="glass-card rounded-xl flex">
+<button class="px-md py-sm flex items-center font-label-md text-label-md text-on-surface hover:text-primary transition-colors border-r border-outline-variant/30">
+                        Urgency <span class="material-symbols-outlined ml-xs text-sm" data-icon="arrow_drop_down">arrow_drop_down</span>
+</button>
+<button class="px-md py-sm flex items-center font-label-md text-label-md text-on-surface hover:text-primary transition-colors border-r border-outline-variant/30">
+                        Budget <span class="material-symbols-outlined ml-xs text-sm" data-icon="arrow_drop_down">arrow_drop_down</span>
+</button>
+<button class="px-md py-sm flex items-center font-label-md text-label-md text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined mr-xs" data-icon="tune">tune</span> Filters
+                    </button>
+</div>
+</div>
+<!-- Map Pins (Simulated) -->
+<div class="absolute top-[40%] left-[30%] z-20 group cursor-pointer">
+<div class="bg-primary text-on-primary rounded-full px-sm py-xs font-label-md text-label-md shadow-md flex items-center transform transition-transform group-hover:scale-110 group-hover:bg-primary-container group-hover:text-on-primary-container">
+<span class="material-symbols-outlined mr-xs text-[18px]" data-icon="local_hospital">local_hospital</span>
+                    $1.2k
+                </div>
+<!-- Tooltip -->
+<div class="absolute top-full mt-xs left-1/2 -translate-x-1/2 w-48 bg-surface rounded-lg p-sm shadow-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+<p class="font-label-md text-label-md text-on-surface">Austin Vet Center</p>
+<p class="font-label-sm text-label-sm text-tertiary mt-xs">Full service • 2.1 mi</p>
+<div class="mt-sm flex justify-between items-center text-xs">
+<span class="text-secondary font-medium">Moderate</span>
+<span class="text-tertiary">Avail: Today</span>
+</div>
+</div>
+</div>
+<div class="absolute top-[60%] left-[55%] z-20 group cursor-pointer">
+<div class="bg-surface text-on-surface border border-outline-variant rounded-full px-sm py-xs font-label-md text-label-md shadow-md flex items-center transform transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined mr-xs text-[18px] text-tertiary" data-icon="pets">pets</span>
+                    $850
+                </div>
+</div>
+<div class="absolute top-[20%] left-[70%] z-20 group cursor-pointer">
+<div class="bg-secondary text-on-secondary rounded-full px-sm py-xs font-label-md text-label-md shadow-md flex items-center transform transition-transform group-hover:scale-110">
+<span class="material-symbols-outlined mr-xs text-[18px]" data-icon="volunteer_activism">volunteer_activism</span>
+                    $400
+                </div>
+</div>
+</div>
+<!-- Right/Bottom Panel: Line-Item Comparison Lanes -->
+<div class="w-full md:w-[450px] lg:w-[500px] h-[512px] md:h-full bg-surface-container-lowest shadow-[-8px_0_30px_rgba(31,41,55,0.05)] z-30 flex flex-col overflow-hidden">
+<!-- Panel Header -->
+<div class="p-container-padding pb-sm border-b border-outline-variant/30 flex-shrink-0 bg-surface-container-lowest relative z-10">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Second-Opinion Comparison</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Comparing your quote to local averages</p>
+</div>
+<div class="bg-error-container text-on-error-container px-sm py-xs rounded-lg font-label-md text-label-md flex items-center">
+<span class="material-symbols-outlined mr-xs text-[18px]" data-icon="warning">warning</span>
+                        High Estimate
+                    </div>
+</div>
+<!-- High level summary -->
+<div class="flex gap-sm mt-md">
+<div class="flex-1 bg-surface-container rounded-lg p-sm">
+<p class="font-label-sm text-label-sm text-tertiary">Your Quote</p>
+<p class="font-headline-md text-headline-md text-on-surface mt-xs">$3,450</p>
+</div>
+<div class="flex-1 bg-surface-bright border border-outline-variant/50 rounded-lg p-sm">
+<p class="font-label-sm text-label-sm text-tertiary">Regional Avg</p>
+<p class="font-headline-md text-headline-md text-primary mt-xs">$2,100</p>
+</div>
+</div>
+</div>
+<!-- Scrollable Lanes -->
+<div class="flex-1 overflow-y-auto p-container-padding space-y-md bg-[#FDFBF7]">
+<!-- Category 1: Anesthesia -->
+<div class="bg-surface-container-lowest rounded-xl soft-shadow p-md border border-outline-variant/20 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-xs text-secondary" data-icon="medication_liquid">medication_liquid</span>
+                            Anesthesia &amp; Monitoring
+                        </h3>
+<span class="font-label-md text-label-md text-secondary bg-secondary-fixed px-sm py-xs rounded-full">+$400 vs Avg</span>
+</div>
+<div class="space-y-sm mt-md">
+<div class="flex justify-between items-center inset-list-item">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    Pre-anesthetic Bloodwork
+                                    <span class="material-symbols-outlined ml-xs text-[16px] text-tertiary cursor-help group-hover:text-primary transition-colors" title="Ensures organs can process the anesthesia safely.">info</span>
+</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$250</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $150</p>
+</div>
+</div>
+<div class="flex justify-between items-center inset-list-item">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    General Anesthesia (Gas)
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$450</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $350</p>
+</div>
+</div>
+<div class="flex justify-between items-center inset-list-item border-none pb-0 mb-0">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    Vitals Monitoring (Tech)
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$200</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $0 (Included)</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Category 2: Surgery -->
+<div class="bg-surface-container-lowest rounded-xl soft-shadow p-md border border-outline-variant/20 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary"></div>
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-xs text-primary" data-icon="content_cut">content_cut</span>
+                            Surgical Procedure
+                        </h3>
+<span class="font-label-md text-label-md text-primary bg-primary-fixed px-sm py-xs rounded-full">In Line</span>
+</div>
+<div class="space-y-sm mt-md">
+<div class="flex justify-between items-center inset-list-item border-none pb-0 mb-0">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    Cruciate Repair (TPLO)
+                                    <span class="material-symbols-outlined ml-xs text-[16px] text-tertiary cursor-help group-hover:text-primary transition-colors" title="The primary surgical time and expertise.">info</span>
+</p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$2,100</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $2,000</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Category 3: Hospitalization & Meds -->
+<div class="bg-surface-container-lowest rounded-xl soft-shadow p-md border border-outline-variant/20 relative overflow-hidden group mb-xl">
+<div class="absolute top-0 left-0 w-1 h-full bg-tertiary"></div>
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center">
+<span class="material-symbols-outlined mr-xs text-tertiary" data-icon="local_pharmacy">local_pharmacy</span>
+                            Recovery &amp; Meds
+                        </h3>
+<span class="font-label-md text-label-md text-on-surface-variant bg-surface-variant px-sm py-xs rounded-full">+$50 vs Avg</span>
+</div>
+<div class="space-y-sm mt-md">
+<div class="flex justify-between items-center inset-list-item">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    Overnight Care (1 Night)
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$300</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $250</p>
+</div>
+</div>
+<div class="flex justify-between items-center inset-list-item border-none pb-0 mb-0">
+<div>
+<p class="font-label-md text-label-md text-on-surface flex items-center">
+                                    Take-home Pain Meds
+                                </p>
+</div>
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">$150</p>
+<p class="font-label-sm text-label-sm text-tertiary">Avg: $150</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Action -->
+<div class="p-container-padding border-t border-outline-variant/30 bg-surface-container-lowest z-10">
+<button class="w-full bg-primary text-on-primary py-[16px] px-md rounded-xl font-label-md text-label-md flex justify-center items-center shadow-md hover:bg-primary-container transition-colors">
+                    Request Formal Second Opinion
+                    <span class="material-symbols-outlined ml-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</body></html>

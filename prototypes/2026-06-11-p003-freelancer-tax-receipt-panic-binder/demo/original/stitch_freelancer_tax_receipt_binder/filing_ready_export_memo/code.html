@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프리랜서 세금 영수증 패닉 바인더 - 신고서 내보내기</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Source+Serif+4:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e5e2e3",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#410006",
+                        "on-primary-fixed": "#1b1b1c",
+                        "inverse-on-surface": "#f2f1ec",
+                        "surface-container-highest": "#e4e2dd",
+                        "secondary-fixed-dim": "#a1d2aa",
+                        "secondary-fixed": "#bcefc5",
+                        "surface-dim": "#dbdad5",
+                        "error-container": "#ffdad6",
+                        "secondary": "#3a6847",
+                        "outline-variant": "#c7c6ca",
+                        "secondary-container": "#bcefc5",
+                        "on-secondary": "#ffffff",
+                        "outline": "#76777b",
+                        "on-secondary-fixed": "#00210d",
+                        "tertiary-fixed-dim": "#ffb3b0",
+                        "primary-container": "#1b1b1c",
+                        "on-secondary-container": "#406e4d",
+                        "background": "#fbf9f4",
+                        "on-primary-fixed-variant": "#474647",
+                        "on-background": "#1b1c19",
+                        "tertiary": "#000000",
+                        "error": "#ba1a1a",
+                        "on-surface-variant": "#46474a",
+                        "surface-bright": "#fbf9f4",
+                        "surface-container-high": "#eae8e3",
+                        "surface-container": "#f0eee9",
+                        "surface-variant": "#e4e2dd",
+                        "inverse-surface": "#30312e",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "on-tertiary-fixed-variant": "#80272a",
+                        "surface": "#fbf9f4",
+                        "on-tertiary-container": "#cf6261",
+                        "on-primary-container": "#858384",
+                        "primary": "#000000",
+                        "tertiary-fixed": "#ffdad8",
+                        "inverse-primary": "#c8c6c7",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed-variant": "#225031",
+                        "surface-container-low": "#f5f3ee",
+                        "on-tertiary-fixed": "#410006",
+                        "on-surface": "#1b1c19",
+                        "surface-tint": "#5f5e5f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "unit": "4px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "data-mono": ["Inter"],
+                        "display-lg": ["Source Serif 4"],
+                        "display-lg-mobile": ["Source Serif 4"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Source Serif 4"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Paper texture utility */
+        .paper-texture {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        
+        /* Ledger specific styles */
+        .ledger-row {
+            border-bottom: 1px solid theme('colors.outline-variant');
+        }
+        .ledger-row:last-child {
+            border-bottom: none;
+        }
+        .binder-tab {
+            box-shadow: 2px 0 4px rgba(0,0,0,0.05);
+            z-index: 10;
+        }
+        
+        /* Custom scrollbar for binder preview */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-high');
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: theme('colors.outline');
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen paper-texture antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar (Web only) -->
+<nav class="hidden md:flex justify-between items-center px-margin-desktop h-16 w-full fixed top-0 z-50 bg-background border-b-2 border-primary">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-primary">프리랜서 세금 영수증 패닉 바인더</span>
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:bg-surface-container transition-opacity duration-150 active:opacity-70 px-3 py-2 rounded" href="#">2024년 귀속</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="notifications" class="text-primary hover:bg-surface-container p-2 rounded-full transition-opacity duration-150">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="help" class="text-primary hover:bg-surface-container p-2 rounded-full transition-opacity duration-150">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<img alt="사용자 프로필" class="w-8 h-8 rounded-full border border-primary object-cover" data-alt="A professional headshot of a person, suitable for a business profile picture. Neutral background, well-lit." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf8GEAxNn990zEeqU85jix5vHqGTXC8dnq9kGIO3YB2WsS2wRyk5uBD5uRniNkb8yMBbPsYSRLLDhqB5bVYUvjEvQUiUhBWBlzoRhVlfRqVovgaRsUOFbe44oIhVw0p94r4qqBSQSrhUeauchyHDInxKtBqx5BWBhEknSykS671tEOMMfY3Y9-GJAoK9ouZYpEXUX92e77wgp4tLqDi_WcyfB5JMTbAC7WEXOZljLvRdqMS3DCgjmpwUnKbXbykL7KUGYxNtHqVyQS"/>
+</div>
+</nav>
+<div class="flex pt-16 h-screen">
+<!-- SideNavBar (Web only) -->
+<aside class="hidden md:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex-col border-r border-outline-variant bg-surface transition-colors duration-200 z-40">
+<div class="p-6 border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-4">
+<img alt="홍길동 세무 바인더" class="w-12 h-12 rounded bg-surface-container-high border border-outline-variant object-cover" data-alt="A stylized icon or small image representing a physical tax binder or financial document stack. Professional, organized aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDD4vGfFl29EsnxknVduZmPBsSipEvDgaSOy9W_vkzHqOdDpGOFQq_s2KY78qsNdkB_lZbyEUse3EKc3LYkTAJnok3201FtwMUpzHALIRV1GaAcz2jMy34qCSQhuUx0tdBEfuEbx4JGv7QCXmSc079ROa_T7Dfg8luNEAjF5_XSfQYKtGsMHdRR1lqg7_QCUbinzXBLdqG2WnYzQKNNVbF5SjZWZ8hoTvH6B9Q_woxE2RehNz-ojdgmvIFZndyKW8t-S1pvJtt7axDr"/>
+<div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">종합소득세 확정신고</div>
+<div class="font-data-mono text-data-mono text-error">신고 마감 D-42</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 px-4 flex items-center justify-center gap-2 font-data-mono text-data-mono hover:bg-on-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                    영수증 즉시 추가
+                </button>
+</div>
+<nav class="flex-1 py-4 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance">account_balance</span>
+<span class="font-body-md text-body-md">소득 발생처</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-body-md text-body-md">증빙 서류 수집</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="filter_alt">filter_alt</span>
+<span class="font-body-md text-body-md">공제 항목 분류</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 bg-primary-container text-on-primary-container font-bold border-l-4 border-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="ios_share" data-weight="fill">ios_share</span>
+<span class="font-body-md text-body-md">신고서 내보내기</span>
+</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 border-t border-outline-variant bg-surface-container-low mt-auto">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-3 px-2 py-2 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="link">link</span>
+<span class="font-label-sm text-label-sm">홈택스 연결</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-2 py-2 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+<span class="font-label-sm text-label-sm">모두채움 확인</span>
+</a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 bg-background overflow-hidden flex flex-col h-full relative">
+<!-- Mobile Header -->
+<header class="md:hidden flex items-center justify-between p-margin-mobile border-b-2 border-primary bg-background sticky top-0 z-30">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">신고서 내보내기</h1>
+<button class="text-primary p-2">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+</header>
+<div class="flex-1 overflow-y-auto p-4 md:p-8 custom-scrollbar">
+<div class="max-w-container-max mx-auto space-y-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b-2 border-primary pb-4">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Final Export Step</p>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">Filing-Ready Receipt Binder</h2>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container text-on-secondary-container px-3 py-1 border border-secondary font-data-mono text-data-mono">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+                            DATA VERIFIED
+                        </div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Col: Tax Impact Summary & CTA -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Tax Impact Card -->
+<div class="bg-surface border border-outline-variant relative">
+<div class="bg-primary text-on-primary font-label-sm text-label-sm p-2 px-4 uppercase tracking-wider flex justify-between items-center">
+<span>Tax Impact Summary</span>
+<span class="material-symbols-outlined text-[16px]" data-icon="balance">balance</span>
+</div>
+<div class="p-6 space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-baseline border-b border-outline-variant border-dashed pb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">총 필요경비 산입액</span>
+<span class="font-data-mono text-data-mono text-primary">₩ 24,530,000</span>
+</div>
+<div class="flex justify-between items-baseline border-b border-outline-variant border-dashed pb-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">소득공제 반영액</span>
+<span class="font-data-mono text-data-mono text-primary">₩ 3,200,000</span>
+</div>
+</div>
+<div class="bg-surface-container p-4 border-l-2 border-primary">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">예상 환급액 (Expected Refund)</p>
+<p class="font-display-lg-mobile text-display-lg-mobile text-secondary font-bold">₩ 1,450,200</p>
+</div>
+<div class="bg-error-container/20 p-4 border border-error/30">
+<div class="flex items-start gap-2 text-error">
+<span class="material-symbols-outlined text-[20px] mt-0.5" data-icon="warning">warning</span>
+<div>
+<p class="font-label-sm text-label-sm font-bold">무신고시 잠재 가산세</p>
+<p class="font-data-mono text-data-mono mt-1">₩ 482,000 + α</p>
+<p class="text-[10px] leading-tight text-on-surface-variant mt-2">일반무신고가산세(20%) 및 납부지연가산세(일 0.022%) 포함 추산액</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-3 sticky top-4">
+<button class="w-full bg-surface text-primary border border-primary py-4 px-6 font-data-mono text-data-mono hover:bg-surface-container transition-colors flex justify-between items-center group">
+<span>Generate Accountant Memo</span>
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="description">description</span>
+</button>
+<button class="w-full bg-primary text-on-primary border border-primary py-4 px-6 font-data-mono text-data-mono hover:bg-on-surface-variant transition-colors flex justify-between items-center shadow-[0_4px_0_theme('colors.on-primary-fixed-variant')] active:shadow-[0_0px_0_theme('colors.on-primary-fixed-variant')] active:translate-y-[4px]">
+<span class="font-bold text-[16px]">Export PDF Binder</span>
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+</div>
+</div>
+<!-- Right Col: Digital Binder Preview -->
+<div class="lg:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant shadow-[0_2px_10px_rgba(0,0,0,0.05)] relative overflow-hidden flex h-[700px]">
+<!-- Binder Spine / Tabs -->
+<div class="w-12 bg-surface-container-high border-r border-outline-variant flex flex-col items-center py-4 gap-4 z-10 binder-tab">
+<div class="w-8 h-8 rounded-full bg-background border border-outline flex items-center justify-center mb-4">
+<div class="w-4 h-4 rounded-full bg-surface-container-highest shadow-inner"></div>
+</div>
+<button class="w-full py-6 bg-surface border-y border-r-0 border-outline-variant flex justify-center text-primary relative after:content-[''] after:absolute after:-right-[1px] after:top-0 after:bottom-0 after:w-[2px] after:bg-surface">
+<span class="writing-vertical-rl font-data-mono text-data-mono tracking-widest rotate-180">INDEX</span>
+</button>
+<button class="w-full py-6 bg-transparent border-y border-transparent flex justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="writing-vertical-rl font-data-mono text-data-mono tracking-widest rotate-180">MEMO</span>
+</button>
+<button class="w-full py-6 bg-transparent border-y border-transparent flex justify-center text-on-surface-variant hover:bg-surface-container transition-colors">
+<span class="writing-vertical-rl font-data-mono text-data-mono tracking-widest rotate-180">RCPTS</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-background border border-outline flex items-center justify-center mt-auto">
+<div class="w-4 h-4 rounded-full bg-surface-container-highest shadow-inner"></div>
+</div>
+</div>
+<!-- Binder Content Area (Preview) -->
+<div class="flex-1 bg-surface-container-lowest p-8 relative paper-texture overflow-y-auto custom-scrollbar">
+<!-- Stamp Overlay -->
+<div class="absolute top-12 right-12 opacity-80 rotate-[15deg] pointer-events-none select-none border-4 border-error text-error p-2 inline-block">
+<div class="border-2 border-error p-2 font-display-lg text-display-lg uppercase tracking-widest font-bold">READY</div>
+<div class="font-data-mono text-[10px] text-center mt-1">FOR FILING 2024</div>
+</div>
+<!-- Page Header -->
+<div class="border-b-2 border-primary pb-6 mb-8">
+<p class="font-data-mono text-data-mono text-on-surface-variant text-right mb-4">DOC. REF: TAX-24-FB-001</p>
+<h3 class="font-headline-md text-headline-md text-primary font-bold mb-2">2024년 귀속 종합소득세 증빙 바인더</h3>
+<div class="grid grid-cols-2 gap-4 font-label-sm text-label-sm">
+<div>
+<span class="text-on-surface-variant inline-block w-20">납세자:</span>
+<span class="text-primary font-data-mono">홍길동 (820101-*******)</span>
+</div>
+<div>
+<span class="text-on-surface-variant inline-block w-20">기준년도:</span>
+<span class="text-primary font-data-mono">2024.01.01 - 2024.12.31</span>
+</div>
+<div>
+<span class="text-on-surface-variant inline-block w-20">작성일:</span>
+<span class="text-primary font-data-mono">2025.04.18</span>
+</div>
+<div>
+<span class="text-on-surface-variant inline-block w-20">총 페이지:</span>
+<span class="text-primary font-data-mono">42 Pages</span>
+</div>
+</div>
+</div>
+<!-- Index Table -->
+<div class="mb-12">
+<h4 class="font-label-sm text-label-sm text-primary uppercase border-b border-primary pb-2 mb-4 bg-surface-container px-2">Table of Contents / Index</h4>
+<table class="w-full text-left border-collapse font-body-md text-body-md">
+<thead>
+<tr class="border-b-2 border-outline-variant font-label-sm text-label-sm text-on-surface-variant">
+<th class="py-2 px-2 w-16">SEC</th>
+<th class="py-2 px-2">DESCRIPTION</th>
+<th class="py-2 px-2 text-right">ITEMS</th>
+<th class="py-2 px-2 text-right">PG</th>
+</tr>
+</thead>
+<tbody>
+<tr class="ledger-row hover:bg-surface-container-lowest">
+<td class="py-3 px-2 font-data-mono text-data-mono text-on-surface-variant">01</td>
+<td class="py-3 px-2 font-bold text-primary">Accountant Handoff Memo</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">-</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">01</td>
+</tr>
+<tr class="ledger-row hover:bg-surface-container-lowest">
+<td class="py-3 px-2 font-data-mono text-data-mono text-on-surface-variant">02</td>
+<td class="py-3 px-2">
+<span class="font-bold text-primary block">Categorized Receipts: 업무용 승용차</span>
+<span class="text-[12px] text-on-surface-variant">주유비, 수리비, 톨게이트</span>
+</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">48</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">03</td>
+</tr>
+<tr class="ledger-row hover:bg-surface-container-lowest">
+<td class="py-3 px-2 font-data-mono text-data-mono text-on-surface-variant">03</td>
+<td class="py-3 px-2">
+<span class="font-bold text-primary block">Categorized Receipts: 소모품 및 비품</span>
+<span class="text-[12px] text-on-surface-variant">사무용품, PC장비</span>
+</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">12</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">15</td>
+</tr>
+<tr class="ledger-row hover:bg-surface-container-lowest">
+<td class="py-3 px-2 font-data-mono text-data-mono text-on-surface-variant">04</td>
+<td class="py-3 px-2">
+<span class="font-bold text-primary block">Categorized Receipts: 접대비</span>
+<span class="text-[12px] text-on-surface-variant">식대, 경조사비</span>
+</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">31</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">22</td>
+</tr>
+<tr class="ledger-row hover:bg-surface-container-lowest">
+<td class="py-3 px-2 font-data-mono text-data-mono text-on-surface-variant">05</td>
+<td class="py-3 px-2 font-bold text-primary">원천징수영수증 취합본</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">4</td>
+<td class="py-3 px-2 text-right font-data-mono text-data-mono">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Accountant Memo Snapshot -->
+<div>
+<h4 class="font-label-sm text-label-sm text-primary uppercase border-b border-primary pb-2 mb-4 bg-surface-container px-2">Preview: Accountant Memo Excerpt</h4>
+<div class="border border-outline-variant bg-surface p-6 font-body-md text-body-md leading-relaxed text-on-surface">
+<p class="mb-4">세무대리인 귀하,</p>
+<p class="mb-4">본 바인더는 2024년도 귀속 종합소득세 신고를 위한 수집 및 분류된 증빙 자료입니다. 특이사항은 다음과 같습니다:</p>
+<ul class="list-disc pl-5 space-y-2 mb-6">
+<li>8월 차량 수리비(₩1,200,000)는 업무용 차량 유지보수 건입니다. (증빙 #02-14 참조)</li>
+<li>접대비 중 경조사비 항목 3건(총 ₩150,000)은 청첩장/부고장 이미지 캡처로 갈음합니다.</li>
+<li>신규 장비 구입비(₩3,500,000)는 즉시상각 특례 적용 검토 부탁드립니다.</li>
+</ul>
+<div class="mt-8 border-t border-dashed border-outline-variant pt-4 flex justify-between items-end">
+<span class="font-data-mono text-data-mono text-on-surface-variant">SIGNATURE:</span>
+<div class="border-b border-primary w-48 text-center pb-1 font-display-lg text-display-lg text-primary italic">Hong Gil Dong</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mobile Bottom Nav Placeholder (suppressed per context rules, but structural div remains) -->
+<div class="md:hidden"></div>
+</main>
+</div>
+</body></html>
