@@ -76,11 +76,11 @@ When the task is “idea + design”:
 
 ### Idea diversity rule
 - PF ideation is now search-first by default. Before producing `/pf idea` or daily cron candidates, perform a live external sweep when available and write the raw signals into `daily/YYYY-MM-DD/ideas.md`.
-- Daily ideation must use the need-hunt board flow in `docs/IDEA_BOARD.md`: `Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`. Do not jump directly from search results, trend articles, or desire themes to final candidates.
-- Minimum evidence for each daily batch: 5–10 raw market/problem signals from at least 3 buckets (news/business/tech, communities/forums, niche workflows, trend/policy shifts, weird consumer behavior, marketplace/review/template/service signals). At least 3 signals should show concrete user action such as repeated questions, purchases, templates, spreadsheets, screenshots, hiring help, or manual tracking. Each final candidate should cite the signal(s) that prove pull, not just inspiration.
+- Daily ideation must use the need-hunt board flow in `docs/IDEA_BOARD.md`: `Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 8 -> Stitch Prompts`. Do not jump directly from search results, trend articles, or desire themes to final candidates.
+- Minimum evidence for each daily batch: 8–14 raw market/problem signals from at least 3 buckets (news/business/tech, communities/forums, niche workflows, trend/policy shifts, weird consumer behavior, marketplace/review/template/service signals). At least 5 signals should show concrete user action such as repeated questions, purchases, templates, spreadsheets, screenshots, hiring help, or manual tracking. Each final candidate should cite the signal(s) that prove pull, not just inspiration.
 - Community roam is part of PF ideation: skim posts/comments for repeated questions, hacks, screenshots, embarrassment, jealousy, budget anxiety, “what should I do?” questions, and workaround behavior. Prefer lived pull over polished trend summaries.
 - Trend freshness is now a first-class input. Each daily `/pf idea` sweep should include at least one live trend/community keyword pass using the trend bank in `docs/TREND_KEYWORD_BANK.md`, then combine those keywords with a concrete anxiety/desire such as money loss, status, romance, parenting, health, scarcity, or location.
-- Before final selection, draft 8–12 candidates, score them on Pull/Pain/Urgency/Workaround/Reach/Visual/WTP, and keep a Kill List with explicit rejection tags such as `no-pull-evidence`, `no-user-action`, `no-workaround`, `unclear-arrival-path`, `just-dashboard`, `weak-buyer`, `theme-wash`, or `stitch-bland-risk`.
+- Before final selection, draft 12–16 candidates, score them on Pull/Pain/Urgency/Workaround/Reach/Visual/WTP, and keep a Kill List with explicit rejection tags such as `no-pull-evidence`, `no-user-action`, `no-workaround`, `unclear-arrival-path`, `just-dashboard`, `weak-buyer`, `theme-wash`, or `stitch-bland-risk`.
 - Final batches should include at least 3 distinct formats or prototype mechanics and at least one non-dashboard/board/scanner/planner shape. Before selecting a Stitch/web prototype, run Format Roulette and consider alternatives such as calculator, diagnostic, map, browser extension, chatbot, printable, challenge, game, kiosk, local device, script, spreadsheet template, checklist, alert, marketplace, concierge, Receipt, Interrogator, Simulator, Proof Kit, Status Mirror, Negotiation Room, Panic Button, Confession Booth, Tradeoff Court, or Flex/Defense Poster.
 - The seven operator themes are lenses after need evidence, not boxes to fill. Do not force theme mapping when pull evidence is strong but classification is awkward; mark it `unclassified` rather than theme-washing.
 - Do not overfit daily ideas to the operator's most visible interests.
@@ -89,10 +89,10 @@ When the task is “idea + design”:
 - Before finalizing candidates, compare against at least the last 7 PF daily batches and reject near-duplicates unless the user/trigger/data source/interaction mechanic is genuinely new.
 - If recent batches cluster too tightly around one theme, deliberately widen the next batch.
 - Do not optimize only for immediate monetization. A strong PF batch can mix sellable operator tools with one idea that is simply fun, portfolio-worthy, or surprising to make.
-- Default daily mix for 4 ideas: 3 practical/commercial ideas + 1 fun/experimental/portfolio idea, unless the operator explicitly asks for all-commercial.
-- Default reporting contract for daily PF ideation: deliver all 4 ideas and all 4 Stitch prompts, not a reduced shortlist.
-- Default execution contract for daily PF runs: scaffold and publish all 4 slots `p001~p004`; missing `p004` means the batch is incomplete unless the operator explicitly says otherwise.
-- Default `/pf sti` contract: ingest, review, build, commit, and push all same-day `p001~p004` Stitch demos when matching exports exist.
+- Default daily mix for 8 ideas: 5-6 practical/commercial ideas + 2-3 fun/experimental/portfolio or non-web/field ideas, unless the operator explicitly asks for all-commercial.
+- Default reporting contract for daily PF ideation: deliver all 8 ideas and all 8 Stitch prompts, not a reduced shortlist.
+- Default execution contract for daily PF runs: scaffold and publish all 8 slots `p001~p008`; missing `p008` means the batch is incomplete unless the operator explicitly says otherwise.
+- Default `/pf sti` contract: ingest, review, build, commit, and push all same-day `p001~p008` Stitch demos when matching exports exist.
 
 ---
 

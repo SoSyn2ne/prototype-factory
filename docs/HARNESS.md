@@ -7,8 +7,8 @@
 
 ## Roles
 - **PF Planner**
-  - 오늘 프로토타입 아이디어 4개 제안
-  - 4개 전부에 대한 Stitch prompt 작성
+  - 오늘 프로토타입 아이디어 8개 제안
+  - 8개 전부에 대한 Stitch prompt 작성
   - scaffold 범위 정의
 - **PF Generator**
   - scaffold 생성
@@ -19,9 +19,9 @@
   - commit / push / report / cleanup
 
 ## Default flow
-1. Phase A: idea + prompt + scaffold (`p001~p004` 전부 생성)
+1. Phase A: idea + prompt + scaffold (`p001~p008` 전부 생성)
 2. Human: Stitch 디자인 개입
-3. PF Generator: ingest/build/index/preview (`p001~p004` 전부 반영)
+3. PF Generator: ingest/build/index/preview (`p001~p008` 전부 반영)
 4. PF Reviewer: pass/fail 판단
 5. PF Finalizer: push/report
 
@@ -30,12 +30,12 @@
 - index 재생성 완료
 - preview 산출 가능
 - report 대상 라우팅 확인
-- 당일 기본 배치는 `p001~p004` 4개가 모두 존재해야 함
-- `/pf sti`는 당일 4개 demo가 모두 ingest되고 review gate를 통과해야 완료
+- 당일 기본 배치는 `p001~p008` 8개가 모두 존재해야 함
+- `/pf sti`는 당일 8개 demo가 모두 ingest되고 review gate를 통과해야 완료
 
 ## /pf sti hard gate
 - `build 성공`만으로 review pass 처리하면 안 된다.
-- 오늘 배치의 각 `p001~p004`에 대해 아래를 전부 확인해야 한다.
+- 오늘 배치의 각 `p001~p008`에 대해 아래를 전부 확인해야 한다.
   - `prototypes/<id-...>/demo/index.html` 존재
   - `site/public/demos/<id>/index.html` 존재
   - public demo 파일이 prototype demo 파일과 byte-level로 동일하거나, 의도된 wrapper 구조인지 명시적으로 확인
@@ -48,7 +48,7 @@
   - `Active users`
   - `Conversion`
   - `Blockers`
-  - 그날 4개 demo html이 서로 거의 동일한 공용 대시보드 템플릿인 경우
+  - 그날 8개 demo html이 서로 거의 동일한 공용 대시보드 템플릿인 경우
 - `demo/index.html exists`만 보고 pass 처리하면 안 된다.
 - zip 삭제는 위 hard gate가 모두 통과한 뒤에만 가능하다.
 - push 보고 전에 반드시 `원본 보존 여부`와 `데모가 진짜로 맞는지`를 따로 한 줄로 명시한다.
@@ -72,7 +72,7 @@ PF는 단순 생성으로 끝내지 않고, **review 통과 후에만 완료**�
 - 운영 원칙: `sti 실행`과 `sti 정책/검수 기준 관리`를 가능하면 분리한다.
 
 ## Ideation mix rule
-- 기본 일일 배치(4개)는 `실전형/상업형 3개 + 재미/실험형 1개`를 권장한다.
-- 4개 프롬프트는 요약/추리기 없이 전부 운영자에게 전달하는 것을 기본 계약으로 한다.
+- 기본 일일 배치(8개)는 `실전형/상업형 5~6개 + 재미/실험형 또는 현장형 2~3개`를 권장한다.
+- 8개 프롬프트는 요약/추리기 없이 전부 운영자에게 전달하는 것을 기본 계약으로 한다.
 - 여기서 재미/실험형은 즉시 수익화가 약해도 괜찮다. 대신 시각적 payoff, 공유성, 포트폴리오 매력, 혹은 새로운 톤 실험 가치가 있어야 한다.
 - 운영자가 명시적으로 "전부 세일즈형" 또는 "전부 수익화형"을 요청한 날만 예외로 한다.

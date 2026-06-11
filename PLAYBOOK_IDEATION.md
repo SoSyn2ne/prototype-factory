@@ -42,13 +42,13 @@ before becoming a prototype.
 - `spec/assumptions.md` (KNOWN/ASSUMPTION/UNKNOWN)
 - `spec/falsification.md` (5-7 questions)
 - For daily PF batches, each final candidate must include an explicit `theme:` line mapping it to a human driver/theme after the Need Evidence section.
-- Daily PF default is a 4-candidate batch and must scaffold `p001` through `p004` with no missing slot.
+- Daily PF default is an 8-candidate batch and must scaffold `p001` through `p008` with no missing slot.
 
 ## Daily need-hunt pipeline
 
 Use this exact shape for `/pf idea` and daily Phase A:
 
-`Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`
+`Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 8 -> Stitch Prompts`
 
 The pull-evidence steps are mandatory. Do not jump from search signals to final
 candidates. Do not start with the seven themes. Do not assume the final format is
@@ -56,7 +56,7 @@ a responsive web app until the format pass has considered alternatives.
 
 ### 1) Signal Roam
 
-- Record 5-10 raw signals before synthesis.
+- Record 8-14 raw signals before synthesis.
 - Prefer user actions over abstract complaints: repeated questions, screenshots,
   spreadsheets, checklists, templates, marketplace reviews, purchases, agency
   hiring, community replies, saved examples, and manual tracking.
@@ -135,7 +135,7 @@ Only now map the need to the human pressure underneath it.
 
 ### 7) Candidate Drafts
 
-Draft 8-12 candidates before selecting the final four. Each draft needs:
+Draft 12-16 candidates before selecting the final eight. Each draft needs:
 
 - Need evidence and Pull Evidence score.
 - Theme from the desire lens.
@@ -170,24 +170,24 @@ Use these tags:
 - `low-urgency`: useful someday, not painful now.
 - `no-output-artifact`: nothing memorable to export/share/use.
 
-### 9) Final 4
+### 9) Final 8
 
 Default final batch composition:
 
-- 1 money/assets defense idea.
-- 1 face/body/status/relationship anxiety idea.
-- 1 education/health/family pressure idea.
-- 1 strange, shareable, or portfolio-worthy experiment.
+- 2 money/assets defense ideas.
+- 2 face/body/status/relationship anxiety ideas.
+- 2 education/health/family pressure ideas.
+- 2 strange, shareable, portfolio-worthy, non-web, or field experiments.
 
 Hard gates:
 
 - Every final candidate has at least 2 concrete user actions as need evidence.
-- At least 3 final candidates have clear workaround proof.
+- At least 6 final candidates have clear workaround proof.
 - Every final candidate has an arrival path: search phrase, community channel,
   marketplace, referral path, or trigger event.
-- At least one final idea must not be a dashboard/board/scanner/planner.
-- At least one final idea must be a consumer desire or anxiety tool.
-- At least one final idea may be B2B/ops, but it still needs visible human pull
+- At least two final ideas must not be dashboards/boards/scanners/planners.
+- At least two final ideas must be consumer desire or anxiety tools.
+- B2B/ops ideas still need visible human pull
   such as fear, blame, lost revenue, reputation risk, or repeated manual effort.
 - Every final idea needs a shareable or actionable output artifact and a first
   validation test.
@@ -208,7 +208,7 @@ Hard gates:
 - Community roam requirement: do not only search polished articles. Skim posts/comments for repeated questions, hacks, screenshots, embarrassment, jealousy, budget anxiety, "what should I do?" questions, and workaround behavior. Prefer lived pull over generic trend summaries.
 - Trend keyword requirement: search 5-10 fresh Korean/global consumer keywords from `docs/TREND_KEYWORD_BANK.md` or current autocomplete/news/community chatter. Prefer keywords with clear sharing, location, scarcity, purchase, identity, or relationship behavior. Avoid using a trend word alone as the idea; pair it with a painful decision or urgent workflow.
 - Tavily/Scrapling helper path: use Tavily to find candidate URLs; optionally run `python3 scripts/extract-signals.py --file <urls.txt>` to extract or stub body/comment notes with Scrapling. See `docs/EXTERNAL_SIGNALS.md`.
-- Write down 5-10 raw opportunity seeds before narrowing. Each seed should capture source, raw user language, observed action, who is doing it, trigger moment, what they already tried, money/time/social cost already spent, and source type.
+- Write down 8-14 raw opportunity seeds before narrowing. Each seed should capture source, raw user language, observed action, who is doing it, trigger moment, what they already tried, money/time/social cost already spent, and source type.
 - Do not generate final PF candidates until this sweep is written into `daily/YYYY-MM-DD/ideas.md` under the `Signal Roam` section.
 
 1.5) **Need evidence and format pass (required)**
@@ -231,17 +231,16 @@ Hard gates:
 - Prefer ideas where the assistant's independent synthesis is doing more work than mirroring the user's known interests.
 
 5) **Synthesize**
-- Produce 8-12 candidate drafts, score them, kill the weak ones, then select 4.
+- Produce 12-16 candidate drafts, score them, kill the weak ones, then select 8.
 - Each draft must include user pull, mechanism, and a minimal validation test.
 - Across a daily batch, optimize for range: different users, different urgency levels, different markets, and different arrival paths.
-- At least 1 idea per 4-slot daily batch should be trend-forward or shareable when good pull signals exist: identity/personality, meme/text transformation, local scarcity map, fandom/goods, relationship/social script, parenting/education anxiety, or money-saving panic.
+- At least 2 ideas per 8-slot daily batch should be trend-forward or shareable when good pull signals exist: identity/personality, meme/text transformation, local scarcity map, fandom/goods, relationship/social script, parenting/education anxiety, or money-saving panic.
 - Each final candidate must cite 1-2 raw external signals that inspired it. Do not cite sources as proof of market size; use them as pull/problem evidence only.
 - If a binding theme framework was provided, every output candidate should map cleanly to one of those themes after need evidence. If it does not map but pull is strong, mark it `unclassified` rather than forcing theme-wash.
 - Default batch composition for daily PF runs:
-  - daily standard run: generate 4 ideas and scaffold `p001` through `p004`
-  - for the default 4-idea batch, prefer 3 practical/commercial ideas + 1 fun/portfolio/experimental idea
-  - if generating 4 ideas under the current seven-theme framework, prefer 4 distinct themes from `성욕 / 외모 / 사교육 / 자산 방어 / 외로움 / 건강 / 역전`, but do not kill strong pull solely because it is hard to classify
-  - if generating 5 ideas, prefer 3 practical/commercial ideas + 2 fun/portfolio/experimental ideas
+  - daily standard run: generate 8 ideas and scaffold `p001` through `p008`
+  - for the default 8-idea batch, prefer 5-6 practical/commercial ideas + 2-3 fun/portfolio/experimental, non-web, or field ideas
+  - if generating 8 ideas under the current seven-theme framework, cover at least 5 distinct themes from `성욕 / 외모 / 사교육 / 자산 방어 / 외로움 / 건강 / 역전`, but do not kill strong pull solely because it is hard to classify
 - "Fun" is valid even without immediate monetization if the UI has strong story, visual payoff, shareability, taste-building value, or observable user pull.
 - For the current operator framework, practical does not mean generic B2B ops. The human driver and pull evidence should remain visible in the one-liner, target user, and key UX.
 - Reject or rewrite any final candidate whose first screen would read as a generic `Dashboard`, `Board`, `Planner`, `Scanner`, `Console`, or `CRM` unless direct pull evidence strongly justifies that format.

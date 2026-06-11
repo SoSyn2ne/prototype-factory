@@ -129,9 +129,9 @@ Paste this into the leader pane after team start (or send via mailbox tooling if
 - QA must fail the build if acceptance criteria aren’t demonstrably met.
 - For daily PF ideation batches, PM must verify every candidate is explicitly mapped to the current operator theme framework when one exists.
 - QA must fail the batch if candidate count, scaffolded prototype count, and published count do not match.
-- For the default daily run, QA must expect exactly 4 candidates and `p001` through `p004` to exist with no missing slot.
+- For the default daily run, QA must expect exactly 8 candidates and `p001` through `p008` to exist with no missing slot.
 - QA must fail Stitch ingest if the main `/d/<id>` demo does not preserve the original Stitch environment.
-- `/pf sti` is incomplete if any same-day candidate from `p001` to `p004` is left uninjected without an explicit operator exception.
+- `/pf sti` is incomplete if any same-day candidate from `p001` to `p008` is left uninjected without an explicit operator exception.
 
 ---
 

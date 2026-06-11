@@ -11,7 +11,7 @@ already spending money, time, reputation, or social effort to solve it badly.
 
 ## Board Flow
 
-`Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 4 -> Stitch Prompts`
+`Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 8 -> Stitch Prompts`
 
 Do not start with the seven desire themes. They are lenses for interpreting a
 validated pull signal, not boxes to fill. Do not start with a web-app mechanic.
@@ -35,7 +35,7 @@ First prove the user is already hunting for an answer.
 - Money/time/social cost already spent:
 - Source type: community chatter | marketplace/review | search result | formal/news source | operator workflow | trend signal
 
-<!-- Repeat S1-S10. Minimum 5, target 8-10. At least 3 should show user action, not just a stated problem. -->
+<!-- Repeat S1-S14. Minimum 8, target 10-14. At least 5 should show user action, not just a stated problem. -->
 
 ## Need Evidence
 
@@ -122,7 +122,7 @@ one possible format.
 - Keep/kill/rewrite:
 - Notes:
 
-<!-- Draft 8-12 candidates before final selection. -->
+<!-- Draft 12-16 candidates before final selection. -->
 
 ## Kill List
 
@@ -147,7 +147,7 @@ one possible format.
   - Consumer desire/anxiety count:
   - B2B/ops count:
 
-## Final 4
+## Final 8
 
 ### p001 - <type>
 
@@ -209,7 +209,7 @@ one possible format.
 
 Create a responsive web app called "<Title>" for <target user>. The app is based on observed user pull: <actual user actions and workaround>. The app should use a <format/mechanic> around the trigger moment "<trigger>" and make the first screen communicate "<3-second sting>". Use the user's own language: "<user-action sentence>". Build the core workflow around <key input/data> and produce <output artifact>. Required sections: <sections>. Emotional pressure to make visible: <theme/loss/shame/urgency>. Design direction: use the `<design-profile>` profile with <tailored visual direction>. Avoid generic dashboard framing; make the main interaction feel like <format/mechanic-specific experience>.
 
-<!-- Repeat p002-p004. -->
+<!-- Repeat p002-p008. -->
 
 ## Expected Stitch Drop Folder
 
@@ -220,6 +220,10 @@ Expected files:
 - `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p002/code.html` + `screen.png`
 - `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p003/code.html` + `screen.png`
 - `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p004/code.html` + `screen.png`
+- `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p005/code.html` + `screen.png`
+- `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p006/code.html` + `screen.png`
+- `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p007/code.html` + `screen.png`
+- `/home/sy/Downloads/stitch_drop/YYYY-MM-DD/p008/code.html` + `screen.png`
 ```
 
 ## Scoring Guide
@@ -241,17 +245,17 @@ turned into content/search tests instead of Stitch prototypes.
 
 ## Batch Gates
 
-- Final batch has exactly `p001` through `p004`.
+- Final batch has exactly `p001` through `p008`.
 - Every final candidate has at least 2 concrete user actions as need evidence.
-- At least 3 final candidates have clear workaround proof.
+- At least 6 final candidates have clear workaround proof.
 - Every final candidate has an arrival path: search phrase, community channel,
   marketplace, referral path, or trigger event.
-- Final batch includes at least 3 distinct human-driver themes, but theme mapping
+- Final batch includes at least 5 distinct human-driver themes, but theme mapping
   happens after pull evidence.
-- Final batch includes at least 3 distinct formats or mechanics.
-- At least one final idea is not a dashboard, board, scanner, planner, or console.
-- At least one final idea is a consumer desire/anxiety tool.
-- At least one final idea is commercially practical.
+- Final batch includes at least 5 distinct formats or mechanics.
+- At least two final ideas are not dashboards, boards, scanners, planners, or consoles.
+- At least two final ideas are consumer desire/anxiety tools.
+- At least five final ideas are commercially practical.
 - Every final idea has a concrete output artifact and a first validation test.
 - Every final Stitch prompt includes pull evidence, user language, mechanic,
   trigger moment, emotional pressure, output artifact, and first-screen promise.
