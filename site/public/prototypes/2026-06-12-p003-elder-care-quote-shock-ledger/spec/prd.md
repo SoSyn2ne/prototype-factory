@@ -1,0 +1,50 @@
+# PRD — Elder Care Quote Shock Ledger
+
+## Problem
+- A family care-cost ledger that compares nursing-home, home-care, Medicaid, and sibling-payment paths before panic decisions harden.
+- Trigger moment: a parent needs care now and the first quote is terrifying.
+- The prototype must make the output artifact visible quickly: monthly burn comparison and family packet.
+
+## Target user
+- Adult children, spouses, POAs, and family caregivers suddenly comparing long-term care, home care, discharge options, and family contribution limits.
+
+## Key UX
+- Enter care quotes, hourly help needs, parent income/assets, sibling capacities, and deadlines; see monthly burn, document gaps, and a family meeting packet.
+
+## Required UI sections
+- Care-cost shock header
+- Care setting comparison lanes
+- Hourly home-care calendar
+- Parent income and asset snapshot
+- Sibling contribution matrix
+- Medicaid and insurance question queue
+- Hospital discharge deadline tracker
+- Family meeting packet preview
+
+## Assigned design profile
+- calm-consumer
+
+## Theme
+- 건강
+
+## Source signal references
+- S5 - Investopedia, long-term care nears $10,000/month, Jun 2026: https://www.investopedia.com/usd10-000-per-month-for-long-term-care-what-rising-costs-mean-for-family-budgets-11988136
+- S6 - A Place for Mom, 2026 home-care costs by state: https://www.aplaceformom.com/caregiver-resources/articles/in-home-care-costs
+
+## Constraints
+- Time: Phase A spec only; Stitch will generate the first visual prototype.
+- Budget: no external LLM APIs or paid data APIs in Phase A.
+- Platform: responsive web app unless the prompt explicitly biases mobile-first.
+
+## Non-goals
+- Do not implement a custom demo in Phase A.
+- Do not provide legal, medical, tax, immigration, or financial advice as a final authority.
+- Do not claim source signals prove market size.
+
+## Success metrics
+- Viewer can identify the target user, trigger, pressure, and output artifact within 10 seconds.
+- The assigned design profile is visually implied by the Stitch prompt.
+- The UI is not a generic dashboard; it centers the named mechanic.
+
+## Stitch prompt
+Create a responsive web app called "Elder Care Quote Shock Ledger" for adult children, spouses, POAs, and family caregivers suddenly comparing long-term care, home care, discharge options, and family contribution limits. The app is based on observed user pull: families already call facilities, compare hourly home-care quotes, ask about Medicaid, split costs in sibling chats, and delay placement because the numbers are frightening. The app should use a monthly burn comparison and family packet mechanic around the trigger moment "a parent needs care now and the first quote is terrifying" and make the first screen communicate "The quote is not the plan yet." Use the user's own language: "We need to know what we can afford before the hospital pushes us into a decision." Build the core workflow around facility quotes, hourly home-care schedules, parent income/assets, insurance status, Medicaid questions, sibling contribution limits, and discharge deadlines, and produce a family meeting packet plus advisor handoff. Required sections: care-cost shock header, care setting comparison lanes, hourly home-care calendar, parent income and asset snapshot, sibling contribution matrix, Medicaid and insurance question queue, hospital discharge deadline tracker, and family meeting packet preview. Emotional pressure to make visible: 건강, family guilt, asset protection, and fear of choosing care under panic. Design direction: use the `calm-consumer` profile with warm neutral surfaces, readable cost cards, gentle teal confidence states, and clear no-panic decision steps. Avoid generic dashboard framing; make the main interaction feel like opening one calm ledger before a hard family meeting.

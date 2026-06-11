@@ -1,0 +1,49 @@
+# PRD — Ticket Scam Door Check
+
+## Problem
+- A fan-facing ticket-risk booth that turns resale anxiety into proof checks, backup plans, and refund evidence before the venue gate.
+- Trigger moment: the buyer realizes the ticket may be overpriced, duplicated, delayed, or fake.
+- The prototype must make the output artifact visible quickly: gate check ritual.
+
+## Target user
+- Concert, convention, sports, festival, and family-event buyers worried about resale markups, fake tickets, duplicate carts, schedule changes, or refund traps.
+
+## Key UX
+- Paste ticket source, event details, transfer state, barcode timing, refund policy, seller proof, and travel distance; get a door-risk score, backup plan, and dispute evidence kit.
+
+## Required UI sections
+- Door-risk booth header
+- Ticket source proof lane
+- Transfer and barcode timing checks
+- Price and fee anomaly meter
+- Schedule change and refund policy card
+- Backup ticket decision rail
+- Dispute evidence locker
+- Shareable buyer warning card
+
+## Assigned design profile
+- playful-experimental
+
+## Theme
+- 자산 방어
+
+## Source signal references
+- S14 - Reddit r/gencon, event system duplicate-ticket and schedule confusion, 2026: https://www.reddit.com/r/gencon/comments/1tiqn13/gencons_event_system_literally_couldnt_be_worse/
+
+## Constraints
+- Time: Phase A spec only; Stitch will generate the first visual prototype.
+- Budget: no external LLM APIs or paid data APIs in Phase A.
+- Platform: responsive web app unless the prompt explicitly biases mobile-first.
+
+## Non-goals
+- Do not implement a custom demo in Phase A.
+- Do not provide legal, medical, tax, immigration, or financial advice as a final authority.
+- Do not claim source signals prove market size.
+
+## Success metrics
+- Viewer can identify the target user, trigger, pressure, and output artifact within 10 seconds.
+- The assigned design profile is visually implied by the Stitch prompt.
+- The UI is not a generic dashboard; it centers the named mechanic.
+
+## Stitch prompt
+Create a responsive web app called "Ticket Scam Door Check" for concert, convention, sports, festival, and family-event buyers worried about resale markups, fake tickets, duplicate carts, schedule changes, or refund traps. The app is based on observed user pull: buyers already ask communities whether sellers are legitimate, read refund policies, check transfer timing, compare upcharges, hold backup tickets, and preserve evidence before traveling to an event. The app should use a gate check ritual mechanic around the trigger moment "the buyer realizes the ticket may be overpriced, duplicated, delayed, or fake" and make the first screen communicate "Check the ticket before the venue does." Use the user's own language: "I need to know if this ticket will actually get me through the door." Build the core workflow around seller/source, ticket transfer state, barcode availability, event schedule, refund policy, total fees, travel distance, and proof screenshots, and produce a door-risk score plus dispute evidence kit. Required sections: door-risk booth header, ticket source proof lane, transfer and barcode timing checks, price and fee anomaly meter, schedule change and refund policy card, backup ticket decision rail, dispute evidence locker, and shareable buyer warning card. Emotional pressure to make visible: 자산 방어, event FOMO, public embarrassment at the gate, and regret after paying resale fees. Design direction: use the `playful-experimental` profile with arcade ticket-booth visuals, tactile stamp controls, high-contrast warning strips, receipt textures, and shareable scam-card polish. Avoid generic dashboard framing; make the main interaction feel like a pre-gate booth inspection with a satisfying pass/fail stamp.
