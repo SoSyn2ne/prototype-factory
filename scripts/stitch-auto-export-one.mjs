@@ -142,10 +142,10 @@ while (Date.now() - waitStarted < renderWaitMs) {
     body
     && /내보내기|Export/.test(body)
     && !/화면 생성 중|Creating the UX flows|Crafting|Generating/i.test(body)
-    && (generatedScreenCount > 0 || renderedPreviewCount > 0)
+    && (generatedScreenCount > 0 || renderedPreviewCount > 0 || /I've designed|I have designed|Design Highlights/i.test(body))
     && (
       renderedPreviewCount > 0
-      || /Would you like|What would you like|How do these screens|I have designed|I built|I've developed|The design|Downloaded screens/i.test(body)
+      || /Would you like|What would you like|How do these screens|I have designed|I've designed|I built|I've developed|The design|Design Highlights|Downloaded screens/i.test(body)
     )
   ) {
     rendered = true;

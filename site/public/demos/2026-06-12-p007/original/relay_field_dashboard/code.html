@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>World Cup Visa Panic Relay - The Relay Field</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=JetBrains+Mono:wght@400..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffe170",
+                        "secondary-container": "#ff5e07",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#ffb59a",
+                        "background": "#12131c",
+                        "surface": "#12131c",
+                        "on-primary-fixed-variant": "#00530e",
+                        "surface-tint": "#00e639",
+                        "primary-fixed": "#72ff70",
+                        "secondary": "#ffb59a",
+                        "inverse-primary": "#006e16",
+                        "on-surface-variant": "#b9ccb2",
+                        "surface-container-high": "#282933",
+                        "outline-variant": "#3b4b37",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#33343e",
+                        "on-secondary-fixed-variant": "#802a00",
+                        "inverse-surface": "#e3e1ef",
+                        "inverse-on-surface": "#2f303a",
+                        "on-secondary-fixed": "#370e00",
+                        "on-surface": "#e3e1ef",
+                        "on-primary": "#003907",
+                        "primary-fixed-dim": "#00e639",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed": "#002203",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdbce",
+                        "outline": "#84967e",
+                        "on-secondary-container": "#531900",
+                        "surface-container-low": "#1a1b24",
+                        "primary-container": "#00ff41",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "tertiary": "#fff8ed",
+                        "surface-container": "#1e1f29",
+                        "surface-dim": "#12131c",
+                        "on-secondary": "#5a1b00",
+                        "on-tertiary": "#3a3000",
+                        "on-tertiary-container": "#735f00",
+                        "primary": "#ebffe2",
+                        "tertiary-container": "#ffda3f",
+                        "on-primary-container": "#007117",
+                        "surface-variant": "#33343e",
+                        "on-error": "#690005",
+                        "surface-bright": "#383843",
+                        "surface-container-lowest": "#0d0e17",
+                        "on-background": "#e3e1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-loose": "32px",
+                        "stack-tight": "4px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anton"],
+                        "display-xl": ["Anton"],
+                        "headline-lg-mobile": ["Anton"],
+                        "body-lg": ["Archivo Narrow"],
+                        "data-label": ["JetBrains Mono"],
+                        "body-md": ["Archivo Narrow"],
+                        "match-score": ["Anton"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "display-xl": ["80px", { "lineHeight": "80px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["36px", { "lineHeight": "36px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "data-label": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "match-score": ["24px", { "lineHeight": "24px", "letterSpacing": "0.1em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .stamp-overlay {
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        .urgent-border {
+            animation: pulseBorder 1.5s infinite;
+        }
+        @keyframes pulseBorder {
+            0% { border-color: theme('colors.secondary-container'); }
+            50% { border-color: theme('colors.tertiary-fixed-dim'); }
+            100% { border-color: theme('colors.secondary-container'); }
+        }
+        .bg-pattern {
+            background-image: radial-gradient(theme('colors.outline-variant') 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .clip-ticket {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row bg-pattern overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Mobile Only) -->
+<header class="flex justify-between items-center w-full px-margin-mobile h-16 z-50 bg-background border-b-2 border-primary md:hidden docked full-width top-0 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] sticky">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase italic">WC2026 RELAY</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary">notifications</span>
+<span class="material-symbols-outlined text-primary dark:text-primary">emergency_home</span>
+</div>
+</header>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 z-40 bg-surface-container-highest dark:bg-surface-container-highest border-r-4 border-primary shadow-[8px_0px_0px_0px_rgba(0,230,57,1)] h-full w-64">
+<div class="p-6 border-b-2 border-outline-variant">
+<h2 class="font-headline-lg-mobile text-primary uppercase leading-tight mb-2">GROUP READY</h2>
+<div class="flex items-center gap-3">
+<img alt="Group Leader Avatar" class="w-10 h-10 rounded-full border-2 border-primary" data-alt="A close-up portrait of a passionate sports fan in a dimly lit stadium corridor, wearing a vibrant team jersey. The lighting is cinematic with deep shadows and intense stadium floodlights creating a halo effect. The mood is tense and anticipatory, capturing the raw energy of match day. The color palette features high-contrast neon greens against deep navy blacks." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZcYcqqWwKyYHnqMb4In3jgJCp11_oIlpf7tzwVYzkYqfGC1lfF8e0yk8YpL3hd25JzZQUJ9BE0G7QaK9XLZBUdJWYhTJve8mn4QUf3xatJNRb3Nk8xjN2qLHBtiVWVgWAo8aDB6jRC97-27p2E-hzoC2HPB1mhQM6pI_mI17qjXpqxbjM7rkgW3dh64JUkT4HXAsVM2yeoQI9lTpZgNzNGvLlClFhwQHjq5Jg6v1Afds4sRb6npS6s3Xr4Qwr6XeOGkRulIM8SO39"/>
+<span class="font-data-label text-data-label text-on-surface">72H TO KICKOFF</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-2 px-2">
+<!-- Active Tab -->
+<a class="bg-primary text-on-primary font-bold flex items-center gap-4 p-4 border-2 border-black -rotate-1 hover:skew-x-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stadium</span>
+<span class="font-data-label text-data-label uppercase">Relay Field</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+<span class="font-data-label text-data-label uppercase">Fan Pass</span>
+</a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-data-label text-data-label uppercase">Route Rules</span>
+</a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span class="font-data-label text-data-label uppercase">Proof Locker</span>
+</a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined text-secondary-container">emergency</span>
+<span class="font-data-label text-data-label uppercase text-secondary-container">Emergency</span>
+</a>
+</div>
+<div class="p-6">
+<button class="w-full bg-secondary-container text-black font-headline-lg-mobile text-headline-lg-mobile py-3 border-2 border-black hover:bg-tertiary-fixed-dim transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-none uppercase">PANIC ALERT</button>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop pb-32 md:pb-margin-desktop flex flex-col gap-stack-loose relative">
+<!-- Header Section -->
+<section class="relative z-10 flex flex-col gap-stack-tight">
+<h1 class="font-display-xl text-display-xl text-primary uppercase transform -skew-x-2 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)]">WORLD CUP 2026:<br/>RELAY TO KICKOFF</h1>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Countdown Panic Timer (Spans 8 cols) -->
+<div class="md:col-span-8 bg-surface-container-high border-2 border-primary p-6 relative overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+<!-- Background Graphic -->
+<div class="absolute -right-10 -bottom-10 opacity-10">
+<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">timer</span>
+</div>
+<div class="relative z-10 flex flex-col gap-4">
+<div class="font-data-label text-data-label text-primary-fixed uppercase tracking-widest border-b border-outline-variant pb-2 inline-block w-max">Departure Countdown</div>
+<div class="flex items-baseline gap-4 font-match-score text-match-score text-white">
+<div class="flex flex-col items-center">
+<span class="text-display-xl text-primary-container drop-shadow-[2px_2px_0px_rgba(0,230,57,0.5)]">02</span>
+<span class="font-data-label text-data-label text-on-surface-variant">DAYS</span>
+</div>
+<span class="text-headline-lg text-outline-variant pb-6">:</span>
+<div class="flex flex-col items-center">
+<span class="text-display-xl text-primary-container drop-shadow-[2px_2px_0px_rgba(0,230,57,0.5)]">14</span>
+<span class="font-data-label text-data-label text-on-surface-variant">HRS</span>
+</div>
+<span class="text-headline-lg text-outline-variant pb-6">:</span>
+<div class="flex flex-col items-center urgent-border border-b-4 border-transparent px-2">
+<span class="text-display-xl text-secondary-container drop-shadow-[2px_2px_0px_rgba(255,94,7,0.5)]">59</span>
+<span class="font-data-label text-data-label text-on-surface-variant">MINS</span>
+</div>
+</div>
+<div class="bg-surface-container p-4 border-l-4 border-secondary-container mt-4">
+<p class="font-body-lg text-body-lg text-on-surface">Tickets are booked, but everyone has to prove they can actually enter.</p>
+<p class="font-data-label text-data-label text-secondary-container mt-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">warning</span> Action Required Below
+                        </p>
+</div>
+</div>
+</div>
+<!-- Main Interaction CTA (Spans 4 cols) -->
+<div class="md:col-span-4 bg-secondary-container p-6 border-2 border-black flex flex-col justify-between shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] rotate-1 transform transition-transform hover:rotate-0">
+<div>
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-black uppercase leading-tight mb-4">BORDER CHECK ALERT</h3>
+<p class="font-body-lg text-body-lg text-black font-bold mb-6">Do not be the teammate who gets stopped at the border.</p>
+</div>
+<button class="w-full bg-black text-primary font-headline-lg-mobile text-headline-lg-mobile py-4 uppercase border-2 border-transparent hover:border-white transition-all active:scale-95 flex justify-center items-center gap-2">
+                    VERIFY DOCS
+                    <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Traveler Readiness Lineup (Spans 6 cols) -->
+<div class="md:col-span-6 flex flex-col gap-4">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-white uppercase border-b-2 border-outline-variant pb-2">Squad Status</h3>
+<div class="flex flex-col gap-3">
+<!-- Member 1: Ready -->
+<div class="bg-surface-container-high border-2 border-primary-container p-4 flex items-center justify-between shadow-[4px_4px_0px_0px_rgba(0,255,65,0.3)]">
+<div class="flex items-center gap-4">
+<img alt="Sarah" class="w-12 h-12 rounded-none border-2 border-primary-container grayscale hover:grayscale-0 transition-all" data-alt="A striking portrait of a female soccer fan with face paint in stadium lighting. High contrast black and white with neon green accents on the face paint. Brutalist composition, aggressive angle." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5PYHehiQLjKF2U88MCtaeLMeweJHl6pvF-8RiB6S5qmZKBJB2BviEn1pJK9qQRnyT_gFrjqVjNHYufdzoX2mvbZ6oDrtMqu3_82cgIhwyDCDFPxmfktTs8ljpKekIQm9TJN-Z-RnD3BaQMSxujFKfhnQrS-OvBy-F-W958uvhRFCWC-llS-oJ8es7wn9Pnvfp_I-yz1EoHK_QmKuFtLKeD8gNVBLXC93LFTFUjIkbwzcLA6vv0hV9qzQL1eDCYW23xkg8y0msXC0_"/>
+<div>
+<div class="font-data-label text-data-label text-primary-container uppercase">Captain</div>
+<div class="font-body-lg text-body-lg text-white font-bold">Sarah</div>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-primary-container/10 px-3 py-1 border border-primary-container">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="font-data-label text-data-label text-primary-container uppercase">GO</span>
+</div>
+</div>
+<!-- Member 2: Missing Doc -->
+<div class="bg-surface-container-high urgent-border border-2 p-4 flex items-center justify-between shadow-[4px_4px_0px_0px_rgba(255,94,7,0.3)] transform -rotate-1 relative z-10">
+<div class="flex items-center gap-4">
+<img alt="Paddy" class="w-12 h-12 rounded-none border-2 border-secondary-container grayscale" data-alt="Intense portrait of a male sports supporter looking anxious under glaring fluorescent lights. Shadows cut sharply across his face. High tension aesthetic, deep blacks, stark highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsWB_GJwWrV4AElsYgecuHPQ_zCmE6SL9BnVkCjs6dw8MXi7W3q3afYkePMeZdx67oitlwDRJ_rsLqU7eehK1LByah8-JXKZL3TuHAGc7se8trAz7GoCVCmbt5Kpx6kbxDNsIXsiTgA34zXGKsCKvwS0HPTiB9Rq92r6jiU4GDUm2L8e3mzv6Cgz20DwRPb3sosT1C9iF8aMMIswCpgLTvnnJqIsWmHjhDbeLBcKNM0bNkd5UulDLVt9Fr04JcFciVHzvPD0YM3tTv"/>
+<div>
+<div class="font-data-label text-data-label text-secondary-container uppercase">Missing Visa</div>
+<div class="font-body-lg text-body-lg text-white font-bold">Paddy</div>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container/20 px-3 py-1 border border-secondary-container">
+<span class="material-symbols-outlined text-secondary-container animate-pulse">warning</span>
+<span class="font-data-label text-data-label text-secondary-container uppercase animate-pulse">NO-GO</span>
+</div>
+</div>
+<!-- Member 3: Ready -->
+<div class="bg-surface-container-high border-2 border-primary-container p-4 flex items-center justify-between shadow-[4px_4px_0px_0px_rgba(0,255,65,0.3)]">
+<div class="flex items-center gap-4">
+<img alt="Ji-ho" class="w-12 h-12 rounded-none border-2 border-primary-container grayscale hover:grayscale-0 transition-all" data-alt="Confident portrait of a male soccer fan holding a scarf. Cinematic lighting from below, dark moody background with slight lens flare. Brutalist and gritty texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDbf7bgeiwnt8XnAg5JOubOBHYTaPFof_6_9Kc7Pe_ofcsRACsAIEnRkHkgIRrUEQ6NZCOf3jE-DyspqvouYGenTIcfXWcQXNATv-rcBSfQSmWE9VT6swDyw1KjUE6ezCKtSkH7e2F4o2fd3f7A_iuyhzbwklliBll7UT8jl87Hv8-PmSB-0e7vjY_Er_WQ71RzIF-e_tJKShvybOnD37IB98BwEb9I3pafqdiBx2V-GQXbNJOOWbTakiZIpohD6ldq47OQafoXcI5"/>
+<div>
+<div class="font-data-label text-data-label text-primary-container uppercase">Midfielder</div>
+<div class="font-body-lg text-body-lg text-white font-bold">Ji-ho</div>
+</div>
+</div>
+<div class="flex items-center gap-2 bg-primary-container/10 px-3 py-1 border border-primary-container">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="font-data-label text-data-label text-primary-container uppercase">GO</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Route & Border Rules (Spans 6 cols) -->
+<div class="md:col-span-6 flex flex-col gap-4">
+<h3 class="font-headline-lg-mobile text-headline-lg-mobile text-white uppercase border-b-2 border-outline-variant pb-2">Route &amp; Rules</h3>
+<div class="bg-surface-container-highest border-2 border-outline p-1 clip-ticket relative">
+<!-- Texture overlay -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20 pointer-events-none"></div>
+<div class="border-2 border-dashed border-outline-variant p-6 h-full flex flex-col justify-between">
+<div class="flex justify-between items-center mb-6 relative">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-white">LHR</div>
+<!-- Connecting Line -->
+<div class="flex-1 mx-4 relative flex items-center justify-center">
+<div class="absolute w-full h-[2px] bg-outline-variant border-t-2 border-dashed border-outline-variant top-1/2 -translate-y-1/2"></div>
+<span class="material-symbols-outlined text-primary-container bg-surface-container-highest px-2 relative z-10">flight_takeoff</span>
+</div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary-container drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]">JFK</div>
+</div>
+<div class="space-y-4">
+<div class="flex items-start gap-3 bg-surface-container p-3 border-l-4 border-primary-container">
+<span class="material-symbols-outlined text-primary-container mt-1">task_alt</span>
+<div>
+<div class="font-data-label text-data-label text-primary-container uppercase">ESTA Status</div>
+<div class="font-body-md text-body-md text-on-surface">3/4 Approved. <span class="text-secondary-container font-bold">1 Action Required.</span></div>
+</div>
+</div>
+<div class="flex items-start gap-3 bg-surface-container p-3 border-l-4 border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-tertiary-fixed-dim mt-1">policy</span>
+<div>
+<div class="font-data-label text-data-label text-tertiary-fixed-dim uppercase">Customs Rule 4.2</div>
+<div class="font-body-md text-body-md text-on-surface">Digital Match Tickets must be cached offline prior to arrival.</div>
+</div>
+</div>
+</div>
+<!-- Stamp Graphic -->
+<div class="absolute bottom-4 right-4 stamp-overlay font-headline-lg-mobile text-headline-lg-mobile text-outline border-4 border-outline p-2 uppercase hidden md:block">
+                            INCOMPLETE
+                        </div>
+</div>
+</div>
+</div>
+</div> <!-- End Grid -->
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 h-20 md:hidden bg-surface-container-lowest dark:bg-surface-container-lowest border-t-4 border-secondary-container docked full-width bottom-0 rounded-t-xl flat no-shadows">
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container p-2 rounded-lg border-2 border-black -translate-y-2 active:scale-90 transition-transform duration-100 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-data-label text-data-label">Field</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform duration-100 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-data-label text-data-label">Docs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform duration-100 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">explore</span>
+<span class="font-data-label text-data-label">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 active:scale-90 transition-transform duration-100 hover:bg-surface-container-high" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-data-label text-data-label">Pass</span>
+</a>
+</nav>
+</body></html>

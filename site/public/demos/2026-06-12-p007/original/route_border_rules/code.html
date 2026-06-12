@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WC2026 RELAY - Route Rules</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#ffe170",
+                        "secondary-container": "#ff5e07",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#ffb59a",
+                        "background": "#12131c",
+                        "surface": "#12131c",
+                        "on-primary-fixed-variant": "#00530e",
+                        "surface-tint": "#00e639",
+                        "primary-fixed": "#72ff70",
+                        "secondary": "#ffb59a",
+                        "inverse-primary": "#006e16",
+                        "on-surface-variant": "#b9ccb2",
+                        "surface-container-high": "#282933",
+                        "outline-variant": "#3b4b37",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#33343e",
+                        "on-secondary-fixed-variant": "#802a00",
+                        "inverse-surface": "#e3e1ef",
+                        "inverse-on-surface": "#2f303a",
+                        "on-secondary-fixed": "#370e00",
+                        "on-surface": "#e3e1ef",
+                        "on-primary": "#003907",
+                        "primary-fixed-dim": "#00e639",
+                        "on-tertiary-fixed": "#221b00",
+                        "on-primary-fixed": "#002203",
+                        "on-tertiary-fixed-variant": "#544600",
+                        "on-error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdbce",
+                        "outline": "#84967e",
+                        "on-secondary-container": "#531900",
+                        "surface-container-low": "#1a1b24",
+                        "primary-container": "#00ff41",
+                        "tertiary-fixed-dim": "#e9c400",
+                        "tertiary": "#fff8ed",
+                        "surface-container": "#1e1f29",
+                        "surface-dim": "#12131c",
+                        "on-secondary": "#5a1b00",
+                        "on-tertiary": "#3a3000",
+                        "on-tertiary-container": "#735f00",
+                        "primary": "#ebffe2",
+                        "tertiary-container": "#ffda3f",
+                        "on-primary-container": "#007117",
+                        "surface-variant": "#33343e",
+                        "on-error": "#690005",
+                        "surface-bright": "#383843",
+                        "surface-container-lowest": "#0d0e17",
+                        "on-background": "#e3e1ef"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-loose": "32px",
+                        "stack-tight": "4px",
+                        "margin-desktop": "48px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anton", "sans-serif"],
+                        "display-xl": ["Anton", "sans-serif"],
+                        "headline-lg-mobile": ["Anton", "sans-serif"],
+                        "body-lg": ["Archivo Narrow", "sans-serif"],
+                        "data-label": ["JetBrains Mono", "monospace"],
+                        "body-md": ["Archivo Narrow", "sans-serif"],
+                        "match-score": ["Anton", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["48px", { "lineHeight": "48px", "fontWeight": "400" }],
+                        "display-xl": ["80px", { "lineHeight": "80px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["36px", { "lineHeight": "36px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "data-label": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "match-score": ["24px", { "lineHeight": "24px", "letterSpacing": "0.1em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Experimental Brutalism specific styles */
+        .shadow-box-primary { box-shadow: 4px 4px 0px 0px #00ff41; }
+        .shadow-box-secondary { box-shadow: 4px 4px 0px 0px #ff5e07; }
+        .shadow-box-black { box-shadow: 4px 4px 0px 0px #000000; }
+        .border-thick { border-width: 3px; }
+        
+        .panic-pulse {
+            animation: pulse-border 1.5s infinite;
+        }
+        @keyframes pulse-border {
+            0% { border-color: #ff5e07; }
+            50% { border-color: #ffe170; }
+            100% { border-color: #ff5e07; }
+        }
+
+        .stamp-overlay {
+            opacity: 0;
+            transform: scale(1.5) rotate(-15deg);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+        
+        .stamped .stamp-overlay {
+            opacity: 1;
+            transform: scale(1) rotate(-15deg);
+        }
+
+        .stamped .verify-btn {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen fixed left-0 top-0 z-40 w-64 border-r-4 border-primary shadow-[8px_0px_0px_0px_rgba(0,230,57,1)] bg-surface-container-highest">
+<div class="p-6 border-b-2 border-black">
+<div class="flex items-center gap-4 mb-4">
+<img alt="Group Leader Avatar" class="w-12 h-12 rounded-full border-2 border-primary object-cover" data-alt="A stylized portrait of a World Cup soccer fan leader, wearing team colors. High contrast, gritty lighting, stadium atmosphere. Vibrant neon green accents against a dark background. Intense, focused expression. Professional sports photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYO2dd_3kJFykGQZj2bQ_XydyDk52UVcMnED46InhIwRJevPh0uYxIeYdKPvBVNBZUykjAxvjc-YS0dSLBiziq3vcvcOqVr6B3qK4QDkvs7Fe92jLZRGnVA7_qRKGrPMJsNmL4rvkr17aVt7ul9eLqfyo8_lypKe-ydtkI05xRbMzSsXDrdOXJaGxErbtq5wV50WAGBdsRFa6mkh_yvcpUqGtepia6ifAMUwBrohsFSDEBqwnlhTzgp0Kc29VESFoxoZSNayaZ0gTV"/>
+<div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">GROUP READY</div>
+<div class="font-data-label text-data-label text-tertiary-fixed tracking-widest">72H TO KICKOFF</div>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-2 px-2">
+<!-- Inactive -->
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined">stadium</span>
+                Relay Field
+            </a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined">confirmation_number</span>
+                Fan Pass
+            </a>
+<!-- Active state based on Route Rules -->
+<a class="bg-primary text-on-primary font-bold flex items-center gap-4 p-4 border-2 border-black -rotate-1 active:scale-95 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+                Route Rules
+            </a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined">lock</span>
+                Proof Locker
+            </a>
+<a class="text-on-surface flex items-center gap-4 p-4 hover:bg-surface-container-high hover:skew-x-2 transition-transform font-data-label text-data-label" href="#">
+<span class="material-symbols-outlined">emergency</span>
+                Emergency
+            </a>
+</div>
+<div class="p-6 mt-auto">
+<button class="w-full bg-secondary-container text-white font-headline-lg-mobile text-headline-lg-mobile py-4 rounded-full border-4 border-black panic-pulse flex items-center justify-center gap-2 hover:bg-error transition-colors uppercase">
+<span class="material-symbols-outlined">warning</span>
+                PANIC ALERT
+            </button>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<header class="flex justify-between items-center w-full px-margin-mobile h-16 z-50 bg-background border-b-2 border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:hidden fixed top-0 left-0">
+<div class="font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase italic tracking-tight">WC2026 RELAY</div>
+<div class="flex gap-4">
+<button class="text-primary hover:bg-surface-container-highest transition-all p-2 rounded-full active:translate-x-1 active:translate-y-1">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-primary hover:bg-surface-container-highest transition-all p-2 rounded-full active:translate-x-1 active:translate-y-1">
+<span class="material-symbols-outlined">emergency_home</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-16 md:pt-0 pb-24 md:pb-0 min-h-screen relative overflow-x-hidden">
+<!-- Header Section -->
+<section class="p-margin-mobile md:p-margin-desktop bg-surface-container-lowest border-b-2 border-outline-variant relative z-10 overflow-hidden">
+<!-- Decorative bg -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, #00e639 1px, transparent 0); background-size: 20px 20px;"></div>
+<div class="relative flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+<div>
+<h1 class="font-display-xl text-display-xl text-primary uppercase tracking-tighter mb-2 -rotate-1 origin-left">BORDER<br/>PROTOCOL</h1>
+<p class="font-data-label text-data-label text-tertiary-fixed tracking-widest max-w-md uppercase border-l-2 border-primary pl-4">Mandatory visa &amp; transit requirements for Group Sector A. Non-compliance results in stadium lockout.</p>
+</div>
+<div class="bg-surface-container-high border-2 border-secondary-container p-4 shadow-box-secondary rotate-1 w-full md:w-auto max-w-sm">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary-container text-3xl">campaign</span>
+<div>
+<div class="font-data-label text-data-label text-secondary-container mb-1">LIVE ADVISORY</div>
+<div class="font-body-md text-body-md text-on-surface">CAN-USA border wait times extended to 4hrs at Ambassador Bridge. Reroute advised.</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Content Grid -->
+<div class="p-margin-mobile md:p-margin-desktop space-y-stack-loose relative z-10">
+<!-- Journey Map Section -->
+<section class="relative">
+<div class="flex items-center gap-4 mb-stack-tight">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase">Transit Map</h2>
+<div class="h-1 flex-1 bg-outline-variant"></div>
+</div>
+<!-- Map Container -->
+<div class="w-full h-80 md:h-[400px] bg-surface-container-low border-thick border-primary shadow-box-black relative overflow-hidden group">
+<img alt="Stylized World Map" class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-luminosity" data-alt="A dark, high-contrast topological map of North America tailored for a tactical interface. Neon green routing lines connect major cities, styled like a command center display. Gritty texture overlays mimic physical printed documents. The lighting is low and focused, evoking a high-stakes, urgent operational environment. Colors are deep navys and bright pitch greens." data-location="North America" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTHiu5LxQP_kBVDZMoeAwDx4KkhaBzrMzD-2XOA9hD9zpJnU_6b7RyMar_6J94S2ZwJPFe1WFT8AZzJDl0owEOWt49uXn48MYIVt7bnQv1Dt9Bd7Ba6R1X3J3OAVGKKLAo88fnnY8DlAfHjqmB37IjDEhzyE-o1n9JNpi-TwJfbqVAFXNoMF955N7xSkI71SjPMUnJ3UqbDU6yE9k1NjOZA8J9pXveQfYWEX56hpTUQfpfw4NSZd0N83qzEBk_6yZFEAy93ZFjm5QB"/>
+<!-- Route Overlay SVG -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 1000 400">
+<!-- Route Line -->
+<path class="opacity-50" d="M 100 300 L 400 200 L 700 250 L 900 100" fill="none" stroke="#00e639" stroke-dasharray="10,10" stroke-width="4"></path>
+<path d="M 100 300 L 400 200 L 700 250" fill="none" stroke="#00ff41" stroke-width="4"></path>
+<!-- Waypoints -->
+<circle cx="100" cy="300" fill="#00ff41" r="8"></circle>
+<circle cx="400" cy="200" fill="#00ff41" r="8"></circle>
+<circle class="animate-pulse" cx="700" cy="250" fill="#ff5e07" r="12"></circle>
+<circle cx="900" cy="100" fill="#3b4b37" r="8"></circle>
+</svg>
+<!-- Checkpoint Markers (HTML absolute positioned) -->
+<div class="absolute top-[200px] left-[40%] -translate-x-1/2 -translate-y-1/2">
+<div class="bg-surface-container p-2 border-2 border-primary text-center -rotate-2 transform hover:scale-110 transition-transform cursor-pointer">
+<div class="font-data-label text-data-label text-primary">YVR -&gt; SEA</div>
+<span class="material-symbols-outlined text-primary text-sm mt-1">check_circle</span>
+</div>
+</div>
+<div class="absolute top-[250px] left-[70%] -translate-x-1/2 -translate-y-1/2">
+<div class="bg-surface-container p-2 border-2 border-secondary-container text-center rotate-2 transform hover:scale-110 transition-transform cursor-pointer panic-pulse shadow-box-secondary">
+<div class="font-data-label text-data-label text-secondary-container">MEX BORDER</div>
+<span class="material-symbols-outlined text-secondary-container text-sm mt-1">front_hand</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Rules Grid -->
+<section>
+<div class="flex items-center gap-4 mb-stack-tight">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-background uppercase">Required Clearance</h2>
+<div class="h-1 flex-1 bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Rule Card 1 (Completed) -->
+<div class="rule-card stamped bg-surface-container border-thick border-outline shadow-box-black p-6 relative overflow-hidden transition-all duration-300">
+<div class="absolute top-0 left-0 bg-primary text-on-primary font-data-label text-data-label px-2 py-1 border-b-2 border-r-2 border-outline z-10">
+                            DOC-01
+                        </div>
+<div class="mt-6">
+<h3 class="font-headline-lg-mobile text-[28px] leading-tight text-on-surface uppercase mb-2">Canada Transit</h3>
+<p class="font-body-md text-on-surface-variant mb-6 h-20 line-clamp-3">Electronic Travel Authorization (eTA) required for air transit. Must present valid World Cup fan ID at customs.</p>
+<div class="flex justify-between items-end border-t-2 border-outline-variant pt-4 mt-auto">
+<div class="font-data-label text-data-label text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">verified_user</span>
+                                    CLEARED
+                                </div>
+<button class="verify-btn bg-surface-container-high border-2 border-outline text-on-surface px-4 py-2 font-data-label text-data-label hover:bg-primary hover:text-on-primary hover:border-primary transition-colors">
+                                    VERIFY
+                                </button>
+</div>
+</div>
+<!-- Stamp Overlay -->
+<div class="stamp-overlay absolute inset-0 flex items-center justify-center">
+<div class="border-4 border-primary text-primary font-headline-lg text-headline-lg px-4 py-2 opacity-80 mix-blend-screen bg-background/50">
+                                APPROVED
+                            </div>
+</div>
+</div>
+<!-- Rule Card 2 (Pending) -->
+<div class="rule-card bg-surface-container border-thick border-primary shadow-box-primary p-6 relative overflow-hidden -rotate-1 hover:rotate-0 transition-all duration-300 transform z-20">
+<div class="absolute top-0 left-0 bg-primary text-on-primary font-data-label text-data-label px-2 py-1 border-b-2 border-r-2 border-primary z-10">
+                            DOC-02
+                        </div>
+<div class="mt-6">
+<h3 class="font-headline-lg-mobile text-[28px] leading-tight text-on-surface uppercase mb-2">USA Entry</h3>
+<p class="font-body-md text-on-surface-variant mb-6 h-20 line-clamp-3">ESTA or valid B1/B2 visa required. Land border crossing currently experiencing delays. Keep physical passport ready.</p>
+<div class="flex justify-between items-end border-t-2 border-outline-variant pt-4 mt-auto">
+<div class="font-data-label text-data-label text-tertiary-fixed flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                    PENDING REVIEW
+                                </div>
+<button class="verify-btn bg-primary text-on-primary border-2 border-black px-4 py-2 font-data-label text-data-label hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all" onclick="this.closest('.rule-card').classList.add('stamped'); this.closest('.rule-card').classList.remove('shadow-box-primary', 'border-primary'); this.closest('.rule-card').classList.add('shadow-box-black', 'border-outline');">
+                                    STAMP
+                                </button>
+</div>
+</div>
+<!-- Stamp Overlay -->
+<div class="stamp-overlay absolute inset-0 flex items-center justify-center">
+<div class="border-4 border-primary text-primary font-headline-lg text-headline-lg px-4 py-2 opacity-80 mix-blend-screen bg-background/50">
+                                APPROVED
+                            </div>
+</div>
+</div>
+<!-- Rule Card 3 (Warning) -->
+<div class="rule-card bg-surface-container border-thick border-secondary-container shadow-box-secondary p-6 relative overflow-hidden rotate-1 hover:rotate-0 transition-all duration-300">
+<div class="absolute top-0 left-0 bg-secondary-container text-white font-data-label text-data-label px-2 py-1 border-b-2 border-r-2 border-secondary-container z-10">
+                            DOC-03
+                        </div>
+<div class="mt-6">
+<h3 class="font-headline-lg-mobile text-[28px] leading-tight text-on-surface uppercase mb-2">Mexico Transit</h3>
+<p class="font-body-md text-on-surface-variant mb-6 h-20 line-clamp-3">Pre-arrival customs declaration required. FMM form must be filled out online 24h prior to crossing.</p>
+<div class="flex justify-between items-end border-t-2 border-secondary-container/30 pt-4 mt-auto">
+<div class="font-data-label text-data-label text-secondary-container flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">warning</span>
+                                    ACTION REQ
+                                </div>
+<button class="verify-btn bg-secondary-container text-white border-2 border-black px-4 py-2 font-data-label text-data-label hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all">
+                                    STAMP
+                                </button>
+</div>
+</div>
+<!-- Stamp Overlay -->
+<div class="stamp-overlay absolute inset-0 flex items-center justify-center">
+<div class="border-4 border-secondary-container text-secondary-container font-headline-lg text-headline-lg px-4 py-2 opacity-80 mix-blend-screen bg-background/50">
+                                CLEARED
+                            </div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 h-20 md:hidden bg-surface-container-lowest border-t-4 border-secondary-container rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high rounded-lg transition-colors w-16" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-data-label text-[10px] mt-1">Field</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high rounded-lg transition-colors w-16" href="#">
+<span class="material-symbols-outlined">folder_shared</span>
+<span class="font-data-label text-[10px] mt-1">Docs</span>
+</a>
+<!-- Active -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container p-2 rounded-lg border-2 border-black -translate-y-2 active:scale-90 transition-transform duration-100 w-16" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-data-label text-[10px] mt-1 font-bold">Route</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high rounded-lg transition-colors w-16" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-data-label text-[10px] mt-1">Pass</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delivery Fee Truth Menu - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#1e1e1e",
+                        "on-tertiary-fixed": "#002204",
+                        "secondary-fixed-dim": "#adc7f7",
+                        "secondary-fixed": "#d6e3ff",
+                        "primary-container": "#333333",
+                        "surface-dim": "#dbdad5",
+                        "tertiary-container": "#003d0b",
+                        "background": "#fbf9f4",
+                        "on-primary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#005313",
+                        "on-secondary-fixed-variant": "#2d476f",
+                        "surface-variant": "#e4e2dd",
+                        "on-tertiary-container": "#4db051",
+                        "error-container": "#ffdad6",
+                        "on-surface-variant": "#444748",
+                        "surface": "#fbf9f4",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#001b3c",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#474747",
+                        "outline": "#747878",
+                        "on-secondary-container": "#3f5882",
+                        "tertiary": "#002505",
+                        "on-background": "#1b1c19",
+                        "outline-variant": "#c4c7c7",
+                        "primary-fixed-dim": "#c8c6c6",
+                        "secondary": "#455f88",
+                        "surface-container-high": "#eae8e3",
+                        "tertiary-fixed-dim": "#78dc77",
+                        "inverse-on-surface": "#f2f1ec",
+                        "primary-fixed": "#e4e2e1",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1c19",
+                        "tertiary-fixed": "#94f990",
+                        "secondary-container": "#b6d0ff",
+                        "surface-bright": "#fbf9f4",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e4e2dd",
+                        "surface-container-low": "#f5f3ee",
+                        "on-primary-container": "#9c9b9b",
+                        "surface-tint": "#5f5e5e",
+                        "inverse-primary": "#c8c6c6",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f0eee9",
+                        "inverse-surface": "#30312e",
+                        "error": "#ba1a1a",
+                        "warning": "#d97706", // Added Amber warning
+                        "success": "#15803d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "margin": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "data-md": ["JetBrains Mono"],
+                        "data-sm": ["JetBrains Mono"],
+                        "display-lg": ["Public Sans"],
+                        "data-lg": ["JetBrains Mono"],
+                        "body-lg": ["Public Sans"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["Public Sans"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "data-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "data-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "data-lg": ["18px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    },
+                    "boxShadow": {
+                        'paper': '2px 2px 0px 0px rgba(51, 51, 51, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #fbf9f4; /* bg-background */
+            color: #1e1e1e; /* text-primary */
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom Scrollbar for ledger feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fbf9f4;
+            border-left: 1px solid #1e1e1e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e1e1e;
+        }
+        
+        /* Slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 8px;
+            background: #1e1e1e;
+            cursor: pointer;
+            border: 1px solid #fbf9f4;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: #1e1e1e;
+        }
+        
+        /* Utility for 1px hard shadow (paper effect) */
+        .paper-shadow {
+            box-shadow: 2px 2px 0px 0px rgba(51, 51, 51, 0.15);
+        }
+    </style>
+</head>
+<body class="flex bg-background min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 z-40 w-64 bg-surface-container border-r border-primary">
+<div class="p-margin border-b border-primary">
+<h1 class="font-headline-sm text-headline-sm text-primary">Owner Terminal</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Precision Audit Mode</p>
+<div class="mt-4 inline-block border border-[#1A365D] text-[#1A365D] font-label-caps text-label-caps px-2 py-1 bg-white">
+<span class="material-symbols-outlined text-[14px] align-middle mr-1">verified</span>Verified
+            </div>
+</div>
+<div class="flex-1 py-4 overflow-y-auto">
+<a class="bg-primary text-on-primary flex items-center gap-3 px-4 py-3 active:translate-x-1 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-caps text-label-caps">Margin Defense</span>
+<span class="ml-auto font-label-caps text-label-caps opacity-70">자산 방어</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant transition-all flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-label-caps text-label-caps">Platform Audit</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant transition-all flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined">architecture</span>
+<span class="font-label-caps text-label-caps">Menu Surgery</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant transition-all flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined">file_download</span>
+<span class="font-label-caps text-label-caps">Asset Export</span>
+</a>
+</div>
+<div class="p-4 border-t border-primary">
+<button class="w-full bg-primary-container text-on-primary font-data-md text-data-md border border-primary py-2 hover:bg-primary transition-colors">
+                Defend Margins
+            </button>
+<div class="mt-4 flex flex-col gap-2">
+<a class="text-on-surface-variant hover:bg-surface-variant transition-all flex items-center gap-3 px-2 py-2" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-variant transition-all flex items-center gap-3 px-2 py-2" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar (Mobile Only / Supplementary on Desktop) -->
+<header class="border-b border-primary bg-background flex justify-between items-center w-full px-margin h-16 max-w-container-max mx-auto lg:hidden">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tight">Fee Truth Menu</div>
+<button class="bg-primary-container text-on-primary font-data-sm text-data-sm border border-primary px-3 py-1">Run New Audit</button>
+</header>
+<div class="flex-1 p-margin w-full max-w-container-max mx-auto">
+<!-- Hero Dashboard Area -->
+<section class="mb-margin grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Leak Stat -->
+<div class="col-span-1 md:col-span-8 bg-surface border border-primary paper-shadow p-6 relative border-t-2 border-t-warning">
+<div class="absolute top-4 right-4 text-warning">
+<span class="material-symbols-outlined text-[32px]">warning</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-2">Today's Fee Leak</h2>
+<p class="font-display-lg text-display-lg text-warning mb-4">-$428.50</p>
+<p class="font-headline-md text-headline-md text-primary mt-6">Your busiest channel may be your thinnest margin.</p>
+</div>
+<!-- Secondary Stats -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-gutter">
+<div class="flex-1 bg-surface-container border border-primary p-4 paper-shadow">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">Total Delivery Revenue</h3>
+<p class="font-data-lg text-data-lg text-primary">$1,850.00</p>
+</div>
+<div class="flex-1 bg-surface-container border border-primary p-4 paper-shadow">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-1">Effective Platform Take</h3>
+<p class="font-data-lg text-data-lg text-error">32.4%</p>
+</div>
+</div>
+</section>
+<!-- Menu Surgery Section -->
+<section class="mb-margin">
+<div class="flex justify-between items-end mb-4 border-b border-primary pb-2">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Menu Surgery</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Adjust markups to defend against platform commissions.</p>
+</div>
+<button class="bg-primary text-on-primary font-data-md text-data-md px-4 py-2 border border-primary hover:bg-primary-container transition-colors">
+                        Apply Surgery
+                    </button>
+</div>
+<!-- Ledger Table -->
+<div class="bg-surface border border-primary paper-shadow overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-high border-b border-primary">
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 w-1/4">Item</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 text-right">Platform Price</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 text-right">Commission (30%)</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 text-right">Food Cost</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 text-right">Net Margin</th>
+<th class="font-label-caps text-label-caps text-on-surface-variant p-3 w-1/4">Markup Adjustment</th>
+</tr>
+</thead>
+<tbody class="font-data-md text-data-md text-primary">
+<!-- Row 1: Warning -->
+<tr class="border-b border-primary hover:bg-[rgba(51,51,51,0.04)] transition-colors">
+<td class="p-3 font-bold">Signature Burger</td>
+<td class="p-3 text-right">$15.00</td>
+<td class="p-3 text-right text-error">-$4.50</td>
+<td class="p-3 text-right">-$5.00</td>
+<td class="p-3 text-right text-warning font-bold flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                                    12% ($1.80)
+                                </td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<input class="surgery-slider" data-base="15" data-cost="5" data-target="margin-1" max="5" min="0" step="0.5" type="range" value="0"/>
+<span class="w-12 text-right font-data-sm text-data-sm border border-primary bg-background px-1">+<span class="val">0</span></span>
+</div>
+</td>
+</tr>
+<!-- Row 2: Warning -->
+<tr class="border-b border-primary bg-[rgba(51,51,51,0.02)] hover:bg-[rgba(51,51,51,0.04)] transition-colors">
+<td class="p-3 font-bold">Family Pasta Combo</td>
+<td class="p-3 text-right">$32.00</td>
+<td class="p-3 text-right text-error">-$9.60</td>
+<td class="p-3 text-right">-$12.00</td>
+<td class="p-3 text-right text-warning font-bold flex items-center justify-end gap-1">
+<span class="material-symbols-outlined text-[16px]">priority_high</span>
+                                    14% ($4.48)
+                                </td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<input class="surgery-slider" data-base="32" data-cost="12" data-target="margin-2" max="10" min="0" step="1" type="range" value="0"/>
+<span class="w-12 text-right font-data-sm text-data-sm border border-primary bg-background px-1">+<span class="val">0</span></span>
+</div>
+</td>
+</tr>
+<!-- Row 3: Healthy -->
+<tr class="border-b border-primary hover:bg-[rgba(51,51,51,0.04)] transition-colors">
+<td class="p-3 font-bold">Truffle Fries</td>
+<td class="p-3 text-right">$8.00</td>
+<td class="p-3 text-right text-error">-$2.40</td>
+<td class="p-3 text-right">-$1.50</td>
+<td class="p-3 text-right text-success">
+                                    28% ($2.24)
+                                </td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<input class="surgery-slider opacity-50" disabled="" max="3" min="0" step="0.5" type="range" value="0"/>
+<span class="w-12 text-right font-data-sm text-data-sm border border-outline bg-surface-variant text-outline px-1">+0</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-auto w-full py-6 px-margin flex flex-col md:flex-row justify-between items-center max-w-container-max mx-auto border-t border-primary bg-background">
+<div class="font-label-caps text-label-caps text-primary mb-2 md:mb-0">
+                © 2024 Delivery Fee Truth Menu - Asset Defense Systems
+            </div>
+<div class="flex gap-4 font-data-sm text-data-sm text-on-surface-variant">
+<a class="hover:opacity-100 transition-opacity opacity-70" href="#">Privacy Protocol</a>
+<a class="hover:opacity-100 transition-opacity opacity-70" href="#">Audit Methodology</a>
+<a class="hover:opacity-100 transition-opacity opacity-70" href="#">Data Integrity</a>
+</div>
+</footer>
+</main>
+<script>
+        // Simple slider interaction script for visual feedback
+        document.querySelectorAll('.surgery-slider').forEach(slider => {
+            slider.addEventListener('input', (e) => {
+                const valDisplay = e.target.nextElementSibling.querySelector('.val');
+                valDisplay.textContent = e.target.value;
+                
+                // In a real app, calculate new margin dynamically here
+                // const basePrice = parseFloat(e.target.dataset.base);
+                // const cost = parseFloat(e.target.dataset.cost);
+                // const markup = parseFloat(e.target.value);
+                // const newPrice = basePrice + markup;
+                // const newComm = newPrice * 0.3;
+                // const net = newPrice - newComm - cost;
+                // Update target cell...
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Deep Check - Transfer &amp; Pricing</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "on-primary-container": "#726300",
+                    "on-secondary-fixed-variant": "#930013",
+                    "outline-variant": "#cec6ad",
+                    "surface-variant": "#e5e2df",
+                    "on-error-container": "#93000a",
+                    "secondary": "#b61722",
+                    "tertiary": "#545f73",
+                    "background": "#fcf9f6",
+                    "on-surface-variant": "#4b4734",
+                    "tertiary-container": "#d6e1f9",
+                    "primary-fixed-dim": "#e2c62d",
+                    "surface-container-high": "#eae8e5",
+                    "surface-tint": "#6d5e00",
+                    "secondary-fixed": "#ffdad7",
+                    "error": "#ba1a1a",
+                    "primary": "#6d5e00",
+                    "secondary-fixed-dim": "#ffb3ad",
+                    "on-primary-fixed-variant": "#524600",
+                    "on-primary-fixed": "#211b00",
+                    "on-primary": "#ffffff",
+                    "surface-container": "#f0edea",
+                    "outline": "#7d7761",
+                    "surface-dim": "#dcdad7",
+                    "on-tertiary-fixed": "#111c2d",
+                    "inverse-primary": "#e2c62d",
+                    "inverse-on-surface": "#f3f0ed",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#596478",
+                    "surface-bright": "#fcf9f6",
+                    "on-surface": "#1c1c1a",
+                    "error-container": "#ffdad6",
+                    "surface": "#fcf9f6",
+                    "on-tertiary-fixed-variant": "#3c475a",
+                    "tertiary-fixed-dim": "#bcc7de",
+                    "on-background": "#1c1c1a",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed": "#410004",
+                    "inverse-surface": "#31302f",
+                    "surface-container-highest": "#e5e2df",
+                    "tertiary-fixed": "#d8e3fb",
+                    "on-secondary-container": "#fffbff",
+                    "surface-container-low": "#f6f3f0",
+                    "on-error": "#ffffff",
+                    "secondary-container": "#da3437",
+                    "primary-container": "#fde047",
+                    "primary-fixed": "#ffe24c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "perforation-gap": "4px",
+                    "base": "8px",
+                    "container-margin": "24px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "Anybody", "sans-serif"
+                    ],
+                    "headline-xl": [
+                            "Anybody", "sans-serif"
+                    ],
+                    "body-lg": [
+                            "JetBrains Mono", "monospace"
+                    ],
+                    "headline-sm": [
+                            "Anybody", "sans-serif"
+                    ],
+                    "label-caps": [
+                            "Space Mono", "monospace"
+                    ],
+                    "data-ticket": [
+                            "Space Mono", "monospace"
+                    ],
+                    "body-md": [
+                            "JetBrains Mono", "monospace"
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "headline-xl": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "900"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-sm": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "data-ticket": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.4",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        /* Neo-Brutalist Tactile Styles */
+        body {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        
+        .hazard-stripe {
+            background: repeating-linear-gradient(
+                -45deg,
+                #fde047,
+                #fde047 10px,
+                #1c1c1a 10px,
+                #1c1c1a 20px
+            );
+        }
+        
+        .ticket-wrapper {
+            box-shadow: 8px 8px 0px 0px #1c1c1a;
+            border: 4px solid #1c1c1a;
+        }
+
+        .chunky-button {
+            box-shadow: 4px 4px 0px 0px #1c1c1a;
+            border: 2px solid #1c1c1a;
+            transition: all 0.1s ease;
+        }
+
+        .chunky-button:active {
+            box-shadow: 0px 0px 0px 0px #1c1c1a;
+            transform: translate(4px, 4px);
+        }
+
+        .perforation {
+            border-top: 4px dotted #1c1c1a;
+            height: 4px;
+            width: 100%;
+            margin: var(--spacing-perforation-gap) 0;
+            position: relative;
+        }
+
+        .perforation::before, .perforation::after {
+            content: '';
+            position: absolute;
+            top: -8px;
+            width: 16px;
+            height: 16px;
+            background-color: #fcf9f6;
+            border: 4px solid #1c1c1a;
+            border-radius: 50%;
+        }
+
+        .perforation::before { left: -12px; border-right-color: transparent; border-top-color: transparent; transform: rotate(45deg); }
+        .perforation::after { right: -12px; border-left-color: transparent; border-top-color: transparent; transform: rotate(-45deg); }
+
+        .data-slot {
+            border: 2px inset #1c1c1a;
+            background-color: #ffffff;
+        }
+        
+        .stamp {
+            position: absolute;
+            transform: rotate(-15deg);
+            mix-blend-mode: multiply;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        
+        .torn-bottom {
+             background: 
+                linear-gradient(135deg, transparent 50%, #fcf9f6 50%) 0 100% / 20px 20px,
+                linear-gradient(-135deg, transparent 50%, #fcf9f6 50%) 0 100% / 20px 20px;
+             background-repeat: repeat-x;
+             padding-bottom: 20px;
+        }
+
+        /* Material Symbols Fill Configuration */
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Hide scrollbar for nav */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen pb-24 md:pb-0 md:pl-24 pt-20">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-20 bg-primary-container border-b-4 border-on-primary-container shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-xl text-headline-xl uppercase tracking-tighter text-on-primary-container">TICKET_GATE_01</h1>
+</div>
+<div class="flex gap-4">
+<button aria-label="warning" class="chunky-button bg-surface p-2 text-on-surface hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</button>
+<button aria-label="sensors" class="chunky-button bg-surface p-2 text-on-surface hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-75 active:translate-x-1 active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined" data-icon="sensors">sensors</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex fixed left-0 top-20 h-[calc(100vh-140px)] w-24 z-40 flex-col items-center py-base gap-gutter bg-surface-container-highest border-r-4 border-on-surface shadow-[4px_0px_0px_0px_rgba(0,0,0,1)]">
+<div class="text-center mb-4">
+<div class="font-headline-sm text-headline-sm text-on-surface">STAMP_CONTROL</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">MANUAL_OVERRIDE</div>
+</div>
+<a class="bg-surface text-on-surface-variant border-2 border-outline-variant hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-transform flex flex-col items-center justify-center w-20 h-20 rounded p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="check_circle">check_circle</span>
+<span class="font-label-caps text-label-caps">VALID</span>
+</a>
+<!-- Active Tab: SUSPECT for deep check anomaly meter -->
+<a class="bg-secondary text-on-secondary border-4 border-on-surface transform translate-x-2 active:scale-95 transition-transform flex flex-col items-center justify-center w-20 h-20 rounded p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="error">error</span>
+<span class="font-label-caps text-label-caps text-[10px]">SUSPECT</span>
+</a>
+<a class="bg-surface text-on-surface-variant border-2 border-outline-variant hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-transform flex flex-col items-center justify-center w-20 h-20 rounded p-2" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="cancel">cancel</span>
+<span class="font-label-caps text-label-caps">SCAM</span>
+</a>
+</nav>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 bg-background border-t-4 border-dashed border-outline bg-[url('noise.png')] bg-repeat">
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary p-2 border-2 border-on-surface w-16 h-16 hover:bg-surface-container-high active:translate-y-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="search_check">search_check</span>
+<span class="font-data-ticket text-data-ticket text-[10px] mt-1">INSPECT</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 h-16 hover:bg-surface-container-high active:translate-y-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-data-ticket text-data-ticket text-[10px] mt-1">ARCHIVE</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 h-16 hover:bg-surface-container-high active:translate-y-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span class="font-data-ticket text-data-ticket text-[10px] mt-1">LOCKER</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16 h-16 hover:bg-surface-container-high active:translate-y-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-data-ticket text-data-ticket text-[10px] mt-1">LOGOUT</span>
+</a>
+</nav>
+<!-- Main Content Canvas -->
+<main class="max-w-[600px] mx-auto p-container-margin h-full relative">
+<!-- Hazard Margins -->
+<div class="absolute left-0 top-0 bottom-0 w-6 hazard-stripe border-r-4 border-on-surface hidden md:block"></div>
+<div class="absolute right-0 top-0 bottom-0 w-6 hazard-stripe border-l-4 border-on-surface hidden md:block"></div>
+<!-- Ticket Container -->
+<div class="ticket-wrapper bg-surface-container-lowest flex flex-col relative z-10 torn-bottom mb-12">
+<!-- Header -->
+<div class="p-6 bg-surface-container-highest border-b-4 border-on-surface relative overflow-hidden">
+<div class="absolute top-2 right-2 border-2 border-on-surface bg-surface px-2 py-1 flex items-center gap-1">
+<div class="w-3 h-3 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-on-surface">DEEP_CHECK_ACTIVE</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2 pt-6">ANALYSIS: TX_9824A</h2>
+<div class="font-body-md text-body-md text-on-surface-variant">Verifying Transfer Integrity &amp; Pricing Anomalies</div>
+</div>
+<!-- Transfer & Barcode Timing -->
+<div class="p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface" data-icon="barcode_scanner">barcode_scanner</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">TRANSFER_TIMING</h3>
+</div>
+<div class="border-4 border-on-surface p-4 relative bg-surface-container">
+<div class="absolute top-0 right-0 bg-secondary text-on-secondary px-2 py-1 font-label-caps text-label-caps border-b-4 border-l-4 border-on-surface">
+                        DELAYED_ISSUE
+                    </div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">EXPECTED BARCODE RELEASE</div>
+<div class="data-slot p-3 mb-4 flex justify-between items-center">
+<span class="font-body-lg text-body-lg text-on-surface">T-MINUS 48:00:00</span>
+<span class="material-symbols-outlined text-secondary" data-icon="timer">timer</span>
+</div>
+<div class="flex gap-4 items-center">
+<div class="flex-1 bg-surface border-2 border-on-surface h-4">
+<div class="bg-primary h-full border-r-2 border-on-surface w-[15%]"></div>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface font-bold">15% ELAPSED</span>
+</div>
+<div class="mt-4 p-3 bg-error-container border-2 border-error text-on-error-container font-data-ticket text-data-ticket flex gap-2">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+<span>Seller is attempting transfer outside normal window. High risk of non-delivery.</span>
+</div>
+</div>
+</div>
+<div class="perforation"></div>
+<!-- Price & Fee Anomaly Meter -->
+<div class="p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface" data-icon="monitoring">monitoring</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">PRICE_ANOMALY</h3>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="border-2 border-on-surface p-3 bg-surface text-center">
+<div class="font-label-caps text-label-caps text-on-surface-variant">MARKET_AVG</div>
+<div class="font-headline-sm text-headline-sm text-on-surface">$124.50</div>
+</div>
+<div class="border-2 border-secondary p-3 bg-secondary-container text-center relative">
+<div class="absolute -top-3 -right-3 bg-on-surface text-on-primary px-1 border-2 border-secondary transform rotate-12 font-label-caps text-[10px]">+215%</div>
+<div class="font-label-caps text-label-caps text-on-error-container">ASKING_PRICE</div>
+<div class="font-headline-sm text-headline-sm text-on-error-container font-bold">$392.00</div>
+</div>
+</div>
+<div class="border-2 border-on-surface p-4 bg-surface-container relative">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">FEE_BREAKDOWN_SCAN</div>
+<ul class="font-data-ticket text-data-ticket space-y-2">
+<li class="flex justify-between border-b border-dashed border-outline-variant pb-1"><span>BASE_TICKET</span> <span>$100.00</span></li>
+<li class="flex justify-between border-b border-dashed border-outline-variant pb-1"><span>VENUE_FEE</span> <span>$24.50</span></li>
+<li class="flex justify-between text-secondary font-bold pb-1 bg-error-container px-1"><span>RESALE_MARKUP</span> <span>$267.50</span></li>
+</ul>
+</div>
+</div>
+<div class="perforation"></div>
+<!-- Schedule & Refund Card -->
+<div class="p-6 pb-12">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface" data-icon="event_note">event_note</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">SCHEDULE_&amp;_POLICY</h3>
+</div>
+<div class="border-2 border-on-surface bg-surface">
+<div class="p-4 border-b-2 border-on-surface bg-primary-container">
+<div class="font-label-caps text-label-caps text-on-primary-container font-bold">EVENT_SCHEDULE: NEON_NIGHTS_FESTIVAL</div>
+</div>
+<div class="p-4 flex flex-col gap-3 font-data-ticket text-data-ticket">
+<div class="flex gap-4">
+<span class="text-on-surface-variant w-16">GATES</span>
+<span class="text-on-surface font-bold">18:00 HRS</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant w-16">START</span>
+<span class="text-on-surface font-bold">20:00 HRS</span>
+</div>
+<div class="flex gap-4">
+<span class="text-on-surface-variant w-16">CURFEW</span>
+<span class="text-on-surface font-bold">23:30 HRS</span>
+</div>
+</div>
+</div>
+<div class="mt-6 border-2 border-on-surface p-4 bg-surface-variant relative overflow-hidden">
+<div class="stamp font-headline-lg text-headline-lg text-secondary border-4 border-secondary px-2 py-1 z-0 right-[-10px] bottom-[-10px]">
+                        NO_REFUND
+                    </div>
+<div class="relative z-10">
+<div class="font-label-caps text-label-caps text-on-surface font-bold mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="policy">policy</span>
+                            POLICY_ID: RESALE_RESTRICTED
+                        </div>
+<p class="font-body-md text-body-md text-on-surface">
+                            This ticket type operates under strict "All Sales Final" conditions. Due to the high resale markup detected, standard venue buyer protection is voided. Proceed at own risk.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Action Area -->
+<div class="p-6 bg-surface-container-high border-t-4 border-on-surface flex gap-4">
+<button class="flex-1 chunky-button bg-surface p-3 text-on-surface font-label-caps text-label-caps border-2 border-on-surface hover:bg-surface-variant">
+                    QUARANTINE_TICKET
+                </button>
+<button class="flex-1 chunky-button bg-primary-container p-3 text-on-primary-container font-label-caps text-label-caps border-2 border-on-surface hover:bg-primary-fixed flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="verified">verified</span>
+                    FORCE_VALIDATE
+                </button>
+</div>
+</div>
+</main>
+</body></html>

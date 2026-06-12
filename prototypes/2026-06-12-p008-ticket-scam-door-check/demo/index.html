@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TICKET_GATE_01 - DOOR-RISK BOOTH</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#726300",
+                        "on-secondary-fixed-variant": "#930013",
+                        "outline-variant": "#cec6ad",
+                        "surface-variant": "#e5e2df",
+                        "on-error-container": "#93000a",
+                        "secondary": "#b61722",
+                        "tertiary": "#545f73",
+                        "background": "#fcf9f6",
+                        "on-surface-variant": "#4b4734",
+                        "tertiary-container": "#d6e1f9",
+                        "primary-fixed-dim": "#e2c62d",
+                        "surface-container-high": "#eae8e5",
+                        "surface-tint": "#6d5e00",
+                        "secondary-fixed": "#ffdad7",
+                        "error": "#ba1a1a",
+                        "primary": "#6d5e00",
+                        "secondary-fixed-dim": "#ffb3ad",
+                        "on-primary-fixed-variant": "#524600",
+                        "on-primary-fixed": "#211b00",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#f0edea",
+                        "outline": "#7d7761",
+                        "surface-dim": "#dcdad7",
+                        "on-tertiary-fixed": "#111c2d",
+                        "inverse-primary": "#e2c62d",
+                        "inverse-on-surface": "#f3f0ed",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#596478",
+                        "surface-bright": "#fcf9f6",
+                        "on-surface": "#1c1c1a",
+                        "error-container": "#ffdad6",
+                        "surface": "#fcf9f6",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "tertiary-fixed-dim": "#bcc7de",
+                        "on-background": "#1c1c1a",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#410004",
+                        "inverse-surface": "#31302f",
+                        "surface-container-highest": "#e5e2df",
+                        "tertiary-fixed": "#d8e3fb",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container-low": "#f6f3f0",
+                        "on-error": "#ffffff",
+                        "secondary-container": "#da3437",
+                        "primary-container": "#fde047",
+                        "primary-fixed": "#ffe24c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "perforation-gap": "4px",
+                        "base": "8px",
+                        "container-margin": "24px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anybody"],
+                        "headline-xl": ["Anybody"],
+                        "body-lg": ["JetBrains Mono"],
+                        "headline-sm": ["Anybody"],
+                        "label-caps": ["Space Mono"],
+                        "data-ticket": ["Space Mono"],
+                        "body-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "500" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "data-ticket": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        .hazard-strip {
+            background: repeating-linear-gradient(
+                45deg,
+                #fde047,
+                #fde047 10px,
+                #1c1c1a 10px,
+                #1c1c1a 20px
+            );
+        }
+        .torn-bottom {
+            mask-image: radial-gradient(circle at 10px 100%, transparent 10px, black 11px);
+            mask-size: 20px 100%;
+            mask-repeat: repeat-x;
+            mask-position: bottom;
+            padding-bottom: 20px;
+        }
+        
+        /* Material Symbols Fill override */
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        /* Custom scrollbar for data entry */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e5e2df; 
+            border-left: 2px solid #1c1c1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1c1c1a; 
+        }
+    </style>
+</head>
+<body class="bg-surface-variant text-on-surface min-h-screen font-body-md noise-bg flex flex-col md:flex-row relative overflow-x-hidden">
+<!-- TopAppBar (Mobile & Web Header equivalent structurally, but adapted to design rules) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-container-margin h-20 bg-primary-container text-on-primary-container font-headline-sm text-headline-sm shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] border-b-4 border-on-primary-container">
+<div class="font-headline-xl text-headline-xl tracking-tighter uppercase text-on-primary-container">TICKET_GATE_01</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-3xl">warning</span>
+<span class="material-symbols-outlined text-3xl">sensors</span>
+</div>
+</header>
+<!-- SideNavBar (Web Only, Destination Screen = YES) -->
+<nav class="hidden md:flex fixed left-0 top-20 h-[calc(100vh-140px)] z-40 flex-col items-center py-base gap-gutter w-24 bg-surface-container-highest text-secondary font-label-caps text-label-caps border-r-4 border-on-surface shadow-[4px_0px_0px_0px_rgba(0,0,0,1)]">
+<div class="font-headline-sm text-headline-sm text-on-surface text-center mt-4">
+<div class="writing-mode-vertical uppercase tracking-widest text-xs">STAMP_CONTROL</div>
+</div>
+<div class="mt-8 flex flex-col gap-6 w-full px-2">
+<!-- Active: VALID (We are on inspection booth, treating valid/suspect as primary actions here, but semantic mapping to "INSPECT" intent) -->
+<button class="bg-surface text-on-surface-variant border-2 border-outline-variant p-2 flex flex-col items-center hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-transform w-full">
+<span class="material-symbols-outlined mb-1">check_circle</span>
+<span>VALID</span>
+</button>
+<button class="bg-surface text-on-surface-variant border-2 border-outline-variant p-2 flex flex-col items-center hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-transform w-full">
+<span class="material-symbols-outlined mb-1">cancel</span>
+<span>SCAM</span>
+</button>
+<button class="bg-surface text-on-surface-variant border-2 border-outline-variant p-2 flex flex-col items-center hover:bg-primary-container hover:text-on-primary-container active:scale-95 transition-transform w-full">
+<span class="material-symbols-outlined mb-1">error</span>
+<span>SUSPECT</span>
+</button>
+</div>
+</nav>
+<!-- BottomNavBar (Mobile Only, Destination Screen = YES) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 bg-[url('noise.png')] bg-repeat bg-background text-primary font-data-ticket text-data-ticket border-t-4 border-dashed border-outline">
+<!-- Active Tab: INSPECT -->
+<div class="flex flex-col items-center justify-center bg-primary text-on-primary p-2 border-2 border-on-surface w-1/4 h-full">
+<span class="material-symbols-outlined text-2xl mb-1" data-weight="fill">search_check</span>
+<span>INSPECT</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:translate-y-1 transition-all w-1/4 h-full">
+<span class="material-symbols-outlined text-2xl mb-1">receipt_long</span>
+<span>ARCHIVE</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:translate-y-1 transition-all w-1/4 h-full">
+<span class="material-symbols-outlined text-2xl mb-1">inventory_2</span>
+<span>LOCKER</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:translate-y-1 transition-all w-1/4 h-full">
+<span class="material-symbols-outlined text-2xl mb-1">logout</span>
+<span>LOGOUT</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 mt-20 mb-20 md:ml-24 md:mb-0 p-4 md:p-container-margin flex justify-center w-full relative">
+<!-- Left Hazard Margin -->
+<div class="hidden lg:block absolute left-24 top-20 bottom-0 w-6 hazard-strip border-r-4 border-on-surface z-10"></div>
+<!-- Right Hazard Margin -->
+<div class="hidden lg:block absolute right-0 top-20 bottom-0 w-6 hazard-strip border-l-4 border-on-surface z-10"></div>
+<!-- The "Receipt" Wrapper -->
+<div class="w-full max-w-[600px] bg-background border-4 border-on-surface relative shadow-[12px_12px_0px_0px_#111c2d] torn-bottom z-20 flex flex-col">
+<!-- Header Section -->
+<div class="p-container-margin border-b-4 border-dotted border-on-surface flex flex-col items-center text-center">
+<h1 class="font-headline-xl text-headline-xl text-on-surface uppercase mb-2">DOOR-RISK BOOTH</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant bg-primary-container px-2 border-2 border-on-surface shadow-[4px_4px_0px_0px_#1c1c1a]">Check the ticket before the venue does.</p>
+<div class="mt-4 font-label-caps text-label-caps text-secondary bg-secondary-fixed px-3 py-1 border-2 border-secondary inline-block transform -rotate-2">
+                    I need to know if this ticket will actually get me through the door.
+                </div>
+</div>
+<!-- Risk Meter Section -->
+<div class="p-container-margin border-b-4 border-dotted border-on-surface bg-surface-container-low relative overflow-hidden">
+<div class="flex justify-between items-end mb-4 relative z-10">
+<h2 class="font-headline-sm text-headline-sm uppercase">Threat Assessment</h2>
+<span class="font-data-ticket text-data-ticket bg-on-surface text-on-primary px-2 py-1">CALCULATING...</span>
+</div>
+<!-- Meter UI -->
+<div class="h-12 w-full border-4 border-on-surface bg-surface relative flex items-center p-1 z-10">
+<div class="h-full bg-secondary w-3/4 border-r-4 border-on-surface relative">
+<div class="absolute right-0 top-0 h-full w-4 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiMxYzFjMWEiLz48L3N2Zz4=')] opacity-50"></div>
+</div>
+<div class="absolute inset-0 flex justify-between px-2 items-center font-label-caps text-label-caps pointer-events-none">
+<span class="text-on-primary mix-blend-difference">SAFE</span>
+<span class="text-on-surface">SCAM</span>
+</div>
+<!-- Indicator Needle -->
+<div class="absolute top-0 bottom-0 w-2 bg-primary border-x-2 border-on-surface left-[75%] transform -translate-x-1/2 shadow-[2px_0_0_0_#1c1c1a]"></div>
+</div>
+<div class="text-right mt-2 font-headline-lg text-headline-lg text-secondary">75/100</div>
+<!-- Abstract decorative shader behind meter -->
+<div class="absolute inset-0 opacity-10 pointer-events-none z-0">
+
+</div>
+</div>
+<!-- Hazard Divider -->
+<div class="h-4 w-full hazard-strip border-b-4 border-on-surface"></div>
+<!-- Ticket Source Proof Lane -->
+<div class="p-container-margin border-b-4 border-dotted border-on-surface bg-surface-bright">
+<h2 class="font-headline-sm text-headline-sm uppercase mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">upload_file</span>
+                    Source Proof Lane
+                </h2>
+<p class="font-data-ticket text-data-ticket text-on-surface-variant mb-4">Input origin URL or upload thermal receipt scan.</p>
+<div class="flex flex-col gap-4">
+<!-- Data Entry Slot -->
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border-2 border-on-surface p-3 font-data-ticket text-data-ticket shadow-[inset_2px_2px_0px_0px_rgba(0,0,0,0.2)] focus:outline-none focus:border-primary focus:ring-0" placeholder="https://ticket-origin.url/verify" type="text"/>
+<button class="absolute right-2 top-2 bg-on-surface text-on-primary font-label-caps text-label-caps px-3 py-1 hover:bg-primary hover:text-on-primary-container transition-colors">LINK</button>
+</div>
+<div class="text-center font-label-caps text-label-caps text-outline-variant">- OR -</div>
+<!-- Chunky Upload Button -->
+<button class="w-full bg-primary-container border-4 border-on-surface text-on-primary-container font-headline-sm text-headline-sm py-4 relative shadow-[8px_8px_0px_0px_#1c1c1a] hover:shadow-[4px_4px_0px_0px_#1c1c1a] hover:translate-x-[4px] hover:translate-y-[4px] active:shadow-none active:translate-x-[8px] active:translate-y-[8px] transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">document_scanner</span>
+                        LOAD RECEIPT
+                    </button>
+</div>
+</div>
+<!-- Stamp Station -->
+<div class="p-container-margin bg-surface relative min-h-[300px]">
+<h2 class="font-headline-sm text-headline-sm uppercase mb-4 text-center">Manual Stamp Station</h2>
+<!-- Mock Receipt Area -->
+<div class="w-full bg-surface-container-lowest border-2 border-dashed border-outline-variant p-4 font-data-ticket text-data-ticket text-on-surface-variant h-48 overflow-y-auto mb-6 relative">
+<p>TRANSACTION ID: 0981-XXXX-4421</p>
+<p>EVENT: UNDERGROUND TECHNO WAREHOUSE</p>
+<p>PRICE: 45.00 USD</p>
+<br/>
+<p class="text-error bg-error-container inline-block px-1">WARNING: UNVERIFIED BLOCKCHAIN SIGNATURE</p>
+<p>SELLER RATING: 2.1 / 5.0</p>
+<!-- Simulated Stamp Overlay (Initially hidden, triggered via JS normally) -->
+<div 0="" 100="" 100\"="" class="hidden absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 border-secondary text-secondary font-headline-xl text-headline-xl p-2 opacity-80 mix-blend-multiply" id="stamp-overlay" style="mask-image: url('data:image/svg+xml;utf8,&lt;svg viewBox=\" xmlns='\"http://www.w3.org/2000/svg\"'><filter id='\"n\"'><feturbulence basefrequency='\"0.5\"' numoctaves='\"2\"/' type='\"fractalNoise\"'></feturbulence></filter><rect filter='\"url(#n)\"' height='\"100%\"' opacity='\"0.5\"/' width='\"100%\"'>');"&gt;
+                        SCAM
+                    </rect></div>
+</div>
+<!-- Action Buttons -->
+<div class="flex gap-gutter justify-center">
+<button class="flex-1 bg-surface-container-lowest border-4 border-on-surface text-on-surface font-headline-sm text-headline-sm py-3 shadow-[6px_6px_0px_0px_#6d5e00] active:shadow-none active:translate-x-[6px] active:translate-y-[6px] transition-all flex flex-col items-center" onclick="document.getElementById('stamp-overlay').className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-12 border-4 border-primary text-primary font-headline-xl text-headline-xl p-2 opacity-80 mix-blend-multiply'; document.getElementById('stamp-overlay').innerText='VALID'">
+<span class="material-symbols-outlined text-3xl mb-1">thumb_up</span>
+                        VALID
+                    </button>
+<button class="flex-1 bg-surface-container-lowest border-4 border-on-surface text-secondary font-headline-sm text-headline-sm py-3 shadow-[6px_6px_0px_0px_#b61722] active:shadow-none active:translate-x-[6px] active:translate-y-[6px] transition-all flex flex-col items-center" onclick="document.getElementById('stamp-overlay').className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -rotate-12 border-4 border-secondary text-secondary font-headline-xl text-headline-xl p-2 opacity-80 mix-blend-multiply'; document.getElementById('stamp-overlay').innerText='SCAM'">
+<span class="material-symbols-outlined text-3xl mb-1">thumb_down</span>
+                        SCAM
+                    </button>
+</div>
+</div>
+<!-- Bottom Perforation Detail -->
+<div class="absolute bottom-0 left-0 w-full flex justify-between px-4 pb-2 text-[10px] font-data-ticket text-outline-variant">
+<span>TERMINAL: TG-01</span>
+<span>SYS.VER: 4.2.1</span>
+</div>
+</div>
+</main>
+</body></html>

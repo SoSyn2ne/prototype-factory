@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Electrical Load &amp; Capacity Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-background": "#191c1e",
+                            "outline-variant": "#c5c6cd",
+                            "primary-container": "#1e293b",
+                            "on-error-container": "#93000a",
+                            "on-primary-container": "#8590a6",
+                            "secondary": "#515f74",
+                            "on-tertiary-fixed-variant": "#005236",
+                            "background": "#f7f9fb",
+                            "on-error": "#ffffff",
+                            "on-tertiary-fixed": "#002113",
+                            "error": "#ba1a1a",
+                            "primary-fixed": "#d8e3fb",
+                            "on-secondary": "#ffffff",
+                            "secondary-fixed-dim": "#b9c7e0",
+                            "tertiary-fixed-dim": "#4edea3",
+                            "on-primary": "#ffffff",
+                            "surface-container-highest": "#e0e3e5",
+                            "on-tertiary": "#ffffff",
+                            "surface-container-lowest": "#ffffff",
+                            "inverse-on-surface": "#eff1f3",
+                            "surface": "#f7f9fb",
+                            "surface-container-high": "#e6e8ea",
+                            "primary-fixed-dim": "#bcc7de",
+                            "tertiary-container": "#00301e",
+                            "surface-container": "#eceef0",
+                            "surface-bright": "#f7f9fb",
+                            "on-tertiary-container": "#00a472",
+                            "on-primary-fixed-variant": "#3c475a",
+                            "on-surface": "#191c1e",
+                            "error-container": "#ffdad6",
+                            "on-secondary-fixed": "#0d1c2f",
+                            "tertiary-fixed": "#6ffbbe",
+                            "on-primary-fixed": "#111c2d",
+                            "inverse-primary": "#bcc7de",
+                            "surface-tint": "#545f73",
+                            "secondary-fixed": "#d5e3fd",
+                            "on-secondary-container": "#57657b",
+                            "outline": "#75777d",
+                            "tertiary": "#00190e",
+                            "inverse-surface": "#2d3133",
+                            "surface-container-low": "#f2f4f6",
+                            "on-secondary-fixed-variant": "#3a485c",
+                            "secondary-container": "#d5e3fd",
+                            "primary": "#091426",
+                            "surface-variant": "#e0e3e5",
+                            "surface-dim": "#d8dadc",
+                            "on-surface-variant": "#45474c"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "stack-compact": "8px",
+                            "margin-desktop": "32px",
+                            "margin-mobile": "16px",
+                            "gutter": "16px",
+                            "stack-standard": "16px",
+                            "unit": "4px"
+                    },
+                    "fontFamily": {
+                            "body-md": [
+                                    "Hanken Grotesk"
+                            ],
+                            "label-caps": [
+                                    "JetBrains Mono"
+                            ],
+                            "body-sm": [
+                                    "Hanken Grotesk"
+                            ],
+                            "headline-md": [
+                                    "Hanken Grotesk"
+                            ],
+                            "headline-lg": [
+                                    "Hanken Grotesk"
+                            ],
+                            "data-mono": [
+                                    "JetBrains Mono"
+                            ]
+                    },
+                    "fontSize": {
+                            "body-md": [
+                                    "14px",
+                                    {
+                                            "lineHeight": "20px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "label-caps": [
+                                    "10px",
+                                    {
+                                            "lineHeight": "12px",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "body-sm": [
+                                    "12px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "headline-md": [
+                                    "18px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "headline-lg": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "letterSpacing": "-0.02em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "data-mono": [
+                                    "12px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "fontWeight": "500"
+                                    }
+                            ]
+                    }
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { background-color: #f7f9fb; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface bg-surface flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-primary-container text-primary dark:text-primary-fixed fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline flex justify-between items-center px-margin-desktop py-stack-compact">
+<div class="font-label-caps text-label-caps tracking-tighter text-on-surface dark:text-on-primary-container uppercase">
+            EV CHARGER APPROVAL PACKET
+        </div>
+<nav class="hidden md:flex gap-4">
+<a class="text-on-surface-variant font-body-md hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-body-md hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Manifest</a>
+<a class="text-on-surface-variant font-body-md hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Digital Vault</a>
+</nav>
+<div class="flex gap-2">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 border border-outline-variant">PREVIEW PACKET</button>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-3 py-1 hover:bg-primary-container transition-colors uppercase">EXPORT TO PDF</button>
+</div>
+</header>
+<div class="flex flex-1 pt-[60px]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col bg-surface-container-low dark:bg-surface-container-lowest fixed left-0 top-[60px] h-[calc(100vh-60px)] w-[280px] border-r border-outline-variant dark:border-outline py-margin-desktop px-stack-standard">
+<div class="mb-stack-standard">
+<div class="font-headline-md text-headline-md font-bold uppercase text-primary dark:text-inverse-primary">MUNICIPAL SIDEBAR</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">REF: EV-BOARD-2024</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-2 text-on-surface-variant font-body-md p-stack-standard hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[18px]">garage</span> Parking Specs</a>
+<a class="flex items-center gap-2 bg-white border-2 border-primary border-l-4 text-primary font-bold p-stack-standard" href="#"><span class="material-symbols-outlined text-[18px]">electrical_services</span> Load Analysis</a>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-md p-stack-standard hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[18px]">engineering</span> Contractor Credentials</a>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-md p-stack-standard hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[18px]">verified_user</span> Insurance Certs</a>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-md p-stack-standard hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[18px]">architecture</span> Physical Layout</a>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-md p-stack-standard hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[18px]">fire_extinguisher</span> Fire Safety</a>
+</nav>
+<div class="mt-auto pt-stack-standard border-t border-outline-variant flex flex-col gap-1">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-2 mb-2 uppercase">VALIDATE ALL DOCUMENTS</button>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-sm p-2 hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[16px]">history</span> Version Control</a>
+<a class="flex items-center gap-2 text-on-surface-variant font-body-sm p-2 hover:bg-surface-container-highest transition-all" href="#"><span class="material-symbols-outlined text-[16px]">contact_mail</span> Contact Board</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-0 md:ml-[280px] p-margin-mobile md:p-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<div class="lg:col-span-12 mb-stack-standard border-b border-outline-variant pb-stack-compact">
+<h1 class="font-headline-lg text-headline-lg text-primary uppercase">Electrical Load &amp; Capacity Analysis</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-1">SEC 4.1.2 - STRUCTURAL COMPLIANCE REVIEW</p>
+</div>
+<!-- Left Column: Data & Tables -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- Panel Capacity vs Demand Table -->
+<div class="bg-white border border-outline-variant">
+<div class="bg-surface-container-low p-2 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-label-caps text-label-caps text-primary uppercase">Panel Capacity vs. Projected Demand</h2>
+<span class="font-data-mono text-data-mono text-on-surface-variant bg-surface px-1 border border-outline-variant">TBL-01A</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-mono text-data-mono text-on-surface border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant text-on-surface-variant">
+<th class="p-2 border-r border-outline-variant">Metric</th>
+<th class="p-2 border-r border-outline-variant">Current State</th>
+<th class="p-2 border-r border-outline-variant">Proposed Addition</th>
+<th class="p-2">Total Post-Install</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant">
+<td class="p-2 border-r border-outline-variant bg-surface-container-low">Main Breaker Rating</td>
+<td class="p-2 border-r border-outline-variant">200 A</td>
+<td class="p-2 border-r border-outline-variant text-on-surface-variant">-</td>
+<td class="p-2">200 A</td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface-bright">
+<td class="p-2 border-r border-outline-variant bg-surface-container-low">Calculated Peak Load</td>
+<td class="p-2 border-r border-outline-variant">112 A</td>
+<td class="p-2 border-r border-outline-variant text-primary">+48 A (L2 Charger)</td>
+<td class="p-2">160 A</td>
+</tr>
+<tr>
+<td class="p-2 border-r border-outline-variant bg-surface-container-low">Capacity Margin (80% Rule)</td>
+<td class="p-2 border-r border-outline-variant text-tertiary-fixed-dim">48 A</td>
+<td class="p-2 border-r border-outline-variant">-</td>
+<td class="p-2 text-error">0 A (MAXIMUM REACHED)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Peak Load & Panel ID Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Peak Load Analysis -->
+<div class="bg-white border border-outline-variant relative pt-6">
+<div class="absolute top-0 left-0 bg-surface-container-high border-b border-r border-outline-variant px-2 py-1">
+<span class="font-label-caps text-label-caps text-on-surface">PEAK LOAD ANALYSIS</span>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Methodology</span>
+<span class="font-data-mono text-data-mono">NEC 220.83(B)</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Continuous Load Factor</span>
+<span class="font-data-mono text-data-mono">125% applied</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Status</span>
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps px-2 py-1 uppercase">Passed Review</span>
+</div>
+</div>
+</div>
+<!-- Panel ID -->
+<div class="bg-white border border-outline-variant relative pt-6">
+<div class="absolute top-0 left-0 bg-surface-container-high border-b border-r border-outline-variant px-2 py-1">
+<span class="font-label-caps text-label-caps text-on-surface">PANEL IDENTIFICATION</span>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Location</span>
+<span class="font-data-mono text-data-mono">Garage, South Wall</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Manufacturer</span>
+<span class="font-data-mono text-data-mono">Square D, QO Series</span>
+</div>
+<div class="flex justify-between items-center pt-2">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Available Spaces</span>
+<span class="font-data-mono text-data-mono">2 / 40</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Circuit Breaker Requirements Form -->
+<div class="bg-white border border-outline-variant p-4">
+<h3 class="font-headline-md text-headline-md text-primary mb-3 border-b border-outline-variant pb-1">Circuit Breaker Requirements</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center gap-2">
+<input checked="" class="w-4 h-4 text-tertiary-container border-outline-variant rounded-sm focus:ring-tertiary-container bg-surface-bright" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface">Dedicated 60A 2-Pole Breaker</label>
+</div>
+<div class="flex items-center gap-2">
+<input checked="" class="w-4 h-4 text-tertiary-container border-outline-variant rounded-sm focus:ring-tertiary-container bg-surface-bright" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface">GFCI Protection (If hardwired)</label>
+</div>
+<div class="flex items-center gap-2">
+<input class="w-4 h-4 text-tertiary-container border-outline-variant rounded-sm focus:ring-tertiary-container bg-surface-bright" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface">Load Management Device Req.</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Uploads & Context -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Document Upload Zone -->
+<div class="bg-surface-container-lowest border-2 border-dashed border-outline p-6 flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-[32px] text-on-surface-variant mb-2">upload_file</span>
+<h4 class="font-headline-md text-headline-md text-primary mb-1">Electrician's Load Calc</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Upload stamped PDF confirming methodology (NEC 220.83).</p>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 hover:bg-primary-container transition-colors uppercase w-full">Select File</button>
+<div class="mt-4 w-full bg-surface-container p-2 border border-outline-variant flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">description</span>
+<span class="font-data-mono text-data-mono text-on-surface text-[10px]">load_calc_smith_elec_v2.pdf</span>
+</div>
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">verified</span>
+</div>
+</div>
+<!-- Emotional/Contextual Note -->
+<div class="bg-secondary-fixed text-on-secondary-fixed border border-secondary-fixed-dim p-4">
+<div class="flex items-center gap-2 mb-2 border-b border-secondary-fixed-dim pb-2">
+<span class="material-symbols-outlined text-[20px]">trending_up</span>
+<h4 class="font-headline-md text-headline-md">Future Home Value &amp; Reliability</h4>
+</div>
+<p class="font-body-sm text-body-sm leading-relaxed">
+                        Rigorous load analysis ensures the structural integrity of the property's electrical grid. Approving dedicated capacity for EV infrastructure not only prevents localized outages but has been shown to increase long-term property valuation by ensuring readiness for future transportation standards.
+                    </p>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-dim dark:bg-surface-container text-on-surface-variant w-full py-stack-standard border-t border-outline-variant flex justify-between items-center px-margin-desktop ml-0 md:ml-[280px] mt-auto relative z-10">
+<div class="font-data-mono text-data-mono">
+            © 2024 Municipal Governance Standards. Ver 4.2.1. Confidentiality: Tier 1 Board Use Only.
+        </div>
+<div class="flex gap-4 font-data-mono text-data-mono">
+<a class="hover:text-primary transition-colors cursor-pointer" href="#">Standard Disclaimers</a>
+<a class="hover:text-primary transition-colors cursor-pointer" href="#">Terms of Submission</a>
+<a class="hover:text-primary transition-colors cursor-pointer" href="#">Privacy Protocol</a>
+</div>
+</footer>
+</body></html>

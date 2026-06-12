@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stamping Workspace - Asset Defense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface-variant": "#45474c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "secondary": "#b6171e",
+                        "primary": "#091426",
+                        "on-background": "#191c1e",
+                        "on-secondary-fixed": "#410003",
+                        "inverse-surface": "#2d3133",
+                        "surface-container": "#eceef0",
+                        "surface-container-low": "#f2f4f6",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#4b95d0",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "outline": "#75777d",
+                        "background": "#f7f9fb",
+                        "on-tertiary-fixed-variant": "#004b74",
+                        "tertiary-fixed-dim": "#94ccff",
+                        "tertiary": "#001626",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1e",
+                        "primary-fixed-dim": "#bcc7de",
+                        "secondary-fixed-dim": "#ffb3ac",
+                        "primary-fixed": "#d8e3fb",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c5c6cd",
+                        "inverse-primary": "#bcc7de",
+                        "on-tertiary-fixed": "#001d32",
+                        "tertiary-container": "#002b46",
+                        "surface-container-high": "#e6e8ea",
+                        "error-container": "#ffdad6",
+                        "surface": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#930010",
+                        "on-secondary-container": "#fffbff",
+                        "surface-bright": "#f7f9fb",
+                        "secondary-container": "#da3433",
+                        "secondary-fixed": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#cde5ff",
+                        "on-primary-fixed": "#111c2d",
+                        "on-primary-container": "#8590a6",
+                        "primary-container": "#1e293b",
+                        "surface-dim": "#d8dadc",
+                        "surface-tint": "#545f73"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "stack-compact": "0.5rem",
+                        "container-padding": "1.5rem",
+                        "stack-dense": "0.25rem",
+                        "gutter": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "code-data": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "code-data": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F8FAFC; }
+        .cyber-blue-border { border-left: 2px solid #4b95d0; }
+        .panel-border { border: 1px solid #CBD5E1; }
+        .bg-secondary-panel { background-color: #F1F5F9; }
+        .red-highlight { background-color: rgba(182, 23, 30, 0.1); border-bottom: 2px solid #b6171e; }
+        .stamp-box { border: 2px solid #b6171e; transform: rotate(-2deg); display: inline-block; padding: 4px 8px; color: #b6171e; font-weight: 900; letter-spacing: 2px; }
+        
+        /* Custom scrollbar for dense feeling */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f2f4f6; }
+        ::-webkit-scrollbar-thumb { background: #c5c6cd; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #75777d; }
+    </style>
+</head>
+<body class="text-on-surface bg-background flex h-screen overflow-hidden font-body-md antialiased">
+<!-- SideNavBar -->
+<nav aria-label="Sidebar Navigation" class="bg-surface-container-low dark:bg-surface-container-lowest fixed left-0 top-0 h-full w-64 border-r border-outline-variant dark:border-outline flex flex-col h-full py-4 transition-all duration-150 ease-in-out z-20 flex-shrink-0">
+<div class="px-6 mb-8">
+<h1 class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed uppercase">Situation Room</h1>
+<p class="font-code-data text-code-data text-on-surface-variant mt-1">Operator ID: 882-LIT</p>
+</div>
+<button class="mx-6 mb-6 bg-secondary text-on-secondary px-4 py-2 rounded font-headline-sm text-headline-sm uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+            New Capture
+        </button>
+<div class="flex-1 overflow-y-auto">
+<ul class="space-y-1">
+<li>
+<a aria-current="page" class="flex items-center px-6 py-3 bg-surface-container-highest dark:bg-surface-container text-primary border-l-4 border-secondary transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">folder_managed</span>
+<span class="font-label-caps text-label-caps">Evidence Packets</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">rule</span>
+<span class="font-label-caps text-label-caps">Citation Watch</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">analytics</span>
+<span class="font-label-caps text-label-caps">Risk Analysis</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">description</span>
+<span class="font-label-caps text-label-caps">Legal Memos</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto border-t border-outline-variant dark:border-outline pt-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center px-6 py-3 text-on-surface-variant dark:text-on-surface-variant opacity-70 hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">help_center</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-6 h-14 flex-shrink-0 z-10">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">Liability Receipt</span>
+<span class="px-2 py-1 bg-surface-container border border-outline-variant rounded font-code-data text-code-data text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                    SESSION_ID: 99A4-B2
+                </span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded transition-colors" title="Share">
+<span class="material-symbols-outlined">ios_share</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded transition-colors" title="Print">
+<span class="material-symbols-outlined">print</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded transition-colors" title="History">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="bg-error text-on-error px-4 py-1.5 rounded font-headline-sm text-headline-sm uppercase tracking-wider ml-4 hover:bg-error-container hover:text-on-error-container transition-colors">
+                    Flag for Litigation
+                </button>
+</div>
+</header>
+<!-- Workspace Grid -->
+<div class="flex-1 grid grid-cols-12 gap-unit p-unit overflow-hidden bg-surface-dim">
+<!-- Left Panel: AI Overview -->
+<div class="col-span-3 bg-surface panel-border flex flex-col overflow-hidden relative">
+<div class="bg-surface-container-low border-b border-outline-variant p-2 flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-primary">Target: AI Generative Output</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed-dim text-on-tertiary-fixed font-label-caps text-[9px]">LIVE CAPTURE</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<div class="aspect-video bg-surface-container border border-outline-variant relative overflow-hidden group">
+<img alt="Abstract AI interface concept" class="w-full h-full object-cover opacity-80 filter grayscale" data-alt="A highly complex, technical digital interface displaying streams of data and geometric patterns. The aesthetic is severe, corporate, and functional, emphasizing information density with a stark palette of deep slates, cool greys, and sudden sharp accents of correction red. The scene suggests a high-stakes legal technology war room monitoring generative AI outputs in real-time." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRFMXJUH9WZTzdVe78xsUj5sntkLxDLUJyk0C14BPajBqt7IzDqHuesJQQ0b61m0otIAqDE0GfMXTqOVcA0kcxv6f1dFWVk3im8oJWMlqkYucgtzSdqepNuIGIfSQuL1UY6UMGb-yGPFB-DeXj3xRv9nj9CNEXAu9OCezP_xJZylfML_26ZjnObb-DKIci-HmK5NYVbBR19GETOjrXihC08lrC7yn0uYHT6NC8i6Zoxd8LMxj31VCInQpD4b_rdlovkJpJWuraT7o"/>
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-secondary transition-colors pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 bg-primary text-on-primary font-code-data text-[10px] px-1 py-0.5">SRC_FRAME_042</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Metadata</span>
+</div>
+<div class="font-code-data text-[11px] text-on-surface-variant grid grid-cols-2 gap-1">
+<span>Origin:</span> <span class="text-primary font-bold">LLM-Gateway-Prod</span>
+<span>Model:</span> <span>GPT-4-Turbo-0125</span>
+<span>Temp:</span> <span>0.7</span>
+<span>Timestamp:</span> <span>2024-05-20T14:32:01Z</span>
+</div>
+</div>
+</div>
+<div class="p-2 bg-surface-container border-t border-outline-variant font-code-data text-[10px] text-on-surface-variant text-center">
+                    ASSET DEFENSE (자산 방어) - CONFIDENTIAL
+                </div>
+</div>
+<!-- Center Panel: Highlighter -->
+<div class="col-span-6 bg-surface panel-border flex flex-col overflow-hidden cyber-blue-border">
+<div class="bg-surface-container-low border-b border-outline-variant p-2 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">warning</span>
+<span class="font-label-caps text-label-caps text-primary">False Claim Assessment</span>
+</div>
+<div class="stamp-box text-[10px] py-0.5 px-1">UNVERIFIED</div>
+</div>
+<div class="flex-1 overflow-y-auto p-8 bg-surface-container-lowest font-body-lg leading-relaxed relative">
+<!-- Text Content -->
+<p class="mb-4">
+                        Based on the financial reports provided, the company's Q3 revenue exceeded projections by a significant margin. The integration of the new European supply chain was completed flawlessly in August, leading to an immediate 15% reduction in logistics overhead.
+                    </p>
+<p class="mb-4">
+                        Furthermore, <span class="red-highlight cursor-crosshair group relative">the CEO stated on record that there are absolutely no pending regulatory investigations concerning the merger. <span class="absolute -top-6 left-0 bg-secondary text-on-secondary font-label-caps text-[9px] px-1 py-0.5 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">DRAG EVIDENCE HERE</span></span> This has bolstered investor confidence significantly, resulting in a stable stock price throughout the turbulent market conditions of late September.
+                    </p>
+<p>
+                        The board has unanimously approved the expansion into the South American market, citing these strong indicators as the primary driver for accelerated growth initiatives.
+                    </p>
+</div>
+<div class="p-4 bg-surface-container border-t border-outline-variant flex justify-between items-center">
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface border border-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">format_paint</span> Highlight
+                        </button>
+<button class="px-3 py-1 bg-surface border border-outline-variant font-label-caps text-label-caps hover:bg-surface-container-high flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">notes</span> Annotate
+                        </button>
+</div>
+</div>
+</div>
+<!-- Right Panel: Source of Truth Rail -->
+<div class="col-span-3 bg-secondary-panel panel-border flex flex-col overflow-hidden">
+<div class="bg-surface-container-low border-b border-outline-variant p-2">
+<span class="font-label-caps text-label-caps text-primary">Source of Truth Rail</span>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-2">
+<!-- Evidence Item 1 -->
+<div class="bg-surface border border-outline-variant p-3 cursor-grab hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-label-caps text-[9px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">verified</span> VERIFIED
+                            </span>
+<span class="font-code-data text-[10px] text-on-surface-variant">DOC-882A</span>
+</div>
+<h4 class="font-headline-sm text-[13px] text-primary mb-1">SEC Form 8-K Filing</h4>
+<p class="font-body-sm text-[11px] text-on-surface-variant line-clamp-2">Disclosure of ongoing DOJ inquiry regarding antitrust concerns related to the recent acquisition.</p>
+<div class="mt-2 font-code-data text-[9px] text-outline">Filed: 2024-05-18</div>
+</div>
+<!-- Evidence Item 2 -->
+<div class="bg-surface border border-outline-variant p-3 cursor-grab hover:border-primary transition-colors">
+<div class="flex justify-between items-start mb-2">
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high font-label-caps text-[9px] text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">verified</span> VERIFIED
+                            </span>
+<span class="font-code-data text-[10px] text-on-surface-variant">TRANS-44B</span>
+</div>
+<h4 class="font-headline-sm text-[13px] text-primary mb-1">Q3 Earnings Call Transcript</h4>
+<p class="font-body-sm text-[11px] text-on-surface-variant line-clamp-2">CEO remarks explicitly declining to comment on rumors of regulatory scrutiny, citing corporate policy.</p>
+<div class="mt-2 font-code-data text-[9px] text-outline">Date: 2024-05-15</div>
+</div>
+<!-- Drop Zone Placeholder -->
+<div class="border-2 border-dashed border-outline-variant rounded bg-surface-container-low p-4 text-center text-on-surface-variant flex flex-col items-center justify-center h-24">
+<span class="material-symbols-outlined mb-1 text-outline">upload_file</span>
+<span class="font-label-caps text-[10px]">DROP NEW EVIDENCE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Bar -->
+<footer class="bg-surface-container-highest border-t border-outline-variant h-14 flex-shrink-0 flex justify-between items-center px-6">
+<div class="font-code-data text-code-data text-on-surface-variant flex items-center gap-4">
+<span><span class="font-bold">STATUS:</span> ACTIVE INVESTIGATION</span>
+<span class="w-px h-4 bg-outline-variant"></span>
+<span><span class="font-bold">LIABILITY SCORE:</span> <span class="text-secondary">HIGH (8.4)</span></span>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded font-headline-sm text-headline-sm uppercase tracking-wider hover:bg-primary-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+                Stamp Receipt &amp; Export
+            </button>
+</footer>
+</main>
+</body></html>
