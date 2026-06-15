@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kiosk Access Retrofit Sprint</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#44d8f1",
+                        "outline": "#869396",
+                        "surface-dim": "#101416",
+                        "tertiary-fixed": "#d7e4ec",
+                        "secondary": "#b1cad7",
+                        "on-secondary-fixed": "#051e28",
+                        "inverse-on-surface": "#2d3133",
+                        "surface-container-highest": "#313537",
+                        "tertiary-fixed-dim": "#bbc8d0",
+                        "surface-container-low": "#181c1e",
+                        "surface-tint": "#44d8f1",
+                        "on-secondary-container": "#a0b9c5",
+                        "on-primary-fixed-variant": "#004e59",
+                        "primary-container": "#00bcd4",
+                        "surface-variant": "#313537",
+                        "inverse-primary": "#006876",
+                        "on-error-container": "#ffdad6",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#e0e3e5",
+                        "on-tertiary": "#263238",
+                        "on-error": "#690005",
+                        "on-primary": "#00363e",
+                        "on-tertiary-fixed": "#111d23",
+                        "tertiary": "#bbc8d0",
+                        "on-surface-variant": "#bbc9cc",
+                        "on-secondary": "#1c333e",
+                        "surface-container-lowest": "#0b0f10",
+                        "surface-container": "#1c2022",
+                        "on-primary-fixed": "#001f25",
+                        "background": "#101416",
+                        "primary": "#44d8f1",
+                        "secondary-fixed": "#cde6f4",
+                        "on-background": "#e0e3e5",
+                        "secondary-fixed-dim": "#b1cad7",
+                        "on-surface": "#e0e3e5",
+                        "error-container": "#93000a",
+                        "surface-bright": "#363a3c",
+                        "on-primary-container": "#004650",
+                        "tertiary-container": "#a0adb4",
+                        "surface": "#101416",
+                        "on-secondary-fixed-variant": "#334a55",
+                        "outline-variant": "#3c494c",
+                        "on-tertiary-container": "#354147",
+                        "secondary-container": "#334a55",
+                        "on-tertiary-fixed-variant": "#3c494f",
+                        "surface-container-high": "#262b2c",
+                        "primary-fixed": "#a1efff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "breakpoint-tablet": "1024px",
+                        "panel-padding": "12px",
+                        "margin": "24px",
+                        "unit": "4px",
+                        "breakpoint-mobile": "600px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["JetBrains Mono"],
+                        "headline-lg": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"],
+                        "headline-lg-mobile": ["IBM Plex Sans"],
+                        "headline-sm": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "1.4", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "headline-sm": ["20px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for industrial feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101416;
+            border-left: 1px solid #3c494c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3c494c;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #44d8f1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md h-screen w-full flex overflow-hidden selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 border-r border-outline-variant bg-surface-container z-40">
+<!-- Header -->
+<div class="p-margin border-b border-outline-variant flex items-center gap-4">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary" data-icon="hub">hub</span>
+</div>
+<div>
+<h2 class="text-label-md font-label-md font-bold text-on-surface">Field Operations</h2>
+<p class="text-label-md font-label-md text-on-surface-variant">Kiosk Compliance</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 py-4 flex flex-col gap-1 px-2">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="inventory_2">inventory_2</span>
+<span class="text-label-md font-label-md uppercase">Inventory</span>
+</a>
+<!-- Active (Intent Match: Gap Analysis) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT bg-secondary-container text-on-secondary-container border-l-4 border-primary scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md uppercase">Gap Analysis</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="request_quote">request_quote</span>
+<span class="text-label-md font-label-md uppercase">Quotes</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+<span class="text-label-md font-label-md uppercase">Fallback</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-colors" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="file_download">file_download</span>
+<span class="text-label-md font-label-md uppercase">Export</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 rounded-DEFAULT uppercase tracking-wider hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2 border border-primary">
+<span class="material-symbols-outlined text-sm" data-icon="play_arrow">play_arrow</span>
+                Start Audit
+            </button>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col md:ml-64 w-full h-full overflow-hidden bg-surface">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-margin w-full sticky top-0 z-50 border-b border-outline-variant bg-surface-container">
+<!-- Left: Brand / Title -->
+<div class="flex items-center gap-4">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary uppercase tracking-wider">Kiosk Audit Ops</h1>
+<!-- Search Bar -->
+<div class="hidden lg:flex items-center bg-surface border border-outline-variant rounded-DEFAULT px-3 py-1.5 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-body-sm font-body-sm text-on-surface focus:ring-0 w-64 p-0 placeholder-on-surface-variant" placeholder="Search parameters..." type="text"/>
+</div>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center gap-gutter">
+<!-- Trailing Primary Action -->
+<button class="hidden sm:flex text-label-md font-label-md text-primary border border-primary px-4 py-1.5 rounded-DEFAULT uppercase tracking-wider hover:bg-surface-variant transition-colors">
+                    Export Data
+                </button>
+<!-- Icon Actions -->
+<button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<!-- Profile Placeholder -->
+<div class="w-8 h-8 rounded-DEFAULT bg-surface-variant border border-outline-variant overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="person">person</span>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-margin">
+<div class="max-w-7xl mx-auto flex flex-col gap-margin">
+<!-- Section 1: Accessibility Gap Header -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container border border-outline-variant p-margin rounded-DEFAULT flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Inspection Scope</span>
+<div class="flex items-end gap-3">
+<span class="text-headline-lg font-headline-lg text-on-surface">2</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant pb-1">Kiosks Inspected</span>
+</div>
+<div class="h-1 w-full bg-surface-variant mt-2">
+<div class="h-full bg-primary w-full"></div>
+</div>
+</div>
+<div class="bg-surface-container border border-error p-margin rounded-DEFAULT flex flex-col gap-2 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error opacity-10 rounded-bl-full"></div>
+<span class="text-label-md font-label-md text-error uppercase tracking-wider flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span> Status
+                        </span>
+<div class="flex items-end gap-3">
+<span class="text-headline-lg font-headline-lg text-error">3</span>
+<span class="text-body-sm font-body-sm text-error pb-1">Critical Gaps</span>
+</div>
+<div class="h-1 w-full bg-surface-variant mt-2">
+<div class="h-full bg-error w-3/4"></div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-margin rounded-DEFAULT flex flex-col gap-2">
+<span class="text-label-md font-label-md text-on-surface-variant uppercase tracking-wider">Sprint Timeline</span>
+<div class="flex items-end gap-3">
+<span class="text-headline-lg font-headline-lg text-primary">30</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant pb-1">Days Remaining</span>
+</div>
+<div class="h-1 w-full bg-surface-variant mt-2">
+<div class="h-full bg-primary w-1/4"></div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout for Operational Details -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Section 2: Kiosk Inventory Cards (Col Span 8) -->
+<section class="lg:col-span-8 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="p-panel-padding border-b border-outline-variant flex justify-between items-center bg-surface-container-high">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Inventory: Cafe Seoul Station</h3>
+<span class="text-label-md font-label-md text-on-surface-variant">LOC-8821</span>
+</div>
+<div class="p-gutter grid grid-cols-1 sm:grid-cols-2 gap-gutter h-full">
+<!-- Kiosk #01 -->
+<div class="bg-surface border border-error rounded-DEFAULT p-panel-padding flex flex-col gap-3 relative">
+<div class="absolute top-2 right-2 px-2 py-1 bg-error/20 border border-error text-error text-label-md font-label-md">FAIL</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface">Kiosk #01</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Model X-200 (2018)</p>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<p class="text-label-md font-label-md text-error uppercase mb-1">Critical Issue:</p>
+<p class="text-body-sm font-body-sm text-on-surface">Screen height &gt; 120cm (Wheelchair access failure)</p>
+</div>
+</div>
+<!-- Kiosk #02 -->
+<div class="bg-surface border border-[#ff9800] rounded-DEFAULT p-panel-padding flex flex-col gap-3 relative">
+<div class="absolute top-2 right-2 px-2 py-1 bg-[#ff9800]/20 border border-[#ff9800] text-[#ff9800] text-label-md font-label-md">WARN</div>
+<div>
+<h4 class="text-headline-sm font-headline-sm text-on-surface">Kiosk #02</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Model X-200 (2018)</p>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<p class="text-label-md font-label-md text-[#ff9800] uppercase mb-1">Warning Issue:</p>
+<p class="text-body-sm font-body-sm text-on-surface">No Voice/Braille support active.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Compliance Checklist (Col Span 4) -->
+<section class="lg:col-span-4 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="p-panel-padding border-b border-outline-variant bg-surface-container-high">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Hardware Compliance</h3>
+</div>
+<div class="flex flex-col p-2">
+<!-- Toggle Item: Fail -->
+<div class="flex items-center justify-between p-2 border-b border-outline-variant hover:bg-surface-variant transition-colors cursor-pointer">
+<span class="text-body-sm font-body-sm text-on-surface">Voice Guidance</span>
+<span class="text-label-md font-label-md text-error bg-error/10 px-2 py-0.5 border border-error/30">FAIL</span>
+</div>
+<!-- Toggle Item: Fail -->
+<div class="flex items-center justify-between p-2 border-b border-outline-variant hover:bg-surface-variant transition-colors cursor-pointer">
+<span class="text-body-sm font-body-sm text-on-surface">Tactile Keyboard</span>
+<span class="text-label-md font-label-md text-error bg-error/10 px-2 py-0.5 border border-error/30">FAIL</span>
+</div>
+<!-- Toggle Item: Fail -->
+<div class="flex items-center justify-between p-2 border-b border-outline-variant hover:bg-surface-variant transition-colors cursor-pointer">
+<span class="text-body-sm font-body-sm text-on-surface">Screen Reader API</span>
+<span class="text-label-md font-label-md text-error bg-error/10 px-2 py-0.5 border border-error/30">FAIL</span>
+</div>
+<!-- Toggle Item: Fail -->
+<div class="flex items-center justify-between p-2 border-b border-outline-variant hover:bg-surface-variant transition-colors cursor-pointer">
+<span class="text-body-sm font-body-sm text-on-surface">Reachable Height (&lt;120cm)</span>
+<span class="text-label-md font-label-md text-error bg-error/10 px-2 py-0.5 border border-error/30">FAIL</span>
+</div>
+<!-- Toggle Item: Pass -->
+<div class="flex items-center justify-between p-2 hover:bg-surface-variant transition-colors cursor-pointer">
+<span class="text-body-sm font-body-sm text-on-surface">High Contrast Mode</span>
+<span class="text-label-md font-label-md text-primary bg-primary/10 px-2 py-0.5 border border-primary/30">PASS</span>
+</div>
+</div>
+</section>
+<!-- Section 4: Customer Journey Failure Map (Col Span 12) -->
+<section class="lg:col-span-12 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="p-panel-padding border-b border-outline-variant bg-surface-container-high">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Customer Journey Failure Map</h3>
+</div>
+<div class="p-margin overflow-x-auto">
+<div class="flex items-center justify-between min-w-[600px] relative">
+<!-- Connecting Line -->
+<div class="absolute top-1/2 left-0 w-full h-px bg-outline-variant -z-10 transform -translate-y-1/2"></div>
+<!-- Step 1 -->
+<div class="flex flex-col items-center gap-2 bg-surface p-3 border border-outline-variant z-10 w-32 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="directions_walk">directions_walk</span>
+<span class="text-label-md font-label-md text-on-surface">Approach</span>
+<span class="text-label-md font-label-md text-error mt-1 border-t border-outline-variant pt-1 w-full">Height Block</span>
+</div>
+<!-- Step 2 -->
+<div class="flex flex-col items-center gap-2 bg-surface p-3 border border-outline-variant z-10 w-32 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="touch_app">touch_app</span>
+<span class="text-label-md font-label-md text-on-surface">Selection</span>
+<span class="text-label-md font-label-md text-error mt-1 border-t border-outline-variant pt-1 w-full">No Braille</span>
+</div>
+<!-- Step 3 -->
+<div class="flex flex-col items-center gap-2 bg-surface p-3 border border-outline-variant z-10 w-32 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="credit_card">credit_card</span>
+<span class="text-label-md font-label-md text-on-surface">Payment</span>
+<span class="text-label-md font-label-md text-primary mt-1 border-t border-outline-variant pt-1 w-full">Accessible</span>
+</div>
+<!-- Step 4 -->
+<div class="flex flex-col items-center gap-2 bg-surface p-3 border border-outline-variant z-10 w-32 text-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="volume_up">volume_up</span>
+<span class="text-label-md font-label-md text-on-surface">Feedback</span>
+<span class="text-label-md font-label-md text-error mt-1 border-t border-outline-variant pt-1 w-full">No Audio</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 5: Retrofit vs. Replacement Quote Table (Col Span 6) -->
+<section class="lg:col-span-6 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col overflow-hidden">
+<div class="p-panel-padding border-b border-outline-variant bg-surface-container-high">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Financial Impact: Retrofit vs. New</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface">
+<th class="p-3 text-label-md font-label-md text-on-surface-variant uppercase font-normal">Solution</th>
+<th class="p-3 text-label-md font-label-md text-on-surface-variant uppercase font-normal">Cost/Unit</th>
+<th class="p-3 text-label-md font-label-md text-on-surface-variant uppercase font-normal">Lead Time</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant bg-surface-container hover:bg-surface-variant transition-colors">
+<td class="p-3 text-body-sm font-body-sm text-primary font-medium">Retrofit Kit (Audio+Keypad)</td>
+<td class="p-3 text-label-md font-label-md text-on-surface">$800</td>
+<td class="p-3 text-label-md font-label-md text-on-surface">2 Weeks</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-variant transition-colors">
+<td class="p-3 text-body-sm font-body-sm text-on-surface">New ADA Kiosk</td>
+<td class="p-3 text-label-md font-label-md text-on-surface">$3,500</td>
+<td class="p-3 text-label-md font-label-md text-on-surface">8 Weeks</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-3 bg-surface-variant text-body-sm font-body-sm text-on-surface border-t border-outline-variant">
+<span class="font-bold">Recommendation:</span> Proceed with retrofit. Saves $5,400 across 2 units for this small business franchise.
+                        </div>
+</section>
+<!-- Section 6: Staff-Assistance Fallback Script (Col Span 6) -->
+<section class="lg:col-span-6 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="p-panel-padding border-b border-outline-variant bg-surface-container-high flex justify-between items-center">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Fallback Protocol Script</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="support_agent">support_agent</span>
+</div>
+<div class="p-margin bg-surface h-full flex flex-col gap-4">
+<p class="text-body-sm font-body-sm text-on-surface-variant italic">To be displayed clearly at the register until kiosks are retrofitted.</p>
+<div class="p-4 border-l-4 border-primary bg-surface-container-highest text-body-md font-body-md text-on-surface leading-relaxed">
+                                "If a customer is unable to use the ordering kiosk due to height or accessibility reasons, staff MUST immediately step forward, offer a printed or verbal menu, and process the order manually at the main counter without redirecting them back to the queue."
+                            </div>
+</div>
+</section>
+<!-- Section 7: Inspection & Signage Readiness (Col Span 8) -->
+<section class="lg:col-span-8 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col">
+<div class="p-panel-padding border-b border-outline-variant bg-surface-container-high">
+<h3 class="text-label-md font-label-md text-on-surface uppercase tracking-wider">Deployment Kanban</h3>
+</div>
+<div class="p-gutter grid grid-cols-1 md:grid-cols-3 gap-gutter h-full">
+<!-- Column 1 -->
+<div class="flex flex-col gap-2">
+<h4 class="text-label-md font-label-md text-on-surface-variant border-b border-outline-variant pb-1">TODO</h4>
+<div class="bg-surface border border-outline-variant p-3 text-body-sm font-body-sm text-on-surface">Order ADA Braille Signage for store entrance.</div>
+</div>
+<!-- Column 2 -->
+<div class="flex flex-col gap-2">
+<h4 class="text-label-md font-label-md text-primary border-b border-outline-variant pb-1">IN PROGRESS</h4>
+<div class="bg-surface border border-primary/50 p-3 text-body-sm font-body-sm text-on-surface">Height Adjustment Mount Ordered (Vendor: TechFix Inc).</div>
+</div>
+<!-- Column 3 -->
+<div class="flex flex-col gap-2">
+<h4 class="text-label-md font-label-md text-on-surface-variant border-b border-outline-variant pb-1">DONE</h4>
+<div class="bg-surface border border-outline-variant p-3 text-body-sm font-body-sm text-on-surface-variant line-through opacity-70">Staff Training Scheduled for manual fallback.</div>
+</div>
+</div>
+</section>
+<!-- Section 8: Vendor Scope-of-Work Export (Col Span 4) -->
+<section class="lg:col-span-4 bg-surface-container border border-outline-variant rounded-DEFAULT flex flex-col justify-center items-center p-margin text-center">
+<div class="w-16 h-16 rounded-full border-2 border-primary border-dashed flex items-center justify-center mb-4 bg-surface">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="description">description</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface mb-2">Scope of Work Ready</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-6">Retrofit specifications for 2x Model X-200 units compiled and ready for vendor dispatch.</p>
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-3 px-4 rounded-DEFAULT uppercase tracking-wider hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2">
+                            Generate Vendor RFP
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

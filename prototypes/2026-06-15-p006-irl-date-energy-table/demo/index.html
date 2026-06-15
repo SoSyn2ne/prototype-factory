@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Friday Cafe Mixer Dashboard</title>
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&amp;family=Work+Sans:wght@300..700&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#faf8ff",
+                      "on-surface": "#131b2e",
+                      "surface-container-highest": "#dae2fd",
+                      "surface-container-high": "#e2e7ff",
+                      "tertiary-fixed": "#6dfe9c",
+                      "surface-tint": "#6d3bd7",
+                      "outline-variant": "#cbc3d7",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#494454",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "inverse-primary": "#d0bcff",
+                      "secondary-fixed": "#ffe24c",
+                      "on-error-container": "#93000a",
+                      "on-secondary-container": "#726200",
+                      "on-tertiary-fixed": "#00210c",
+                      "tertiary": "#006a34",
+                      "on-tertiary-fixed-variant": "#005227",
+                      "background": "#faf8ff",
+                      "secondary-fixed-dim": "#e2c62d",
+                      "primary-fixed-dim": "#d0bcff",
+                      "on-secondary-fixed-variant": "#524600",
+                      "primary-container": "#8455ef",
+                      "outline": "#7b7486",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#f2f3ff",
+                      "on-primary-container": "#fffbff",
+                      "surface-variant": "#dae2fd",
+                      "secondary-container": "#fcdf46",
+                      "tertiary-fixed-dim": "#4de082",
+                      "surface-bright": "#faf8ff",
+                      "on-primary-fixed": "#23005c",
+                      "on-primary-fixed-variant": "#5516be",
+                      "surface-container": "#eaedff",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#6b38d4",
+                      "inverse-surface": "#283044",
+                      "inverse-on-surface": "#eef0ff",
+                      "on-tertiary-container": "#f6fff3",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#d2d9f4",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#e9ddff",
+                      "on-background": "#131b2e",
+                      "secondary": "#6d5e00",
+                      "tertiary-container": "#008644",
+                      "on-secondary-fixed": "#211b00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "40px",
+                      "sm": "12px",
+                      "md": "24px",
+                      "xl": "64px",
+                      "margin-mobile": "20px",
+                      "xs": "4px",
+                      "margin-desktop": "120px",
+                      "gutter": "16px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Bricolage Grotesque"],
+                      "body-lg": ["Work Sans"],
+                      "body-md": ["Work Sans"],
+                      "display-xl-mobile": ["Bricolage Grotesque"],
+                      "headline-md": ["Bricolage Grotesque"],
+                      "sticker-sm": ["Bricolage Grotesque"],
+                      "display-xl": ["Bricolage Grotesque"],
+                      "label-mono": ["Space Mono"]
+              },
+              "fontSize": {
+                      "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "display-xl-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "800"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                      "sticker-sm": ["12px", {"lineHeight": "1", "fontWeight": "800"}],
+                      "display-xl": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                      "label-mono": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Base sticker class for reuse */
+        .brutal-sticker {
+            display: inline-flex;
+            align-items: center;
+            border: 2px solid #131b2e;
+            box-shadow: 2px 2px 0px 0px #131b2e;
+            padding: 4px 8px;
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            line-height: 1;
+            text-transform: uppercase;
+        }
+        .brutal-card {
+            border: 2px solid #131b2e;
+            box-shadow: 4px 4px 0px 0px #131b2e;
+            background-color: #ffffff; /* surface-container-lowest */
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-surface docked full-width top-0 border-b-2 border-on-surface dark:border-outline-variant shadow-[4px_4px_0px_0px_#131b2e] dark:shadow-[4px_4px_0px_0px_#dae2fd] fixed top-0 left-0 w-full z-50 flex justify-between items-center px-md py-sm">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim tracking-tight">
+            VibeMaster
+        </div>
+<div class="flex items-center gap-sm text-primary dark:text-primary-fixed-dim">
+<span class="material-symbols-outlined hover:translate-y-1 hover:shadow-none transition-all duration-100 active:translate-y-1 active:shadow-none cursor-pointer">bolt</span>
+<span class="material-symbols-outlined hover:translate-y-1 hover:shadow-none transition-all duration-100 active:translate-y-1 active:shadow-none cursor-pointer">analytics</span>
+<span class="material-symbols-outlined hover:translate-y-1 hover:shadow-none transition-all duration-100 active:translate-y-1 active:shadow-none cursor-pointer">settings</span>
+<div class="w-8 h-8 rounded-full border-2 border-on-surface overflow-hidden ml-sm">
+<img alt="Host avatar" class="w-full h-full object-cover" data-alt="Close up portrait of a young professional event host with a warm smile, wearing a stylish minimalist outfit, bright studio lighting, white background, high resolution, modern dating app aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAea15vNmSVKrz-l0-ZqHQU5HPFH3UXNyNbKt_IbFvM-VIh8UZskr6td6gqMTIkYfEL6AlYGWbEcK3uqZYwpvSwTFRvUcIDxiv3IT_eyIwWN_HeX0DKGpeIYfKcHve_CxCMpJyHcZSk66DfOq0IhxNgGAlHDNIDbkhWQkq88_F4DcclS8HJZOFRnyQzxKZrlFOmTlnWB-IFxr5oHksEzqcIDEh-xbW-7RMYq1wGVpT-WVxVcVJTZuW1wwJLanNknZTmEFqA74UKMlg"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 mt-[80px]"> <!-- mt offsets fixed header -->
+<!-- SideNavBar (Desktop) -->
+<aside class="bg-surface-container dark:bg-on-surface h-screen w-64 border-r-2 border-on-surface dark:border-outline-variant hidden lg:flex flex-col h-full p-sm gap-md fixed left-0 top-[80px] z-40 bg-surface-container dark:bg-on-surface border-r-2 border-on-surface">
+<div class="flex flex-col items-center p-md border-b-2 border-on-surface mb-sm bg-surface-container-highest brutal-card -rotate-1">
+<div class="font-headline-md text-headline-md italic text-on-surface dark:text-surface-bright mb-xs">The Mix IRL</div>
+<div class="font-label-mono text-label-mono uppercase text-on-surface-variant">6 Tables • 24 Guests</div>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<!-- Tab 1 -->
+<button class="flex items-center gap-sm p-sm rounded-lg border-2 border-transparent font-label-mono text-label-mono uppercase text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-transform hover:scale-105 active:scale-95 transition-all text-left">
+<span class="material-symbols-outlined">rocket_launch</span>
+                    Event Control
+                </button>
+<!-- Tab 2 (Active based on Intent: Dashboard/Grid) -->
+<button class="flex items-center gap-sm p-sm font-label-mono text-label-mono uppercase bg-secondary-container text-on-secondary-container border-2 border-on-surface shadow-[4px_4px_0px_0px_#131b2e] rotate-[-1deg] text-left">
+<span class="material-symbols-outlined">grid_view</span>
+                    Table Grid
+                </button>
+<!-- Tab 3 -->
+<button class="flex items-center gap-sm p-sm rounded-lg border-2 border-transparent font-label-mono text-label-mono uppercase text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-transform hover:scale-105 active:scale-95 transition-all text-left">
+<span class="material-symbols-outlined">favorite</span>
+                    Match Center
+                </button>
+<!-- Tab 4 -->
+<button class="flex items-center gap-sm p-sm rounded-lg border-2 border-transparent font-label-mono text-label-mono uppercase text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-transform hover:scale-105 active:scale-95 transition-all text-left">
+<span class="material-symbols-outlined">chat_bubble</span>
+                    Icebreakers
+                </button>
+<!-- Tab 5 -->
+<button class="flex items-center gap-sm p-sm rounded-lg border-2 border-transparent font-label-mono text-label-mono uppercase text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-transform hover:scale-105 active:scale-95 transition-all text-left">
+<span class="material-symbols-outlined">security</span>
+                    Safety Hub
+                </button>
+</nav>
+<div class="mt-auto flex flex-col gap-sm border-t-2 border-on-surface pt-sm">
+<button class="flex items-center gap-sm p-sm rounded-lg border-2 border-transparent font-label-mono text-label-mono uppercase text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high hover:bg-primary-container hover:text-on-primary-container transition-transform hover:scale-105 active:scale-95 transition-all text-left">
+<span class="material-symbols-outlined">help</span>
+                    Support
+                </button>
+<button class="w-full py-sm bg-error text-on-error border-2 border-on-surface shadow-[4px_4px_0px_0px_#131b2e] font-label-mono text-label-mono uppercase font-bold hover:translate-y-1 hover:shadow-none transition-all active:translate-y-1 active:shadow-none">
+                    End Session
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 lg:ml-64 p-md lg:p-lg pb-32 lg:pb-lg">
+<div class="max-w-[1400px] mx-auto flex flex-col gap-md">
+<!-- 1. Event Energy Header -->
+<section class="brutal-card bg-primary-container text-on-primary-container p-md relative overflow-hidden">
+<!-- Background pattern detail -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#131b2e 2px, transparent 2px); background-size: 16px 16px;"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg mb-xs">Friday Cafe Mixer Dashboard</h1>
+<p class="font-label-mono text-label-mono uppercase flex items-center gap-xs">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed border border-on-surface animate-pulse"></span>
+                                Live Session
+                            </p>
+</div>
+<div class="flex flex-wrap items-center gap-sm">
+<div class="bg-surface text-on-surface border-2 border-on-surface px-sm py-xs font-label-mono text-label-mono">
+<span class="opacity-70 text-sm">Attendees</span> <br/>
+<strong class="text-lg">24/24</strong>
+</div>
+<div class="bg-surface text-on-surface border-2 border-on-surface px-sm py-xs font-label-mono text-label-mono">
+<span class="opacity-70 text-sm">Rotation</span> <br/>
+<strong class="text-lg">Round 3 of 6</strong>
+</div>
+<!-- Vibe Meter Sticker -->
+<div class="brutal-sticker bg-secondary-fixed text-on-secondary-fixed rotate-3 text-lg py-2 px-3 ml-2">
+<span class="material-symbols-outlined mr-1" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                                Vibe is High!
+                            </div>
+</div>
+</div>
+</section>
+<!-- Grid Layout for Main Content -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-md items-start">
+<!-- Left Column: Table Grid (Spans 8 cols) -->
+<section class="xl:col-span-8 flex flex-col gap-md">
+<div class="flex justify-between items-end mb-xs">
+<h2 class="font-headline-md text-headline-md flex items-center gap-xs">
+<span class="material-symbols-outlined">table_restaurant</span> 
+                                Table Rotation Board
+                            </h2>
+<button class="font-label-mono text-label-mono uppercase border-b-2 border-on-surface hover:text-primary transition-colors">Shuffle Next</button>
+</div>
+<!-- Bento Grid for 6 Tables -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Table 1 -->
+<div class="brutal-card p-sm bg-surface flex flex-col">
+<div class="flex justify-between items-center mb-sm border-b-2 border-on-surface pb-xs">
+<span class="font-headline-md text-headline-md text-xl">Table 1</span>
+<span class="brutal-sticker bg-tertiary-fixed text-on-tertiary-fixed scale-75 -rotate-2">Vibing</span>
+</div>
+<div class="grid grid-cols-2 gap-xs">
+<!-- Guest -->
+<div class="border-2 border-on-surface p-xs bg-surface-container relative">
+<div class="w-10 h-10 border-2 border-on-surface rounded-full overflow-hidden bg-white mb-1">
+<img alt="Guest" class="w-full h-full object-cover" data-alt="Candid headshot of a smiling man in his late 20s wearing a casual denim shirt. Urban cafe setting with blurred background. Bright, natural lighting, high contrast neobrutalist UI styling context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAAbRCWRCAm5aK86-zsm8RMPUyhpaLawtVZhI8lesvIFTQOnZCS0mtH3TGqECy6LYiXTEhqa_GFW5o3I0ffL3w9qglzYMseAvQFviHI_nbVhywthvm-1AknAELYLGp5U4QnxQGMoxZE8Z2UznR_bE8r22Vs1iWEXqFXo3nNroIz5juve08_exmT_Pjz61rY2lB0loiWzST39YIs0DqgtBgWwCkmuDtB0OJoAXEioKrfWYQkHBeTXuDkzfpYdRRQsHSij9Juh91Zaq4"/>
+</div>
+<span class="font-label-mono text-[10px] block truncate">Alex M.</span>
+<div class="absolute -top-2 -right-2 brutal-sticker bg-secondary-container text-[8px] px-1 py-0 rotate-6">App Tired</div>
+</div>
+<!-- Guest -->
+<div class="border-2 border-on-surface p-xs bg-surface-container relative">
+<div class="w-10 h-10 border-2 border-on-surface rounded-full overflow-hidden bg-white mb-1">
+<img alt="Guest" class="w-full h-full object-cover" data-alt="Candid headshot of a laughing woman in her 30s with curly hair. Vibrant yellow background subtly visible. Bright studio lighting, high contrast neobrutalist UI styling context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7epPs1zlAkdSMkvzaP1W96ijgz8lZGb2dv2IZwS3q0cnbcFchVcUjvvGXsdSOff4Szmpau31yW-Og8rBk1NETCC_o88FEHptMrxso-Ue-oa4e_9QZm_FpN9zCQ15QvgTmCueI59UPWnEOd-p3hc0-4_PbbkCUvn0unWn5zUaD0IFWkjocOGifDRx6S1Z5hFCx8eVzsYtUkp19IsREM5NpGkKhr2XPE9jofy7hkcT6v9aIGnpnQS9EdOYX7iLWHD6aO7rNo7hryWk"/>
+</div>
+<span class="font-label-mono text-[10px] block truncate">Sarah K.</span>
+<div class="absolute -bottom-2 -left-2 w-4 h-4 rounded-full border-2 border-on-surface bg-primary" title="Group A"></div>
+</div>
+<!-- Guest -->
+<div class="border-2 border-on-surface p-xs bg-surface-container relative">
+<div class="w-10 h-10 border-2 border-on-surface rounded-full overflow-hidden bg-white mb-1">
+<img alt="Guest" class="w-full h-full object-cover" data-alt="Close up portrait of a serious young man with a beard and glasses. Minimalist white background. Sharp focus, high contrast, fitting a modern social app dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCibB5jQRajq09-GGc-gvs3op7pKqAL3duxG4FPpvN_XWl0DOIe2nPi0FbN7tB5FVzueq_6dDMMBW6m7yalRRC6bdUjcpF7yH67C4CxtJvCYgK9xZwmBouZD9Kk-Llql3_Sb1_fIGcdJEsG9uBe_-A9odu-3qe11or6WiMfNEngV1pVrwKJZ6RJTvGmyDawIOMrY3Kxh4WP6JBJLLaAjHyx-Ff0BUQiI9alnRQP7y7jymVsC_En7mYvECQ_hWVPMfaitk9EPXZkD_M"/>
+</div>
+<span class="font-label-mono text-[10px] block truncate">Jordan T.</span>
+</div>
+<!-- Guest -->
+<div class="border-2 border-on-surface p-xs bg-surface-container relative">
+<div class="w-10 h-10 border-2 border-on-surface rounded-full overflow-hidden bg-white mb-1">
+<img alt="Guest" class="w-full h-full object-cover" data-alt="Portrait of a young woman with a bright smile wearing a colorful scarf. Warm indoor cafe lighting. Expressive, high energy aesthetic for a dating app interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFWOvPtWMf-7Cx9qKWNNVAxHvn-Mvk4qZOpseKue_kqXtGiNL-OzkTr6kINYSyjgchr0QwDdQEwlNMWThQSJp1X5Ljm0QF5VGqhIJ1G8pekUUBcysOMYunjzzo2eUQYjBlpQNkyF2osNuffrKil2uVyB0w9tNw2UlgnCBJPPQNLMOB1e8rfnic5KvzqI4J1htfQzRWGn7ltNarPRK3sg5rnqrTP3KCUFDqwVrPr-m5FB6wEOERT2sSgN89y-5eGvUWcrWVCaxcb3Y"/>
+</div>
+<span class="font-label-mono text-[10px] block truncate">Mia R.</span>
+<div class="absolute -top-2 -right-1 brutal-sticker bg-surface-tint text-on-tertiary text-[8px] px-1 py-0 -rotate-3">Social Butterfly</div>
+</div>
+</div>
+</div>
+<!-- Table 2 (Placeholder structure for visual weight) -->
+<div class="brutal-card p-sm bg-surface-container-high flex flex-col relative overflow-hidden">
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+<span class="material-symbols-outlined text-[100px]">coffee</span>
+</div>
+<div class="relative z-10">
+<div class="flex justify-between items-center mb-sm border-b-2 border-on-surface pb-xs">
+<span class="font-headline-md text-headline-md text-xl">Table 2</span>
+</div>
+<div class="grid grid-cols-2 gap-xs opacity-80">
+<!-- Dummy guests for layout filler -->
+<div class="border-2 border-on-surface p-xs bg-surface h-20 flex flex-col justify-end"><span class="font-label-mono text-[10px]">Guest 5</span></div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20 flex flex-col justify-end"><span class="font-label-mono text-[10px]">Guest 6</span></div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20 flex flex-col justify-end"><span class="font-label-mono text-[10px]">Guest 7</span></div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20 flex flex-col justify-end"><span class="font-label-mono text-[10px]">Guest 8</span></div>
+</div>
+</div>
+</div>
+<!-- Table 3 -->
+<div class="brutal-card p-sm bg-surface flex flex-col">
+<div class="flex justify-between items-center mb-sm border-b-2 border-on-surface pb-xs">
+<span class="font-headline-md text-headline-md text-xl">Table 3</span>
+</div>
+<div class="grid grid-cols-2 gap-xs">
+<div class="border-2 border-on-surface p-xs bg-surface h-20"></div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20 relative">
+<!-- Group B indicator -->
+<div class="absolute top-1 left-1 w-4 h-4 rounded-full border-2 border-on-surface bg-secondary" title="Group B"></div>
+</div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20"></div>
+<div class="border-2 border-on-surface p-xs bg-surface h-20 relative">
+<!-- Group B indicator -->
+<div class="absolute top-1 left-1 w-4 h-4 rounded-full border-2 border-on-surface bg-secondary" title="Group B"></div>
+</div>
+</div>
+<div class="mt-2 text-center">
+<span class="font-label-mono text-[10px] text-error font-bold block bg-error-container border border-on-surface mt-1">Warning: Group B isolated</span>
+</div>
+</div>
+<!-- Table 4, 5, 6 (Minimized for space, showing grid structure) -->
+<div class="brutal-card p-sm bg-surface flex items-center justify-center opacity-60">
+<span class="font-label-mono text-label-mono">Table 4 Loading...</span>
+</div>
+<div class="brutal-card p-sm bg-surface flex items-center justify-center opacity-60">
+<span class="font-label-mono text-label-mono">Table 5 Loading...</span>
+</div>
+<div class="brutal-card p-sm bg-surface flex items-center justify-center opacity-60">
+<span class="font-label-mono text-label-mono">Table 6 Loading...</span>
+</div>
+</div>
+</section>
+<!-- Right Column: Sidebar (Spans 4 cols) -->
+<aside class="xl:col-span-4 flex flex-col gap-md">
+<!-- 3. Prompt Card Deck -->
+<div class="brutal-card bg-secondary-container text-on-secondary-container p-md rotate-1 transform hover:rotate-0 transition-transform cursor-pointer relative">
+<div class="absolute top-2 right-2 flex gap-1">
+<span class="w-2 h-2 rounded-full bg-on-surface"></span>
+<span class="w-2 h-2 rounded-full bg-on-surface"></span>
+</div>
+<h3 class="font-label-mono text-label-mono uppercase mb-sm border-b-2 border-on-secondary-container pb-xs inline-block">Icebreaker of the Moment</h3>
+<p class="font-headline-md text-headline-md leading-tight mb-md">"What's a hobby you're gatekeeping right now?"</p>
+<button class="bg-surface text-on-surface font-label-mono text-label-mono uppercase border-2 border-on-surface shadow-[2px_2px_0px_0px_#131b2e] px-sm py-xs hover:bg-primary-container hover:text-on-primary-container active:translate-y-[2px] active:shadow-none transition-all">
+                                Broadcast to Tables
+                            </button>
+</div>
+<!-- 4. Boundary & Exit Controls -->
+<div class="brutal-card bg-surface p-sm">
+<h3 class="font-headline-md text-headline-md text-lg mb-sm flex items-center gap-xs border-b-2 border-on-surface pb-xs">
+<span class="material-symbols-outlined">sensors</span> Status Board
+                            </h3>
+<ul class="flex flex-col gap-2 font-label-mono text-label-mono">
+<li class="flex items-center justify-between border-2 border-on-surface p-xs bg-surface-container-highest">
+<span>T2: Sam D.</span>
+<span class="flex items-center gap-1 text-tertiary">
+<span class="w-3 h-3 rounded-full bg-tertiary-fixed border border-on-surface"></span> Green Light
+                                    </span>
+</li>
+<li class="flex items-center justify-between border-2 border-on-surface p-xs bg-surface-container-highest">
+<span>T5: Emma P.</span>
+<span class="flex items-center gap-1 text-secondary">
+<span class="w-3 h-3 rounded-full bg-secondary-fixed border border-on-surface"></span> Ready to rotate
+                                    </span>
+</li>
+<li class="flex items-center justify-between border-2 border-error p-xs bg-error-container text-on-error-container">
+<span>T1: Alex M.</span>
+<span class="flex items-center gap-1 font-bold">
+<span class="w-3 h-3 rounded-full bg-error border border-on-surface animate-pulse"></span> Help Needed
+                                    </span>
+</li>
+</ul>
+</div>
+<!-- 6. Friend Wingperson Notes -->
+<div class="brutal-card bg-surface p-sm flex-1 flex flex-col relative">
+<!-- Tape effect top center -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-16 h-6 bg-surface-variant opacity-80 rotate-2 border border-on-surface"></div>
+<h3 class="font-label-mono text-label-mono uppercase mb-sm border-b-2 border-on-surface pb-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">edit_note</span> Wingperson Notes
+                            </h3>
+<div class="flex-1 bg-surface-container-lowest border-2 border-on-surface p-xs font-body-md text-sm mb-sm overflow-y-auto" style="min-height: 120px;">
+<p class="mb-2 pb-1 border-b border-outline-variant border-dashed"><span class="font-bold text-primary">19:45</span> - Table 4 is hitting it off, let them run long.</p>
+<p class="mb-2 pb-1 border-b border-outline-variant border-dashed"><span class="font-bold text-primary">19:50</span> - T3 needs a rotation boost, energy low.</p>
+</div>
+<div class="flex gap-xs">
+<input class="flex-1 border-2 border-on-surface bg-surface p-xs font-label-mono text-xs focus:ring-0 focus:border-primary focus:outline-none" placeholder="Add note..." type="text"/>
+<button class="bg-primary text-on-primary border-2 border-on-surface px-2 shadow-[2px_2px_0px_0px_#131b2e] active:translate-y-[2px] active:shadow-none">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</aside>
+</div>
+<!-- Bottom Row: Splitting remaining sections -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mt-sm">
+<!-- 5. Mutual Opt-in Follow-up Lane -->
+<section class="brutal-card bg-surface p-sm">
+<h3 class="font-headline-md text-headline-md text-lg mb-sm border-b-2 border-on-surface pb-xs flex justify-between items-end">
+                            Match Lane
+                            <span class="brutal-sticker bg-tertiary text-on-tertiary scale-75 rotate-2">3 New</span>
+</h3>
+<div class="flex gap-sm overflow-x-auto pb-2">
+<!-- Match Item -->
+<div class="flex items-center gap-2 border-2 border-on-surface p-2 bg-surface-container-low min-w-[200px]">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-on-surface bg-gray-200"></div>
+<div class="w-8 h-8 rounded-full border-2 border-on-surface bg-gray-300"></div>
+</div>
+<div class="font-label-mono text-[10px] leading-tight">
+<strong>Sarah + Jordan</strong><br/>
+<span class="text-tertiary">Mutual 'Yes'</span>
+</div>
+</div>
+<!-- Match Item -->
+<div class="flex items-center gap-2 border-2 border-on-surface p-2 bg-surface-container-low min-w-[200px]">
+<div class="flex -space-x-2">
+<div class="w-8 h-8 rounded-full border-2 border-on-surface bg-gray-200"></div>
+<div class="w-8 h-8 rounded-full border-2 border-on-surface bg-gray-300"></div>
+</div>
+<div class="font-label-mono text-[10px] leading-tight">
+<strong>Mia + Alex</strong><br/>
+<span class="text-tertiary">Mutual 'Yes'</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Shareable Recap Card Preview -->
+<section class="brutal-card bg-inverse-surface text-inverse-on-surface p-sm flex items-center justify-between overflow-hidden relative">
+<!-- Abstract shapes in background -->
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-primary rounded-full blur-xl opacity-50 pointer-events-none"></div>
+<div class="relative z-10">
+<h3 class="font-label-mono text-label-mono uppercase text-inverse-primary mb-1">Post-Event Recap Preview</h3>
+<div class="font-headline-md text-headline-md mb-2">12 New Connections</div>
+<div class="flex gap-2">
+<span class="border border-inverse-on-surface px-2 py-1 font-label-mono text-[10px] rounded-full">80% Laughter Rate</span>
+<span class="border border-inverse-on-surface px-2 py-1 font-label-mono text-[10px] rounded-full">High Vibe</span>
+</div>
+</div>
+<button class="relative z-10 w-12 h-12 rounded-full bg-secondary-container text-on-secondary-container border-2 border-on-surface flex items-center justify-center hover:scale-110 transition-transform">
+<span class="material-symbols-outlined">ios_share</span>
+</button>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface dark:bg-on-surface docked full-width bottom-0 rounded-t-full border-t-2 border-on-surface bg-surface-container-highest dark:bg-on-surface shadow-[0px_-4px_0px_0px_#131b2e] lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-sm pb-8 pt-4">
+<!-- Item 1 -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant transition-colors active:scale-90 transition-transform p-2 rounded-xl">
+<span class="material-symbols-outlined mb-1">query_stats</span>
+<span class="font-sticker-sm text-sticker-sm uppercase">Stats</span>
+</button>
+<!-- Item 2 (Active based on Intent) -->
+<button class="flex flex-col items-center justify-center bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface rounded-xl p-xs rotate-2 hover:bg-surface-variant transition-colors active:scale-90 transition-transform px-4">
+<span class="material-symbols-outlined mb-1">table_restaurant</span>
+<span class="font-sticker-sm text-sticker-sm uppercase">Grid</span>
+</button>
+<!-- Item 3 -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant transition-colors active:scale-90 transition-transform p-2 rounded-xl">
+<span class="material-symbols-outlined mb-1">hub</span>
+<span class="font-sticker-sm text-sticker-sm uppercase">Matches</span>
+</button>
+<!-- Item 4 -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-variant transition-colors active:scale-90 transition-transform p-2 rounded-xl">
+<span class="material-symbols-outlined mb-1">emergency</span>
+<span class="font-sticker-sm text-sticker-sm uppercase">Safety</span>
+</button>
+</nav>
+</body></html>

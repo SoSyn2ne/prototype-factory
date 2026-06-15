@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reservation Desk - No-Show Deposit Guard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#5c5f61",
+                        "tertiary-container": "#2e2d2b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#c9c6c3",
+                        "on-secondary-fixed-variant": "#444749",
+                        "inverse-primary": "#c8c6c6",
+                        "surface-container-high": "#ebe7e7",
+                        "inverse-surface": "#313030",
+                        "on-tertiary-container": "#979491",
+                        "surface": "#fdf8f8",
+                        "surface-tint": "#5f5e5e",
+                        "surface-variant": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-container": "#626567",
+                        "outline-variant": "#c4c7c7",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "surface-container": "#f1edec",
+                        "secondary-fixed": "#e0e3e5",
+                        "tertiary": "#191917",
+                        "surface-container-low": "#f7f3f2",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#2d2d2d",
+                        "surface-bright": "#fdf8f8",
+                        "primary-fixed-dim": "#c8c6c6",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#484644",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#e4e2e1",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-primary-container": "#959494",
+                        "on-primary": "#ffffff",
+                        "background": "#fdf8f8",
+                        "outline": "#747878",
+                        "on-background": "#1c1b1b",
+                        "surface-dim": "#ddd9d8",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "on-surface": "#1c1b1b",
+                        "secondary-container": "#e0e3e5",
+                        "inverse-on-surface": "#f4f0ef",
+                        "on-secondary-fixed": "#191c1e",
+                        "primary": "#181919",
+                        "tertiary-fixed": "#e6e2de"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "table-cell-padding": "8px 12px",
+                        "stack-tight": "4px",
+                        "gutter": "12px",
+                        "container-padding": "16px",
+                        "stack-med": "12px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-xs": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "data-mono": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                        "label-xs": ["11px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-sm": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .fog-bg { background-color: #F5F7F9; }
+        .electric-blue { background-color: #0052FF; color: white; }
+        .vivid-orange { background-color: #FF5A00; color: white; }
+        .charcoal-border { border-color: #333333; }
+        .urgent-text { color: #FF5A00; }
+        .success-text { color: #00A651; }
+        
+        /* Custom Scrollbar for dense lists */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c4c7c7;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #747878;
+        }
+    </style>
+</head>
+<body class="fog-bg text-on-surface font-body-sm h-screen overflow-hidden flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-container-padding h-12 shrink-0">
+<div class="flex items-center gap-container-padding">
+<span class="text-headline-sm font-headline-sm font-black text-primary dark:text-inverse-primary tracking-tight">No-Show Deposit Guard</span>
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-container-padding ml-8">
+<a class="text-primary dark:text-inverse-primary border-b-2 border-primary dark:border-inverse-primary pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors text-label-xs font-label-xs uppercase" href="#">Exposure Analytics</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors text-label-xs font-label-xs uppercase" href="#">Risk Alerts</a>
+</nav>
+</div>
+<div class="flex items-center gap-stack-med">
+<!-- Search -->
+<div class="relative hidden sm:block w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded pl-8 pr-3 py-1 text-body-sm font-body-sm focus:outline-none focus:border-charcoal-border transition-colors" placeholder="Search reservations..." type="text"/>
+</div>
+<!-- Actions -->
+<button class="electric-blue px-3 py-1 rounded text-label-xs font-label-xs font-bold uppercase tracking-wide hover:opacity-90 transition-opacity">Evidence Export</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-tertiary-container border-r border-outline-variant dark:border-outline flex flex-col h-full py-container-padding gap-stack-med w-64 shrink-0 hidden md:flex">
+<!-- Header -->
+<div class="px-container-padding mb-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-variant overflow-hidden shrink-0">
+<img alt="Manager Avatar" class="w-full h-full object-cover" data-alt="A professional headshot of a corporate manager in a modern, well-lit office environment. The individual is wearing a crisp business suit, looking directly at the camera with a confident, approachable expression. The lighting is bright and high-key, emphasizing a clean, light-mode corporate aesthetic. Deep blacks of the suit contrast sharply against a pristine white and soft gray background, conveying precision and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFce7Y6iq1TjSxIpEaDw9EQCrJFsAHubAldU6H8NqQDIs2UPvySowkt1Gcy_Lu8xU0wyFX9EVlUAA1Y6njvTeJwCJdOuXirlJw76zgymfM_R60Fxbljg4HBEI1UEywMDZ8MDiT026KeeVq4yph_8tXyZnyinGapYoXm9hLzdWAhOsdZU_vCEEH1k0APlFNKaGNEwAW7scLusXadd85_ufLsz0_igggSNtnKiKipaj3mBBQhj1_9e5j-5Bd4-LuSxf3hnwetObNYyI"/>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm font-bold text-primary dark:text-inverse-primary leading-tight">Main Terminal</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Shift: 08:00 - 16:00</div>
+</div>
+</div>
+<!-- Tabs -->
+<nav class="flex-1 flex flex-col gap-1 px-2">
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary font-bold hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today" style="font-variation-settings: 'FILL' 1;">calendar_today</span>
+<span class="font-label-xs text-label-xs uppercase">Reservations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="format_list_numbered">format_list_numbered</span>
+<span class="font-label-xs text-label-xs uppercase">Waitlist</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="calculate">calculate</span>
+<span class="font-label-xs text-label-xs uppercase">Cost Calculator</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="policy">policy</span>
+<span class="font-label-xs text-label-xs uppercase">Policies</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="gavel">gavel</span>
+<span class="font-label-xs text-label-xs uppercase">Evidence Packets</span>
+</a>
+</nav>
+<!-- Footer -->
+<div class="px-2 mt-auto border-t border-outline-variant pt-stack-med flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="translate">translate</span>
+<span class="font-label-xs text-label-xs uppercase">Language Toggle</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="help_outline">help_outline</span>
+<span class="font-label-xs text-label-xs uppercase">Help</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-container-padding flex flex-col gap-gutter">
+<!-- Dashboard Header: Exposure Analytics -->
+<div class="bg-surface border border-outline-variant rounded p-container-padding shadow-sm">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary mb-stack-med">Exposure Analytics</h1>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Metric Card 1 -->
+<div class="p-3 border border-outline-variant rounded bg-surface-container-lowest">
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase mb-1">Total No-Show Loss (Mtd)</div>
+<div class="font-data-mono text-display-sm font-bold text-primary">₩ 2,450,000</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-error">trending_up</span>
+<span>+5% vs last month</span>
+</div>
+</div>
+<!-- Metric Card 2 -->
+<div class="p-3 border border-outline-variant rounded bg-surface-container-lowest">
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase mb-1">Active Deposit Risk</div>
+<div class="font-data-mono text-display-sm font-bold urgent-text">₩ 340,000</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1">4 pending replies</div>
+</div>
+<!-- Metric Card 3 -->
+<div class="p-3 border border-outline-variant rounded bg-surface-container-lowest">
+<div class="font-label-xs text-label-xs text-on-surface-variant uppercase mb-1">Recovery Rate</div>
+<div class="font-data-mono text-display-sm font-bold success-text">88.5%</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] success-text">check_circle</span>
+<span>Above target (85%)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row gap-gutter flex-1 min-h-0">
+<!-- Left Column: Data Table -->
+<div class="flex-1 flex flex-col bg-surface border border-outline-variant rounded shadow-sm overflow-hidden min-h-[400px]">
+<div class="p-3 border-b border-outline-variant bg-surface-container flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Active Reservations</h2>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+<span class="font-label-xs text-label-xs uppercase">Filter</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs uppercase">
+<th class="p-[8px_12px] font-bold">Booking Details</th>
+<th class="p-[8px_12px] font-bold">Deposit</th>
+<th class="p-[8px_12px] font-bold">Status</th>
+<th class="p-[8px_12px] font-bold">Deadline</th>
+<th class="p-[8px_12px] font-bold text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm bg-surface">
+<!-- Row 1 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="p-[8px_12px]">
+<div class="font-bold text-primary">Seoul Omakase Dinner</div>
+<div class="text-on-surface-variant text-[11px]">Today, 18:00 • 2 Pax</div>
+</td>
+<td class="p-[8px_12px] font-data-mono">
+<div>100,000 KRW</div>
+<div class="text-[10px] success-text font-bold uppercase">Paid</div>
+</td>
+<td class="p-[8px_12px]">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-container-highest text-on-surface text-[10px] font-bold uppercase">Reply Received</span>
+</td>
+<td class="p-[8px_12px]">
+<span class="inline-flex items-center px-2 py-0.5 rounded border border-outline-variant text-on-surface text-[10px] font-bold uppercase bg-surface-container-low">2h left</span>
+</td>
+<td class="p-[8px_12px] text-right">
+<button class="border border-outline text-primary px-2 py-1 rounded text-[10px] font-bold uppercase hover:bg-surface-container transition-colors invisible group-hover:visible">Details</button>
+</td>
+</tr>
+<!-- Row 2 (Urgent) -->
+<tr class="border-b border-outline-variant bg-error-container/10 hover:bg-error-container/20 transition-colors group">
+<td class="p-[8px_12px]">
+<div class="font-bold text-primary">Salon Hair Color</div>
+<div class="text-on-surface-variant text-[11px]">Today, 14:00 • 1 Pax</div>
+</td>
+<td class="p-[8px_12px] font-data-mono">
+<div>50,000 KRW</div>
+<div class="text-[10px] urgent-text font-bold uppercase">Pending</div>
+</td>
+<td class="p-[8px_12px]">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-error-container text-on-error-container text-[10px] font-bold uppercase">No Reply</span>
+</td>
+<td class="p-[8px_12px]">
+<span class="inline-flex items-center px-2 py-0.5 rounded vivid-orange text-[10px] font-bold uppercase shadow-sm animate-pulse">EXPIRED</span>
+</td>
+<td class="p-[8px_12px] text-right">
+<button class="vivid-orange px-2 py-1 rounded text-[10px] font-bold uppercase hover:opacity-90 transition-opacity shadow-sm whitespace-nowrap">Reopen Slot</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-outline-variant hover:bg-surface-container-lowest transition-colors group">
+<td class="p-[8px_12px]">
+<div class="font-bold text-primary">Electronic Repair Slot</div>
+<div class="text-on-surface-variant text-[11px]">Today, 11:00 • Walk-in Appt</div>
+</td>
+<td class="p-[8px_12px] font-data-mono">
+<div>20,000 KRW</div>
+<div class="text-[10px] success-text font-bold uppercase">Paid</div>
+</td>
+<td class="p-[8px_12px]">
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Confirmed</span>
+</td>
+<td class="p-[8px_12px]">
+<span class="text-on-surface-variant text-[10px]">-</span>
+</td>
+<td class="p-[8px_12px] text-right">
+<button class="border border-outline text-primary px-2 py-1 rounded text-[10px] font-bold uppercase hover:bg-surface-container transition-colors invisible group-hover:visible">Details</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Right Column: Action Lanes (Fixed Width 320px) -->
+<div class="w-full lg:w-[320px] flex flex-col gap-gutter shrink-0 overflow-y-auto pr-1">
+<!-- Cost Calculation Card -->
+<div class="bg-surface border border-outline-variant rounded shadow-sm p-3">
+<h3 class="font-label-xs text-label-xs font-bold uppercase text-primary mb-2 flex items-center justify-between">
+<span>Cost Calculator</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">calculate</span>
+</h3>
+<div class="bg-surface-container-low rounded border border-outline-variant p-2 mb-3">
+<div class="font-body-sm text-[10px] text-on-surface-variant uppercase mb-1">Prep-cost Breakdown</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant border-dashed">
+<span class="font-body-sm text-body-sm">Ingredients</span>
+<span class="font-data-mono text-data-mono">₩ 45,000</span>
+</div>
+<div class="flex justify-between items-center py-1 border-b border-outline-variant border-dashed">
+<span class="font-body-sm text-body-sm">Staffing</span>
+<span class="font-data-mono text-data-mono">₩ 30,000</span>
+</div>
+<div class="flex justify-between items-center py-1">
+<span class="font-body-sm text-body-sm">Opportunity Cost</span>
+<span class="font-data-mono text-data-mono">₩ 80,000</span>
+</div>
+<div class="flex justify-between items-center pt-2 mt-1 border-t border-outline-variant font-bold">
+<span class="font-label-xs text-label-xs uppercase">Total Exposure</span>
+<span class="font-data-mono text-data-mono text-primary">₩ 155,000</span>
+</div>
+</div>
+<!-- Fair Fee Policy Preview -->
+<div class="bg-surface-container rounded p-2 border-l-2 border-primary">
+<div class="font-label-xs text-[10px] uppercase font-bold text-primary mb-1">Fair Fee Policy Preview</div>
+<ul class="font-body-sm text-[11px] text-on-surface-variant space-y-1">
+<li class="flex justify-between"><span>&gt; 24h Cancellation:</span> <strong>50% Refund</strong></li>
+<li class="flex justify-between"><span>&lt; 4h Cancellation:</span> <strong class="text-error">0% Refund</strong></li>
+</ul>
+</div>
+</div>
+<!-- Communication Toolkit -->
+<div class="bg-surface border border-outline-variant rounded shadow-sm p-3">
+<div class="flex justify-between items-center mb-2">
+<h3 class="font-label-xs text-label-xs font-bold uppercase text-primary">Comms Toolkit</h3>
+<div class="flex bg-surface-container border border-outline-variant rounded overflow-hidden">
+<button class="px-2 py-0.5 text-[10px] font-bold bg-secondary-container text-on-secondary-container">EN</button>
+<button class="px-2 py-0.5 text-[10px] font-bold text-on-surface-variant hover:bg-surface-container-high">KR</button>
+</div>
+</div>
+<div class="relative bg-surface-container-lowest border border-outline-variant rounded p-2 font-body-sm text-[12px] leading-relaxed text-on-surface">
+                            "[No-Show Guard] Your 6 PM reservation is tomorrow. Please reply 'YES' to confirm or click here to cancel by 4 PM to avoid the 50% prep-fee."
+                            <button class="absolute bottom-2 right-2 text-primary hover:text-secondary transition-colors" title="Copy to clipboard">
+<span class="material-symbols-outlined text-[14px]">content_copy</span>
+</button>
+</div>
+<button class="w-full mt-2 border border-charcoal-border text-primary py-1.5 rounded text-[10px] font-bold uppercase hover:bg-surface-container transition-colors text-center">
+                            Send Manual SMS
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

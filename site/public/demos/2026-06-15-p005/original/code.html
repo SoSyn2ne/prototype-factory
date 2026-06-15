@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Room - Med Fee Pushback File</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Public+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-container": "#fff9f8",
+                        "secondary": "#885213",
+                        "on-surface-variant": "#434842",
+                        "on-background": "#1b1c19",
+                        "on-secondary-fixed-variant": "#6a3b00",
+                        "primary-container": "#5f7a61",
+                        "on-secondary-container": "#774403",
+                        "inverse-on-surface": "#f2f1ec",
+                        "secondary-container": "#fdb56e",
+                        "on-primary-container": "#efffec",
+                        "surface-container": "#f0eee9",
+                        "surface-tint": "#4a654d",
+                        "primary-fixed-dim": "#b1ceb1",
+                        "surface-bright": "#fbf9f4",
+                        "on-primary-fixed-variant": "#334d36",
+                        "on-primary-fixed": "#07200e",
+                        "surface": "#fbf9f4",
+                        "outline": "#737971",
+                        "secondary-fixed-dim": "#ffb872",
+                        "secondary-fixed": "#ffdcbf",
+                        "on-primary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#983e29",
+                        "surface-container-high": "#eae8e3",
+                        "on-surface": "#1b1c19",
+                        "inverse-primary": "#b1ceb1",
+                        "on-tertiary-fixed": "#3d0700",
+                        "tertiary-container": "#b8563f",
+                        "background": "#fbf9f4",
+                        "surface-container-low": "#f5f3ee",
+                        "outline-variant": "#c3c8bf",
+                        "on-secondary": "#ffffff",
+                        "primary": "#47614a",
+                        "on-tertiary-fixed-variant": "#7e2b18",
+                        "surface-dim": "#dbdad5",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#cceacc",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb4a3",
+                        "surface-variant": "#e4e2dd",
+                        "surface-container-highest": "#e4e2dd",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed": "#2d1600",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#30312e",
+                        "tertiary-fixed": "#ffdad2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding-mobile": "20px",
+                        "stack-gap": "16px",
+                        "gutter": "24px",
+                        "unit": "8px",
+                        "section-gap": "64px",
+                        "container-padding-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Public Sans"],
+                        "headline-lg-mobile": ["Newsreader"],
+                        "body-lg": ["Public Sans"],
+                        "body-md": ["Public Sans"],
+                        "headline-lg": ["Newsreader"],
+                        "display-lg": ["Newsreader"],
+                        "label-md": ["Public Sans"],
+                        "headline-md": ["Newsreader"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+        .plinth { box-shadow: 0 4px 20px -2px rgba(71, 97, 74, 0.08); }
+        .timeline-line { position: absolute; left: 15px; top: 24px; bottom: 0; width: 2px; background-color: theme('colors.surface-variant'); z-index: 0; }
+        .timeline-dot { position: relative; z-index: 1; }
+    </style>
+</head>
+<body class="antialiased min-h-screen font-body-md bg-background text-on-background">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-container-desktop h-16 bg-surface dark:bg-surface-dim bg-surface-container-low dark:bg-surface-container-highest shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">description</span>
+<h1 class="font-headline-md text-headline-md text-primary dark:text-primary-fixed-dim tracking-tight">Med Fee Pushback File</h1>
+</div>
+<div class="hidden md:flex gap-6 items-center">
+<nav class="flex gap-4">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md hover:bg-surface-variant transition-colors rounded-sm px-2" href="#">Evidence Room</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-colors rounded-sm px-2 pb-1" href="#">Policy Analysis</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-colors rounded-sm px-2 pb-1" href="#">Negotiation Notes</a>
+<a class="text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-colors rounded-sm px-2 pb-1" href="#">Care Continuity Packet</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full hover:bg-primary/90 transition-colors shadow-sm scale-95 active:opacity-80">
+<span>Ready for Meeting</span>
+</button>
+<div class="flex gap-2">
+<button class="p-2 rounded-full hover:bg-surface-variant text-primary transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-variant text-primary transition-colors scale-95 active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<div class="pt-24 pb-32 px-container-mobile md:px-container-desktop max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Main Content Area -->
+<main class="md:col-span-12 space-y-section-gap">
+<!-- 1. Fee Shock Header -->
+<section class="bg-surface-bright rounded-xl p-8 plinth border-l-4 border-error relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-error-container rounded-bl-full opacity-50"></div>
+<div class="relative z-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="bg-error-container text-on-error-container font-label-sm text-label-sm px-2 py-1 rounded-sm uppercase tracking-wider">Urgent Dispute</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">Case: Miller, J.</span>
+</div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-2">Facility Medication Management Fee</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">New mandatory charge implemented by Assisted Living Administration for medication holding and dispensing, superseding prior family-managed workflow.</p>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-error/20 text-center min-w-[200px]">
+<span class="block font-label-sm text-label-sm text-error uppercase mb-1">Monthly Impact</span>
+<span class="font-display-lg text-display-lg text-error leading-none">$1,200</span>
+</div>
+</div>
+</section>
+<!-- Grid Layout for middle sections -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-start">
+<!-- 2. Before/After Medication Process Timeline -->
+<section class="bg-surface-bright rounded-xl p-6 plinth h-full">
+<h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center gap-2 border-b border-surface-variant pb-2">
+<span class="material-symbols-outlined">compare_arrows</span> Workflow Comparison
+                    </h3>
+<div class="space-y-8">
+<div>
+<h4 class="font-label-md text-label-md text-on-surface-variant uppercase mb-4 tracking-wider flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-outline"></span> Prior Protocol (Family Managed)</h4>
+<div class="relative pl-8 space-y-4">
+<div class="timeline-line"></div>
+<div class="relative timeline-dot flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center border-2 border-surface shrink-0 -ml-[40px] mt-1 shadow-sm">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">prescriptions</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Step 1</span>
+<p class="font-body-md text-body-md text-on-background">Family orders 90-day supply via mail-order pharmacy.</p>
+</div>
+</div>
+<div class="relative timeline-dot flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center border-2 border-surface shrink-0 -ml-[40px] mt-1 shadow-sm">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">local_shipping</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Step 2</span>
+<p class="font-body-md text-body-md text-on-background">Delivered to POA residence; sorted into weekly pill organizers.</p>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-tertiary uppercase mb-4 tracking-wider flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-tertiary"></span> Imposed Protocol (Facility Demanded)</h4>
+<div class="relative pl-8 space-y-4">
+<div class="timeline-line bg-tertiary/20"></div>
+<div class="relative timeline-dot flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center border-2 border-surface shrink-0 -ml-[40px] mt-1 shadow-sm">
+<span class="material-symbols-outlined text-sm">local_pharmacy</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-tertiary">Step 1</span>
+<p class="font-body-md text-body-md text-on-background">Mandatory use of facility's contracted local pharmacy (higher unit cost).</p>
+</div>
+</div>
+<div class="relative timeline-dot flex items-start gap-3">
+<div class="w-8 h-8 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center border-2 border-surface shrink-0 -ml-[40px] mt-1 shadow-sm">
+<span class="material-symbols-outlined text-sm">payments</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-tertiary">Step 2</span>
+<p class="font-body-md text-body-md text-on-background">$1,200/mo flat fee applied for nurses to hand pre-sorted cups to resident.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<div class="space-y-gutter flex flex-col h-full">
+<!-- 4. Monthly Cost Impact Card -->
+<section class="bg-surface-bright rounded-xl p-6 plinth flex-grow">
+<h3 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">trending_up</span> Financial Impact
+                        </h3>
+<div class="bg-error-container/30 rounded-lg p-4 mb-4 flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface">Annual Projection</span>
+<span class="font-headline-lg text-headline-lg text-error">$14,400</span>
+</div>
+<ul class="space-y-3">
+<li class="flex justify-between items-center py-2 border-b border-surface-variant last:border-0">
+<span class="font-body-md text-body-md text-on-surface-variant">Base Administration Fee</span>
+<span class="font-label-md text-label-md text-on-background">$850.00 / mo</span>
+</li>
+<li class="flex justify-between items-center py-2 border-b border-surface-variant last:border-0">
+<span class="font-body-md text-body-md text-on-surface-variant">Pharmacy Delivery Surcharge</span>
+<span class="font-label-md text-label-md text-on-background">$150.00 / mo</span>
+</li>
+<li class="flex justify-between items-center py-2 border-b border-surface-variant last:border-0">
+<span class="font-body-md text-body-md text-on-surface-variant">Controlled Substance Handling</span>
+<span class="font-label-md text-label-md text-on-background">$200.00 / mo</span>
+</li>
+</ul>
+</section>
+<!-- 3. Facility Policy and Notice Intake -->
+<section class="bg-surface-bright rounded-xl p-6 plinth border border-outline-variant border-dashed">
+<div class="flex justify-between items-start mb-4">
+<h3 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">upload_file</span> Source Notice
+                            </h3>
+<button class="text-primary hover:bg-primary-container/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="bg-surface-container rounded-lg p-4 flex items-center gap-4 cursor-pointer hover:bg-surface-variant transition-colors group">
+<div class="w-12 h-12 bg-primary-container rounded flex items-center justify-center text-on-primary-container shrink-0">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="flex-grow">
+<p class="font-label-md text-label-md text-on-background group-hover:text-primary transition-colors">Resident_Notice_Oct23.pdf</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Uploaded 2 days ago • 1.2 MB</p>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">visibility</span>
+</div>
+</section>
+</div>
+</div>
+<!-- 8. Pushback Memo & Care-Continuity Packet (CTA) -->
+<section class="bg-primary text-on-primary rounded-xl p-8 flex flex-col md:flex-row items-center justify-between gap-6 plinth shadow-lg relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary-container/20 to-transparent pointer-events-none"></div>
+<div class="relative z-10 max-w-xl">
+<h3 class="font-headline-md text-headline-md mb-2">Prepare for Administrator Meeting</h3>
+<p class="font-body-md text-body-md text-on-primary-container/80">Generate a comprehensive dispute dossier including state regulations on resident right to self-manage, cost breakdown, and suggested compromise terms.</p>
+</div>
+<div class="relative z-10 flex gap-4 w-full md:w-auto">
+<button class="bg-on-primary text-primary font-label-md text-label-md px-6 py-3 rounded-lg hover:bg-surface-bright transition-colors shadow-sm flex-1 md:flex-none text-center flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">magic_button</span> Generate Packet
+                    </button>
+</div>
+</section>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-40 flex items-center justify-center px-4 h-12 bg-tertiary-container dark:bg-tertiary-fixed-dim text-on-tertiary-container dark:text-on-tertiary-fixed shadow-lg">
+<div class="flex items-center gap-2 font-bold font-label-md text-label-md">
+<span class="material-symbols-outlined">payments</span>
+<span>Monthly Impact: $1,200</span>
+</div>
+</nav>
+</body></html>

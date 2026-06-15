@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Subscription Raise Escape Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#161c22",
+                        "surface-container-low": "#f4f4f2",
+                        "surface-bright": "#f9f9f7",
+                        "on-primary-fixed-variant": "#474746",
+                        "error-container": "#ffdad6",
+                        "primary-container": "#1c1b1b",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "surface-dim": "#dadad8",
+                        "on-secondary-container": "#586377",
+                        "secondary-container": "#d5e0f7",
+                        "primary": "#000000",
+                        "surface-container": "#eeeeec",
+                        "tertiary-fixed": "#dde3eb",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#444748",
+                        "surface": "#f9f9f7",
+                        "surface-variant": "#e2e3e1",
+                        "surface-tint": "#5f5e5e",
+                        "secondary": "#545f72",
+                        "surface-container-highest": "#e2e3e1",
+                        "inverse-primary": "#c8c6c5",
+                        "tertiary-container": "#161c22",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-tertiary-container": "#7e848c",
+                        "outline": "#747878",
+                        "outline-variant": "#c4c7c7",
+                        "on-secondary-fixed": "#111c2c",
+                        "on-surface": "#1a1c1b",
+                        "surface-container-high": "#e8e8e6",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#bcc7dd",
+                        "on-background": "#1a1c1b",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#f1f1ef",
+                        "background": "#f9f9f7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "secondary-fixed": "#d8e3fa",
+                        "on-primary-container": "#858383",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#c1c7cf",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#000000",
+                        "primary-fixed": "#e5e2e1",
+                        "inverse-surface": "#2f3130",
+                        "on-tertiary-fixed-variant": "#41474e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "data-gap": "8px",
+                        "desktop-max-width": "1440px",
+                        "container-padding": "24px",
+                        "unit": "4px",
+                        "stack-gap": "16px",
+                        "table-cell-padding": "12px 8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["IBM Plex Sans"],
+                        "label-sm": ["Geist"],
+                        "label-md": ["Geist"],
+                        "headline-lg": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "data-mono": ["Geist"],
+                        "body-sm": ["IBM Plex Sans"],
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-lg": ["IBM Plex Sans"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["10px", { "lineHeight": "14px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "headline-lg": ["30px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.surface-bright'); color: theme('colors.on-surface'); }
+        .data-table th { text-align: left; padding: theme('spacing.table-cell-padding'); border-bottom: 1px solid theme('colors.surface-variant'); }
+        .data-table td { padding: theme('spacing.table-cell-padding'); border-bottom: 1px solid theme('colors.surface-container-high'); }
+        .data-table tr:hover { background-color: theme('colors.surface-container-lowest'); }
+        .card-border { border: 1px solid theme('colors.surface-variant'); background-color: theme('colors.surface-container-lowest'); }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(226, 227, 225, 0.5); }
+    </style>
+</head>
+<body class="font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen sticky top-0 p-stack-gap bg-surface-container-low border-r border-surface-variant w-64 flex-shrink-0 z-20">
+<div class="mb-8">
+<h1 class="font-headline-sm text-headline-sm font-semibold text-primary">Capital Analyst</h1>
+<p class="font-label-sm text-label-sm text-secondary mt-1">Venture Suite</p>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 px-4 rounded font-label-md text-label-md flex items-center justify-center gap-2 mb-8 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">add</span> Import Subs
+        </button>
+<div class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container font-semibold rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span> Overview
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">calendar_month</span> Calendar
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span> Usage Check
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">cancel_schedule_send</span> Cancellation
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">savings</span> Savings
+            </a>
+</div>
+<div class="mt-auto pt-4 border-t border-surface-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">help</span> Support
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-secondary hover:bg-surface-container-high rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined">archive</span> Archive
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar (Responsive adaptation for mobile, acts as header on desktop) -->
+<header class="bg-surface border-b border-surface-variant flex justify-between items-center w-full px-container-padding h-16 sticky top-0 z-10 lg:hidden">
+<div class="font-headline-md text-headline-md font-bold text-primary">Subscription Raise Escape Calendar</div>
+<div class="flex items-center gap-4">
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+</header>
+<div class="p-container-padding max-w-desktop-max-width mx-auto w-full space-y-stack-gap">
+<!-- 1. Recurring Burn Header -->
+<section class="card-border rounded-xl p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative overflow-hidden">
+<div class="absolute right-0 top-0 w-64 h-full opacity-10 pointer-events-none">
+<!-- Subtle background texture/pattern could go here -->
+<svg height="100%" width="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern height="10" id="dots" patternunits="userSpaceOnUse" width="10"><circle cx="2" cy="2" fill="#000" r="1"></circle></pattern></defs><rect fill="url(#dots)" height="100%" width="100%"></rect></svg>
+</div>
+<div>
+<h2 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Total Monthly Burn</h2>
+<div class="flex items-baseline gap-3">
+<span class="font-headline-lg text-headline-lg text-primary">$171.53</span>
+<span class="font-label-md text-label-md text-error flex items-center bg-error-container px-2 py-0.5 rounded">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +$14.50 (Proj. Hike)
+                        </span>
+</div>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<div class="bg-surface-container p-3 rounded flex-1 md:flex-none md:w-32">
+<div class="font-label-sm text-label-sm text-secondary">Active Subs</div>
+<div class="font-headline-sm text-headline-sm text-primary">8</div>
+</div>
+<div class="bg-surface-container p-3 rounded flex-1 md:flex-none md:w-32">
+<div class="font-label-sm text-label-sm text-secondary">High Risk</div>
+<div class="font-headline-sm text-headline-sm text-error">2</div>
+</div>
+</div>
+</section>
+<!-- Grid Layout for Dashboard Elements -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-stack-gap items-start">
+<!-- Left Column (Span 8) -->
+<div class="lg:col-span-8 space-y-stack-gap">
+<!-- 2. Subscription Import Table -->
+<section class="card-border rounded-xl overflow-hidden">
+<div class="p-4 border-b border-surface-variant bg-surface flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Active Portfolio</h3>
+<button class="font-label-md text-label-md text-secondary border border-outline-variant px-3 py-1 rounded hover:border-primary transition-colors">Export CSV</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full data-table font-data-mono text-data-mono text-sm">
+<thead class="bg-surface-container-low font-label-sm text-label-sm text-secondary">
+<tr>
+<th>Service</th>
+<th>Cost/Cycle</th>
+<th>Next Renewal</th>
+<th>Payment Source</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody class="bg-surface-container-lowest">
+<tr>
+<td class="font-medium text-primary">Netflix Premium</td>
+<td>$22.99 / mo</td>
+<td>Oct 15, 2023</td>
+<td class="text-secondary">Chase Visa ••42</td>
+<td><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded text-xs">Active</span></td>
+</tr>
+<tr>
+<td class="font-medium text-primary">Adobe Creative Cloud</td>
+<td>$54.99 / mo</td>
+<td class="text-error font-medium">Oct 18, 2023</td>
+<td class="text-secondary">Amex ••01</td>
+<td><span class="bg-error-container text-on-error-container px-2 py-0.5 rounded text-xs flex items-center gap-1 w-fit"><span class="material-symbols-outlined text-[12px]">warning</span> Annual Renewal</span></td>
+</tr>
+<tr>
+<td class="font-medium text-primary">Peloton All-Access</td>
+<td>$44.00 / mo</td>
+<td>Oct 22, 2023</td>
+<td class="text-secondary">Chase Visa ••42</td>
+<td><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded text-xs">Active</span></td>
+</tr>
+<tr>
+<td class="font-medium text-primary">New York Times</td>
+<td>$4.00 / mo</td>
+<td>Oct 28, 2023</td>
+<td class="text-secondary">Apple Pay</td>
+<td><span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded text-xs">Promo Rate</span></td>
+</tr>
+<tr>
+<td class="font-medium text-primary">Equinox Gym</td>
+<td>$245.00 / mo</td>
+<td>Nov 01, 2023</td>
+<td class="text-secondary">Amex ••01</td>
+<td><span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-xs">Contract</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3. Calendar View & 6. Rotation Plan (Bento split) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-gap">
+<section class="card-border rounded-xl p-4 flex flex-col h-full">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-sm text-headline-sm text-primary">Upcoming Events</h3>
+<div class="font-label-md text-label-md text-secondary">October 2023</div>
+</div>
+<div class="space-y-3 flex-1">
+<div class="p-3 border border-surface-variant rounded flex gap-3 relative overflow-hidden bg-surface-bright hover:border-primary transition-colors">
+<div class="w-1 bg-error absolute left-0 top-0 bottom-0"></div>
+<div class="w-10 text-center flex flex-col justify-center border-r border-surface-variant pr-3">
+<span class="font-label-sm text-label-sm text-secondary">OCT</span>
+<span class="font-headline-sm text-headline-sm text-primary">18</span>
+</div>
+<div class="flex-1">
+<div class="font-body-sm font-semibold text-primary">Adobe Annual Lock-in</div>
+<div class="font-label-sm text-label-sm text-secondary mt-1">Cancel before auto-renew for 12 mos.</div>
+</div>
+</div>
+<div class="p-3 border border-surface-variant rounded flex gap-3 relative overflow-hidden bg-surface-bright hover:border-primary transition-colors">
+<div class="w-1 bg-outline absolute left-0 top-0 bottom-0"></div>
+<div class="w-10 text-center flex flex-col justify-center border-r border-surface-variant pr-3">
+<span class="font-label-sm text-label-sm text-secondary">NOV</span>
+<span class="font-headline-sm text-headline-sm text-primary">01</span>
+</div>
+<div class="flex-1">
+<div class="font-body-sm font-semibold text-primary">Netflix Price Hike</div>
+<div class="font-label-sm text-label-sm text-secondary flex items-center gap-1 mt-1">
+                                            $15.49 <span class="material-symbols-outlined text-[12px]">arrow_right_alt</span> $19.99
+                                        </div>
+</div>
+</div>
+</div>
+</section>
+<section class="card-border rounded-xl p-4 flex flex-col h-full bg-surface-container-low">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-4">Rotation Strategy</h3>
+<div class="relative flex-1">
+<!-- Minimal timeline visualization -->
+<div class="absolute left-4 top-2 bottom-2 w-px bg-outline-variant"></div>
+<div class="space-y-6 relative z-10 pl-8">
+<div class="relative">
+<div class="absolute -left-6 w-3 h-3 bg-primary rounded-full border-2 border-surface-container-low top-1"></div>
+<div class="font-label-md text-label-md font-semibold text-primary">Current (Q4)</div>
+<div class="font-body-sm text-secondary mt-1">Netflix, HBO Max</div>
+</div>
+<div class="relative">
+<div class="absolute -left-6 w-3 h-3 bg-surface-container-low border-2 border-outline rounded-full top-1"></div>
+<div class="font-label-md text-label-md font-semibold text-secondary">Next (Q1)</div>
+<div class="font-body-sm text-secondary mt-1">Pause Netflix.<br/>Activate Disney+, Hulu.</div>
+</div>
+<div class="relative">
+<div class="absolute -left-6 w-3 h-3 bg-surface-container-low border-2 border-outline rounded-full top-1"></div>
+<div class="font-label-md text-label-md font-semibold text-secondary">Future (Q2)</div>
+<div class="font-body-sm text-secondary mt-1">Evaluate Apple TV+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Column (Span 4) -->
+<div class="lg:col-span-4 space-y-stack-gap">
+<!-- 8. Annual Savings Receipt -->
+<section class="card-border rounded-xl p-5 bg-primary text-on-primary shadow-lg">
+<h3 class="font-headline-sm text-headline-sm mb-4 border-b border-on-primary-fixed-variant pb-2">Optimization Receipt</h3>
+<div class="space-y-3 font-data-mono text-sm">
+<div class="flex justify-between">
+<span class="text-primary-fixed-dim">Projected Annual:</span>
+<span>$2,058.36</span>
+</div>
+<div class="flex justify-between text-secondary-fixed">
+<span>- Cancel NYT:</span>
+<span>-$48.00</span>
+</div>
+<div class="flex justify-between text-secondary-fixed">
+<span>- Rotate Streaming:</span>
+<span>-$180.00</span>
+</div>
+<div class="border-t border-on-primary-fixed-variant pt-3 mt-3 flex justify-between font-headline-sm text-headline-sm">
+<span>Est. Savings:</span>
+<span class="text-secondary-fixed">$228.00</span>
+</div>
+</div>
+</section>
+<!-- 5. Cancel Difficulty Lane -->
+<section class="card-border rounded-xl p-4">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Cancellation Friction</h3>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2 hover:bg-surface rounded transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">touch_app</span>
+<span class="font-body-sm text-primary">Netflix</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded">1-Click</span>
+</div>
+<div class="flex items-center justify-between p-2 hover:bg-surface rounded transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]">chat</span>
+<span class="font-body-sm text-primary">Adobe</span>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded">Chat Flow</span>
+</div>
+<div class="flex items-center justify-between p-2 bg-error-container/20 border border-error-container rounded">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[18px]">phone_in_talk</span>
+<span class="font-body-sm text-primary">Equinox Gym</span>
+</div>
+<span class="font-label-sm text-label-sm bg-error-container text-on-error-container px-2 py-0.5 rounded">Phone Req.</span>
+</div>
+</div>
+</section>
+<!-- 4. Usage Honesty Check -->
+<section class="card-border rounded-xl p-4 bg-surface-container-lowest">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-3">Audit: NYT Promo</h3>
+<p class="font-body-sm text-secondary mb-4">Promo ends in 12 days. Evaluated usage: Low.</p>
+<div class="flex flex-col gap-2">
+<button class="w-full text-center font-label-md py-2 border border-outline-variant rounded hover:bg-surface text-primary transition-colors">Keep ($15/mo)</button>
+<button class="w-full text-center font-label-md py-2 border border-error text-error rounded hover:bg-error hover:text-on-error transition-colors">Cancel Now</button>
+<button class="w-full text-center font-label-md py-2 text-secondary hover:text-primary transition-colors">Set Reminder</button>
+</div>
+</section>
+<!-- 7. Card-Lock Checklist -->
+<section class="card-border rounded-xl p-4">
+<h3 class="font-label-md text-label-md text-secondary uppercase tracking-wide mb-3">Defensive Actions</h3>
+<label class="flex items-start gap-3 p-2 hover:bg-surface rounded cursor-pointer group">
+<input class="mt-1 rounded border-outline text-primary focus:ring-primary bg-surface-bright" type="checkbox"/>
+<div>
+<div class="font-body-sm text-primary group-hover:text-primary transition-colors">Generate Virtual Card</div>
+<div class="font-label-sm text-label-sm text-secondary">For upcoming free trials.</div>
+</div>
+</label>
+<label class="flex items-start gap-3 p-2 hover:bg-surface rounded cursor-pointer group">
+<input class="mt-1 rounded border-outline text-primary focus:ring-primary bg-surface-bright" type="checkbox"/>
+<div>
+<div class="font-body-sm text-primary group-hover:text-primary transition-colors">Lock Amex ••01</div>
+<div class="font-label-sm text-label-sm text-secondary">Prevent Adobe auto-charge.</div>
+</div>
+</label>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>
