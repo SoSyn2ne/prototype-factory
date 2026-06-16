@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Grocery Price Memory Map - Analyst Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#959494",
+                      "on-secondary-fixed-variant": "#2e4e30",
+                      "surface-bright": "#fdf8f8",
+                      "error-container": "#ffdad6",
+                      "on-surface-variant": "#444748",
+                      "on-surface": "#1c1b1b",
+                      "on-background": "#1c1b1b",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-container": "#4b6c4c",
+                      "secondary-fixed-dim": "#abd0a9",
+                      "surface-container-low": "#f7f3f2",
+                      "tertiary-fixed-dim": "#ffb3b2",
+                      "tertiary": "#380409",
+                      "surface-container-highest": "#e5e2e1",
+                      "on-primary-fixed": "#1b1c1c",
+                      "on-error": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-surface": "#313030",
+                      "on-tertiary-fixed-variant": "#743233",
+                      "on-secondary": "#ffffff",
+                      "surface-container": "#f1edec",
+                      "inverse-primary": "#c8c6c6",
+                      "on-tertiary-container": "#d27d7d",
+                      "surface-dim": "#ddd9d8",
+                      "primary-fixed": "#e4e2e1",
+                      "secondary-fixed": "#c6edc4",
+                      "inverse-on-surface": "#f4f0ef",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#474747",
+                      "surface-container-high": "#ebe7e7",
+                      "primary": "#181919",
+                      "secondary-container": "#c6edc4",
+                      "primary-container": "#2d2d2d",
+                      "on-tertiary-fixed": "#3c070c",
+                      "error": "#ba1a1a",
+                      "surface-variant": "#e5e2e1",
+                      "outline-variant": "#c4c7c7",
+                      "on-secondary-fixed": "#012108",
+                      "secondary": "#456646",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffdad9",
+                      "background": "#fdf8f8",
+                      "outline": "#747878",
+                      "surface": "#fdf8f8",
+                      "tertiary-container": "#54191c",
+                      "surface-tint": "#5f5e5e",
+                      "primary-fixed-dim": "#c8c6c6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "md": "16px",
+                      "xl": "40px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "gutter": "16px",
+                      "margin": "24px",
+                      "base": "4px",
+                      "sm": "8px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "tabular-nums": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "tabular-nums": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F9F9F7; /* Level 0 Background */
+        }
+        .confidence-high {
+            background-color: rgba(198, 237, 196, 0.15); /* secondary-fixed 15% */
+            color: #456646; /* secondary */
+        }
+        .confidence-medium {
+            background-color: rgba(45, 45, 45, 0.10); /* primary-container 10% */
+            color: #2d2d2d; /* primary-container */
+        }
+        .confidence-low {
+            background-color: rgba(255, 218, 214, 0.15); /* error-container 15% */
+            color: #ba1a1a; /* error */
+        }
+        
+        /* Custom scrollbar for sleek analyst look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c4c7c7;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #747878;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full py-md px-sm bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary-fixed font-body-md text-body-md w-[240px] fixed left-0 top-0 border-r border-outline-variant/10 z-40">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-sm text-headline-sm font-semibold text-primary">Price Memory</h1>
+<span class="text-body-sm text-on-surface-variant block mt-xs">Analyst Mode</span>
+</div>
+<ul class="flex flex-col gap-sm flex-1">
+<li>
+<a class="flex items-center gap-md px-md py-sm bg-secondary-container text-on-secondary-container font-medium rounded-lg duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+                    Inbox
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">map</span>
+                    Map
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Tracker
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+                    Planner
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">forum</span>
+                    Neighborhood Board
+                </a>
+</li>
+</ul>
+<ul class="flex flex-col gap-sm mt-auto border-t border-outline-variant/10 pt-md">
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all duration-200 ease-in-out rounded-lg" href="#">
+<span class="material-symbols-outlined">help</span>
+                    Help
+                </a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[240px] h-screen overflow-hidden">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center px-lg w-full sticky top-0 z-50 bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary-fixed font-headline-sm text-headline-sm w-full h-16 border-b border-outline-variant/10 shadow-none">
+<div class="flex items-center gap-lg">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed md:hidden">Grocery Price Memory Map</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed hidden md:block">Analyst Dashboard</span>
+<!-- Metrics -->
+<div class="hidden lg:flex items-center gap-md ml-xl pl-xl border-l border-outline-variant/20">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Staple Basket Savings</span>
+<span class="font-tabular-nums text-tabular-nums text-secondary font-medium">+$42.50 /mo</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/20 mx-sm"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Price Confidence</span>
+<div class="flex items-center gap-xs">
+<span class="font-tabular-nums text-tabular-nums text-primary font-medium">94%</span>
+<span class="confidence-high px-2 py-0.5 rounded-full text-[10px] font-semibold leading-none uppercase tracking-wider">High</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80 rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 hover:bg-surface-container-low transition-colors cursor-pointer active:opacity-80 rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto p-md lg:p-lg">
+<div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-12 gap-md auto-rows-min">
+<!-- 1. Staple Basket Header (Span 12) -->
+<section class="md:col-span-12 bg-surface-container-lowest border border-outline-variant/10 rounded-lg p-md">
+<div class="flex justify-between items-center mb-md pb-sm border-b border-outline-variant/10">
+<h2 class="font-headline-sm text-headline-sm text-primary">Core Staple Index</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">7-Day Moving Avg</span>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-md">
+<!-- Item: Milk -->
+<div class="flex flex-col p-sm rounded-md hover:bg-surface-container/30 transition-colors">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Whole Milk (1 Gal)</span>
+<div class="flex items-end gap-sm mt-xs">
+<span class="font-tabular-nums text-tabular-nums text-lg font-semibold text-primary">$2.89</span>
+<span class="text-[11px] text-secondary font-medium mb-0.5">-0.12 (Aldi)</span>
+</div>
+<div class="h-1 w-full bg-surface-container mt-sm rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/3"></div>
+</div>
+</div>
+<!-- Item: Eggs -->
+<div class="flex flex-col p-sm rounded-md hover:bg-surface-container/30 transition-colors border-l border-outline-variant/10 pl-md">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Large Eggs (Dozen)</span>
+<div class="flex items-end gap-sm mt-xs">
+<span class="font-tabular-nums text-tabular-nums text-lg font-semibold text-primary">$1.98</span>
+<span class="text-[11px] text-secondary font-medium mb-0.5">-0.05 (Costco)</span>
+</div>
+<div class="h-1 w-full bg-surface-container mt-sm rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/4"></div>
+</div>
+</div>
+<!-- Item: Rice -->
+<div class="flex flex-col p-sm rounded-md hover:bg-surface-container/30 transition-colors border-l border-outline-variant/10 pl-md">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Jasmine Rice (20lb)</span>
+<div class="flex items-end gap-sm mt-xs">
+<span class="font-tabular-nums text-tabular-nums text-lg font-semibold text-primary">$15.49</span>
+<span class="text-[11px] text-on-surface-variant font-medium mb-0.5">Flat (Costco)</span>
+</div>
+<div class="h-1 w-full bg-surface-container mt-sm rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/20 w-1/2"></div>
+</div>
+</div>
+<!-- Item: Chicken -->
+<div class="flex flex-col p-sm rounded-md hover:bg-surface-container/30 transition-colors border-l border-outline-variant/10 pl-md">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Chicken Breast (lb)</span>
+<div class="flex items-end gap-sm mt-xs">
+<span class="font-tabular-nums text-tabular-nums text-lg font-semibold text-error">$3.15</span>
+<span class="text-[11px] text-error font-medium mb-0.5">+0.20 (Walmart)</span>
+</div>
+<div class="h-1 w-full bg-surface-container mt-sm rounded-full overflow-hidden">
+<div class="h-full bg-error w-3/4"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Left Column (Span 8 on desktop) -->
+<div class="md:col-span-8 flex flex-col gap-md">
+<!-- 3. Local Price Map & 5. Trip Tradeoff Planner (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-md h-[400px]">
+<!-- Local Price Map -->
+<section class="bg-surface-container-lowest border border-outline-variant/10 rounded-lg flex flex-col overflow-hidden relative group">
+<div class="absolute top-0 left-0 w-full p-sm bg-gradient-to-b from-black/40 to-transparent z-10 flex justify-between items-start">
+<h3 class="font-headline-sm text-headline-sm text-white drop-shadow-md">Local Price Heatmap</h3>
+<button class="bg-surface-container-lowest/90 p-1.5 rounded text-primary hover:bg-white transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_alt</span>
+</button>
+</div>
+<!-- Mock Map Data Image -->
+<div class="flex-1 w-full h-full bg-surface-container relative" data-alt="A clean, minimalist high-contrast satellite view of a suburban neighborhood map designed in a modern light-mode UI style. The map features faint grey gridlines, pristine white roads, and subtle sage and coral heat map overlays indicating grocery store price density. The overall aesthetic is analytical, financial, and calm, utilizing deep black text accents and muted tonal colors to convey data clarity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAElv7MtbH_XU_KL7k5FsJFZbFZHlRgeHYRzNH0RXwuUUM-glCuJU5AUenzXUX65ehIHZdqscdxN8FUdgHyJ4WnTimwuiPqMsEmmj-lUUElW5KTkdsKSZEVHRKXMjyPtt_hrq5TMZLPvjR8jkdzs4sHGqTXCM6h7s-rYulB7FeLB9qWDhIwkG5VKvWepRNHPqB6bwOG-xerIqcUPk7dy3f03pU5pDWVE8dxP-CObHADR9RMVcaGAzhZmJ2Juacq561FlwYE86XTdvln'); background-size: cover; background-position: center;">
+<!-- Data Overlay Points -->
+<div class="absolute top-1/3 left-1/4 transform -translate-x-1/2 -translate-y-1/2">
+<div class="bg-white px-2 py-1 rounded shadow-[0px_2px_4px_rgba(45,45,45,0.05)] border border-outline-variant/10 flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<span class="font-tabular-nums text-[12px] font-medium text-primary">Aldi</span>
+</div>
+</div>
+<div class="absolute top-1/2 right-1/3 transform translate-x-1/2 -translate-y-1/2">
+<div class="bg-white px-2 py-1 rounded shadow-[0px_2px_4px_rgba(45,45,45,0.05)] border border-outline-variant/10 flex items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-tabular-nums text-[12px] font-medium text-primary">Walmart</span>
+</div>
+</div>
+</div>
+<div class="p-sm border-t border-outline-variant/10 bg-white flex justify-between items-center text-xs">
+<span class="text-on-surface-variant">Focus: Staple Basket</span>
+<span class="text-secondary font-medium">South-West corridor optimal</span>
+</div>
+</section>
+<!-- Trip Tradeoff Planner -->
+<section class="bg-surface-container-lowest border border-outline-variant/10 rounded-lg p-md flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-xs">Trip Route Tradeoff</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant mb-md">Multi-stop vs Single-stop</span>
+<div class="flex-1 flex flex-col justify-center gap-lg">
+<!-- Scenario A -->
+<div class="relative">
+<div class="flex justify-between items-baseline mb-sm">
+<span class="font-body-md text-body-md font-medium text-primary">Route A: Costco + Aldi</span>
+<span class="font-tabular-nums text-tabular-nums font-semibold text-secondary">$142.10</span>
+</div>
+<div class="h-6 w-full bg-surface-container rounded overflow-hidden flex">
+<div class="h-full bg-primary-container" style="width: 65%;" title="Groceries: $135"></div>
+<div class="h-full bg-outline" style="width: 15%; border-left: 1px solid #fff;" title="Transit/Gas: $7.10"></div>
+</div>
+<div class="flex justify-between mt-1 px-1">
+<span class="text-[10px] text-on-surface-variant">Groceries ($135)</span>
+<span class="text-[10px] text-on-surface-variant">Transit ($7.10)</span>
+</div>
+</div>
+<!-- Scenario B -->
+<div class="relative">
+<div class="flex justify-between items-baseline mb-sm">
+<span class="font-body-md text-body-md font-medium text-primary">Route B: Walmart Only</span>
+<span class="font-tabular-nums text-tabular-nums font-semibold text-primary">$158.40</span>
+</div>
+<div class="h-6 w-full bg-surface-container rounded overflow-hidden flex">
+<div class="h-full bg-primary-container/60" style="width: 75%;" title="Groceries: $155"></div>
+<div class="h-full bg-outline/60" style="width: 8%; border-left: 1px solid #fff;" title="Transit/Gas: $3.40"></div>
+</div>
+<div class="flex justify-between mt-1 px-1">
+<span class="text-[10px] text-on-surface-variant">Groceries ($155)</span>
+<span class="text-[10px] text-on-surface-variant">Transit ($3.40)</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-md border-t border-outline-variant/10 text-right">
+<span class="font-body-sm text-body-sm text-secondary font-medium">Net Savings Route A: $16.30</span>
+</div>
+</section>
+</div>
+<!-- 2. Receipt Scan Inbox & 6. Dispute Card -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Inbox (Span 2) -->
+<section class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant/10 rounded-lg flex flex-col h-[300px]">
+<div class="p-md border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-primary">Scan Inbox</h3>
+<button class="text-body-sm font-medium text-primary underline">View All</button>
+</div>
+<div class="overflow-y-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/30 border-b border-outline-variant/10">
+<th class="py-2 px-md font-label-caps text-label-caps text-on-surface-variant font-normal">Date</th>
+<th class="py-2 px-md font-label-caps text-label-caps text-on-surface-variant font-normal">Retailer</th>
+<th class="py-2 px-md font-label-caps text-label-caps text-on-surface-variant font-normal">Items</th>
+<th class="py-2 px-md font-label-caps text-label-caps text-on-surface-variant font-normal text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<!-- Error Row -->
+<tr class="border-b border-outline-variant/10 bg-error-container/10">
+<td class="py-3 px-md font-tabular-nums text-on-surface">Oct 24</td>
+<td class="py-3 px-md text-primary font-medium">Walmart #4412</td>
+<td class="py-3 px-md text-on-surface-variant">24 items</td>
+<td class="py-3 px-md text-right">
+<span class="inline-flex items-center gap-1 confidence-low px-2 py-0.5 rounded-sm border border-error/20">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                                                    Tag Mismatch
+                                                </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/5 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-md font-tabular-nums text-on-surface">Oct 22</td>
+<td class="py-3 px-md text-primary font-medium">Aldi South</td>
+<td class="py-3 px-md text-on-surface-variant">12 items</td>
+<td class="py-3 px-md text-right">
+<span class="inline-flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                    Verified
+                                                </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/5 hover:bg-surface-container-lowest transition-colors">
+<td class="py-3 px-md font-tabular-nums text-on-surface">Oct 18</td>
+<td class="py-3 px-md text-primary font-medium">Costco Wholesale</td>
+<td class="py-3 px-md text-on-surface-variant">8 items</td>
+<td class="py-3 px-md text-right">
+<span class="inline-flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                                    Verified
+                                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Dispute Card -->
+<section class="bg-surface-container-lowest border border-error/30 rounded-lg p-md flex flex-col h-[300px] relative overflow-hidden shadow-[0px_2px_4px_rgba(45,45,45,0.02)]">
+<div class="absolute top-0 right-0 w-16 h-16 bg-error/5 rounded-bl-full z-0"></div>
+<div class="flex items-center gap-2 mb-sm relative z-10">
+<span class="material-symbols-outlined text-error">receipt_long</span>
+<h3 class="font-headline-sm text-headline-sm text-error">Active Dispute</h3>
+</div>
+<div class="bg-surface-container/20 p-sm rounded border border-outline-variant/10 mb-md relative z-10">
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-sm font-medium text-primary">Pampers Swaddlers Size 4</span>
+</div>
+<div class="flex justify-between font-tabular-nums text-body-sm text-on-surface-variant">
+<span>Shelf Tag:</span>
+<span>$24.99</span>
+</div>
+<div class="flex justify-between font-tabular-nums text-body-sm text-error font-medium">
+<span>Scanned At:</span>
+<span>$28.49</span>
+</div>
+<div class="w-full h-px bg-outline-variant/20 my-2"></div>
+<div class="flex justify-between font-tabular-nums text-body-sm font-bold text-primary">
+<span>Overcharge:</span>
+<span>$3.50</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant leading-tight mb-auto relative z-10">
+                                Walmart receipt scanned 10/24. Photographic evidence of shelf tag attached. Ready for customer service submission.
+                            </p>
+<button class="w-full mt-md py-2 bg-primary-container text-on-primary font-body-md font-medium rounded hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1 relative z-10">
+                                Generate Claim PDF
+                            </button>
+</section>
+</div>
+</div>
+<!-- Right Column (Span 4 on desktop) -->
+<div class="md:col-span-4 flex flex-col gap-md">
+<!-- 4. Stock-up Threshold Tracker -->
+<section class="bg-surface-container-lowest border border-outline-variant/10 rounded-lg p-md flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-sm text-headline-sm text-primary">Inventory Thresholds</h3>
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">inventory_2</span>
+</div>
+<div class="flex flex-col gap-lg">
+<!-- Rice -->
+<div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-sm font-medium text-primary">Jasmine Rice</span>
+<span class="confidence-low px-2 py-0.5 rounded-sm text-[10px] font-medium leading-none uppercase">Critical</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error" style="width: 15%;"></div>
+</div>
+<span class="font-tabular-nums text-[11px] text-on-surface-variant w-8 text-right">3 lbs</span>
+</div>
+<p class="text-[11px] text-secondary font-medium">Buy now at Aldi ($0.78/lb) - Historical Low</p>
+</div>
+<!-- Diapers -->
+<div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-sm font-medium text-primary">Diapers (Sz 4)</span>
+<span class="confidence-medium px-2 py-0.5 rounded-sm text-[10px] font-medium leading-none uppercase">Monitor</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container" style="width: 45%;"></div>
+</div>
+<span class="font-tabular-nums text-[11px] text-on-surface-variant w-8 text-right">45 ct</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">Hold purchase. Costco sale expected Nov 4.</p>
+</div>
+<!-- Coffee -->
+<div>
+<div class="flex justify-between items-baseline mb-1">
+<span class="font-body-sm font-medium text-primary">Coffee Beans</span>
+<span class="confidence-high px-2 py-0.5 rounded-sm text-[10px] font-medium leading-none uppercase">Stocked</span>
+</div>
+<div class="flex items-center gap-2 mb-1">
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary" style="width: 85%;"></div>
+</div>
+<span class="font-tabular-nums text-[11px] text-on-surface-variant w-8 text-right">4 lbs</span>
+</div>
+<p class="text-[11px] text-on-surface-variant">No action required.</p>
+</div>
+</div>
+<button class="mt-md w-full py-1.5 border border-outline-variant/30 text-primary font-body-sm font-medium rounded hover:bg-surface-container-low transition-colors">
+                            Update Inventory
+                        </button>
+</section>
+<!-- 7. Neighborhood Board -->
+<section class="bg-surface-container-lowest border border-outline-variant/10 rounded-lg p-md flex flex-col flex-1">
+<div class="flex justify-between items-center mb-md pb-sm border-b border-outline-variant/10">
+<h3 class="font-headline-sm text-headline-sm text-primary">Local Intelligence</h3>
+<span class="text-[11px] text-on-surface-variant">2 miles radius</span>
+</div>
+<div class="flex flex-col gap-md overflow-y-auto">
+<!-- Intel 1 -->
+<div class="flex gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">person</span>
+</div>
+<div>
+<div class="flex items-baseline gap-2">
+<span class="font-body-sm font-medium text-primary">Analyst_88</span>
+<span class="text-[10px] text-on-surface-variant">2h ago</span>
+</div>
+<p class="text-[12px] text-on-surface leading-snug mt-0.5">
+                                        Aldi on 5th has restocked eggs. Price dropped to <span class="font-tabular-nums font-semibold text-secondary">$1.89</span> limit 2 per customer.
+                                    </p>
+</div>
+</div>
+<!-- Intel 2 -->
+<div class="flex gap-sm">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">person</span>
+</div>
+<div>
+<div class="flex items-baseline gap-2">
+<span class="font-body-sm font-medium text-primary">Shopper_JL</span>
+<span class="text-[10px] text-on-surface-variant">5h ago</span>
+</div>
+<p class="text-[12px] text-on-surface leading-snug mt-0.5">
+                                        Warning: Walmart out of store-brand whole milk. Name brand only at <span class="font-tabular-nums font-semibold text-error">$3.45</span>.
+                                    </p>
+</div>
+</div>
+<!-- Intel 3 -->
+<div class="flex gap-sm opacity-70">
+<div class="w-6 h-6 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">person</span>
+</div>
+<div>
+<div class="flex items-baseline gap-2">
+<span class="font-body-sm font-medium text-primary">DealTracker</span>
+<span class="text-[10px] text-on-surface-variant">1d ago</span>
+</div>
+<p class="text-[12px] text-on-surface leading-snug mt-0.5">
+                                        Costco chicken breasts still at $2.99/lb. Good quality batch today.
+                                    </p>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-sm border-t border-outline-variant/10">
+<input class="w-full bg-surface-container-low border border-outline-variant/20 rounded text-body-sm px-sm py-1.5 focus:border-primary focus:ring-0 transition-colors placeholder:text-on-surface-variant/50" placeholder="Share a price observation..." type="text"/>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Offline Crush Route Builder</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#dae2fd",
+                        "surface-bright": "#31394d",
+                        "on-tertiary-fixed": "#002113",
+                        "tertiary": "#4edea3",
+                        "primary-container": "#b76dff",
+                        "background": "#0b1326",
+                        "surface-tint": "#ddb7ff",
+                        "on-tertiary-fixed-variant": "#005236",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#dae2fd",
+                        "on-tertiary": "#003824",
+                        "secondary": "#ffb690",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-secondary-fixed-variant": "#783200",
+                        "surface-dim": "#0b1326",
+                        "on-surface-variant": "#cfc2d6",
+                        "on-primary": "#490080",
+                        "inverse-primary": "#842bd2",
+                        "primary": "#ddb7ff",
+                        "surface-variant": "#2d3449",
+                        "surface-container": "#171f33",
+                        "outline": "#988d9f",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "surface": "#0b1326",
+                        "secondary-container": "#ec6a06",
+                        "surface-container-high": "#222a3d",
+                        "inverse-on-surface": "#283044",
+                        "error-container": "#93000a",
+                        "on-primary-fixed": "#2c0051",
+                        "on-background": "#dae2fd",
+                        "secondary-fixed": "#ffdbca",
+                        "on-secondary-fixed": "#341100",
+                        "surface-container-low": "#131b2e",
+                        "tertiary-container": "#00a572",
+                        "surface-container-highest": "#2d3449",
+                        "on-error": "#690005",
+                        "on-secondary": "#552100",
+                        "on-tertiary-container": "#00311f",
+                        "tertiary-fixed-dim": "#4edea3",
+                        "surface-container-lowest": "#060e20",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#6ffbbe",
+                        "outline-variant": "#4d4354",
+                        "primary-fixed": "#f0dbff",
+                        "on-secondary-container": "#4a1c00",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-primary-container": "#400071"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "64px",
+                        "base": "8px",
+                        "gutter": "16px",
+                        "sm": "12px",
+                        "margin-mobile": "20px",
+                        "lg": "40px",
+                        "margin-desktop": "48px",
+                        "xs": "4px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Syne", "sans-serif"],
+                        "headline-lg": ["Syne", "sans-serif"],
+                        "label-md": ["Geist", "sans-serif"],
+                        "body-md": ["Geist", "sans-serif"],
+                        "headline-xl": ["Syne", "sans-serif"],
+                        "label-sm": ["Geist", "sans-serif"],
+                        "body-lg": ["Geist", "sans-serif"],
+                        "headline-lg-mobile": ["Syne", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-xl": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 2px solid #334155;
+        }
+        .glass-card-active {
+            background-color: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(12px);
+            border: 2px solid #ddb7ff; /* primary */
+        }
+        .memphis-shadow {
+            box-shadow: 4px 4px 0px 0px #F97316;
+        }
+        .pulse-dot {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(78, 222, 163, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(78, 222, 163, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(78, 222, 163, 0); }
+        }
+        .gradient-bg {
+            background: radial-gradient(circle at top right, rgba(221, 183, 255, 0.1), transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(78, 222, 163, 0.05), transparent 40%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md h-screen overflow-hidden flex flex-col gradient-bg">
+<!-- TopNavBar (Shared Component JSON Context) -->
+<header class="bg-surface-container/80 dark:bg-surface-container/80 backdrop-blur-md docked full-width top-0 sticky border-b-2 border-outline-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop py-base w-full z-50">
+<div class="text-headline-md font-headline-md font-black text-primary italic">Momentum</div>
+<div class="flex items-center gap-gutter hidden md:flex">
+<button class="text-on-surface-variant hover:text-tertiary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors"><span class="material-symbols-outlined" data-icon="person_search">person_search</span></button>
+<button class="bg-primary text-on-primary font-label-md px-gutter py-sm rounded-lg memphis-shadow font-bold">Create Route</button>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low/90 dark:bg-surface-container-low/90 backdrop-blur-xl border-r-2 border-outline-variant shadow-xl hidden lg:flex flex-col h-full w-64 p-gutter z-40 shrink-0">
+<div class="mb-lg">
+<h2 class="font-headline-md text-primary text-headline-md">Route Builder</h2>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">City Night Navigator</p>
+</div>
+<div class="flex flex-col gap-sm flex-1">
+<a class="flex items-center gap-sm p-sm rounded-lg text-primary border-r-4 border-primary bg-surface-variant/50 font-label-md text-label-md translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span> Map
+                </a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="edit_road">edit_road</span> Builder
+                </a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span> Ladder
+                </a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_month">calendar_month</span> Calendar
+                </a>
+<a class="flex items-center gap-sm p-sm rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-variant/30 font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span> Reflect
+                </a>
+</div>
+<button class="mt-auto bg-primary text-on-primary font-label-md text-label-md py-sm rounded-lg w-full memphis-shadow font-bold">New Adventure</button>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop relative">
+<!-- Loneliness-to-Momentum Header -->
+<div class="glass-card p-gutter rounded-xl mb-lg flex items-center justify-between">
+<div>
+<h3 class="font-headline-sm text-on-surface">Momentum Pulse</h3>
+<p class="font-label-sm text-on-surface-variant mt-xs">App Fatigue → Social Energy</p>
+</div>
+<div class="flex-1 max-w-md mx-gutter h-2 bg-surface-container-high rounded-full overflow-hidden relative">
+<div class="absolute left-0 top-0 h-full bg-gradient-to-r from-surface-variant to-tertiary w-3/4"></div>
+<div class="absolute right-1/4 top-1/2 -translate-y-1/2 w-3 h-3 bg-tertiary rounded-full pulse-dot"></div>
+</div>
+<div class="font-label-md text-tertiary text-right">High Energy</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Central Area: Map & Social Cards -->
+<div class="lg:col-span-8 flex flex-col gap-lg">
+<!-- Map Section -->
+<div class="relative h-96 rounded-xl overflow-hidden glass-card border-outline">
+<img alt="Stylized dark city map background" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" data-alt="A stylized, high-contrast dark mode map of a dense urban metropolis at night. The city grid is illuminated by subtle glowing neon lines in electric purple and mint green, reflecting off dark pavement. The aesthetic is moody and atmospheric, blending a playful Memphis design energy with a sophisticated cyber-noir vibe. There are subtle hand-drawn doodle accents scattered sparsely across the grid." data-location="Seattle" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsJKnPoObZRrM1GLvhjwQPueurDVMy-ii1Go9gTPrS-B-8CueXrV9Gfdj0gOaCARLMSaVnygKEqq61CAYV5-GWui1UKYnSmUUTpZ2wevVMxU8RlmbJGJ4O6gz34qbgtuY1N888i6iPHxCinSVlb87lqVJZnCB70a-bkT5WvUgk38Lj9fiaFLHO7XYrP4y0p3ulytBMz_SHTljdlwJANL05_Y7b2XjsDoDDuKu5KmYdEhhxe0dlUxyi_jyI8gLdgVTgSdVTqRbbvxL6"/>
+<!-- Map Markers -->
+<div class="absolute top-1/4 left-1/4 flex flex-col items-center">
+<div class="w-4 h-4 bg-[#F97316] rounded-full border-2 border-background shadow-[0_0_10px_#F97316]"></div>
+<div class="mt-xs bg-surface-container-high/90 px-2 py-1 rounded text-xs font-label-sm">The Red Lion</div>
+</div>
+<div class="absolute bottom-1/3 right-1/3 flex flex-col items-center">
+<div class="w-4 h-4 bg-tertiary rounded-full border-2 border-background pulse-dot"></div>
+<div class="mt-xs bg-surface-container-high/90 px-2 py-1 rounded text-xs font-label-sm">City Park</div>
+</div>
+<div class="absolute top-1/2 right-1/4 flex flex-col items-center">
+<div class="w-4 h-4 bg-primary rounded-full border-2 border-background"></div>
+<div class="mt-xs bg-surface-container-high/90 px-2 py-1 rounded text-xs font-label-sm">Dragon's Hoard</div>
+</div>
+</div>
+<!-- Social Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Card 1 -->
+<div class="glass-card p-gutter rounded-xl relative group hover:border-primary transition-colors cursor-pointer">
+<div class="absolute top-sm right-sm text-tertiary">
+<span class="material-symbols-outlined" data-icon="sports_bar">sports_bar</span>
+</div>
+<h4 class="font-headline-sm text-primary mb-xs">The Red Lion Trivia</h4>
+<p class="font-body-md text-on-surface-variant text-sm mb-sm">Every Thursday. Casual, slightly loud.</p>
+<div class="flex gap-xs mb-sm">
+<span class="px-2 py-1 rounded-full border border-outline-variant text-xs text-on-surface-variant font-label-sm">#Bustling</span>
+<span class="px-2 py-1 rounded-full border border-outline-variant text-xs text-on-surface-variant font-label-sm">Budget: $15</span>
+</div>
+<div class="flex justify-between items-end border-t border-surface-variant pt-sm mt-sm">
+<div>
+<div class="text-xs font-label-sm text-on-surface-variant">Comfort</div>
+<div class="text-sm font-label-md text-tertiary">Medium</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-label-sm text-on-surface-variant">Crush Potential</div>
+<div class="text-sm font-label-md text-primary">High</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="glass-card p-gutter rounded-xl relative group hover:border-primary transition-colors cursor-pointer">
+<div class="absolute top-sm right-sm text-tertiary">
+<span class="material-symbols-outlined" data-icon="sports_soccer">sports_soccer</span>
+</div>
+<h4 class="font-headline-sm text-primary mb-xs">City Park Meetup</h4>
+<p class="font-body-md text-on-surface-variant text-sm mb-sm">Saturday mornings. Pick-up games.</p>
+<div class="flex gap-xs mb-sm">
+<span class="px-2 py-1 rounded-full border border-outline-variant text-xs text-on-surface-variant font-label-sm">#Active</span>
+<span class="px-2 py-1 rounded-full border border-outline-variant text-xs text-on-surface-variant font-label-sm">Budget: Free</span>
+</div>
+<div class="flex justify-between items-end border-t border-surface-variant pt-sm mt-sm">
+<div>
+<div class="text-xs font-label-sm text-on-surface-variant">Comfort</div>
+<div class="text-sm font-label-md text-tertiary">High</div>
+</div>
+<div class="text-right">
+<div class="text-xs font-label-sm text-on-surface-variant">Crush Potential</div>
+<div class="text-sm font-label-md text-secondary">Medium</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Area -->
+<div class="lg:col-span-4 flex flex-col gap-lg">
+<!-- Intake Info Summary (Mini) -->
+<div class="glass-card p-gutter rounded-xl">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+<h3 class="font-label-md text-on-surface">Alex's Profile</h3>
+</div>
+<ul class="text-sm font-body-md text-on-surface-variant space-y-1">
+<li>27 · New City Resident</li>
+<li>Budget: $40/wk</li>
+<li class="pt-xs">Interests: DnD, Trivia, Soccer</li>
+</ul>
+</div>
+<!-- Friend-to-Date Ladder -->
+<div class="glass-card p-gutter rounded-xl flex-1">
+<h3 class="font-headline-sm text-primary border-b border-surface-variant pb-sm mb-sm">Social Ladder</h3>
+<div class="relative pl-6 space-y-6 before:absolute before:inset-y-0 before:left-2.5 before:w-0.5 before:bg-surface-variant">
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-tertiary border-2 border-background"></div>
+<h4 class="font-label-md text-on-surface">Met a regular</h4>
+<p class="text-xs text-on-surface-variant mt-1">Dragon's Hoard, Tuesday</p>
+</div>
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-surface-bright border-2 border-background"></div>
+<h4 class="font-label-md text-on-surface-variant">Invite to coffee</h4>
+<p class="text-xs text-on-surface-variant mt-1">Low-pressure walk</p>
+</div>
+<div class="relative">
+<div class="absolute -left-6 top-1 w-3 h-3 rounded-full bg-surface-bright border-2 border-background"></div>
+<h4 class="font-label-md text-on-surface-variant">Date</h4>
+<p class="text-xs text-on-surface-variant mt-1">Planned evening</p>
+</div>
+</div>
+</div>
+<!-- Reflection Card Mini -->
+<div class="glass-card p-gutter rounded-xl border-dashed border-outline-variant bg-surface-container-lowest/50">
+<h3 class="font-label-md text-on-surface mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="psychology">psychology</span> Quick Reflect
+                        </h3>
+<p class="text-xs text-on-surface-variant mb-sm">How was Trivia last night?</p>
+<div class="flex gap-sm">
+<button class="flex-1 bg-surface-container hover:bg-surface-variant text-xs py-1 rounded border border-outline-variant transition-colors">Low Pressure</button>
+<button class="flex-1 bg-surface-container hover:bg-surface-variant text-xs py-1 rounded border border-outline-variant transition-colors">High Stress</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Sticky Footer: Shareable Wingmate Plan -->
+<footer class="bg-surface-container-lowest py-gutter px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md border-t-2 border-outline-variant z-50">
+<div class="flex-1">
+<h4 class="font-headline-sm text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="share">share</span> Wingmate Plan
+            </h4>
+<p class="font-body-md text-sm text-on-surface-variant mt-xs">
+<span class="text-on-surface font-label-md">Script:</span> "Hey! Loved the trivia energy tonight. Would you be down for a low-stakes coffee walk at the park this weekend?"
+            </p>
+</div>
+<div class="flex items-center gap-gutter shrink-0">
+<button class="text-on-surface-variant hover:text-primary transition-colors font-label-md underline">Copy Script</button>
+<button class="bg-primary text-on-primary font-label-md px-gutter py-sm rounded-lg memphis-shadow font-bold">Share Plan</button>
+</div>
+</footer>
+</body></html>

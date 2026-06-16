@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Decision War Room: EV Charging Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#31394d",
+                        "on-background": "#dae2fd",
+                        "secondary-fixed": "#ffdbca",
+                        "surface-variant": "#2d3449",
+                        "secondary": "#ffb690",
+                        "surface-dim": "#0b1326",
+                        "background": "#0b1326",
+                        "on-surface": "#dae2fd",
+                        "primary": "#4cd7f6",
+                        "tertiary": "#b9c8de",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "primary-container": "#06b6d4",
+                        "tertiary-fixed": "#d4e4fa",
+                        "outline": "#869397",
+                        "error-container": "#93000a",
+                        "secondary-fixed-dim": "#ffb690",
+                        "tertiary-container": "#99a8bd",
+                        "outline-variant": "#3d494c",
+                        "surface-tint": "#4cd7f6",
+                        "primary-fixed": "#acedff",
+                        "surface-container": "#171f33",
+                        "on-primary-container": "#00424f",
+                        "on-secondary": "#552100",
+                        "surface-container-high": "#222a3d",
+                        "primary-fixed-dim": "#4cd7f6",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary": "#233143",
+                        "on-secondary-fixed": "#341100",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "on-secondary-container": "#4a1c00",
+                        "on-primary-fixed-variant": "#004e5c",
+                        "on-primary-fixed": "#001f26",
+                        "error": "#ffb4ab",
+                        "inverse-surface": "#dae2fd",
+                        "on-surface-variant": "#bcc9cd",
+                        "inverse-primary": "#00687a",
+                        "inverse-on-surface": "#283044",
+                        "on-error": "#690005",
+                        "on-tertiary-container": "#2f3d4f",
+                        "surface-container-lowest": "#060e20",
+                        "surface-container-low": "#131b2e",
+                        "on-primary": "#003640",
+                        "surface": "#0b1326",
+                        "on-secondary-fixed-variant": "#783200",
+                        "surface-container-highest": "#2d3449",
+                        "secondary-container": "#ec6a06"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "12px",
+                        "unit": "4px",
+                        "stack-lg": "16px",
+                        "container-padding": "16px",
+                        "stack-md": "8px",
+                        "stack-sm": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0F172A; } /* Fallback background, overridden by tailwind bg-background */
+        .glass-panel {
+            background-color: #1E293B; /* Surface Layer */
+            border: 1px solid #334155; /* Divider */
+        }
+        .data-row {
+            border-bottom: 1px solid #334155;
+        }
+        .data-row:last-child {
+            border-bottom: none;
+        }
+        .led-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .led-active { background-color: #4cd7f6; box-shadow: 0 0 8px #4cd7f6; }
+        .led-risk { background-color: #ec6a06; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface-dim border-b border-outline-variant flex justify-between items-center h-14 px-gutter">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg text-primary tracking-tighter">Resident Council Ops</span>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-2">
+<span class="led-dot led-active"></span>
+<span class="font-label-caps text-label-caps text-on-surface">Live Session: Decision War Room</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex flex-col items-end">
+<span class="font-data-mono text-data-mono text-primary">T+02:45:10</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Quorum: 7/9 Verified</span>
+</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors p-2 rounded active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">timer</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors p-2 rounded active:scale-95 duration-100 relative">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+<span class="absolute top-1 right-1 h-2 w-2 rounded-full bg-secondary-container"></span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant transition-colors p-2 rounded active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+</div>
+<div class="h-8 w-8 rounded-full bg-surface-variant border border-outline-variant overflow-hidden flex-shrink-0">
+<img alt="Council Member Avatar" class="h-full w-full object-cover" data-alt="A highly detailed close-up portrait of a professional council member in a dimly lit, high-tech control room environment. The lighting is dramatic, with cool cyan highlights reflecting off their glasses, contrasting against deep slate and steel tones. The mood is serious and focused, embodying a corporate modern aesthetic suitable for a mission-critical dashboard. High resolution, professional photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2RDNt4xr2M5SY20fgrq7ckBa79drHBQUGenKELOGinevHDMPOnAeFgWdP49ki5RxkY89kT77kLe36lJWinttCik1CLjH0DUL7G1nrmXfph9DgfYhWOoyAjlmQVc7feIc4iXtIv7CdXM-PnJ8HK_rzD7c5b2MgSznoSw0wWSNhDq6e_ByRSdVDFCVYkuFOesbE4nAXOfEqgkeweiqONbKW5k3zOFwf6enck-4DDbuNb46oh2U4Y_gfQGxy4vT-netPi619sx_5hgI"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Left) -->
+<nav class="fixed left-0 top-14 bottom-0 w-[280px] bg-surface-container border-r border-outline-variant flex flex-col py-stack-lg z-40 hidden xl:flex">
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="h-10 w-10 rounded bg-surface-variant border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Active Session</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Meeting #442</p>
+</div>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container hover:bg-primary-fixed transition-colors py-2 px-4 rounded font-label-caps text-label-caps mt-4 active:scale-95 duration-100 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> New Resolution
+            </button>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="bg-primary-container text-on-primary-container rounded-lg mx-2 px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant mx-2 px-4 py-3 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">ballot</span>
+                Vote Packets
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant mx-2 px-4 py-3 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">build</span>
+                Maintenance
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant mx-2 px-4 py-3 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">gavel</span>
+                Legal
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant mx-2 px-4 py-3 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                Archive
+            </a>
+</div>
+<div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant mx-2">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-4 py-2 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Support
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-variant px-4 py-2 rounded-lg flex items-center gap-3 font-label-caps text-label-caps transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[18px]">history</span>
+                Logs
+            </a>
+</div>
+</nav>
+<!-- SideNavBar (Right Utilities) -->
+<aside class="fixed right-0 top-14 bottom-0 w-64 bg-surface-container-low border-l border-outline-variant flex flex-col py-stack-md z-40 hidden 2xl:flex">
+<div class="px-4 mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Utilities</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Field Tools</p>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="text-primary border-l-2 border-primary pl-4 py-2 flex items-center gap-3 font-body-sm text-body-sm hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">add_box</span>
+                Packet Builder
+            </a>
+<a class="text-on-surface-variant pl-4 py-2 flex items-center gap-3 font-body-sm text-body-sm hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">link</span>
+                Quick Links
+            </a>
+<a class="text-on-surface-variant pl-4 py-2 flex items-center gap-3 font-body-sm text-body-sm hover:text-primary transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+                Drafts
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 pt-14 xl:pl-[280px] 2xl:pr-64 p-container-padding bg-background">
+<div class="max-w-[1600px] mx-auto h-full flex flex-col gap-stack-md">
+<!-- Page Header (In-canvas) -->
+<div class="flex justify-between items-end pb-2 border-b border-outline-variant mb-4">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">EV Charging Management Strategy</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Reviewing vendor transitions, fee hikes, and liability mitigation.</p>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-variant border border-outline-variant text-on-surface px-3 py-1.5 rounded font-label-caps text-label-caps hover:bg-surface-bright transition-colors">Export Report</button>
+<button class="bg-primary-container text-on-primary-container px-3 py-1.5 rounded font-label-caps text-label-caps hover:bg-primary-fixed transition-colors">Call Vote</button>
+</div>
+</div>
+<!-- 3-Column Bento Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-stack-md flex-1">
+<!-- Left Column -->
+<div class="flex flex-col gap-stack-md">
+<!-- Fee Comparison -->
+<section class="glass-panel rounded-lg p-4 flex-1">
+<div class="flex items-center justify-between mb-4 pb-2 border-b border-outline-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">currency_exchange</span>
+                                Fee Projection Analysis
+                            </h3>
+<span class="font-label-caps text-label-caps text-secondary-container bg-surface-variant px-2 py-1 border border-outline-variant rounded">Critical</span>
+</div>
+<div class="bg-surface-dim border border-outline-variant rounded p-3 mb-4">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-sm text-on-surface-variant">Slow-Charging Fee (Current)</span>
+<span class="font-data-mono text-on-surface">295 ₩/kWh</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-on-surface-variant">Proposed Hike (MEG)</span>
+<span class="font-data-mono text-error">324.4 ₩/kWh</span>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant flex justify-between items-center">
+<span class="font-label-caps text-on-surface">Delta</span>
+<span class="font-data-mono text-error">+9.9%</span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="font-label-caps text-on-surface-variant border-b border-outline-variant">
+<th class="py-2 pr-2 font-normal">Model</th>
+<th class="py-2 px-2 font-normal text-right">Est. Rate</th>
+<th class="py-2 pl-2 font-normal text-right">Maint.</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-on-surface">
+<tr class="data-row hover:bg-surface-variant transition-colors border-l-2 border-primary">
+<td class="py-2 pr-2 pl-2">Vendor Managed</td>
+<td class="py-2 px-2 text-right">324.4</td>
+<td class="py-2 pl-2 text-right">Included</td>
+</tr>
+<tr class="data-row hover:bg-surface-variant transition-colors">
+<td class="py-2 pr-2 pl-2">Direct Operation</td>
+<td class="py-2 px-2 text-right text-primary">~260.0</td>
+<td class="py-2 pl-2 text-right text-secondary-container">High</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Checklist -->
+<section class="glass-panel rounded-lg p-4 h-64">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-tertiary text-[20px]">fact_check</span>
+                            Transition Checklist
+                        </h3>
+<div class="space-y-2">
+<label class="flex items-start gap-3 p-2 bg-surface-dim border border-outline-variant rounded hover:bg-surface-variant cursor-pointer transition-colors">
+<input class="mt-1 form-checkbox h-4 w-4 text-primary bg-background border-outline-variant rounded rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-on-surface">Review vendor termination penalty clause (Section 4.b)</span>
+</label>
+<label class="flex items-start gap-3 p-2 bg-surface-dim border border-outline-variant rounded hover:bg-surface-variant cursor-pointer transition-colors">
+<input checked="" class="mt-1 form-checkbox h-4 w-4 text-primary bg-background border-outline-variant rounded rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-on-surface line-through text-on-surface-variant">Confirm KEPC Govt. Subsidy Eligibility</span>
+</label>
+<label class="flex items-start gap-3 p-2 bg-surface-dim border border-outline-variant rounded hover:bg-surface-variant cursor-pointer transition-colors">
+<input class="mt-1 form-checkbox h-4 w-4 text-primary bg-background border-outline-variant rounded rounded-sm focus:ring-primary focus:ring-offset-background" type="checkbox"/>
+<span class="font-body-sm text-on-surface">Draft resident consent form for Direct Ops</span>
+</label>
+</div>
+</section>
+</div>
+<!-- Center Column -->
+<div class="flex flex-col gap-stack-md">
+<!-- Risk Register -->
+<section class="glass-panel rounded-lg flex-1 flex flex-col">
+<div class="p-4 bg-[#1a2333] border-b border-outline-variant rounded-t-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-[20px]">warning</span>
+                                Fire-Liability Risk Register
+                            </h3>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-3">
+<div class="bg-surface-dim border border-outline-variant p-3 rounded flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-on-surface font-semibold">Battery Fire Liability Disputes</span>
+<span class="font-label-caps text-background bg-secondary px-2 py-0.5 rounded">High Risk</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Ambiguity in vendor contracts regarding damage to adjacent vehicles during thermal runaway.</p>
+</div>
+<div class="bg-surface-dim border border-outline-variant p-3 rounded flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-on-surface font-semibold">Insurance Coverage Gaps</span>
+<span class="font-label-caps text-background bg-secondary px-2 py-0.5 rounded">High Risk</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Current complex policy caps out at ₩500M; insufficient for sub-level parking catastrophic events.</p>
+</div>
+<div class="bg-surface-dim border border-outline-variant p-3 rounded flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-on-surface font-semibold">Emergency Shutdown Protocols</span>
+<span class="font-label-caps text-on-background bg-surface-variant border border-outline-variant px-2 py-0.5 rounded">Monitoring</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Manual cutoff switch location requires retraining of security staff. Auto-cutoff integration pending.</p>
+</div>
+</div>
+</section>
+<!-- Sentiment Board -->
+<section class="glass-panel rounded-lg p-4 h-64">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary text-[20px]">forum</span>
+                            Resident Sentiment
+                        </h3>
+<div class="grid grid-cols-2 gap-4 h-[calc(100%-2rem)]">
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-primary border-b border-outline-variant pb-1">EV Owners (32%)</span>
+<div class="bg-surface-dim border-l-2 border-primary p-2 text-body-sm text-on-surface-variant h-full overflow-y-auto">
+                                    "The 324.4 won rate is uncompetitive."<br/><br/>
+                                    "Why should we pay for general maintenance upgrades?"
+                                </div>
+</div>
+<div class="flex flex-col gap-2">
+<span class="font-label-caps text-secondary-container border-b border-outline-variant pb-1">Non-EV Residents (68%)</span>
+<div class="bg-surface-dim border-l-2 border-secondary-container p-2 text-body-sm text-on-surface-variant h-full overflow-y-auto">
+                                    "Refuse to subsidize EV charger insurance."<br/><br/>
+                                    "Demand designated fire-safe parking zones away from structural pillars."
+                                </div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column -->
+<div class="flex flex-col gap-stack-md">
+<!-- Vote Packet Builder -->
+<section class="glass-panel rounded-lg p-4 flex-1">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">note_add</span>
+                                Vote Packet Assembly
+                            </h3>
+</div>
+<div class="space-y-3">
+<div class="p-3 bg-surface-dim border border-primary border-dashed rounded relative hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-md text-on-surface">Agenda Item 1: Replacement Proposal</span>
+<span class="material-symbols-outlined text-primary opacity-0 group-hover:opacity-100 transition-opacity">add_circle</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Drafting vendor switch vs direct operation vote structure.</p>
+</div>
+<div class="p-3 bg-surface-dim border border-outline-variant rounded relative hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex justify-between items-center mb-1">
+<span class="font-body-md text-on-surface">Agenda Item 2: Liability Waiver</span>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+<p class="font-body-sm text-on-surface-variant">Mandatory agreement for EV owners regarding sub-level parking risks.</p>
+</div>
+<button class="w-full mt-4 bg-surface-variant border border-outline-variant text-on-surface py-2 rounded font-label-caps text-label-caps hover:bg-surface-bright transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">publish</span> Finalize Packet
+                            </button>
+</div>
+</section>
+<!-- Incident Drill Timeline -->
+<section class="glass-panel rounded-lg p-4 h-64 overflow-hidden flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-tertiary text-[20px]">timeline</span>
+                            Auto-Response Drill
+                        </h3>
+<div class="flex-1 relative ml-2 mt-2">
+<div class="absolute top-0 bottom-0 left-[7px] w-0.5 bg-outline-variant"></div>
+<div class="relative flex items-start gap-4 mb-4">
+<div class="h-4 w-4 rounded-full bg-primary mt-1 border-2 border-background z-10 flex-shrink-0"></div>
+<div>
+<span class="font-data-mono text-primary block">T+00s</span>
+<span class="font-body-sm text-on-surface">Thermal Camera Detection</span>
+</div>
+</div>
+<div class="relative flex items-start gap-4 mb-4">
+<div class="h-4 w-4 rounded-full bg-secondary-container mt-1 border-2 border-background z-10 flex-shrink-0"></div>
+<div>
+<span class="font-data-mono text-secondary-container block">T+05s</span>
+<span class="font-body-sm text-on-surface">Main Power Cutoff (Zone B)</span>
+</div>
+</div>
+<div class="relative flex items-start gap-4 mb-4">
+<div class="h-4 w-4 rounded-full bg-surface-variant border-2 border-outline mt-1 z-10 flex-shrink-0"></div>
+<div>
+<span class="font-data-mono text-on-surface-variant block">T+15s</span>
+<span class="font-body-sm text-on-surface-variant">High-Pressure Sprinkler Act.</span>
+</div>
+</div>
+<div class="relative flex items-start gap-4">
+<div class="h-4 w-4 rounded-full bg-surface-variant border-2 border-outline mt-1 z-10 flex-shrink-0"></div>
+<div>
+<span class="font-data-mono text-on-surface-variant block">T+20s</span>
+<span class="font-body-sm text-on-surface-variant">Automated Resident Alert</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

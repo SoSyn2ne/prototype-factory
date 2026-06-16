@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chargeback Friction Switchboard</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-container": "#67615e",
+                    "on-tertiary-fixed-variant": "#4b4643",
+                    "surface-container-high": "#2a2a2a",
+                    "primary-container": "#e0e0e0",
+                    "on-secondary": "#303030",
+                    "primary-fixed": "#e2e2e2",
+                    "surface-tint": "#c6c6c6",
+                    "on-error": "#690005",
+                    "inverse-primary": "#5d5f5f",
+                    "outline": "#8e9192",
+                    "on-surface-variant": "#c4c7c8",
+                    "secondary-fixed": "#e4e2e1",
+                    "secondary-fixed-dim": "#c8c6c5",
+                    "error-container": "#93000a",
+                    "outline-variant": "#444748",
+                    "on-tertiary-fixed": "#1f1b19",
+                    "surface-container-low": "#1c1b1b",
+                    "primary": "#fdfdfc",
+                    "error": "#ffb4ab",
+                    "surface-dim": "#141313",
+                    "on-primary-fixed-variant": "#454747",
+                    "inverse-on-surface": "#313030",
+                    "surface-variant": "#353434",
+                    "on-secondary-fixed-variant": "#474746",
+                    "on-background": "#e5e2e1",
+                    "on-secondary-fixed": "#1b1c1c",
+                    "secondary": "#c8c6c5",
+                    "surface-container": "#201f1f",
+                    "on-surface": "#e5e2e1",
+                    "inverse-surface": "#e5e2e1",
+                    "surface": "#141313",
+                    "surface-container-highest": "#353434",
+                    "background": "#141313",
+                    "on-primary": "#2f3131",
+                    "tertiary": "#fffbff",
+                    "tertiary-container": "#e7deda",
+                    "on-tertiary": "#342f2d",
+                    "surface-container-lowest": "#0e0e0e",
+                    "secondary-container": "#474746",
+                    "on-primary-fixed": "#1a1c1c",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "tertiary-fixed": "#eae1dd",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed-dim": "#cdc5c1",
+                    "surface-bright": "#3a3939",
+                    "on-secondary-container": "#b6b5b4",
+                    "on-primary-container": "#626363"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "table-cell-padding": "8px 12px",
+                    "tight-gap": "4px",
+                    "container-padding": "16px",
+                    "unit": "4px",
+                    "drawer-width": "480px",
+                    "element-gap": "8px"
+            },
+            "fontFamily": {
+                    "mono-data": ["Inter", "monospace"],
+                    "label-sm": ["Inter", "sans-serif"],
+                    "label-md": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"],
+                    "headline-sm": ["Inter", "sans-serif"],
+                    "display-sm": ["Inter", "sans-serif"],
+                    "body-sm": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "mono-data": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-sm": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base terminal-plus utilitarian overrides */
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-surface');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom Scrollbar for dense data environments */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline-variant'); }
+
+        .sparkline-path { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: draw 2s ease-out forwards; }
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+    </style>
+</head>
+<body class="overflow-hidden min-h-screen flex flex-col font-body-md text-body-md">
+<!-- TOP NAV BAR (Source: Shared Components JSON) -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary font-label-md text-label-md border-b border-outline-variant dark:border-outline-variant flex justify-between items-center h-12 w-full px-4 z-50 fixed top-0 left-0">
+<!-- Brand & Search -->
+<div class="flex items-center gap-6">
+<div class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary tracking-tight">
+                RiskEngine Switchboard
+            </div>
+<div class="relative w-64">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded-DEFAULT h-7 pl-8 pr-2 text-mono-data font-mono-data text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" placeholder="Search orders, rules, IDs..." type="text"/>
+</div>
+</div>
+<!-- KPI Navigation Links -->
+<nav class="flex items-center gap-6 h-full">
+<div class="flex items-center gap-4 h-full">
+<!-- Highlight active KPI for context -->
+<a class="h-full flex items-center px-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-container-highest transition-colors" href="#">Fraud Rate: 0.24%</a>
+<a class="h-full flex items-center px-2 text-primary dark:text-primary border-b-2 border-primary hover:bg-surface-container-highest dark:hover:bg-surface-container-highest transition-colors opacity-80" href="#">Support Impact: 12%</a>
+<a class="h-full flex items-center px-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-highest dark:hover:bg-surface-container-highest transition-colors" href="#">Friction Index: 1.8</a>
+</div>
+<div class="h-4 w-[1px] bg-outline-variant"></div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">monitor_heart</span>
+</button>
+<button class="p-1.5 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">notifications_active</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-1.5 rounded-DEFAULT text-on-surface-variant hover:text-primary hover:bg-surface-container-highest transition-colors flex items-center justify-center ml-2">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</nav>
+</header>
+<!-- MAIN LAYOUT -->
+<div class="flex flex-1 mt-12 h-[calc(100vh-48px)] w-full relative">
+<!-- SIDE NAV BAR (Source: Shared Components JSON) -->
+<aside class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-label-md text-label-md border-r border-outline-variant dark:border-outline-variant docked left-0 h-full w-drawer-width fixed left-0 top-12 h-[calc(100vh-48px)] flex flex-col z-40 transition-all duration-200 ease-in-out">
+<!-- Header Section -->
+<div class="p-4 border-b border-outline-variant flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary">Ops Console</h2>
+<span class="font-mono-data text-mono-data text-on-surface-variant">V2.4.0-Clinical</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden" title="System Administrator">
+<span class="material-symbols-outlined text-on-surface text-[20px]" style="font-variation-settings: 'FILL' 1;">admin_panel_settings</span>
+</div>
+</div>
+<button class="w-full mt-2 bg-error hover:bg-error-container text-white py-1.5 rounded-DEFAULT font-label-sm text-label-sm uppercase flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                    Emergency Lock
+                </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 overflow-y-auto py-2 flex flex-col gap-1 px-2">
+<!-- ACTIVE TAB -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-secondary-container dark:bg-secondary-container text-on-secondary-container dark:text-on-secondary-container font-bold transition-all duration-200 ease-in-out group" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+                    Risk Queue
+                </a>
+<!-- INACTIVE TABS -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">science</span>
+                    Rule Sandbox
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+                    Evidence Drawer
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 0;">settings</span>
+                    Settings
+                </a>
+<!-- Injecting required widgets into the wide sidebar to utilize space efficiently -->
+<div class="mt-6 border-t border-outline-variant pt-4 px-2">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">analytics</span> Active Monitoring
+                    </h3>
+<!-- Support Impact Meter -->
+<div class="bg-surface p-3 rounded-DEFAULT border border-outline-variant mb-3">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-md text-label-md text-on-surface">Support Impact</span>
+<span class="font-mono-data text-mono-data text-error">12.4%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-error h-full" style="width: 12.4%"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 text-[10px] leading-tight">Ticket volume linked to fraud friction interventions.</p>
+</div>
+<!-- Good-Customer Protection Panel -->
+<div class="bg-surface p-3 rounded-DEFAULT border border-outline-variant border-l-2 border-l-primary-container">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-md text-label-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-primary-container">verified_user</span> VIP Safeguard
+                            </span>
+<span class="px-1.5 py-0.5 bg-surface-container-highest text-primary-fixed rounded-sm font-mono-data text-[10px]">ACTIVE</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px] leading-relaxed mb-2">
+                            Rules suppressing false positives for repeat buyers with &gt;3 pristine transactions.
+                        </p>
+<div class="flex gap-2 text-[10px] font-mono-data">
+<span class="text-outline">Protected: 1,402</span>
+<span class="text-outline">Overridden: 12</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Footer Section -->
+<div class="p-2 border-t border-outline-variant flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">help</span>
+                    Docs
+                </a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">contact_support</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- MAIN CANVAS (Left margin accommodates the wide drawer-width side nav) -->
+<main class="flex-1 ml-[480px] p-container-padding flex gap-container-padding h-full overflow-hidden bg-background">
+<!-- LEFT PANE: Risk Queue -->
+<section class="flex-1 flex flex-col min-w-0 bg-surface-container rounded-lg border border-outline-variant overflow-hidden">
+<div class="px-4 py-3 border-b border-outline-variant bg-surface flex justify-between items-center shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Live Risk Queue</h2>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded-sm font-mono-data text-[10px] ml-2">48 Pending</span>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline-variant rounded-DEFAULT font-label-md text-label-md text-on-surface hover:bg-surface-container-highest transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> Filter
+                        </button>
+</div>
+</div>
+<!-- Dense Data Table -->
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface border-b border-outline-variant font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider z-10 shadow-sm">
+<tr>
+<th class="p-table-cell-padding whitespace-nowrap">Order ID</th>
+<th class="p-table-cell-padding whitespace-nowrap">Timestamp</th>
+<th class="p-table-cell-padding whitespace-nowrap">Customer Type</th>
+<th class="p-table-cell-padding whitespace-nowrap">Risk Score</th>
+<th class="p-table-cell-padding">Status &amp; Pattern</th>
+<th class="p-table-cell-padding text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-mono-data text-mono-data text-on-surface divide-y divide-outline-variant">
+<!-- HIGH RISK ROW (Selected State) -->
+<tr class="bg-surface-container-highest hover:bg-surface-bright transition-colors cursor-pointer group border-l-2 border-l-error">
+<td class="p-table-cell-padding font-bold text-primary-fixed">#8821</td>
+<td class="p-table-cell-padding text-on-surface-variant">10:42:15 AM</td>
+<td class="p-table-cell-padding">
+<span class="px-1.5 py-0.5 bg-surface text-on-surface-variant border border-outline-variant rounded-sm">New User</span>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="text-error font-bold text-[14px]">94</span>
+<div class="w-12 h-1 bg-surface rounded-full overflow-hidden"><div class="bg-error h-full w-[94%]"></div></div>
+</div>
+</td>
+<td class="p-table-cell-padding flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[16px]">stacked_line_chart</span>
+<span class="text-error-container truncate max-w-[180px]">Card-testing spike detected</span>
+</td>
+<td class="p-table-cell-padding text-right">
+<button class="px-2 py-1 bg-surface border border-outline-variant text-on-surface rounded-DEFAULT hover:border-primary-container transition-colors">Review →</button>
+</td>
+</tr>
+<!-- LOW RISK ROW -->
+<tr class="hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="p-table-cell-padding">#8819</td>
+<td class="p-table-cell-padding text-on-surface-variant">10:41:03 AM</td>
+<td class="p-table-cell-padding">
+<span class="px-1.5 py-0.5 bg-surface-container-highest text-primary-container border border-outline-variant rounded-sm flex items-center gap-1 w-max">
+<span class="material-symbols-outlined text-[12px]">star</span> VIP
+                                    </span>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="text-on-surface-variant">02</span>
+<div class="w-12 h-1 bg-surface rounded-full overflow-hidden"><div class="bg-primary-container h-full w-[2%]"></div></div>
+</div>
+</td>
+<td class="p-table-cell-padding text-on-surface-variant truncate max-w-[180px]">
+                                    Trusted profile pattern
+                                </td>
+<td class="p-table-cell-padding text-right">
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded-DEFAULT border border-transparent">Auto-Approve</span>
+</td>
+</tr>
+<!-- MEDIUM RISK ROW -->
+<tr class="hover:bg-surface-container-high transition-colors cursor-pointer">
+<td class="p-table-cell-padding">#8815</td>
+<td class="p-table-cell-padding text-on-surface-variant">10:38:44 AM</td>
+<td class="p-table-cell-padding">
+<span class="px-1.5 py-0.5 bg-surface text-on-surface-variant border border-outline-variant rounded-sm">Returning</span>
+</td>
+<td class="p-table-cell-padding">
+<div class="flex items-center gap-2">
+<span class="text-on-secondary-container">65</span>
+<div class="w-12 h-1 bg-surface rounded-full overflow-hidden"><div class="bg-on-secondary-container h-full w-[65%]"></div></div>
+</div>
+</td>
+<td class="p-table-cell-padding flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-outline text-[16px]">policy</span>
+<span class="truncate max-w-[180px]">Suspicious Missing-Item Claim</span>
+</td>
+<td class="p-table-cell-padding text-right">
+<button class="px-2 py-1 bg-surface border border-outline-variant text-on-surface rounded-DEFAULT hover:border-primary-container transition-colors">Review</button>
+</td>
+</tr>
+<!-- Add a few more dummy rows for density -->
+<tr class="hover:bg-surface-container-high transition-colors cursor-pointer opacity-70">
+<td class="p-table-cell-padding">#8814</td>
+<td class="p-table-cell-padding text-on-surface-variant">10:35:12 AM</td>
+<td class="p-table-cell-padding"><span class="px-1.5 py-0.5 bg-surface text-on-surface-variant border border-outline-variant rounded-sm">Guest</span></td>
+<td class="p-table-cell-padding"><div class="flex items-center gap-2"><span class="text-on-surface-variant">15</span><div class="w-12 h-1 bg-surface rounded-full overflow-hidden"><div class="bg-outline h-full w-[15%]"></div></div></div></td>
+<td class="p-table-cell-padding text-on-surface-variant">Standard profile</td>
+<td class="p-table-cell-padding text-right"><span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded-DEFAULT">Auto-Approve</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors cursor-pointer opacity-70">
+<td class="p-table-cell-padding">#8810</td>
+<td class="p-table-cell-padding text-on-surface-variant">10:22:05 AM</td>
+<td class="p-table-cell-padding"><span class="px-1.5 py-0.5 bg-surface text-on-surface-variant border border-outline-variant rounded-sm">New User</span></td>
+<td class="p-table-cell-padding"><div class="flex items-center gap-2"><span class="text-on-surface-variant">42</span><div class="w-12 h-1 bg-surface rounded-full overflow-hidden"><div class="bg-outline-variant h-full w-[42%]"></div></div></div></td>
+<td class="p-table-cell-padding text-on-surface-variant">Velocity warning (minor)</td>
+<td class="p-table-cell-padding text-right"><span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded-DEFAULT">Auto-Approve</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- RIGHT PANE: Slide-over Evidence Drawer / Detail View -->
+<section class="w-[420px] shrink-0 bg-surface-container-low border border-outline-variant rounded-lg flex flex-col shadow-[0_0_24px_rgba(0,0,0,0.4)] relative overflow-hidden">
+<!-- Drawer Header -->
+<div class="px-4 py-3 border-b border-outline-variant bg-surface flex justify-between items-center">
+<div>
+<div class="font-mono-data text-[10px] text-on-surface-variant uppercase tracking-widest mb-1 flex items-center gap-1">
+                            Evidence Packet <span class="material-symbols-outlined text-[12px]">chevron_right</span> #8821
+                        </div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Order Deep Dive</h3>
+</div>
+<button class="p-1 hover:bg-surface-container rounded-DEFAULT text-on-surface-variant transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+<!-- Alert Banner -->
+<div class="bg-error-container border border-error p-3 rounded-DEFAULT flex items-start gap-3">
+<span class="material-symbols-outlined text-error mt-0.5">crisis_alert</span>
+<div>
+<h4 class="font-label-md text-label-md text-error">Critical Anomaly Detected</h4>
+<p class="font-body-sm text-body-sm text-on-surface mt-1 text-[12px]">7 similar transactions from same IP subnet within last 4 minutes. Matches 'Reseller Bot' fingerprint v12.</p>
+</div>
+</div>
+<!-- Pattern Graph Visualization -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-3">
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">ssid_chart</span> Activity Pattern (Last 1hr)
+                        </h4>
+<div class="h-24 w-full bg-background border border-surface-container-highest rounded-sm relative flex items-end px-1 pb-1 gap-1">
+<!-- Fake Bar Chart representing spike -->
+<div class="w-full bg-surface-variant h-[10%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[15%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[12%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[20%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[18%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[25%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[30%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[22%] rounded-t-sm"></div>
+<div class="w-full bg-error h-[80%] rounded-t-sm relative group">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-surface text-error font-mono-data text-[10px] px-1 py-0.5 rounded border border-error hidden group-hover:block z-10">Spike</div>
+</div>
+<div class="w-full bg-error h-[95%] rounded-t-sm"></div>
+<div class="w-full bg-error h-[85%] rounded-t-sm"></div>
+<div class="w-full bg-surface-variant h-[15%] rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-1 font-mono-data text-[9px] text-outline">
+<span>T-60m</span>
+<span>Now</span>
+</div>
+</div>
+<!-- Customer Identity Block -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-3">
+<h4 class="font-label-md text-label-md text-on-surface-variant mb-2 border-b border-outline-variant pb-1">Entity Details</h4>
+<div class="grid grid-cols-2 gap-y-2 text-mono-data text-[12px]">
+<div class="text-outline">IP Address:</div>
+<div class="text-on-surface text-right">192.168.1.104 <span class="text-error ml-1" title="VPN Detected">[VPN]</span></div>
+<div class="text-outline">Device Hash:</div>
+<div class="text-on-surface text-right truncate">abc123_xyz890_def456</div>
+<div class="text-outline">Card Bin:</div>
+<div class="text-on-surface text-right">411111 (Prepaid)</div>
+<div class="text-outline">Distance:</div>
+<div class="text-on-surface text-right text-error">4,200 mi (Mismatch)</div>
+</div>
+</div>
+</div>
+<!-- Friction Decision Cards (Fixed Bottom) -->
+<div class="p-4 border-t border-outline-variant bg-surface mt-auto">
+<h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase mb-3 tracking-wider">Resolution Action</h4>
+<div class="grid grid-cols-2 gap-2">
+<!-- Decline (Danger) -->
+<button class="col-span-2 bg-error hover:bg-error-container text-white py-2 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-2 border border-transparent shadow-[0_0_10px_rgba(255,59,48,0.2)]">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                            Hard Decline &amp; Block Entity
+                        </button>
+<!-- Review (Ghost/Secondary) -->
+<button class="bg-surface border border-outline-variant hover:border-primary-container hover:bg-surface-container-highest text-on-surface py-1.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">policy</span>
+                            Request ID
+                        </button>
+<!-- Approve (Primary but muted here since high risk) -->
+<button class="bg-surface border border-outline-variant hover:border-primary hover:text-primary-fixed text-outline py-1.5 rounded-DEFAULT font-label-md text-label-md transition-colors flex items-center justify-center gap-1 opacity-50 hover:opacity-100">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                            Force Approve
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
