@@ -1,43 +1,393 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dating Photo Freshness Meter - Form Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="split">
-      <section class="brand">
-        <p class="id">2026-06-17-p005</p>
-        <h1>Dating Photo Freshness Meter</h1>
-        <p>A profile-photo audit that scores whether your dating app pictures look current, trustworthy, and not accidentally cringe.</p>
-      </section>
-      <section class="card-wrap">
-        <form class="card" aria-label="Intake form">
-          <h2>Project intake</h2>
-          <label>
-            Prototype goal
-            <input type="text" placeholder="What should this prototype prove?" />
-          </label>
-          <label>
-            Primary persona
-            <input type="text" placeholder="Who is this for?" />
-          </label>
-          <label>
-            Constraints
-            <textarea id="constraints" rows="4" placeholder="Time, budget, technical limits..."></textarea>
-          </label>
-          <div class="foot">
-            <span id="counter">0 / 280</span>
-            <button type="button">Submit draft</button>
-          </div>
-        </form>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fresh Photo - Dating Photo Freshness Meter</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,400;0,500;0,700;1,400&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#ffb3b0",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#0d1c32",
+                    "inverse-on-surface": "#ffedeb",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#003c20",
+                    "on-surface": "#251818",
+                    "primary-container": "#ff6b6b",
+                    "surface-container": "#ffe9e7",
+                    "error": "#ba1a1a",
+                    "secondary": "#515f78",
+                    "surface-container-low": "#fff0ef",
+                    "primary": "#ae2f34",
+                    "on-primary-container": "#6d0010",
+                    "secondary-fixed": "#d6e3ff",
+                    "on-secondary-fixed-variant": "#39475f",
+                    "primary-fixed": "#ffdad8",
+                    "on-primary-fixed": "#410006",
+                    "background": "#fff8f7",
+                    "on-tertiary-fixed": "#002110",
+                    "on-primary-fixed-variant": "#8c1520",
+                    "on-secondary-container": "#55637d",
+                    "tertiary-container": "#00b26b",
+                    "primary-fixed-dim": "#ffb3b0",
+                    "tertiary-fixed": "#57ffa6",
+                    "outline-variant": "#e0bfbd",
+                    "surface-bright": "#fff8f7",
+                    "inverse-surface": "#3b2d2c",
+                    "tertiary-fixed-dim": "#00e38a",
+                    "surface": "#fff8f7",
+                    "on-primary": "#ffffff",
+                    "surface-container-high": "#fbe3e1",
+                    "on-surface-variant": "#584140",
+                    "surface-container-highest": "#f5dddb",
+                    "on-background": "#251818",
+                    "secondary-container": "#d2e0fe",
+                    "tertiary": "#006d3f",
+                    "surface-variant": "#f5dddb",
+                    "surface-tint": "#ae2f34",
+                    "on-tertiary": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-dim": "#ecd5d3",
+                    "outline": "#8c706f",
+                    "secondary-fixed-dim": "#b9c7e4",
+                    "on-tertiary-fixed-variant": "#00522e"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "lg": "48px",
+                    "xs": "4px",
+                    "sm": "12px",
+                    "xl": "80px",
+                    "container-margin": "20px",
+                    "base": "8px",
+                    "md": "24px",
+                    "border-width": "3px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "display-lg-mobile": ["Space Grotesk"],
+                    "headline-sm": ["Space Grotesk"],
+                    "headline-md": ["Space Grotesk"],
+                    "label-bold": ["Hanken Grotesk"],
+                    "display-lg": ["Space Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "display-lg-mobile": ["36px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "label-bold": ["14px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1", "fontWeight": "500"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom brutalist utilities */
+        .brutal-border { border-width: 3px; border-color: #251818; border-style: solid; }
+        .brutal-shadow { box-shadow: 4px 4px 0px 0px #251818; }
+        .brutal-shadow-lg { box-shadow: 8px 8px 0px 0px #251818; }
+        .brutal-stamp { transform: rotate(-5deg); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 border-b-3 border-on-surface shadow-[4px_4px_0px_0px_rgba(37,24,24,1)] z-40 relative">
+<div class="flex justify-between items-center w-full px-container-margin h-lg max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<span class="font-display-lg text-display-lg font-bold text-primary italic uppercase tracking-tighter">FRESH PHOTO</span>
+<div class="hidden md:flex ml-md px-3 py-1 bg-surface-variant border-2 border-on-surface rounded-full items-center gap-2 shadow-[2px_2px_0px_0px_rgba(37,24,24,1)]">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+<span class="font-label-bold text-label-bold text-on-surface uppercase">Profile: Stale</span>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 border-2 border-transparent hover:border-on-surface rounded-full transition-all text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 border-2 border-transparent hover:border-on-surface rounded-full transition-all text-on-surface flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<div class="w-10 h-10 rounded-full border-3 border-on-surface overflow-hidden bg-surface-container-highest ml-2">
+<img alt="User profile photo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBufpTad2V2t64UwvB6dISpiwFqv6NGskDLJSAk3MLBmm17-3KWsvRsCqexR_3J7SnR5AglxzeAxNag94nkEr4yNP2FwUpHDXayBET0P5fxnv3st3rHtFdWsEERPTFEyUcA2vHk70UtlgVAFmygljR8z7hLVndQPbeducpUWqwUt-jWO-6pYl6oU-KzPVVHYfaZD3oiJFEiU13PHlUz5P4hMh6TEERqdMw3cEHsXVv4ouinp_rLzc3qLUMZm-v6Vq7-ut7GaQKEBxs9"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 w-full max-w-[1600px] mx-auto relative">
+<!-- SideNavBar -->
+<nav class="bg-surface docked left-0 h-full w-xl border-r-3 border-on-surface shadow-[4px_0px_0px_0px_rgba(37,24,24,1)] hidden lg:flex flex-col sticky top-0 pt-lg pb-md z-30">
+<div class="px-md mb-lg flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full border-3 border-on-surface shadow-[4px_4px_0px_0px_rgba(37,24,24,1)] overflow-hidden mb-sm bg-error-container">
+<img alt="User avatar" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1xfHZCqedUJxmujWwUDl5hpVPQiNS5AHtShH2soGAEbpvzvdDgAf1eYWJJqO-fyuTM8wqps7HcMiE-urTl4sBQLt_8bmZdJncXnOk8sVwYSKkj1QFtTeOUdFskQZQM_iUI4vsT0JWmlkOBu-f0t_Oy5tzVtSbLvSGirDlTISWLcNusTJVOGNltcr7o22z84lX61egeJ3Wj2l5Ji-LkMNGRtpRC1wEsDmq6FARLmMQEH3_8hxBLzuYQMVk2zJJ1d5fsxoY-UvpbFs1"/>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-1">Audit Status</h2>
+<span class="font-label-bold text-label-bold px-2 py-1 bg-surface-container border-2 border-on-surface text-error">Profile: Stale</span>
+</div>
+<div class="flex-1 flex flex-col gap-1 w-full px-2">
+<!-- Inactive Tab -->
+<a class="text-on-surface-variant flex items-center gap-sm px-sm py-base m-2 hover:bg-surface-container-low hover:border-3 hover:border-on-surface transition-all rounded-DEFAULT font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined" data-icon="photo_camera">photo_camera</span>
+                    Photo Audit
+                </a>
+<!-- Active Tab -->
+<a class="bg-primary-container text-on-primary-container border-3 border-on-surface shadow-[4px_4px_0px_0px_rgba(37,24,24,1)] m-2 flex items-center gap-sm px-sm py-base rounded-DEFAULT font-label-bold text-label-bold active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="speed" style="font-variation-settings: 'FILL' 1;">speed</span>
+                    Freshness Meter
+                </a>
+<!-- Inactive Tabs -->
+<a class="text-on-surface-variant flex items-center gap-sm px-sm py-base m-2 hover:bg-surface-container-low hover:border-3 hover:border-on-surface transition-all rounded-DEFAULT font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+                    Prompt Bank
+                </a>
+<a class="text-on-surface-variant flex items-center gap-sm px-sm py-base m-2 hover:bg-surface-container-low hover:border-3 hover:border-on-surface transition-all rounded-DEFAULT font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined" data-icon="drag_indicator">drag_indicator</span>
+                    Order Builder
+                </a>
+<a class="text-on-surface-variant flex items-center gap-sm px-sm py-base m-2 hover:bg-surface-container-low hover:border-3 hover:border-on-surface transition-all rounded-DEFAULT font-label-bold text-label-bold" href="#">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+                    Trust Badges
+                </a>
+</div>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 bg-surface-variant text-on-surface border-3 border-on-surface shadow-[4px_4px_0px_0px_rgba(37,24,24,1)] font-label-bold text-label-bold hover:bg-surface-container-highest active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all flex items-center justify-center gap-2">
+                    UPGRADE TO FLAMES
+                    <span class="material-symbols-outlined" data-icon="local_fire_department">local_fire_department</span>
+</button>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col xl:flex-row p-container-margin md:p-md gap-md overflow-y-auto">
+<!-- Central Canvas -->
+<div class="flex-1 flex flex-col gap-lg">
+<!-- Section Header -->
+<div class="flex flex-col gap-xs">
+<h1 class="font-headline-md text-headline-md text-on-surface">Your Current Roster</h1>
+<p class="text-body-lg text-on-surface-variant max-w-2xl">We ran the numbers. Some of these belong in a museum, not your dating profile. Time for a reality check.</p>
+</div>
+<!-- Six-Photo Profile Strip -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-md">
+<!-- Photo 1 -->
+<div class="bg-surface brutal-border brutal-shadow rounded-lg overflow-visible relative group aspect-[3/4] flex flex-col">
+<div class="absolute -top-3 -right-3 z-10 brutal-stamp">
+<span class="bg-error text-on-error font-label-bold text-label-bold px-3 py-1 brutal-border shadow-[2px_2px_0px_0px_#251818] tracking-widest uppercase">STALE - 3 YRS</span>
+</div>
+<div class="flex-1 w-full bg-surface-container-lowest overflow-hidden border-b-3 border-on-surface">
+<img alt="A brightly lit outdoor vacation photo of a young adult standing on a tropical beach. The image is slightly faded and uses retro color grading typical of older smartphone cameras, making it look intentionally stale and outdated in a modern dating app context. The mood is nostalgic but objectively old." class="w-full h-full object-cover filter sepia-[0.3]" data-alt="A brightly lit outdoor vacation photo of a young adult standing on a tropical beach. The image is slightly faded and uses retro color grading typical of older smartphone cameras, making it look intentionally stale and outdated in a modern dating app context. The mood is nostalgic but objectively old." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDn5-GS0MK518mdI_Uz6UnWEYj8xH7Otspd-ZBiKu3vq2xbXMIleSB4GBJt_nLWOHIHr2NiUInptbVaF7ePnGo7Zw2pcWyt6TEkg9zFEKJvod1Nny7qEEBKV9aIbJsQOZhC77zTG6NnVt5T-hoP0inhY1MyXnp7nJ0-kcdylwlN1auw2y0D2Y1_SDoCo3LXDOQYMkCaHblQmuLHZ5Rffq4ycZgNZQSOaQMM5NhSdlZ7fl_6dTf3gsFbPAEVZPjiWeP5XhC2A6oT3sgN"/>
+</div>
+<div class="p-2 bg-surface text-center">
+<span class="font-label-bold text-label-bold text-on-surface-variant">"Old Vacation"</span>
+</div>
+</div>
+<!-- Photo 2 -->
+<div class="bg-surface brutal-border brutal-shadow rounded-lg overflow-visible relative group aspect-[3/4] flex flex-col">
+<div class="absolute top-4 -left-4 z-10 rotate-[8deg]">
+<span class="bg-error-container text-on-error-container font-label-bold text-label-bold px-3 py-1 brutal-border shadow-[2px_2px_0px_0px_#251818] tracking-widest uppercase">CRINGE: HIGH</span>
+</div>
+<div class="flex-1 w-full bg-surface-container-lowest overflow-hidden border-b-3 border-on-surface">
+<img alt="A close-up selfie taken from a low angle inside a car, featuring harsh overhead sunlight and strong shadows. The composition feels claustrophobic and slightly unapproachable, fitting the 'cringe risk' label. The lighting highlights the dashboard and steering wheel in the background, creating a chaotic visual space." class="w-full h-full object-cover" data-alt="A close-up selfie taken from a low angle inside a car, featuring harsh overhead sunlight and strong shadows. The composition feels claustrophobic and slightly unapproachable, fitting the 'cringe risk' label. The lighting highlights the dashboard and steering wheel in the background, creating a chaotic visual space." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxkeI55hri4nVZiTp0cyOVotauIa_XQ_KJspR90ki2YVW79icHw7SBuWTeetIcD06UexQdFgg3H7EJ82LMNFqu2S5UTXYA8TDeU0Fh_ZTIdQL191wk0lQelzeHP-RrmbNRO2_I2yrh2ZmQPRiUE20RoF4Fbp4CpTc7EaCi8G8R-eDR5BkjdTO31_keFQXCRDhRVvVtn1xtePaKjkNqO_YepQquADBCnusi8QZ73UHnYllQuqqnb7RJXzjg2fFEnDxpu0khaOlXI4Ip"/>
+</div>
+<div class="p-2 bg-surface text-center">
+<span class="font-label-bold text-label-bold text-on-surface-variant">"Car Selfie"</span>
+</div>
+</div>
+<!-- Photo 3 -->
+<div class="bg-surface brutal-border brutal-shadow rounded-lg overflow-visible relative group aspect-[3/4] flex flex-col">
+<div class="absolute -bottom-2 right-4 z-10 -rotate-[3deg]">
+<span class="bg-surface-variant text-on-surface font-label-bold text-label-bold px-3 py-1 brutal-border shadow-[2px_2px_0px_0px_#251818] tracking-widest uppercase">CRINGE: MID</span>
+</div>
+<div class="flex-1 w-full bg-surface-container-lowest overflow-hidden border-b-3 border-on-surface">
+<img alt="A dimly lit mirror selfie taken inside a generic commercial gym. The subject's face is obscured by their smartphone, and the background is cluttered with workout equipment and fluorescent lights. The aesthetic is heavily shadowed and somewhat generic, conveying a lack of effort or personality." class="w-full h-full object-cover" data-alt="A dimly lit mirror selfie taken inside a generic commercial gym. The subject's face is obscured by their smartphone, and the background is cluttered with workout equipment and fluorescent lights. The aesthetic is heavily shadowed and somewhat generic, conveying a lack of effort or personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAm7YEXIaeNFVRoHdvrLEVTr6UrewLg_qdbQrUO3sXV5Ue3gGbWpo6Gos7cPeuEHIgMYmU4qIONAU_L0TBxzcI_cda3zJk15JzwfJYhPzssOL-0OUkDclHcZlbAoklyvPAtzK2qiGgXWW6TapU9r0W1BxasScoV3quurIn7KqP_aHiPuJIx4Ai8qM1kSxa-VKTlCvakdbMlCYPDA6jowQ6BrBTA68HA7mdtOP2371ktxSXK9ivMwyAoyM1LxQvks8TWOWgqLUX6yOHr"/>
+</div>
+<div class="p-2 bg-surface text-center">
+<span class="font-label-bold text-label-bold text-on-surface-variant">"Gym Mirror"</span>
+</div>
+</div>
+<!-- Photo 4 -->
+<div class="bg-surface brutal-border brutal-shadow rounded-lg overflow-visible relative group aspect-[3/4] flex flex-col border-tertiary">
+<div class="absolute -top-3 -right-3 z-10 brutal-stamp">
+<span class="bg-tertiary text-on-tertiary font-label-bold text-label-bold px-3 py-1 brutal-border border-on-surface shadow-[2px_2px_0px_0px_#251818] tracking-widest uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                                FRESH
+                            </span>
+</div>
+<div class="flex-1 w-full bg-surface-container-lowest overflow-hidden border-b-3 border-on-surface">
+<img alt="A high-quality, candid photo of a person engaged in a creative hobby, like painting or playing guitar, in a well-lit indoor studio. The lighting is soft and flattering natural light from a nearby window. The image exudes authenticity, warmth, and modern approachability, perfectly fitting a 'fresh and verified' status." class="w-full h-full object-cover" data-alt="A high-quality, candid photo of a person engaged in a creative hobby, like painting or playing guitar, in a well-lit indoor studio. The lighting is soft and flattering natural light from a nearby window. The image exudes authenticity, warmth, and modern approachability, perfectly fitting a 'fresh and verified' status." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvU63sfoFAKsr9iwBuIwXwoT1sLmS91ghlvZ_aT5rC0vjGZ8wSluYY8yxXFLf8uEy4sZ4BYebdZTvo5gaTBtEwZhskPW-iumhDQiuP6ynrSdQJhJS9xd4PHhARaTbgjzZ-KY8JXuKFbQg46JEsASJIkQO_CbJZD346V8dQ_2AdoQuGqkScki18dF7zlYfEgOKOYYsrKmB43FG9t1xYYr0wv4Jj1vJfglP3LnUVjGJ3b2pfUXplH5oK8mfGS42G4JrLTdRoyD5xLKMb"/>
+</div>
+<div class="p-2 bg-surface text-center">
+<span class="font-label-bold text-label-bold text-on-surface-variant">"Hobby Candid"</span>
+</div>
+</div>
+<!-- Photo 5 -->
+<div class="bg-surface brutal-border brutal-shadow rounded-lg overflow-visible relative group aspect-[3/4] flex flex-col">
+<div class="absolute top-2 left-2 z-10">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-bold text-label-bold px-3 py-1 brutal-border shadow-[2px_2px_0px_0px_#251818] tracking-widest uppercase">TRUSTED</span>
+</div>
+<div class="flex-1 w-full bg-surface-container-lowest overflow-hidden border-b-3 border-on-surface">
+<img alt="A crisp, modern full-body shot of a person standing in a vibrant urban park setting during golden hour. The subject is casually dressed and smiling naturally. The background features slightly blurred city architecture and lush green trees, projecting confidence and approachability." class="w-full h-full object-cover" data-alt="A crisp, modern full-body shot of a person standing in a vibrant urban park setting during golden hour. The subject is casually dressed and smiling naturally. The background features slightly blurred city architecture and lush green trees, projecting confidence and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASAtlx4Xc3FBKe5Ycuubm8-bMTaFvEQGbMt76wmkbLpsEpEVI4MxlRv9ZpoX3PFWAIPCAgCX7PV2r1v11GTW05-SI4EEdHSrMJhq7MysdIvv0nEJvmhKCr2zNHYUh5WImkvK87RX8UWr_Voa4r_hFCKAyDF1u9oRarvug_pPDsRIjXg50HEU-ZLzwXwhSM2JkR-KJRCtJM3qb6o_AeCnGkqM1hnZ7HltJhHQ34o6hPZ7DAk8fZlDbXP7qv-82zb6NlNeOkzsSOOyB8"/>
+</div>
+<div class="p-2 bg-surface text-center">
+<span class="font-label-bold text-label-bold text-on-surface-variant">"Full-Body Outdoor"</span>
+</div>
+</div>
+<!-- Photo 6 (Chat Preview) -->
+<div class="bg-surface-container brutal-border brutal-shadow rounded-lg overflow-hidden relative group aspect-[3/4] flex flex-col items-center justify-center p-sm">
+<div class="bg-background brutal-border p-3 w-full max-w-[90%] shadow-[2px_2px_0px_0px_#251818] rounded-xl rounded-bl-none mb-4 relative">
+<p class="font-body-md text-on-surface">do you have a pic from today? 🤔</p>
+</div>
+<div class="text-center mt-4">
+<span class="material-symbols-outlined text-error text-4xl mb-2">warning</span>
+<p class="font-label-bold text-label-bold text-on-surface-variant uppercase">Oof. They asked.</p>
+</div>
+</div>
+</div>
+<hr class="border-t-3 border-on-surface my-4"/>
+<!-- Lower Action Area -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+<!-- Before/After Order Builder -->
+<div class="bg-secondary-fixed brutal-border p-sm flex flex-col gap-sm shadow-[4px_4px_0px_0px_#251818]">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-secondary-fixed-variant">drag_indicator</span>
+<h3 class="font-headline-sm text-headline-sm text-on-secondary-fixed-variant">Order Builder</h3>
+</div>
+<p class="text-body-md text-on-secondary-fixed-variant mb-2">Drag to swap positions. Lead with your strongest angle.</p>
+<div class="flex flex-col gap-2">
+<div class="bg-surface brutal-border p-2 flex items-center justify-between cursor-move hover:bg-surface-container transition-colors">
+<span class="font-label-bold text-on-surface">1. Hobby Candid</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">menu</span>
+</div>
+<div class="bg-surface brutal-border p-2 flex items-center justify-between cursor-move hover:bg-surface-container transition-colors">
+<span class="font-label-bold text-on-surface">2. Full-Body Outdoor</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">menu</span>
+</div>
+</div>
+</div>
+<!-- Prompt Bank -->
+<div class="bg-primary-container brutal-border p-sm flex flex-col gap-sm shadow-[4px_4px_0px_0px_#251818] col-span-1 lg:col-span-2">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-on-primary-container">chat_bubble</span>
+<h3 class="font-headline-sm text-headline-sm text-on-primary-container">Prompt Bank</h3>
+</div>
+<p class="text-body-md text-on-primary-container mb-2">Polite ways to ask your matches for a fresh pic without sounding insane.</p>
+<div class="flex flex-wrap gap-2">
+<button class="bg-surface text-on-surface brutal-border px-3 py-2 font-body-md hover:bg-surface-variant active:translate-y-1 active:shadow-none shadow-[2px_2px_0px_0px_#251818] transition-all text-left">
+                                "I love your vibe! Any recent snaps from this week?"
+                            </button>
+<button class="bg-surface text-on-surface brutal-border px-3 py-2 font-body-md hover:bg-surface-variant active:translate-y-1 active:shadow-none shadow-[2px_2px_0px_0px_#251818] transition-all text-left">
+                                "That vacation looks amazing, is that a recent trip?"
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar - Audit Controls -->
+<aside class="w-full xl:w-96 flex flex-col gap-md">
+<!-- The Verdict Card -->
+<div class="bg-surface-variant brutal-border brutal-shadow-lg p-md flex flex-col gap-md relative overflow-hidden">
+<div class="absolute -right-10 -top-10 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">analytics</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface tracking-tight uppercase border-b-3 border-on-surface pb-2">The Verdict</h2>
+<!-- Conversation Impact -->
+<div class="bg-surface brutal-border p-sm flex items-center justify-between shadow-[2px_2px_0px_0px_#251818]">
+<span class="font-label-bold text-label-bold text-on-surface-variant uppercase">Ghost Risk</span>
+<div class="flex items-baseline gap-1 text-error">
+<span class="font-display-lg text-display-lg">82</span>
+<span class="font-label-bold text-label-bold">%</span>
+</div>
+</div>
+<!-- Cringe Meter -->
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex justify-between font-label-bold text-label-bold text-on-surface uppercase">
+<span>Human</span>
+<span>Main Character</span>
+</div>
+<div class="h-8 brutal-border w-full flex relative bg-surface overflow-hidden">
+<!-- Gradient background mimicking steps -->
+<div class="w-full h-full bg-gradient-to-r from-tertiary via-surface-variant to-error opacity-80"></div>
+<!-- Needle -->
+<div class="absolute top-0 bottom-0 w-2 bg-on-surface left-[75%] border-x-2 border-surface shadow-[-2px_0_4px_rgba(0,0,0,0.2)]"></div>
+</div>
+<p class="text-label-sm font-label-sm text-right text-on-surface-variant italic mt-1">Dialing slightly too hard into "influencer" territory.</p>
+</div>
+<!-- Current-Look Proof Checklist -->
+<div class="mt-4 flex flex-col gap-3">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Reality Check</h3>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="w-6 h-6 brutal-border bg-surface flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-surface-variant transition-colors">
+<!-- Checked state fake -->
+</div>
+<span class="font-body-md text-on-surface pt-0.5">Scruff matches current reality?</span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="w-6 h-6 brutal-border bg-error text-on-error flex items-center justify-center shrink-0 mt-0.5 shadow-[2px_2px_0px_0px_#251818]">
+<span class="material-symbols-outlined text-[18px] font-bold">close</span>
+</div>
+<span class="font-body-md text-on-surface pt-0.5 line-through opacity-70">Hairline update accounted for?</span>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<div class="w-6 h-6 brutal-border bg-surface flex items-center justify-center shrink-0 mt-0.5 group-hover:bg-surface-variant transition-colors">
+</div>
+<span class="font-body-md text-on-surface pt-0.5">No 'mystery' sunglasses in &gt;2 pics?</span>
+</label>
+</div>
+<!-- Share Card Action -->
+<button class="mt-6 w-full bg-primary text-on-primary brutal-border py-3 font-headline-sm text-headline-sm shadow-[4px_4px_0px_0px_#251818] active:translate-x-[4px] active:translate-y-[4px] active:shadow-none transition-all flex justify-center items-center gap-2 group">
+<span class="material-symbols-outlined group-hover:-translate-y-1 transition-transform">send</span>
+                        ROAST ME
+                    </button>
+<p class="text-center font-label-sm text-label-sm text-on-surface-variant">Send to the group chat for a reality check.</p>
+</div>
+</aside>
+</main>
+</div>
+<!-- BottomNavBar (Mobile only) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface border-t-3 border-on-surface shadow-[0px_-4px_0px_0px_rgba(37,24,24,1)] z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm mt-1">Audit</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-tertiary-container text-on-tertiary-container rounded-none border-3 border-on-surface p-2 -translate-y-2 shadow-[2px_2px_0px_0px_rgba(37,24,24,1)] active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="timer" style="font-variation-settings: 'FILL' 1;">timer</span>
+<span class="font-label-sm text-label-sm mt-1 font-bold">Freshness</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="question_answer">question_answer</span>
+<span class="font-label-sm text-label-sm mt-1">Prompts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary transition-colors active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="import_export">import_export</span>
+<span class="font-label-sm text-label-sm mt-1">Sequence</span>
+</a>
+</nav>
+</body></html>

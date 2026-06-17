@@ -1,43 +1,401 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>B-List Invite Timing Simulator - Form Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="split">
-      <section class="brand">
-        <p class="id">2026-06-17-p007</p>
-        <h1>B-List Invite Timing Simulator</h1>
-        <p>A wedding RSVP timing toy that shows when a second-tier guest invite still feels graceful instead of obvious.</p>
-      </section>
-      <section class="card-wrap">
-        <form class="card" aria-label="Intake form">
-          <h2>Project intake</h2>
-          <label>
-            Prototype goal
-            <input type="text" placeholder="What should this prototype prove?" />
-          </label>
-          <label>
-            Primary persona
-            <input type="text" placeholder="Who is this for?" />
-          </label>
-          <label>
-            Constraints
-            <textarea id="constraints" rows="4" placeholder="Time, budget, technical limits..."></textarea>
-          </label>
-          <div class="foot">
-            <span id="counter">0 / 280</span>
-            <button type="button">Submit draft</button>
-          </div>
-        </form>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>B-List Invite Timing Simulator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed": "#ffdcbd",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#4a654f",
+                    "surface-variant": "#e4e2dd",
+                    "on-secondary-fixed": "#2c1600",
+                    "secondary-fixed-dim": "#f0bd8b",
+                    "secondary-container": "#ffca98",
+                    "primary-fixed-dim": "#b0ceb4",
+                    "inverse-primary": "#b0ceb4",
+                    "tertiary-fixed-dim": "#eebaba",
+                    "on-tertiary-container": "#523030",
+                    "surface-container-lowest": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "outline-variant": "#c2c8c0",
+                    "on-primary-fixed-variant": "#334d38",
+                    "primary-fixed": "#cceacf",
+                    "surface-container-low": "#f5f3ee",
+                    "inverse-on-surface": "#f2f1ec",
+                    "surface-dim": "#dbdad5",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#c79797",
+                    "error": "#ba1a1a",
+                    "on-error": "#ffffff",
+                    "surface-container-high": "#eae8e3",
+                    "on-tertiary-fixed-variant": "#623d3d",
+                    "outline": "#737972",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-surface": "#1b1c19",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fbf9f4",
+                    "on-surface-variant": "#424842",
+                    "on-secondary-container": "#7a532a",
+                    "on-tertiary-fixed": "#301314",
+                    "on-background": "#1b1c19",
+                    "surface-container": "#f0eee9",
+                    "on-primary-fixed": "#062010",
+                    "primary-container": "#8daa91",
+                    "primary": "#4a654f",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed-variant": "#623f18",
+                    "tertiary-fixed": "#ffdad9",
+                    "secondary": "#7d562d",
+                    "on-primary-container": "#253f2b",
+                    "tertiary": "#7c5454",
+                    "inverse-surface": "#30312e",
+                    "background": "#fbf9f4",
+                    "surface-bright": "#fbf9f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "64px",
+                    "container-max": "1120px",
+                    "margin-mobile": "20px",
+                    "unit": "8px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "body-lg": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-sm": [
+                            "Playfair Display"
+                    ],
+                    "body-md": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "label-sm": [
+                            "Plus Jakarta Sans"
+                    ],
+                    "headline-md": [
+                            "Playfair Display"
+                    ],
+                    "display-lg": [
+                            "Playfair Display"
+                    ],
+                    "display-lg-mobile": [
+                            "Playfair Display"
+                    ]
+            },
+            "fontSize": {
+                    "label-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "56px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Slider Styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            cursor: pointer;
+            margin-top: -8px;
+            box-shadow: 0 4px 6px -1px rgba(74,101,79, 0.2);
+            transition: transform 0.2s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: theme('colors.surface-variant');
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-[0px_10px_30px_rgba(74,101,79,0.08)] transition-all duration-500 ease-in-out sticky top-0 z-40">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+<h1 class="font-headline-sm text-headline-sm-mobile md:text-headline-sm text-primary dark:text-primary-fixed-dim">B-List Invite Timing Simulator</h1>
+<div class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim hidden md:flex items-center gap-2">
+<span class="material-symbols-outlined">schedule</span>
+                Countdown: 184 Days
+            </div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden max-w-container-max mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-6 gap-unit bg-surface-container-low dark:bg-surface-container-lowest shadow-[10px_0px_30px_rgba(74,101,79,0.05)] w-64 flex-shrink-0 h-[calc(100vh-80px)] sticky top-[80px]">
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-300 scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-md text-label-md">Guest Tiers</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-300 scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="domain_verification">domain_verification</span>
+<span class="font-label-md text-label-md">Capacity Hub</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-primary font-bold bg-primary-container/20 hover:bg-surface-variant/50 transition-colors duration-300 scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="hourglass_empty">hourglass_empty</span>
+<span class="font-label-md text-label-md">Timing Sim</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-variant/50 transition-colors duration-300 scale-98 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="forward_to_inbox">forward_to_inbox</span>
+<span class="font-label-md text-label-md">Send Queue</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-surface-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Final Send Queue</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Next batch in 4 days</p>
+<button class="w-full py-3 px-4 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors duration-500 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">send</span>
+                    Process Queue
+                </button>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-surface pb-32 md:pb-margin-desktop">
+<div class="max-w-4xl mx-auto space-y-16">
+<!-- Guest-Cap Countdown -->
+<section>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-6">Capacity Overview</h2>
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)] text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Venue Cap</p>
+<p class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">125</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)] text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Confirmed</p>
+<p class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary">94</p>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)] text-center">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-2 uppercase tracking-wider">Pending</p>
+<p class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-secondary">18</p>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<!-- Simulation Controls -->
+<section class="space-y-8">
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)]">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined">tune</span>
+                                Simulation Settings
+                            </h3>
+<div class="mb-8">
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="font-label-md text-label-md text-on-surface block">Expected Decline Rate</label>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Adjust based on out-of-town guests.</p>
+</div>
+<span class="font-headline-sm text-headline-sm text-primary" id="declineRateDisplay">15%</span>
+</div>
+<input class="w-full" id="declineRateSlider" max="40" min="5" type="range" value="15"/>
+</div>
+<div class="bg-surface p-4 rounded-lg border border-surface-variant">
+<h4 class="font-label-md text-label-md text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">warning</span>
+                                    Identified Risks
+                                </h4>
+<ul class="space-y-2">
+<li class="flex items-start gap-3 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">social_distance</span>
+                                        "Cousins who talk" — Risk of B-list awareness if invited &gt;4 weeks apart.
+                                    </li>
+<li class="flex items-start gap-3 font-body-md text-body-md text-on-surface-variant">
+<span class="material-symbols-outlined text-secondary text-sm mt-1">flight</span>
+                                        Out-of-town burden — 8 pending guests require &gt;6 weeks notice for flights.
+                                    </li>
+</ul>
+</div>
+</div>
+<!-- Analytics -->
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)]">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-sm text-headline-sm text-primary">Gracefulness Score</h3>
+<div class="flex items-center gap-2 bg-primary-container/30 px-4 py-2 rounded-full text-primary font-label-md text-label-md">
+<span class="material-symbols-outlined">sentiment_very_satisfied</span>
+                                    88% - Graceful
+                                </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Your current timing ensures most B-list guests will not feel like second choices.</p>
+<!-- Heatmap Placeholder -->
+<div class="h-32 bg-surface rounded-lg relative overflow-hidden flex items-center justify-center border border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant opacity-50 flex flex-col items-center gap-2">
+<span class="material-symbols-outlined">map</span>
+                                     Awkwardness Heatmap Active
+                                 </span>
+<!-- Simple CSS gradient to simulate heatmap -->
+<div class="absolute inset-0 opacity-20 bg-gradient-to-r from-primary via-surface to-secondary pointer-events-none"></div>
+</div>
+</div>
+</section>
+<!-- Tiers Board -->
+<section>
+<div class="bg-surface-container-lowest p-8 rounded-xl shadow-[0px_4px_20px_rgba(74,101,79,0.05)] h-full">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-primary">Tier 2 (The B-List)</h3>
+<span class="bg-surface-variant text-on-surface-variant font-label-sm text-label-sm px-3 py-1 rounded-full">22 Guests</span>
+</div>
+<div class="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
+<!-- Guest Item 1 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface border border-surface-variant hover:shadow-md transition-shadow duration-300">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-label-md">SA</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Sarah &amp; Alex</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">College Friends</p>
+</div>
+</div>
+<span class="bg-secondary-container/50 text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Hold</span>
+</div>
+<!-- Guest Item 2 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface border border-surface-variant hover:shadow-md transition-shadow duration-300">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-label-md">TJ</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Uncle Tom &amp; Jane</p>
+<p class="font-label-sm text-label-sm text-secondary">"Cousin Risk"</p>
+</div>
+</div>
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full font-label-sm text-label-sm">Next Batch</span>
+</div>
+<!-- Guest Item 3 -->
+<div class="flex items-center justify-between p-4 rounded-lg bg-surface border border-surface-variant hover:shadow-md transition-shadow duration-300">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant font-label-md">MK</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Mark Kim</p>
+<p class="font-label-sm text-label-sm text-secondary">Out of town</p>
+</div>
+</div>
+<span class="bg-secondary-container/50 text-on-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm">Hold</span>
+</div>
+<div class="p-4 text-center">
+<p class="font-label-md text-label-md text-on-surface-variant opacity-60">19 more guests...</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center bg-surface px-4 py-3 md:hidden shadow-[0px_-10px_30px_rgba(74,101,79,0.08)] rounded-t-xl transition-all duration-300 ease-out">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="groups">groups</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Tiers</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="domain">domain</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Capacity</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-6 py-1" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Simulate</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant p-2 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span class="font-label-sm text-label-sm-mobile mt-1">Queue</span>
+</a>
+</nav>
+<script>
+        // Simple interaction for slider
+        const slider = document.getElementById('declineRateSlider');
+        const display = document.getElementById('declineRateDisplay');
+        
+        slider.addEventListener('input', function() {
+            display.textContent = this.value + '%';
+        });
+    </script>
+</body></html>

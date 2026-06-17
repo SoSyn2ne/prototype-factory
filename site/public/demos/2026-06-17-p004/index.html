@@ -1,59 +1,365 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Teacher Boundary Reply Desk - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-17-p004</p>
-        <h1>Teacher Boundary Reply Desk</h1>
-        <p>A parent-message triage desk that helps teachers refuse unpaid tutoring and last-minute trip packets without sounding cold.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Triage Desk - CommGuard Educator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;700&amp;family=Inter:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb4ac",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#545f73",
+                        "background": "#f8f9ff",
+                        "on-secondary-fixed": "#410002",
+                        "primary-fixed": "#d8e3fb",
+                        "surface-bright": "#f8f9ff",
+                        "surface-container": "#e5eeff",
+                        "surface": "#f8f9ff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "primary-container": "#1e293b",
+                        "on-tertiary-container": "#8d9092",
+                        "secondary-fixed": "#ffdad6",
+                        "secondary": "#b02d29",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-container": "#690007",
+                        "on-primary-container": "#8590a6",
+                        "on-surface-variant": "#45474c",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#bcc7de",
+                        "tertiary-container": "#26292b",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#8e1214",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c5c6cd",
+                        "tertiary": "#111516",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-primary-fixed": "#111c2d",
+                        "outline": "#75777d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "inverse-primary": "#bcc7de",
+                        "secondary-container": "#ff665c",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "on-background": "#0b1c30",
+                        "primary": "#091426",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-low": "#eff4ff",
+                        "on-surface": "#0b1c30",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "surface-variant": "#d3e4fe"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "density-compact": "8px",
+                        "margin": "24px",
+                        "sidebar-width": "240px",
+                        "gutter": "16px",
+                        "density-tight": "4px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "code-sm": ["Geist"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Geist"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "code-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Scrollbar for dense views */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-full overflow-hidden flex flex-col font-body-md text-body-md antialiased">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant flex justify-between items-center w-full px-margin h-14 z-50 shrink-0">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">shield_person</span>
+<span class="text-headline-md font-headline-md font-black text-primary">CommGuard Educator</span>
+</div>
+<div class="flex items-center bg-surface-container-low rounded px-3 py-1.5 border border-outline-variant w-96">
+<span class="material-symbols-outlined text-on-surface-variant text-lg mr-2">search</span>
+<input class="bg-transparent border-none outline-none text-body-sm w-full placeholder:text-on-surface-variant/70 focus:ring-0 p-0 h-5" placeholder="Search threads, parents, or policies..." type="text"/>
+</div>
+<div class="flex items-center gap-3">
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">timer</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-6 w-[1px] bg-outline-variant mx-2"></div>
+<button class="bg-primary text-on-primary px-3 py-1.5 rounded flex items-center gap-2 text-body-sm font-semibold hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Reply
+            </button>
+<img alt="Teacher Profile" class="w-8 h-8 rounded-full ml-2 border border-outline-variant object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnDhV4NqIOlHpvvDyKdTXUAZ2Edfek2BKN8gW9cmdz2PhuALtazGDLCcJz0yx31Xe_qe4ZABAAgXUD6WXgI7f6oXXqWptkc5ZeNa3lNACdtqW09ILnvZIsGZ7aukt_JunxbvmnwPs4aJ4YNty1EkI1VgcESn1czNqdnt26o4yznIJsjZYMj5L6m0arqfKzrmfzBQDUAuq8L6EcfolFjfg_WLdouUbzhcTsEdp-D2h6uQrWFSxlYz8nlTDYSu15kW41a6IfHiDsfWw"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-primary text-on-primary flex flex-col h-full z-40 w-sidebar-width shrink-0">
+<div class="p-4 border-b border-white/10 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-white text-primary flex items-center justify-center font-bold text-lg shrink-0">
+                    S
+                </div>
+<div class="overflow-hidden">
+<div class="text-body-md font-semibold truncate">Principal's Portal</div>
+<div class="font-label-caps text-label-caps text-on-primary/70 mt-1">Active Session: 8h</div>
+</div>
+</div>
+<div class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-2 border-l-4 border-secondary bg-primary-container text-on-primary" href="#">
+<span class="material-symbols-outlined text-xl">inbox</span>
+<span class="text-body-sm font-semibold">Inbox</span>
+<span class="ml-auto bg-secondary text-on-secondary text-[10px] font-bold px-1.5 py-0.5 rounded">12</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 border-l-4 border-transparent text-on-primary-container/70 hover:bg-primary-container/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">edit_document</span>
+<span class="text-body-sm">Drafts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 border-l-4 border-transparent text-on-primary-container/70 hover:bg-primary-container/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">send</span>
+<span class="text-body-sm">Sent</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 border-l-4 border-transparent text-on-primary-container/70 hover:bg-primary-container/50 transition-all" href="#">
+<span class="material-symbols-outlined text-xl">archive</span>
+<span class="text-body-sm">Archive</span>
+</a>
+</div>
+<!-- Workload Impact Meter -->
+<div class="p-4 border-t border-white/10">
+<div class="flex justify-between items-end mb-2">
+<span class="font-label-caps text-label-caps text-on-primary/70">Workload Impact</span>
+<span class="text-[10px] font-bold text-[#fecaca]">Critical</span>
+</div>
+<div class="h-1.5 w-full bg-primary-container rounded overflow-hidden flex">
+<div class="h-full bg-white/20 w-1/4"></div>
+<div class="h-full bg-[#fca5a5] w-1/4"></div>
+<div class="h-full bg-secondary w-2/4"></div>
+</div>
+</div>
+<div class="p-4 border-t border-white/10">
+<button class="w-full bg-white/10 hover:bg-white/20 text-on-primary px-3 py-2 rounded flex items-center justify-center gap-2 text-body-sm transition-colors border border-white/20">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                    Quick Template
+                </button>
+</div>
+<div class="py-2 border-t border-white/10 mt-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container/70 hover:bg-primary-container/50 transition-all text-body-sm" href="#">
+<span class="material-symbols-outlined text-lg">help</span>
+                    Help Center
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-primary-container/70 hover:bg-primary-container/50 transition-all text-body-sm" href="#">
+<span class="material-symbols-outlined text-lg">policy</span>
+                    Privacy Policy
+                </a>
+</div>
+</nav>
+<!-- Main Workspace (Split Pane) -->
+<main class="flex-1 flex overflow-hidden bg-surface-container-low">
+<!-- Center Pane: List & Composer -->
+<div class="flex-1 flex flex-col min-w-0 border-r border-outline-variant bg-surface">
+<!-- Request List Header -->
+<div class="px-4 py-2 bg-surface-container-low border-b border-outline-variant flex justify-between items-center shrink-0">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">Active Triage (2)</h2>
+<div class="flex gap-2">
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined text-sm">filter_list</span></button>
+<button class="p-1 rounded hover:bg-surface-variant text-on-surface-variant"><span class="material-symbols-outlined text-sm">sort</span></button>
+</div>
+</div>
+<!-- Triage List -->
+<div class="shrink-0 max-h-48 overflow-y-auto border-b border-outline-variant">
+<!-- Active Item -->
+<div class="p-3 bg-surface border-l-4 border-secondary cursor-pointer flex flex-col gap-1">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-semibold">Miller Family</span>
+<span class="text-code-sm text-on-surface-variant">2 mins ago</span>
+</div>
+<div class="text-body-sm text-on-surface truncate">Request for Vacation Workload</div>
+<div class="mt-1 flex gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wider">Urgent</span>
+</div>
+</div>
+<!-- Inactive Item -->
+<div class="p-3 bg-surface hover:bg-surface-container-low border-l-4 border-transparent border-t border-outline-variant cursor-pointer flex flex-col gap-1 transition-colors">
+<div class="flex justify-between items-start">
+<span class="text-body-sm font-semibold text-on-surface-variant">Davis Family</span>
+<span class="text-code-sm text-on-surface-variant">1 hr ago</span>
+</div>
+<div class="text-body-sm text-on-surface-variant truncate">Tutoring Requirement</div>
+<div class="mt-1 flex gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-variant text-on-surface text-[10px] font-bold uppercase tracking-wider">Policy Violation</span>
+</div>
+</div>
+</div>
+<!-- Active View & Composer Area -->
+<div class="flex-1 flex flex-col overflow-hidden bg-surface">
+<!-- Message Thread -->
+<div class="flex-1 p-6 overflow-y-auto flex flex-col gap-6">
+<!-- Parent Message -->
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center text-body-sm font-bold shrink-0">M</div>
+<div class="flex-1">
+<div class="flex items-baseline gap-2 mb-1">
+<span class="text-body-sm font-semibold">Miller Family</span>
+<span class="text-code-sm text-on-surface-variant">Parent of Tommy Miller</span>
+</div>
+<div class="p-3 bg-surface-container-low rounded border border-outline-variant text-body-sm">
+                                    "Hi, we're leaving for Disney in 5 minutes. Need 10 days of work for Tommy now."
+                                </div>
+</div>
+</div>
+</div>
+<!-- Composer -->
+<div class="shrink-0 p-4 border-t border-outline-variant bg-surface">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Boundary Reply Composer</span>
+<div class="flex gap-1">
+<button class="p-1 hover:bg-surface-container-low rounded text-on-surface-variant"><span class="material-symbols-outlined text-sm">format_bold</span></button>
+<button class="p-1 hover:bg-surface-container-low rounded text-on-surface-variant"><span class="material-symbols-outlined text-sm">format_italic</span></button>
+<button class="p-1 hover:bg-surface-container-low rounded text-on-surface-variant"><span class="material-symbols-outlined text-sm">link</span></button>
+</div>
+</div>
+<div class="border border-outline-variant rounded focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all bg-white">
+<textarea class="w-full h-24 p-3 text-body-sm bg-transparent border-none focus:ring-0 resize-none" placeholder="Draft professional response..."></textarea>
+<div class="p-2 border-t border-outline-variant flex justify-between items-center bg-surface-container-lowest rounded-b">
+<button class="text-body-sm text-on-surface-variant hover:text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">attach_file</span> Attach
+                                </button>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 text-body-sm font-semibold rounded text-on-surface-variant hover:bg-surface-container-low transition-colors">Save Draft</button>
+<button class="px-4 py-1.5 text-body-sm font-semibold rounded bg-primary text-on-primary hover:bg-primary/90 transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">send</span> Send Firm Reply
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Tools & Context -->
+<div class="w-[300px] shrink-0 bg-surface flex flex-col overflow-y-auto">
+<!-- Action Bar -->
+<div class="p-4 border-b border-outline-variant bg-surface-container-low">
+<button class="w-full bg-secondary text-on-secondary px-3 py-2 rounded flex items-center justify-center gap-2 text-body-sm font-bold shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">admin_panel_settings</span>
+                        Escalate to Admin
+                    </button>
+</div>
+<!-- Policy Picker -->
+<div class="p-4 border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">gavel</span> Policy Picker
+                    </h3>
+<div class="flex flex-col gap-2">
+<button class="text-left p-2 text-body-sm border border-outline-variant rounded hover:bg-surface-container-low hover:border-primary transition-colors bg-white">
+<div class="font-semibold mb-0.5">Vacation Work Policy</div>
+<div class="text-code-sm text-on-surface-variant truncate">Requires 2 weeks notice</div>
+</button>
+<button class="text-left p-2 text-body-sm border border-outline-variant rounded hover:bg-surface-container-low hover:border-primary transition-colors bg-white">
+<div class="font-semibold mb-0.5">Tutoring Limits</div>
+<div class="text-code-sm text-on-surface-variant truncate">Not provided after hours</div>
+</button>
+</div>
+</div>
+<!-- FAQ Snippets -->
+<div class="p-4 border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">content_copy</span> Quick Snippets
+                    </h3>
+<div class="flex flex-col gap-2">
+<div class="group flex items-center justify-between p-2 border border-outline-variant rounded bg-white hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="text-body-sm truncate">Online Portal Access Link</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant opacity-0 group-hover:opacity-100">add</span>
+</div>
+<div class="group flex items-center justify-between p-2 border border-outline-variant rounded bg-white hover:bg-surface-container-low transition-colors cursor-pointer">
+<span class="text-body-sm truncate">Standard Grading Policy</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant opacity-0 group-hover:opacity-100">add</span>
+</div>
+</div>
+</div>
+<!-- Documentation Timeline -->
+<div class="p-4 flex-1 bg-surface-container-low">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span> Documentation Log
+                    </h3>
+<div class="relative pl-4 border-l border-outline-variant ml-2 space-y-4 mb-4">
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-surface-container-low"></div>
+<div class="text-code-sm text-on-surface-variant">08:42 AM</div>
+<div class="text-body-sm font-semibold text-on-surface">Received</div>
+</div>
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface-container-low"></div>
+<div class="text-code-sm text-on-surface-variant">08:43 AM</div>
+<div class="text-body-sm font-semibold text-primary">Under Review</div>
+</div>
+</div>
+<div class="mt-auto">
+<textarea class="w-full h-16 p-2 text-code-sm border border-outline-variant rounded bg-white focus:ring-1 focus:ring-primary focus:border-primary resize-none placeholder:text-on-surface-variant/70" placeholder="Add internal, non-visible note..."></textarea>
+<button class="mt-2 w-full px-2 py-1.5 text-code-sm font-semibold border border-outline-variant rounded hover:bg-surface-variant transition-colors text-on-surface-variant flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">save</span> Log Note
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

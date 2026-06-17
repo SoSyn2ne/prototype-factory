@@ -1,59 +1,445 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>8a Eligibility Change Radar - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-17-p002</p>
-        <h1>8a Eligibility Change Radar</h1>
-        <p>A procurement eligibility workbench for small firms worried a 2026 SBA rule shift will break their certification story.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>8a Eligibility Change Radar</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        .icon-fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom Scrollbar for data density */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #dde3eb; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c6c6cc; }
+    </style>
+<!-- Tailwind Config -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#f0f3ff",
+                        "on-surface-variant": "#45474c",
+                        "on-error": "#ffffff",
+                        "surface-bright": "#f9f9ff",
+                        "secondary-fixed": "#dde3eb",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#585e6c",
+                        "secondary": "#595f66",
+                        "inverse-surface": "#263142",
+                        "outline": "#76777c",
+                        "surface-container": "#e7eeff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c1c6d7",
+                        "primary-fixed": "#dde2f3",
+                        "inverse-primary": "#c1c6d7",
+                        "surface-container-high": "#dee8ff",
+                        "surface-container-highest": "#d8e3fa",
+                        "surface-variant": "#d8e3fa",
+                        "tertiary-fixed": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#41474e",
+                        "on-primary": "#ffffff",
+                        "surface": "#f9f9ff",
+                        "on-secondary-container": "#5f656c",
+                        "tertiary-fixed-dim": "#c5c7c8",
+                        "primary": "#030813",
+                        "on-surface": "#111c2c",
+                        "error-container": "#ffdad6",
+                        "background": "#f9f9ff",
+                        "on-tertiary-fixed": "#191c1d",
+                        "on-primary-fixed-variant": "#414754",
+                        "on-primary-fixed": "#161c27",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#858889",
+                        "primary-container": "#1a202c",
+                        "tertiary": "#060809",
+                        "on-secondary-fixed": "#161c22",
+                        "surface-dim": "#cfdaf1",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c6c6cc",
+                        "tertiary-container": "#1d2021",
+                        "on-tertiary-fixed-variant": "#454748",
+                        "on-background": "#111c2c",
+                        "inverse-on-surface": "#ebf1ff",
+                        "secondary-fixed-dim": "#c1c7cf",
+                        "secondary-container": "#dde3eb",
+                        "on-primary-container": "#828796"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "margin-desktop": "32px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "label-sm": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar Shared Component -->
+<aside class="fixed left-0 top-0 h-full w-64 flex flex-col h-full border-r border-outline-variant bg-surface-container-lowest z-20">
+<!-- Header -->
+<div class="p-6 border-b border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded-DEFAULT bg-primary flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined icon-fill">gavel</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">GovCompliance</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase mt-1">SBA 8(a) Certified</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="p-4">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md uppercase py-2 px-4 rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-inverse-surface transition-colors">
+<span class="material-symbols-outlined icon-fill text-[16px]">upload_file</span>
+                Submit Filing
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
+<!-- Active Tab: Workbench -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-secondary-container text-on-secondary-container font-semibold transition-all duration-150 opacity-90" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Workbench
+            </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+                Documents
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+                Pipeline
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Reports
+            </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="p-3 border-t border-outline-variant space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-64 flex flex-col h-full bg-background relative z-10">
+<!-- TopNavBar Shared Component -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-[calc(1440px-256px)] border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-20">
+<!-- Product Name & Search Logic Area -->
+<div class="flex items-center gap-6">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Compliance Portal</span>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="pl-9 pr-4 py-1.5 border border-outline-variant rounded-DEFAULT bg-surface font-body-sm text-body-sm focus:ring-1 focus:ring-primary focus:outline-none w-64 text-on-surface placeholder:text-on-surface-variant" placeholder="Search entity, filing, or rule..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded-full p-1"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded-full p-1"><span class="material-symbols-outlined">gavel</span></button>
+<button class="hover:text-primary transition-colors focus:ring-1 focus:ring-primary rounded-full p-1">
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional corporate headshot of a female financial auditor in her late 30s. She is wearing a structured navy blue blazer over a crisp white shirt. The background is a clean, neutral, light-mode studio gray. The lighting is soft but definitive, highlighting a meticulous and authoritative demeanor suitable for an institutional compliance portal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbDpsc_xvkInAjKHWfpMBSIVBlmQ4KA1z8rQ25WmXuJ6hnadTajV1-RipHewqt5FjEUYc-xTj9rvfGAri8wgUU2rOl5XWOv391O2tX4674iNcydiQ9bIMECUGuUMU2iR1-SkbwQ6SvplzWpiSiIG94Pwoeuj6W_r95afyjFYGPg_NRaF9k6Er5uKZ5rd3R0MeRbkVg_G1Ykt1vmAknCsFG25jayTPOiIQAvEwX2QErCrZxGDmiMz6dv09sXKn1L7N3NP7Nh7IYVbA"/>
+</button>
+</div>
+</header>
+<!-- Canvas / Dashboard Scroll Area -->
+<main class="flex-1 overflow-y-auto p-margin-desktop pb-24">
+<div class="max-w-container-max mx-auto w-full">
+<!-- Page Header & Scenario Toggles -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">8a Eligibility Change Radar</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Real-time impact assessment for organizational compliance matrices.</p>
+</div>
+<!-- Scenario Toggles -->
+<div class="flex bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-1 shadow-sm">
+<button class="px-3 py-1.5 font-label-md text-label-md bg-secondary-container text-on-secondary-container rounded-sm">Current State</button>
+<button class="px-3 py-1.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Rule Change A</button>
+<button class="px-3 py-1.5 font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors">Rule Change B</button>
+</div>
+</div>
+<!-- 1. Rule-Change Alert Bar -->
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-4 flex items-start sm:items-center gap-4 mb-gutter">
+<span class="material-symbols-outlined text-primary icon-fill text-[24px] mt-0.5 sm:mt-0">warning</span>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Federal Register Comment Deadline: Oct 15, 2026</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">SBA Rule 13 CFR 124 Proposed Changes affect narrative evidence standards for socially disadvantaged individuals.</p>
+</div>
+<button class="shrink-0 border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm uppercase px-3 py-1.5 rounded-DEFAULT transition-colors">View Rule</button>
+</div>
+<!-- Top 3-Column Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mb-gutter">
+<!-- 2. Certification Profile (Top Left) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5 flex flex-col h-full">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-surface-container-high pb-2">Certification Profile</h3>
+<div class="space-y-4 flex-1">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Current Status</span>
+<span class="font-label-md text-label-md bg-surface-container-high text-on-surface px-2 py-0.5 rounded-sm border border-outline-variant">Active (Exp. 2029)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Last Annual Review</span>
+<span class="font-body-md text-body-md text-on-surface">Passed Jan 2024</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-body-md text-on-surface-variant">Counsel Review</span>
+<span class="font-body-md text-body-md text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">schedule</span> Pending
+                                </span>
+</div>
+</div>
+<button class="mt-4 w-full border border-outline-variant bg-surface hover:bg-surface-container-low text-on-surface font-label-sm text-label-sm uppercase py-2 rounded-DEFAULT transition-colors">View Master Record</button>
+</section>
+<!-- 3. Pipeline Exposure (Top Center) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5 flex flex-col h-full">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-surface-container-high pb-2 flex justify-between">
+                            Pipeline Exposure
+                            <span class="material-symbols-outlined text-[16px]">monitoring</span>
+</h3>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Value at Risk</p>
+<h4 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mb-3">$4.2M</h4>
+<!-- Confidence Band Graphic (Data-first visualization) -->
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden mb-4 flex">
+<div class="h-full bg-primary w-[45%] border-r border-surface-container-lowest"></div>
+<div class="h-full bg-secondary-fixed w-[35%] border-r border-surface-container-lowest"></div>
+<div class="h-full bg-outline-variant w-[20%]"></div>
+</div>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant mb-4">
+<span>High Match (45%)</span>
+<span>Med (35%)</span>
+<span>Low (20%)</span>
+</div>
+<ul class="space-y-2">
+<li class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-primary"></div> DHS Contracts</span>
+<span class="font-label-md text-label-md">$1.2M</span>
+</li>
+<li class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-secondary-fixed"></div> GSA Schedules</span>
+<span class="font-label-md text-label-md">$2.1M</span>
+</li>
+<li class="flex justify-between items-center font-body-sm text-body-sm">
+<span class="flex items-center gap-2"><div class="w-1.5 h-1.5 rounded-full bg-outline-variant"></div> NAVY Solicitations</span>
+<span class="font-label-md text-label-md">$0.9M</span>
+</li>
+</ul>
+</div>
+</section>
+<!-- 4. Narrative Evidence Mapper (Top Right) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5 flex flex-col h-full">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-surface-container-high pb-2">Narrative Evidence Mapper</h3>
+<div class="space-y-4 flex-1">
+<!-- Tracker Item -->
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-on-surface mt-0.5">check_circle</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Disadvantaged Status Narrative</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Last validated: Q4 2023. Robust documentation file present.</p>
+</div>
+</div>
+<!-- Tracker Item -->
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-secondary mt-0.5">error</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Owner Social Narrative</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Requires update against new CFR 124 standards.</p>
+</div>
+</div>
+<!-- Tracker Item -->
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[20px] text-outline mt-0.5">pending</span>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface text-on-surface-variant">Mentor-Protege Agreement</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Pending joint venture finalization details.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- 5. Pipeline Exposure Table (Middle) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden mb-gutter shadow-sm">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pipeline Exposure Analysis</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1 font-label-sm text-label-sm uppercase">
+<span class="material-symbols-outlined text-[16px]">download</span> Export CSV
+                        </button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-lowest font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
+<th class="p-3 font-medium">Opportunity ID</th>
+<th class="p-3 font-medium">Agency</th>
+<th class="p-3 font-medium text-right">Value (Est)</th>
+<th class="p-3 font-medium">Risk Level</th>
+<th class="p-3 font-medium">Eligibility Match</th>
+<th class="p-3 font-medium">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr class="border-b border-outline-variant even:bg-surface-bright hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-label-sm text-label-sm text-on-surface">OPP-2024-DHS-001</td>
+<td class="p-3 text-on-surface-variant">DHS</td>
+<td class="p-3 text-right font-label-md text-label-md">$1,250,000</td>
+<td class="p-3"><span class="inline-flex items-center px-2 py-0.5 rounded-sm text-label-sm font-label-sm border border-outline bg-surface-container-highest text-on-surface">High</span></td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden"><div class="w-[45%] h-full bg-primary"></div></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">45%</span>
+</div>
+</td>
+<td class="p-3"><button class="text-primary hover:underline font-label-sm text-label-sm">Review</button></td>
+</tr>
+<tr class="border-b border-outline-variant even:bg-surface-bright hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-label-sm text-label-sm text-on-surface">OPP-2024-GSA-042</td>
+<td class="p-3 text-on-surface-variant">GSA</td>
+<td class="p-3 text-right font-label-md text-label-md">$2,100,000</td>
+<td class="p-3"><span class="inline-flex items-center px-2 py-0.5 rounded-sm text-label-sm font-label-sm border border-outline-variant bg-surface text-on-surface-variant">Medium</span></td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden"><div class="w-[80%] h-full bg-secondary"></div></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">80%</span>
+</div>
+</td>
+<td class="p-3"><button class="text-primary hover:underline font-label-sm text-label-sm">Review</button></td>
+</tr>
+<tr class="border-b border-outline-variant even:bg-surface-bright hover:bg-surface-container-low transition-colors">
+<td class="p-3 font-label-sm text-label-sm text-on-surface">OPP-2025-NAV-112</td>
+<td class="p-3 text-on-surface-variant">NAVY</td>
+<td class="p-3 text-right font-label-md text-label-md">$900,000</td>
+<td class="p-3"><span class="inline-flex items-center px-2 py-0.5 rounded-sm text-label-sm font-label-sm border border-outline-variant bg-surface text-on-surface-variant">Low</span></td>
+<td class="p-3">
+<div class="flex items-center gap-2">
+<div class="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden"><div class="w-[95%] h-full bg-outline"></div></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">95%</span>
+</div>
+</td>
+<td class="p-3"><button class="text-primary hover:underline font-label-sm text-label-sm">Review</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Bottom 2-Column Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- 6. Gap Queue & Document Tracker (Bottom Left) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-surface-container-high pb-2">Gap Queue & Document Tracker</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3 p-2 rounded-sm hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<input class="mt-1 rounded-sm border-outline-variant text-primary focus:ring-primary w-4 h-4 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface font-medium group-hover:text-primary transition-colors">Missing Tax Records (2023)</p>
+<p class="font-label-sm text-label-sm text-error mt-0.5 uppercase tracking-wider">Critical Block</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">upload</span>
+</li>
+<li class="flex items-start gap-3 p-2 rounded-sm hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<input class="mt-1 rounded-sm border-outline-variant text-primary focus:ring-primary w-4 h-4 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface font-medium group-hover:text-primary transition-colors">Bank Statements (Q3)</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5 uppercase tracking-wider">Requested from Finance</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">upload</span>
+</li>
+<li class="flex items-start gap-3 p-2 rounded-sm hover:bg-surface-container-low transition-colors group cursor-pointer border border-transparent hover:border-outline-variant">
+<input class="mt-1 rounded-sm border-outline-variant text-primary focus:ring-primary w-4 h-4 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex-1">
+<p class="font-body-sm text-body-sm text-on-surface font-medium group-hover:text-primary transition-colors">Pending Board Minutes</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5 uppercase tracking-wider">Awaiting Signature</p>
+</div>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant group-hover:text-primary">upload</span>
+</li>
+</ul>
+</section>
+<!-- 7. Advisor Handoff Packet (Bottom Right) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5 flex flex-col justify-between">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider mb-4 border-b border-surface-container-high pb-2">Advisor Handoff Packet</h3>
+<div class="mb-6">
+<div class="flex justify-between items-end mb-2">
+<span class="font-body-md text-body-md text-on-surface">Packet Readiness</span>
+<span class="font-headline-sm text-headline-sm text-primary">82%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[82%] transition-all duration-500"></div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 text-right">Requires 100% to dispatch to legal counsel.</p>
+</div>
+</div>
+<div class="flex flex-col gap-3">
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md uppercase py-2.5 px-4 rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-inverse-surface transition-colors shadow-sm">
+<span class="material-symbols-outlined icon-fill text-[18px]">auto_awesome</span>
+                                Generate SBA Eligibility Packet
+                            </button>
+<button class="w-full border border-outline bg-surface-container-lowest text-on-surface font-label-md text-label-md uppercase py-2 px-4 rounded-DEFAULT hover:bg-surface-container-low transition-colors">
+                                Preview Draft
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>

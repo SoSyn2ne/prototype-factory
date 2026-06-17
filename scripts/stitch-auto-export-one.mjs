@@ -241,5 +241,9 @@ const newZipFiles = files.filter((file) => file.endsWith('.zip') && !downloadsBe
 if (!newZipFiles.length) {
   throw new Error(`Stitch export did not download a zip into ${dlDir}`);
 }
+if (process.env.STITCH_FAST_EXIT === '1') {
+  console.log(JSON.stringify({ id, url: page.url(), dlDir, files, newZipFiles }, null, 2));
+  process.exit(0);
+}
 console.log(JSON.stringify({ id, url: page.url(), title: await page.title().catch(() => ''), dlDir, files, newZipFiles }, null, 2));
 await browser.disconnect();

@@ -1,59 +1,430 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Creator Human-Proof Ledger - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-17-p006</p>
-        <h1>Creator Human-Proof Ledger</h1>
-        <p>A creator authenticity board that packages process proof, raw assets, and AI-use disclosure into a trustable sponsor link.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Creator Human-Proof Ledger - Authenticity Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "tertiary-container": "#281900",
+                            "error-container": "#ffdad6",
+                            "on-primary-fixed-variant": "#474746",
+                            "on-primary-fixed": "#1c1b1b",
+                            "tertiary-fixed-dim": "#e6c188",
+                            "on-secondary": "#ffffff",
+                            "surface-variant": "#e4e2e1",
+                            "on-secondary-fixed": "#1a1c1c",
+                            "tertiary-fixed": "#ffdeac",
+                            "inverse-primary": "#c8c6c5",
+                            "surface-dim": "#dbdad8",
+                            "on-error": "#ffffff",
+                            "on-tertiary-container": "#9e7f4c",
+                            "on-tertiary-fixed": "#281900",
+                            "on-primary": "#ffffff",
+                            "on-background": "#1b1c1b",
+                            "surface-container-high": "#e9e8e6",
+                            "secondary-fixed-dim": "#c6c7c6",
+                            "surface-container-highest": "#e4e2e1",
+                            "secondary-fixed": "#e2e2e2",
+                            "outline-variant": "#c4c7c7",
+                            "error": "#ba1a1a",
+                            "on-primary-container": "#858383",
+                            "secondary-container": "#e2e2e2",
+                            "secondary": "#5d5f5e",
+                            "outline": "#747878",
+                            "surface-container": "#efedec",
+                            "inverse-surface": "#303030",
+                            "primary-fixed": "#e5e2e1",
+                            "on-secondary-fixed-variant": "#454747",
+                            "background": "#fbf9f7",
+                            "on-secondary-container": "#636564",
+                            "surface-container-lowest": "#ffffff",
+                            "on-surface": "#1b1c1b",
+                            "surface": "#fbf9f7",
+                            "primary": "#000000",
+                            "on-tertiary": "#ffffff",
+                            "primary-container": "#1c1b1b",
+                            "on-surface-variant": "#444748",
+                            "on-tertiary-fixed-variant": "#5b4215",
+                            "surface-container-low": "#f5f3f2",
+                            "tertiary": "#000000",
+                            "on-error-container": "#93000a",
+                            "primary-fixed-dim": "#c8c6c5",
+                            "surface-bright": "#fbf9f7",
+                            "surface-tint": "#5f5e5e",
+                            "inverse-on-surface": "#f2f0ef",
+                            "brass": "#B5945F"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "container-max": "1280px",
+                            "section-gap": "80px",
+                            "margin-desktop": "64px",
+                            "base": "8px",
+                            "margin-mobile": "16px",
+                            "gutter": "24px"
+                    },
+                    "fontFamily": {
+                            "display-lg": [
+                                    "Playfair Display"
+                            ],
+                            "data-mono": [
+                                    "Inter"
+                            ],
+                            "display-lg-mobile": [
+                                    "Playfair Display"
+                            ],
+                            "headline-md": [
+                                    "Playfair Display"
+                            ],
+                            "label-sm": [
+                                    "Inter"
+                            ],
+                            "body-lg": [
+                                    "Inter"
+                            ],
+                            "body-md": [
+                                    "Inter"
+                            ]
+                    },
+                    "fontSize": {
+                            "display-lg": [
+                                    "48px",
+                                    {
+                                            "lineHeight": "56px",
+                                            "letterSpacing": "-0.02em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "data-mono": [
+                                    "14px",
+                                    {
+                                            "lineHeight": "20px",
+                                            "letterSpacing": "0.02em",
+                                            "fontWeight": "500"
+                                    }
+                            ],
+                            "display-lg-mobile": [
+                                    "32px",
+                                    {
+                                            "lineHeight": "40px",
+                                            "letterSpacing": "-0.01em",
+                                            "fontWeight": "700"
+                                    }
+                            ],
+                            "headline-md": [
+                                    "24px",
+                                    {
+                                            "lineHeight": "32px",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "label-sm": [
+                                    "12px",
+                                    {
+                                            "lineHeight": "16px",
+                                            "letterSpacing": "0.05em",
+                                            "fontWeight": "600"
+                                    }
+                            ],
+                            "body-lg": [
+                                    "18px",
+                                    {
+                                            "lineHeight": "28px",
+                                            "fontWeight": "400"
+                                    }
+                            ],
+                            "body-md": [
+                                    "16px",
+                                    {
+                                            "lineHeight": "24px",
+                                            "fontWeight": "400"
+                                    }
+                            ]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low h-screen w-64 hidden md:flex flex-col sticky left-0 border-r border-outline border-opacity-20 z-50">
+<div class="px-6 py-8">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tight">Ledger</h1>
+</div>
+<div class="px-6 pb-6 flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline border-opacity-20">
+<span class="material-symbols-outlined text-secondary">person</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-primary">Verified Creator</p>
+<p class="font-data-mono text-data-mono text-secondary">ID: 8829-X</p>
+</div>
+</div>
+<div class="px-6 pb-6">
+<button class="w-full bg-primary text-on-primary py-3 font-label-sm text-label-sm tracking-widest uppercase hover:text-brass transition-colors duration-200 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Proof
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col h-full py-2 gap-y-1">
+<a class="flex items-center gap-3 text-primary font-bold border-l-2 border-on-tertiary-fixed-variant pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Overview</span>
+</a>
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">fingerprint</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Identity Proofs</span>
+</a>
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Content Ledger</span>
+</a>
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Collectors</span>
+</a>
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Security</span>
+</a>
+</div>
+<div class="mt-auto py-4 border-t border-outline border-opacity-20 flex flex-col gap-y-1">
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Settings</span>
+</a>
+<a class="flex items-center gap-3 text-secondary pl-4 py-3 mx-2 hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20 w-full bg-surface w-full top-0 sticky z-40">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary font-bold block md:hidden tracking-tight">Ledger</span>
+<div class="hidden md:flex items-center gap-8 h-full pt-4">
+<a class="text-secondary font-medium pb-4 hover:text-primary transition-colors duration-200" href="#">Public Ledger</a>
+<a class="text-secondary font-medium pb-4 hover:text-primary transition-colors duration-200" href="#">Drafts</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-4 text-secondary">
+<button class="hover:text-primary transition-colors duration-200 flex items-center justify-center p-2"><span class="material-symbols-outlined">share</span></button>
+<button class="hover:text-primary transition-colors duration-200 flex items-center justify-center p-2"><span class="material-symbols-outlined">notifications</span></button>
+</div>
+<button class="bg-transparent border border-primary text-primary px-4 py-2 font-label-sm text-label-sm tracking-widest uppercase hover:bg-surface-variant transition-colors duration-200">Verify Identity</button>
+<button class="md:hidden text-primary p-2 flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<main class="flex-1 overflow-y-auto px-margin-mobile md:px-margin-desktop py-12 max-w-[1400px] w-full mx-auto pb-32">
+<!-- Header Section -->
+<header class="mb-section-gap flex flex-col md:flex-row justify-between items-end gap-8 border-b border-primary pb-8">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-brass" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="font-label-sm text-label-sm tracking-widest uppercase text-brass">Verified Human-Led</span>
+<div class="h-4 w-[1px] bg-outline mx-2 opacity-50"></div>
+<span class="font-data-mono text-data-mono text-secondary">ID: PRF-992-K</span>
+</div>
+<h2 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary tracking-tight mb-2">Authenticity Board</h2>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">A comprehensive ledger of provenance, raw asset capture, and transparent AI disclosure for the 'Midnight Sonata' collection.</p>
+</div>
+<div class="flex flex-col items-end">
+<div class="text-right mb-4">
+<span class="font-display-lg text-[64px] leading-none text-primary tracking-tighter">98</span>
+<span class="font-data-mono text-data-mono text-secondary">/100</span>
+</div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary mb-3">Authenticity Score</p>
+<a class="flex items-center gap-2 text-primary border-b border-primary pb-1 hover:text-brass hover:border-brass transition-colors duration-200 font-data-mono text-data-mono" href="#">
+                        View Public Proof Link
+                        <span class="material-symbols-outlined text-[16px]">arrow_outward</span>
+</a>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column -->
+<div class="col-span-1 lg:col-span-8 flex flex-col gap-gutter">
+<!-- Timeline Section -->
+<section class="bg-surface-container-lowest border border-outline border-opacity-20 p-8">
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary mb-8 border-b border-outline border-opacity-20 pb-4">Process Timeline</h3>
+<div class="relative">
+<div class="absolute left-3 top-2 bottom-2 w-[1px] bg-primary"></div>
+<div class="flex gap-6 mb-8 relative">
+<div class="w-6 h-6 mt-1 flex-shrink-0 bg-surface-container-lowest border border-primary flex items-center justify-center z-10 relative">
+<div class="w-2 h-2 bg-primary"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary mb-1">Oct 12, 2023 · 09:14 AM</p>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Inception</h4>
+<p class="font-body-md text-body-md text-secondary">Initial concept sketched on physical medium. Timestamp anchored via mobile capture.</p>
+</div>
+</div>
+<div class="flex gap-6 mb-8 relative">
+<div class="w-6 h-6 mt-1 flex-shrink-0 bg-surface-container-lowest border border-primary flex items-center justify-center z-10 relative">
+<div class="w-2 h-2 bg-primary"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary mb-1">Oct 14, 2023 · 14:32 PM</p>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Raw Capture</h4>
+<p class="font-body-md text-body-md text-secondary">High-resolution digital capture. Hardware signatures verified and logged to local ledger.</p>
+</div>
+</div>
+<div class="flex gap-6 mb-8 relative">
+<div class="w-6 h-6 mt-1 flex-shrink-0 bg-surface-container-lowest border border-primary flex items-center justify-center z-10 relative">
+<div class="w-2 h-2 bg-primary"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary mb-1">Oct 18, 2023 · 11:05 AM</p>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Editorial Polish</h4>
+<p class="font-body-md text-body-md text-secondary">Color grading and final adjustments applied. Edit history cryptographically hashed.</p>
+</div>
+</div>
+<div class="flex gap-6 relative">
+<div class="w-6 h-6 mt-1 flex-shrink-0 bg-primary border border-primary flex items-center justify-center z-10 relative">
+<div class="w-2 h-2 bg-brass"></div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary mb-1">Oct 20, 2023 · 16:45 PM</p>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Final Ledgering</h4>
+<p class="font-body-md text-body-md text-secondary">Asset package sealed and published to the Human-Proof network.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Raw Asset Vault -->
+<section class="bg-surface-container-lowest border border-outline border-opacity-20 p-8">
+<div class="flex justify-between items-end border-b border-outline border-opacity-20 pb-4 mb-8">
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary">Raw Asset Vault</h3>
+<span class="font-data-mono text-data-mono text-secondary">3 Files Verified</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Video Thumbnail -->
+<div class="border border-outline border-opacity-20 group cursor-pointer hover:border-primary transition-colors">
+<div class="aspect-video bg-surface-variant relative overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[32px] z-10 group-hover:text-primary transition-colors">play_circle</span>
+</div>
+<div class="p-4 border-t border-outline border-opacity-20">
+<p class="font-data-mono text-data-mono text-primary truncate mb-1">BTS_Session_01.mp4</p>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary">Behind-the-scenes phone clip</p>
+</div>
+</div>
+<!-- Raw File -->
+<div class="border border-outline border-opacity-20 group cursor-pointer hover:border-primary transition-colors">
+<div class="aspect-video bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-[48px] group-hover:text-primary transition-colors">raw_on</span>
+</div>
+<div class="p-4 border-t border-outline border-opacity-20">
+<p class="font-data-mono text-data-mono text-primary truncate mb-1">Capture_8829.ARW</p>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary">Lightroom raw file</p>
+</div>
+</div>
+<!-- Sketch -->
+<div class="border border-outline border-opacity-20 group cursor-pointer hover:border-primary transition-colors">
+<div class="aspect-video bg-surface-variant relative overflow-hidden">
+<!-- Placeholder for image -->
+<div class="absolute inset-0 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[32px]">draw</span>
+</div>
+</div>
+<div class="p-4 border-t border-outline border-opacity-20">
+<p class="font-data-mono text-data-mono text-primary truncate mb-1">Concept_Sketch_v2.png</p>
+<p class="font-label-sm text-label-sm tracking-widest uppercase text-secondary">Sketch scan</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column -->
+<div class="col-span-1 lg:col-span-4 flex flex-col gap-gutter">
+<!-- AI Disclosure -->
+<div class="bg-surface-container-lowest border border-outline border-opacity-20 p-6">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">psychology</span>
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary">AI-Use Disclosure</h3>
+</div>
+<div class="mb-6">
+<div class="flex justify-between font-data-mono text-data-mono mb-2">
+<span class="text-primary">AI Caption Assistant</span>
+<span class="text-secondary">10% Impact</span>
+</div>
+<div class="w-full bg-surface-variant h-1">
+<div class="bg-primary h-1" style="width: 10%"></div>
+</div>
+</div>
+<p class="font-body-md text-body-md text-secondary">Usage limited strictly to metadata generation and tagging suggestions. Core creative output remains 100% human-authored.</p>
+</div>
+<!-- Risk Checklist -->
+<div class="bg-surface-container-lowest border border-outline border-opacity-20 p-6">
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary mb-6 border-b border-outline border-opacity-20 pb-4">Brand Risk Checklist</h3>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brass">check</span>
+<span class="font-data-mono text-data-mono text-primary">Deepfake Scan: <span class="text-secondary">Clear</span></span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brass">check</span>
+<span class="font-data-mono text-data-mono text-primary">Copyright Check: <span class="text-secondary">Passed</span></span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-brass">check</span>
+<span class="font-data-mono text-data-mono text-primary">Human-Proof Threshold: <span class="text-secondary">Met</span></span>
+</div>
+</div>
+</div>
+<!-- C2PA Hint -->
+<div class="bg-surface-container-low border border-outline border-opacity-20 p-6 flex gap-4">
+<span class="material-symbols-outlined text-secondary mt-1">shield_locked</span>
+<div>
+<h4 class="font-label-sm text-label-sm tracking-widest uppercase text-primary mb-2">Cryptographic Provenance</h4>
+<p class="font-body-md text-body-md text-secondary text-sm">This asset is secured with C2PA-compliant cryptographic signatures, ensuring its history is immutable and verifiable on the public ledger.</p>
+</div>
+</div>
+<!-- Fan Co-creation -->
+<div class="bg-surface-container-lowest border border-outline border-opacity-20 p-6">
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary mb-4">Community Insight</h3>
+<div class="bg-surface-variant p-4 border-l-2 border-primary">
+<p class="font-data-mono text-data-mono text-primary mb-2">Fan Poll Result:</p>
+<p class="font-body-md text-body-md text-secondary">82% want a breakdown of the charcoal technique used in the initial sketch.</p>
+</div>
+</div>
+<!-- Sponsor Note -->
+<div class="bg-surface-container-lowest border border-outline border-opacity-20 p-6">
+<h3 class="font-label-sm text-label-sm tracking-widest uppercase text-primary mb-4 border-b border-outline border-opacity-20 pb-4">Sponsor Verification</h3>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">business</span>
+<div>
+<p class="font-data-mono text-data-mono text-primary mb-1">Artisan Brushes</p>
+<p class="font-body-md text-body-md text-secondary italic">"Raw provenance reviewed and verified. Authentic process confirmed."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
