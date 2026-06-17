@@ -92,64 +92,68 @@ export default function GalleryClient({ updatedAt, items }: Props) {
   }, [filtered, safePage]);
 
   const totalTags = Math.max(0, allTags.length - 1);
+  const latestDate = useMemo(
+    () => items.reduce((latest, item) => (String(item.createdAt || '') > latest ? String(item.createdAt || '') : latest), ''),
+    [items]
+  );
+  const latestCount = useMemo(() => items.filter((item) => item.createdAt === latestDate).length, [items, latestDate]);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-6">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-5 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-6">
+        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <div className="text-xs font-black uppercase tracking-[0.22em] text-primary">Brainstorming gallery</div>
-            <h1 className="mt-2 text-3xl font-black tracking-tight text-slate-900 dark:text-white sm:text-4xl">
-              Idea map for the prototype factory.
+            <div className="text-xs font-black uppercase tracking-[0.12em] text-primary">Prototype factory index</div>
+            <h1 className="mt-2 text-3xl font-black leading-tight text-zinc-950 dark:text-white sm:text-4xl">
+              Scan daily bets, spot strong demos, keep the factory moving.
             </h1>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">
-              이제 랜딩은 쇼케이스보다 아이디어 탐색에 집중합니다. 프로토를 빠르게 훑고, 비슷한 문제군을 묶고,
-              다음에 확장할 방향을 찾는 브레인스토밍 허브로 씁니다.
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-300 sm:text-base">
+              A compact control surface for reviewing the latest PF batch, jumping into preserved Stitch demos,
+              and deciding which ideas deserve sales validation.
             </p>
             <div className="mt-4 flex flex-wrap gap-3">
               <Link
                 href="/clusters"
-                className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-sm font-black text-white transition hover:bg-primary/90 hover:no-underline"
+                className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-black text-white transition hover:bg-primary/90 hover:no-underline"
               >
                 Open Cluster Board
               </Link>
-              <div className="inline-flex items-center rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-bold text-slate-600 dark:border-slate-700 dark:text-slate-300">
-                마인드맵 기반 탐색은 Cluster Board에서 확인
+              <div className="inline-flex h-10 items-center rounded-lg border border-zinc-200 px-4 text-sm font-bold text-zinc-600 dark:border-zinc-800 dark:text-zinc-300">
+                Latest batch: {latestDate || 'unknown'} / {latestCount} items
               </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:min-w-[420px]">
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Ideas</div>
-              <div className="mt-1 text-xl font-black text-slate-900 dark:text-white">{items.length}</div>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:min-w-[440px]">
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Ideas</div>
+              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{items.length}</div>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Tags</div>
-              <div className="mt-1 text-xl font-black text-slate-900 dark:text-white">{totalTags}</div>
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Tags</div>
+              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{totalTags}</div>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Visible</div>
-              <div className="mt-1 text-xl font-black text-slate-900 dark:text-white">{filtered.length}</div>
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Visible</div>
+              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{filtered.length}</div>
             </div>
-            <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/60">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500">Updated</div>
-              <div className="mt-1 text-sm font-black text-slate-900 dark:text-white">{String(updatedAt).slice(0, 10)}</div>
+            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Updated</div>
+              <div className="mt-2 text-sm font-black leading-none text-zinc-950 dark:text-white">{String(updatedAt).slice(0, 10)}</div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="mb-6 rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 to-white p-5 shadow-sm dark:border-emerald-900/40 dark:from-emerald-950/30 dark:to-slate-900/40 sm:mb-8 sm:p-6">
+      <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-5 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-6">
         <div className="flex flex-col gap-6">
-          <div className="max-w-4xl">
-            <div className="text-xs font-black uppercase tracking-[0.22em] text-emerald-600 dark:text-emerald-300">Reality check</div>
-            <h2 className="mt-2 text-2xl font-black tracking-tight text-slate-900 dark:text-white sm:text-3xl">
-              이제 PF는 브레인스토밍뿐 아니라 판매 우선순위도 같이 봅니다.
+          <div className="max-w-4xl border-l-4 border-primary pl-4">
+            <div className="text-xs font-black uppercase tracking-[0.12em] text-primary">Sales validation lane</div>
+            <h2 className="mt-2 text-2xl font-black leading-tight text-zinc-950 dark:text-white sm:text-3xl">
+              Prioritize ideas where one recovered deal pays for the prototype.
             </h2>
-            <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300 sm:text-base">
-              현재 판단은 단순 아이디어 누적보다, 누가 사고 왜 돈을 내는지 명확한 영업형 프로토를 먼저 밀어보는 쪽이 더 현실적입니다.
-              아래 5개는 지금 기준에서 바로 세일즈 실험으로 이어가기 좋은 후보들입니다.
+            <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300 sm:text-base">
+              Keep the gallery useful as an operating board: buyer clarity, visible ROI, and a short path from demo to outbound.
             </p>
           </div>
 
@@ -186,32 +190,32 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                 why: '승인 속도 저하가 회전율과 수익성 악화로 직결됨',
               },
             ].map((item) => (
-              <article key={item.rank} className="rounded-2xl border border-emerald-200/70 bg-white/90 p-4 shadow-sm dark:border-emerald-900/50 dark:bg-slate-950/40">
-                <div className="text-[11px] font-black uppercase tracking-[0.24em] text-emerald-600 dark:text-emerald-300">Top {item.rank}</div>
-                <h3 className="mt-2 text-base font-black leading-tight text-slate-900 dark:text-white">{item.title}</h3>
-                <p className="mt-3 text-xs font-bold text-slate-500 dark:text-slate-400">누가 삼: {item.buyer}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.why}</p>
+              <article key={item.rank} className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
+                <div className="text-[11px] font-black uppercase tracking-[0.1em] text-primary">Top {item.rank}</div>
+                <h3 className="mt-2 text-base font-black leading-tight text-zinc-950 dark:text-white">{item.title}</h3>
+                <p className="mt-3 text-xs font-bold text-zinc-500 dark:text-zinc-400">Buyer: {item.buyer}</p>
+                <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{item.why}</p>
               </article>
             ))}
           </div>
 
-          <div className="rounded-2xl border border-dashed border-emerald-300/80 px-4 py-3 text-sm text-slate-700 dark:border-emerald-800/60 dark:text-slate-200">
-            운영 원칙: <span className="font-black">무한 아이디어 생산보다 영업형 5개씩 검증</span> → 데모 → 아웃바운드 → 반응 좋은 것만 깊게 개발.
+          <div className="rounded-lg border border-dashed border-zinc-300 px-4 py-3 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-200">
+            Operating rule: <span className="font-black">validate five sales-shaped demos at a time</span>, then deepen only the ones that get replies.
           </div>
         </div>
       </section>
 
-      <section className="mb-6 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900/40 sm:mb-8 sm:p-4">
+      <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-3 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
             <div className="order-2 flex gap-3 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:order-1">
               <button
                 type="button"
                 onClick={() => setTag('all')}
-                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-bold transition-colors ${
                   tag === 'all'
-                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
-                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-white'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary/30 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'
                 }`}
               >
                 All Ideas
@@ -219,10 +223,10 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               <button
                 type="button"
                 onClick={() => setTag('ai')}
-                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-bold transition-colors ${
                   tag === 'ai'
-                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
-                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-white'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary/30 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'
                 }`}
               >
                 AI & ML
@@ -230,10 +234,10 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               <button
                 type="button"
                 onClick={() => setTag('investing')}
-                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-bold transition-colors ${
                   tag === 'investing'
-                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
-                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-white'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary/30 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'
                 }`}
               >
                 Investing
@@ -241,10 +245,10 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               <button
                 type="button"
                 onClick={() => setTag('productivity')}
-                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl border px-4 text-sm font-bold transition-colors ${
+                className={`flex h-10 shrink-0 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-bold transition-colors ${
                   tag === 'productivity'
-                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/30 dark:bg-primary/15 dark:text-white'
-                    : 'border-slate-200 bg-slate-50 text-slate-700 hover:border-primary/30 dark:border-slate-700 dark:bg-slate-800/60 dark:text-slate-200'
+                    ? 'border-primary/30 bg-primary/10 text-primary dark:border-primary/40 dark:bg-primary/20 dark:text-white'
+                    : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-primary/30 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200'
                 }`}
               >
                 Productivity
@@ -253,19 +257,19 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
             <div className="order-1 flex flex-col gap-3 sm:flex-row sm:items-center lg:order-2 lg:ml-auto">
               <details className="group relative order-2 w-full sm:w-auto">
-                <summary className="list-none inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-primary/20 bg-primary/10 px-4 text-sm font-black text-primary transition hover:bg-primary/15 dark:border-primary/30 dark:bg-primary/15 dark:text-white sm:w-auto">
+                <summary className="inline-flex h-10 w-full cursor-pointer list-none items-center justify-center gap-2 rounded-lg border border-primary/20 bg-primary/10 px-4 text-sm font-black text-primary transition hover:bg-primary/15 dark:border-primary/40 dark:bg-primary/20 dark:text-white sm:w-auto">
                   <span className="tracking-tight">Filters</span>
                   <IconChevronDown className="h-4 w-4 text-current transition group-open:rotate-180" />
                 </summary>
 
-                <div className="absolute right-0 top-full z-30 mt-3 w-full min-w-72 rounded-2xl border border-slate-200 bg-background-light p-4 shadow-xl dark:border-slate-800 dark:bg-background-dark sm:w-80">
+                <div className="absolute right-0 top-full z-30 mt-3 w-full min-w-72 rounded-lg border border-zinc-200 bg-background-light p-4 shadow-lift dark:border-zinc-800 dark:bg-background-dark sm:w-80">
                   <div className="grid grid-cols-1 gap-3">
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">Status</label>
+                      <label className="mb-1 block text-xs font-bold text-zinc-500 dark:text-zinc-400">Status</label>
                       <select
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                        className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white"
                       >
                         {allStatuses.map((s) => (
                           <option key={s} value={s}>
@@ -276,11 +280,11 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">Tag</label>
+                      <label className="mb-1 block text-xs font-bold text-zinc-500 dark:text-zinc-400">Tag</label>
                       <select
                         value={tag}
                         onChange={(e) => setTag(e.target.value)}
-                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                        className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white"
                       >
                         {allTags.map((t) => (
                           <option key={t} value={t}>
@@ -291,11 +295,11 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                     </div>
 
                     <div>
-                      <label className="mb-1 block text-xs font-bold text-slate-500 dark:text-slate-400">Sort</label>
+                      <label className="mb-1 block text-xs font-bold text-zinc-500 dark:text-zinc-400">Sort</label>
                       <select
                         value={sort}
                         onChange={(e) => setSort(e.target.value as SortMode)}
-                        className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                        className="h-10 w-full rounded-lg border border-zinc-200 bg-white px-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-zinc-800 dark:bg-zinc-950 dark:text-white"
                       >
                         <option value="newest">Newest</option>
                         <option value="oldest">Oldest</option>
@@ -307,11 +311,11 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
               <div className="order-1 w-full sm:min-w-64 lg:w-80">
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 grid w-10 place-items-center text-slate-400">⌕</div>
+                  <div className="absolute inset-y-0 left-0 grid w-10 place-items-center text-zinc-400">⌕</div>
                   <input
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    className="block h-10 w-full rounded-xl border border-slate-200 bg-slate-50 pl-10 pr-3 text-sm font-bold text-slate-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-slate-700 dark:bg-slate-900/50 dark:text-white"
+                    className="block h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white"
                     placeholder="Search ideas, tags, themes..."
                     type="text"
                   />
@@ -323,7 +327,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
       </section>
 
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <div className="text-xs font-bold text-slate-500 dark:text-slate-500">
+        <div className="text-xs font-bold text-zinc-500 dark:text-zinc-500">
           Showing {(safePage - 1) * PAGE_SIZE + 1}-{Math.min(safePage * PAGE_SIZE, filtered.length)} of {filtered.length}
         </div>
         <div className="flex items-center justify-between gap-2 sm:justify-end">
@@ -331,18 +335,18 @@ export default function GalleryClient({ updatedAt, items }: Props) {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={safePage <= 1}
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-black text-zinc-700 shadow-sm transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
           >
             Prev
           </button>
-          <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200">
+          <div className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-black text-zinc-700 shadow-sm dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200">
             Page {safePage} / {pageCount}
           </div>
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
             disabled={safePage >= pageCount}
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:bg-slate-900/40 dark:text-slate-200 dark:hover:bg-slate-900/60"
+            className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-black text-zinc-700 shadow-sm transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
           >
             Next
           </button>
@@ -359,7 +363,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
           return (
             <article
               key={item.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white transition-all hover:shadow-xl dark:border-slate-800 dark:bg-slate-800/50"
+              className="group flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white transition-all hover:-translate-y-0.5 hover:shadow-lift dark:border-zinc-800 dark:bg-zinc-950"
             >
               <div className="relative aspect-video overflow-hidden bg-slate-900">
                 <Link href={`/p/${encodeURIComponent(item.id)}`} className="block h-full w-full hover:no-underline">
@@ -371,14 +375,14 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                       loading="lazy"
                     />
                   ) : (
-                    <div className="flex h-full w-full items-center justify-center px-6 text-center text-xs text-slate-400">
+                    <div className="flex h-full w-full items-center justify-center px-6 text-center text-xs text-zinc-400">
                       No visual yet · use details/spec to shape this idea
                     </div>
                   )}
                 </Link>
 
                 <div className="absolute left-3 top-3 flex gap-2">
-                  <span className={`${badgeClass} rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white`}>
+                  <span className={`${badgeClass} rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white`}>
                     {badge}
                   </span>
                 </div>
@@ -387,23 +391,23 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               <div className="flex flex-1 flex-col p-4 sm:p-5">
                 <div className="mb-2 flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h3 className="line-clamp-2 text-lg font-bold leading-tight text-slate-900 dark:text-white">{item.title}</h3>
-                    <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{item.createdAt} · {item.id}</div>
+                    <h3 className="line-clamp-2 text-lg font-black leading-tight text-zinc-950 dark:text-white">{item.title}</h3>
+                    <div className="mt-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400">{item.createdAt} / {item.id}</div>
                   </div>
                   <span className="shrink-0 text-xs font-bold text-primary sm:text-sm">{category !== 'other' ? category.toUpperCase() : 'IDEA'}</span>
                 </div>
 
-                {item.oneLiner ? <p className="mb-3 line-clamp-3 text-sm text-slate-500 dark:text-slate-400 sm:mb-4">{item.oneLiner}</p> : null}
+                {item.oneLiner ? <p className="mb-3 line-clamp-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300 sm:mb-4">{item.oneLiner}</p> : null}
 
                 <div className="mb-3 flex flex-wrap gap-2">
                   {(item.tags || []).slice(0, 4).map((t) => (
-                    <span key={t} className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">#{t}</span>
+                    <span key={t} className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary">#{t}</span>
                   ))}
                 </div>
 
                 <div className="mt-auto mb-4 flex flex-wrap gap-2 sm:mb-6">
                   {item.stack?.slice(0, 2).map((s) => (
-                    <span key={s} className="inline-flex items-center rounded-md bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-700 dark:bg-slate-700 dark:text-slate-300">{s}</span>
+                    <span key={s} className="inline-flex items-center rounded-md bg-zinc-100 px-2.5 py-0.5 text-xs font-semibold text-zinc-700 dark:bg-zinc-900 dark:text-zinc-300">{s}</span>
                   ))}
                 </div>
 
@@ -414,26 +418,26 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                         href={item.demoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center justify-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/90 hover:no-underline"
+                        className="flex h-10 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-black text-white transition-colors hover:bg-primary/90 hover:no-underline"
                       >
                         Demo
                       </a>
                     ) : (
                       <Link
                         href={item.demoUrl}
-                        className="flex items-center justify-center gap-1.5 rounded-lg bg-primary px-3 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/90 hover:no-underline sm:px-4"
+                        className="flex h-10 items-center justify-center gap-1.5 rounded-lg bg-primary px-3 text-sm font-black text-white transition-colors hover:bg-primary/90 hover:no-underline sm:px-4"
                       >
                         Demo
                       </Link>
                     )
                   ) : (
-                    <div className="flex items-center justify-center rounded-lg bg-slate-200 px-3 py-2 text-sm font-bold text-slate-500 dark:bg-slate-700 dark:text-slate-300 sm:px-4">
+                    <div className="flex h-10 items-center justify-center rounded-lg bg-zinc-200 px-3 text-sm font-bold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300 sm:px-4">
                       No demo
                     </div>
                   )}
                   <Link
                     href={`/p/${encodeURIComponent(item.id)}`}
-                    className="flex items-center justify-center gap-1.5 rounded-lg border border-slate-200 px-3 py-2 text-sm font-bold text-slate-700 transition-colors hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700 sm:px-4"
+                    className="flex h-10 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 px-3 text-sm font-black text-zinc-700 transition-colors hover:bg-zinc-50 hover:no-underline dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900 sm:px-4"
                   >
                     Details
                   </Link>
@@ -444,8 +448,8 @@ export default function GalleryClient({ updatedAt, items }: Props) {
         })}
       </div>
 
-      <div className="mt-10 text-xs text-slate-500">
-        Updated: {new Date(updatedAt).toLocaleString()} · Total: {items.length} · Matched: {filtered.length}
+      <div className="mt-10 text-xs font-semibold text-zinc-500">
+        Updated: {new Date(updatedAt).toLocaleString()} / Total: {items.length} / Matched: {filtered.length}
       </div>
     </div>
   );

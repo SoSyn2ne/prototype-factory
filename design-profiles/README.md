@@ -20,6 +20,7 @@ These profiles are reusable design-direction presets for Prototype Factory ideas
 - The profile name must appear in `daily/YYYY-MM-DD/ideas.md`.
 - The profile summary should be reflected in `meta.json` and `spec/prd.md`.
 - The Stitch prompt should include the profile guidance inline, adapted to the specific product.
+- Apply `docs/UI_SYSTEM.md` when translating a profile into UI: one accent, one radius system, consistent controls, clear states, and no generic "modern dashboard" phrasing.
 
 ## Selection heuristic
 - Revenue ops / tables / triage / prioritization -> `operator-dense`

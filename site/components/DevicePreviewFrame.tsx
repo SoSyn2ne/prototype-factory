@@ -33,10 +33,10 @@ export default function DevicePreviewFrame(props: {
       : { width: preset.width, height: preset.height }
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl dark:border-slate-800 dark:bg-slate-950">
-      <header className="flex flex-col gap-3 border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/50 sm:flex-row sm:items-center sm:justify-between">
+    <section className="overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-card dark:border-zinc-800 dark:bg-zinc-950">
+      <header className="flex flex-col gap-3 border-b border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <div className="inline-flex overflow-x-auto rounded-xl bg-white p-1 shadow-sm dark:bg-slate-900">
+          <div className="inline-flex overflow-x-auto rounded-lg border border-zinc-200 bg-white p-1 shadow-sm dark:border-zinc-800 dark:bg-zinc-950">
             {PRESETS.map((p) => (
               <button
                 key={p.id}
@@ -45,7 +45,7 @@ export default function DevicePreviewFrame(props: {
                 className={`whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-black transition ${
                   presetId === p.id
                     ? 'bg-primary text-white'
-                    : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+                    : 'text-zinc-600 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-900'
                 }`}
               >
                 {p.label}
@@ -53,7 +53,7 @@ export default function DevicePreviewFrame(props: {
             ))}
           </div>
 
-          <div className="text-xs font-bold text-slate-500 dark:text-slate-400">
+          <div className="text-xs font-bold text-zinc-500 dark:text-zinc-400">
             {preset.width === 'fluid'
               ? `Fluid · ${preset.height}px height`
               : `${preset.width}×${preset.height}`}
@@ -62,7 +62,7 @@ export default function DevicePreviewFrame(props: {
 
         {props.fullTabHref ? (
           <a
-            className="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-black text-slate-700 shadow-sm transition hover:bg-slate-50 hover:no-underline dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+            className="inline-flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-3 text-xs font-black text-zinc-700 shadow-sm transition hover:bg-zinc-50 hover:no-underline dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
             href={props.fullTabHref}
             target="_blank"
             rel="noreferrer"
@@ -75,7 +75,7 @@ export default function DevicePreviewFrame(props: {
       <div className="p-4">
         <div className="flex w-full justify-center">
           <div
-            className={`overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-950 ${
+            className={`overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-zinc-800 dark:bg-zinc-950 ${
               preset.width === 'fluid' ? 'w-full' : ''
             }`}
             style={frameStyle}
@@ -90,8 +90,8 @@ export default function DevicePreviewFrame(props: {
         </div>
       </div>
 
-      <footer className="border-t border-slate-200 bg-slate-50 px-5 py-4 text-center dark:border-slate-800 dark:bg-slate-900/50">
-        <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
+      <footer className="border-t border-zinc-200 bg-zinc-50 px-5 py-4 text-center dark:border-zinc-800 dark:bg-zinc-900">
+        <p className="font-mono text-xs text-zinc-500 dark:text-zinc-400">
           PF demo wrapper • device preview
         </p>
       </footer>

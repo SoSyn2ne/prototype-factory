@@ -54,50 +54,50 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
   const isExternalDemo = isExternalUrl(item.demoUrl);
 
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <nav aria-label="Breadcrumb" className="flex text-sm text-slate-500 dark:text-slate-400 mb-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <nav aria-label="Breadcrumb" className="mb-8 flex text-sm font-semibold text-zinc-500 dark:text-zinc-400">
         <ol className="inline-flex items-center space-x-1 md:space-x-3">
           <li className="inline-flex items-center">
-            <Link className="inline-flex items-center hover:text-white transition-colors" href="/">
+            <Link className="inline-flex items-center transition-colors hover:text-primary" href="/">
               Idea Gallery
             </Link>
           </li>
           <li>
             <div className="flex items-center">
-              <span className="mx-2 text-slate-600">›</span>
-              <span className="text-slate-900 dark:text-white font-medium">{item.title}</span>
+              <span className="mx-2 text-zinc-500">›</span>
+              <span className="font-bold text-zinc-950 dark:text-white">{item.title}</span>
             </div>
           </li>
         </ol>
       </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-7 flex flex-col gap-6">
-          <div className="relative aspect-video bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
+        <div className="flex flex-col gap-6 lg:col-span-7">
+          <div className="relative flex aspect-video items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
             {item.previewImage ? (
               <img
                 alt={`${item.title} preview`}
-                className="w-full h-full object-cover opacity-90"
+                className="h-full w-full object-cover opacity-95"
                 src={item.previewImage}
               />
             ) : (
-              <div className="text-sm text-slate-500">No preview image</div>
+              <div className="text-sm text-zinc-500">No preview image</div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/70 to-transparent" />
             {item.demoUrl ? (
               isExternalDemo ? (
                 <a
                   href={item.demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="absolute bottom-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white px-3 py-2 rounded-lg backdrop-blur-sm transition-colors border border-slate-700 hover:no-underline"
+                  className="absolute bottom-4 right-4 rounded-lg border border-white/15 bg-zinc-950/85 px-3 py-2 text-sm font-black text-white backdrop-blur-sm transition-colors hover:bg-zinc-950 hover:no-underline"
                 >
                   Open demo
                 </a>
               ) : (
                 <Link
                   href={item.demoUrl}
-                  className="absolute bottom-4 right-4 bg-slate-900/80 hover:bg-slate-900 text-white px-3 py-2 rounded-lg backdrop-blur-sm transition-colors border border-slate-700 hover:no-underline"
+                  className="absolute bottom-4 right-4 rounded-lg border border-white/15 bg-zinc-950/85 px-3 py-2 text-sm font-black text-white backdrop-blur-sm transition-colors hover:bg-zinc-950 hover:no-underline"
                 >
                   Open demo
                 </Link>
@@ -105,10 +105,10 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
             ) : null}
           </div>
 
-          <div className="rounded-xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Demo</h2>
+          <div className="rounded-lg border border-zinc-200 bg-white p-6 shadow-card dark:border-zinc-800 dark:bg-zinc-950">
+            <h2 className="text-lg font-black text-zinc-950 dark:text-white">Demo</h2>
             {item.demoUrl ? (
-              <div className="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
+              <div className="mt-4 overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
                 <div className="aspect-[1200/630] w-full">
                   <iframe
                     src={item.demoUrl}
@@ -119,42 +119,42 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
                 </div>
               </div>
             ) : (
-              <p className="mt-3 text-sm text-slate-600 dark:text-slate-300">
+              <p className="mt-3 text-sm text-zinc-600 dark:text-zinc-300">
                 Demo not configured. Add <code>demo/index.html</code> or set <code>demoUrl</code>.
               </p>
             )}
           </div>
         </div>
 
-        <div className="lg:col-span-5 flex flex-col">
+        <div className="flex flex-col lg:col-span-5">
           <div className="mb-2 flex items-center gap-3">
-            <span className="bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
+            <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.08em] text-primary">
               {(item.status || 'prototype').toUpperCase()}
             </span>
-            <span className="text-sm text-slate-500 dark:text-slate-400">{item.id}</span>
+            <span className="text-sm font-semibold text-zinc-500 dark:text-zinc-400">{item.id}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4 tracking-tight">{item.title}</h1>
+          <h1 className="mb-4 text-3xl font-black leading-tight text-zinc-950 dark:text-white sm:text-4xl">{item.title}</h1>
 
-          <p className="text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-8">
+          <p className="mb-8 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
             {item.oneLiner || 'No one-liner is available for this prototype yet.'}
           </p>
 
-          <div className="flex flex-col gap-3 mb-10">
+          <div className="mb-10 flex flex-col gap-3">
             {item.demoUrl ? (
               isExternalDemo ? (
                 <a
                   href={item.demoUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3.5 px-6 rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:no-underline"
+                  className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-black text-white transition-all hover:bg-primary/90 hover:no-underline"
                 >
                   Open Demo
                 </a>
               ) : (
                 <Link
                   href={item.demoUrl}
-                  className="w-full flex items-center justify-center gap-2 bg-primary text-white py-3.5 px-6 rounded-lg font-bold hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 hover:no-underline"
+                  className="flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 text-sm font-black text-white transition-all hover:bg-primary/90 hover:no-underline"
                 >
                   Open Demo
                 </Link>
@@ -163,19 +163,19 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
 
             <Link
               href="/"
-              className="w-full flex items-center justify-center gap-2 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 py-3.5 px-6 rounded-lg font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors hover:no-underline"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-zinc-200 bg-white px-6 text-sm font-black text-zinc-700 transition-colors hover:bg-zinc-50 hover:no-underline dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
             >
               Back to Idea Gallery
             </Link>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Build Notes</h3>
+            <h3 className="mb-4 text-sm font-black uppercase tracking-[0.08em] text-zinc-950 dark:text-white">Build Notes</h3>
             <div className="flex flex-wrap gap-2">
               {item.stack.slice(0, 6).map((s) => (
                 <span
                   key={s}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-sm font-semibold text-zinc-700 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-300"
                 >
                   {s}
                 </span>
@@ -184,18 +184,18 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Spec Notes</h3>
+            <h3 className="mb-4 text-sm font-black uppercase tracking-[0.08em] text-zinc-950 dark:text-white">Spec Notes</h3>
             {spec.message ? (
               <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">{spec.message}</p>
             ) : null}
 
             <div className="space-y-3">
               {spec.files.map((file) => (
-                <details key={file.name} className="rounded-xl border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-                  <summary className="cursor-pointer select-none px-4 py-3 text-sm font-bold text-slate-900 dark:text-white">
+                <details key={file.name} className="rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+                  <summary className="cursor-pointer select-none px-4 py-3 text-sm font-black text-zinc-950 dark:text-white">
                     {file.name}
                   </summary>
-                  <pre className="border-t border-slate-200 px-4 py-4 text-xs leading-relaxed text-slate-800 dark:border-slate-800 dark:text-slate-200">
+                  <pre className="border-t border-zinc-200 px-4 py-4 text-xs leading-relaxed text-zinc-800 dark:border-zinc-800 dark:text-zinc-200">
                     {file.body}
                   </pre>
                 </details>

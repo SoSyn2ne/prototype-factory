@@ -24,28 +24,28 @@ export default function DemoPage({ params }: { params: { id: string } }) {
   const exists = hasCopiedDemo(item.id);
 
   return (
-    <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
-            <Link className="hover:text-primary transition-colors" href="/">
+          <div className="flex items-center gap-2 text-sm font-semibold text-zinc-500 dark:text-zinc-400">
+            <Link className="transition-colors hover:text-primary" href="/">
               Gallery
             </Link>
-            <span className="text-slate-600">›</span>
-            <span className="text-slate-900 dark:text-white">Demo</span>
+            <span className="text-zinc-500">›</span>
+            <span className="text-zinc-950 dark:text-white">Demo</span>
           </div>
 
           <div className="flex items-center gap-4">
             <Link
               href={`/p/${encodeURIComponent(item.id)}`}
-              className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-sm font-semibold text-zinc-500 transition-colors hover:text-primary"
             >
               <span aria-hidden="true">←</span>
               Spec / details
             </Link>
             {exists ? (
               <a
-                className="flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+                className="flex items-center gap-2 text-sm font-black text-primary transition-colors hover:text-primary/80"
                 href={demoSrc}
                 target="_blank"
                 rel="noreferrer"
@@ -57,18 +57,18 @@ export default function DemoPage({ params }: { params: { id: string } }) {
           </div>
         </div>
 
-        <div className="mt-4 rounded-xl border border-slate-200 bg-slate-900 p-6 lg:p-8 dark:border-slate-800">
+        <div className="mt-4 rounded-lg border border-zinc-200 bg-zinc-950 p-6 shadow-card dark:border-zinc-800 lg:p-8">
           <div className="max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="inline-flex items-center rounded-full bg-blue-500/10 px-2.5 py-0.5 text-xs font-medium text-blue-400 border border-blue-500/20">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center rounded-full border border-primary/30 bg-primary/15 px-2.5 py-0.5 text-xs font-bold text-indigo-200">
                 PROTOTYPE {item.id.toUpperCase()}
               </span>
-              <span className="inline-flex items-center rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-xs font-medium text-emerald-400 border border-emerald-500/20">
+              <span className="inline-flex items-center rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2.5 py-0.5 text-xs font-bold text-emerald-200">
                 LIVE DEMO
               </span>
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 tracking-tight">{item.title}</h1>
-            <p className="text-slate-400 text-lg leading-relaxed">
+            <h1 className="mb-3 text-3xl font-black leading-tight text-white sm:text-4xl">{item.title}</h1>
+            <p className="text-lg leading-relaxed text-zinc-300">
               {item.oneLiner || 'Open the demo and test the prototype workflow.'}
             </p>
           </div>
@@ -78,7 +78,7 @@ export default function DemoPage({ params }: { params: { id: string } }) {
       {exists ? (
         <DevicePreviewFrame src={demoSrc} title={`${item.title} demo`} fullTabHref={demoSrc} />
       ) : (
-        <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
           Demo file is missing for this prototype. Add <code>demo/index.html</code> in the prototype folder and run{' '}
           <code>node scripts/build-index.mjs</code>.
         </p>
