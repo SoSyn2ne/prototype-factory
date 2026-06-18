@@ -687,14 +687,14 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
 
       <div className={`absolute left-0 top-0 h-full ${panelOpen ? 'w-[320px]' : 'w-[56px]'}`} />
 
-      <div className="absolute right-4 top-4 z-20 flex max-w-[920px] flex-wrap items-center gap-2 rounded-lg border border-slate-800 bg-slate-950/70 px-3 py-3 backdrop-blur-xl">
-        <div className="hidden lg:block">
-          <ModeTabs activeMode={activeMode} onChange={setActiveMode} />
-        </div>
-        <button type="button" onClick={() => setZoom((z) => Math.max(0.55, Number((z - 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
-        <button type="button" onClick={() => setZoom((z) => Math.min(2.8, Number((z + 0.15).toFixed(2))))} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
-        <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Reset</button>
-        <div className="ml-2 text-[11px] font-bold uppercase tracking-wider text-slate-400">Wheel zoom · drag canvas · drag nodes · click node for summary</div>
+      <div className={`absolute right-4 top-4 z-20 items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-2 backdrop-blur-xl ${panelOpen ? 'hidden sm:flex' : 'flex'}`}>
+        {!panelOpen ? (
+          <button type="button" onClick={() => setPanelOpen(true)} className="rounded-lg border border-slate-700 px-2.5 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">Tabs</button>
+        ) : null}
+        <button type="button" aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(0.55, Number((z - 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-slate-700 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
+        <button type="button" aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(2.8, Number((z + 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-slate-700 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
+        <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="h-9 rounded-lg bg-primary px-3 text-xs font-black text-white hover:bg-primary/90">Reset</button>
+        <div className="hidden border-l border-slate-800 pl-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 sm:block">Wheel / drag / click</div>
       </div>
 
       <div className="absolute bottom-4 right-4 z-20 w-[360px] rounded-2xl border border-slate-800 bg-slate-950/78 p-4 text-sm text-slate-200 shadow-sm backdrop-blur-xl">
