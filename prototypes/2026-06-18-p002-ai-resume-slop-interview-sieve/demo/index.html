@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sieve Operations Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@450&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed": "#390c00",
+                        "surface-container-highest": "#32343e",
+                        "on-tertiary": "#5d1900",
+                        "surface": "#10131c",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#2e303a",
+                        "inverse-surface": "#e1e2ee",
+                        "secondary": "#b3c5ff",
+                        "surface-container-low": "#191b24",
+                        "secondary-fixed-dim": "#b3c5ff",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed": "#001849",
+                        "surface-dim": "#10131c",
+                        "surface-container": "#1d1f28",
+                        "outline": "#8c90a1",
+                        "secondary-container": "#284386",
+                        "on-primary-container": "#f8f7ff",
+                        "surface-bright": "#363943",
+                        "on-background": "#e1e2ee",
+                        "on-tertiary-fixed-variant": "#832600",
+                        "primary": "#b3c5ff",
+                        "on-secondary": "#0a2c6e",
+                        "tertiary": "#ffb59d",
+                        "inverse-primary": "#0054d6",
+                        "on-primary": "#002b75",
+                        "on-tertiary-container": "#fff6f4",
+                        "on-primary-fixed": "#001849",
+                        "surface-tint": "#b3c5ff",
+                        "surface-container-high": "#272a33",
+                        "on-surface": "#e1e2ee",
+                        "secondary-fixed": "#dae1ff",
+                        "tertiary-fixed": "#ffdbd0",
+                        "on-secondary-container": "#9ab3fd",
+                        "on-surface-variant": "#c2c6d8",
+                        "surface-variant": "#32343e",
+                        "tertiary-container": "#cc4204",
+                        "error": "#ffb4ab",
+                        "primary-fixed": "#dae1ff",
+                        "surface-container-lowest": "#0b0e16",
+                        "background": "#10131c",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#003fa4",
+                        "primary-container": "#0066ff",
+                        "on-secondary-fixed-variant": "#284386",
+                        "outline-variant": "#424656",
+                        "primary-fixed-dim": "#b3c5ff",
+                        "tertiary-fixed-dim": "#ffb59d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "side-margin": "20px",
+                        "sm": "8px",
+                        "unit": "4px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "display-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-sm": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "data-mono": ["12px", {"lineHeight": "16px", "fontWeight": "450"}],
+                        "headline-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                        "label-caps": ["10px", {"lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for data dense areas */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2A2A2A; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #424656; 
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen overflow-hidden flex flex-col antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface border-b border-outline-variant flex justify-between items-center h-[56px] px-side-margin w-full flex-shrink-0 relative z-20">
+<div class="flex items-center gap-md">
+<h1 class="font-headline-md text-headline-md font-black text-on-surface">AI Resume Slop Interview Sieve</h1>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative w-64 h-8 bg-[#121212] border border-[#333333] rounded flex items-center px-sm text-on-surface-variant focus-within:border-[#0066FF] focus-within:ring-1 focus-within:ring-[#0066FF] transition-all">
+<span class="material-symbols-outlined text-[16px] mr-sm">search</span>
+<input class="bg-transparent border-none outline-none w-full font-body-sm text-body-sm placeholder:text-on-surface-variant focus:ring-0 p-0" placeholder="Search applicant, cluster..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Recruiter Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small circular avatar of a professional recruiter with short hair in a dark grey suit against a subtle gradient background, illuminated by soft blue light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDel6mwB3siq7J_M2FCqegao8jjsPlMzmvatZ0jwLL1TyFcA81MxLdqvpNpyhWnPzFQv09l_DVI5I-dnNEdiidlkzOqAUTjrjzXfr5rCM-wzJ1VcMime8_UFjQaRDw-ipf9TaXtVm_Gu9Aj7FqLmgWvnZi4UFT2DS-Tug9xNhS4Ulm2cGGycmRX5TvRSgZNvdmFNURgvxE-IWIMOn1_j4D8JaQ3fg5frfQXkEBIwsCQY1HX5yBgSGj5UpPAVoRRmCh9QFCz3VCWq00z"/>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<nav class="w-[240px] h-full flex flex-col py-md bg-surface-container-low border-r border-outline-variant flex-shrink-0 z-10">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-sm mb-sm">
+<img alt="User profile" class="w-10 h-10 rounded border border-[#2A2A2A] object-cover" data-alt="A minimal icon logo representing a sieve or filter, rendered in crisp vector lines on a dark background, glowing slightly in primary blue." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnwVaOpI2rQ--n-nt9Pg1vul0po8u0tH2AyfC-R75lr0qhMsYGql105xJba2pyirqDfNLr2zE3ypfiEhZ2jlknY8YQWeIB1dqzu-0xpFhG1KoYaqGK6sSHNaTMvqYBQhvWhYRD2cAXmqN5PkgcLT9MWh1k_pfhzRH8kgyIKPtyeFBaUuhR76REBbXcLo96-1IxDLOA4zg6u_rX9nBh0x4h0HGHVv2LBZSCrCXaG9ypnsnLtbKfzbZc9HNY8UlflVGHrncdfDnfzDAJ"/>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-primary">Sieve Console</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Recruitment Ops</div>
+</div>
+</div>
+<button class="w-full h-8 bg-primary-container text-on-primary-container font-body-sm text-body-sm rounded hover:bg-inverse-primary transition-colors mt-sm flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">add</span> New Sieve
+                </button>
+</div>
+<div class="flex flex-col gap-xs px-sm font-body-sm text-body-sm">
+<!-- Active Item -->
+<a class="flex items-center gap-sm px-sm py-2 rounded text-primary font-bold bg-surface-container-high transition-colors opacity-80" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">monitoring</span> Flood Monitor
+                </a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">hub</span> Cluster Map
+                </a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">view_kanban</span> Proof Lanes
+                </a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span> Guardrails
+                </a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span> Calendar
+                </a>
+<a class="flex items-center gap-sm px-sm py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">article</span> Briefings
+                </a>
+</div>
+</nav>
+<!-- Main Workspace Canvas -->
+<main class="flex-1 flex flex-col overflow-hidden bg-background">
+<!-- Context Header Row (Fluid Area) -->
+<div class="p-gutter flex flex-col gap-gutter flex-shrink-0 border-b border-[#2A2A2A] bg-[#1E1E1E]">
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-display-sm text-display-sm mb-xs">Junior Full-Stack Role</h2>
+<div class="flex items-center gap-sm font-data-mono text-data-mono text-on-surface-variant">
+<span>ID: REQ-092-A</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>Sieve Active</span>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="bg-[#121212] border border-[#2A2A2A] p-sm rounded flex flex-col items-center min-w-[100px]">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider mb-xs">Total Flood</span>
+<span class="font-data-mono text-[20px] leading-[24px] text-on-surface">412</span>
+</div>
+<div class="bg-[#121212] border border-error-container p-sm rounded flex flex-col items-center min-w-[100px]">
+<span class="font-label-caps text-label-caps text-error uppercase tracking-wider mb-xs">AI Slop Rate</span>
+<span class="font-data-mono text-[20px] leading-[24px] text-error">78.4%</span>
+</div>
+<div class="bg-[#121212] border border-[#2A2A2A] p-sm rounded flex flex-col items-center min-w-[100px]">
+<span class="font-label-caps text-label-caps text-primary uppercase tracking-wider mb-xs">Sieve Pass</span>
+<span class="font-data-mono text-[20px] leading-[24px] text-primary">42</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="flex-1 overflow-auto p-gutter grid grid-cols-12 gap-gutter content-start">
+<!-- Proof Lanes (Kanban Area - takes up mostly width) -->
+<div class="col-span-8 flex flex-col gap-gutter min-h-0 h-[600px]">
+<div class="flex justify-between items-center bg-[#1E1E1E] border border-[#2A2A2A] p-sm rounded-t">
+<h3 class="font-headline-md text-[14px] leading-[20px] uppercase font-bold text-on-surface">Skill-Proof Lanes</h3>
+<div class="flex gap-xs">
+<button class="p-1 rounded hover:bg-[#2A2A2A] text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">filter_list</span></button>
+<button class="p-1 rounded hover:bg-[#2A2A2A] text-on-surface-variant"><span class="material-symbols-outlined text-[16px]">more_vert</span></button>
+</div>
+</div>
+<div class="flex-1 flex gap-sm overflow-x-auto pb-sm">
+<!-- Lane 1 -->
+<div class="flex-shrink-0 w-[260px] bg-[#1E1E1E] border border-[#2A2A2A] rounded flex flex-col">
+<div class="p-sm border-b border-[#2A2A2A] flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">GITHUB VERIFIED (14)</span>
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="p-sm flex flex-col gap-sm overflow-y-auto h-full">
+<!-- Card -->
+<div class="bg-[#121212] border border-[#333333] border-l-2 border-l-primary rounded p-sm relative group hover:bg-[#1A1A1A] transition-colors">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-body-sm text-body-sm font-bold text-on-surface">Elena Rostova</span>
+<span class="font-data-mono text-[10px] text-primary">ATS: 92</span>
+</div>
+<div class="flex gap-xs mb-sm flex-wrap">
+<span class="px-1.5 py-0.5 bg-[#2A2A2A] text-on-surface-variant font-data-mono text-[9px] rounded">React</span>
+<span class="px-1.5 py-0.5 bg-[#2A2A2A] text-on-surface-variant font-data-mono text-[9px] rounded">Node</span>
+<span class="px-1.5 py-0.5 bg-error-container/30 border border-error-container text-error font-data-mono text-[9px] rounded">AI_FLAG_LOW</span>
+</div>
+<div class="flex justify-between items-center mt-sm border-t border-[#333333] pt-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[14px]">code</span></a>
+<button class="bg-[#0066FF] text-white font-label-caps text-[9px] px-2 py-1 rounded hover:bg-inverse-primary transition-colors">ADVANCE</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Lane 2 -->
+<div class="flex-shrink-0 w-[260px] bg-[#1E1E1E] border border-[#2A2A2A] rounded flex flex-col">
+<div class="p-sm border-b border-[#2A2A2A] flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">CODE REVIEW (8)</span>
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+</div>
+<div class="p-sm flex flex-col gap-sm overflow-y-auto h-full">
+<!-- Card -->
+<div class="bg-[#121212] border border-[#333333] border-l-2 border-l-secondary rounded p-sm relative group hover:bg-[#1A1A1A] transition-colors">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-body-sm text-body-sm font-bold text-on-surface">Marcus Chen</span>
+<span class="font-data-mono text-[10px] text-primary">ATS: 88</span>
+</div>
+<div class="flex gap-xs mb-sm flex-wrap">
+<span class="px-1.5 py-0.5 bg-[#2A2A2A] text-on-surface-variant font-data-mono text-[9px] rounded">Vue</span>
+<span class="px-1.5 py-0.5 bg-[#2A2A2A] text-on-surface-variant font-data-mono text-[9px] rounded">Go</span>
+</div>
+<div class="flex justify-between items-center mt-sm border-t border-[#333333] pt-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined text-[14px]">code</span></a>
+<button class="bg-[#0066FF] text-white font-label-caps text-[9px] px-2 py-1 rounded hover:bg-inverse-primary transition-colors">ADVANCE</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Stack -->
+<div class="col-span-4 flex flex-col gap-gutter">
+<!-- Cluster Map -->
+<div class="bg-[#1E1E1E] border border-[#2A2A2A] rounded p-sm h-[200px] flex flex-col">
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-md text-[14px] leading-[20px] uppercase font-bold text-on-surface flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">hub</span> Similarity Clusters</h3>
+</div>
+<div class="flex-1 overflow-y-auto flex flex-col gap-xs pr-1">
+<div class="flex justify-between items-center bg-[#121212] p-xs rounded border border-[#333333]">
+<span class="font-body-sm text-[11px] text-on-surface truncate pr-2">"Passionate Innovator" Cluster</span>
+<span class="font-data-mono text-[10px] text-error bg-error-container/20 px-1 rounded">142 hits</span>
+</div>
+<div class="flex justify-between items-center bg-[#121212] p-xs rounded border border-[#333333]">
+<span class="font-body-sm text-[11px] text-on-surface truncate pr-2">"Spearheaded Initiatives" Cluster</span>
+<span class="font-data-mono text-[10px] text-error bg-error-container/20 px-1 rounded">89 hits</span>
+</div>
+<div class="flex justify-between items-center bg-[#121212] p-xs rounded border border-[#333333]">
+<span class="font-body-sm text-[11px] text-on-surface truncate pr-2">ChatGPT Default Tone</span>
+<span class="font-data-mono text-[10px] text-error bg-error-container/20 px-1 rounded">64 hits</span>
+</div>
+</div>
+</div>
+<!-- Fairness Guardrails -->
+<div class="bg-[#1E1E1E] border border-[#2A2A2A] rounded p-sm flex flex-col">
+<div class="flex justify-between items-center mb-sm">
+<h3 class="font-headline-md text-[14px] leading-[20px] uppercase font-bold text-on-surface flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">security</span> Guardrails</h3>
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+</div>
+<div class="grid grid-cols-2 gap-sm">
+<div class="bg-[#121212] p-sm rounded border border-[#333333]">
+<div class="font-label-caps text-[9px] text-on-surface-variant mb-1">GENDER SKEW</div>
+<div class="font-data-mono text-[12px] text-on-surface">1.2x M/F</div>
+<div class="w-full bg-[#2A2A2A] h-1 mt-1 rounded"><div class="bg-secondary h-1 rounded w-[60%]"></div></div>
+</div>
+<div class="bg-[#121212] p-sm rounded border border-[#333333]">
+<div class="font-label-caps text-[9px] text-on-surface-variant mb-1">GEO BIAS</div>
+<div class="font-data-mono text-[12px] text-on-surface">Optimal</div>
+<div class="w-full bg-[#2A2A2A] h-1 mt-1 rounded"><div class="bg-primary h-1 rounded w-[85%]"></div></div>
+</div>
+</div>
+</div>
+<!-- Batch Interview Calendar -->
+<div class="bg-[#1E1E1E] border border-[#2A2A2A] rounded p-sm flex flex-col flex-1 min-h-[200px]">
+<div class="flex justify-between items-center mb-sm border-b border-[#2A2A2A] pb-sm">
+<h3 class="font-headline-md text-[14px] leading-[20px] uppercase font-bold text-on-surface flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">calendar_today</span> HM Calendar</h3>
+<span class="font-data-mono text-[10px] text-on-surface-variant">WK 42</span>
+</div>
+<div class="flex flex-col gap-xs overflow-y-auto">
+<div class="flex items-center gap-sm bg-[#121212] p-xs rounded border-l-2 border-l-primary border border-y-[#333333] border-r-[#333333]">
+<div class="font-data-mono text-[10px] text-on-surface-variant w-10">TUE<br/>14:00</div>
+<div class="flex-1">
+<div class="font-body-sm text-[11px] font-bold text-on-surface">E. Rostova</div>
+<div class="font-label-caps text-[9px] text-on-surface-variant">LIVE SANDBOX</div>
+</div>
+</div>
+<div class="flex items-center gap-sm bg-[#121212] p-xs rounded border-l-2 border-l-[#424656] border border-y-[#333333] border-r-[#333333] opacity-60">
+<div class="font-data-mono text-[10px] text-on-surface-variant w-10">WED<br/>10:00</div>
+<div class="flex-1 font-label-caps text-[10px] text-on-surface-variant italic">OPEN SLOT</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Briefing Panel (Fixed Right Side) -->
+<aside class="w-[380px] h-full bg-[#1A1A1A] border-l border-outline-variant flex-shrink-0 flex flex-col">
+<div class="p-sm border-b border-[#2A2A2A] flex justify-between items-center bg-[#1E1E1E]">
+<h2 class="font-headline-md text-[14px] font-bold text-on-surface flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">article</span> HM Briefing Packet</h2>
+<button class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">close</span></button>
+</div>
+<div class="p-gutter flex-1 overflow-y-auto flex flex-col gap-md">
+<!-- Briefing Item -->
+<div class="bg-[#121212] border border-[#333333] rounded">
+<div class="p-sm border-b border-[#333333] bg-[#1A1A1A] flex justify-between items-center rounded-t">
+<span class="font-body-sm text-body-sm font-bold text-primary">Elena Rostova</span>
+<span class="font-data-mono text-[10px] px-1 bg-[#2A2A2A] text-on-surface-variant rounded">RANK #1</span>
+</div>
+<div class="p-sm">
+<p class="font-body-sm text-[11px] leading-[16px] text-on-surface-variant mb-sm">
+                            Strong signal on backend architecture. Verified commits in highly starred open source React repo. AI Slop detection flagged cover letter, but technical sandbox performance was exceptional.
+                        </p>
+<div class="bg-[#1A1A1A] p-sm rounded border border-[#2A2A2A] font-data-mono text-[10px] text-[#A3DEFE] overflow-x-auto">
+<pre><code>// Highlighted sandbox evidence
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () =&gt; {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}</code></pre>
+</div>
+</div>
+<div class="p-sm border-t border-[#333333] flex justify-end gap-sm">
+<button class="text-error font-label-caps text-[10px] px-2 py-1 rounded border border-error/30 hover:bg-error-container/20 transition-colors">FLAG</button>
+<button class="bg-[#0066FF] text-white font-label-caps text-[10px] px-3 py-1 rounded hover:bg-inverse-primary transition-colors">SCHEDULE</button>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</body></html>

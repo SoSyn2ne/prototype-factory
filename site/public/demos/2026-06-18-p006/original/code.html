@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Protein Shortage Reformulation Board</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Inter and JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#43474b",
+                        "secondary-container": "#dce0e4",
+                        "surface-bright": "#f7f9ff",
+                        "on-primary-container": "#00626e",
+                        "outline-variant": "#bac9cc",
+                        "on-primary-fixed": "#001f24",
+                        "on-background": "#001d32",
+                        "secondary-fixed": "#dfe3e7",
+                        "on-primary-fixed-variant": "#004f58",
+                        "primary-container": "#00e5ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#314863",
+                        "tertiary-container": "#bad3f3",
+                        "background": "#f7f9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#9cf0ff",
+                        "inverse-surface": "#16334a",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#c1ddfb",
+                        "on-tertiary-container": "#435b76",
+                        "secondary-fixed-dim": "#c3c7cb",
+                        "tertiary": "#49607c",
+                        "surface-container-low": "#edf4ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f7f9ff",
+                        "on-surface": "#001d32",
+                        "surface-variant": "#cee5ff",
+                        "outline": "#6b7a7d",
+                        "secondary": "#5a5f62",
+                        "surface-container-high": "#d8eaff",
+                        "primary-fixed-dim": "#00daf3",
+                        "on-secondary-fixed": "#171c1f",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#011d35",
+                        "tertiary-fixed-dim": "#b0c9e8",
+                        "tertiary-fixed": "#d1e4ff",
+                        "primary": "#006875",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#3b494c",
+                        "inverse-on-surface": "#e8f2ff",
+                        "surface-container-highest": "#cee5ff",
+                        "on-secondary-container": "#5e6367",
+                        "surface-tint": "#006875",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#00daf3",
+                        "surface-container": "#e3efff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "12px",
+                        "unit": "4px",
+                        "grid-gutter": "8px",
+                        "section-gap": "16px",
+                        "tight-stack": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-mono": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "data-tabular": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Table row hover logic for dense data */
+        tbody tr:hover { background-color: var(--color-surface-container-high); }
+        
+        /* Simulated taped note specific styles using config borders */
+        .taped-note {
+            position: relative;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+        }
+        .taped-note::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 40px;
+            height: 12px;
+            background-color: #dce0e4; /* secondary-container equivalent conceptually for tape */
+            border: 1px solid #bac9cc;
+            opacity: 0.8;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md overflow-x-hidden min-h-screen">
+<!-- ==========================================
+         SIDE NAVIGATION (Predicted Component)
+         ========================================== -->
+<aside class="bg-surface-container-low dark:bg-surface-container-lowest fixed left-0 top-0 h-full z-40 flex flex-col docked left-0 h-full w-64 border-r border-outline-variant dark:border-outline flat no shadows">
+<!-- Header / Identity -->
+<div class="px-6 py-6 border-b border-outline-variant flex flex-col gap-1">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">PROD-OPS</h1>
+<span class="font-label-mono text-label-mono uppercase tracking-widest text-on-surface dark:text-on-surface">V-04.22.88</span>
+</div>
+<!-- Navigation Links -->
+<nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-2 border-l-2 border-primary text-primary font-bold bg-surface-container-high" href="#">
+<span class="material-symbols-outlined fill-icon text-[18px]">dashboard</span>
+<span class="font-label-mono text-label-mono uppercase">Dashboard</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="font-label-mono text-label-mono uppercase">Scenarios</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">science</span>
+<span class="font-label-mono text-label-mono uppercase">Recipes</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="font-label-mono text-label-mono uppercase">Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest dark:hover:bg-surface-container transition-colors" href="#">
+<span class="material-symbols-outlined text-[18px]">conveyor_belt</span>
+<span class="font-label-mono text-label-mono uppercase">Logistics</span>
+</a>
+</nav>
+<!-- Footer / Profile Placeholder -->
+<div class="p-4 border-t border-outline-variant flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">person</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono uppercase text-on-surface">Operator Profile</span>
+</div>
+</div>
+</aside>
+<!-- ==========================================
+         MAIN CANVAS AREA
+         ========================================== -->
+<main class="ml-64 flex flex-col min-h-screen">
+<!-- ==========================================
+             TOP NAVIGATION (Predicted Component)
+             ========================================== -->
+<header class="bg-surface dark:bg-surface-container-lowest docked top-0 w-full border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center px-6 py-2 sticky top-0 z-30">
+<!-- Brand -->
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg font-bold tracking-tight text-on-surface dark:text-on-surface truncate max-w-[400px]">PROTEIN SHORTAGE REFORMULATION BOARD</span>
+</div>
+<!-- Central Nav Links -->
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-primary border-b-2 border-primary pb-1 font-label-mono text-label-mono uppercase" href="#">Active Disruptions</a>
+<a class="text-on-secondary-fixed-variant dark:text-secondary-fixed-dim font-label-mono text-label-mono uppercase hover:text-primary dark:hover:text-primary-fixed transition-all" href="#">Global Margin</a>
+<a class="text-on-secondary-fixed-variant dark:text-secondary-fixed-dim font-label-mono text-label-mono uppercase hover:text-primary dark:hover:text-primary-fixed transition-all" href="#">Asset Health</a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-1 hover:text-primary dark:hover:text-primary-fixed transition-all Click: scale-95 duration-75">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-1 hover:text-primary dark:hover:text-primary-fixed transition-all Click: scale-95 duration-75">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<button class="bg-on-background text-primary font-label-mono text-label-mono uppercase px-4 py-1.5 border border-primary hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span>Execute Reformulation</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</header>
+<!-- PERSISTENT INGREDIENT ALERT BANNER -->
+<div class="bg-error-container border-b border-error px-6 py-1.5 flex items-center justify-center gap-3">
+<span class="material-symbols-outlined text-error text-[16px] fill-icon">warning</span>
+<span class="font-label-mono text-label-mono text-on-error-container uppercase font-bold tracking-widest">
+                [CRITICAL] WHEY ISOLATE SHORTAGE | COST SPIKE: +250% | TARGET MARGIN AT RISK
+            </span>
+</div>
+<!-- ==========================================
+             CONSOLE GRID CONTENT
+             ========================================== -->
+<div class="flex-1 p-container-padding grid grid-cols-12 gap-grid-gutter bg-surface-bright">
+<!-- SECTION 1: INGREDIENT SHOCK & COST STACK (Top Left) -->
+<section class="col-span-8 border border-outline-variant bg-surface-container-lowest flex flex-col p-container-padding">
+<header class="flex justify-between items-end border-b border-outline-variant pb-2 mb-3">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">monitoring</span>
+                        Ingredient Shock &amp; Cost Stack
+                    </h2>
+<span class="font-label-mono text-label-mono text-on-surface-variant">Base: 12g Protein Bar (SKU-A1)</span>
+</header>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline text-on-surface-variant">
+<th class="py-1 px-2 font-label-mono text-label-mono font-medium">INGREDIENT</th>
+<th class="py-1 px-2 font-label-mono text-label-mono text-right font-medium">BASE COST/KG</th>
+<th class="py-1 px-2 font-label-mono text-label-mono text-right font-medium">CURRENT COST/KG</th>
+<th class="py-1 px-2 font-label-mono text-label-mono text-right font-medium">Δ</th>
+<th class="py-1 px-2 font-label-mono text-label-mono text-right font-medium">PROJ. IMPACT/UNIT</th>
+</tr>
+</thead>
+<tbody class="font-data-tabular text-data-tabular">
+<!-- Critical Row -->
+<tr class="border-b border-outline-variant bg-error-container/20 text-error">
+<td class="py-1.5 px-2 flex items-center gap-2 font-bold">
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+                                    Whey Isolate (WPI-90)
+                                </td>
+<td class="py-1.5 px-2 text-right opacity-80">$12.40</td>
+<td class="py-1.5 px-2 text-right font-bold">$43.40</td>
+<td class="py-1.5 px-2 text-right font-bold">+250%</td>
+<td class="py-1.5 px-2 text-right">+$0.45</td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface-container-lowest">
+<td class="py-1.5 px-2">Soy Protein Crisps</td>
+<td class="py-1.5 px-2 text-right">$4.10</td>
+<td class="py-1.5 px-2 text-right">$4.25</td>
+<td class="py-1.5 px-2 text-right text-on-surface-variant">+3.6%</td>
+<td class="py-1.5 px-2 text-right">+$0.01</td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface">
+<td class="py-1.5 px-2">Almond Butter</td>
+<td class="py-1.5 px-2 text-right">$9.80</td>
+<td class="py-1.5 px-2 text-right">$9.80</td>
+<td class="py-1.5 px-2 text-right text-on-surface-variant">0.0%</td>
+<td class="py-1.5 px-2 text-right">$0.00</td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface-container-lowest">
+<td class="py-1.5 px-2">Tapioca Syrup</td>
+<td class="py-1.5 px-2 text-right">$2.15</td>
+<td class="py-1.5 px-2 text-right">$2.30</td>
+<td class="py-1.5 px-2 text-right text-on-surface-variant">+6.9%</td>
+<td class="py-1.5 px-2 text-right">+$0.02</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- SECTION 3: GLP-1 PACK STRATEGY BOARD (Right Sidebar, spans 2 rows conceptually) -->
+<section class="col-span-4 row-span-2 border border-outline-variant bg-surface-container-lowest flex flex-col p-container-padding">
+<header class="border-b border-outline-variant pb-2 mb-3">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">strategy</span>
+                        GLP-1 Pack Strategy
+                    </h2>
+</header>
+<div class="flex-1 flex flex-col gap-3">
+<div class="bg-surface p-2 border border-outline-variant rounded-sm">
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-1 border-b border-outline pb-1">Format Pivot</div>
+<p class="font-body-md text-body-md text-on-surface">Shift single-serve target from 55g macro-bar to <strong class="text-primary font-bold">35g mini-bar</strong>.</p>
+<ul class="mt-2 pl-4 list-disc font-data-tabular text-data-tabular text-on-surface-variant">
+<li>Reduces per-unit protein requirement by 36%</li>
+<li>Aligns with reduced appetite profiles</li>
+</ul>
+</div>
+<div class="bg-surface p-2 border border-outline-variant rounded-sm">
+<div class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-1 border-b border-outline pb-1">Marketing Claim Shift</div>
+<p class="font-body-md text-body-md text-on-surface">De-emphasize "30g Muscle Build". Emphasize <strong class="text-primary font-bold">"Satiety"</strong> and <strong class="text-primary font-bold">"Gut Health"</strong>.</p>
+</div>
+<div class="mt-auto bg-surface-container-low p-2 border border-outline border-dashed text-center">
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-1">STRATEGY STATUS</span>
+<div class="inline-flex items-center gap-1 bg-primary-container px-2 py-0.5 border border-primary text-on-primary-container font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                            APPROVED FOR PILOT
+                        </div>
+</div>
+</div>
+</section>
+<!-- SECTION 2: REFORMULATION SCENARIO GRID (Center, wide) -->
+<section class="col-span-8 border border-outline-variant bg-surface-container-lowest flex flex-col p-container-padding">
+<header class="border-b border-outline-variant pb-2 mb-3 flex justify-between items-end">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+                        Reformulation Scenarios
+                    </h2>
+</header>
+<div class="grid grid-cols-3 gap-3">
+<!-- Scenario 1: Status Quo -->
+<div class="border border-outline-variant bg-surface p-2 flex flex-col gap-2">
+<div class="font-label-mono text-label-mono uppercase text-on-surface border-b border-outline-variant pb-1 flex justify-between">
+<span>S1: Status Quo</span>
+<span class="text-error font-bold text-[10px] bg-error-container px-1">LOSS</span>
+</div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 font-data-tabular text-data-tabular">
+<span class="text-on-surface-variant text-[11px]">Margin %</span>
+<span class="text-error font-bold text-right">-12.5%</span>
+<span class="text-on-surface-variant text-[11px]">Taste (1-10)</span>
+<span class="text-on-surface text-right">9.5</span>
+<span class="text-on-surface-variant text-[11px]">Lead Time</span>
+<span class="text-on-surface text-right">Immediate</span>
+</div>
+</div>
+<!-- Scenario 2: Optimal (Highlighted) -->
+<div class="border-2 border-primary bg-surface-container-high p-2 flex flex-col gap-2 relative shadow-sm">
+<div class="absolute top-0 right-0 bg-primary text-on-primary font-label-mono text-[9px] px-1 py-0.5 uppercase tracking-wider">Recommended</div>
+<div class="font-label-mono text-label-mono uppercase text-primary font-bold border-b border-primary/30 pb-1 mt-2">
+                            S2: Fiber-Forward Blend
+                        </div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 font-data-tabular text-data-tabular">
+<span class="text-on-surface-variant text-[11px]">Margin %</span>
+<span class="text-on-surface font-bold text-right">41.0%</span>
+<span class="text-on-surface-variant text-[11px]">Taste (1-10)</span>
+<span class="text-on-surface text-right">8.2</span>
+<span class="text-on-surface-variant text-[11px]">Lead Time</span>
+<span class="text-on-surface text-right">6 Weeks</span>
+</div>
+<div class="text-[10px] font-body-md text-on-surface-variant mt-1 italic border-t border-primary/20 pt-1">Replaces 40% WPI with Prebiotic Chicory Root.</div>
+</div>
+<!-- Scenario 3: Pea Protein -->
+<div class="border border-outline-variant bg-surface p-2 flex flex-col gap-2 opacity-90">
+<div class="font-label-mono text-label-mono uppercase text-on-surface border-b border-outline-variant pb-1 flex justify-between">
+<span>S3: Pea Pivot</span>
+<span class="text-secondary font-bold text-[10px] bg-secondary-container px-1">STABLE</span>
+</div>
+<div class="grid grid-cols-2 gap-x-2 gap-y-1 font-data-tabular text-data-tabular">
+<span class="text-on-surface-variant text-[11px]">Margin %</span>
+<span class="text-on-surface font-bold text-right">45.5%</span>
+<span class="text-on-surface-variant text-[11px]">Taste (1-10)</span>
+<span class="text-error text-right font-bold">6.0</span>
+<span class="text-on-surface-variant text-[11px]">Lead Time</span>
+<span class="text-on-surface text-right">12 Weeks</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 4: CLAIM COMPLIANCE CHECKLIST (Bottom Left) -->
+<section class="col-span-4 border border-outline-variant bg-surface-container-lowest flex flex-col p-container-padding">
+<header class="border-b border-outline-variant pb-2 mb-3">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">fact_check</span>
+                        Claim Compliance (S2)
+                    </h2>
+</header>
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-3 p-1.5 bg-surface border border-outline-variant">
+<span class="material-symbols-outlined text-primary fill-icon text-[18px]">check_box</span>
+<div class="flex flex-col">
+<span class="font-data-tabular text-data-tabular text-on-surface">"High Protein" (&gt;20% DV)</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant uppercase">Passes with 12g per 35g bar</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-1.5 bg-surface border border-outline-variant">
+<span class="material-symbols-outlined text-primary fill-icon text-[18px]">check_box</span>
+<div class="flex flex-col">
+<span class="font-data-tabular text-data-tabular text-on-surface">"No Added Sugar"</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant uppercase">Compliant via Stevia/Monkfruit</span>
+</div>
+</div>
+<div class="flex items-center gap-3 p-1.5 bg-surface-container-high border-l-2 border-primary border-t border-r border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary fill-icon text-[18px]">new_releases</span>
+<div class="flex flex-col">
+<span class="font-data-tabular text-data-tabular text-on-surface font-bold">"Prebiotic Fiber"</span>
+<span class="font-label-mono text-[9px] text-on-surface-variant uppercase">NEW CLAIM ADDED (Chicory Root)</span>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 5: RETAIL BUYER MEMO & TASTE NOTES (Bottom Right) -->
+<section class="col-span-8 border border-outline-variant bg-surface-container-lowest flex flex-col p-container-padding">
+<header class="border-b border-outline-variant pb-2 mb-3">
+<h2 class="font-label-mono text-label-mono uppercase text-on-surface tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">assignment</span>
+                        Field Notes &amp; Communications
+                    </h2>
+</header>
+<div class="grid grid-cols-2 gap-4 h-full">
+<!-- Left: Retail Memo -->
+<div class="flex flex-col">
+<label class="font-label-mono text-[10px] text-on-surface-variant uppercase mb-1">Retail Buyer Memo Draft</label>
+<textarea class="w-full flex-1 bg-surface border border-outline-variant p-2 font-body-md text-body-md text-on-surface resize-none focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-outline" placeholder="Draft memo regarding temporary macro shift...">Due to unprecedented global supply chain constraints on dairy isolates, we are migrating SKU-A1 to a denser, fiber-forward format. 
+
+This maintains our strict margin requirements while introducing a high-demand "Gut Health" vector to the category. Shrink-ray execution planned for Q3.</textarea>
+</div>
+<!-- Right: Taste Notes ('Taped Note') -->
+<div class="flex flex-col pl-4 border-l border-outline-variant border-dashed">
+<label class="font-label-mono text-[10px] text-on-surface-variant uppercase mb-2">Taste-Risk Panel Notes</label>
+<!-- Taped Note Component -->
+<div class="taped-note bg-surface-container p-3 border border-outline-variant flex-1 flex flex-col gap-2">
+<div class="font-label-mono text-on-surface font-bold text-[12px] border-b border-outline-variant pb-1 flex justify-between items-center">
+<span>Sensory Log #44-B</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">draw</span>
+</div>
+<!-- Simulating handwritten style with a slightly different font stack or italic text within constraints -->
+<div class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+<p class="mb-2 text-error">• S3 (Pea Pivot): Slight grittiness detected in back of throat. Earthy off-notes require heavy masking.</p>
+<p class="mb-2 text-primary">• S2 (Fiber-Forward): Texture A+. The chicory root acts as a great binder, mimics the chew of the original whey formula surprisingly well.</p>
+<p class="text-on-surface-variant text-[11px]">— Lead Sensory Tech, M. Evans</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

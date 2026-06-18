@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alchemist's Weather Lab - Planning Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Inter:wght@400;500;700&amp;family=Literata:ital,opsz,wght@0,7..72,400..700;1,7..72,400..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-fixed": "#231043",
+                      "on-surface-variant": "#cbc4d0",
+                      "surface-container-highest": "#37333e",
+                      "surface-container-lowest": "#100d16",
+                      "on-primary": "#38265a",
+                      "primary": "#d2bcfa",
+                      "on-tertiary-fixed-variant": "#842415",
+                      "on-secondary-container": "#006a5a",
+                      "inverse-primary": "#68558b",
+                      "secondary-fixed-dim": "#00dfc1",
+                      "secondary-container": "#00f2d1",
+                      "primary-container": "#2d1b4e",
+                      "on-primary-fixed-variant": "#4f3d72",
+                      "surface-container-low": "#1d1a24",
+                      "primary-fixed-dim": "#d2bcfa",
+                      "surface-container": "#211e28",
+                      "inverse-surface": "#e7dfee",
+                      "surface": "#15121c",
+                      "background": "#15121c",
+                      "secondary-fixed": "#26fedc",
+                      "on-tertiary": "#640b02",
+                      "surface-tint": "#d2bcfa",
+                      "tertiary": "#ffb4a6",
+                      "on-secondary": "#00382f",
+                      "tertiary-container": "#520400",
+                      "inverse-on-surface": "#332f3a",
+                      "surface-container-high": "#2c2833",
+                      "on-tertiary-container": "#e16752",
+                      "on-background": "#e7dfee",
+                      "outline": "#948e99",
+                      "tertiary-fixed-dim": "#ffb4a6",
+                      "on-primary-container": "#9783bd",
+                      "surface-bright": "#3b3743",
+                      "error": "#ffb4ab",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#3f0300",
+                      "outline-variant": "#49454e",
+                      "tertiary-fixed": "#ffdad4",
+                      "error-container": "#93000a",
+                      "primary-fixed": "#ebddff",
+                      "secondary": "#c7fff0",
+                      "on-surface": "#e7dfee",
+                      "on-secondary-fixed-variant": "#005144",
+                      "surface-variant": "#37333e",
+                      "on-error": "#690005",
+                      "on-secondary-fixed": "#00201a",
+                      "surface-dim": "#15121c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lab-cell": "120px",
+                      "margin-mobile": "20px",
+                      "unit": "8px",
+                      "gutter": "24px",
+                      "margin-desktop": "64px"
+              },
+              "fontFamily": {
+                      "spell-display-lg": [
+                              "Literata"
+                      ],
+                      "deadline-numeral": [
+                              "Inter"
+                      ],
+                      "mood-heading-md": [
+                              "Literata"
+                      ],
+                      "data-mono-label": [
+                              "JetBrains Mono"
+                      ],
+                      "data-body": [
+                              "Inter"
+                      ],
+                      "spell-display-lg-mobile": [
+                              "Literata"
+                      ]
+              },
+              "fontSize": {
+                      "spell-display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "deadline-numeral": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "mood-heading-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "data-mono-label": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "data-body": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "spell-display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Scrollbar for Drawer */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(210,188,250,0.05); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(210,188,250,0.2); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(210,188,250,0.4); 
+        }
+
+        /* Experimental Minimalist Gradients */
+        .bg-lab-void { background: #0F0A18; }
+        .glass-mist {
+            background: rgba(21, 18, 28, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .instrument-border {
+            border: 1px solid rgba(210, 188, 250, 0.2);
+        }
+        .glow-ambient {
+            box-shadow: 0 0 30px rgba(210, 188, 250, 0.15);
+        }
+        .glow-panic {
+            box-shadow: 0 0 30px rgba(255, 180, 166, 0.3);
+        }
+        .glow-success {
+            box-shadow: 0 0 30px rgba(0, 254, 220, 0.2);
+        }
+
+        .jagged-edge {
+            background-image: radial-gradient(circle at 10px 0, transparent 10px, rgba(21, 18, 28, 0.9) 11px);
+            background-size: 20px 10px;
+            background-repeat: repeat-x;
+            background-position: bottom;
+            padding-bottom: 20px;
+        }
+
+        /* Ambient Weather Background */
+        .weather-ambient-gradient {
+            background: radial-gradient(circle at top right, rgba(45, 27, 78, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(0, 106, 90, 0.2) 0%, transparent 40%);
+        }
+        .weather-panic-gradient {
+            background: radial-gradient(circle at top right, rgba(147, 0, 10, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(255, 180, 166, 0.1) 0%, transparent 40%);
+            transition: background 1s ease-in-out;
+        }
+
+        .pulse-border {
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% { border-color: rgba(255, 180, 166, 0.3); }
+            50% { border-color: rgba(255, 180, 166, 0.8); }
+            100% { border-color: rgba(255, 180, 166, 0.3); }
+        }
+
+        .shimmer-bg {
+            background: linear-gradient(90deg, rgba(38,254,220,1) 0%, rgba(0,242,209,1) 50%, rgba(38,254,220,1) 100%);
+            background-size: 200% auto;
+            animation: shimmer 3s linear infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: -200% center; }
+        }
+
+        /* Dial Rotation */
+        .dial-hand {
+            transform-origin: bottom center;
+            transform: rotate(45deg); /* High pressure */
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-lab-void text-on-surface font-data-body min-h-screen weather-ambient-gradient overflow-x-hidden selection:bg-secondary-fixed selection:text-on-secondary-fixed" id="app-body">
+<!-- TopAppBar (From JSON) -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-primary/20 shadow-[0px_0px_30px_rgba(210,188,250,0.15)] flex justify-between items-center px-margin-mobile md:px-margin-desktop h-20">
+<div class="flex items-center gap-gutter">
+<h1 class="font-spell-display-lg-mobile text-spell-display-lg-mobile text-primary tracking-tighter md:font-spell-display-lg md:text-spell-display-lg">Alchemist's Weather Lab</h1>
+</div>
+<div class="flex items-center gap-unit md:gap-gutter">
+<button class="px-4 py-2 rounded-full instrument-border bg-error/10 text-error font-data-mono-label text-data-mono-label hover:bg-error/20 transition-colors duration-300 flex items-center gap-2" id="panic-toggle">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                Panic Toggle
+            </button>
+<div class="hidden md:flex gap-unit">
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container text-on-surface-variant hover:text-primary transition-colors duration-300">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex pt-20 h-screen">
+<!-- SideNavBar (From JSON) -->
+<nav class="hidden md:flex flex-col py-8 gap-unit bg-surface-container-lowest/90 backdrop-blur-2xl fixed left-0 top-20 h-[calc(100vh-80px)] w-64 z-40 border-r border-outline-variant/30">
+<div class="px-6 mb-8">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest mb-4 overflow-hidden border border-outline-variant/50">
+<img alt="Alchemist Profile" class="w-full h-full object-cover" data-alt="A detailed digital painting of an elegant, minimalist laboratory workspace with subtle glowing violet lights and a highly stylized, abstract alchemist's flask. Dark, sophisticated atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPOsX3xTvBC4GOL3yd-wammqIO1J3t-F3u_25yih0Ui-YUCNGgZN-DwTj49STTClRKhMYTuBswUwQKt_11M7GnURozA0yHyJUyaf_S_u1Y-xC6Xw-7A5gxdQVt5tqT8NGKpO3PQmtkWRy7tjd0EchAYwXEBeNqTkdr_M1O8amdXglxzrUF_m9LsGUbWCrXCHm5ODk2F5TJp7uAl-01bnwRaoIN6fcpc9WQi_Kxsq1gY3Aq8PIzD1YumP7KEwv89OoDRVhb0dhhRjE"/>
+</div>
+<h2 class="font-data-body text-data-body font-bold text-on-surface">Lead Alchemist</h2>
+<p class="font-data-mono-label text-data-mono-label text-secondary-fixed mt-1">Sanity Level: Stable</p>
+</div>
+<div class="flex flex-col w-full">
+<!-- Active Tab -->
+<a class="flex items-center px-6 py-3 gap-4 text-secondary-fixed border-r-2 border-secondary-fixed font-data-mono-label text-data-mono-label bg-surface-container/30 Transition-all ease-in-out duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">science</span>
+                    The Lab
+                </a>
+<!-- Inactive Tabs -->
+<a class="flex items-center px-6 py-3 gap-4 text-on-surface-variant opacity-70 font-data-mono-label text-data-mono-label hover:bg-surface-container-highest/50 hover:text-primary Transition-all ease-in-out duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+                    Weather Spells
+                </a>
+<a class="flex items-center px-6 py-3 gap-4 text-on-surface-variant opacity-70 font-data-mono-label text-data-mono-label hover:bg-surface-container-highest/50 hover:text-primary Transition-all ease-in-out duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]">hourglass_empty</span>
+                    Decision Clock
+                </a>
+<a class="flex items-center px-6 py-3 gap-4 text-on-surface-variant opacity-70 font-data-mono-label text-data-mono-label hover:bg-surface-container-highest/50 hover:text-primary Transition-all ease-in-out duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                    Spell Receipts
+                </a>
+<a class="flex items-center px-6 py-3 gap-4 text-on-surface-variant opacity-70 font-data-mono-label text-data-mono-label hover:bg-surface-container-highest/50 hover:text-primary Transition-all ease-in-out duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+                    Sanity Check
+                </a>
+</div>
+<div class="mt-auto px-6 mb-6">
+<button class="w-full py-3 px-4 bg-surface-container-high hover:bg-surface-container-highest text-primary font-data-mono-label text-data-mono-label rounded-lg instrument-border transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Cast New Spell
+                </button>
+</div>
+<div class="px-6 text-center opacity-50">
+<span class="font-spell-display-lg text-[24px] text-primary italic">Alchemist's</span>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop overflow-y-auto w-full relative">
+<!-- Forecast Panic Header -->
+<section class="mb-12 glass-mist instrument-border rounded-xl p-6 glow-ambient relative overflow-hidden">
+<div class="absolute right-0 top-0 w-64 h-full opacity-20 pointer-events-none">
+<div class="bg-cover bg-center w-full h-full" data-alt="A detailed abstract digital visualization of a stormy weather front moving over a stylized geometric garden. Dark moody purples, teals, and soft glowing rain streaks. High-contrast minimalist aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDeBKOv5pB4hdQ9I-PJhx4iUNk292cvEl8QPy56PRPQG7mWY5xC15OXNAbwRaZOWs_zxwf_snMLFYg__dR0Knj2ZcYQI5JUFEgmKAmlZsCaX0mf-d5qi-gKQeSVXk3viGcEE_pUpMiwG2GihZbbKylyRsVJnGJqzPtRgiyTLp0b1wPOeeKGYh_IATOhi0V3n94ANpj1NjYz5HXZmEnNqdAb62rEu6PGLl8A8CyDgECqHeQ3VJb4hAtI48qf-BwV2jFnWN9UJJ031yo')"></div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary text-[32px]">water_drop</span>
+<h2 class="font-mood-heading-md text-mood-heading-md text-primary">Forecast: 42% Rain Odds</h2>
+</div>
+<p class="font-data-body text-data-body text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">event</span>
+                            Wedding: Saturday Garden Ceremony
+                        </p>
+</div>
+<div class="flex flex-col items-end gap-2 bg-surface-container-lowest/50 p-4 rounded-lg instrument-border border-tertiary/30">
+<span class="font-data-mono-label text-data-mono-label text-tertiary">PANIC METER</span>
+<div class="flex items-center gap-4">
+<div class="w-32 h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary via-tertiary to-error w-[65%]"></div>
+</div>
+<span class="font-data-body text-data-body text-tertiary font-bold">Medium-Spicy</span>
+</div>
+</div>
+</div>
+</section>
+<!-- The Alchemist's Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter mb-24">
+<!-- Left Column: Timers & Logistics (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-gutter">
+<!-- Decision Clock -->
+<div class="glass-mist rounded-xl instrument-border pulse-border p-8 relative overflow-hidden group">
+<div class="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity">
+<div class="bg-cover bg-center w-full h-full" data-alt="A detailed futuristic abstract texture resembling cracked glass or technical schematics overlaying a dark void. Muted cyan and purple tones. Sharp, clean, vector-like lines." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBwg7YwCaHrtPM0cKUQKHNPyuij0GYdj19P0aKrXFZdExXxLjHccGfyKq0orBBb8rrFsx0QHZ2Pbhf3TGX1gtGDTkhIeas5KytTk-GbyX30PQfpQe9RzLmE-C4n10nbSFdGaE5tYJJ7oGCk5A9H6kWoKKbxPYcFshrKeB2T99Exd1s2akBqc3gZrq7ahB7VGzKONBFM71j_58jjO9XE2bY4tVnQuKhADywPs-6rVIHohORBhDFKrph7GKehoKtWRokCnGDEKP-3OXs')"></div>
+</div>
+<div class="relative z-10 flex flex-col items-center text-center">
+<span class="font-data-mono-label text-data-mono-label text-error mb-4 flex items-center gap-2 tracking-widest">
+<span class="material-symbols-outlined text-[16px]">alarm</span>
+                                UMBRELLA ORDER DEADLINE
+                            </span>
+<div class="font-deadline-numeral text-[64px] md:text-[80px] text-on-surface tracking-tighter mb-2 flex items-baseline gap-2">
+                                02<span class="text-[24px] text-on-surface-variant font-data-mono-label">d</span>
+<span class="text-outline-variant mx-2">:</span>
+                                04<span class="text-[24px] text-on-surface-variant font-data-mono-label">h</span>
+</div>
+<p class="font-data-body text-data-body text-on-surface-variant">Until Amazon Prime viability expires.</p>
+</div>
+</div>
+<!-- Vendor Backup Ladder -->
+<div class="glass-mist rounded-xl instrument-border p-6">
+<div class="flex items-center justify-between mb-6 border-b border-outline-variant/30 pb-4">
+<h3 class="font-mood-heading-md text-mood-heading-md text-primary italic">Vendor Logistics</h3>
+<span class="font-data-mono-label text-data-mono-label text-on-surface-variant bg-surface-container px-3 py-1 rounded-full">T-MINUS 5 DAYS</span>
+</div>
+<div class="relative pl-6 border-l border-outline-variant/50 space-y-8">
+<!-- Plan A -->
+<div class="relative">
+<div class="absolute w-3 h-3 bg-secondary-fixed rounded-full -left-[31px] top-1.5 shadow-[0_0_10px_rgba(38,254,220,0.5)]"></div>
+<div class="bg-surface-container-lowest/50 p-4 rounded-lg instrument-border border-secondary/20">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono-label text-data-mono-label text-secondary-fixed">PLAN A</span>
+<span class="material-symbols-outlined text-secondary-fixed text-[18px]">park</span>
+</div>
+<h4 class="font-data-body text-data-body font-bold mb-1">Garden Sunset</h4>
+<p class="font-data-body text-[14px] text-on-surface-variant">Primary manifestation target. Low interference expected if weather holds.</p>
+</div>
+</div>
+<!-- Constraint -->
+<div class="relative">
+<div class="absolute w-3 h-3 bg-tertiary rounded-full -left-[31px] top-1.5 glow-panic"></div>
+<div class="bg-tertiary-container/20 p-4 rounded-lg instrument-border border-tertiary/40 ml-4">
+<div class="flex items-center gap-2 mb-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">camera_alt</span>
+<span class="font-data-mono-label text-[10px]">CRITICAL CONSTRAINT</span>
+</div>
+<h4 class="font-data-body text-data-body font-bold text-tertiary mb-1">Photographer Sunset Window</h4>
+<p class="font-data-body text-[14px] text-tertiary/80">Golden hour photos require dry conditions between 6:15 PM - 7:00 PM.</p>
+</div>
+</div>
+<!-- Plan B -->
+<div class="relative">
+<div class="absolute w-3 h-3 bg-outline rounded-full -left-[31px] top-1.5"></div>
+<div class="bg-surface-container-high p-4 rounded-lg instrument-border opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono-label text-data-mono-label text-on-surface-variant">PLAN B</span>
+<span class="font-data-mono-label text-data-mono-label text-error bg-error/10 px-2 py-0.5 rounded">$1,200 Quote</span>
+</div>
+<h4 class="font-data-body text-data-body font-bold mb-1">Tent Flip</h4>
+<p class="font-data-body text-[14px] text-on-surface-variant">Requires triggering clause by Thursday 5PM.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Budget Sanity Slider -->
+<div class="glass-mist rounded-xl instrument-border p-6 mt-4">
+<h3 class="font-data-mono-label text-data-mono-label text-on-surface-variant mb-6 uppercase">Resource Allocation Tension</h3>
+<div class="flex justify-between font-data-mono-label text-data-mono-label mb-4">
+<span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">auto_awesome</span> Superstition Spending</span>
+<span class="text-secondary-fixed flex items-center gap-1">Backup Logistics <span class="material-symbols-outlined text-[14px]">architecture</span></span>
+</div>
+<div class="relative w-full h-4 bg-surface-container-highest rounded-full overflow-hidden instrument-border">
+<div class="absolute left-0 top-0 h-full w-[30%] bg-gradient-to-r from-primary/50 to-primary"></div>
+<div class="absolute right-0 top-0 h-full w-[70%] bg-gradient-to-l from-secondary-fixed/50 to-secondary-fixed"></div>
+<!-- Custom Thumb -->
+<div class="absolute left-[30%] top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 bg-surface border-2 border-on-surface rounded-full shadow-[0_0_15px_rgba(231,223,238,0.5)] cursor-pointer z-10 flex items-center justify-center">
+<div class="w-2 h-2 bg-on-surface rounded-full"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 text-[14px] text-on-surface-variant">
+<span>$150 (Rituals, Crystals)</span>
+<span>$1,400 (Tents, Umbrellas)</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Emotion & Output (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-gutter">
+<!-- Spell Receipt Drawer -->
+<div class="bg-surface-container-lowest/80 border border-primary/20 shadow-[8px_0_30px_rgba(0,0,0,0.5)] rounded-t-xl rounded-bl-xl jagged-edge relative h-[300px] overflow-hidden flex flex-col">
+<div class="bg-surface-container-high py-2 px-4 flex justify-between items-center border-b border-outline-variant/30">
+<span class="font-data-mono-label text-[10px] text-on-surface-variant uppercase tracking-widest">Active Spell Registry</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">receipt</span>
+</div>
+<div class="p-6 flex-1 overflow-y-auto">
+<div class="flex justify-between items-start border-b border-dashed border-primary/30 pb-4 mb-4">
+<div>
+<h4 class="font-mood-heading-md text-[20px] text-primary italic mb-1">Etsy Weather Ritual PDF</h4>
+<p class="font-data-mono-label text-data-mono-label text-on-surface-variant">ID: WTH-883-91</p>
+</div>
+<span class="font-data-body text-data-body font-bold">$18.00</span>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="font-data-mono-label text-data-mono-label text-on-surface-variant">Components:</span>
+<span class="font-data-body text-[14px]">Salt, Intent, Printer Ink</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-data-mono-label text-data-mono-label text-on-surface-variant">Cast Time:</span>
+<span class="font-data-body text-[14px]">Yesterday 23:45</span>
+</div>
+<div class="flex justify-between items-center bg-primary/10 p-3 rounded instrument-border">
+<span class="font-data-mono-label text-data-mono-label text-primary">Status:</span>
+<span class="font-data-body text-[14px] text-primary font-bold flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+                                        Manifesting...
+                                    </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Mother-In-Law Pressure Gauge -->
+<div class="glass-mist rounded-xl instrument-border p-6 relative overflow-hidden">
+<h3 class="font-data-mono-label text-data-mono-label text-on-surface-variant mb-6 text-center uppercase tracking-widest">External Atmospheric Pressure</h3>
+<div class="relative w-48 h-24 mx-auto overflow-hidden">
+<!-- Gauge Background -->
+<div class="absolute bottom-0 left-0 w-48 h-48 rounded-full border-[16px] border-surface-container-high border-b-transparent border-l-transparent transform -rotate-45"></div>
+<!-- Gradient Overlay for Danger Zones -->
+<div class="absolute bottom-0 left-0 w-48 h-48 rounded-full border-[16px] border-transparent border-r-error border-t-tertiary border-b-transparent border-l-transparent transform -rotate-45 opacity-60"></div>
+<!-- The Dial Hand -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-20 bg-on-surface rounded-t-full dial-hand shadow-[0_0_10px_rgba(231,223,238,0.5)] z-10" style="transform: rotate(55deg);"></div>
+<!-- Center Pin -->
+<div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-surface border-2 border-on-surface rounded-full z-20"></div>
+</div>
+<div class="text-center mt-4">
+<h4 class="font-mood-heading-md text-[18px] text-tertiary mb-1">MIL Feedback Volume</h4>
+<p class="font-data-mono-label text-[10px] text-tertiary/70 uppercase">Warning: "Have you thought about a tent?" detected 4x today.</p>
+</div>
+</div>
+<!-- Guest Experience Preview -->
+<div class="glass-mist rounded-xl instrument-border p-6">
+<h3 class="font-data-mono-label text-data-mono-label text-on-surface-variant mb-4 uppercase">Guest Experience Matrix</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-lg border border-outline-variant/30 text-center hover:bg-surface-container transition-colors cursor-default">
+<span class="material-symbols-outlined text-secondary-fixed text-[24px] mb-2 block">wb_sunny</span>
+<span class="font-data-mono-label text-[10px] text-on-surface-variant block mb-1">PLAN A</span>
+<p class="font-data-body text-[13px]">Fans &amp; Cold Water</p>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-primary/30 text-center hover:bg-surface-container transition-colors cursor-default relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 pointer-events-none"></div>
+<span class="material-symbols-outlined text-primary text-[24px] mb-2 block">umbrella</span>
+<span class="font-data-mono-label text-[10px] text-on-surface-variant block mb-1">PLAN B</span>
+<p class="font-data-body text-[13px]">Clear Umbrellas &amp; Dry Toes</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Shareable Calm Card (Footer Anchor) -->
+<div class="sticky bottom-4 left-0 right-0 w-full z-30 mt-auto">
+<div class="bg-secondary-fixed/10 backdrop-blur-md instrument-border border-secondary-fixed/50 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 shadow-[0_0_40px_rgba(38,254,220,0.1)] mx-auto max-w-4xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-secondary-fixed/20 flex items-center justify-center border border-secondary-fixed/30">
+<span class="material-symbols-outlined text-secondary-fixed text-[24px]">favorite</span>
+</div>
+<div>
+<h3 class="font-mood-heading-md text-[20px] text-secondary-fixed">The Sane Plan: Saturday is Happening.</h3>
+<p class="font-data-body text-[14px] text-on-surface-variant">Rain or shine, the alchemy is set. Acknowledge and release control.</p>
+</div>
+</div>
+<button class="shimmer-bg text-on-primary-fixed font-data-mono-label text-data-mono-label px-6 py-3 rounded-lg border border-transparent shadow-[0_0_15px_rgba(38,254,220,0.3)] hover:shadow-[0_0_25px_rgba(38,254,220,0.5)] transition-all flex items-center gap-2 w-full md:w-auto justify-center">
+<span class="material-symbols-outlined text-[18px]">share</span>
+                        Share Sane Plan
+                    </button>
+</div>
+</div>
+</main>
+</div>
+<!-- Scripts for lightweight interaction -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const panicToggle = document.getElementById('panic-toggle');
+            const body = document.getElementById('app-body');
+            let isPanicMode = false;
+
+            panicToggle.addEventListener('click', () => {
+                isPanicMode = !isPanicMode;
+                if (isPanicMode) {
+                    body.classList.remove('weather-ambient-gradient');
+                    body.classList.add('weather-panic-gradient');
+                    panicToggle.classList.replace('bg-error/10', 'bg-error');
+                    panicToggle.classList.replace('text-error', 'text-on-error');
+                } else {
+                    body.classList.remove('weather-panic-gradient');
+                    body.classList.add('weather-ambient-gradient');
+                    panicToggle.classList.replace('bg-error', 'bg-error/10');
+                    panicToggle.classList.replace('text-on-error', 'text-error');
+                }
+            });
+        });
+    </script>
+</body></html>
