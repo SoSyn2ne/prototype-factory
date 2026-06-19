@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HEATSURGE CONTROL - Dispatch Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb3ac",
+                        "on-tertiary": "#680008",
+                        "on-tertiary-container": "#6a0008",
+                        "background": "#131313",
+                        "on-secondary-fixed": "#281800",
+                        "on-error": "#690005",
+                        "on-secondary": "#432c00",
+                        "on-primary-fixed": "#351000",
+                        "primary": "#ffb693",
+                        "secondary-fixed-dim": "#ffba3f",
+                        "surface-container": "#201f1f",
+                        "secondary-container": "#ffb211",
+                        "outline-variant": "#5a4136",
+                        "secondary": "#ffd79b",
+                        "on-error-container": "#ffdad6",
+                        "on-surface-variant": "#e2bfb0",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#6b4800",
+                        "inverse-on-surface": "#313030",
+                        "primary-fixed-dim": "#ffb693",
+                        "primary-fixed": "#ffdbcc",
+                        "tertiary-fixed": "#ffdad6",
+                        "surface-variant": "#353534",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-fixed": "#410003",
+                        "on-primary-container": "#572000",
+                        "surface-tint": "#ffb693",
+                        "surface-container-highest": "#353534",
+                        "inverse-primary": "#a04100",
+                        "surface-container-low": "#1c1b1b",
+                        "primary-container": "#ff6b00",
+                        "secondary-fixed": "#ffdeae",
+                        "on-primary": "#561f00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-surface": "#e5e2e1",
+                        "surface-bright": "#393939",
+                        "on-secondary-fixed-variant": "#604100",
+                        "surface-container-high": "#2a2a2a",
+                        "on-background": "#e5e2e1",
+                        "outline": "#a98a7d",
+                        "error": "#ffb4ab",
+                        "tertiary": "#ffb3ac",
+                        "surface-dim": "#131313",
+                        "tertiary-container": "#ff675e",
+                        "surface": "#131313",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "on-tertiary-fixed-variant": "#930010"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "margin-desktop": "32px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "status-badge": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "30px", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "status-badge": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "900"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+        .rugged-card { border: 2px solid theme('colors.outline-variant'); background-color: theme('colors.surface-container'); }
+        .rugged-border { border: 2px solid theme('colors.outline-variant'); }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background text-primary dark:text-primary font-headline-md text-headline-md fixed top-0 w-full z-50 border-b-2 border-outline-variant flex justify-between items-center px-margin-desktop h-[72px]">
+<div class="font-headline-lg text-headline-lg font-black text-primary uppercase tracking-tighter">HEATSURGE CONTROL</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-error-container px-4 py-2 rounded-DEFAULT border-2 border-error">
+<span class="material-symbols-outlined text-error">warning</span>
+<span class="font-data-mono text-data-mono text-error uppercase">HEAT STATUS: CRITICAL (96°F)</span>
+</div>
+<button class="bg-primary-container text-on-primary-container font-headline-md px-6 py-2 border-2 border-primary-container hover:bg-surface-variant transition-colors active:scale-95 duration-75 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined">exit_to_app</span>
+                EVACUATE SITE
+            </button>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low text-primary dark:text-primary font-label-sm text-label-sm uppercase tracking-widest fixed left-0 top-0 h-full w-64 z-40 border-r-2 border-outline-variant flex flex-col pt-24 pb-8">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-4 mb-4">
+<img class="w-12 h-12 rounded-full border-2 border-outline-variant object-cover" data-alt="A gritty, high-contrast portrait of a rugged industrial field supervisor wearing safety gear. Dark mode aesthetic with intense dramatic lighting emphasizing safety orange accents against a deep black background. Highly detailed and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMUxkq9KQWq8-iZbGJxFPIOZeCy2bmrtMO065osUh9aNDooxj8oTt7ypZmiAC69ry31Pr1au_fdl92Ih48UxhXsKWqsGa69XteKICxuxrMH1ymBPeOsQudFUV_pUpVQ-6UE4UGS7Tw4dszz9SpmlA3pn19D8rgTftcZVdK0ZHu6cXmTY0_dTteUaZG9k1XS8P2nfTfzWo8-UYs3JVK8EX2RdI9Ni3NSkQYYxmkfyDhG5KhwVR3bbqCOXxTmBqdHAK9neo5m8ug_0Gs"/>
+<div>
+<div class="font-headline-md text-headline-md text-primary">Field Ops Alpha</div>
+<div class="text-on-surface-variant">Sector 7G - High Risk</div>
+</div>
+</div>
+<button class="w-full bg-surface-container border-2 border-outline-variant text-on-surface hover:bg-surface-container-high transition-all duration-200 ease-in-out py-3 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-error">report</span>
+                Log Safety Violation
+            </button>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary font-bold px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">groups</span>
+                Crew Boards
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">assignment_late</span>
+                Safety Logs
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">engineering</span>
+                PPE Tracking
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">map</span>
+                Site Map
+            </a>
+</div>
+<div class="mt-auto flex flex-col gap-2 border-t-2 border-outline-variant pt-4">
+<a class="text-on-surface-variant hover:bg-surface-variant px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-variant px-4 py-3 flex items-center gap-3 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="ml-64 mt-[72px] p-margin-desktop w-full grid grid-cols-12 gap-gutter">
+<!-- Heat-Risk Shift Header -->
+<div class="col-span-12 rugged-card p-6 flex justify-between items-center bg-surface-container-high border-error border-l-8">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-error uppercase mb-2">EXTREME RISK SHIFT</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant">OSHA / Cal-OSHA Mandate: High Heat Procedures in Effect. Mandatory 15-min rest break every hour.</p>
+</div>
+<div class="flex items-center gap-8">
+<div class="text-right">
+<div class="font-data-mono text-data-mono text-on-surface-variant">FORECAST</div>
+<div class="font-headline-lg text-headline-lg text-error">96°F</div>
+</div>
+<div class="h-12 w-2 bg-outline-variant"></div>
+<div class="text-left">
+<div class="font-data-mono text-data-mono text-on-surface-variant">HUMIDITY</div>
+<div class="font-headline-md text-headline-md text-on-surface">65%</div>
+</div>
+</div>
+</div>
+<!-- Crew Route Board -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-4">
+<h2 class="font-headline-md text-headline-md text-primary uppercase border-b-2 border-outline-variant pb-2">Active Crews</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Crew Alpha -->
+<div class="rugged-card p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start border-b-2 border-outline-variant pb-2">
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Crew Alpha</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">Jobsite: Sector 1 (Industrial Roof)</div>
+</div>
+<div class="bg-surface-variant px-2 py-1 font-data-mono text-data-mono text-on-surface border-2 border-outline-variant">Size: 5</div>
+</div>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase">Shade Confirmed</span>
+</div>
+</div>
+<!-- Crew Bravo -->
+<div class="rugged-card p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start border-b-2 border-outline-variant pb-2">
+<div>
+<div class="font-headline-md text-headline-md text-on-surface">Crew Bravo</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">Jobsite: Sector 4 (Commercial)</div>
+</div>
+<div class="bg-surface-variant px-2 py-1 font-data-mono text-data-mono text-on-surface border-2 border-outline-variant">Size: 4</div>
+</div>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase">Shade Confirmed</span>
+</div>
+</div>
+<!-- Crew Gamma (ISSUE) -->
+<div class="rugged-card p-4 flex flex-col gap-3 border-error border-2 bg-error-container/10">
+<div class="flex justify-between items-start border-b-2 border-error pb-2">
+<div>
+<div class="font-headline-md text-headline-md text-error">Crew Gamma</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">Jobsite: Sector 3 (Residential)</div>
+</div>
+<div class="bg-surface-variant px-2 py-1 font-data-mono text-data-mono text-on-surface border-2 border-outline-variant">Size: 6</div>
+</div>
+<div class="flex items-center gap-2 bg-error px-3 py-2 text-on-error font-bold uppercase text-label-sm w-fit border-2 border-on-error">
+<span class="material-symbols-outlined">warning</span>
+                        MISSING SHADE PHOTO
+                    </div>
+</div>
+<!-- Crew Delta (WARNING) -->
+<div class="rugged-card p-4 flex flex-col gap-3 border-secondary border-2">
+<div class="flex justify-between items-start border-b-2 border-outline-variant pb-2">
+<div>
+<div class="font-headline-md text-headline-md text-secondary">Crew Delta</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">Jobsite: Sector 2 (Warehouse)</div>
+</div>
+<div class="bg-surface-variant px-2 py-1 font-data-mono text-data-mono text-on-surface border-2 border-outline-variant">Size: 7</div>
+</div>
+<div class="flex items-center gap-2 bg-secondary-container px-3 py-2 text-on-secondary-container font-bold uppercase text-label-sm w-fit border-2 border-secondary">
+<span class="material-symbols-outlined">group_add</span>
+                        2 UNACCLIMATIZED WORKERS
+                    </div>
+</div>
+</div>
+</div>
+<!-- Right Column Group -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-8">
+<!-- Water/Shade/Rest Proof Checklist -->
+<div class="rugged-card p-6">
+<h2 class="font-headline-md text-headline-md text-primary uppercase border-b-2 border-outline-variant pb-2 mb-4">Compliance Proof</h2>
+<div class="flex flex-col gap-4">
+<label class="flex items-center gap-4 cursor-pointer group">
+<div class="w-8 h-8 border-4 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<div class="w-4 h-4 bg-transparent"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Water Station Refilled (10gal)</span>
+</label>
+<label class="flex items-center gap-4 cursor-pointer group">
+<div class="w-8 h-8 border-4 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<div class="w-4 h-4 bg-transparent"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Shade Canopy Deployed</span>
+</label>
+<label class="flex items-center gap-4 cursor-pointer group">
+<div class="w-8 h-8 border-4 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<div class="w-4 h-4 bg-transparent"></div>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Mandatory 15-Min Rest Logged</span>
+</label>
+</div>
+</div>
+<!-- Symptom Triage Lane -->
+<div class="rugged-card p-6 bg-surface-container-high border-t-8 border-t-secondary">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">medical_services</span>
+                    Quick Triage
+                </h2>
+<div class="grid grid-cols-2 gap-3">
+<button class="bg-surface-variant border-2 border-outline-variant py-3 px-2 font-label-sm text-label-sm text-on-surface hover:border-error hover:text-error transition-colors uppercase">DIZZINESS</button>
+<button class="bg-surface-variant border-2 border-outline-variant py-3 px-2 font-label-sm text-label-sm text-on-surface hover:border-error hover:text-error transition-colors uppercase">CRAMPS</button>
+<button class="bg-surface-variant border-2 border-outline-variant py-3 px-2 font-label-sm text-label-sm text-on-surface hover:border-error hover:text-error transition-colors uppercase">CONFUSION</button>
+<button class="bg-surface-variant border-2 border-outline-variant py-3 px-2 font-label-sm text-label-sm text-on-surface hover:border-error hover:text-error transition-colors uppercase">NAUSEA</button>
+</div>
+</div>
+<!-- Export Button -->
+<button class="w-full bg-surface-variant text-on-surface font-headline-md px-6 py-4 border-2 border-outline-variant hover:bg-surface-container-high transition-colors active:scale-95 duration-75 uppercase flex justify-center items-center gap-3">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+                Export OSHA Compliance Packet
+            </button>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-surface-container-highest text-tertiary dark:text-tertiary-fixed-dim font-data-mono text-data-mono fixed bottom-0 right-0 w-[calc(100%-16rem)] z-50 border-t-2 border-outline-variant flex justify-between items-center px-margin-desktop py-2">
+<div class="font-status-badge text-status-badge text-error">OSHA COMPLIANCE V2.4 | EN 149:2001</div>
+<div class="flex gap-6">
+<a class="text-on-surface-variant hover:text-error transition-colors cursor-pointer" href="#">Emergency Triage</a>
+<a class="text-on-surface-variant hover:text-error transition-colors cursor-pointer" href="#">Report Incident</a>
+<a class="text-on-surface-variant hover:text-error transition-colors cursor-pointer" href="#">OSHA Hotline</a>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pricing Simulator - Menu Price Backlash Simulator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed": "#ffdbca",
+                        "surface-bright": "#f8f9ff",
+                        "surface-variant": "#d5e3fc",
+                        "on-secondary-fixed-variant": "#783200",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb690",
+                        "on-error": "#ffffff",
+                        "on-secondary-container": "#5c2400",
+                        "tertiary-container": "#bc4800",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "on-surface-variant": "#434655",
+                        "on-surface": "#0d1c2e",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-dim": "#ccdbf3",
+                        "background": "#f8f9ff",
+                        "surface": "#f8f9ff",
+                        "outline": "#737686",
+                        "on-primary-container": "#eeefff",
+                        "tertiary-fixed-dim": "#ffb596",
+                        "on-secondary-fixed": "#341100",
+                        "inverse-primary": "#b4c5ff",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-container": "#ffede6",
+                        "surface-container-highest": "#d5e3fc",
+                        "tertiary": "#943700",
+                        "error-container": "#ffdad6",
+                        "secondary": "#9d4300",
+                        "inverse-surface": "#233144",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#360f00",
+                        "on-background": "#0d1c2e",
+                        "primary-container": "#2563eb",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#00174b",
+                        "tertiary-fixed": "#ffdbcd",
+                        "secondary-container": "#fd761a",
+                        "on-tertiary-fixed-variant": "#7d2d00",
+                        "outline-variant": "#c3c6d7",
+                        "surface-tint": "#0053db",
+                        "surface-container": "#e6eeff",
+                        "error": "#ba1a1a",
+                        "primary": "#004ac6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "8px",
+                        "unit": "4px",
+                        "cell-padding-h": "8px",
+                        "container-margin": "16px",
+                        "compact-gap": "4px",
+                        "cell-padding-v": "6px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f7f2; }
+        .data-table-cell { text-align: left; }
+        .data-table-cell-num { text-align: right; font-family: 'JetBrains Mono', monospace; }
+        .technical-shadow { box-shadow: 0px 2px 4px rgba(0,0,0,0.05); }
+        .ticket-divider { border-bottom: 2px dashed #E2E8F0; }
+        .nav-active { @apply flex items-center gap-compact-gap bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-cell-padding-h py-cell-padding-v; }
+        .nav-inactive { @apply flex items-center gap-compact-gap text-on-surface-variant dark:text-outline-variant px-cell-padding-h py-cell-padding-v; }
+        /* Custom scrollbar for data tables */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-on-surface flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-surface-dim docked left-0 h-screen w-64 border-r border-outline-variant dark:border-outline fixed left-0 top-0 h-full flex flex-col p-gutter z-40">
+<div class="mb-container-margin px-cell-padding-h">
+<h1 class="font-headline-md text-headline-md font-black text-on-surface">STRATEGY HUB</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-unit">Kitchen Ops v4.2</p>
+</div>
+<button class="w-full bg-primary text-on-primary font-body-sm text-body-sm font-semibold rounded-lg py-cell-padding-v px-cell-padding-h mb-container-margin hover:bg-surface-tint transition-colors flex items-center justify-center gap-compact-gap">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span> Launch Simulation
+        </button>
+<div class="flex-1 flex flex-col gap-unit overflow-y-auto">
+<a class="nav-active transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">payments</span> Pricing Simulator
+            </a>
+<a class="nav-inactive hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">swap_horiz</span> Menu Swaps
+            </a>
+<a class="nav-inactive hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span> Staff Scripts
+            </a>
+<a class="nav-inactive hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">biotech</span> A/B Testing
+            </a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-gutter flex flex-col gap-unit">
+<a class="nav-inactive hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">assignment</span> Owner Memo
+            </a>
+<a class="nav-inactive hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">help_outline</span> Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 h-screen overflow-hidden bg-[#F8F7F2]">
+<!-- TopAppBar -->
+<header class="bg-surface-container-highest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline docked full-width top-0 flex justify-between items-center w-full px-container-margin py-unit h-12 z-30 shrink-0">
+<div class="flex items-center gap-container-margin">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">OPERATIONS CONSOLE</div>
+</div>
+<div class="flex items-center gap-gutter text-primary dark:text-primary-fixed">
+<button class="hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-colors p-unit rounded-full flex cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">location_on</span>
+</button>
+<button class="hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-colors p-unit rounded-full flex cursor-pointer active:opacity-80 relative">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:bg-surface-variant dark:hover:bg-on-surface-variant transition-colors p-unit rounded-full flex cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ml-unit border border-outline-variant">
+<img alt="Executive Profile" class="w-full h-full object-cover" data-alt="Close-up professional portrait of an executive restaurant manager in a busy high-end kitchen. Cinematic lighting, modern industrial aesthetic. High-contrast, sharp focus, unsentimental corporate vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6X1QOlkkRmo27xrzwAaBU5LienywvJjLkPoMikr4aqk4fDPmxTlDdDhINTQDOikqgqSnBDLMI_PnJZSB3rQ4kkJVJzKYFDpczcD8IWXNd-Jd0uwLahV8VcSuv7Ckrt227wOvvz7Dbnn8yPuq4bbUm454WKnkEqJABGJ95_1XNvBbgVMgJ_cevshWGQTWhfrDrgofnq100F8g8QsN4F0D_SJ9tsd20mF_sc6XnZsyNw6L76cOQ-Iyg-qE_9UiUhfeYQubJ_IFaqto"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto p-container-margin md:p-6 lg:p-8">
+<!-- 1. Cost Shock Header (Alert Banner) -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow mb-container-margin overflow-hidden shrink-0">
+<div class="bg-error-container px-container-margin py-unit flex items-center justify-between border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-error-container flex items-center gap-unit"><span class="material-symbols-outlined text-[16px]">warning</span> ACTIVE COST SHOCKS</span>
+<span class="font-data-mono text-data-mono text-on-error-container">T-MINUS 14 DAYS TO MARGIN EROSION</span>
+</div>
+<div class="flex flex-wrap gap-4 p-cell-padding-h bg-surface">
+<div class="flex items-center gap-unit px-2 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Hot Coffee</span>
+<span class="font-data-mono text-data-mono text-error font-bold">+6.9%</span>
+</div>
+<div class="flex items-center gap-unit px-2 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Beef Cost</span>
+<span class="font-data-mono text-data-mono text-tertiary-container font-bold">HIGH PRESSURE</span>
+</div>
+<div class="flex items-center gap-unit px-2 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Beer Tariffs</span>
+<span class="font-data-mono text-data-mono text-secondary-container font-bold">WARNING</span>
+</div>
+<div class="flex items-center gap-unit px-2 py-1 bg-surface-container rounded border border-outline-variant">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Shipping/Labor</span>
+<span class="font-data-mono text-data-mono text-error font-bold">+12% YoY</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-container-margin">
+<!-- Center Column: Data Table & Simulator -->
+<div class="lg:col-span-8 flex flex-col gap-container-margin">
+<!-- 2. Menu Item Margin Table -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow overflow-hidden flex flex-col">
+<div class="px-container-margin py-cell-padding-v border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-unit">
+<span class="material-symbols-outlined">table_chart</span> Core Menu Elasticity
+                            </h2>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-outline text-on-surface font-label-caps text-label-caps rounded hover:bg-surface-variant transition-colors">EXPORT CSV</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant">
+<tr>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell w-1/4">Menu Item</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell-num">Current Cost</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell-num">Current Price</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell-num">Current Mgn</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell-num bg-surface-container-low">Proposed Price</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell-num bg-surface-container-low border-r border-outline-variant">New Mgn</th>
+<th class="py-cell-padding-v px-cell-padding-h data-table-cell">Backlash Risk</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-outline-variant">
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="py-cell-padding-v px-cell-padding-h font-semibold">Classic Burger</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num text-on-surface-variant">$5.60</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num">$14.73</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num flex items-center justify-end gap-1">
+                                            62% <span class="material-symbols-outlined text-[14px] text-error">arrow_downward</span>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h bg-surface-container-low group-hover:bg-surface-variant transition-colors">
+<input class="w-16 h-6 text-right font-data-mono text-data-mono border-outline-variant rounded-sm focus:ring-1 focus:ring-primary focus:border-primary bg-surface p-1" type="text" value="$16.00"/>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num bg-surface-container-low group-hover:bg-surface-variant transition-colors border-r border-outline-variant text-primary font-bold">
+                                            65%
+                                        </td>
+<td class="py-cell-padding-v px-cell-padding-h">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error w-[85%]"></div></div>
+<span class="font-label-caps text-[9px] text-error">HIGH</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors group bg-surface-bright">
+<td class="py-cell-padding-v px-cell-padding-h font-semibold">House Pour (Pint)</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num text-on-surface-variant">$1.54</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num">$7.00</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num flex items-center justify-end gap-1">
+                                            78% <span class="material-symbols-outlined text-[14px] text-outline-variant">remove</span>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h bg-surface-container-low group-hover:bg-surface-variant transition-colors">
+<input class="w-16 h-6 text-right font-data-mono text-data-mono border-outline-variant rounded-sm focus:ring-1 focus:ring-primary focus:border-primary bg-surface p-1" type="text" value="$7.50"/>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num bg-surface-container-low group-hover:bg-surface-variant transition-colors border-r border-outline-variant text-primary font-bold">
+                                            79%
+                                        </td>
+<td class="py-cell-padding-v px-cell-padding-h">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-secondary w-[40%]"></div></div>
+<span class="font-label-caps text-[9px] text-secondary">MED</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 transition-colors group">
+<td class="py-cell-padding-v px-cell-padding-h font-semibold">Artisan Coffee</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num text-on-surface-variant">$2.02</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num">$4.50</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num flex items-center justify-end gap-1">
+                                            55% <span class="material-symbols-outlined text-[14px] text-error">arrow_downward</span>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h bg-surface-container-low group-hover:bg-surface-variant transition-colors">
+<input class="w-16 h-6 text-right font-data-mono text-data-mono border-outline-variant rounded-sm focus:ring-1 focus:ring-primary focus:border-primary bg-surface p-1" type="text" value="$5.25"/>
+</td>
+<td class="py-cell-padding-v px-cell-padding-h data-table-cell-num bg-surface-container-low group-hover:bg-surface-variant transition-colors border-r border-outline-variant text-primary font-bold">
+                                            61%
+                                        </td>
+<td class="py-cell-padding-v px-cell-padding-h">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-variant rounded-full overflow-hidden"><div class="h-full bg-error w-[95%]"></div></div>
+<span class="font-label-caps text-[9px] text-error">CRIT</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-cell-padding-h border-t border-outline-variant bg-surface-bright flex justify-end">
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 rounded hover:bg-surface-tint transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sync</span> RECALCULATE MARGINS
+                            </button>
+</div>
+</div>
+<!-- 3. Backlash Simulator -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow p-container-margin">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-unit mb-unit">
+<span class="material-symbols-outlined">psychology</span> Sentiment Elasticity Model
+                        </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-container-margin">Predicted response based on 600 recent reviews and regional pricing data.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-container-margin">
+<div class="col-span-2 border border-outline-variant rounded bg-surface-container-lowest p-unit h-48 relative overflow-hidden flex items-end justify-center">
+<!-- Abstract Chart Representation -->
+<div class="absolute inset-0 opacity-20" data-alt="Abstract data visualization of a line chart showing a sharp downward trend, representing negative customer sentiment. Industrial slate blue and alert orange colors, high density, modern utility style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzwOG0BdsmN0h8l1XGyNEET54P6eNYQIZoOvzl4Zi8JcyxA6xd1LyNAzT8vUHAnFutKhmCr9vc5U98xDTRCvSgrQH79B1P_ctDKTwv93Uv1cLtrhFKvLldUgQ_uH_E_YKULs5b6EghcnoUbzTM4zA3HUcUtfTFcridQUkf74aJdJkcVu-wE9EMQaQEYaIG2A7DYVeOdZ_gmuwhPi-ZgWt_2lvmXDF2KXU8QLAbXwoJWQHvX1g6UQJTVOLJdqsNeoMG_UYMaPrJTcc')"></div>
+<div class="flex w-full h-full items-end gap-1 px-2 pb-2 relative z-10 opacity-70">
+<div class="w-1/6 bg-surface-variant h-[90%] rounded-t"></div>
+<div class="w-1/6 bg-surface-variant h-[85%] rounded-t"></div>
+<div class="w-1/6 bg-surface-variant h-[70%] rounded-t"></div>
+<div class="w-1/6 bg-secondary-fixed-dim h-[40%] rounded-t"></div>
+<div class="w-1/6 bg-secondary h-[20%] rounded-t"></div>
+<div class="w-1/6 bg-error h-[5%] rounded-t"></div>
+</div>
+<div class="absolute top-1/2 left-0 w-full border-t border-dashed border-error-container z-20"></div>
+</div>
+<div class="flex flex-col gap-unit">
+<div class="bg-surface-container p-cell-padding-h rounded border border-outline-variant">
+<div class="font-label-caps text-label-caps text-on-surface-variant">ELASTICITY SCORE</div>
+<div class="font-headline-lg text-headline-lg text-error font-bold">-2.4</div>
+<div class="font-body-sm text-[10px] text-on-surface-variant mt-1">Highly Sensitive</div>
+</div>
+<div class="bg-surface-container p-cell-padding-h rounded border border-outline-variant flex-1">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">KEY TRIGGERS</div>
+<ul class="font-body-sm text-body-sm text-on-surface list-disc pl-4 space-y-1">
+<li>Coffee &gt; $5.00 barrier</li>
+<li>Burger combo value loss</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Swaps, Scripts, Memos -->
+<div class="lg:col-span-4 flex flex-col gap-container-margin">
+<!-- 4. Swap Board -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow p-container-margin ticket-divider border-b-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-unit mb-container-margin">
+<span class="material-symbols-outlined">swap_calls</span> Smart Swaps
+                        </h3>
+<div class="space-y-unit">
+<div class="border border-outline-variant rounded p-cell-padding-h hover:bg-slate-50 transition-colors cursor-pointer group flex justify-between items-center">
+<div>
+<div class="font-body-md text-body-md font-semibold group-hover:text-primary transition-colors">Reduce patty by 0.5oz</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">Saves $0.42/unit • Risk: Low</div>
+</div>
+<button class="w-6 h-6 rounded border border-outline flex items-center justify-center text-outline-variant group-hover:text-primary group-hover:border-primary"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+<div class="border border-outline-variant rounded p-cell-padding-h hover:bg-slate-50 transition-colors cursor-pointer group flex justify-between items-center">
+<div>
+<div class="font-body-md text-body-md font-semibold group-hover:text-primary transition-colors">Local bun supplier</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">Saves $0.15/unit • Risk: None</div>
+</div>
+<button class="w-6 h-6 rounded border border-outline flex items-center justify-center text-outline-variant group-hover:text-primary group-hover:border-primary"><span class="material-symbols-outlined text-[16px]">add</span></button>
+</div>
+</div>
+</div>
+<!-- 5. Staff Script Composer -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow p-container-margin">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-unit flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">smart_toy</span> AUTO-SCRIPT COMPOSER
+                        </h3>
+<textarea class="w-full h-24 border border-outline-variant rounded bg-surface-container-lowest p-cell-padding-h font-body-sm text-body-sm text-on-surface focus:ring-1 focus:ring-primary focus:border-primary resize-none" placeholder="Drafting response...">"We've absorbed rising costs as long as possible, but to maintain the quality of our local beef and keep our current staff, we've had to adjust prices slightly. We appreciate your continued support."</textarea>
+<div class="flex justify-end mt-unit">
+<button class="text-primary font-label-caps text-label-caps hover:underline text-[10px]">REGENERATE</button>
+</div>
+</div>
+<!-- 6. A/B Test Calendar -->
+<div class="bg-surface border border-outline-variant rounded-lg technical-shadow p-container-margin">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-unit flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span> SCHEDULED TESTS
+                        </h3>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between border-b border-dashed border-outline-variant pb-1">
+<span class="font-body-sm text-body-sm">Mon Beer Special</span>
+<span class="font-data-mono text-data-mono bg-surface-variant px-1 rounded text-[10px]">+$0.50</span>
+</div>
+<div class="flex items-center justify-between pb-1">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Lunch Combo Test</span>
+<span class="font-data-mono text-data-mono bg-surface-container-low px-1 rounded text-[10px] text-on-surface-variant">PENDING</span>
+</div>
+</div>
+</div>
+<!-- 7. Owner Decision Memo -->
+<div class="mt-auto bg-primary-container border border-primary rounded-lg p-container-margin technical-shadow">
+<h3 class="font-headline-md text-headline-md text-on-primary-container font-bold mb-unit">EXECUTIVE ACTION</h3>
+<p class="font-body-sm text-body-sm text-on-primary-container mb-container-margin opacity-90">Proposed changes will impact margins by +4.2% overall, with a simulated 1.8% drop in immediate foot traffic.</p>
+<button class="w-full bg-on-primary-container text-primary-container font-label-caps text-label-caps font-bold py-2 rounded hover:bg-surface-bright transition-colors">
+                            APPROVE PRICE CHANGE TICKET
+                        </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-high dark:bg-inverse-surface border-t border-outline-variant dark:border-outline docked full-width bottom-0 fixed bottom-0 right-0 left-0 md:left-64 flex justify-between items-center px-container-margin py-unit z-30 shrink-0 h-8">
+<div class="font-label-caps text-label-caps text-on-surface">© 2024 KITCHEN OPS EXECUTIVE SYSTEM</div>
+<div class="flex gap-4">
+<a class="font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed cursor-default" href="#">Privacy Policy</a>
+<a class="font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed cursor-default" href="#">Terms of Service</a>
+<a class="font-data-mono text-data-mono text-on-surface-variant dark:text-outline-variant hover:text-primary dark:hover:text-primary-fixed cursor-default" href="#">Security Audit</a>
+</div>
+</footer>
+</div>
+</body></html>

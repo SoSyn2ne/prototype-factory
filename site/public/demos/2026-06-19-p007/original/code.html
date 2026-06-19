@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DELAY_ARCADE_V1.0 - Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,700;0,800;1,800&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#3a5f94",
+                        "outline-variant": "#c3c6d1",
+                        "surface-container-low": "#f2f4f7",
+                        "tertiary-fixed": "#78fbb6",
+                        "on-secondary-container": "#551600",
+                        "secondary-container": "#fe5e1e",
+                        "inverse-on-surface": "#eff1f4",
+                        "surface-container-high": "#e6e8eb",
+                        "primary": "#001e40",
+                        "secondary-fixed-dim": "#ffb59c",
+                        "on-background": "#191c1e",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fc",
+                        "inverse-primary": "#a7c8ff",
+                        "on-tertiary-container": "#1db173",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d8dadd",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "on-primary-fixed": "#001b3c",
+                        "on-tertiary-fixed-variant": "#005232",
+                        "on-tertiary-fixed": "#002111",
+                        "surface-container": "#eceef1",
+                        "outline": "#737780",
+                        "tertiary-container": "#003c23",
+                        "secondary": "#ab3600",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#43474f",
+                        "on-error-container": "#93000a",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#002413",
+                        "surface-container-highest": "#e0e3e6",
+                        "surface": "#f7f9fc",
+                        "surface-bright": "#f7f9fc",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed": "#390c00",
+                        "on-primary-container": "#799dd6",
+                        "surface-variant": "#e0e3e6",
+                        "primary-container": "#003366",
+                        "on-secondary-fixed-variant": "#832700",
+                        "primary-fixed": "#d5e3ff",
+                        "tertiary-fixed-dim": "#59de9b",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "secondary-fixed": "#ffdbcf",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-md": "24px",
+                        "stack-lg": "48px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "data-mono": ["Space Mono"],
+                        "label-caps": ["Space Mono"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "38px", "fontWeight": "800"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .dot-matrix-bg {
+            background-image: radial-gradient(#c3c6d1 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        
+        .perforation-line {
+            background-image: linear-gradient(to right, #001e40 50%, transparent 50%);
+            background-size: 16px 2px;
+            background-repeat: repeat-x;
+            height: 2px;
+        }
+
+        .ticket-cut {
+            clip-path: polygon(
+                0 0, 
+                100% 0, 
+                100% calc(100% - 16px), 
+                calc(100% - 16px) 100%, 
+                0 100%
+            );
+        }
+        
+        /* Hardware button effect */
+        .btn-hardware-primary {
+            background-color: #fe5e1e; /* secondary-container */
+            color: #ffffff;
+            border: 2px solid #191c1e;
+            box-shadow: 4px 4px 0px 0px #191c1e;
+            transition: all 0.1s ease;
+        }
+        
+        .btn-hardware-primary:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #191c1e;
+        }
+
+        .btn-hardware-secondary {
+            background-color: #ffffff;
+            color: #001e40;
+            border: 2px solid #001e40;
+            transition: all 0.1s ease;
+        }
+        
+        .btn-hardware-secondary:hover {
+            box-shadow: 4px 4px 0px 0px #001e40;
+            transform: translate(-2px, -2px);
+        }
+
+        .btn-hardware-secondary:active {
+            transform: translate(0px, 0px);
+            box-shadow: 0px 0px 0px 0px #001e40;
+        }
+
+        /* Stepped Progress */
+        .progress-block {
+            width: 100%;
+            height: 12px;
+            border: 1px solid #191c1e;
+            background-color: #f2f4f7;
+        }
+        .progress-block.filled {
+            background-color: #1db173; /* on-tertiary-container */
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.2);
+        }
+
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 10s linear infinite;
+        }
+
+        /* Scanline Overlay */
+        .scanline-overlay::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 10;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Blinking text for arcade feel */
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+        .blink-text {
+            animation: blink 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen dot-matrix-bg flex flex-col md:flex-row overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface-dim font-headline-md text-headline-md tracking-tight docked full-width top-0 border-b-2 border-primary dark:border-primary-fixed shadow-[4px_4px_0px_0px_rgba(0,30,64,1)] flex justify-between items-center w-full px-margin-desktop py-4 hidden md:flex z-50 fixed h-20">
+<div class="font-headline-md text-headline-md font-extrabold text-primary dark:text-primary-fixed uppercase italic">DELAY_ARCADE_V1.0</div>
+<div class="hidden flex items-center bg-surface-container-low px-4 py-2 border-2 border-primary rounded-DEFAULT w-64">
+<!-- search_bar hidden as per JSON -->
+</div>
+<nav class="flex gap-6">
+<!-- Active state logic: Mission Control is primary intent -->
+<a class="text-secondary font-bold flex items-center gap-2 active:translate-y-1 active:shadow-none transition-all duration-75" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-caps text-label-caps">Mission Control</span>
+</a>
+<a class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container flex items-center gap-2 active:translate-y-1 active:shadow-none transition-all duration-75 px-2 py-1 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-caps text-label-caps">Quest Board</span>
+</a>
+<a class="text-on-surface-variant hover:bg-primary-container hover:text-on-primary-container flex items-center gap-2 active:translate-y-1 active:shadow-none transition-all duration-75 px-2 py-1 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-caps text-label-caps">Receipt Capture</span>
+</a>
+</nav>
+<div class="flex gap-4">
+<button class="text-primary dark:text-primary-fixed hover:bg-primary-container hover:text-on-primary-container p-2 rounded-full active:translate-y-1 active:shadow-none transition-all duration-75" data-icon="account_circle">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+<button class="text-primary dark:text-primary-fixed hover:bg-primary-container hover:text-on-primary-container p-2 rounded-full active:translate-y-1 active:shadow-none transition-all duration-75" data-icon="help_outline">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<aside class="bg-surface-container-lowest dark:bg-surface-container-low text-primary dark:text-primary-fixed font-label-caps text-label-caps h-screen w-64 border-r-2 border-primary flat no shadows flex flex-col h-full py-stack-md hidden md:flex fixed left-0 top-20 z-40">
+<div class="px-4 mb-8">
+<h2 class="font-headline-md text-headline-md text-primary">OPERATOR_01</h2>
+<p class="text-on-surface-variant font-data-mono text-data-mono">CLAIM_ID: #404-TRP</p>
+</div>
+<nav class="flex-1 overflow-y-auto">
+<!-- Active Tab: Mission Control -->
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] p-3 mx-2 my-1 active:scale-95 transition-transform" data-icon="dashboard" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Mission Control</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest active:scale-95 transition-transform" data-icon="assignment" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span>Quest Board</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest active:scale-95 transition-transform" data-icon="receipt_long" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>Receipt Capture</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest active:scale-95 transition-transform" data-icon="luggage" href="#">
+<span class="material-symbols-outlined">luggage</span>
+<span>Baggage Survival</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant p-3 mx-2 my-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest active:scale-95 transition-transform" data-icon="payments" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Scoreboard</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full btn-hardware-primary font-label-caps text-label-caps py-3 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined">add_a_photo</span>
+                INSERT EVIDENCE
+            </button>
+</div>
+</aside>
+<!-- BottomNavBar (Mobile) -->
+<nav class="bg-surface dark:bg-surface-container text-primary dark:text-primary-fixed font-label-caps text-label-caps-mobile fixed bottom-0 w-full z-50 rounded-t-xl border-t-4 border-primary shadow-[0_-4px_0px_0px_rgba(0,30,64,1)] fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 md:hidden">
+<!-- Active Tab Intent mapping: Missions -> Mission Control equivalent -->
+<a class="flex flex-col items-center justify-center bg-secondary text-on-secondary p-2 scale-110 -translate-y-2 border-2 border-on-background shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:scale-90 transition-all" data-icon="sports_esports" href="#">
+<span class="material-symbols-outlined">sports_esports</span>
+<span>Missions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary active:scale-90 transition-all" data-icon="policy" href="#">
+<span class="material-symbols-outlined">policy</span>
+<span>Decoder</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary active:scale-90 transition-all" data-icon="inventory_2" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>Packets</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-primary active:scale-90 transition-all" data-icon="leaderboard" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span>Stats</span>
+</a>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 md:mt-20 p-margin-mobile md:p-margin-desktop overflow-y-auto pb-32 md:pb-margin-desktop h-screen">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-stack-md">
+<!-- 1. Trip Disruption Header (Full Width) -->
+<section class="col-span-1 md:col-span-12 bg-surface-container-lowest border-2 border-primary p-6 relative overflow-hidden ticket-cut mb-stack-md scanline-overlay">
+<!-- Status Badge -->
+<div class="absolute top-0 right-0 bg-error text-on-error px-4 py-2 font-label-caps text-label-caps border-b-2 border-l-2 border-primary">
+                    STATUS: AOG / DISRUPTED
+                </div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mt-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg md:text-headline-lg font-extrabold text-error mb-2 tracking-tighter">FLIGHT: DL1234 - CANCELLED</h1>
+<div class="flex gap-4 font-data-mono text-data-mono text-on-surface-variant">
+<span class="bg-surface-container-highest px-2 py-1 border border-outline-variant">7-Hour Delay</span>
+<span class="bg-surface-container-highest px-2 py-1 border border-outline-variant">Missed Connection</span>
+</div>
+</div>
+<div class="bg-on-background text-tertiary-fixed p-4 border-2 border-primary w-full md:w-auto text-center font-data-mono">
+<div class="text-[10px] text-surface-dim mb-1 uppercase">DOT Complaint Timer</div>
+<div class="text-3xl font-bold tracking-widest" id="countdown-timer">02:14:59</div>
+</div>
+</div>
+<div class="w-full mt-6 mb-2 perforation-line"></div>
+<div class="bg-error-container text-on-error-container p-2 font-label-caps text-label-caps flex items-center gap-2 marquee-container">
+<span class="material-symbols-outlined">warning</span>
+<div class="marquee-text">PASSENGER RIGHTS ACTIVATED // RETAIN ALL RECEIPTS // DO NOT ACCEPT VOUCHERS WITHOUT READING CONDITIONS // </div>
+</div>
+</section>
+<!-- Scoreboard & Progress (Left Column Desktop) -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-stack-md">
+<!-- 7. Recovered-Dollars Scoreboard -->
+<section class="bg-on-background text-on-primary p-6 border-4 border-primary shadow-[8px_8px_0px_0px_#fe5e1e]">
+<h2 class="font-label-caps text-label-caps text-surface-dim mb-4 border-b border-surface-dim pb-2 flex justify-between">
+<span>SCOREBOARD</span>
+<span class="material-symbols-outlined text-[16px]">monetization_on</span>
+</h2>
+<div class="mb-6">
+<div class="font-data-mono text-data-mono text-secondary-fixed-dim mb-1">POTENTIAL RECOVERY</div>
+<div class="font-headline-lg text-headline-lg text-secondary-container tracking-tighter">$500.00</div>
+</div>
+<div class="mb-4">
+<div class="font-data-mono text-data-mono text-tertiary-fixed-dim mb-1">DOCUMENTED EXPENSES</div>
+<div class="font-headline-md text-headline-md text-tertiary-fixed tracking-tighter">$230.00</div>
+</div>
+<!-- Progress Bar -->
+<div class="mt-4">
+<div class="flex justify-between font-label-caps text-label-caps text-surface-dim mb-2">
+<span>PROGRESS</span>
+<span>46%</span>
+</div>
+<div class="flex gap-1">
+<div class="progress-block filled"></div>
+<div class="progress-block filled"></div>
+<div class="progress-block filled"></div>
+<div class="progress-block filled"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+<div class="progress-block"></div>
+</div>
+</div>
+</section>
+<!-- 6. Claim Packet Builder Timeline -->
+<section class="bg-surface-container-lowest border-2 border-primary p-6 relative">
+<h2 class="font-label-caps text-label-caps text-primary mb-6 border-b-2 border-primary pb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">account_tree</span>
+                        CLAIM PACKET BUILDER
+                    </h2>
+<div class="relative pl-6 border-l-2 border-dashed border-outline-variant space-y-6">
+<!-- Step 1 Complete -->
+<div class="relative">
+<div class="absolute -left-[35px] top-0 bg-tertiary-container text-on-tertiary-container rounded-full w-6 h-6 flex items-center justify-center border-2 border-primary">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary">Obtain Cancellation Proof</h3>
+<p class="font-body-md text-[12px] text-on-surface-variant mt-1">Email from Delta appended.</p>
+</div>
+<!-- Step 2 Active -->
+<div class="relative">
+<div class="absolute -left-[35px] top-0 bg-secondary-container text-on-secondary-container rounded-full w-6 h-6 flex items-center justify-center border-2 border-primary animate-pulse">
+<span class="material-symbols-outlined text-[14px]">hourglass_empty</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-secondary font-bold">Log Expenses</h3>
+<p class="font-body-md text-[12px] text-on-surface-variant mt-1">2 receipts pending review.</p>
+</div>
+<!-- Step 3 Locked -->
+<div class="relative opacity-50">
+<div class="absolute -left-[35px] top-0 bg-surface-container-high text-on-surface-variant rounded-full w-6 h-6 flex items-center justify-center border-2 border-outline-variant">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+</div>
+<h3 class="font-label-caps text-label-caps">Final Submission</h3>
+<p class="font-body-md text-[12px] text-on-surface-variant mt-1">Unlock by completing expense log.</p>
+</div>
+</div>
+<button class="w-full mt-6 btn-hardware-secondary font-label-caps text-label-caps py-2 disabled:opacity-50" disabled="">
+                        GENERATE PDF
+                    </button>
+</section>
+<!-- 5. Baggage Survival -->
+<section class="bg-inverse-surface text-inverse-on-surface p-6 border-2 border-primary">
+<h2 class="font-label-caps text-label-caps mb-4 flex items-center gap-2 text-primary-fixed">
+<span class="material-symbols-outlined">luggage</span>
+                        BAGGAGE SURVIVAL
+                    </h2>
+<div class="font-data-mono text-[12px] mb-4 text-surface-dim">STATUS: DELAYED &gt; 36 HOURS</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center border-b border-outline pb-2">
+<span class="font-body-md text-[14px]">Clothing Allowance</span>
+<span class="font-data-mono text-tertiary-fixed">$200.00</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline pb-2">
+<span class="font-body-md text-[14px]">Toiletries</span>
+<span class="font-data-mono text-tertiary-fixed">$50.00</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Main Canvas (Right Column Desktop) -->
+<div class="col-span-1 md:col-span-8 flex flex-col gap-stack-md">
+<!-- 2. Eligibility Quest Board (Bento Grid) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">assignment</span>
+                        ELIGIBILITY QUESTS
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Quest 1: Completed -->
+<div class="bg-surface-container-lowest border-2 border-primary p-4 ticket-cut relative group cursor-pointer hover:shadow-[4px_4px_0px_0px_#001e40] transition-shadow">
+<div class="absolute top-2 right-2 text-on-tertiary-container bg-tertiary-container px-2 py-1 text-[10px] font-label-caps border border-primary">COMPLETED</div>
+<span class="material-symbols-outlined text-tertiary-container mb-2 text-[32px]">verified</span>
+<h3 class="font-label-caps text-label-caps text-primary leading-tight mb-2">Airline Duty of Care</h3>
+<p class="font-body-md text-[12px] text-on-surface-variant line-clamp-2">Vouchers provided for initial delay period.</p>
+</div>
+<!-- Quest 2: In Progress -->
+<div class="bg-secondary-container text-on-secondary-container border-2 border-primary p-4 relative cursor-pointer shadow-[4px_4px_0px_0px_#191c1e] translate-y-[-4px]">
+<div class="absolute top-2 right-2 text-on-primary bg-primary px-2 py-1 text-[10px] font-label-caps blink-text">ACTIVE</div>
+<span class="material-symbols-outlined mb-2 text-[32px]">credit_card</span>
+<h3 class="font-label-caps text-label-caps leading-tight mb-2">Amex $500 Trip Delay</h3>
+<p class="font-body-md text-[12px] opacity-90 line-clamp-2">Logging eligible expenses incurred during layover.</p>
+<div class="mt-3 w-full h-2 bg-surface-container-lowest border border-primary">
+<div class="h-full bg-primary w-[46%]"></div>
+</div>
+</div>
+<!-- Quest 3: Locked -->
+<div class="bg-surface-container border-2 border-outline-variant p-4 ticket-cut relative opacity-70">
+<div class="absolute top-2 right-2 text-on-surface-variant bg-surface-variant px-2 py-1 text-[10px] font-label-caps border border-outline-variant">LOCKED</div>
+<span class="material-symbols-outlined text-outline-variant mb-2 text-[32px]">lock</span>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant leading-tight mb-2">EU 261/2004 Eligibility</h3>
+<p class="font-body-md text-[12px] text-outline-variant line-clamp-2">Requires flight origin in EU. Not applicable.</p>
+</div>
+</div>
+</section>
+<div class="w-full perforation-line my-2"></div>
+<!-- 3. Receipt Capture Missions & 4. Fine-Print Decoder -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack-md">
+<!-- Receipts -->
+<section>
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">receipt_long</span>
+                                EVIDENCE
+                            </h2>
+<button class="btn-hardware-secondary px-3 py-1 font-label-caps text-[10px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span> NEW
+                            </button>
+</div>
+<div class="flex flex-col gap-4 bg-surface-container-low p-4 border-2 border-primary inset-shadow" style="box-shadow: inset 0px 4px 10px rgba(0,0,0,0.05);">
+<!-- Receipt 1 -->
+<div class="bg-surface-container-lowest border-2 border-primary p-3 flex justify-between items-center hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-inverse-surface text-inverse-on-surface flex items-center justify-center border border-primary">
+<span class="material-symbols-outlined text-[20px]">restaurant</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary">Terminal Diner</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">LVL 1: MEAL</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono font-bold text-[16px] text-primary">$45.00</div>
+<div class="font-label-caps text-[8px] text-tertiary-container bg-tertiary-fixed px-1 border border-tertiary-container mt-1 inline-block">VALIDATED</div>
+</div>
+</div>
+<!-- Receipt 2 -->
+<div class="bg-surface-container-lowest border-2 border-primary p-3 flex justify-between items-center hover:bg-surface-variant transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-inverse-surface text-inverse-on-surface flex items-center justify-center border border-primary">
+<span class="material-symbols-outlined text-[20px]">hotel</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary">Airport Inn</div>
+<div class="font-data-mono text-[10px] text-on-surface-variant">LVL 2: LODGING</div>
+</div>
+</div>
+<div class="text-right">
+<div class="font-data-mono font-bold text-[16px] text-primary">$185.00</div>
+<div class="font-label-caps text-[8px] text-secondary-container bg-secondary-fixed px-1 border border-secondary-container mt-1 inline-block">PENDING REVIEW</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Fine-Print Decoder -->
+<section class="bg-[#ffffea] border-2 border-primary p-6 relative shadow-[4px_4px_0px_0px_#001e40] before:content-[''] before:absolute before:left-2 before:top-0 before:bottom-0 before:w-[2px] before:bg-[#ffadad] before:z-0">
+<h2 class="font-label-caps text-label-caps text-primary mb-4 z-10 relative flex items-center gap-2">
+<span class="material-symbols-outlined">policy</span>
+                            DECODER: AMEX SEC 4.2
+                        </h2>
+<div class="font-body-md text-[14px] text-on-surface leading-relaxed z-10 relative">
+<p class="mb-3">Covered Persons are covered for eligible expenses incurred during a Trip Delay.</p>
+<p class="mb-3">
+<mark class="bg-secondary-fixed text-on-secondary-fixed-variant px-1 border border-secondary-fixed-dim rounded font-bold">Eligible expenses</mark> include reasonable, additional expenses incurred by a Covered Person for 
+                                <mark class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-1 border border-tertiary-fixed-dim rounded font-bold">meals</mark>, 
+                                <mark class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-1 border border-tertiary-fixed-dim rounded font-bold">lodging</mark>, 
+                                toiletries, medication, and other personal use items.
+                            </p>
+<p class="text-on-surface-variant text-[12px] border-t border-outline-variant pt-2 mt-4 italic">
+                                Note: Alcohol and entertainment are generally excluded.
+                            </p>
+</div>
+<div class="absolute right-4 bottom-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[80px]">gavel</span>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<script>
+        // Simple countdown timer logic for visual effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const timerElement = document.getElementById('countdown-timer');
+            let time = 2 * 3600 + 14 * 60 + 59; // 02:14:59 in seconds
+
+            setInterval(() => {
+                time--;
+                if (time < 0) time = 0;
+                
+                const h = Math.floor(time / 3600).toString().padStart(2, '0');
+                const m = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+                const s = (time % 60).toString().padStart(2, '0');
+                
+                timerElement.textContent = `${h}:${m}:${s}`;
+                
+                // Add urgent blink effect when low on time (simulated by random chance here for demo)
+                if (time % 10 === 0) {
+                   timerElement.classList.add('text-error');
+                   setTimeout(() => timerElement.classList.remove('text-error'), 500);
+                }
+            }, 1000);
+        });
+    </script>
+</body></html>
