@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Field Ops - Report &amp; Heatmap</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "secondary": "#515f74",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-surface-variant": "#3d494c",
+                        "on-tertiary-container": "#563400",
+                        "primary-fixed": "#acedff",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-primary-fixed-variant": "#004e5c",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-background": "#111c2d",
+                        "surface-container": "#e7eeff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#263143",
+                        "on-surface": "#111c2d",
+                        "primary": "#00687a",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "tertiary": "#855300",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bcc9cd",
+                        "inverse-primary": "#4cd7f6",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface": "#f9f9ff",
+                        "background": "#f9f9ff",
+                        "outline": "#6d797d",
+                        "surface-container-high": "#dee8ff",
+                        "primary-fixed-dim": "#4cd7f6",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "surface-dim": "#cfdaf2",
+                        "surface-tint": "#00687a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001f26",
+                        "tertiary-fixed": "#ffddb8",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d5e3fc",
+                        "primary-container": "#06b6d4",
+                        "surface-container-low": "#f0f3ff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#e79400",
+                        "surface-variant": "#d8e3fb",
+                        "on-primary-container": "#00424f",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#57657a",
+                        "surface-bright": "#f9f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "gutter": "16px",
+                        "stack-lg": "24px",
+                        "stack-sm": "4px",
+                        "margin-tablet": "24px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "tap-label": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "headline-md": ["22px", {"lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "400"}],
+                        "tap-label": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "headline-lg": ["28px", {"lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Utility for 8px grid alignment */
+        .grid-align { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
+        @media (max-width: 768px) { .grid-align { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- TopNavBar (Web Only) -->
+<header class="hidden md:flex flex justify-between items-center w-full px-margin-tablet py-4 bg-surface border-b border-outline-variant fixed top-0 z-50 h-[72px]">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold tracking-tighter text-on-surface">FIELD_OPS_V2</span>
+</div>
+<div class="flex items-center gap-6 h-touch-target-min">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:bg-surface-container p-2 rounded-full transition-colors duration-150" data-icon="person">person</span>
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:bg-surface-container p-2 rounded-full transition-colors duration-150" data-icon="settings">settings</span>
+<button class="bg-primary text-on-primary h-touch-target-min px-6 rounded text-tap-label font-tap-label hover:brightness-95 active:brightness-90 transition-all">Live Lab</button>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full z-40 flex flex-col pt-24 pb-8 px-4 bg-surface-container border-r border-outline-variant w-[320px] hidden md:flex transition-transform duration-300">
+<div class="mb-8 px-4">
+<h2 class="text-headline-sm font-headline-sm font-black text-on-surface uppercase tracking-tight">Session ID: #8821</h2>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Terminal A-12 | Observer: J. Miller</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full rounded-xl transition-colors min-h-touch-target-min group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="radar">radar</span>
+<span class="text-tap-label font-tap-label">Live Observer</span>
+</a>
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-xl px-4 py-4 w-full min-h-touch-target-min scale-95 duration-100 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-tap-label font-tap-label">Field Report</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full rounded-xl transition-colors min-h-touch-target-min group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors" data-icon="construction">construction</span>
+<span class="text-tap-label font-tap-label">Retrofit Board</span>
+</a>
+</nav>
+<div class="mt-auto px-4">
+<button class="w-full bg-[#1e293b] text-white h-touch-target-min rounded text-tap-label font-tap-label hover:brightness-110 active:brightness-90 transition-all uppercase tracking-wider">END SESSION</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 w-full md:pl-[320px] pt-[72px] min-h-screen bg-background relative">
+<div class="p-margin-tablet max-w-7xl mx-auto space-y-stack-lg">
+<!-- Header Section -->
+<div class="flex justify-between items-end border-b border-outline-variant pb-4">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-background">Terminal A-12 Diagnostics</h1>
+<p class="text-body-lg font-body-lg text-secondary mt-2">Aggregated observational data from current kiosk flow.</p>
+</div>
+<div class="flex gap-2">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-error-container text-on-error-container text-label-caps font-label-caps">High Friction Detected</span>
+</div>
+</div>
+<!-- Section 1: Session Summary Bento Grid -->
+<section class="grid-align">
+<div class="col-span-12 md:col-span-4 bg-surface border border-outline-variant p-6 rounded-lg shadow-sm hover:border-primary transition-colors">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="timer">timer</span>
+<h3 class="text-tap-label font-tap-label text-secondary uppercase tracking-wider">Total Active Time</h3>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-on-surface">42:15</span>
+<span class="text-body-md font-body-md text-secondary">min</span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<p class="text-label-caps font-label-caps text-tertiary-container">+12% vs benchmark</p>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface border border-outline-variant p-6 rounded-lg shadow-sm hover:border-primary transition-colors relative overflow-hidden">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary" data-icon="task_alt">task_alt</span>
+<h3 class="text-tap-label font-tap-label text-secondary uppercase tracking-wider">Completion Rate</h3>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-on-surface">68</span>
+<span class="text-headline-md font-headline-md text-secondary">%</span>
+</div>
+<!-- Simple inline SVG chart -->
+<div class="mt-4 pt-4 border-t border-outline-variant w-full h-8 flex items-center">
+<div class="w-full bg-surface-container rounded-full h-2">
+<div class="bg-primary h-2 rounded-full" style="width: 68%"></div>
+</div>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-surface border border-error p-6 rounded-lg shadow-sm bg-error-container/10">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-error" data-icon="support">support</span>
+<h3 class="text-tap-label font-tap-label text-error uppercase tracking-wider">Rescue Frequency</h3>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="text-4xl font-bold text-error">14</span>
+<span class="text-body-md font-body-md text-secondary">interventions</span>
+</div>
+<div class="mt-4 pt-4 border-t border-outline-variant/30">
+<p class="text-label-caps font-label-caps text-error">Critical threshold exceeded</p>
+</div>
+</div>
+</section>
+<!-- Section 2: Step Heatmap -->
+<section class="bg-surface border border-outline-variant rounded-lg p-6 shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container" data-icon="local_fire_department">local_fire_department</span>
+                        Flow Friction Heatmap
+                    </h2>
+<div class="flex gap-4 text-label-caps font-label-caps text-secondary">
+<span class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-primary"></div> Smooth</span>
+<span class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-tertiary-container"></div> Hesitation</span>
+<span class="flex items-center gap-1"><div class="w-3 h-3 rounded-full bg-error"></div> Abandonment</span>
+</div>
+</div>
+<!-- Abstracted Kiosk Flow -->
+<div class="relative w-full h-[300px] bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex items-center justify-between px-8">
+<!-- Flow Line -->
+<div class="absolute top-1/2 left-10 right-10 h-1 bg-outline-variant -translate-y-1/2 z-0"></div>
+<!-- Step: Start -->
+<div class="relative z-10 flex flex-col items-center group">
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary">play_arrow</span>
+</div>
+<span class="mt-2 text-tap-label font-tap-label text-on-surface">Start</span>
+<div class="absolute -bottom-6 text-label-caps font-label-caps text-secondary">0 drops</div>
+</div>
+<!-- Step: Menu -->
+<div class="relative z-10 flex flex-col items-center group">
+<!-- Heat blob simulation -->
+<div class="absolute w-24 h-24 bg-tertiary-container/30 rounded-full blur-xl -z-10 animate-pulse"></div>
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-tertiary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-tertiary-container">menu</span>
+</div>
+<span class="mt-2 text-tap-label font-tap-label text-on-surface">Menu</span>
+<div class="absolute -bottom-6 text-label-caps font-label-caps text-tertiary-container">Avg 8s hesitation</div>
+</div>
+<!-- Step: Selection -->
+<div class="relative z-10 flex flex-col items-center group">
+<!-- Intense heat blob simulation -->
+<div class="absolute w-32 h-32 bg-error/40 rounded-full blur-2xl -z-10 animate-pulse" style="animation-duration: 2s;"></div>
+<div class="absolute w-20 h-20 bg-error/60 rounded-full blur-xl -z-10"></div>
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-error flex items-center justify-center shadow-sm relative">
+<span class="material-symbols-outlined text-error">touch_app</span>
+<!-- Ping indicator for active issue -->
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-error"></span>
+</span>
+</div>
+<span class="mt-2 text-tap-label font-tap-label text-on-surface font-bold">Selection</span>
+<div class="absolute -bottom-6 text-label-caps font-label-caps text-error bg-error-container px-2 py-0.5 rounded">12 Abandonments</div>
+</div>
+<!-- Step: Pay -->
+<div class="relative z-10 flex flex-col items-center group opacity-60">
+<div class="w-16 h-16 rounded-full bg-surface border-2 border-outline flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-outline">credit_card</span>
+</div>
+<span class="mt-2 text-tap-label font-tap-label text-secondary">Pay</span>
+<div class="absolute -bottom-6 text-label-caps font-label-caps text-secondary">End of flow</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Before/After Field Report -->
+<section class="bg-surface border border-outline-variant rounded-lg overflow-hidden shadow-sm">
+<div class="p-6 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h2 class="text-headline-md font-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="compare_arrows">compare_arrows</span>
+                        Retrofit Proposals (Proof of Freeze)
+                    </h2>
+<button class="bg-surface text-primary border border-primary h-10 px-4 rounded text-tap-label font-tap-label hover:bg-primary/5 transition-colors">Export Report</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant text-label-caps font-label-caps text-secondary uppercase tracking-wider">
+<th class="p-4 w-1/3">Observed Friction Point</th>
+<th class="p-4 w-1/3">Impact Level</th>
+<th class="p-4 w-1/3 border-l-4 border-primary bg-primary/5">Proposed Fix</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md text-on-surface divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-4 align-top">
+<div class="flex items-start gap-3">
+<div class="mt-1 w-2 h-2 rounded-full bg-error shrink-0"></div>
+<div>
+<p class="font-bold">Typography Legibility</p>
+<p class="text-secondary text-sm mt-1">Menu item fonts (12px) caused squinting and physical leaning by 80% of users over age 50.</p>
+</div>
+</div>
+</td>
+<td class="p-4 align-top">
+<span class="inline-flex items-center px-2 py-1 rounded bg-error-container text-on-error-container text-label-caps font-label-caps border border-error/20">Critical - High Drop-off</span>
+</td>
+<td class="p-4 align-top border-l-4 border-primary group-hover:bg-primary/5 transition-colors bg-surface-container-low/50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle">check_circle</span>
+<p>Implement "High Contrast Mode" as default. Increase base font size to 18px (body-lg) per Design System specs.</p>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-4 align-top">
+<div class="flex items-start gap-3">
+<div class="mt-1 w-2 h-2 rounded-full bg-tertiary-container shrink-0"></div>
+<div>
+<p class="font-bold">Navigation Ambiguity</p>
+<p class="text-secondary text-sm mt-1">"Back" button is transparent without borders; frequently missed during sub-menu navigation.</p>
+</div>
+</div>
+</td>
+<td class="p-4 align-top">
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#fff8e1] text-[#f57f17] text-label-caps font-label-caps border border-[#f57f17]/20">Moderate - Time Sink</span>
+</td>
+<td class="p-4 align-top border-l-4 border-primary group-hover:bg-primary/5 transition-colors bg-surface-container-low/50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle">check_circle</span>
+<p>Apply Level 1 Elevation (1px solid border) and minimum 48x48px hit area to all navigational actions.</p>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="p-4 align-top">
+<div class="flex items-start gap-3">
+<div class="mt-1 w-2 h-2 rounded-full bg-secondary shrink-0"></div>
+<div>
+<p class="font-bold">Glare Interference</p>
+<p class="text-secondary text-sm mt-1">Overhead terminal lighting reflects on screen, obscuring lower-right quadrant actions.</p>
+</div>
+</div>
+</td>
+<td class="p-4 align-top">
+<span class="inline-flex items-center px-2 py-1 rounded bg-surface-variant text-on-surface-variant text-label-caps font-label-caps border border-outline-variant">Low - Environmental</span>
+</td>
+<td class="p-4 align-top border-l-4 border-primary group-hover:bg-primary/5 transition-colors bg-surface-container-low/50">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle">check_circle</span>
+<p>Relocate primary 'Checkout' FAB to central bottom axis or apply physical anti-glare film (Hardware Request).</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>

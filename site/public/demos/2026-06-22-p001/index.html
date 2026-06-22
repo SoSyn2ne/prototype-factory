@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Renewal Negotiation Room</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d9dadb",
+                    "on-primary-container": "#858384",
+                    "on-error": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "on-error-container": "#93000a",
+                    "outline-variant": "#c7c6ca",
+                    "secondary": "#ad2c00",
+                    "surface-container-low": "#f3f4f5",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-tertiary-container": "#818487",
+                    "primary-fixed-dim": "#c8c6c7",
+                    "surface-variant": "#e1e3e4",
+                    "background": "#f8f9fa",
+                    "secondary-fixed": "#ffdbd1",
+                    "inverse-primary": "#c8c6c7",
+                    "on-tertiary-fixed-variant": "#43474a",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#872000",
+                    "tertiary-container": "#181c1e",
+                    "inverse-surface": "#2e3132",
+                    "tertiary-fixed-dim": "#c4c7ca",
+                    "on-secondary-fixed": "#3b0900",
+                    "surface": "#f8f9fa",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed-variant": "#474647",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-bright": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "primary": "#000000",
+                    "primary-container": "#1b1b1c",
+                    "secondary-fixed-dim": "#ffb5a0",
+                    "tertiary": "#000000",
+                    "surface-container-high": "#e7e8e9",
+                    "on-primary-fixed": "#1b1b1c",
+                    "surface-container": "#edeeef",
+                    "on-secondary-container": "#fffbff",
+                    "tertiary-fixed": "#e0e3e6",
+                    "outline": "#76777b",
+                    "on-tertiary-fixed": "#181c1e",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#46474a",
+                    "on-background": "#191c1d",
+                    "error-container": "#ffdad6",
+                    "on-primary": "#ffffff",
+                    "primary-fixed": "#e5e2e3",
+                    "secondary-container": "#d83900",
+                    "surface-tint": "#5f5e5f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-page": "24px",
+                    "stack-sm": "8px",
+                    "stack-md": "16px",
+                    "stack-xs": "4px",
+                    "control-height": "40px",
+                    "row-height-compact": "32px",
+                    "base-unit": "4px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "data-mono": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "data-mono": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "headline-md": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base typography defaults mapped to config */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 20px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            font-feature-settings: 'liga';
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom scrollbar for dense data areas */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f9fa; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c6ca; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76777b; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased min-h-screen">
+<!-- TopNavBar Shared Component -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-page h-control-height bg-surface border-b border-outline-variant shadow-none">
+<!-- Brand -->
+<div class="flex items-center gap-stack-md">
+<span class="text-headline-md font-headline-md font-black text-primary uppercase tracking-tighter">RenewalWarRoom</span>
+</div>
+<!-- Navigation Links -->
+<ul class="flex items-center h-full gap-margin-page font-body-sm text-body-sm">
+<li class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Dashboard</li>
+<li class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Accounts</li>
+<!-- Active State -->
+<li class="h-full flex items-center text-primary border-b-2 border-primary pb-1 cursor-default">Negotiations</li>
+<li class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">Analytics</li>
+</ul>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-stack-md">
+<button class="h-control-height px-stack-md bg-primary text-on-primary font-label-sm text-label-sm rounded hover:bg-primary-container transition-all">
+                Generate Packet
+            </button>
+<button class="h-control-height w-control-height flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="h-control-height w-control-height flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-all rounded">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<!-- Profile Placeholder -->
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden ml-stack-sm">
+<span class="material-symbols-outlined text-outline">person</span>
+</div>
+</div>
+</nav>
+<!-- SideNavBar Shared Component -->
+<aside class="fixed left-0 top-[40px] h-[calc(100vh-40px)] w-64 flex flex-col py-stack-md bg-surface-container-low border-r border-outline-variant shadow-none z-40">
+<!-- Header -->
+<div class="px-margin-page mb-margin-page flex flex-col gap-stack-xs">
+<h2 class="font-headline-md text-headline-md text-primary truncate">Acme Corp Renewal</h2>
+<div class="flex items-center gap-stack-xs text-secondary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-sm text-label-sm font-bold">Deadline: Oct 31, 2024</span>
+</div>
+<button class="mt-stack-sm h-control-height w-full bg-surface text-primary border border-primary font-label-sm text-label-sm rounded hover:bg-surface-container-highest transition-all flex items-center justify-center gap-stack-xs">
+<span class="material-symbols-outlined">bolt</span>
+                Quick Objection
+            </button>
+</div>
+<!-- Primary Tabs -->
+<nav class="flex-1 overflow-y-auto px-stack-sm flex flex-col gap-base-unit">
+<!-- Inactive -->
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                Overview
+            </a>
+<!-- Active State -->
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded bg-surface text-primary border-l-4 border-secondary font-bold font-label-sm text-label-sm scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined">layers</span>
+                Plan Modeling
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">history</span>
+                Negotiation Log
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">gavel</span>
+                Objection Tracker
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+                Compliance
+            </a>
+</nav>
+<!-- Footer Tabs -->
+<div class="px-stack-sm pt-stack-md mt-auto border-t border-outline-variant flex flex-col gap-base-unit">
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help Center
+            </a>
+<a class="flex items-center gap-stack-md px-stack-md py-stack-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined">archive</span>
+                Archive
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-[40px] p-margin-page min-h-[calc(100vh-40px)] flex flex-col gap-margin-page">
+<!-- Page Header: High Density -->
+<header class="flex items-end justify-between border-b border-outline-variant pb-stack-md">
+<div class="flex flex-col gap-stack-sm">
+<div class="flex items-center gap-stack-md">
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Insurance Renewal Rage Script</h1>
+<div class="flex items-center px-stack-sm py-base-unit bg-secondary text-on-secondary rounded font-label-caps text-label-caps tracking-widest uppercase">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">warning</span>
+                        Renewal Shock
+                    </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Acme Corp is facing a +28% gross premium increase. Immediate mitigation required.</p>
+</div>
+<div class="flex items-center gap-stack-md">
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-outline uppercase">Current Carrier</span>
+<span class="font-body-md text-body-md text-primary font-bold">BlueShield Core</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-outline uppercase">Effective Date</span>
+<span class="font-data-mono text-data-mono text-primary">01-JAN-2025</span>
+</div>
+</div>
+</header>
+<!-- Fixed Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: Dense Work Surface (8 cols) -->
+<div class="col-span-12 xl:col-span-8 flex flex-col gap-margin-page">
+<!-- Comparison Table Panel -->
+<section class="bg-surface border border-outline-variant rounded flex flex-col">
+<div class="px-stack-md py-stack-sm border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Plan Comparison: Current vs. Renewal Quote</h3>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+</button>
+</div>
+<!-- Dense Table Header -->
+<div class="grid grid-cols-5 gap-stack-xs px-stack-md bg-surface-container-highest border-b border-outline-variant items-center h-row-height-compact">
+<div class="col-span-2 font-label-caps text-label-caps text-on-surface-variant">Benefit Provision</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-right">Current (2024)</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-right">Quote (2025)</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant text-right">Δ Impact</div>
+</div>
+<!-- Dense Data Rows (Zebra Striped) -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="grid grid-cols-5 gap-stack-xs px-stack-md items-center h-row-height-compact bg-surface border-b border-outline-variant hover:border-primary border-transparent group transition-colors">
+<div class="col-span-2 font-body-sm text-body-sm text-primary flex items-center gap-stack-xs">
+                                Deductible (Indiv)
+                            </div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-right">$1,500</div>
+<div class="font-data-mono text-data-mono text-secondary font-bold text-right">$2,500</div>
+<div class="font-data-mono text-data-mono text-secondary text-right flex justify-end items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +$1,000
+                            </div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-5 gap-stack-xs px-stack-md items-center h-row-height-compact bg-surface-container-low border-b border-outline-variant hover:border-primary border-transparent group transition-colors">
+<div class="col-span-2 font-body-sm text-body-sm text-primary flex items-center gap-stack-xs">
+                                OOP Max (Indiv)
+                            </div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-right">$4,500</div>
+<div class="font-data-mono text-data-mono text-secondary font-bold text-right">$6,000</div>
+<div class="font-data-mono text-data-mono text-secondary text-right flex justify-end items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +$1,500
+                            </div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-5 gap-stack-xs px-stack-md items-center h-row-height-compact bg-surface border-b border-outline-variant hover:border-primary border-transparent group transition-colors">
+<div class="col-span-2 font-body-sm text-body-sm text-primary flex items-center gap-stack-xs">
+                                Co-insurance
+                            </div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-right">80% / 20%</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-right">80% / 20%</div>
+<div class="font-data-mono text-data-mono text-outline text-right">No Change</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-5 gap-stack-xs px-stack-md items-center h-row-height-compact bg-surface-container-low hover:border-primary border-b border-transparent group transition-colors">
+<div class="col-span-2 font-body-sm text-body-sm text-primary flex items-center gap-stack-xs">
+                                Gross Monthly Premium
+                            </div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-right">$124,500</div>
+<div class="font-data-mono text-data-mono text-secondary font-bold text-right">$159,360</div>
+<div class="font-data-mono text-data-mono text-secondary text-right flex justify-end items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +28.0%
+                            </div>
+</div>
+</div>
+</section>
+<!-- Carrier-Shopping Lane -->
+<section class="flex flex-col gap-stack-sm">
+<h3 class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Market Alternatives (Carrier Lane)</h3>
+<div class="flex gap-stack-md overflow-x-auto pb-stack-sm">
+<!-- Active/Selected Card -->
+<div class="min-w-[240px] bg-surface-container-lowest border-2 border-primary p-stack-md flex flex-col gap-stack-sm rounded cursor-pointer relative shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-transform hover:translate-x-[-1px] hover:translate-y-[-1px]">
+<div class="absolute top-2 right-2 flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Incumbent Renewal</span>
+<div class="font-headline-md text-headline-md text-primary">BlueShield Core</div>
+<div class="flex items-end justify-between mt-stack-sm">
+<span class="font-data-mono text-data-mono text-secondary font-bold">+28.0%</span>
+<span class="font-label-sm text-label-sm text-outline">Action Req.</span>
+</div>
+</div>
+<!-- Alternative Card 1 -->
+<div class="min-w-[240px] bg-surface border border-outline-variant p-stack-md flex flex-col gap-stack-sm rounded cursor-pointer hover:border-primary transition-colors">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Market Option A</span>
+<div class="font-headline-md text-headline-md text-primary">Aetna Select</div>
+<div class="flex items-end justify-between mt-stack-sm">
+<span class="font-data-mono text-data-mono text-primary font-bold">+12.5%</span>
+<span class="font-label-sm text-label-sm text-outline">Network Disruption</span>
+</div>
+</div>
+<!-- Alternative Card 2 -->
+<div class="min-w-[240px] bg-surface border border-outline-variant p-stack-md flex flex-col gap-stack-sm rounded cursor-pointer hover:border-primary transition-colors">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Market Option B</span>
+<div class="font-headline-md text-headline-md text-primary">Cigna LevelFund</div>
+<div class="flex items-end justify-between mt-stack-sm">
+<span class="font-data-mono text-data-mono text-primary font-bold">-4.0%</span>
+<span class="font-label-sm text-label-sm text-outline">Underwriting Req.</span>
+</div>
+</div>
+<!-- Empty State / Add New -->
+<div class="min-w-[240px] bg-surface-container-low border border-dashed border-outline-variant p-stack-md flex flex-col items-center justify-center gap-stack-sm rounded cursor-pointer hover:bg-surface-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-sm text-label-sm">Request Additional Quote</span>
+</div>
+</div>
+</section>
+<!-- Contribution Slider Module -->
+<section class="bg-surface border border-outline-variant rounded p-stack-md flex flex-col gap-stack-md">
+<div class="flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Contribution Modeling</h3>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-highest px-stack-sm py-base-unit rounded">Target: Neutral Employer Cost</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-md items-end">
+<div class="col-span-2 flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Employer Split</span>
+<span class="text-primary font-bold font-data-mono">65%</span>
+</div>
+<!-- Mock Slider using standard HTML range, styled for 40px hit area -->
+<div class="h-control-height flex items-center w-full">
+<input class="w-full h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="50" type="range" value="65"/>
+</div>
+<div class="flex justify-between items-center font-label-sm text-label-sm text-outline">
+<span>50%</span>
+<span>Employee Split: 35%</span>
+<span>100%</span>
+</div>
+</div>
+<div class="col-span-1 bg-surface-container-highest border border-outline-variant p-stack-md rounded flex flex-col justify-center items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Est. Employer Annual Cost</span>
+<span class="font-headline-lg text-headline-lg text-primary mt-stack-xs font-data-mono">$1,243,000</span>
+<span class="font-data-mono text-data-mono text-secondary flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> Exceeds Budget
+                            </span>
+</div>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: Sidebar Action/Scripting (4 cols) -->
+<div class="col-span-12 xl:col-span-4 flex flex-col gap-margin-page">
+<!-- The Mandate Block -->
+<div class="bg-surface-container-highest border-l-4 border-primary p-stack-md shadow-sm">
+<p class="font-headline-md text-headline-md text-primary italic leading-tight">
+                        "I need to explain this renewal before they think I failed them."
+                    </p>
+</div>
+<!-- Say-This / Avoid-This Panel -->
+<section class="border border-outline-variant rounded flex flex-col overflow-hidden">
+<div class="bg-surface-container-low px-stack-md py-stack-sm border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Conversation Script</h3>
+</div>
+<div class="p-stack-md flex flex-col gap-stack-md bg-surface">
+<!-- Say This -->
+<div class="flex flex-col gap-stack-xs relative pl-stack-md">
+<div class="absolute left-0 top-1 bottom-0 w-1 bg-primary rounded-full"></div>
+<span class="font-label-caps text-label-caps text-primary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">record_voice_over</span> SAY THIS
+                            </span>
+<p class="font-body-sm text-body-sm text-on-surface">"The market segment for your risk profile experienced a severe contraction. We anticipated this and have already prepared two alternative funding models to offset the gross increase."</p>
+</div>
+<hr class="border-outline-variant border-dashed"/>
+<!-- Avoid This -->
+<div class="flex flex-col gap-stack-xs relative pl-stack-md bg-error-container p-stack-sm rounded border border-error">
+<span class="font-label-caps text-label-caps text-error flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">block</span> AVOID THIS
+                            </span>
+<p class="font-body-sm text-body-sm text-on-error-container">"The carrier just raised rates on everyone this year, there's nothing we can do but shop it." <span class="italic text-outline block mt-1">(Implies passivity and lack of leverage)</span></p>
+</div>
+</div>
+</section>
+<!-- Client Objection Cards -->
+<section class="flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-outline uppercase tracking-widest">Anticipated Objections</h3>
+<span class="font-data-mono text-data-mono bg-surface-container-highest px-stack-sm rounded">2 High Risk</span>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<!-- Objection 1 -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded flex gap-stack-sm items-start hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-secondary mt-1" style="font-variation-settings: 'FILL' 1;">error</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-primary font-bold">"Why didn't we know this was coming earlier?"</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Reference the Q2 claims report sent on July 15th highlighting the three large catastrophic claims that breached pooling points.</span>
+</div>
+</div>
+<!-- Objection 2 -->
+<div class="bg-surface border border-outline-variant p-stack-sm rounded flex gap-stack-sm items-start hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-on-surface-variant mt-1">forum</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-primary font-bold">"We can't pass a $1,000 deductible increase to staff."</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">Pivot to the HRA funding strategy in Market Option B to buffer the employee impact while saving premium.</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Packet Completeness & Actions -->
+<section class="mt-auto flex flex-col gap-stack-md pt-stack-md border-t border-outline-variant">
+<div class="flex flex-col gap-stack-xs">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Packet Completeness</span>
+<span class="font-data-mono text-data-mono text-primary">80%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[80%] rounded-full"></div>
+</div>
+</div>
+<div class="flex flex-col gap-stack-sm">
+<button class="h-control-height w-full bg-surface border border-primary text-primary font-label-sm text-label-sm rounded hover:bg-surface-container-highest transition-all flex items-center justify-center gap-stack-sm">
+<span class="material-symbols-outlined text-[18px]">preview</span>
+                            Preview Client Memo
+                        </button>
+<button class="h-control-height w-full bg-primary text-on-primary font-label-sm text-label-sm rounded hover:bg-primary-container transition-all shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none flex items-center justify-center gap-stack-sm">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                            Export Final Packet
+                        </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</body></html>

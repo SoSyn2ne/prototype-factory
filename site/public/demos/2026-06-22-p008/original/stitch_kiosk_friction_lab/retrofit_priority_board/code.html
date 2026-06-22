@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Retrofit Priority Board - FIELD_OPS_V2</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "secondary": "#515f74",
+                        "secondary-fixed": "#d5e3fc",
+                        "on-surface-variant": "#3d494c",
+                        "on-tertiary-container": "#563400",
+                        "primary-fixed": "#acedff",
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#d8e3fb",
+                        "on-primary-fixed-variant": "#004e5c",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-background": "#111c2d",
+                        "surface-container": "#e7eeff",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "inverse-surface": "#263143",
+                        "on-surface": "#111c2d",
+                        "primary": "#00687a",
+                        "secondary-fixed-dim": "#b9c7df",
+                        "tertiary": "#855300",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#bcc9cd",
+                        "inverse-primary": "#4cd7f6",
+                        "on-secondary-fixed": "#0d1c2e",
+                        "surface": "#f9f9ff",
+                        "background": "#f9f9ff",
+                        "outline": "#6d797d",
+                        "surface-container-high": "#dee8ff",
+                        "primary-fixed-dim": "#4cd7f6",
+                        "inverse-on-surface": "#ecf1ff",
+                        "on-secondary-fixed-variant": "#3a485b",
+                        "surface-dim": "#cfdaf2",
+                        "surface-tint": "#00687a",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001f26",
+                        "tertiary-fixed": "#ffddb8",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d5e3fc",
+                        "primary-container": "#06b6d4",
+                        "surface-container-low": "#f0f3ff",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#e79400",
+                        "surface-variant": "#d8e3fb",
+                        "on-primary-container": "#00424f",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "on-secondary-container": "#57657a",
+                        "surface-bright": "#f9f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "16px",
+                        "touch-target-min": "48px",
+                        "gutter": "16px",
+                        "stack-lg": "24px",
+                        "stack-sm": "4px",
+                        "margin-tablet": "24px",
+                        "stack-md": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "tap-label": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-md": ["22px", { "lineHeight": "28px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "26px", "letterSpacing": "0.02em", "fontWeight": "400" }],
+                        "tap-label": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "headline-lg": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .font-variation-fill { font-variation-settings: 'FILL' 1; }
+        /* Focus styles for inputs */
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #06b6d4;
+            box-shadow: 0 0 0 1px #06b6d4;
+        }
+        /* Custom scrollbar for dense lists */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #bcc9cd; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6d797d; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface flex justify-between items-center w-full px-margin-tablet py-4 border-b border-outline-variant dark:border-outline fixed top-0 left-0 right-0 z-50 h-[72px]">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md font-bold tracking-tighter text-on-surface dark:text-inverse-on-surface">FIELD_OPS_V2</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6">
+<!-- Active nav logic not applicable here as SideNav handles main routing for this view, but keeping structure if needed -->
+</nav>
+<div class="flex items-center gap-4">
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-secondary hover:bg-surface-container rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center text-secondary hover:bg-surface-container rounded-DEFAULT transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="h-touch-target-min px-6 bg-primary-container text-on-primary font-tap-label text-tap-label rounded-DEFAULT flex items-center justify-center hover:bg-opacity-90 active:bg-opacity-80 transition-opacity">
+                    Live Lab
+                </button>
+</div>
+</div>
+</header>
+<div class="flex h-screen pt-[72px]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col bg-surface-container dark:bg-surface-container-highest border-r border-outline-variant dark:border-outline w-[320px] flex-shrink-0 h-full fixed left-0 top-[72px] bottom-0 z-40 py-8 px-4 justify-between">
+<div>
+<div class="mb-8 px-4">
+<h2 class="text-headline-sm font-headline-sm font-black text-on-surface mb-1">Session ID: #8821</h2>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Terminal A-12 | Observer: J. Miller</p>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full rounded-xl transition-colors min-h-[48px]" href="#">
+<span class="material-symbols-outlined" data-icon="radar">radar</span>
+<span class="text-tap-label font-tap-label">Live Observer</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full rounded-xl transition-colors min-h-[48px]" href="#">
+<span class="material-symbols-outlined" data-icon="assessment">assessment</span>
+<span class="text-tap-label font-tap-label">Field Report</span>
+</a>
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-xl px-4 py-4 w-full min-h-[48px] scale-95 duration-100 shadow-[inset_0_0_0_2px_rgba(0,0,0,0.05)]" href="#">
+<span class="material-symbols-outlined font-variation-fill" data-icon="construction">construction</span>
+<span class="text-tap-label font-tap-label">Retrofit Board</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto pt-4 border-t border-outline-variant">
+<button class="w-full h-touch-target-min bg-on-surface text-on-primary font-tap-label text-tap-label rounded-DEFAULT hover:bg-opacity-90 transition-colors flex items-center justify-center">
+                    END SESSION
+                </button>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 ml-0 md:ml-[320px] p-margin-mobile md:p-margin-tablet bg-background overflow-y-auto">
+<div class="mb-stack-lg flex justify-between items-end">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">Retrofit Priority Board</h1>
+<p class="text-body-md font-body-md text-secondary max-w-2xl">Ranked hardware/software interventions based on empirical observation data. Prioritized by impact to operational efficiency and accessibility.</p>
+</div>
+<div class="flex gap-4">
+<button class="h-[48px] px-4 border border-outline text-on-surface font-tap-label text-tap-label rounded-DEFAULT flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+                        Export Report
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Priority List Column -->
+<div class="lg:col-span-8 flex flex-col gap-stack-md">
+<!-- P1 Item -->
+<article class="bg-surface border border-outline-variant rounded-DEFAULT p-6 relative overflow-hidden flex flex-col gap-4">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center justify-center bg-error-container text-on-error-container text-label-caps font-label-caps px-2 py-1 rounded-sm border border-error">P1</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">External Braille Keypad</h3>
+</div>
+<span class="text-label-caps font-label-caps text-secondary bg-surface-container px-2 py-1 rounded-sm">Hardware Intervention</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Quotes / ROI -->
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<h4 class="text-tap-label font-tap-label text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="payments">payments</span> Estimated Impact
+                               </h4>
+<div class="space-y-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-body-md font-body-md text-secondary">Unit Cost</span>
+<span class="text-tap-label font-tap-label text-on-surface">$145.00</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-body-md font-body-md text-secondary">Est. Fleet Rollout</span>
+<span class="text-tap-label font-tap-label text-on-surface">$17,400</span>
+</div>
+<div class="flex justify-between items-center pt-1">
+<span class="text-body-md font-body-md text-secondary">Time to ROI</span>
+<span class="text-tap-label font-tap-label text-primary-container">3.2 Months</span>
+</div>
+</div>
+</div>
+<!-- Evidence -->
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<h4 class="text-tap-label font-tap-label text-on-surface mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="plagiarism">plagiarism</span> Proof of Need
+                               </h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<span class="text-label-caps font-label-caps text-secondary mt-1 whitespace-nowrap">09:14</span>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm">User struggled to locate dynamic touch targets for PIN entry. Screen glare exacerbated issue.</p>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-label-caps font-label-caps text-secondary mt-1 whitespace-nowrap">11:02</span>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm">Failed transaction. Touchscreen lacks tactile feedback required for low-vision users.</p>
+</li>
+</ul>
+</div>
+</div>
+</article>
+<!-- P2 Item -->
+<article class="bg-surface border border-outline-variant rounded-DEFAULT p-6 relative overflow-hidden flex flex-col gap-4">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary-container"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center justify-center bg-[#fff8f2] text-tertiary-container text-label-caps font-label-caps px-2 py-1 rounded-sm border border-tertiary-container">P2</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Screen Tilt Adjustment Mount</h3>
+</div>
+<span class="text-label-caps font-label-caps text-secondary bg-surface-container px-2 py-1 rounded-sm">Hardware Intervention</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Quotes / ROI -->
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<div class="space-y-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-body-md font-body-md text-secondary">Unit Cost</span>
+<span class="text-tap-label font-tap-label text-on-surface">$85.00</span>
+</div>
+<div class="flex justify-between items-center pt-1">
+<span class="text-body-md font-body-md text-secondary">Time to ROI</span>
+<span class="text-tap-label font-tap-label text-on-surface-variant">6.5 Months</span>
+</div>
+</div>
+</div>
+<!-- Evidence -->
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<span class="text-label-caps font-label-caps text-secondary mt-1 whitespace-nowrap">14:30</span>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm">Wheelchair user unable to comfortably view screen due to fixed vertical angle.</p>
+</li>
+</ul>
+</div>
+</div>
+</article>
+<!-- P3 Item -->
+<article class="bg-surface border border-outline-variant rounded-DEFAULT p-6 relative overflow-hidden flex flex-col gap-4 opacity-80">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary"></div>
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center justify-center bg-surface-container text-secondary text-label-caps font-label-caps px-2 py-1 rounded-sm border border-secondary">P3</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">UI Font Scaling Options</h3>
+</div>
+<span class="text-label-caps font-label-caps text-secondary bg-surface-container px-2 py-1 rounded-sm">Software Patch</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<div class="space-y-2">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-body-md font-body-md text-secondary">Dev Cost</span>
+<span class="text-tap-label font-tap-label text-on-surface">40 Sprint Hrs</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant">
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<span class="text-label-caps font-label-caps text-secondary mt-1 whitespace-nowrap">10:45</span>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm">User leaned in heavily to read secondary instructional text.</p>
+</li>
+</ul>
+</div>
+</div>
+</article>
+</div>
+<!-- Summary / Meta Column -->
+<div class="lg:col-span-4 flex flex-col gap-stack-md">
+<!-- Overall Stats -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT p-6">
+<h3 class="text-headline-sm font-headline-md text-on-surface mb-6 border-b border-outline-variant pb-2">Business Case Summary</h3>
+<div class="space-y-6">
+<div>
+<p class="text-label-caps font-label-caps text-secondary mb-1">Total Est. CapEx</p>
+<p class="text-headline-lg font-headline-lg text-on-surface">$27,600</p>
+</div>
+<div>
+<div class="flex justify-between mb-1">
+<p class="text-label-caps font-label-caps text-secondary">Priority Distribution</p>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden flex">
+<div class="h-full bg-error" style="width: 50%"></div>
+<div class="h-full bg-tertiary-container" style="width: 30%"></div>
+<div class="h-full bg-secondary" style="width: 20%"></div>
+</div>
+<div class="flex justify-between mt-2">
+<span class="text-label-caps font-label-caps text-error">P1 (50%)</span>
+<span class="text-label-caps font-label-caps text-tertiary-container">P2 (30%)</span>
+<span class="text-label-caps font-label-caps text-secondary">P3 (20%)</span>
+</div>
+</div>
+<button class="w-full h-touch-target-min bg-primary-container text-on-primary font-tap-label text-tap-label rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-opacity-90 transition-colors">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                                Submit Proposal
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

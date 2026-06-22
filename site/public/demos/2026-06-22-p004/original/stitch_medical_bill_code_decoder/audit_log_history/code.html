@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Audit Log - AI Coding Bill Explainer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary-container": "#5e0d14",
+                      "on-error": "#ffffff",
+                      "surface-container": "#eeeeee",
+                      "surface": "#f9f9f9",
+                      "secondary-fixed": "#c4ecd3",
+                      "primary": "#181919",
+                      "tertiary-fixed-dim": "#ffb3b0",
+                      "surface-variant": "#e2e2e2",
+                      "surface-tint": "#5e5e5e",
+                      "inverse-surface": "#2f3131",
+                      "on-secondary": "#ffffff",
+                      "on-secondary-container": "#486c58",
+                      "on-primary-fixed-variant": "#464747",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-highest": "#e2e2e2",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed": "#410006",
+                      "primary-fixed-dim": "#c7c6c6",
+                      "tertiary": "#3c0006",
+                      "surface-container-high": "#e8e8e8",
+                      "on-secondary-fixed": "#002113",
+                      "inverse-on-surface": "#f1f1f1",
+                      "tertiary-fixed": "#ffdad8",
+                      "outline-variant": "#c4c7c7",
+                      "surface-dim": "#dadada",
+                      "on-tertiary-container": "#e57372",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#f9f9f9",
+                      "primary-fixed": "#e3e2e2",
+                      "on-primary-container": "#959595",
+                      "on-primary": "#ffffff",
+                      "outline": "#747878",
+                      "secondary": "#426652",
+                      "on-secondary-fixed-variant": "#2b4e3c",
+                      "on-primary-fixed": "#1b1c1c",
+                      "background": "#f9f9f9",
+                      "secondary-container": "#c4ecd3",
+                      "on-background": "#1a1c1c",
+                      "on-surface": "#1a1c1c",
+                      "on-surface-variant": "#444748",
+                      "surface-container-low": "#f3f3f3",
+                      "primary-container": "#2d2e2e",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed-dim": "#a8cfb8",
+                      "on-tertiary-fixed-variant": "#80272a",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#c7c6c6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-desktop": "48px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "md": "16px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "xs": "4px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "tabular-nums": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "tabular-nums": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+<!-- Mobile Top App Bar (Hidden on md+) -->
+<header class="md:hidden w-full flex justify-between items-center px-margin-mobile h-10 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline text-primary dark:text-inverse-primary sticky top-0 z-50">
+<div class="font-headline-sm text-headline-sm font-bold truncate">AI Coding Bill Explainer</div>
+<div class="flex items-center gap-xs">
+<button aria-label="help" class="p-2 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors rounded-full opacity-80">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="settings" class="p-2 hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors rounded-full opacity-80">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Hidden on Mobile, Flex on md+) -->
+<nav class="hidden md:flex flex-col bg-surface-container-low dark:bg-surface-container text-secondary dark:text-secondary-fixed border-r border-outline-variant dark:border-outline h-screen w-64 sticky top-0 py-lg px-md z-40 shrink-0">
+<div class="flex items-center gap-sm mb-xl">
+<img alt="Medical Analysis Logo" class="w-10 h-10 rounded-full bg-surface-variant object-cover border border-outline-variant" data-alt="A minimalist geometric logo for a medical analysis application, featuring abstract interlocking shapes in deep teal and clean white. The lighting is soft and corporate, evoking a sense of trust, security, and objective financial clarity. Professional, modern vector style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyytXEYBOMdGGp46-4cg1i5QgL7VgonwgdHQdi_MMQbBRV4UMMwzk1c-WR9ijZtcUnceWPWY-LkC0-FhbgiUJcElyfvpyVZPMcOSFqE-a8gWGQO2npjOJ8NmPXPl_L2mVymDLwwALYK0FHATYHhrHVaP_0qpmtMt6UT0MUvQv-vHKeV7x-waaJv2hJ1xJzag2IX6y2MMhx0eMz60P9RoIyXYBPsYxlyzAMBCSpoNVMkBHmzqJqO8Aq6tELF5KG6QJSa3J4DdP5kus"/>
+<div>
+<div class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary font-bold">Patient Portal</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-0.5">Official Bill Decoding</div>
+</div>
+</div>
+<button class="w-full h-[40px] mb-lg bg-primary text-on-primary font-label-md text-label-md rounded flex items-center justify-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+             Upload New Bill
+        </button>
+<div class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Bill Analysis
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+                Script Builder
+            </a>
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="event">event</span>
+                Due Dates
+            </a>
+<!-- Active State Applied Here: "Audit Log" -->
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary border-l-4 border-primary font-label-md text-label-md scale-95 duration-100 shadow-[0_0_0_1px_#2D2E2E]" href="#">
+<span class="material-symbols-outlined" data-icon="history" data-weight="fill">history</span>
+                Audit Log
+            </a>
+</div>
+<div class="mt-auto pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-md px-md py-sm rounded-DEFAULT text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-dim transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Help Center
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col min-w-0 bg-surface">
+<!-- Desktop Top App Bar Area (Simplified as content header) -->
+<div class="hidden md:flex justify-between items-center w-full px-margin-desktop h-16 border-b border-outline-variant dark:border-outline bg-surface sticky top-0 z-30">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Audit History</h1>
+<div class="flex items-center gap-md">
+<button aria-label="help" class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button aria-label="settings" class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+<span aria-hidden="true" class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small circular user avatar profile picture showing a professional medical administrator in clean white studio lighting. Subtle corporate background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH1hkex90yiGxXWLkDT-BNQKgLgSZK3kFYf3iI_bl0UBjI7VzXDy8KYkjAFEIJJIbCT5TAB-OuETM8kgE5OoRZp2DyHTTPIGQqJPfvPozvEdPIpSCyi3rLnxNYm1cjdeA1XDeIMDVTGKPNIp_Ukw4EZZcLd9u-w3vYtfQ3_ZEUCDsvtY82U4R9GbixLYSWG5bpDO8XO21xrNg-Qg_hm8fOSAd5SDFX7d70om3wQxjXW3-vxY9hPmOoEgaYgGeJklREuT-mc-SgWcg"/>
+</div>
+</div>
+<!-- Page Content -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop">
+<div class="max-w-7xl mx-auto space-y-lg">
+<!-- Controls Row -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary mb-1">Activity Ledger</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Complete record of system interactions, document processing, and status changes.</p>
+</div>
+<div class="flex flex-wrap items-center gap-sm w-full md:w-auto">
+<!-- Search -->
+<div class="relative flex-grow md:flex-grow-0 min-w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-[40px] pl-10 pr-3 bg-surface border border-[#E5E5E5] rounded text-primary font-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary placeholder:text-on-surface-variant" placeholder="Search provider, ID, or action..." type="text"/>
+</div>
+<!-- Filter Button -->
+<button class="h-[40px] px-md bg-surface border border-[#E5E5E5] rounded text-primary font-label-md text-label-md flex items-center gap-xs hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                            Filter
+                        </button>
+<!-- Export Button -->
+<button class="h-[40px] px-md bg-surface border border-[#E5E5E5] rounded text-primary font-label-md text-label-md flex items-center gap-xs hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- Ledger Table Card -->
+<div class="bg-surface-container-lowest border border-[#E5E5E5] rounded-lg overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead>
+<tr class="bg-surface-container-low border-b border-[#E5E5E5]">
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant w-[160px]">Date / Time</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant w-[180px]">Action</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant w-[140px]">Provider</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant">Details</th>
+<th class="py-sm px-md font-label-md text-label-md text-on-surface-variant w-[120px] text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-tabular-nums text-tabular-nums text-primary">
+<!-- Row 1 -->
+<tr class="border-b border-[#E5E5E5] hover:bg-surface-container-low transition-colors h-[48px] group">
+<td class="py-sm px-md">
+<div class="flex flex-col">
+<span>2024-05-14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">09:42 AM EST</span>
+</div>
+</td>
+<td class="py-sm px-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-secondary">upload_file</span>
+                                            Document Upload
+                                        </div>
+</td>
+<td class="py-sm px-md font-body-md text-body-md">Mercy Hospital</td>
+<td class="py-sm px-md">
+<span class="font-body-md text-body-md text-on-surface-variant truncate block max-w-[250px]">Uploaded INVOICE-99214-A.pdf via Portal</span>
+</td>
+<td class="py-sm px-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#E5E5E5] text-primary font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Complete
+                                        </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-[#E5E5E5] hover:bg-surface-container-low transition-colors h-[48px] group bg-[#f5f5f5]">
+<td class="py-sm px-md">
+<div class="flex flex-col">
+<span>2024-05-14</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">09:45 AM EST</span>
+</div>
+</td>
+<td class="py-sm px-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">memory</span>
+                                            AI Processing
+                                        </div>
+</td>
+<td class="py-sm px-md font-body-md text-body-md">System</td>
+<td class="py-sm px-md">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-variant text-primary font-label-md text-label-md text-[10px]">CPT 99214</span>
+<span class="font-body-md text-body-md text-on-surface-variant truncate block max-w-[200px]">Extracted codes and identified variance.</span>
+</div>
+</td>
+<td class="py-sm px-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#E5E5E5] text-primary font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Complete
+                                        </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-[#E5E5E5] hover:bg-surface-container-low transition-colors h-[48px] group">
+<td class="py-sm px-md">
+<div class="flex flex-col">
+<span>2024-05-13</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">14:20 PM EST</span>
+</div>
+</td>
+<td class="py-sm px-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-error">flag</span>
+                                            Discrepancy Flag
+                                        </div>
+</td>
+<td class="py-sm px-md font-body-md text-body-md">System Analysis</td>
+<td class="py-sm px-md">
+<span class="font-body-md text-body-md text-error truncate block max-w-[250px]">Upcoding suspected. CPT mismatch with diagnosis.</span>
+</td>
+<td class="py-sm px-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-error-container text-on-error-container font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                                            Review Needed
+                                        </span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="border-b border-[#E5E5E5] hover:bg-surface-container-low transition-colors h-[48px] group">
+<td class="py-sm px-md">
+<div class="flex flex-col">
+<span>2024-05-10</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">11:05 AM EST</span>
+</div>
+</td>
+<td class="py-sm px-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">edit_note</span>
+                                            Manual Override
+                                        </div>
+</td>
+<td class="py-sm px-md font-body-md text-body-md">User (Dr. Smith)</td>
+<td class="py-sm px-md">
+<span class="font-body-md text-body-md text-on-surface-variant truncate block max-w-[250px]">Approved CPT 85025 based on clinical notes.</span>
+</td>
+<td class="py-sm px-md text-right">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-[#E5E5E5] text-primary font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            Resolved
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-sm border-t border-[#E5E5E5] bg-surface-container-lowest flex items-center justify-between text-on-surface-variant font-body-sm text-body-sm">
+<span>Showing 1 to 4 of 128 entries</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded hover:bg-surface-container-low disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<span class="px-2 font-tabular-nums text-primary">1 / 32</span>
+<button class="p-1 rounded hover:bg-surface-container-low">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-md px-margin-desktop flex flex-col md:flex-row justify-between items-center bg-surface-container-lowest dark:bg-surface-dim border-t border-outline-variant mt-auto">
+<div class="font-label-md text-label-md font-bold text-on-surface-variant dark:text-on-surface-variant mb-sm md:mb-0">
+                © 2024 AI Coding Bill Explainer. Clinical Financial Analysis.
+            </div>
+<div class="flex gap-md font-body-sm text-body-sm">
+<a class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary Transition-opacity duration-200" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary Transition-opacity duration-200" href="#">Caregiver Access</a>
+<a class="text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary Transition-opacity duration-200" href="#">Terms of Audit</a>
+</div>
+</footer>
+</main>
+</body></html>

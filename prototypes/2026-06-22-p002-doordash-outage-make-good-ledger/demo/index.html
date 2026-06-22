@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DoorDash Outage Make-Good Ledger</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#a2eeff",
+                    "secondary-fixed": "#ffddb8",
+                    "on-error-container": "#ffdad6",
+                    "secondary-fixed-dim": "#ffb95f",
+                    "on-surface-variant": "#bbc9cd",
+                    "surface-tint": "#2fd9f4",
+                    "outline": "#859397",
+                    "primary-fixed-dim": "#2fd9f4",
+                    "secondary-container": "#ee9800",
+                    "surface-container-low": "#111c2d",
+                    "tertiary-fixed-dim": "#b9c7e0",
+                    "on-tertiary": "#233144",
+                    "on-primary-container": "#005763",
+                    "tertiary-fixed": "#d5e3fd",
+                    "surface-container-high": "#1f2a3c",
+                    "on-secondary-fixed": "#2a1700",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "surface-variant": "#2a3548",
+                    "on-tertiary-fixed": "#0d1c2f",
+                    "on-primary-fixed": "#001f25",
+                    "on-error": "#690005",
+                    "on-primary-fixed-variant": "#004e5a",
+                    "tertiary": "#cfdef7",
+                    "surface-container-lowest": "#040e1f",
+                    "error-container": "#93000a",
+                    "on-tertiary-fixed-variant": "#3a485c",
+                    "on-primary": "#00363e",
+                    "on-tertiary-container": "#425064",
+                    "on-background": "#d8e3fb",
+                    "surface-container-highest": "#2a3548",
+                    "inverse-surface": "#d8e3fb",
+                    "background": "#081425",
+                    "surface-bright": "#2f3a4c",
+                    "on-surface": "#d8e3fb",
+                    "surface": "#081425",
+                    "inverse-on-surface": "#263143",
+                    "on-secondary": "#472a00",
+                    "tertiary-container": "#b3c2da",
+                    "error": "#ffb4ab",
+                    "on-secondary-container": "#5b3800",
+                    "inverse-primary": "#006877",
+                    "secondary": "#ffb95f",
+                    "surface-container": "#152031",
+                    "primary-container": "#22d3ee",
+                    "outline-variant": "#3c494c",
+                    "primary": "#8aebff",
+                    "surface-dim": "#081425",
+                    "amber": { "500": "#f59e0b" } // Adding amber for specific outage highlights
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "margin-safe": "1rem",
+                    "gutter-data": "0.5rem",
+                    "row-height-tap": "3.5rem",
+                    "stack-gap": "1px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "timestamp": ["JetBrains Mono"],
+                    "headline-sm": ["Inter"],
+                    "data-mono": ["JetBrains Mono"],
+                    "label-caps": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "timestamp": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Custom scrollbar for rugged look */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #081425; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3c494c; 
+            border-radius: 0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22d3ee; 
+        }
+        .pulse-amber {
+            animation: pulse-amber 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-amber {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col md:flex-row overflow-hidden font-body-md">
+<!-- JSON: SideNavBar (Hidden on Mobile, Flex on Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-4 bg-surface-container border-r border-outline-variant docked left-0 h-screen w-64 z-20 shrink-0">
+<div class="px-margin-safe mb-8">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary mb-1">OPERATIONAL STATUS</h2>
+<p class="font-label-caps text-label-caps text-amber-500 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500 pulse-amber"></span>
+                SYSTEM OUTAGE DETECTED
+            </p>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<!-- Active Tab: Order Ledger -->
+<button class="w-full flex items-center gap-3 px-4 py-3 bg-primary-container text-on-primary-container font-bold border-l-4 border-primary scale-95 transition-transform duration-75 text-left h-row-height-tap">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-caps text-label-caps">Order Ledger</span>
+</button>
+<!-- Inactive Tab: Driver Lane -->
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors text-left h-row-height-tap border-l-4 border-transparent">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-caps text-label-caps">Driver Lane</span>
+</button>
+<!-- Inactive Tab: Recovery Queue -->
+<button class="w-full flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high transition-colors text-left h-row-height-tap border-l-4 border-transparent">
+<span class="material-symbols-outlined">rebase_edit</span>
+<span class="font-label-caps text-label-caps">Recovery Queue</span>
+</button>
+</div>
+<div class="px-4 mt-auto">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm h-row-height-tap rounded-DEFAULT flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">download</span>
+                BUILD CLAIM
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden relative">
+<!-- Persistent Incident Banner -->
+<div class="w-full bg-amber-500/20 border-b border-amber-500/50 px-margin-safe py-2 flex items-center justify-between shrink-0 z-30">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-amber-500 pulse-amber">warning</span>
+<span class="font-headline-sm text-headline-sm text-amber-500">OUTAGE DETECTED: DOORDASH PLATFORM DOWN</span>
+</div>
+<div class="font-timestamp text-timestamp text-amber-500/80">
+                18:42:05 EST
+            </div>
+</div>
+<!-- JSON: TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-safe h-row-height-tap bg-background border-b border-outline-variant shrink-0 z-10">
+<div class="font-headline-sm text-headline-sm font-bold tracking-tighter text-primary">
+                ASSET DEFENSE
+            </div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant p-2 rounded-DEFAULT transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</header>
+<!-- Scrollable Workspace -->
+<main class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 space-y-6">
+<!-- Context Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary mb-2">DoorDash Outage Make-Good Ledger</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant italic border-l-2 border-primary pl-3 py-1 bg-surface-container-low">
+                        "The platform broke, but I need proof before support closes the case."
+                    </p>
+</div>
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-3 flex flex-col min-w-[200px]">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">Estimated Loss</span>
+<span class="font-data-mono text-data-mono text-xl text-primary">$482.50</span>
+<div class="flex justify-between mt-2 font-label-caps text-label-caps text-on-surface-variant">
+<span>14 Orders</span>
+<span>3 Drivers</span>
+</div>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Primary Column: Ledger & Mismatch (Spans 2 cols on lg) -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<!-- Affected Order Ledger -->
+<section class="bg-surface-container-low border border-outline-variant flex flex-col">
+<header class="p-3 border-b border-outline-variant flex justify-between items-center bg-surface-container">
+<h3 class="font-label-caps text-label-caps text-primary">AFFECTED ORDER LEDGER</h3>
+<button class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 hover:text-primary">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> FILTER
+                            </button>
+</header>
+<!-- Rugged Table Header (Hidden on small mobile) -->
+<div class="hidden sm:grid grid-cols-12 gap-gutter-data px-4 py-2 bg-surface-variant/50 border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<div class="col-span-2">ORDER ID</div>
+<div class="col-span-2">TIME</div>
+<div class="col-span-3">POS STATUS</div>
+<div class="col-span-3">PLATFORM STATUS</div>
+<div class="col-span-2 text-right">VALUE</div>
+</div>
+<!-- Rows -->
+<div class="flex flex-col gap-stack-gap bg-outline-variant">
+<!-- Row 1: Active/Editing State -->
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-gutter-data p-4 bg-surface-container hover:bg-surface-variant transition-colors border border-primary relative">
+<div class="col-span-2 font-data-mono text-data-mono text-primary flex items-center">#812</div>
+<div class="col-span-2 font-timestamp text-timestamp text-on-surface-variant flex items-center">18:38:12</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-primary/20 text-primary px-2 py-1 text-xs border border-primary/30 rounded-DEFAULT">PAID / PREP</span>
+</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-amber-500/20 text-amber-500 px-2 py-1 text-xs border border-amber-500/30 rounded-DEFAULT flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> NOT FOUND
+                                    </span>
+</div>
+<div class="col-span-2 font-data-mono text-data-mono text-right flex items-center justify-end">$42.50</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-gutter-data p-4 bg-surface-container hover:bg-surface-variant transition-colors">
+<div class="col-span-2 font-data-mono text-data-mono flex items-center">#813</div>
+<div class="col-span-2 font-timestamp text-timestamp text-on-surface-variant flex items-center">18:40:05</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-primary/20 text-primary px-2 py-1 text-xs border border-primary/30 rounded-DEFAULT">PAID / READY</span>
+</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-surface-variant text-on-surface px-2 py-1 text-xs border border-outline-variant rounded-DEFAULT">VANISHED</span>
+</div>
+<div class="col-span-2 font-data-mono text-data-mono text-right flex items-center justify-end">$28.00</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-1 sm:grid-cols-12 gap-gutter-data p-4 bg-surface-container hover:bg-surface-variant transition-colors">
+<div class="col-span-2 font-data-mono text-data-mono flex items-center">#815</div>
+<div class="col-span-2 font-timestamp text-timestamp text-on-surface-variant flex items-center">18:41:30</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-primary/20 text-primary px-2 py-1 text-xs border border-primary/30 rounded-DEFAULT">PAID / DISPATCH</span>
+</div>
+<div class="col-span-3 flex items-center">
+<span class="bg-amber-500/20 text-amber-500 px-2 py-1 text-xs border border-amber-500/30 rounded-DEFAULT flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync_problem</span> 503 ERROR
+                                    </span>
+</div>
+<div class="col-span-2 font-data-mono text-data-mono text-right flex items-center justify-end">$55.20</div>
+</div>
+</div>
+</section>
+<!-- POS vs Platform Mismatch Panel -->
+<section class="bg-surface-container border border-amber-500/50 p-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-10">
+<span class="material-symbols-outlined text-[120px]">compare_arrows</span>
+</div>
+<h3 class="font-label-caps text-label-caps text-amber-500 mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">gavel</span> 
+                            HIGH-ALERT: RECORD MISMATCH
+                        </h3>
+<div class="flex flex-col sm:flex-row gap-4 items-center bg-surface-container-low p-4 border border-outline-variant z-10 relative">
+<div class="flex-1 w-full border border-primary/30 p-3 bg-surface-dim">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">POS SYSTEM (LOCAL)</div>
+<div class="font-data-mono text-data-mono text-primary text-lg">Order #812</div>
+<div class="font-timestamp text-timestamp text-on-surface mt-1">Status: Paid & Prepared</div>
+</div>
+<div class="shrink-0 text-outline-variant">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex-1 w-full border border-amber-500/30 p-3 bg-surface-dim">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">DOORDASH PLATFORM</div>
+<div class="font-data-mono text-data-mono text-amber-500 text-lg">Status: Not Found</div>
+<div class="font-timestamp text-timestamp text-on-surface mt-1">Response: 404 (Orphaned)</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Secondary Column: Logs, Screenshots, Drivers -->
+<div class="flex flex-col gap-6">
+<!-- Evidence / Screenshots -->
+<section class="bg-surface-container-low border border-outline-variant flex flex-col h-64">
+<header class="p-3 border-b border-outline-variant bg-surface-container flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-on-surface">EVIDENCE LOG</h3>
+<button class="text-primary hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_a_photo</span>
+</button>
+</header>
+<div class="p-3 flex-1 overflow-y-auto space-y-3">
+<!-- Log Entry -->
+<div class="flex gap-3 items-start border-l-2 border-outline-variant pl-3 py-1">
+<div class="w-16 h-12 bg-surface-variant border border-outline-variant shrink-0 flex items-center justify-center relative overflow-hidden group cursor-pointer">
+<div class="w-full h-full bg-cover bg-center opacity-50 group-hover:opacity-100 transition-opacity" data-alt="A macro shot of a rugged tablet screen displaying a stark red 503 HTTP Service Unavailable error message. The lighting is harsh, reflecting industrial kitchen stainless steel. High contrast, technical, corporate utility aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBQ6rvjOMJUN2haUqmDaMYVkRP1MabMAX5HDnB84XZytBEy-2eZx80TK1b34ls7pRd8nOibG6VoDFwZtkPyCPFRqTvTbd-U5mm2jfJPm464e7VGSmk0_TlCbGZX3CGkM9-io7HAmycprCamsxNQHldSpRS9VkTo_fN-eA4wqLB5tPlQIEmH3rDoDrf--gsprAJAor5eooahEs3KGMecSJsE82feMhFfIlWrjMHTkvBPCGTSKpGhViyEzS_rsNAG8Ylxdc-0YbM9Hrk')"></div>
+<span class="material-symbols-outlined absolute text-on-surface text-[16px] drop-shadow-md">zoom_in</span>
+</div>
+<div>
+<div class="font-timestamp text-timestamp text-on-surface-variant">18:42 - 503 Capture</div>
+<div class="font-body-sm text-body-sm text-on-surface text-xs mt-1">Tablet showed blank screen during dispatch.</div>
+</div>
+</div>
+<!-- Log Entry -->
+<div class="flex gap-3 items-start border-l-2 border-amber-500 pl-3 py-1">
+<div class="w-16 h-12 bg-surface-variant border border-amber-500/50 shrink-0 flex items-center justify-center relative overflow-hidden group cursor-pointer">
+<div class="w-full h-full bg-cover bg-center opacity-50 group-hover:opacity-100 transition-opacity" data-alt="A close-up of a digital map interface on an industrial device showing a blank grey void where streets should be, indicating a connection failure. Cold, blue-tinted screen glow against a dark slate background. Tactical interface style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCWNtrXK2XMFfMErXAhXwn_hrC13lf7DQ5yd75XqjCq7jaPuHUgX8Ra5WKsREsz6DMKInEoaAC7ElrJMPya7Zmz0Y3p3poDfjIEgcXvBkOMnyk6Q94xfOYvLAlIrw3qAWrQ7TJqxkt_ricQa-5PqPhLwAf0eoDXN9D849VU7Jsm0oh7ROGoRBtqc76DbbVt0ePgkhQ1ex_e6vZG4SLbrKWE3mSOpQtF5JcaiuH5JrqihmxIaTjGnjXdoG84Rju8uIXKsKRWzVwuziM')"></div>
+<span class="material-symbols-outlined absolute text-on-surface text-[16px] drop-shadow-md">zoom_in</span>
+</div>
+<div>
+<div class="font-timestamp text-timestamp text-amber-500">18:45 - Map Failure</div>
+<div class="font-body-sm text-body-sm text-on-surface text-xs mt-1">Driver app tracking dropped.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Driver Missed-Pay Lane (Mini) -->
+<section class="bg-surface-container-low border border-outline-variant flex flex-col">
+<header class="p-3 border-b border-outline-variant bg-surface-container">
+<h3 class="font-label-caps text-label-caps text-on-surface">DRIVER LANE (ACTIVE)</h3>
+</header>
+<div class="p-3 space-y-2">
+<div class="flex justify-between items-center p-2 bg-surface-variant border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+<span class="font-data-mono text-data-mono">D-491 (Mike T.)</span>
+</div>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 text-xs border border-error/30 rounded-DEFAULT font-label-caps">STRANDED</span>
+</div>
+<div class="flex justify-between items-center p-2 bg-surface-variant border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+<span class="font-data-mono text-data-mono">D-204 (Sarah L.)</span>
+</div>
+<span class="bg-surface-dim text-on-surface px-2 py-0.5 text-xs border border-outline-variant rounded-DEFAULT font-label-caps">RETURNED</span>
+</div>
+</div>
+<div class="p-3 pt-0">
+<button class="w-full border border-primary text-primary font-label-caps text-label-caps py-2 hover:bg-primary/10 transition-colors">
+                                + LOG DRIVER ISSUE
+                            </button>
+</div>
+</section>
+</div>
+</div>
+<!-- Generate Packet Action -->
+<div class="mt-8 pt-6 border-t border-outline-variant flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="font-body-sm text-body-sm text-on-surface-variant max-w-xl">
+                    Ensure all physical receipts are cross-referenced with the POS logs before generating the compensation packet. This action locks the current ledger state.
+                </div>
+<button class="w-full md:w-auto bg-primary-container text-on-primary-container font-headline-sm text-headline-sm h-row-height-tap px-8 rounded-DEFAULT flex items-center justify-center gap-2 hover:opacity-90 transition-opacity whitespace-nowrap">
+<span class="material-symbols-outlined">inventory_2</span>
+                    GENERATE COMPENSATION PACKET
+                </button>
+</div>
+</main>
+</div>
+<!-- JSON: BottomNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-around items-center w-full pb-safe bg-surface-container-lowest border-t border-outline-variant fixed bottom-0 z-50 h-row-height-tap">
+<!-- Active Tab: Ledger -->
+<button class="flex flex-col items-center justify-center text-primary w-1/3 h-full active:bg-surface-variant scale-95 transition-transform">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">list_alt</span>
+<span class="font-label-caps text-label-caps mt-1">Ledger</span>
+</button>
+<!-- Inactive Tab: Drivers -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/3 h-full active:bg-surface-variant">
+<span class="material-symbols-outlined">local_shipping</span>
+<span class="font-label-caps text-label-caps mt-1">Drivers</span>
+</button>
+<!-- Inactive Tab: Recovery -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant w-1/3 h-full active:bg-surface-variant">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-label-caps mt-1">Recovery</span>
+</button>
+</nav>
+</body></html>

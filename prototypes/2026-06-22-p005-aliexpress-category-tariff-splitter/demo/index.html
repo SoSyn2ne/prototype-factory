@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AliExpress Category Tariff Splitter</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#f0eded",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#161d1f",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#c3c7c8",
+                        "surface-tint": "#586062",
+                        "secondary": "#5c5f60",
+                        "background": "#fcf9f8",
+                        "tertiary-container": "#003c1b",
+                        "on-background": "#1b1b1c",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "on-tertiary-fixed": "#00210c",
+                        "primary": "#181f21",
+                        "surface-dim": "#dcd9d9",
+                        "surface-variant": "#e5e2e1",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#c1c8ca",
+                        "on-secondary-fixed-variant": "#454748",
+                        "surface-container-highest": "#e5e2e1",
+                        "inverse-on-surface": "#f3f0ef",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#e1e3e4",
+                        "on-secondary-container": "#626566",
+                        "on-surface": "#1b1b1c",
+                        "on-primary-container": "#959c9f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#00b35d",
+                        "inverse-surface": "#313030",
+                        "primary-fixed": "#dde4e6",
+                        "on-primary-fixed-variant": "#41484a",
+                        "outline": "#747879",
+                        "primary-fixed-dim": "#c1c8ca",
+                        "surface-container-high": "#eae7e7",
+                        "surface-container-low": "#f6f3f2",
+                        "surface": "#fcf9f8",
+                        "surface-bright": "#fcf9f8",
+                        "tertiary": "#00240e",
+                        "secondary-fixed": "#e1e3e4",
+                        "on-surface-variant": "#434749",
+                        "on-secondary-fixed": "#191c1d",
+                        "tertiary-fixed": "#6bfe9c",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#4ae183",
+                        "primary-container": "#2d3436",
+                        "on-tertiary-fixed-variant": "#005228"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "sm": "8px",
+                        "margin-mobile": "16px",
+                        "lg": "24px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "md": "16px",
+                        "margin-desktop": "40px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "display": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F4F7F6; color: #1b1b1c; }
+        .table-row-hover:hover { background-color: rgba(24, 31, 33, 0.05); }
+        .dashed-dropzone { border: 2px dashed #181f21; }
+        .scroll-hidden::-webkit-scrollbar { display: none; }
+        .scroll-hidden { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="font-body-md antialiased md:pl-64 pt-12 md:pt-0">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-12 bg-surface dark:bg-surface-dim border-b border-outline-variant md:hidden">
+<div class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">TariffSplitter</div>
+<div class="flex gap-sm">
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-sm rounded-full"><span class="material-symbols-outlined">help</span></button>
+<button class="text-on-surface-variant hover:bg-surface-container-low transition-colors p-sm rounded-full"><span class="material-symbols-outlined">settings</span></button>
+<img alt="User profile avatar" class="w-8 h-8 rounded-full ml-sm" data-alt="A small circular avatar placeholder for a user profile in a minimalist financial UI. Simple, modern, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAqxKz0lnU8UvFiBTzg-K4JEuQpQYIFvculKzXpqKRq0TnEfE7K3-s_vDxLnfijSQRf6YX_6acecbIpPWPeMPMaFSSTLb5UvmhIuFuRm2G907KpjBP_SexHaFv-rJ-r8bpygFBgJHyxOo6xZlc-x0Y0LDBMHCVfMnw7DRgvoYD7OCRGbbVpafC0oSTxKaAn8slOHUQJMv7S2BSRq_U28FvKtBVqCUZzQy70yar740zSnYj4NHrAU7CuiKKz2ZZUQ4oke3JMbyhv8QGR"/>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col h-full py-lg px-md bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline docked left-0 w-64 fixed top-0 z-40">
+<div class="flex items-center gap-sm mb-lg">
+<img alt="App Logo" class="w-8 h-8 rounded" data-alt="A small minimalist geometric logo for a financial asset protection app. Clean lines, dark graphite color." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEj81CEqoS1AyhOh8MGeH5VGmfFRcRcLHlNj_PCGbUUxCGEIqGrSuA5ADGfHhxUmthtvtV0RLfn_fvqexnEwByVOAHaaen5TFPdoXoG__OscV7hmCaP6ARHlWBURT_VXjdsiMHOoAb579GHSEZzaTRPEO3m3CwFXWdrbVkFTIYEO4IRKR3tvx1-6mj7qaAg3r4yXkAzlrEUrAvASmRAVXTZV8K1suDo2XwCoSSEeMi2xoPBmaldf29Z9Ko95lxmK7t3W-jMSOVaFe0"/>
+<div>
+<h1 class="text-headline-md font-headline-md font-black text-primary dark:text-primary-fixed">TariffSplitter</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Asset Protection</p>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-sm rounded mb-lg hover:opacity-90 transition-opacity font-label-caps text-label-caps">New Analysis</button>
+<div class="flex-1 overflow-y-auto scroll-hidden">
+<ul class="space-y-base">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-primary dark:text-primary-fixed font-bold bg-secondary-container dark:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined">package_2</span>
+<span class="text-label-caps font-label-caps">Shipments</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="text-label-caps font-label-caps">Fee Rules</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-label-caps font-label-caps">History</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="text-label-caps font-label-caps">Analytics</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-sm">
+<ul class="space-y-base">
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-caps font-label-caps">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-md px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-variant transition-colors" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="text-label-caps font-label-caps">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 w-full z-50 md:hidden flex justify-around items-center h-16 bg-surface dark:bg-surface-dim border-t border-outline-variant pb-safe">
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed bg-secondary-container/50 rounded-xl px-4 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">insights</span>
+<span class="text-label-caps font-label-caps mt-xs text-[10px]">Optimizer</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined">policy</span>
+<span class="text-label-caps font-label-caps mt-xs text-[10px]">Rules</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined">bookmark</span>
+<span class="text-label-caps font-label-caps mt-xs text-[10px]">Saved</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors px-4 py-1" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-caps font-label-caps mt-xs text-[10px]">Account</span>
+</a>
+</nav>
+<!-- Main Workspace -->
+<main class="p-margin-mobile md:p-margin-desktop pb-24 md:pb-margin-desktop max-w-7xl mx-auto space-y-gutter">
+<!-- Header / Warning -->
+<header class="mb-xl">
+<h2 class="text-headline-md font-headline-md text-primary mb-sm">AliExpress Category Tariff Splitter</h2>
+<div class="bg-[#FFF4E5] border border-[#FFB74D] p-md rounded flex items-start gap-md">
+<span class="material-symbols-outlined text-[#F57C00] mt-xs">warning</span>
+<div>
+<h3 class="text-body-lg font-bold text-[#E65100]">Your cheap cart is hiding category fees.</h3>
+<p class="text-body-md text-[#E65100]/80">Should I split this order before the category fees stack? High risk of multi-category tariff trigger.</p>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Table & Drag Canvas -->
+<div class="lg:col-span-8 space-y-gutter">
+<!-- Tagging Table -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded p-0 overflow-hidden">
+<div class="bg-surface-container-low border-b border-outline-variant px-md py-sm flex justify-between items-center">
+<span class="text-label-caps font-label-caps text-on-surface">Item Tagging Analysis</span>
+<button class="text-label-caps font-label-caps text-on-surface-variant flex items-center gap-xs hover:text-primary"><span class="material-symbols-outlined text-[16px]">edit</span> Edit Tags</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-lowest text-label-caps font-label-caps text-on-surface-variant">
+<th class="p-sm font-normal w-12 text-center">Drag</th>
+<th class="p-sm font-normal">Item Name</th>
+<th class="p-sm font-normal">Category Tag</th>
+<th class="p-sm font-normal text-right">Price ($)</th>
+</tr>
+</thead>
+<tbody class="text-body-md font-body-md">
+<tr class="border-b border-outline-variant table-row-hover h-10">
+<td class="p-sm text-center text-outline cursor-grab"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></td>
+<td class="p-sm font-medium text-primary">Ender 3 Mainboard V4.2.7</td>
+<td class="p-sm"><span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[11px] font-mono border border-outline-variant">Electronics</span></td>
+<td class="p-sm text-right font-data-mono text-data-mono">42.50</td>
+</tr>
+<tr class="border-b border-outline-variant table-row-hover h-10">
+<td class="p-sm text-center text-outline cursor-grab"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></td>
+<td class="p-sm font-medium text-primary">Silk PLA Spool (Dual Color)</td>
+<td class="p-sm"><span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[11px] font-mono border border-outline-variant">Hobby Plastics</span></td>
+<td class="p-sm text-right font-data-mono text-data-mono">18.99</td>
+</tr>
+<tr class="border-b border-outline-variant table-row-hover h-10">
+<td class="p-sm text-center text-outline cursor-grab"><span class="material-symbols-outlined text-[18px]">drag_indicator</span></td>
+<td class="p-sm font-medium text-primary">Stepper Motor NEMA 17</td>
+<td class="p-sm"><span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded text-[11px] font-mono border border-outline-variant">Electronics</span></td>
+<td class="p-sm text-right font-data-mono text-data-mono">12.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Drag Canvas -->
+<section class="bg-surface-container-low border border-outline-variant rounded p-md">
+<h3 class="text-label-caps font-label-caps text-on-surface mb-md">Drag-to-Split Strategy Canvas</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Shipment A -->
+<div class="dashed-dropzone bg-surface-container-lowest rounded p-md min-h-[160px] flex flex-col">
+<div class="flex justify-between items-center mb-sm">
+<span class="text-label-caps font-label-caps font-bold text-primary">Shipment A</span>
+<span class="text-[11px] font-mono text-outline">Drop items here</span>
+</div>
+<div class="flex-1 flex flex-col gap-sm">
+<div class="bg-surface border border-outline-variant rounded p-sm flex justify-between items-center cursor-pointer hover:border-primary">
+<span class="text-body-sm font-medium">Ender 3 Mainboard</span>
+<span class="material-symbols-outlined text-[16px] text-outline">close</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-sm flex justify-between items-center cursor-pointer hover:border-primary">
+<span class="text-body-sm font-medium">Stepper Motor</span>
+<span class="material-symbols-outlined text-[16px] text-outline">close</span>
+</div>
+</div>
+<div class="mt-auto pt-sm border-t border-outline-variant flex justify-between text-body-sm font-data-mono mt-4">
+<span class="text-on-surface-variant">Subtotal</span>
+<span>$54.50</span>
+</div>
+</div>
+<!-- Shipment B -->
+<div class="dashed-dropzone bg-surface-container-lowest rounded p-md min-h-[160px] flex flex-col">
+<div class="flex justify-between items-center mb-sm">
+<span class="text-label-caps font-label-caps font-bold text-primary">Shipment B</span>
+<span class="text-[11px] font-mono text-outline">Drop items here</span>
+</div>
+<div class="flex-1 flex flex-col gap-sm">
+<div class="bg-surface border border-outline-variant rounded p-sm flex justify-between items-center cursor-pointer hover:border-primary">
+<span class="text-body-sm font-medium">Silk PLA Spool</span>
+<span class="material-symbols-outlined text-[16px] text-outline">close</span>
+</div>
+</div>
+<div class="mt-auto pt-sm border-t border-outline-variant flex justify-between text-body-sm font-data-mono mt-4">
+<span class="text-on-surface-variant">Subtotal</span>
+<span>$18.99</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Analysis & Verdict -->
+<div class="lg:col-span-4 space-y-gutter flex flex-col">
+<!-- Fee Scenario -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded p-md">
+<h3 class="text-label-caps font-label-caps text-on-surface border-b border-outline-variant pb-sm mb-sm">Fee Scenario Comparison</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<div>
+<div class="text-body-sm font-medium text-on-surface">Ship as One</div>
+<div class="text-[11px] text-outline">Mixed Category Penalty</div>
+</div>
+<div class="text-headline-sm font-data-mono text-error">$18.40</div>
+</div>
+<div class="flex justify-between items-center">
+<div>
+<div class="text-body-sm font-medium text-on-surface">Split Shipment</div>
+<div class="text-[11px] text-outline">Clean Category Processing</div>
+</div>
+<div class="text-headline-sm font-data-mono text-on-surface">$4.20</div>
+</div>
+<div class="bg-tertiary-fixed-dim/20 border border-tertiary-fixed-dim p-sm rounded flex justify-between items-center">
+<span class="text-label-caps font-label-caps text-tertiary-container">Projected Savings</span>
+<span class="text-body-md font-data-mono text-tertiary-container font-bold">+$14.20</span>
+</div>
+</div>
+</section>
+<!-- Rule Drawer (Static interpretation) -->
+<section class="bg-surface-container-low border border-outline-variant rounded p-md">
+<h3 class="text-label-caps font-label-caps text-on-surface border-b border-outline-variant pb-sm mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">info</span> Rule Logic
+                    </h3>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">
+                        Mixing <span class="font-mono bg-surface px-1 py-0.5 rounded border border-outline-variant">Electronics</span> with <span class="font-mono bg-surface px-1 py-0.5 rounded border border-outline-variant">Hobby Plastics</span> frequently triggers secondary manual audit queues. Segregating these items bypasses the 'Complex Cart' tariff markup. (자산 방어 protocol active).
+                    </p>
+</section>
+<!-- Verdict (Bottom Anchor of right column) -->
+<section class="mt-auto border-2 border-primary bg-surface-container-lowest rounded p-md text-center shadow-[0_4px_12px_rgba(0,0,0,0.05)]">
+<div class="text-label-caps font-label-caps text-outline mb-sm tracking-widest">VERDICT</div>
+<div class="text-headline-sm font-headline-sm font-bold text-primary mb-md">SPLIT INTO 2 ORDERS</div>
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-sm rounded hover:bg-surface-tint transition-colors">Apply Split Optimization</button>
+</section>
+</div>
+</div>
+</main>
+</body></html>

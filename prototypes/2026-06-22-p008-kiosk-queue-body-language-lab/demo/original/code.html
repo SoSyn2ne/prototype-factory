@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Live Observation Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#ffdad6",
+                      "secondary": "#515f74",
+                      "secondary-fixed": "#d5e3fc",
+                      "on-surface-variant": "#3d494c",
+                      "on-tertiary-container": "#563400",
+                      "primary-fixed": "#acedff",
+                      "on-primary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#d8e3fb",
+                      "on-primary-fixed-variant": "#004e5c",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-background": "#111c2d",
+                      "surface-container": "#e7eeff",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "inverse-surface": "#263143",
+                      "on-surface": "#111c2d",
+                      "primary": "#00687a",
+                      "secondary-fixed-dim": "#b9c7df",
+                      "tertiary": "#855300",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#bcc9cd",
+                      "inverse-primary": "#4cd7f6",
+                      "on-secondary-fixed": "#0d1c2e",
+                      "surface": "#f9f9ff",
+                      "background": "#f9f9ff",
+                      "outline": "#6d797d",
+                      "surface-container-high": "#dee8ff",
+                      "primary-fixed-dim": "#4cd7f6",
+                      "inverse-on-surface": "#ecf1ff",
+                      "on-secondary-fixed-variant": "#3a485b",
+                      "surface-dim": "#cfdaf2",
+                      "surface-tint": "#00687a",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed": "#001f26",
+                      "tertiary-fixed": "#ffddb8",
+                      "error": "#ba1a1a",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#d5e3fc",
+                      "primary-container": "#06b6d4",
+                      "surface-container-low": "#f0f3ff",
+                      "on-error": "#ffffff",
+                      "tertiary-container": "#e79400",
+                      "surface-variant": "#d8e3fb",
+                      "on-primary-container": "#00424f",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "on-secondary-container": "#57657a",
+                      "surface-bright": "#f9f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "margin-mobile": "16px",
+                      "touch-target-min": "48px",
+                      "gutter": "16px",
+                      "stack-lg": "24px",
+                      "stack-sm": "4px",
+                      "margin-tablet": "24px",
+                      "stack-md": "12px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "tap-label": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "22px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "tap-label": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.08em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .industrial-border { border: 1px solid #e2e8f0; }
+        .industrial-border-active { border: 2px solid #06b6d4; }
+        .pressed-state:active { background-color: rgba(0,0,0,0.05); }
+      </style>
+</head>
+<body class="bg-background text-on-surface h-screen w-screen overflow-hidden flex font-body-md">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full z-40 flex flex-col pt-24 pb-8 px-4 bg-surface-container docked left-0 h-full w-[320px] border-r border-outline-variant flat no shadows">
+<div class="mb-8">
+<h1 class="text-headline-sm font-headline-sm font-black text-on-surface">FIELD_OPS_V2</h1>
+<p class="text-tap-label font-tap-label text-secondary mt-2">Session ID: #8821</p>
+<p class="text-tap-label font-tap-label text-secondary">Terminal A-12 | Observer: J. Miller</p>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-4 bg-primary text-on-primary rounded-xl px-4 py-4 w-full scale-95 duration-100" href="#">
+<span class="material-symbols-outlined">radar</span>
+<span class="text-tap-label font-tap-label">Live Observer</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="text-tap-label font-tap-label">Field Report</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:bg-surface-container-high px-4 py-4 w-full hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">construction</span>
+<span class="text-tap-label font-tap-label">Retrofit Board</span>
+</a>
+</div>
+<button class="bg-[#1e293b] text-on-primary min-h-[48px] rounded flex items-center justify-center font-tap-label text-tap-label w-full hover:bg-opacity-90">
+            END SESSION
+        </button>
+</nav>
+<!-- Main Workspace -->
+<main class="ml-[320px] flex-1 flex flex-col h-full bg-surface-dim p-gutter gap-gutter overflow-hidden">
+<!-- TopAppBar Context -->
+<header class="flex justify-between items-center bg-surface p-4 rounded-lg industrial-border shadow-sm shrink-0">
+<div>
+<h2 class="text-headline-md font-headline-md font-bold">Live Observation Lab</h2>
+<p class="text-body-md text-secondary">See where the queue gives up.</p>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-secondary text-[32px]">visibility</span>
+<span class="material-symbols-outlined text-secondary text-[32px]">more_vert</span>
+</div>
+</header>
+<!-- Split View Layout -->
+<div class="flex-1 flex gap-gutter overflow-hidden">
+<!-- Left Panel: Customer Profile -->
+<section class="w-1/4 bg-surface rounded-lg industrial-border p-4 flex flex-col gap-4 overflow-y-auto">
+<h3 class="text-tap-label font-tap-label text-on-surface border-b border-outline-variant pb-2">Profile &amp; Context</h3>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-secondary uppercase">Age Range Estimate</label>
+<select class="form-select w-full min-h-[48px] rounded industrial-border bg-surface text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container">
+<option>18-24</option>
+<option>25-34</option>
+<option>35-44</option>
+<option>45-54</option>
+<option>55+</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-secondary uppercase">Queue Position</label>
+<input class="form-input w-full min-h-[48px] rounded industrial-border bg-surface text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container" placeholder="e.g. 3" type="number"/>
+</div>
+<div class="flex items-center justify-between min-h-[48px] p-2 bg-surface-container-low rounded industrial-border">
+<span class="text-tap-label font-tap-label">Accessibility Needs</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox" value=""/>
+<div class="w-11 h-6 bg-outline-variant rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<div class="flex-1"></div>
+<div class="p-4 bg-surface-container rounded industrial-border">
+<p class="text-label-caps font-label-caps text-secondary">Consent-Safe Mode Active. Do not log PII.</p>
+</div>
+</section>
+<!-- Center Column: Task Scripts & Hesitation -->
+<section class="flex-1 flex flex-col gap-4 overflow-hidden">
+<!-- Task Scripts -->
+<div class="bg-surface rounded-lg industrial-border p-4 flex flex-col gap-2 shrink-0">
+<h3 class="text-tap-label font-tap-label text-on-surface border-b border-outline-variant pb-2 mb-2">Active Script Phase</h3>
+<div class="flex gap-2">
+<button class="flex-1 min-h-[48px] rounded industrial-border-active bg-surface-container flex items-center justify-center font-tap-label text-primary-container pressed-state">
+                            1. Browse Menu
+                        </button>
+<button class="flex-1 min-h-[48px] rounded industrial-border bg-surface flex items-center justify-center font-tap-label text-secondary hover:bg-surface-container-low pressed-state">
+                            2. Customization
+                        </button>
+<button class="flex-1 min-h-[48px] rounded industrial-border bg-surface flex items-center justify-center font-tap-label text-secondary hover:bg-surface-container-low pressed-state">
+                            3. Payment
+                        </button>
+</div>
+</div>
+<!-- Hesitation Grid -->
+<div class="bg-surface rounded-lg industrial-border p-4 flex-1 flex flex-col gap-4 overflow-y-auto">
+<h3 class="text-tap-label font-tap-label text-on-surface border-b border-outline-variant pb-2">Tap-to-Log Signals</h3>
+<div class="grid grid-cols-2 gap-4 flex-1">
+<button class="bg-surface-container-low rounded-lg industrial-border flex flex-col items-center justify-center p-4 hover:bg-surface-container pressed-state">
+<span class="material-symbols-outlined text-[48px] text-primary mb-2">touch_app</span>
+<span class="text-headline-md font-headline-md">Hand Hover</span>
+</button>
+<button class="bg-surface-container-low rounded-lg industrial-border flex flex-col items-center justify-center p-4 hover:bg-surface-container pressed-state">
+<span class="material-symbols-outlined text-[48px] text-tertiary-container mb-2">visibility</span>
+<span class="text-headline-md font-headline-md">Screen Squint</span>
+</button>
+<button class="bg-surface-container-low rounded-lg industrial-border flex flex-col items-center justify-center p-4 hover:bg-surface-container pressed-state">
+<span class="material-symbols-outlined text-[48px] text-secondary mb-2">sync</span>
+<span class="text-headline-md font-headline-md">Head Tilt</span>
+</button>
+<button class="bg-surface-container-low rounded-lg industrial-border flex flex-col items-center justify-center p-4 hover:bg-surface-container pressed-state">
+<span class="material-symbols-outlined text-[48px] text-primary-container mb-2">record_voice_over</span>
+<span class="text-headline-md font-headline-md">Verbal Query</span>
+</button>
+<button class="col-span-2 bg-surface-container-low rounded-lg industrial-border flex flex-col items-center justify-center p-4 hover:bg-surface-container pressed-state">
+<span class="material-symbols-outlined text-[48px] text-error mb-2">person_search</span>
+<span class="text-headline-md font-headline-md">Staff Eye-Contact</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Right Panel: Event Feed & Triggers -->
+<section class="w-[300px] flex flex-col gap-4">
+<!-- Event Feed -->
+<div class="bg-surface rounded-lg industrial-border p-4 flex-1 flex flex-col overflow-hidden">
+<h3 class="text-tap-label font-tap-label text-on-surface border-b border-outline-variant pb-2 mb-4">Event Feed</h3>
+<div class="flex-1 overflow-y-auto flex flex-col gap-2 pr-2">
+<!-- Logged Event Item -->
+<div class="flex border-l-4 border-tertiary-container pl-3 py-2 bg-surface-container-low rounded-r">
+<div class="flex-1">
+<p class="text-label-caps font-label-caps text-tertiary-container">14:02:11</p>
+<p class="text-body-md font-body-md">Friction: Customization Loop</p>
+</div>
+</div>
+<div class="flex border-l-4 border-primary-container pl-3 py-2 bg-surface-container-low rounded-r">
+<div class="flex-1">
+<p class="text-label-caps font-label-caps text-primary-container">14:01:45</p>
+<p class="text-body-md font-body-md">Progress: Payment Started</p>
+</div>
+</div>
+<div class="flex border-l-4 border-secondary pl-3 py-2 bg-surface-container-low rounded-r">
+<div class="flex-1">
+<p class="text-label-caps font-label-caps text-secondary">14:00:10</p>
+<p class="text-body-md font-body-md">Signal: Hand Hover</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Triggers -->
+<div class="flex flex-col gap-2 shrink-0">
+<button class="bg-[#1e293b] text-white min-h-[48px] rounded font-headline-md text-headline-md flex items-center justify-center gap-2 hover:bg-opacity-90 pressed-state">
+<span class="material-symbols-outlined">warning</span>
+                        Abandonment
+                    </button>
+<button class="bg-error text-white min-h-[64px] rounded font-headline-lg text-headline-lg flex items-center justify-center gap-2 hover:bg-opacity-90 pressed-state shadow-sm">
+<span class="material-symbols-outlined text-[32px]">sos</span>
+                        Staff Rescue
+                    </button>
+</div>
+</section>
+</div>
+</main>
+</body></html>
