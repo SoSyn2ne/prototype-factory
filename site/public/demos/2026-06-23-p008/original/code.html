@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Queue Heat Kiosk Field Lab</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#bbbbbf",
+                    "background": "#101416",
+                    "on-tertiary-fixed": "#181c22",
+                    "error": "#ffb4ab",
+                    "tertiary": "#ffffff",
+                    "surface-variant": "#323538",
+                    "on-error-container": "#ffdad6",
+                    "inverse-primary": "#006a6a",
+                    "on-tertiary-container": "#61646c",
+                    "on-primary": "#003737",
+                    "primary": "#ffffff",
+                    "on-primary-fixed": "#002020",
+                    "surface-container-low": "#191c1e",
+                    "primary-fixed-dim": "#00dddd",
+                    "surface-container-lowest": "#0b0f11",
+                    "tertiary-fixed-dim": "#c3c6cf",
+                    "error-container": "#93000a",
+                    "primary-fixed": "#00fbfb",
+                    "surface-container-high": "#272a2d",
+                    "secondary-container": "#4a4b4f",
+                    "on-secondary-fixed-variant": "#45474a",
+                    "on-tertiary": "#2d3138",
+                    "on-secondary-fixed": "#1a1c1f",
+                    "outline": "#839493",
+                    "tertiary-fixed": "#dfe2ec",
+                    "primary-container": "#00fbfb",
+                    "secondary": "#c6c6ca",
+                    "on-primary-fixed-variant": "#004f4f",
+                    "on-tertiary-fixed-variant": "#43474e",
+                    "surface": "#101416",
+                    "on-primary-container": "#007070",
+                    "surface-dim": "#101416",
+                    "on-secondary": "#2f3034",
+                    "on-background": "#e0e3e6",
+                    "outline-variant": "#3a4a49",
+                    "surface-container": "#1d2022",
+                    "tertiary-container": "#dfe2ec",
+                    "surface-container-highest": "#323538",
+                    "on-surface": "#e0e3e6",
+                    "inverse-on-surface": "#2d3133",
+                    "surface-tint": "#00dddd",
+                    "secondary-fixed-dim": "#c6c6ca",
+                    "on-surface-variant": "#b9cac9",
+                    "surface-bright": "#363a3c",
+                    "inverse-surface": "#e0e3e6",
+                    "on-error": "#690005",
+                    "secondary-fixed": "#e2e2e6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-desktop": "32px",
+                    "touch-target-min": "48px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "button-text": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "button-text": [
+                            "16px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "24px",
+                            {
+                                    "lineHeight": "30px",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@600&display=swap');
+        
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Rugged components styling overrides to match instructions */
+        .rugged-card {
+            background-color: #2A2E35;
+            border: 1px solid #3F444E;
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        
+        .rugged-input {
+            background-color: theme('colors.surface-container-low');
+            border: 1px solid theme('colors.outline');
+            color: theme('colors.on-surface');
+            min-height: theme('spacing.touch-target-min');
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        
+        .rugged-input:focus {
+            outline: none;
+            border-color: #00FFFF;
+        }
+
+        .primary-btn {
+            background-color: #00FFFF;
+            color: #000000;
+            min-height: theme('spacing.touch-target-min');
+            border-radius: theme('borderRadius.DEFAULT');
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            border: none;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .primary-btn:active {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transform: scale(0.98);
+        }
+
+        .secondary-btn {
+            background-color: #2A2E35;
+            border: 1px solid #3F444E;
+            color: theme('colors.on-surface');
+            min-height: theme('spacing.touch-target-min');
+            border-radius: theme('borderRadius.DEFAULT');
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .secondary-btn:active {
+            background-color: theme('colors.surface-variant');
+        }
+
+        .event-chip {
+            background-color: theme('colors.surface-container-low');
+            border-left: 2px solid theme('colors.outline');
+            border-radius: theme('borderRadius.DEFAULT');
+        }
+        
+        .event-chip.active {
+            border-left-color: #00FFFF;
+        }
+        
+        .event-chip.critical {
+            border-left-color: #ffb4ab;
+        }
+
+        /* Hide scrollbar for clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #101416;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #323538;
+            border-radius: 4px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col pb-24 md:pb-0">
+<!-- TopAppBar JSON execution -->
+<header class="w-full top-0 sticky border-b border-outline-variant dark:border-outline-variant bg-background dark:bg-background z-50">
+<div class="flex items-center justify-between px-margin-mobile h-touch-target-min w-full z-50 bg-background">
+<div class="flex items-center gap-3">
+<button class="hover:bg-surface-variant/50 active:scale-95 transition-transform p-2 rounded-full flex items-center justify-center text-primary dark:text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+</button>
+<h1 class="font-label-caps text-label-caps tracking-widest text-primary dark:text-primary font-bold">FIELD-OPS</h1>
+</div>
+<button class="hover:bg-surface-variant/50 active:scale-95 transition-transform p-2 rounded-full flex items-center justify-center text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">sensors</span>
+</button>
+</div>
+</header>
+<main class="flex-1 px-margin-mobile py-6 flex flex-col gap-6 md:px-margin-desktop md:max-w-4xl md:mx-auto w-full">
+<!-- Context Header -->
+<div class="flex flex-col gap-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-primary uppercase">QUEUE HEAT: LUNCHTIME CAFE</h2>
+<div class="flex items-center gap-2 event-chip active px-3 py-1.5 w-max">
+<span class="material-symbols-outlined text-[16px] text-[#00FFFF]">group</span>
+<span class="font-label-caps text-label-caps text-on-surface">8 CUSTOMERS OBSERVED</span>
+</div>
+</div>
+<!-- 1. Body-Language Tap Log -->
+<section class="rugged-card p-4 flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-[#3F444E] pb-2 uppercase">Body-Language Tap Log</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<button class="secondary-btn flex flex-col items-center justify-center gap-2 p-4 h-24">
+<span class="material-symbols-outlined text-[#00FFFF]">help_outline</span>
+<span>Hesitation</span>
+</button>
+<button class="secondary-btn flex flex-col items-center justify-center gap-2 p-4 h-24">
+<span class="material-symbols-outlined text-error">device_unknown</span>
+<span>Confusion</span>
+</button>
+<button class="secondary-btn flex flex-col items-center justify-center gap-2 p-4 h-24">
+<span class="material-symbols-outlined text-error">sentiment_very_dissatisfied</span>
+<span>Frustration</span>
+</button>
+</div>
+</section>
+<!-- 2. Friction Checklist -->
+<section class="rugged-card p-4 flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-[#3F444E] pb-2 uppercase">Kiosk Friction Checklist</h3>
+<div class="flex flex-col gap-3">
+<label class="flex items-center gap-4 p-3 bg-surface-container-low border border-outline-variant rounded-DEFAULT cursor-pointer hover:bg-surface-variant transition-colors">
+<input checked="" class="w-6 h-6 rounded-DEFAULT bg-transparent border-outline-variant text-[#00FFFF] focus:ring-0 focus:ring-offset-0 focus:border-[#00FFFF]" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Failed Coupon Scan</span>
+<span class="ml-auto event-chip critical px-2 py-1 font-label-caps text-label-caps">1x</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-surface-container-low border border-outline-variant rounded-DEFAULT cursor-pointer hover:bg-surface-variant transition-colors">
+<input checked="" class="w-6 h-6 rounded-DEFAULT bg-transparent border-outline-variant text-[#00FFFF] focus:ring-0 focus:ring-offset-0 focus:border-[#00FFFF]" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Menu Navigation Error</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-surface-container-low border border-outline-variant rounded-DEFAULT cursor-pointer hover:bg-surface-variant transition-colors">
+<input class="w-6 h-6 rounded-DEFAULT bg-transparent border-outline-variant text-[#00FFFF] focus:ring-0 focus:ring-offset-0 focus:border-[#00FFFF]" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface">Payment Terminal Timeout</span>
+</label>
+</div>
+</section>
+<!-- 3. Assistance Recorder -->
+<section class="rugged-card p-4 flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-[#3F444E] pb-2 uppercase">Assistance Recorder</h3>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-3 bg-surface-container-low border border-[#3F444E] rounded-DEFAULT">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">elderly</span>
+<span class="font-body-md text-body-md text-on-surface">Senior Help</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps bg-[#323538] px-2 py-1 rounded">2 Moments</span>
+<button class="secondary-btn min-h-[32px] px-3 border-[#3F444E]">+ Log</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-low border border-[#3F444E] rounded-DEFAULT">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">accessible</span>
+<span class="font-body-md text-body-md text-on-surface">Accessibility Help</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant">0 Moments</span>
+<button class="secondary-btn min-h-[32px] px-3 border-[#3F444E]">+ Log</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Staff Interruption Timer -->
+<section class="rugged-card p-4 flex flex-col gap-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-[#3F444E] pb-2 uppercase">Staff Interruption Timer</h3>
+<div class="flex items-center gap-4">
+<div class="flex-1 bg-surface-container-low border border-[#3F444E] rounded-DEFAULT p-4 flex flex-col items-center justify-center">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-[#00FFFF]">38s</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1 text-center">AVG HESITATION</span>
+</div>
+<button class="flex-1 secondary-btn h-full flex flex-col items-center justify-center gap-2">
+<span class="material-symbols-outlined text-error text-[32px]">timer</span>
+<span class="font-label-caps text-label-caps text-on-surface">START TIMER</span>
+</button>
+</div>
+</section>
+<!-- 5. Recommendation Board -->
+<section class="rugged-card p-4 flex flex-col gap-3">
+<div class="flex items-center gap-2 border-b border-[#3F444E] pb-2">
+<span class="material-symbols-outlined text-[#00FFFF] text-[18px]">build</span>
+<h3 class="font-label-caps text-label-caps text-[#00FFFF] uppercase">Retrofit Recommendations</h3>
+</div>
+<div class="bg-surface-container-lowest p-3 border-l-2 border-[#00FFFF] rounded-r-DEFAULT mt-2">
+<p class="font-body-md text-body-md text-on-surface">Handwritten staff workaround implemented as interim fix for the coupon scanner issue.</p>
+</div>
+</section>
+<!-- 6. Report Preview -->
+<section class="rugged-card p-4 flex flex-col gap-4 mb-8">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-[#3F444E] pb-2 uppercase">Before/After Test Report</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low border border-[#3F444E] p-3 flex flex-col items-center rounded-DEFAULT">
+<span class="font-headline-md text-headline-md text-on-surface">8</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant text-center">TOTAL OBSERVED</span>
+</div>
+<div class="bg-surface-container-low border border-[#3F444E] p-3 flex flex-col items-center rounded-DEFAULT">
+<span class="font-headline-md text-headline-md text-error">1</span>
+<span class="font-label-caps text-label-caps text-error text-center">ABANDONED ORDER</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Area (Primary Action) -->
+<div class="fixed bottom-[80px] md:bottom-6 w-full flex justify-center px-margin-mobile z-40 pointer-events-none">
+<div class="w-full md:max-w-4xl pointer-events-auto">
+<button class="primary-btn w-full flex items-center justify-center gap-2 shadow-lg shadow-black/50 border border-black/20">
+<span class="material-symbols-outlined">edit_document</span>
+<span class="font-button-text text-button-text uppercase tracking-wider">New Field Note</span>
+</button>
+</div>
+</div>
+<!-- BottomNavBar JSON execution -->
+<nav class="fixed bottom-0 w-full flex justify-around items-center px-4 py-2 bg-surface-container border-t border-outline-variant dark:border-outline-variant z-50 md:hidden">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">assignment</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl p-2 min-w-[64px] active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+<span class="font-label-caps text-label-caps mt-1 font-bold">Logs</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">warning</span>
+<span class="font-label-caps text-label-caps mt-1">Alerts</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-high active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">file_export</span>
+<span class="font-label-caps text-label-caps mt-1">Report</span>
+</button>
+</nav>
+<!-- Desktop nav spacer equivalent -->
+<div class="hidden md:block h-6 w-full"></div>
+</body></html>

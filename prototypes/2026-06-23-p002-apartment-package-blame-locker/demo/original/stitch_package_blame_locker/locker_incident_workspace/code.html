@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Apartment Package Blame Locker - Incident Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#7a3000",
+                    "on-primary": "#ffffff",
+                    "primary": "#091426",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "surface-variant": "#e0e3e5",
+                    "on-error-container": "#93000a",
+                    "on-primary-container": "#8590a6",
+                    "inverse-on-surface": "#eff1f3",
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "background": "#f7f9fb",
+                    "on-error": "#ffffff",
+                    "on-secondary-container": "#572000",
+                    "inverse-surface": "#2d3133",
+                    "surface-bright": "#f7f9fb",
+                    "inverse-primary": "#bcc7de",
+                    "primary-fixed": "#d8e3fb",
+                    "secondary-fixed-dim": "#ffb693",
+                    "outline": "#75777d",
+                    "tertiary": "#041528",
+                    "surface-container": "#eceef0",
+                    "surface-tint": "#545f73",
+                    "surface": "#f7f9fb",
+                    "on-surface-variant": "#45474c",
+                    "on-primary-fixed-variant": "#3c475a",
+                    "secondary-fixed": "#ffdbcc",
+                    "on-primary-fixed": "#111c2d",
+                    "on-background": "#191c1e",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "secondary": "#a04100",
+                    "tertiary-container": "#1a2a3e",
+                    "tertiary-fixed": "#d3e4fe",
+                    "outline-variant": "#c5c6cd",
+                    "on-surface": "#191c1e",
+                    "primary-container": "#1e293b",
+                    "primary-fixed-dim": "#bcc7de",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-container": "#8191a9",
+                    "secondary-container": "#fe6b00",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-secondary-fixed": "#351000",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f2f4f6",
+                    "surface-container-highest": "#e0e3e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "stack-lg": "24px",
+                    "margin-desktop": "32px",
+                    "gutter": "16px",
+                    "stack-md": "16px",
+                    "margin-mobile": "16px",
+                    "stack-sm": "8px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "body-md": ["Inter"],
+                    "code-md": ["JetBrains Mono"],
+                    "headline-lg": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "code-sm": ["JetBrains Mono"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "code-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "code-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .block-shadow { box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
+        .block-shadow-active:active { box-shadow: 0px 0px 0px rgba(0,0,0,0.1); transform: translate(2px, 2px); }
+        .evidence-card { border: 1px solid theme('colors.surface-variant'); background-color: theme('colors.surface-container-lowest'); }
+        .evidence-header { background-color: theme('colors.primary'); color: theme('colors.on-primary'); padding: theme('spacing.stack-sm') theme('spacing.gutter'); font-family: theme('fontFamily.code-md'); }
+        .status-strip { width: 4px; height: 100%; position: absolute; left: 0; top: 0; }
+        .status-error { background-color: theme('colors.error'); }
+        .status-warning { background-color: theme('colors.secondary-container'); }
+        .status-success { background-color: #10b981; } /* Fallback generic color for success as not explicitly in config, usually standard */
+        .status-neutral { background-color: theme('colors.outline'); }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-16 z-50 bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows docked full-width top-0 absolute top-0 left-0 right-0 md:ml-64">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-black tracking-tight text-primary dark:text-primary-fixed-dim uppercase">Locker Incident Workspace</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6 h-full items-center">
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors px-4 border-b-2 border-transparent" href="#">Dashboard</a>
+<a class="h-full flex items-center text-secondary dark:text-secondary-fixed font-bold border-b-2 border-secondary hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors px-4 opacity-80 transition-opacity" href="#">Incidents</a>
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-tertiary-container hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors px-4 border-b-2 border-transparent" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-4 border-l border-outline-variant pl-6">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+</button>
+<img alt="Investigator Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A small, professional circular headshot of a female investigator in her late 30s with dark hair tied back, wearing a dark grey utilitarian uniform jacket against a neutral light grey background, clear lighting, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuALryuPfMty57WbgLfMdORN50rcAtdY_al4aQ4aIetUTn5U0JxkGSbywWw4rtgU2JortP_T1GGZbrhdIyncZyqaLuDaKoNH6SR_ZUM5yyXF0NLDhq9KzhNA8pzORWudk5a8bhrhbq3PmmRGUwmM2uCpYg_6ApYbte9fanfehxvCYBwMCNufRAd-YUJjIQxJvDug3-yiS2-xaKkNbpQ_M6H_558hzdDsgWPFUmscfhfmvRZAk3b6kVThtrykrSlrpR-D5mA9thvjW4U"/>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 font-label-caps text-label-caps uppercase tracking-widest rounded flex items-center gap-2 hover:bg-secondary hover:text-on-secondary transition-colors block-shadow block-shadow-active">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+                    Resolve Case
+                </button>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-screen flex flex-col py-stack-lg z-40 bg-primary dark:bg-primary-container text-on-primary dark:text-on-primary-container border-r border-outline-variant dark:border-outline flat no shadows docked left-0 h-full w-64 hidden md:flex">
+<div class="px-6 pb-6 border-b border-surface-tint/30">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 bg-on-primary/10 rounded flex items-center justify-center border border-on-primary/20">
+<span class="material-symbols-outlined text-on-primary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-primary font-bold leading-tight">Investigation Hub</h1>
+<p class="font-label-caps text-label-caps uppercase tracking-widest text-on-primary/70">Pragmatic Utility</p>
+</div>
+</div>
+<button class="w-full bg-secondary-container text-on-secondary-container py-3 px-4 rounded font-label-caps text-label-caps uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-secondary hover:text-on-secondary transition-colors border border-transparent hover:border-on-primary/20 block-shadow block-shadow-active">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                New Investigation
+            </button>
+</div>
+<nav class="flex-1 py-6 flex flex-col gap-2 px-4 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded bg-secondary dark:bg-secondary-container text-on-secondary dark:text-on-secondary-container border-l-4 border-on-secondary scale-95 duration-100 font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">report_problem</span>
+                Incidents
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-primary-container dark:text-on-tertiary-container hover:bg-primary-fixed-variant hover:bg-primary-fixed-dim/20 transition-all border-l-4 border-transparent font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">domain</span>
+                Buildings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-primary-container dark:text-on-tertiary-container hover:bg-primary-fixed-variant hover:bg-primary-fixed-dim/20 transition-all border-l-4 border-transparent font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">list_alt</span>
+                Locker Logs
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-primary-container dark:text-on-tertiary-container hover:bg-primary-fixed-variant hover:bg-primary-fixed-dim/20 transition-all border-l-4 border-transparent font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">videocam</span>
+                Cameras
+            </a>
+</nav>
+<div class="px-4 pt-6 border-t border-surface-tint/30 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-4 py-2 rounded text-on-primary-container dark:text-on-tertiary-container hover:bg-primary-fixed-dim/20 transition-all font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded text-on-primary-container dark:text-on-tertiary-container hover:bg-primary-fixed-dim/20 transition-all font-label-caps text-label-caps uppercase tracking-widest" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span>
+                Sign Out
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 pt-20 px-margin-desktop pb-12 overflow-x-hidden flex flex-col gap-6">
+<!-- Incident Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b-2 border-surface-variant pb-4">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded font-label-caps text-label-caps uppercase tracking-widest border border-secondary">INVESTIGATION ACTIVE</span>
+<span class="font-code-md text-code-md text-on-surface-variant">OCT 26, 2023 - 10:45 AM</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-background m-0 leading-none">Incident #4922 - Missing Electronics</h2>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-1">Declared Value</span>
+<span class="font-code-md text-[24px] font-bold text-on-background bg-surface-variant px-3 py-1 rounded">$189.00</span>
+</div>
+</div>
+<!-- 3-Column Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Investigative Trail & Comms (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Intake Section -->
+<div class="evidence-card block-shadow">
+<div class="evidence-header flex justify-between items-center">
+<span>INTAKE_DATA</span>
+<span class="material-symbols-outlined text-[16px]">info</span>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between border-b border-surface-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Carrier</span>
+<span class="font-body-sm text-body-sm font-semibold">Amazon Logistics</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Reported Time</span>
+<span class="font-code-sm text-code-sm">Oct 26, 10:45 AM</span>
+</div>
+<div class="flex justify-between border-b border-surface-variant pb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Location Target</span>
+<span class="font-body-sm text-body-sm font-semibold">Locker 4B</span>
+</div>
+<div class="flex justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Tracking</span>
+<span class="font-code-sm text-code-sm text-primary underline cursor-pointer">TBA9948382910</span>
+</div>
+</div>
+</div>
+<!-- Locker Record Comparison -->
+<div class="evidence-card block-shadow">
+<div class="evidence-header flex justify-between items-center bg-surface-tint text-on-primary">
+<span>LOG_COMPARISON</span>
+<span class="material-symbols-outlined text-[16px]">compare_arrows</span>
+</div>
+<div class="p-0 flex flex-col">
+<div class="p-3 border-b border-surface-variant bg-surface-container-low relative">
+<div class="status-strip status-neutral"></div>
+<div class="pl-3">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Carrier Log Entry</span>
+<span class="font-code-sm text-code-sm block text-on-background">"Delivered to Locker 4B - 10:45:12 AM"</span>
+</div>
+</div>
+<div class="p-3 bg-error-container relative">
+<div class="status-strip status-error"></div>
+<div class="pl-3 flex justify-between items-center">
+<div>
+<span class="font-label-caps text-label-caps text-on-error-container block mb-1">System Log Entry</span>
+<span class="font-code-sm text-code-sm block text-error font-bold">"No code issued / No record found"</span>
+</div>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Communication Timeline -->
+<div class="evidence-card block-shadow flex-1 flex flex-col">
+<div class="evidence-header flex justify-between items-center">
+<span>COMM_TIMELINE</span>
+<span class="material-symbols-outlined text-[16px]">forum</span>
+</div>
+<div class="p-4 flex flex-col gap-4 bg-surface flex-1 overflow-y-auto max-h-[300px]">
+<div class="flex gap-3">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold flex-shrink-0">R</div>
+<div class="bg-surface-container-lowest p-3 rounded border border-surface-variant w-full">
+<div class="flex justify-between items-center mb-1">
+<span class="font-label-caps text-label-caps font-bold">Resident (Apt 302)</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">11:15 AM</span>
+</div>
+<p class="font-body-sm text-body-sm m-0">Package says delivered but no locker code. Checked the app twice.</p>
+</div>
+</div>
+<div class="flex gap-3 flex-row-reverse">
+<div class="w-8 h-8 rounded bg-surface-tint text-on-primary flex items-center justify-center font-bold flex-shrink-0">LO</div>
+<div class="bg-surface-container-low p-3 rounded border border-surface-variant w-full text-right">
+<div class="flex justify-between items-center mb-1 flex-row-reverse">
+<span class="font-label-caps text-label-caps font-bold">Leasing Office</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">11:32 AM</span>
+</div>
+<p class="font-body-sm text-body-sm m-0">Carrier probably left it on the floor. Check the floor photo. We are not responsible for carrier error.</p>
+</div>
+</div>
+</div>
+<div class="p-3 border-t border-surface-variant bg-surface-container-lowest flex gap-2">
+<input class="w-full bg-surface-container-low border-0 border-b-2 border-surface-variant focus:border-secondary focus:ring-0 font-body-sm px-3 py-2 transition-colors" placeholder="Add note to timeline..." type="text"/>
+<button class="bg-surface-tint text-on-primary p-2 rounded block-shadow block-shadow-active">
+<span class="material-symbols-outlined text-[20px]">send</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Center Column: Visual Evidence (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-6">
+<!-- Delivery Photo Evidence -->
+<div class="evidence-card block-shadow flex flex-col">
+<div class="evidence-header flex justify-between items-center bg-primary">
+<span>EVIDENCE: PROOF_OF_DELIVERY</span>
+<div class="flex gap-2">
+<button class="text-on-primary hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-[18px]">zoom_in</span></button>
+<button class="text-on-primary hover:text-secondary-fixed transition-colors"><span class="material-symbols-outlined text-[18px]">download</span></button>
+</div>
+</div>
+<div class="relative bg-black w-full" style="aspect-ratio: 16/9;">
+<!-- Using precise image placeholder provided -->
+<img class="w-full h-full object-contain opacity-90" data-alt="A gritty, slightly grainy security camera photo of a package room floor. The perspective is angled downwards showing a concrete floor. In the foreground, a large cardboard Amazon box is sitting directly on the floor. In the background, rows of metal lockers and other random packages are scattered on the floor. The lighting is harsh fluorescent overhead lighting. The aesthetic is raw utilitarian surveillance footage." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0aT_-SNEXTB6_NwytlSRrY7ePJjaSK_hfhbnpOE0D9BeJKZ-ZagZrcn-GFDm6S87jeUP9tIEWBQmHlkL0bNYieORLrsIRAzWbEMniVT64MT6x32B9lqoGTr9HLw5ZbfRB2DIGzYgUuRp18SkUuChuS5uCBSFJwZl7yl4BtOLvHTDcNI7yo0oOQO1eCZd4TRDH9GPr3sf2ZyfkF2NPic4FtnlaCmoUqfpp2FrVSRSS44IeJzF1Uk2yZOiTjpFRyjOwkC9y347dIPg"/>
+<!-- Missing Item Annotation Overlay -->
+<div class="absolute inset-0 pointer-events-none border-4 border-error opacity-70 m-8 flex items-end justify-center pb-4">
+<div class="bg-error text-on-error font-code-sm px-2 py-1 flex items-center gap-2 block-shadow">
+<span class="material-symbols-outlined text-[14px]">target</span>
+                                AREA OF INTEREST: FLOOR PLACEMENT
+                             </div>
+</div>
+<!-- Timestamp overlay -->
+<div class="absolute top-2 left-2 bg-black/70 text-on-primary font-code-md px-2 py-1 text-[10px] tracking-widest border border-outline/50">
+                            CAM_02 - PKG_ROOM - 10:45:12
+                        </div>
+</div>
+<div class="p-3 bg-surface-container-lowest border-t border-surface-variant flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Source: Amazon Carrier Portal</span>
+<button class="text-primary font-label-caps text-label-caps hover:underline">View Metadata</button>
+</div>
+</div>
+<!-- Camera Status Panel -->
+<div class="evidence-card block-shadow">
+<div class="evidence-header flex justify-between items-center bg-surface-tint text-on-primary">
+<span>HW_STATUS: CAMERAS</span>
+<span class="material-symbols-outlined text-[16px]">videocam</span>
+</div>
+<div class="p-0">
+<div class="flex items-center justify-between p-3 border-b border-surface-variant relative">
+<div class="status-strip status-success"></div>
+<div class="pl-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">camera</span>
+<span class="font-code-sm text-code-sm font-bold text-on-background">Main Entry Cam</span>
+</div>
+<span class="font-label-caps text-label-caps bg-surface-container-high px-2 py-1 rounded">ONLINE</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-error-container relative">
+<div class="status-strip status-error"></div>
+<div class="pl-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-error">videocam_off</span>
+<div class="flex flex-col">
+<span class="font-code-sm text-code-sm font-bold text-on-error-container">Package Room Cam 01</span>
+<span class="font-code-sm text-[10px] text-error">OUT OF SERVICE (SINCE OCT 24)</span>
+</div>
+</div>
+<button class="text-error font-label-caps text-label-caps border border-error px-2 py-1 rounded hover:bg-error/10 transition-colors">TICKET</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Context (3 cols) -->
+<div class="lg:col-span-3 flex flex-col gap-6">
+<!-- Action Controls (Safety Orange Focus) -->
+<div class="evidence-card block-shadow border-secondary-container">
+<div class="evidence-header flex justify-between items-center bg-secondary-container text-on-secondary-container">
+<span>ACTION_REQUIRED</span>
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<button class="w-full bg-secondary-container text-on-secondary-container py-4 rounded font-label-caps text-label-caps uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-secondary hover:text-on-secondary transition-colors border border-transparent block-shadow block-shadow-active text-center">
+<span class="material-symbols-outlined">gavel</span>
+                            File Claim (Carrier)
+                        </button>
+<button class="w-full bg-surface-tint text-on-primary py-3 rounded font-label-caps text-label-caps uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-primary transition-colors border border-transparent block-shadow block-shadow-active text-center">
+<span class="material-symbols-outlined">escalator_warning</span>
+                            Escalate to Manager
+                        </button>
+</div>
+</div>
+<!-- Checklist -->
+<div class="evidence-card block-shadow">
+<div class="evidence-header flex justify-between items-center">
+<span>PROCEDURE_CHECKLIST</span>
+<span class="material-symbols-outlined text-[16px]">checklist</span>
+</div>
+<div class="p-0">
+<label class="flex items-center gap-3 p-3 border-b border-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="form-checkbox h-5 w-5 text-secondary border-outline-variant rounded focus:ring-secondary focus:ring-offset-0 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold">Police Report</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">Pending filing</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 border-b border-surface-variant cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="form-checkbox h-5 w-5 text-secondary border-outline-variant rounded focus:ring-secondary focus:ring-offset-0 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-semibold">Insurance Claim</span>
+<span class="font-code-sm text-[10px] text-on-surface-variant">Not Started</span>
+</div>
+</label>
+<label class="flex items-center gap-3 p-3 bg-secondary-fixed/20 cursor-pointer hover:bg-secondary-fixed/30 transition-colors">
+<input class="form-checkbox h-5 w-5 text-secondary border-secondary rounded focus:ring-secondary focus:ring-offset-0 bg-surface-container-lowest" type="checkbox"/>
+<div class="flex flex-col">
+<span class="font-body-sm text-body-sm font-bold text-secondary-container">Refund Request</span>
+<span class="font-code-sm text-[10px] text-secondary">Action Required</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Building Pattern Heatmap -->
+<div class="evidence-card block-shadow">
+<div class="evidence-header flex justify-between items-center">
+<span>RISK_PATTERN</span>
+<span class="material-symbols-outlined text-[16px]">bar_chart</span>
+</div>
+<div class="p-4 flex flex-col gap-2">
+<div class="flex justify-between items-end mb-2">
+<span class="font-code-md text-code-md text-error font-bold">3 INCIDENTS</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Past 7 Days</span>
+</div>
+<!-- CSS Grid Heatmap representation -->
+<div class="w-full h-24 bg-surface-container-low border border-outline-variant relative overflow-hidden flex items-end gap-1 p-1" style="background-image: repeating-linear-gradient(0deg, transparent, transparent 19px, theme('colors.outline-variant') 20px); background-size: 100% 20px;">
+<div class="w-1/7 bg-surface-tint/30 h-1/4 rounded-t border-t border-surface-tint"></div>
+<div class="w-1/7 bg-surface-tint/30 h-1/5 rounded-t border-t border-surface-tint"></div>
+<div class="w-1/7 bg-error h-3/4 rounded-t border-t border-error-container block-shadow" title="Oct 24 - 2 Incidents"></div>
+<div class="w-1/7 bg-surface-tint/30 h-1/6 rounded-t border-t border-surface-tint"></div>
+<div class="w-1/7 bg-surface-tint/30 h-0 rounded-t border-t border-surface-tint"></div>
+<div class="w-1/7 bg-secondary h-2/4 rounded-t border-t border-secondary-container block-shadow" title="Oct 26 - 1 Incident"></div>
+<div class="w-1/7 bg-surface-tint/30 h-1/4 rounded-t border-t border-surface-tint"></div>
+</div>
+<div class="flex justify-between mt-1 px-1">
+<span class="font-code-sm text-[9px] text-on-surface-variant">OCT 20</span>
+<span class="font-code-sm text-[9px] text-on-surface-variant font-bold text-secondary">TODAY</span>
+</div>
+<p class="font-label-caps text-[10px] text-on-surface-variant text-center mt-2 border-t border-surface-variant pt-2">Building 4 shows elevated risk in Lobby sector.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

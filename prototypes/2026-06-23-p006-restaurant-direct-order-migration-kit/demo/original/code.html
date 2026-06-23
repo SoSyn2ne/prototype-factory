@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Restaurant Direct Order Migration Kit - Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#594317",
+                        "inverse-primary": "#b7c7eb",
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#c5c6ce",
+                        "surface-dim": "#dbd9dc",
+                        "on-secondary-container": "#54647a",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-surface-variant": "#44474d",
+                        "surface-container": "#efedf0",
+                        "tertiary-fixed": "#ffdea7",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d0e1fb",
+                        "on-background": "#1b1b1e",
+                        "tertiary-fixed-dim": "#e3c28a",
+                        "surface-container-low": "#f5f3f6",
+                        "surface-variant": "#e4e2e5",
+                        "on-primary-fixed-variant": "#374765",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#1b1b1e",
+                        "surface": "#fbf8fb",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-high": "#eae7ea",
+                        "primary-fixed": "#d7e2ff",
+                        "outline": "#75777e",
+                        "on-tertiary-fixed": "#271900",
+                        "tertiary-container": "#3b2800",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#8393b5",
+                        "on-primary-fixed": "#091b37",
+                        "secondary": "#505f76",
+                        "on-tertiary-container": "#ac8e5b",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "primary-fixed-dim": "#b7c7eb",
+                        "surface-container-highest": "#e4e2e5",
+                        "background": "#fbf8fb",
+                        "primary": "#041632",
+                        "surface-tint": "#4f5e7e",
+                        "on-tertiary": "#ffffff",
+                        "inverse-on-surface": "#f2f0f3",
+                        "tertiary": "#211500",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-bright": "#fbf8fb",
+                        "primary-container": "#1b2b48",
+                        "inverse-surface": "#303033"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "base": "4px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "8px",
+                        "gutter": "20px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "data-tabular": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .tabular-nums {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex">
+<!-- SideNavBar Component -->
+<nav class="hidden md:flex bg-surface-container-low border-r border-outline-variant docked fixed-left h-full w-64 flex-col p-md gap-sm flex-shrink-0 relative z-20">
+<div class="mb-lg px-sm">
+<h1 class="font-headline-sm text-headline-sm font-black text-primary truncate">직접 주문 마이그레이션</h1>
+<p class="font-label-md text-label-md text-on-surface-variant truncate mt-xs">Direct Order Migration Kit</p>
+</div>
+<div class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container font-bold rounded-xl transition-transform scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-headline-sm text-headline-sm text-sm">마진 계산기</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-transform hover:bg-surface-container-high scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+<span class="font-headline-sm text-headline-sm text-sm">마케팅 빌더</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-transform hover:bg-surface-container-high scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+<span class="font-headline-sm text-headline-sm text-sm">증거 로그</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-transform hover:bg-surface-container-high scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="leaderboard">leaderboard</span>
+<span class="font-headline-sm text-headline-sm text-sm">스코어보드</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-sm border-t border-outline-variant pt-md">
+<button class="w-full bg-primary text-on-primary py-sm rounded-lg font-data-tabular text-data-tabular transition-colors hover:bg-primary-fixed hover:text-on-primary-fixed">전환 가이드 보기</button>
+<div class="flex flex-col gap-xs mt-sm">
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-transform hover:bg-surface-container-high scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-label-md text-label-md">지원팀 연락</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-on-surface-variant hover:bg-surface-variant rounded-xl transition-transform hover:bg-surface-container-high scale-98 active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">로그아웃</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 flex flex-col min-w-0 md:ml-64 bg-background">
+<!-- TopNavBar Component (Mobile Only / Responsive Pivot) -->
+<header class="md:hidden bg-surface flex justify-between items-center w-full px-lg max-w-container-max mx-auto h-16 border-b border-outline-variant docked full-width top-0 z-20">
+<div class="text-headline-sm font-headline-sm font-bold text-primary truncate">
+                Platform Burden Dashboard
+            </div>
+<div class="flex items-center gap-md">
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="bg-primary text-on-primary px-md py-xs rounded font-label-md text-label-md ml-sm transition-all duration-200 ease-in-out">다운로드 리포트</button>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-md lg:p-lg max-w-container-max mx-auto w-full flex flex-col gap-lg overflow-y-auto">
+<!-- Dashboard Header -->
+<section class="flex flex-col lg:flex-row lg:items-end justify-between gap-md border-b border-outline-variant pb-md">
+<div>
+<h2 class="font-display-lg text-display-lg text-primary">Platform Burden Dashboard</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">현재 배달앱 의존도 및 전환 잠재력 분석</p>
+</div>
+<div class="flex flex-wrap gap-md items-center">
+<div class="bg-error-container text-on-error-container px-sm py-xs rounded flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="warning">warning</span>
+<span class="font-label-md text-label-md font-bold">Pending Disclosure Rule: 공정위 약관 심사 중</span>
+</div>
+<div class="flex gap-lg border border-outline-variant rounded-lg p-sm bg-surface-container-lowest">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">평균 수수료율</span>
+<span class="font-data-tabular text-data-tabular text-primary font-bold tabular-nums">8.2%</span>
+</div>
+<div class="w-px bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">프로모션 티어</span>
+<span class="font-data-tabular text-data-tabular text-error font-bold tabular-nums">15.0%</span>
+</div>
+<div class="w-px bg-outline-variant"></div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant">주간 총 배달 건수</span>
+<span class="font-data-tabular text-data-tabular text-primary font-bold tabular-nums">240건</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+<!-- Margin Calculator (Side-by-Side Comparison) -->
+<section class="lg:col-span-12 xl:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-md lg:p-lg flex flex-col">
+<div class="flex items-center justify-between mb-md">
+<h3 class="font-headline-md text-headline-md text-primary">마진 시뮬레이터</h3>
+<button class="bg-primary text-on-primary px-md py-sm rounded-lg font-data-tabular text-data-tabular transition-colors hover:bg-primary-fixed hover:text-on-primary-fixed">계산하기</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md relative flex-1">
+<!-- VS Divider for Desktop -->
+<div class="hidden md:flex absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-outline-variant z-0">
+<div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 bg-surface-container-lowest border border-outline-variant rounded-full px-sm py-xs font-label-md text-label-md text-on-surface-variant font-bold z-10 bg-white">VS</div>
+</div>
+<!-- Left: Delivery App -->
+<div class="bg-surface-container-low rounded-lg p-md border border-outline-variant flex flex-col z-10">
+<h4 class="font-headline-sm text-headline-sm text-error mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="trending_down">trending_down</span>
+                                배달앱 (현상 유지)
+                            </h4>
+<div class="flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">기본 수수료율</span>
+<span class="font-data-tabular text-data-tabular tabular-nums">8.2%</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">광고비 (티어 할증)</span>
+<span class="font-data-tabular text-data-tabular tabular-nums text-error">+ 6.8%</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">월 예상 주문액</span>
+<div class="relative">
+<input class="font-data-tabular text-data-tabular tabular-nums text-right bg-transparent border-none p-0 focus:ring-0 w-24" readonly="" type="text" value="12,000,000"/>
+<span class="font-label-md text-label-md text-outline absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none translate-x-full ml-xs">KRW</span>
+</div>
+</div>
+<div class="mt-auto pt-md bg-error-container/20 rounded p-sm border border-error-container">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-error-container font-bold">월 누수 수수료 비용</span>
+<span class="font-headline-md text-headline-md text-error tabular-nums font-bold">₩ 1,800,000</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Direct Channel -->
+<div class="bg-primary-fixed/20 rounded-lg p-md border border-primary-fixed flex flex-col z-10 shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)]">
+<h4 class="font-headline-sm text-headline-sm text-primary mb-sm flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                                자사 채널 (목표)
+                            </h4>
+<div class="flex-1 flex flex-col gap-sm">
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">중개 수수료</span>
+<span class="font-data-tabular text-data-tabular tabular-nums text-primary font-bold">0.0%</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">포장 할인 혜택 (투자)</span>
+<span class="font-data-tabular text-data-tabular tabular-nums">- 2,000 KRW</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-body-md text-body-md text-on-surface-variant">목표 전환율 (12%)</span>
+<div class="relative">
+<input class="font-data-tabular text-data-tabular tabular-nums text-right bg-transparent border-none p-0 focus:ring-0 w-24 text-primary" readonly="" type="text" value="1,440,000"/>
+<span class="font-label-md text-label-md text-outline absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none translate-x-full ml-xs">KRW</span>
+</div>
+</div>
+<div class="mt-auto pt-md bg-secondary-container rounded p-sm border border-secondary-fixed">
+<div class="flex justify-between items-end">
+<span class="font-label-md text-label-md text-on-secondary-container font-bold">월 순이익 개선액 (잠재)</span>
+<span class="font-headline-md text-headline-md text-primary tabular-nums font-bold">₩ 216,000</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Migration Scoreboard -->
+<section class="lg:col-span-12 xl:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-sm border-b border-outline-variant pb-xs">주간 마이그레이션 스코어보드</h3>
+<div class="flex-1 flex flex-col justify-center items-center py-lg relative">
+<!-- Simplified visual representation of a chart -->
+<div class="w-full max-w-[200px] h-[200px] rounded-full border-[16px] border-surface-container relative flex items-center justify-center">
+<!-- Circular progress mask (approximate visual) -->
+<div class="absolute inset-0 rounded-full border-[16px] border-primary" style="clip-path: polygon(50% 0, 100% 0, 100% 50%, 50% 50%); transform: rotate(43.2deg);"></div>
+<div class="text-center">
+<div class="font-display-lg text-display-lg text-primary tabular-nums font-bold">12%</div>
+<div class="font-label-md text-label-md text-on-surface-variant mt-xs">목표 전환율</div>
+</div>
+</div>
+</div>
+<div class="mt-auto flex justify-between items-center text-sm border-t border-outline-variant pt-sm">
+<span class="font-body-md text-body-md text-on-surface-variant">현재: 28건/주</span>
+<span class="font-body-md text-body-md text-primary font-bold">목표: 240건/주</span>
+</div>
+</section>
+<!-- Marketing & Offer Builder -->
+<section class="lg:col-span-12 xl:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-md border-b border-outline-variant pb-xs">마케팅 &amp; 오퍼 빌더</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- QR Generator -->
+<div class="col-span-1 border border-outline-variant rounded-lg p-sm flex flex-col items-center text-center hover:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)] transition-shadow">
+<span class="material-symbols-outlined text-[32px] text-primary mb-xs" data-icon="qr_code_2">qr_code_2</span>
+<h4 class="font-data-tabular text-data-tabular font-bold mb-xs">테이블 텐트 QR</h4>
+<div class="w-24 h-24 bg-surface-variant mb-sm" data-alt="A clean, minimalist QR code graphic rendered in sharp black on a pristine white background. The QR code represents a restaurant table tent linking to a direct ordering system. The lighting is flat and even, emphasizing the high-contrast analytical style typical of corporate financial dashboards. The aesthetic is highly precise, modern, and professional." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBIewFwn-_VIk7JEPysQd9TTvjA7tBKCV8KeqZxBI3OJheXr_D1XSkgbuDvlOAHRpckDOL_kH3J2erSUTTEmgWZZjQyP6Dyx5RMfrwYkH2xtsO1_LXsi78MzQzfxwA1nimDE_ArIPO_IkxycPyfGjyYsq2VX-BCg8YwsvKZhHToo_Tck1pmOlUNxcaqde9HLRPGx_FpzaupK2PYHvleJ7z9rvnRVOEmOB94tYR_X9DydpmFNVpQxAxQfekNFpy4YX0ae-Zi0SrnMw')"></div>
+<button class="w-full text-label-md font-label-md border border-outline text-on-surface-variant py-xs rounded hover:bg-surface-variant transition-colors">생성하기</button>
+</div>
+<!-- SMS Composer -->
+<div class="col-span-1 border border-outline-variant rounded-lg p-sm flex flex-col hover:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)] transition-shadow">
+<h4 class="font-data-tabular text-data-tabular font-bold mb-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="sms">sms</span>
+                                SMS/카카오 오퍼
+                            </h4>
+<div class="flex-1 bg-surface-container-low p-xs rounded border border-outline-variant mb-sm text-[11px] leading-tight text-on-surface-variant">
+                                [가게이름] 단골고객님!<br/>배달앱 대신 '전화/앱'으로 직접 주문하시면 포장 2,000원 할인 혜택을 드립니다.
+                            </div>
+<button class="mt-auto w-full text-label-md font-label-md border border-outline text-on-surface-variant py-xs rounded hover:bg-surface-variant transition-colors">템플릿 편집</button>
+</div>
+<!-- Receipt Stuffer -->
+<div class="col-span-1 border border-outline-variant rounded-lg p-sm flex flex-col hover:shadow-[0px_4px_6px_-1px_rgba(0,0,0,0.05)] transition-shadow">
+<h4 class="font-data-tabular text-data-tabular font-bold mb-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="receipt_long">receipt_long</span>
+                                영수증/전단 삽지
+                            </h4>
+<div class="flex-1 bg-surface-container-low p-xs rounded border border-outline-variant mb-sm flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="image">image</span>
+</div>
+<button class="mt-auto w-full text-label-md font-label-md border border-outline text-on-surface-variant py-xs rounded hover:bg-surface-variant transition-colors">시안 보기</button>
+</div>
+</div>
+</section>
+<!-- Data & Scripts Container -->
+<div class="lg:col-span-12 xl:col-span-6 flex flex-col gap-lg">
+<!-- Evidence Log -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex-1">
+<div class="flex justify-between items-center mb-sm border-b border-outline-variant pb-xs">
+<h3 class="font-headline-sm text-headline-sm text-primary">가맹점 연대 증거 로그</h3>
+<button class="text-label-md font-label-md text-primary hover:underline">전체보기</button>
+</div>
+<div class="flex flex-col gap-sm">
+<article class="py-sm border-b border-surface-variant last:border-0 hover:bg-surface-container-low transition-colors px-xs rounded">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-tertiary-fixed text-on-tertiary-fixed-variant px-xs py-[2px] rounded text-[10px] font-bold">뉴스</span>
+<time class="font-label-md text-label-md text-outline">2023. 10. 24</time>
+</div>
+<h4 class="font-data-tabular text-data-tabular font-bold text-on-surface">"플랫폼 수수료 투명화법" 국회 본회의 통과 임박</h4>
+</article>
+<article class="py-sm border-b border-surface-variant last:border-0 hover:bg-surface-container-low transition-colors px-xs rounded">
+<div class="flex items-center gap-sm mb-xs">
+<span class="bg-secondary-fixed text-on-secondary-fixed-variant px-xs py-[2px] rounded text-[10px] font-bold">동향</span>
+<time class="font-label-md text-label-md text-outline">2023. 10. 20</time>
+</div>
+<h4 class="font-data-tabular text-data-tabular font-bold text-on-surface">독립 가맹점주 협의회, '직접 주문' 캠페인 전국 확대 결의</h4>
+</article>
+</div>
+</section>
+<!-- Customer Scripts -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-sm border-b border-outline-variant pb-xs flex items-center gap-xs">
+<span class="material-symbols-outlined" data-icon="forum">forum</span>
+                            고객 응대 스크립트 카드
+                        </h3>
+<div class="bg-surface-variant/30 border border-outline-variant rounded p-sm">
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed text-sm">
+<strong class="text-primary font-bold">직접 주문을 설명할 때:</strong><br/>
+                                "고객님, 저희 매장으로 직접 전화 주시거나 자사앱을 이용하시면 수수료 절감분만큼 포장 할인 2,000원 혜택을 돌려드리고 있습니다. 다음에도 꼭 직접 주문 부탁드릴게요!"
+                            </p>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+</body></html>

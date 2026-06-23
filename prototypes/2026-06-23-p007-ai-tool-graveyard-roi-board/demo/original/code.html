@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Graveyard ROI Board - Audit Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#d5e0f8",
+                      "surface": "#f8f9ff",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-secondary-container": "#586377",
+                      "inverse-on-surface": "#eaf1ff",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#213145",
+                      "primary": "#000000",
+                      "surface-bright": "#f8f9ff",
+                      "surface-variant": "#d3e4fe",
+                      "primary-container": "#131b2e",
+                      "primary-fixed": "#dae2fd",
+                      "error": "#ba1a1a",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "tertiary-container": "#2a1700",
+                      "outline": "#76777d",
+                      "background": "#f8f9ff",
+                      "surface-container": "#e5eeff",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "on-tertiary-container": "#b87500",
+                      "surface-container-highest": "#d3e4fe",
+                      "tertiary": "#000000",
+                      "on-error": "#ffffff",
+                      "on-primary-container": "#7c839b",
+                      "on-surface": "#0b1c30",
+                      "error-container": "#ffdad6",
+                      "secondary-fixed": "#d8e3fb",
+                      "on-tertiary-fixed": "#2a1700",
+                      "inverse-primary": "#bec6e0",
+                      "on-primary": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "outline-variant": "#c6c6cd",
+                      "on-surface-variant": "#45464d",
+                      "primary-fixed-dim": "#bec6e0",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#0b1c30",
+                      "surface-container-high": "#dce9ff",
+                      "surface-tint": "#565e74",
+                      "surface-dim": "#cbdbf5",
+                      "on-primary-fixed": "#131b2e",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#545f73"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-max": "1440px",
+                      "margin-mobile": "1rem",
+                      "cell-padding-x": "0.75rem",
+                      "margin-desktop": "2rem",
+                      "gutter": "1rem",
+                      "cell-padding-y": "0.5rem"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-table": [
+                              "Inter"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg": [
+                              "30px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-table": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for tables */
+        .table-scroll::-webkit-scrollbar {
+            height: 6px;
+        }
+        .table-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .table-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        .table-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-primary-container h-screen w-64 border-r border-outline-variant fixed left-0 top-0 flex flex-col py-4 z-50 hidden md:flex">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary-container text-on-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">Graveyard ROI</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Small Team Audit</p>
+</div>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 px-3 space-y-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary dark:text-primary-fixed font-bold border-r-2 border-primary dark:border-primary-fixed bg-surface-container-low dark:bg-surface-container-high transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined fill text-[20px]">dashboard</span>
+<span class="font-body-md text-body-md font-bold">Audit Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-secondary-container dark:text-on-secondary-fixed-variant font-medium hover:bg-surface-container dark:hover:bg-surface-variant transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-body-md text-body-md font-medium">Tool Inventory</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-secondary-container dark:text-on-secondary-fixed-variant font-medium hover:bg-surface-container dark:hover:bg-surface-variant transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-body-md text-body-md font-medium">ROI Analysis</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-secondary-container dark:text-on-secondary-fixed-variant font-medium hover:bg-surface-container dark:hover:bg-surface-variant transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-body-md text-body-md font-medium">Policy Memos</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="px-3 mt-auto space-y-1 pt-4 border-t border-outline-variant/30">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-secondary-container dark:text-on-secondary-fixed-variant font-medium hover:bg-surface-container dark:hover:bg-surface-variant transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-body-md text-body-md font-medium">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-secondary-container dark:text-on-secondary-fixed-variant font-medium hover:bg-surface-container dark:hover:bg-surface-variant transition-colors scale-95 duration-75 active:opacity-80" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-body-md text-body-md font-medium">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 min-h-screen flex flex-col w-full bg-surface">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-primary-container w-full h-16 border-b border-outline-variant fixed top-0 right-0 z-40 flex items-center justify-between px-margin-desktop w-[calc(100%-16rem)] hidden md:flex">
+<div class="flex items-center gap-4 flex-1">
+<h2 class="font-headline-md text-headline-md font-black text-primary dark:text-primary-fixed hidden lg:block">Graveyard ROI Board</h2>
+<!-- Search (on_left) -->
+<div class="relative max-w-md w-full ml-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full h-9 pl-9 pr-4 rounded bg-surface-container-low border border-outline-variant/50 focus:border-primary focus:ring-1 focus:ring-primary text-body-md font-body-md transition-all" placeholder="Search audits, tools, or policies..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<!-- Trailing Icon Actions -->
+<button aria-label="Notifications" class="w-10 h-10 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer active:opacity-70">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Filter List" class="w-10 h-10 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer active:opacity-70">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button aria-label="Account" class="w-10 h-10 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer active:opacity-70 mr-4">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<!-- Trailing Primary Action -->
+<button class="h-9 px-4 bg-primary text-on-primary font-label-caps text-label-caps rounded flex items-center gap-2 hover:bg-inverse-surface transition-all active:scale-95 duration-75">
+<span class="material-symbols-outlined text-[16px]">add</span>
+                    Run New Audit
+                </button>
+</div>
+</header>
+<!-- Mobile Header (Visible only on small screens) -->
+<header class="md:hidden bg-surface-container-lowest h-14 border-b border-outline-variant flex items-center justify-between px-4 sticky top-0 z-40">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">ROI Board</h1>
+<button class="w-8 h-8 flex items-center justify-center">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 p-margin-mobile md:p-margin-desktop mt-0 md:mt-16 max-w-container-max mx-auto w-full flex flex-col gap-6">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant pb-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg font-bold text-primary tracking-tight">AI Spend &amp; Renewal Cliff</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Audit Period: Q3 2023</p>
+</div>
+</div>
+<!-- Value Cards (KPIs) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase tracking-widest">Monthly Spend</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">$642</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">/mo</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-[#f59e0b] p-4 rounded flex flex-col bg-[#fffbeb]">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-[#b45309] uppercase tracking-widest">Renewals Next Month</span>
+<span class="material-symbols-outlined text-[#f59e0b] text-[18px]">warning</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-[#92400e]">3</span>
+<span class="font-label-sm text-label-sm text-[#b45309]">tools</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 uppercase tracking-widest">Total AI Tools</span>
+<div class="flex items-baseline gap-2">
+<span class="font-headline-lg text-headline-lg font-bold text-primary">8</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">active</span>
+</div>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column (Tables & Cards) -->
+<div class="lg:col-span-8 space-y-6 flex flex-col">
+<!-- Tool Inventory Table -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col overflow-hidden">
+<div class="px-4 py-3 border-b border-outline-variant bg-[#f8fafc] flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md font-semibold text-primary text-[16px]">Tool Inventory</h3>
+<button class="text-secondary font-label-caps text-label-caps hover:text-primary">View Full Register</button>
+</div>
+<div class="overflow-x-auto table-scroll">
+<table class="w-full text-left font-data-table text-data-table border-collapse">
+<thead>
+<tr class="border-b border-outline-variant bg-[#f8fafc]">
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-semibold border-r border-outline-variant">Tool Name</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-semibold border-r border-outline-variant">Monthly Cost</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-semibold border-r border-outline-variant">Utilization (30d)</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-semibold border-r border-outline-variant">Hours Saved/Wk</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-semibold">Status / Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 border-r border-outline-variant font-medium">TextGen Pro</td>
+<td class="py-2 px-3 border-r border-outline-variant">$49</td>
+<td class="py-2 px-3 border-r border-outline-variant text-[#b45309] font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">warning</span> 0 logins</td>
+<td class="py-2 px-3 border-r border-outline-variant text-on-surface-variant">-</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-[#fee2e2] text-[#991b1b] border border-[#f87171] mb-1 mr-1">Renewal &lt;30 Days</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 border-r border-outline-variant font-medium">AutoData Sync</td>
+<td class="py-2 px-3 border-r border-outline-variant">$120</td>
+<td class="py-2 px-3 border-r border-outline-variant text-[#b45309] font-medium flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">warning</span> 0 logins</td>
+<td class="py-2 px-3 border-r border-outline-variant text-on-surface-variant">-</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-[#fee2e2] text-[#991b1b] border border-[#f87171] mb-1 mr-1">Renewal &lt;30 Days</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 border-r border-outline-variant font-medium">SupportBot Neo</td>
+<td class="py-2 px-3 border-r border-outline-variant">$299</td>
+<td class="py-2 px-3 border-r border-outline-variant">420 interactions</td>
+<td class="py-2 px-3 border-r border-outline-variant text-on-surface-variant">Unknown</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-[#fef3c7] text-[#92400e] border border-[#fcd34d]">High Friction</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 border-r border-outline-variant font-medium">ReportAssist</td>
+<td class="py-2 px-3 border-r border-outline-variant">$65</td>
+<td class="py-2 px-3 border-r border-outline-variant">84 exports</td>
+<td class="py-2 px-3 border-r border-outline-variant text-[#065f46] font-medium">4.0 hrs</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-[#d1fae5] text-[#065f46] border border-[#34d399]">High Value</span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="py-2 px-3 border-r border-outline-variant font-medium">ImageGen AI</td>
+<td class="py-2 px-3 border-r border-outline-variant">$20</td>
+<td class="py-2 px-3 border-r border-outline-variant">12 generations</td>
+<td class="py-2 px-3 border-r border-outline-variant text-on-surface-variant">0.5 hrs</td>
+<td class="py-2 px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded text-label-sm font-label-sm bg-[#fee2e2] text-[#991b1b] border border-[#f87171] mb-1 mr-1">Renewal &lt;30 Days</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Promise vs Actual Scorecards (Bento-ish) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant pb-2 mb-3">Scorecard: SupportBot Neo</h4>
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Claimed ROI</span>
+<span class="font-body-md text-body-md font-medium text-primary">"50% ticket deflection"</span>
+</div>
+<div class="flex justify-between items-center bg-[#fef3c7] p-2 rounded border border-[#fcd34d]">
+<span class="font-body-md text-body-md text-[#92400e]">Observed ROI</span>
+<span class="font-body-md text-body-md font-bold text-[#92400e]">12% deflection</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant pb-2 mb-3">Scorecard: ReportAssist</h4>
+<div class="flex justify-between items-center mb-2">
+<span class="font-body-md text-body-md text-on-surface-variant">Claimed ROI</span>
+<span class="font-body-md text-body-md font-medium text-primary">"Automate reports"</span>
+</div>
+<div class="flex justify-between items-center bg-[#d1fae5] p-2 rounded border border-[#34d399]">
+<span class="font-body-md text-body-md text-[#065f46]">Observed ROI</span>
+<span class="font-body-md text-body-md font-bold text-[#065f46]">Exceeds expectations</span>
+</div>
+</div>
+</div>
+<!-- Decision Queue -->
+<div>
+<h3 class="font-headline-md text-headline-md font-semibold text-primary mb-3">Decision Queue</h3>
+<div class="flex gap-4 overflow-x-auto pb-2 table-scroll snap-x">
+<!-- Card 1 -->
+<div class="min-w-[280px] bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col snap-start shrink-0 relative">
+<div class="absolute top-0 right-0 w-2 h-full bg-[#f87171] rounded-r"></div>
+<h4 class="font-headline-md text-[16px] font-semibold text-primary mb-1">TextGen Pro</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Zero utilization. $49/mo drain.</p>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-[#fee2e2] text-[#991b1b] border border-[#f87171] font-label-caps text-label-caps py-1.5 rounded hover:bg-[#fca5a5] transition-colors">Cancel</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="min-w-[280px] bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col snap-start shrink-0 relative">
+<div class="absolute top-0 right-0 w-2 h-full bg-[#fcd34d] rounded-r"></div>
+<h4 class="font-headline-md text-[16px] font-semibold text-primary mb-1">SupportBot Neo</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">High friction. Low deflection.</p>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-surface-container border border-outline-variant text-on-surface font-label-caps text-label-caps py-1.5 rounded hover:bg-surface-container-high transition-colors">Retrain</button>
+<button class="flex-1 bg-surface-container border border-outline-variant text-on-surface font-label-caps text-label-caps py-1.5 rounded hover:bg-surface-container-high transition-colors">Replace</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="min-w-[280px] bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col snap-start shrink-0 relative">
+<div class="absolute top-0 right-0 w-2 h-full bg-[#f87171] rounded-r"></div>
+<h4 class="font-headline-md text-[16px] font-semibold text-primary mb-1">AutoData Sync</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Zero utilization. $120/mo drain.</p>
+<div class="mt-auto flex gap-2">
+<button class="flex-1 bg-[#fee2e2] text-[#991b1b] border border-[#f87171] font-label-caps text-label-caps py-1.5 rounded hover:bg-[#fca5a5] transition-colors">Cancel</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Sidebar Widgets) -->
+<div class="lg:col-span-4 space-y-6 flex flex-col">
+<!-- Hours Saved Calculator -->
+<div class="bg-primary text-on-primary rounded border border-primary-container p-5 flex flex-col shadow-sm">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed">schedule</span>
+<h3 class="font-label-caps text-label-caps uppercase tracking-widest text-primary-fixed">Time Value Calculator</h3>
+</div>
+<div class="flex justify-between items-end border-b border-on-primary-fixed-variant pb-3 mb-3">
+<span class="font-body-md text-body-md text-on-primary-container">Aggregate Time Saved</span>
+<span class="font-headline-md text-[24px] font-bold">4.5 <span class="text-label-sm font-normal text-on-primary-container">hrs/wk</span></span>
+</div>
+<div class="flex justify-between items-end pb-3 mb-3">
+<span class="font-body-md text-body-md text-on-primary-container">Implied Value ($50/hr)</span>
+<span class="font-headline-md text-[20px] font-bold text-[#34d399]">+$900 <span class="text-label-sm font-normal text-on-primary-container">/mo</span></span>
+</div>
+<div class="bg-inverse-surface p-3 rounded flex flex-col mt-2">
+<span class="font-label-sm text-label-sm text-on-primary-container mb-1">Net ROI (Value - Cost)</span>
+<span class="font-headline-md text-[18px] font-bold text-on-primary">+$258 /mo</span>
+</div>
+</div>
+<!-- Employee Friction Notes Lane -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col h-full">
+<div class="px-4 py-3 border-b border-outline-variant bg-[#f8fafc]">
+<h3 class="font-label-caps text-label-caps font-semibold text-on-surface-variant uppercase tracking-widest">Employee Interpretation Notes</h3>
+</div>
+<div class="p-4 space-y-4 flex-1 overflow-y-auto max-h-[400px]">
+<div class="pl-3 border-l-2 border-[#f59e0b] relative">
+<span class="absolute -left-[9px] top-1 w-4 h-4 bg-surface-container-lowest border-2 border-[#f59e0b] rounded-full"></span>
+<p class="font-body-md text-body-md text-on-surface italic">"The SupportBot is circular. It keeps sending customers back to the main menu instead of answering questions."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-1">— Customer Success Team</span>
+</div>
+<div class="pl-3 border-l-2 border-[#10b981] relative">
+<span class="absolute -left-[9px] top-1 w-4 h-4 bg-surface-container-lowest border-2 border-[#10b981] rounded-full"></span>
+<p class="font-body-md text-body-md text-on-surface italic">"ReportAssist is a life-saver. It took my Monday morning reporting from 4 hours down to essentially zero."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-1">— Financial Analyst</span>
+</div>
+<div class="pl-3 border-l-2 border-[#ef4444] relative">
+<span class="absolute -left-[9px] top-1 w-4 h-4 bg-surface-container-lowest border-2 border-[#ef4444] rounded-full"></span>
+<p class="font-body-md text-body-md text-on-surface italic">"I didn't even know we had TextGen Pro. I've been using the free version of ChatGPT."</p>
+<span class="font-label-sm text-label-sm text-on-surface-variant block mt-1">— Marketing Coord</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quarterly AI Policy Memo -->
+<div class="mt-6 border-t-2 border-primary pt-6 mb-12">
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded max-w-3xl">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">description</span>
+<h3 class="font-headline-md text-headline-md font-bold text-primary">Quarterly AI Policy Memo</h3>
+</div>
+<div class="prose prose-sm max-w-none font-body-md text-body-md text-on-surface-variant space-y-3">
+<p><strong>Audit Findings Summary:</strong> The Q3 audit revealed significant bloat in redundant AI text generation tools. Zero utilization on specific subscriptions indicates a need for centralized procurement.</p>
+<p><strong>Governance Update:</strong> Effective immediately, all departmental AI purchases must pass through a 30-day "proof of concept" phase before annual commitment. Tools scoring 'High Friction' in employee surveys will face mandatory review.</p>
+<p><strong>Action Required:</strong> Department heads must authorize cancellation of "TextGen Pro" and "AutoData Sync" prior to the 15th to avoid auto-renewal charges.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
