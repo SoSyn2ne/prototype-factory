@@ -1,59 +1,442 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chargeback Friendly-Fraud Evidence Pack - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-24-p001</p>
-        <h1>Chargeback Friendly-Fraud Evidence Pack</h1>
-        <p>Small merchants assemble transaction, fulfillment, and conversation proof before friendly-fraud disputes drain margin.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chargeback Evidence Workspace - ChargebackDesk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "outline": "#777587",
+                        "primary-container": "#4f46e5",
+                        "surface-container-highest": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "on-primary-fixed": "#0f0069",
+                        "surface-bright": "#f7f9fb",
+                        "inverse-surface": "#2d3133",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#351000",
+                        "on-background": "#191c1e",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary": "#7e3000",
+                        "primary": "#3525cd",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-primary": "#c3c0ff",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container": "#eceef0",
+                        "surface": "#f7f9fb",
+                        "surface-tint": "#4d44e3",
+                        "secondary-fixed": "#d3e4fe",
+                        "surface-dim": "#d8dadc",
+                        "on-surface-variant": "#464555",
+                        "background": "#f7f9fb",
+                        "on-secondary-container": "#54647a",
+                        "secondary": "#505f76",
+                        "outline-variant": "#c7c4d8",
+                        "surface-variant": "#e0e3e5",
+                        "inverse-on-surface": "#eff1f3",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-surface": "#191c1e",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "secondary-container": "#d0e1fb",
+                        "on-tertiary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#ffd2be",
+                        "tertiary-container": "#a44100"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "0.75rem",
+                        "grid-margin": "1rem",
+                        "row-height-condensed": "2rem",
+                        "stack-md": "0.5rem",
+                        "stack-sm": "0.25rem",
+                        "row-height-default": "2.5rem"
+                    },
+                    "fontFamily": {
+                        "tabular-nums": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "tabular-nums": ["13px", {"lineHeight": "18px", "fontWeight": "500"}],
+                        "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-sm": ["18px", {"lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @keyframes pulse-fast {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        .animate-pulse-fast {
+            animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        /* Utilitarian Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen flex flex-col overflow-hidden font-body-sm">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest text-primary flex justify-between items-center w-full px-gutter h-row-height-default border-b border-outline-variant shrink-0 z-10 relative">
+<div class="flex items-center gap-6">
+<div class="text-headline-sm font-headline-sm font-extrabold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+                ChargebackDesk
+            </div>
+<nav class="hidden md:flex space-x-6 h-full items-end">
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors pb-1 border-b-2 border-transparent" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1 hover:bg-surface-container-low transition-colors opacity-80" href="#">Cases</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors pb-1 border-b-2 border-transparent" href="#">Analytics</a>
+<a class="text-on-surface-variant hover:bg-surface-container-low transition-colors pb-1 border-b-2 border-transparent" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary h-8 px-4 rounded font-label-caps text-label-caps uppercase flex items-center gap-1 hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined text-[16px]">publish</span>
+                Submit Case
+            </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="hover:bg-surface-container-low p-1 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:bg-surface-container-low p-1 rounded-full transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<img alt="User profile" class="w-7 h-7 rounded-full object-cover border border-outline-variant ml-2" data-alt="A professional headshot of a female tech worker with short dark hair, wearing a navy blazer over a light blue shirt. She has a neutral, focused expression. The background is a slightly blurred modern office setting with cool, bright lighting. Minimalist corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm0gEnZdxgyJEyjoHG2qg5MAhBFxt9yPwg2yzPJqux1jHUCfjKdgqIAjdhmnuQ1GcMcgVSW4UwynkA_Ep9ymYkX4mTIixWswWRE42ZRN33IGYyL0zpd9S3xk72YccV5MP4pf9gQTnLiVtdzrYc7cQnv-JtPP-_2iG8Teenge6dPUW2wZkYarypRVx4Tp2RqVHuSEtWwjNaMlVNuN0Evjs7RC8DSe8CuUhNkEyBBbUzC3V1a7kdr-Fhs5iDH-rkbp3XdumJnkLVCA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Suppressed intentionally as per rules for focused journey, but keeping minimal version for pro-tool feel, acting as Queue) -->
+<aside class="bg-surface-container-low text-primary docked left-0 h-full w-64 border-r border-outline-variant flex flex-col py-grid-margin gap-stack-md shrink-0 hidden lg:flex">
+<div class="px-gutter mb-2">
+<h2 class="font-headline-sm text-headline-sm text-primary">Queue</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Active Investigations</p>
+<button class="mt-4 w-full border border-outline-variant text-on-surface-variant h-8 rounded font-label-caps text-label-caps uppercase hover:bg-surface-container-high transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[16px]">search</span>
+                    New Search
+                </button>
+</div>
+<nav class="flex-1 overflow-y-auto px-2 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">folder_open</span>
+<span class="font-body-sm text-body-sm">All Disputes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-body-sm text-body-sm font-semibold">High Risk</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">history_edu</span>
+<span class="font-body-sm text-body-sm">Under Review</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="font-body-sm text-body-sm">Won</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">cancel</span>
+<span class="font-body-sm text-body-sm">Lost</span>
+</a>
+</nav>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col h-full overflow-hidden bg-background">
+<!-- Context Header -->
+<div class="bg-surface-container-lowest border-b border-outline-variant p-grid-margin shrink-0 flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3 mb-1">
+<span class="font-tabular-nums text-tabular-nums text-on-surface font-bold text-lg">Case #CB-8821</span>
+<div class="bg-error-container text-on-error-container px-2 py-0.5 rounded flex items-center gap-1 border border-[#ffb4ab]">
+<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+<span class="font-label-caps text-label-caps uppercase">Dispute-at-Risk</span>
+</div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded flex items-center gap-1 border border-tertiary-fixed-dim">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+<span class="font-label-caps text-label-caps uppercase animate-pulse-fast">5-Day Deadline</span>
+</div>
+</div>
+<div class="flex items-center gap-6 mt-2 text-on-surface-variant font-body-sm text-body-sm">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">payments</span>
+<span class="font-tabular-nums text-tabular-nums text-on-surface font-bold">$276.00</span>
+<span>(Skincare Order)</span>
+</div>
+<div class="h-4 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">policy</span>
+<span>Visa 10.4 (Other)</span>
+</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="border border-outline-variant text-on-surface-variant h-8 px-4 rounded font-label-caps text-label-caps uppercase hover:bg-surface-container-low transition-colors">
+                        Hold
+                    </button>
+<button class="bg-primary text-on-primary h-8 px-4 rounded font-label-caps text-label-caps uppercase flex items-center gap-1 hover:bg-surface-tint transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+                        Submit Representment
+                    </button>
+</div>
+</div>
+<!-- Three Column Density Layout -->
+<div class="flex-1 flex overflow-hidden p-grid-margin gap-grid-margin">
+<!-- Left: Evidence Timeline -->
+<div class="w-1/3 flex flex-col bg-surface-container-lowest border border-outline-variant rounded bg-clip-padding overflow-hidden">
+<div class="border-b border-outline-variant p-2 bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase text-on-surface">Evidence Timeline</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">timeline</span>
+</div>
+<div class="flex-1 overflow-y-auto p-4">
+<div class="relative pl-6 space-y-6 before:absolute before:inset-y-0 before:left-[11px] before:w-px before:bg-outline-variant before:-z-10">
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-surface-container-lowest"></div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-sm text-body-sm font-semibold">Order Placed</span>
+<span class="font-tabular-nums text-tabular-nums text-on-surface-variant text-[11px]">Oct 12, 14:32</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-2 mt-1">
+<div class="flex items-center justify-between font-tabular-nums text-tabular-nums text-[12px]">
+<span class="text-on-surface-variant">IP:</span>
+<span>192.168.1.45 (Match)</span>
+</div>
+<div class="flex items-center justify-between font-tabular-nums text-tabular-nums text-[12px] mt-1">
+<span class="text-on-surface-variant">Device:</span>
+<span>iPhone 13 Pro</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-surface-container-lowest"></div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-sm text-body-sm font-semibold">Payment Processed</span>
+<span class="font-tabular-nums text-tabular-nums text-on-surface-variant text-[11px]">Oct 12, 14:33</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-2 mt-1 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#0f9d58]">check_circle</span>
+<span class="font-body-sm text-body-sm text-[12px]">CVV &amp; AVS Match</span>
+</div>
+</div>
+<!-- Timeline Item -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-outline-variant border-2 border-surface-container-lowest"></div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-sm text-body-sm font-semibold">Shipped</span>
+<span class="font-tabular-nums text-tabular-nums text-on-surface-variant text-[11px]">Oct 14, 09:15</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-2 mt-1">
+<span class="font-tabular-nums text-tabular-nums text-primary text-[12px] cursor-pointer hover:underline">FedEx: 1Z9999999999999999</span>
+</div>
+</div>
+<!-- Timeline Item (Highlight) -->
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-primary border-2 border-surface-container-lowest shadow-[0_0_0_2px_rgba(79,70,229,0.2)]"></div>
+<div class="flex justify-between items-start mb-1">
+<span class="font-body-sm text-body-sm font-semibold text-primary">Delivery Confirmed</span>
+<span class="font-tabular-nums text-tabular-nums text-primary font-semibold text-[11px]">Oct 16, 11:42</span>
+</div>
+<div class="bg-primary-fixed border border-primary-fixed-dim rounded p-2 mt-1">
+<div class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary mt-0.5" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<div>
+<div class="font-body-sm text-body-sm text-[12px] font-semibold text-on-primary-fixed">Shopify Integration Match</div>
+<div class="font-body-sm text-body-sm text-[11px] text-on-primary-fixed-variant mt-0.5">Delivered to billing zip code. Signature required: Yes.</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle: Conversation & Comparison -->
+<div class="w-1/3 flex flex-col gap-grid-margin">
+<!-- Conversation Lane -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="border-b border-outline-variant p-2 bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase text-on-surface">Customer Comm</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">forum</span>
+</div>
+<div class="flex-1 overflow-y-auto p-3 space-y-3 bg-surface-bright">
+<!-- Msg -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-surface border border-outline-variant rounded p-2 text-[12px] font-body-sm text-on-surface">
+                                    Where is my order? It's been 3 days.
+                                </div>
+<span class="text-[10px] text-on-surface-variant mt-0.5 font-tabular-nums">Oct 15, 10:00 (Pre-delivery)</span>
+</div>
+<!-- Msg -->
+<div class="flex flex-col items-end max-w-[85%] ml-auto">
+<div class="bg-secondary-container text-on-secondary-container border border-secondary-fixed-dim rounded p-2 text-[12px] font-body-sm">
+                                    Hi there, your order is out for delivery today via FedEx.
+                                </div>
+<span class="text-[10px] text-on-surface-variant mt-0.5 font-tabular-nums">Support • Oct 16, 09:00</span>
+</div>
+<!-- Msg Highlight -->
+<div class="flex flex-col items-start max-w-[85%]">
+<div class="bg-error-container border border-[#ffb4ab] rounded p-2 text-[12px] font-body-sm text-on-error-container relative">
+<div class="absolute -left-1 -top-1 w-2 h-2 rounded-full bg-error animate-pulse"></div>
+                                    I received it but I don't want it anymore. Give me a refund.
+                                </div>
+<span class="text-[10px] text-error font-semibold mt-0.5 font-tabular-nums">Oct 17, 14:20 (Post-delivery)</span>
+</div>
+</div>
+</div>
+<!-- Descriptor Comparison -->
+<div class="h-32 flex flex-col bg-surface-container-lowest border border-outline-variant rounded overflow-hidden shrink-0">
+<div class="border-b border-outline-variant p-2 bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase text-on-surface">Descriptor Analysis</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">compare_arrows</span>
+</div>
+<div class="p-3 flex-1 flex flex-col justify-center">
+<div class="flex items-center justify-between mb-2">
+<span class="text-[11px] text-on-surface-variant font-label-caps uppercase">Merchant DBA</span>
+<span class="font-tabular-nums text-tabular-nums font-semibold">Glow Skincare Co.</span>
+</div>
+<div class="h-px bg-outline-variant w-full mb-2"></div>
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-on-surface-variant font-label-caps uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-tertiary-container">warning</span>
+                                    Billing Statement
+                                </span>
+<span class="font-tabular-nums text-tabular-nums text-tertiary-container font-mono bg-tertiary-fixed border border-tertiary-fixed-dim px-1 rounded">GLW*HOLDINGS LLC NY</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right: Risk & Checklist -->
+<div class="w-1/3 flex flex-col gap-grid-margin">
+<!-- Fraud Pattern Detector -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="border-b border-outline-variant p-2 bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase text-on-surface">Pattern Detector</span>
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">radar</span>
+</div>
+<div class="p-3">
+<div class="flex items-center gap-2 mb-3 bg-tertiary-fixed border border-tertiary-fixed-dim p-2 rounded">
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<div class="font-body-sm text-body-sm font-semibold text-on-tertiary-fixed">High Risk Pattern Detected</div>
+<div class="text-[11px] text-on-tertiary-fixed-variant mt-0.5">Friendly Fraud Indicator</div>
+</div>
+</div>
+<table class="w-full text-left font-tabular-nums text-tabular-nums text-[12px]">
+<thead>
+<tr class="text-on-surface-variant border-b border-outline-variant">
+<th class="pb-1 font-normal">Metric</th>
+<th class="pb-1 font-normal text-right">Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant">
+<td class="py-1.5">Prior Disputes (Same Email)</td>
+<td class="py-1.5 text-right font-semibold text-error">2</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-1.5">Velocity (Orders 30d)</td>
+<td class="py-1.5 text-right">4</td>
+</tr>
+<tr>
+<td class="py-1.5">Account Age</td>
+<td class="py-1.5 text-right">45 Days</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Evidence Gap Checklist -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<div class="border-b border-outline-variant p-2 bg-surface-container-low flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase text-on-surface">Evidence Packet</span>
+<span class="bg-surface-dim px-1.5 py-0.5 rounded text-[10px] font-tabular-nums">3/4</span>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-2">
+<!-- Checklist Item -->
+<div class="flex items-center justify-between p-2 border border-outline-variant rounded bg-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+<span class="font-body-sm text-body-sm text-[12px]">Proof of Delivery</span>
+</div>
+<span class="text-[10px] font-tabular-nums bg-primary-fixed text-on-primary-fixed px-1 rounded">Auto</span>
+</div>
+<!-- Checklist Item -->
+<div class="flex items-center justify-between p-2 border border-outline-variant rounded bg-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+<span class="font-body-sm text-body-sm text-[12px]">AVS/CVV Logs</span>
+</div>
+<span class="text-[10px] font-tabular-nums bg-primary-fixed text-on-primary-fixed px-1 rounded">Auto</span>
+</div>
+<!-- Checklist Item -->
+<div class="flex items-center justify-between p-2 border border-outline-variant rounded bg-surface">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+<span class="font-body-sm text-body-sm text-[12px]">Customer Comms</span>
+</div>
+<span class="text-[10px] font-tabular-nums bg-surface-dim text-on-surface-variant px-1 rounded">Manual</span>
+</div>
+<!-- Checklist Item Missing -->
+<div class="flex items-center justify-between p-2 border border-error bg-error-container/20 rounded">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-error">error</span>
+<span class="font-body-sm text-body-sm text-[12px] text-error font-medium">Terms of Service Agmt</span>
+</div>
+<button class="text-[10px] font-tabular-nums bg-surface-lowest border border-outline-variant text-on-surface px-1.5 py-0.5 rounded hover:bg-surface transition-colors">Attach</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom: Preview Footer -->
+<div class="bg-surface-container border-t border-outline-variant p-2 shrink-0 flex items-center justify-between px-grid-margin">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">picture_as_pdf</span>
+<div>
+<div class="font-label-caps text-label-caps uppercase text-on-surface">Packet Preview Generated</div>
+<div class="text-[11px] text-on-surface-variant font-tabular-nums">14 pages • 2.4 MB • Visa Format 10.4 Compliant</div>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="text-primary font-label-caps text-label-caps uppercase hover:underline px-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span> View Full PDF
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

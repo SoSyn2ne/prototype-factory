@@ -1,59 +1,430 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contractor Arrival Trust Board - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-24-p005</p>
-        <h1>Contractor Arrival Trust Board</h1>
-        <p>Field-service teams reduce homeowner rage by turning arrival windows, route changes, and reschedules into visible trust signals.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contractor Arrival Trust Board</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "secondary-fixed": "#e2e2e5",
+                        "on-primary-fixed-variant": "#6e3900",
+                        "error": "#ffb4ab",
+                        "inverse-primary": "#904d00",
+                        "primary-fixed-dim": "#ffb77d",
+                        "on-tertiary-container": "#3b3f43",
+                        "surface": "#101415",
+                        "tertiary": "#c3c7cc",
+                        "tertiary-container": "#a7aaaf",
+                        "on-surface-variant": "#ddc1ae",
+                        "on-primary-fixed": "#2f1500",
+                        "primary-container": "#ff8c00",
+                        "tertiary-fixed": "#e0e3e8",
+                        "primary-fixed": "#ffdcc3",
+                        "surface-container-highest": "#323537",
+                        "on-primary": "#4d2600",
+                        "on-background": "#e0e3e5",
+                        "on-error-container": "#ffdad6",
+                        "surface-dim": "#101415",
+                        "on-tertiary-fixed": "#181c20",
+                        "tertiary-fixed-dim": "#c3c7cc",
+                        "surface-tint": "#ffb77d",
+                        "background": "#101415",
+                        "primary": "#ffb77d",
+                        "surface-container": "#1d2022",
+                        "on-secondary-fixed-variant": "#454749",
+                        "outline": "#a48c7a",
+                        "inverse-on-surface": "#2d3133",
+                        "secondary-fixed-dim": "#c6c6c9",
+                        "secondary": "#c6c6c9",
+                        "on-secondary-fixed": "#1a1c1e",
+                        "on-secondary": "#2f3133",
+                        "on-surface": "#e0e3e5",
+                        "surface-container-low": "#191c1e",
+                        "on-tertiary-fixed-variant": "#43474b",
+                        "on-tertiary": "#2d3135",
+                        "surface-bright": "#363a3b",
+                        "inverse-surface": "#e0e3e5",
+                        "on-secondary-container": "#b4b5b7",
+                        "on-primary-container": "#623200",
+                        "outline-variant": "#564334",
+                        "secondary-container": "#454749",
+                        "surface-variant": "#323537",
+                        "surface-container-high": "#272a2c",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0b0f10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "row-padding-h": "16px",
+                        "touch-target": "44px",
+                        "row-padding-v": "12px",
+                        "gutter": "16px",
+                        "margin-page": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "data-tabular": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "data-tabular": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "fontWeight": "800" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "500" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .rugged-border { border: 2px solid #4A4E54; }
+        .focus-outline:focus-within { border-color: #FF8C00; outline: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm min-h-screen flex flex-col md:flex-row overflow-hidden">
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex flex-col h-full overflow-y-auto bg-surface-container border-r-2 border-outline-variant w-64 flex-shrink-0 z-20">
+<div class="p-4 border-b-2 border-outline-variant flex items-center gap-3">
+<img class="w-10 h-10 rounded object-cover" data-alt="A minimalist, high-contrast flat vector icon of a dispatch center command post, using thick lines and a limited palette of deep slate, charcoal, and vibrant orange against a dark background, representing control and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAb6v9libBqTjBoyy8Hal35wlVLpIB6QgWeIAm5ApVR8LWDmQ9885JhaAM9TL_8uVeS6Ll75pcqu7x0H5vX_VIjwigdGKJznidVAf1XTrsg86FFGlvhCLdON2tKscuNMZWl82uLGRwB8uwwTxezVCZe9rl6W8D_wqTnACdlfIEJyF_WO6CcuhIqWV5cjBeB3E31JWjN2cu5YzQJCTJqyBY5EsLQljaPfKC5TOZmYYyvZ5WShGAJFCRHbGNIEYxLZDbx0h4_LXlTFOY"/>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface">Field Control</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Active Dispatch</p>
+</div>
+</div>
+<div class="p-4 border-b-2 border-outline-variant">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm h-touch-target rounded-none flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                New Dispatch
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto py-2">
+<a class="bg-primary-container text-on-primary-container border-l-4 border-primary px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Today Trust
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="route">route</span>
+                Crew Route
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+                Risk Panel
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="event_repeat">event_repeat</span>
+                Recovery
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="chat">chat</span>
+                Message Center
+            </a>
+</div>
+<div class="border-t-2 border-outline-variant py-2">
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-4 py-3 flex items-center gap-3 font-label-caps text-label-caps hover:bg-surface-variant transition-all duration-200 ease-in-out cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                Archive
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen overflow-hidden pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="flex justify-between items-center h-16 px-gutter w-full bg-surface border-b-2 border-outline-variant flex-shrink-0 z-10">
+<div class="font-headline-md text-headline-md font-bold text-primary uppercase tracking-tight truncate">
+                Contractor Arrival Trust Board
+            </div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center gap-2 rugged-border focus-outline px-3 h-10 bg-surface-container-low text-on-surface">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 font-data-tabular" placeholder="Search crews, clients..." type="text"/>
+</div>
+<div class="flex gap-2 text-on-surface-variant">
+<button class="p-2 hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 rounded-none">
+<span class="material-symbols-outlined" data-icon="sms">sms</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 rounded-none relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 hover:bg-surface-container-high transition-colors cursor-pointer active:scale-95 rounded-none">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<img alt="Dispatcher Profile" class="w-10 h-10 border-2 border-outline-variant object-cover" data-alt="A professional headshot of a stern, focused female dispatcher in her 40s wearing a headset, illuminated by the cool glow of multiple monitors in a dark control room setting, industrial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVeImZUN9S7gKD1Bnrrkvs7VLUAsa1p5xEz0OOXsYW0YtR8l5TK_-tZ9SDnF5dA5l4r8OwRad8on3CbPgoeW9jDwNG_zuQHqeMY3vE0U7en-DM82lXYSOeskthEr3PZoI8TnuALq_KPK-J72Zt1D83XkMprs8BgpIUI-7VtZnkTj4Sqhvaprq1RL_50qwLHGvRPv9KQcAHveZNW8hs0c7DnB9opFHXExrp8VGNz_3ng1ShfhrRZCWKzWgoaLcV1IdBucLvIVkkroo"/>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<main class="flex-1 overflow-y-auto p-margin-page bg-surface-dim">
+<div class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- 1. Today Trust Header Metrics -->
+<div class="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-surface-container rugged-border p-4 flex items-center justify-between">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Fleet On-Time</p>
+<p class="font-display-lg text-display-lg text-on-surface">84%</p>
+</div>
+<div class="h-12 w-12 rounded-none bg-surface-variant flex items-center justify-center border-l-4 border-[#4ADE80]">
+<span class="material-symbols-outlined text-[#4ADE80] text-3xl">check_circle</span>
+</div>
+</div>
+<div class="bg-surface-container rugged-border p-4 flex items-center justify-between border-l-4 border-primary-container">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">At-Risk Arrivals</p>
+<p class="font-display-lg text-display-lg text-primary-container">2</p>
+</div>
+<div class="h-12 w-12 rounded-none bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-container text-3xl">warning</span>
+</div>
+</div>
+<div class="bg-surface-container rugged-border p-4 flex items-center justify-between border-l-4 border-error">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">Critical Delay</p>
+<p class="font-display-lg text-display-lg text-error">1</p>
+</div>
+<div class="h-12 w-12 rounded-none bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-3xl">error</span>
+</div>
+</div>
+</div>
+<!-- Main Column: Crew Route & Arrival Board -->
+<div class="lg:col-span-8 flex flex-col gap-4">
+<div class="flex items-center justify-between mb-2">
+<h2 class="font-headline-md text-headline-md text-on-surface">Active Crew Routes</h2>
+<span class="font-label-caps text-label-caps bg-surface-container px-3 py-1 rugged-border text-on-surface-variant">HVAC DIVISION</span>
+</div>
+<!-- Row 1: Critical Delay (Mike S.) -->
+<div class="bg-surface-container rugged-border border-l-4 border-error hover:bg-[#1a1c1e] transition-colors p-0 flex flex-col md:flex-row min-h-[88px]">
+<div class="p-4 md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-outline-variant flex flex-col justify-center">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate">Mike S.</p>
+<p class="font-data-tabular text-data-tabular text-error flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm">schedule</span> +38m LATE
+                            </p>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-bold">Urgent AC Outage</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Client: Sarah Miller</p>
+</div>
+<span class="bg-error text-on-error px-2 py-1 font-label-caps text-label-caps rounded-none tracking-wider">CRITICAL</span>
+</div>
+<div class="w-full bg-surface-variant h-2 relative">
+<div class="absolute top-0 left-0 h-full bg-surface-container-highest w-3/4"></div>
+<div class="absolute top-0 left-1/4 h-full bg-error w-1/2"></div>
+<div class="absolute -top-2 left-3/4 w-1 h-6 bg-on-surface"></div>
+</div>
+<div class="flex justify-between mt-1 font-data-tabular text-[10px] text-on-surface-variant">
+<span>Dispatched 08:00</span>
+<span>ETA: 09:15 (Was 08:37)</span>
+</div>
+</div>
+<div class="p-4 md:w-32 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<button class="w-full h-touch-target bg-error text-on-error font-headline-sm text-headline-sm rugged-border border-error hover:bg-[#ff897d] transition-colors">
+                                INTERVENE
+                            </button>
+</div>
+</div>
+<!-- Row 2: GPS Gap Alert -->
+<div class="bg-surface-container rugged-border border-l-4 border-primary-container hover:bg-[#1a1c1e] transition-colors p-0 flex flex-col md:flex-row min-h-[88px]">
+<div class="p-4 md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-outline-variant flex flex-col justify-center">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate">David L.</p>
+<p class="font-data-tabular text-data-tabular text-primary-container flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm">location_off</span> GPS LOST
+                            </p>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-bold">Routine Maintenance</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Client: TechCorp Inc.</p>
+</div>
+<span class="bg-primary-container text-on-primary-container px-2 py-1 font-label-caps text-label-caps rounded-none tracking-wider">WARN</span>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-primary-container animate-pulse">radar</span>
+<span class="font-data-tabular text-sm text-on-surface-variant">Last ping 14m ago near I-95 N.</span>
+</div>
+</div>
+<div class="p-4 md:w-32 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<button class="w-full h-touch-target bg-transparent text-primary-container font-headline-sm text-headline-sm rugged-border border-primary-container hover:bg-surface-variant transition-colors">
+                                PING
+                            </button>
+</div>
+</div>
+<!-- Row 3: On Time -->
+<div class="bg-surface-container rugged-border border-l-4 border-[#4ADE80] hover:bg-[#1a1c1e] transition-colors p-0 flex flex-col md:flex-row min-h-[88px] opacity-75">
+<div class="p-4 md:w-1/4 border-b-2 md:border-b-0 md:border-r-2 border-outline-variant flex flex-col justify-center">
+<p class="font-headline-sm text-headline-sm text-on-surface truncate">James R.</p>
+<p class="font-data-tabular text-data-tabular text-[#4ADE80] flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-sm">check</span> ON TIME
+                            </p>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-center">
+<div class="flex justify-between items-start mb-2">
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-bold">Compressor Install</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Client: Oakwood Apts</p>
+</div>
+<span class="bg-surface-variant text-on-surface px-2 py-1 font-label-caps text-label-caps rounded-none tracking-wider rugged-border">EN ROUTE</span>
+</div>
+<div class="w-full bg-surface-variant h-2 relative">
+<div class="absolute top-0 left-0 h-full bg-[#4ADE80] w-1/3"></div>
+<div class="absolute -top-2 left-1/3 w-1 h-6 bg-on-surface"></div>
+</div>
+</div>
+<div class="p-4 md:w-32 border-t-2 md:border-t-0 md:border-l-2 border-outline-variant flex items-center justify-center bg-surface-container-low">
+<button class="w-full h-touch-target text-on-surface-variant font-headline-sm text-headline-sm hover:text-on-surface transition-colors" disabled="">
+                                VIEW
+                            </button>
+</div>
+</div>
+</div>
+<!-- Side Column: Tolerance & Action -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Customer Tolerance Panel -->
+<div class="bg-surface-container rugged-border flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-24 bg-error opacity-10 rounded-bl-full pointer-events-none"></div>
+<div class="p-4 border-b-2 border-outline-variant bg-error-container/20">
+<h3 class="font-headline-sm text-headline-sm text-error flex items-center gap-2">
+<span class="material-symbols-outlined">gavel</span>
+                                Tolerance Alert
+                            </h3>
+</div>
+<div class="p-4 flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div>
+<p class="font-display-lg text-display-lg text-on-surface leading-none">Sarah Miller</p>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">ID: CUST-8842-X</p>
+</div>
+<span class="bg-error text-on-error px-2 py-1 font-label-caps text-label-caps border-2 border-error font-bold">ZERO TOLERANCE</span>
+</div>
+<div class="bg-surface-container-lowest rugged-border p-3 mt-2">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-2 border-b border-outline-variant pb-1">HISTORY CONTEXT</p>
+<ul class="font-data-tabular text-data-tabular text-on-surface space-y-2">
+<li class="flex gap-2 items-start text-error">
+<span class="material-symbols-outlined text-sm mt-0.5">close</span>
+<span>Rescheduled by dispatch on 10/12 (No Show)</span>
+</li>
+<li class="flex gap-2 items-start text-primary-container">
+<span class="material-symbols-outlined text-sm mt-0.5">warning</span>
+<span>Tech arrived 2hrs late on 08/04</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Action Center -->
+<div class="bg-surface-container rugged-border flex flex-col flex-1">
+<div class="p-4 border-b-2 border-outline-variant bg-surface-container-high">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined">bolt</span>
+                                Action Center
+                            </h3>
+</div>
+<div class="p-4 flex flex-col gap-4 flex-1">
+<div class="flex-1 flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface-variant">2-WAY SMS COMPOSER</label>
+<div class="rugged-border focus-outline bg-surface-dim p-3 h-32 relative">
+<textarea class="w-full h-full bg-transparent border-none text-on-surface font-body-sm resize-none focus:ring-0 p-0" spellcheck="false">Hi Sarah, Mike is running behind due to traffic. We're offering a $25 credit for the delay. He expects to arrive by 09:15 AM. We apologize for the inconvenience.</textarea>
+<span class="absolute bottom-2 right-2 font-data-tabular text-[10px] text-on-surface-variant">164/160 msg</span>
+</div>
+<button class="h-touch-target bg-primary-container text-on-primary-container font-headline-sm text-headline-sm w-full rugged-border hover:bg-[#ff9e22] transition-colors mt-1">
+                                    SEND MESSAGE
+                                </button>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2">
+<button class="h-touch-target bg-transparent text-on-surface font-label-caps text-label-caps rugged-border hover:bg-surface-variant transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">payments</span> $25 CREDIT
+                                </button>
+<button class="h-touch-target bg-transparent text-on-surface font-label-caps text-label-caps rugged-border hover:bg-surface-variant transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-sm">calendar_month</span> RESCHEDULE
+                                </button>
+<button class="col-span-2 h-touch-target bg-surface-container-lowest text-error font-label-caps text-label-caps rugged-border hover:bg-surface-variant transition-colors flex items-center justify-center gap-1 border-error/50">
+<span class="material-symbols-outlined text-sm">campaign</span> ESCALATE TO MGR
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recovery & Reports (Bottom Section) -->
+<div class="max-w-[1600px] mx-auto mt-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-3 border-b-2 border-outline-variant pb-2">Recovery &amp; Reports</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container rugged-border p-4 flex justify-between items-center hover:bg-surface-variant transition-colors cursor-pointer active:scale-95">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-2xl">receipt_long</span>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-bold">After-Service Recovery</p>
+<p class="font-data-tabular text-data-tabular text-on-surface-variant">3 Pending Reviews</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
+</div>
+<div class="bg-surface-container rugged-border p-4 flex justify-between items-center hover:bg-surface-variant transition-colors cursor-pointer active:scale-95">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#4ADE80] text-2xl">contact_phone</span>
+<div>
+<p class="font-body-lg text-body-lg text-on-surface font-bold">After-Hours Leads</p>
+<p class="font-data-tabular text-data-tabular text-on-surface-variant">12 Unassigned</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center bg-surface h-20 border-t-2 border-outline-variant flex-shrink-0">
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-none h-full w-full font-label-caps text-label-caps active:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+            Trust
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full font-label-caps text-label-caps hover:bg-surface-variant active:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="route">route</span>
+            Routes
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full font-label-caps text-label-caps hover:bg-surface-variant active:bg-primary-container transition-colors relative" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="warning">warning</span>
+<span class="absolute top-2 right-4 w-2 h-2 bg-error rounded-full"></span>
+            Risk
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full font-label-caps text-label-caps hover:bg-surface-variant active:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="event_repeat">event_repeat</span>
+            Recovery
+        </a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full font-label-caps text-label-caps hover:bg-surface-variant active:bg-primary-container transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="sms">sms</span>
+            Chat
+        </a>
+</nav>
+</body></html>
