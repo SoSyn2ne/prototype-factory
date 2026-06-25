@@ -1,0 +1,45 @@
+# PRD — Hagwon Status Receipt
+
+## Problem
+- A parent-facing tuition mirror that turns elite hagwon pressure into a monthly status, burnout, commute, and affordability receipt before another child is enrolled.
+
+## Target user
+- Korean parents of preschool and elementary children balancing English kindergarten, hagwon prestige, sibling fairness, and household cash flow.
+
+## Key UX
+- Parent enters current classes and a tempting new program; the app produces a family budget/stress receipt, child time load, sibling tradeoff, and face-saving decline script.
+
+## Required UI sections
+- Prestige pressure intake
+- Monthly tuition and commute receipt
+- Child fatigue and free-play balance
+- Sibling fairness comparison
+- Parent work schedule clash
+- Face-saving decline / delay script
+- Grandparent or spouse share card
+
+## Design profile
+- calm-consumer
+
+## Theme
+- 사교육
+
+## Source signal references
+- S11: Korea private-education spending remains intense; families calculate hagwon costs as part of whether they can afford more children at all. Source: https://www.seoulz.com/korea-private-education/
+
+## loved_by_small_group
+- 5
+
+## spread_trigger
+- Parents can share a calm receipt with a spouse, grandparent, or mom-chat instead of arguing from guilt.
+
+## Copy/paste-ready Stitch prompt
+Build a production-grade web app prototype called "Hagwon Status Receipt" for Korean parents deciding whether another elite hagwon or English kindergarten is worth the money, commute, and child stress. The first screen must be a working tuition mirror with prestige pressure intake, monthly tuition and commute receipt, child fatigue balance, sibling fairness comparison, parent schedule clash, face-saving decline/delay script, and spouse/grandparent share card. Use realistic sample data: KRW 920,000 English program, piano plus math hagwon, 38-minute commute, preschool sibling, mom-chat recommendation, and household savings target. Design direction: use the calm-consumer profile with warm reassuring surfaces, clear family-cost grouping, gentle status cues, and one calm accent for the shareable decision receipt. Do not make a marketing landing page; the first screen must be the working app.
+
+## Non-goals
+- Do not implement a custom demo during Phase A.
+- Do not make a marketing-only landing page.
+
+## Success metrics
+- Stitch output preserves the working-app first screen and assigned design profile.
+- p003 export lands at /home/sy/Downloads/stitch_drop/2026-06-26/p003/code.html and screen.png.
