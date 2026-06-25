@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Transfer Board - Relay</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f3f0ef",
+                      "secondary-container": "#e2e2e2",
+                      "error": "#ba1a1a",
+                      "outline": "#916f65",
+                      "on-error": "#ffffff",
+                      "on-surface-variant": "#5c4037",
+                      "secondary-fixed": "#e2e2e2",
+                      "on-background": "#1c1b1b",
+                      "tertiary-fixed-dim": "#c6c7c2",
+                      "secondary": "#5e5e5e",
+                      "tertiary-fixed": "#e3e3de",
+                      "outline-variant": "#e6beb2",
+                      "surface-container-highest": "#e5e2e1",
+                      "secondary-fixed-dim": "#c6c6c6",
+                      "primary": "#aa3000",
+                      "primary-container": "#d43f00",
+                      "primary-fixed": "#ffdbd0",
+                      "on-error-container": "#93000a",
+                      "surface-container-lowest": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed-variant": "#454744",
+                      "on-tertiary-fixed": "#1a1c19",
+                      "on-primary-container": "#fffbff",
+                      "surface-container": "#f0eded",
+                      "on-surface": "#1c1b1b",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fcf9f8",
+                      "primary-fixed-dim": "#ffb59e",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#5b5c59",
+                      "on-tertiary-container": "#fdfdf8",
+                      "on-secondary-container": "#646464",
+                      "on-secondary-fixed-variant": "#474747",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#ffb59e",
+                      "surface-dim": "#dcd9d9",
+                      "tertiary-container": "#747571",
+                      "surface-container-low": "#f6f3f2",
+                      "background": "#fcf9f8",
+                      "surface-bright": "#fcf9f8",
+                      "on-primary-fixed": "#3a0b00",
+                      "on-primary-fixed-variant": "#852400",
+                      "surface-variant": "#e5e2e1",
+                      "surface-container-high": "#eae7e7",
+                      "surface-tint": "#ae3200",
+                      "on-secondary-fixed": "#1b1b1b",
+                      "inverse-surface": "#313030"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "margin-desktop": "48px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Anybody"
+                      ],
+                      "label-mono": [
+                              "Space Mono"
+                      ],
+                      "headline-lg-mobile": [
+                              "Anybody"
+                      ],
+                      "display-relay": [
+                              "Anybody"
+                      ],
+                      "timer-md": [
+                              "Space Mono"
+                      ],
+                      "body-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-md": [
+                              "Anybody"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-relay": [
+                              "72px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "timer-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.0",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .blink {
+            animation: blinker 1s linear infinite;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile) / SideNavBar (Desktop) -->
+<!-- Desktop SideNavBar -->
+<nav class="hidden md:flex flex-col gap-unit p-4 bg-surface dark:bg-inverse-surface border-r-2 border-on-background shadow-[4px_0_0_0_rgba(170,48,0,1)] h-full w-72 fixed left-0 top-0 z-50">
+<div class="mb-8 mt-4 px-2">
+<span class="font-headline-md text-headline-md text-primary font-bold italic uppercase tracking-wider">Relay</span>
+</div>
+<div class="flex items-center gap-4 mb-8 px-2">
+<div class="w-12 h-12 rounded-full border-2 border-on-background overflow-hidden bg-surface-container-high">
+<img alt="Runner Profile" class="w-full h-full object-cover" data-alt="A striking portrait of an urban athlete, glowing and energetic, looking ready to run. The room is illuminated by high-key, soft white lighting that creates a bright, modern light-mode aesthetic. The artwork relies on a sophisticated palette of deep blacks and pristine whites, punctuated by intense accents of vibrant red. The mood is serene yet technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuArhNELFHnZ6OH5yTujW0HFaABBo6LT72yohUT3UL0-10STbmvA43VBhMJfbY21EX3S6tPRjGF3uGvdlpBOR3r1oj6N1xtFHTvs26776YLX6I8OfKedEJSOEIbgGqf383Qb36dRP6pki6suK-57APgHDePD9MKSwIMSA-ENcFDhrzp808GJgVVKOV0uLntj9COrcy14VpEhYFvjQPeJPY_3G6D1ddzXLxiwz6mWmExdinK_Y2S6UO6WTIYQs0yn4PzsQ0FHJZMCfUZG"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-sm">Athlete #402</p>
+<p class="font-label-mono text-label-mono text-primary text-xs">Verified Rescuer</p>
+</div>
+</div>
+<div class="flex flex-col gap-2 flex-grow">
+<a class="flex items-center gap-3 p-3 bg-primary text-on-primary font-bold border-2 border-on-background font-body-md text-body-md hover:border-2 hover:border-on-background transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+                Live Lanes
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-low font-body-md text-body-md hover:border-2 hover:border-on-background transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+                My Batons
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-low font-body-md text-body-md hover:border-2 hover:border-on-background transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                Race History
+            </a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:bg-surface-container-low font-body-md text-body-md hover:border-2 hover:border-on-background transition-all active:translate-x-[2px] active:translate-y-[2px] active:shadow-none border-2 border-transparent" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+<button class="mt-auto bg-primary text-on-primary border-2 border-on-background font-label-mono text-label-mono py-4 shadow-[4px_4px_0_0_rgba(28,27,27,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all font-bold uppercase">
+            Rescue a Table
+        </button>
+</nav>
+<!-- Mobile TopAppBar -->
+<header class="md:hidden bg-surface dark:bg-inverse-surface border-b-2 border-on-background dark:border-surface-variant flex justify-between items-center px-margin-mobile w-full h-16 z-50 sticky top-0">
+<div class="font-headline-md text-headline-md font-bold italic uppercase text-primary dark:text-primary-fixed-dim tracking-wider">
+            Relay
+        </div>
+<div class="flex items-center gap-4">
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 p-2 border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+</button>
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 p-2 border-2 border-transparent">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-72 flex flex-col">
+<!-- Top Filters & Actions Bar -->
+<div class="sticky top-0 md:top-0 z-40 bg-background border-b-2 border-on-background px-margin-mobile md:px-margin-desktop py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase italic tracking-tight">Active Board</h1>
+<div class="flex flex-wrap gap-2 w-full sm:w-auto">
+<button class="bg-primary text-on-primary border-2 border-on-background px-4 py-2 font-label-mono text-label-mono font-bold uppercase shadow-[2px_2px_0_0_rgba(28,27,27,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="local_fire_department">local_fire_department</span>
+                    Urgent
+                </button>
+<div class="relative group">
+<button class="bg-surface text-on-surface border-2 border-on-background px-4 py-2 font-label-mono text-label-mono font-bold uppercase hover:bg-surface-container-low transition-colors flex items-center gap-2">
+                        Cuisine
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_drop_down">arrow_drop_down</span>
+</button>
+</div>
+<div class="relative group">
+<button class="bg-surface text-on-surface border-2 border-on-background px-4 py-2 font-label-mono text-label-mono font-bold uppercase hover:bg-surface-container-low transition-colors flex items-center gap-2">
+                        Location
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_drop_down">arrow_drop_down</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="p-margin-mobile md:p-margin-desktop grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+<!-- Urgent Card 1 -->
+<article class="bg-surface border-2 border-primary shadow-[4px_4px_0_0_rgba(170,48,0,1)] flex flex-col relative group">
+<!-- Live Tag -->
+<div class="absolute top-0 right-0 bg-primary text-on-primary px-3 py-1 border-b-2 border-l-2 border-primary font-label-mono text-label-mono font-bold flex items-center gap-2 z-10">
+<span class="w-2 h-2 rounded-full bg-on-primary blink"></span>
+                    LIVE
+                </div>
+<!-- Image Header -->
+<div class="h-48 border-b-2 border-on-background relative overflow-hidden bg-surface-container-high">
+<img alt="Pasta Palace Interior" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="A striking view of a high-end Italian restaurant interior, glowing and energetic, looking ready for diners. The room is illuminated by high-key, soft white lighting that creates a bright, modern light-mode aesthetic. The artwork relies on a sophisticated palette of deep blacks and pristine whites, punctuated by intense accents of vibrant red. The mood is serene yet technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZr_HwSS4wfNOVMU4nubcjjl1t02FSPs_hKwqCxID83PIrEI6LzaXnROH1H8lRI2ApBA16FVluwOVAtqrKhi-v9xf_rG_cJXMutFKT8N2K5MoZ0UE4rxJbk6_15g_JzsErUQwcdFgiyf3-YGIrEo4XZnayFSl-3tKC_iyDHFKFWtkFtS0bTF5Fetk6ioMOBFYtzyBo3dJTUx0YLLN5_fYIiv2SczBYxg1mtL1KXBzEMY5ZpsMxU6eWeG9c0Yd_9tYUpFFQ8NNxOFw6"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-on-primary">
+<h2 class="font-headline-md text-headline-md font-bold text-on-primary">Pasta Palace</h2>
+<p class="font-label-mono text-label-mono mt-1 text-primary-fixed">Italian • West Village</p>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-4 flex flex-col flex-grow gap-4">
+<div class="flex justify-between items-center border-b-2 border-on-background pb-4">
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Time</span>
+<span class="font-headline-md text-headline-md">7:30 PM</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Party</span>
+<span class="font-headline-md text-headline-md">2 Guests</span>
+</div>
+</div>
+<div class="flex justify-between items-center bg-on-background text-on-primary p-3">
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Time Remaining</span>
+<div class="font-timer-md text-timer-md text-primary font-bold tracking-widest flex items-center">
+                                14<span class="blink">:</span>20
+                            </div>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Rescue Value</span>
+<span class="font-headline-md text-headline-md text-primary">$100</span>
+</div>
+</div>
+<!-- Trust / Meta -->
+<div class="flex gap-2 mt-auto pt-2">
+<span class="border border-on-background px-2 py-1 font-label-mono text-[10px] uppercase font-bold flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified_user">verified_user</span> Verified Host
+                        </span>
+</div>
+<!-- Action -->
+<button class="w-full bg-primary text-on-primary border-2 border-on-background py-3 font-label-mono text-label-mono font-bold uppercase shadow-[4px_4px_0_0_rgba(28,27,27,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all mt-2">
+                        Claim Baton
+                    </button>
+</div>
+</article>
+<!-- Standard Card 1 -->
+<article class="bg-surface border-2 border-on-background shadow-[4px_4px_0_0_rgba(28,27,27,1)] flex flex-col relative group">
+<!-- Image Header -->
+<div class="h-48 border-b-2 border-on-background relative overflow-hidden bg-surface-container-high">
+<img alt="Sushi Spot Interior" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-300" data-alt="A striking view of a minimalist modern sushi bar interior, glowing and energetic, looking ready for diners. The room is illuminated by high-key, soft white lighting that creates a bright, modern light-mode aesthetic. The artwork relies on a sophisticated palette of deep blacks and pristine whites, punctuated by intense accents of vibrant red. The mood is serene yet technologically advanced." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpcj2JduwPYT50R5nRMjIVnu7xjh5X5k-WHW2pdObz5TjmJoa3DdZ9TpYvNJjERdtR9RGe6F3gQysBFbx3Pb0xComnHkTmoVcW3JQAgCoP1O0oNktFDc6AuAps3xDbgfp4Insn5DoKRUvYwimLoCfffWl_H7l65BhzSwewI5ZYbvfA2nQIevuz3F-FgdCpiqZ6fjTKY83gBplH0XVqQfJROy2vkKk5kba0PYdH73hwzkVn-v5bQoZnsvwLmybRQKx2sdpdcMHs2uzx"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-4 left-4 text-on-primary">
+<h2 class="font-headline-md text-headline-md font-bold text-on-primary">Oishi Prime</h2>
+<p class="font-label-mono text-label-mono mt-1 text-surface-variant">Sushi • Midtown</p>
+</div>
+</div>
+<!-- Card Body -->
+<div class="p-4 flex flex-col flex-grow gap-4">
+<div class="flex justify-between items-center border-b-2 border-on-background pb-4">
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Time</span>
+<span class="font-headline-md text-headline-md">8:15 PM</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Party</span>
+<span class="font-headline-md text-headline-md">4 Guests</span>
+</div>
+</div>
+<div class="flex justify-between items-center bg-surface-container-high border-2 border-on-background p-3">
+<div class="flex flex-col">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Time Remaining</span>
+<div class="font-timer-md text-timer-md text-on-background font-bold tracking-widest flex items-center">
+                                02<span class="blink">:</span>45<span class="text-xs ml-1 font-label-mono tracking-normal">hrs</span>
+</div>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-mono text-label-mono text-on-surface-variant uppercase text-xs">Rescue Value</span>
+<span class="font-headline-md text-headline-md text-on-background">$50</span>
+</div>
+</div>
+<!-- Trust / Meta -->
+<div class="flex gap-2 mt-auto pt-2">
+<span class="border border-on-background px-2 py-1 font-label-mono text-[10px] uppercase font-bold flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[14px]" data-icon="star">star</span> High Rated
+                        </span>
+</div>
+<!-- Action -->
+<button class="w-full bg-surface-container-highest text-on-surface border-2 border-on-background py-3 font-label-mono text-label-mono font-bold uppercase shadow-[4px_4px_0_0_rgba(28,27,27,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] transition-all mt-2 hover:bg-surface-dim">
+                        View Details
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface dark:bg-inverse-surface border-t-2 border-on-background flex justify-around items-center w-full h-16 fixed bottom-0 z-50">
+<a class="flex flex-col items-center justify-center w-full h-full text-primary dark:text-primary-fixed-dim border-t-4 border-primary bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined" data-icon="timer">timer</span>
+<span class="font-label-mono text-[10px] uppercase font-bold mt-1">Live Lanes</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined" data-icon="confirmation_number">confirmation_number</span>
+<span class="font-label-mono text-[10px] uppercase font-bold mt-1">Batons</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-mono text-[10px] uppercase font-bold mt-1">History</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-mono text-[10px] uppercase font-bold mt-1">Settings</span>
+</a>
+</nav>
+</body></html>

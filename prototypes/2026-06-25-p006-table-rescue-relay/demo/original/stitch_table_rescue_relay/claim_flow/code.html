@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Relay - Claim Reservation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-container": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "outline": "#916f65",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5c4037",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-background": "#1c1b1b",
+                        "tertiary-fixed-dim": "#c6c7c2",
+                        "secondary": "#5e5e5e",
+                        "tertiary-fixed": "#e3e3de",
+                        "outline-variant": "#e6beb2",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "primary": "#aa3000",
+                        "primary-container": "#d43f00",
+                        "primary-fixed": "#ffdbd0",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#454744",
+                        "on-tertiary-fixed": "#1a1c19",
+                        "on-primary-container": "#fffbff",
+                        "surface-container": "#f0eded",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#ffb59e",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5b5c59",
+                        "on-tertiary-container": "#fdfdf8",
+                        "on-secondary-container": "#646464",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb59e",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-container": "#747571",
+                        "surface-container-low": "#f6f3f2",
+                        "background": "#fcf9f8",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed": "#3a0b00",
+                        "on-primary-fixed-variant": "#852400",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "surface-tint": "#ae3200",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "inverse-surface": "#313030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "48px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anybody"],
+                        "label-mono": ["Space Mono"],
+                        "headline-lg-mobile": ["Anybody"],
+                        "display-relay": ["Anybody"],
+                        "timer-md": ["Space Mono"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Anybody"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "display-relay": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                        "timer-md": ["20px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .brutalist-border { border: 2px solid #1c1b1b; }
+        .brutalist-shadow { box-shadow: 4px 4px 0 0 #aa3000; }
+        .brutalist-shadow-black { box-shadow: 4px 4px 0 0 #1c1b1b; }
+        .brutalist-button:active { transform: translate(2px, 2px); box-shadow: none; }
+        .blink { animation: blinker 1s linear infinite; }
+        @keyframes blinker { 50% { opacity: 0; } }
+        
+        /* Custom Relay Tracker Styles */
+        .tracker-node {
+            width: 16px;
+            height: 16px;
+            background-color: #fcf9f8;
+            border: 2px solid #1c1b1b;
+            transform: rotate(45deg);
+            z-index: 10;
+            position: relative;
+        }
+        .tracker-node.active {
+            background-color: #aa3000;
+            border-color: #aa3000;
+        }
+        .tracker-line {
+            height: 2px;
+            background-color: #1c1b1b;
+            flex-grow: 1;
+            margin: 0 -8px;
+            z-index: 5;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full h-16 z-50 fixed full-width top-0 border-b-2 border-on-background dark:border-surface-variant flat no shadows">
+<div class="font-headline-md text-headline-md font-bold italic uppercase text-primary dark:text-primary-fixed-dim">Relay</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 cursor-pointer p-2" data-icon="map">map</span>
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 cursor-pointer p-2" data-icon="person">person</span>
+</div>
+</header>
+<!-- Main Canvas (Transactional Flow, Navigation Suppressed) -->
+<main class="flex-grow pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full">
+<!-- Header Section -->
+<div class="mb-12 border-b-4 border-on-background pb-6">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-2">Claim Baton</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Secure this reservation before the timer runs out.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Process & Details -->
+<div class="lg:col-span-8 flex flex-col gap-12">
+<!-- Relay Tracker (Custom Progress) -->
+<div class="bg-surface-container-low p-6 brutalist-border brutalist-shadow-black">
+<h2 class="font-label-mono text-label-mono uppercase mb-6 text-secondary">Transfer Status</h2>
+<div class="flex items-center justify-between relative">
+<!-- Node 1: Request -->
+<div class="flex flex-col items-center">
+<div class="tracker-node active"></div>
+<span class="font-label-mono text-label-mono mt-4">Confirm</span>
+</div>
+<div class="tracker-line bg-primary"></div>
+<!-- Node 2: Secure -->
+<div class="flex flex-col items-center">
+<div class="tracker-node"></div>
+<span class="font-label-mono text-label-mono mt-4 text-on-surface-variant">Secure</span>
+</div>
+<div class="tracker-line"></div>
+<!-- Node 3: Claimed -->
+<div class="flex flex-col items-center">
+<div class="tracker-node"></div>
+<span class="font-label-mono text-label-mono mt-4 text-on-surface-variant">Success</span>
+</div>
+</div>
+</div>
+<!-- Step 1: Confirm Details -->
+<section class="flex flex-col gap-6">
+<div class="flex items-center gap-4 border-b-2 border-on-background pb-2">
+<span class="material-symbols-outlined text-headline-md" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+<h3 class="font-headline-md text-headline-md">Reservation Details</h3>
+</div>
+<!-- Reservation Card Details -->
+<div class="bg-surface p-6 brutalist-border relative overflow-hidden">
+<!-- Decorative bg -->
+<div class="absolute right-0 top-0 w-32 h-32 bg-primary-fixed opacity-20 transform rotate-12 translate-x-1/2 -translate-y-1/2"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="font-headline-lg-mobile text-headline-lg-mobile mb-1">Le Bernardin</h4>
+<p class="font-label-mono text-label-mono text-on-surface-variant">New York, NY</p>
+</div>
+<div class="bg-on-background text-primary px-4 py-2 brutalist-border border-primary">
+<span class="font-timer-md text-timer-md">00<span class="blink">:</span>42<span class="blink">:</span>15</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 border-t-2 border-surface-variant pt-4">
+<div>
+<span class="font-label-mono text-label-mono text-secondary block mb-1">Date</span>
+<span class="font-body-md text-body-md font-bold">Oct 24, 2024</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-secondary block mb-1">Time</span>
+<span class="font-body-md text-body-md font-bold">8:00 PM</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-secondary block mb-1">Party Size</span>
+<span class="font-body-md text-body-md font-bold">2 Guests</span>
+</div>
+<div>
+<span class="font-label-mono text-label-mono text-secondary block mb-1">Host</span>
+<span class="font-body-md text-body-md font-bold">Runner #892</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Secure Payment Placeholder (Simplified for Step 1 focus) -->
+<section class="opacity-50 pointer-events-none flex flex-col gap-6">
+<div class="flex items-center gap-4 border-b-2 border-on-background pb-2">
+<span class="material-symbols-outlined text-headline-md">lock</span>
+<h3 class="font-headline-md text-headline-md">Secure Transfer</h3>
+</div>
+<div class="bg-surface-container p-6 brutalist-border border-dashed">
+<p class="font-label-mono text-label-mono text-center">Complete Step 1 to unlock.</p>
+</div>
+</section>
+</div>
+<!-- Right Column: Summary & Actions -->
+<div class="lg:col-span-4">
+<div class="sticky top-24 flex flex-col gap-6">
+<!-- Summary Card -->
+<div class="bg-surface p-6 brutalist-border brutalist-shadow">
+<h3 class="font-headline-md text-headline-md mb-6 border-b-2 border-on-background pb-2">Summary</h3>
+<div class="flex justify-between mb-4">
+<span class="font-body-md text-body-md">Transfer Value</span>
+<span class="font-label-mono text-label-mono font-bold">$150.00</span>
+</div>
+<div class="flex justify-between mb-4 text-primary font-bold">
+<span class="font-body-md text-body-md">Rescuer Fee</span>
+<span class="font-label-mono text-label-mono">NO FEES</span>
+</div>
+<div class="border-t-4 border-on-background pt-4 mt-4 flex justify-between items-center">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-headline-md text-headline-md">$150.00</span>
+</div>
+<button class="w-full mt-8 bg-primary text-on-primary font-headline-md text-headline-md py-4 brutalist-border brutalist-shadow-black brutalist-button transition-transform cursor-pointer flex justify-center items-center gap-2">
+<span>Proceed to Secure</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<!-- Trust & Safety Panel -->
+<div class="bg-surface-container-low p-6 brutalist-border">
+<div class="flex items-center gap-2 mb-4 text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<h4 class="font-label-mono text-label-mono uppercase">Trust &amp; Safety</h4>
+</div>
+<ul class="flex flex-col gap-3 font-body-md text-body-md text-on-surface-variant">
+<li class="flex gap-2 items-start">
+<span class="material-symbols-outlined text-[18px] mt-1">check</span>
+<span>Host-Safe transfer protocol engaged.</span>
+</li>
+<li class="flex gap-2 items-start">
+<span class="material-symbols-outlined text-[18px] mt-1">check</span>
+<span>Funds held securely until reservation is confirmed.</span>
+</li>
+<li class="flex gap-2 items-start">
+<span class="material-symbols-outlined text-[18px] mt-1">check</span>
+<span>Verified Runner history.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface flex flex-col md:flex-row justify-between items-center px-margin-desktop py-8 gap-gutter w-full mt-auto border-t-4 border-on-background flat">
+<div class="text-headline-md font-headline-md text-primary">Relay</div>
+<div class="flex gap-4 font-body-md text-body-md font-label-mono text-label-mono">
+<a class="text-on-surface-variant hover:text-primary" href="#">Trust &amp; Safety</a>
+<a class="text-on-surface-variant hover:text-primary" href="#">Host Terms</a>
+<a class="text-on-surface-variant hover:text-primary" href="#">Runner Guidelines</a>
+<a class="text-on-surface-variant hover:text-primary" href="#">Download App</a>
+</div>
+<div class="font-body-md text-body-md font-label-mono text-label-mono text-on-surface-variant">© 2024 Relay Reservation Transfer. All rights reserved.</div>
+</footer>
+</body></html>

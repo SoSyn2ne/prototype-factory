@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tech Value Receipt - Receipt Wall</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-error": "#ffffff",
+                            "on-secondary-fixed-variant": "#783200",
+                            "primary-container": "#131b2e",
+                            "on-tertiary-fixed": "#0d1c2f",
+                            "on-secondary-fixed": "#341100",
+                            "outline-variant": "#c6c6cd",
+                            "surface-dim": "#cbdbf5",
+                            "error-container": "#ffdad6",
+                            "surface-tint": "#565e74",
+                            "on-tertiary": "#ffffff",
+                            "on-background": "#0b1c30",
+                            "tertiary-container": "#0d1c2f",
+                            "surface-variant": "#d3e4fe",
+                            "on-primary-container": "#7c839b",
+                            "on-primary-fixed": "#131b2e",
+                            "error": "#ba1a1a",
+                            "on-secondary": "#ffffff",
+                            "on-tertiary-fixed-variant": "#3a485c",
+                            "on-surface-variant": "#45464d",
+                            "surface": "#f8f9ff",
+                            "secondary": "#9d4300",
+                            "tertiary-fixed": "#d5e3fd",
+                            "background": "#f8f9ff",
+                            "on-secondary-container": "#5c2400",
+                            "primary": "#000000",
+                            "primary-fixed": "#dae2fd",
+                            "on-primary-fixed-variant": "#3f465c",
+                            "surface-container-lowest": "#ffffff",
+                            "on-error-container": "#93000a",
+                            "secondary-container": "#fd761a",
+                            "on-primary": "#ffffff",
+                            "inverse-on-surface": "#eaf1ff",
+                            "surface-container-highest": "#d3e4fe",
+                            "inverse-surface": "#213145",
+                            "on-tertiary-container": "#76859b",
+                            "secondary-fixed": "#ffdbca",
+                            "surface-container-high": "#dce9ff",
+                            "on-surface": "#0b1c30",
+                            "surface-container": "#e5eeff",
+                            "tertiary": "#000000",
+                            "primary-fixed-dim": "#bec6e0",
+                            "surface-container-low": "#eff4ff",
+                            "tertiary-fixed-dim": "#b9c7e0",
+                            "secondary-fixed-dim": "#ffb690",
+                            "inverse-primary": "#bec6e0",
+                            "outline": "#76777d",
+                            "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                    },
+                    "spacing": {
+                            "margin-desktop": "32px",
+                            "touch-target": "44px",
+                            "gutter": "16px",
+                            "margin-mobile": "16px",
+                            "unit": "4px"
+                    },
+                    "fontFamily": {
+                            "body-lg": ["Inter"],
+                            "label-md": ["Inter"],
+                            "data-mono": ["\"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace\""],
+                            "headline-md": ["Inter"],
+                            "headline-lg": ["Inter"],
+                            "label-bold": ["Inter"],
+                            "headline-lg-mobile": ["Inter"],
+                            "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                            "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                            "label-md": ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                            "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                            "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                            "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                            "label-bold": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                            "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex min-h-screen selection:bg-secondary-container selection:text-on-secondary">
+<!-- SideNavBar (Hidden on Mobile, Flex on Desktop) -->
+<nav class="hidden md:flex flex-col h-screen w-64 border-r-2 border-outline-variant bg-surface fixed left-0 top-0 z-50">
+<div class="p-margin-desktop flex items-center gap-3 border-b-2 border-outline-variant shrink-0 h-[88px]">
+<img alt="User profile photo" class="w-10 h-10 rounded-full border border-outline-variant object-cover" data-alt="A small, high-contrast industrial avatar placeholder with a metallic edge, set against a stark white background. Focus on clean lines and utilitarian design, evoking a technical or field-operations context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA031F0UXjXQlXGpIeq2JPUlAYeLrsqa0y6H7ma3OlXVSnq3VBPA6XNquOcWSjnlgr1pwXGxkQ2pMpUEWk581PaSKIGW1qSpgtP1px8J1XGG9W6hmm5WZ8GCgtfdZqbpGeHzwKf9kJewuPNOCfmUHMMDVQvb5tKEWG9ZA8Tn2Hx0gk2lDg5LnAOcdGtw8HkEf5Vjavyjw3VdL9btiML5IBRvZAoCnxJZXq_ot5WA1THEKbbq45DBD-2QDx7RmWpxlkfxfmZR52B3vM"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary truncate">Tech Value Receipt</h1>
+<p class="font-label-md text-label-md text-on-surface-variant truncate">Field Operations</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="flex flex-col gap-1 px-4">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-secondary font-bold border-l-4 border-secondary bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-body-md text-body-md">Receipt Wall</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-body-md text-body-md">Value Ledger</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">report_problem</span>
+<span class="font-body-md text-body-md">Risk Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 min-w-0">
+<!-- TopNavBar (Responsive Pivot: Handles mobile nav & desktop secondary actions) -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-touch-target md:h-[88px] sticky top-0 z-40 bg-surface border-b-2 border-outline-variant shrink-0">
+<!-- Mobile Brand/Menu -->
+<div class="flex items-center gap-3 md:hidden">
+<button aria-label="Open menu" class="text-on-surface-variant p-2 -ml-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md font-bold text-primary truncate">Tech Value Receipt</h1>
+</div>
+<!-- Desktop Search/Actions (Hidden on mobile for simplicity in this demo, typically would collapse into an icon) -->
+<div class="hidden md:flex items-center justify-between w-full">
+<!-- Search -->
+<div class="relative w-96">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-[44px] pl-10 pr-4 bg-surface-container-lowest border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant transition-all duration-200" placeholder="Search Tickets, Clients, Techs..." type="text"/>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-4">
+<button class="h-[44px] px-4 border border-outline-variant rounded-DEFAULT font-label-bold text-label-bold text-on-surface hover:bg-surface-container transition-all duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Territory Filter
+                    </button>
+<button class="h-[44px] px-4 border border-outline-variant rounded-DEFAULT font-label-bold text-label-bold text-on-surface hover:bg-surface-container transition-all duration-200 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">visibility</span> Manager View
+                    </button>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<button aria-label="Notifications" class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Settings" class="p-2 text-on-surface-variant hover:bg-surface-container rounded-full transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Technician profile avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-2" data-alt="A close-up, high-contrast portrait of a field technician wearing industrial safety gear. Crisp lighting, stark white background, conveying professionalism and readiness in a technical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuLXRYlwWDUjt7D3RZZomrV2YEko1wNXCsNzAaEHfRFdvdWb2p-KMS71CowfBM1jK6gBy7NfeNdlBd_kWX5qjioAR6XQwuyQ38D_wxHmMRnK2iVEh4Lhlq-pngxi2jmkLwXAoEpfDdxG7fA7GLOCy1_ftpgcIW1Hk1ob44c1U38X6ef3KKYNAA6C3ZO5xv6_EPdPr76jnA4JXgGEleVTKN-vaPj4pQUwyoBDv6UciPsplKDzPC1ol38N8AKhi7AVl0LqHtT9yfEIk"/>
+</div>
+</div>
+<!-- Mobile Actions -->
+<div class="flex md:hidden items-center gap-2">
+<button aria-label="Search" class="p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</button>
+<img alt="Technician profile avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A close-up, high-contrast portrait of a field technician wearing industrial safety gear. Crisp lighting, stark white background, conveying professionalism and readiness in a technical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAd7okO7c5z11v66Iph3nNR1ta4Zv08kUcxjCrMln60HrCR2Qb6wQAQTaqHWxJCA3vAqKGqNFu5FfWMjD1MTpQygrmQ61HZovxRw_ocQcd1wGk43BSPKv0dcOiC_C8hcd-7RlyXru3DBkXJZTNUvu_v7Eh9ofArb7X8xJy0-GI40QR_Jaf6xpSdMCIDL26e1ToGTnDhWi6jwA2rgh44oMu3kZ-_ujNdL6TDGQeO_4c4JiO602JJLk0QdKwitHARpSbyNhqJ8Dyj4zQ"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop bg-background overflow-x-hidden">
+<!-- Header Section -->
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-2">Receipt Wall</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Live feed of verified field service value outcomes.</p>
+</div>
+<!-- Filters -->
+<div class="flex flex-wrap items-center gap-3">
+<div class="flex items-center border border-outline-variant rounded-DEFAULT bg-surface h-[44px] px-3">
+<span class="material-symbols-outlined text-on-surface-variant mr-2 text-[18px]">calendar_today</span>
+<select class="bg-transparent border-none focus:ring-0 font-label-bold text-label-bold text-on-surface py-0 pl-0 pr-8 cursor-pointer">
+<option>Today</option>
+<option>Last 7 Days</option>
+<option>Last 30 Days</option>
+</select>
+</div>
+<div class="flex items-center border border-outline-variant rounded-DEFAULT bg-surface h-[44px] px-3">
+<span class="material-symbols-outlined text-on-surface-variant mr-2 text-[18px]">category</span>
+<select class="bg-transparent border-none focus:ring-0 font-label-bold text-label-bold text-on-surface py-0 pl-0 pr-8 cursor-pointer">
+<option>All Lines</option>
+<option>HVAC</option>
+<option>MedTech</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Dashboard Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-8">
+<div class="bg-surface border-2 border-outline-variant rounded-DEFAULT p-6 flex flex-col justify-center">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-1 uppercase tracking-wider">Total Value Delivered (Today)</p>
+<p class="font-headline-lg text-headline-lg text-primary">$142,500</p>
+</div>
+<div class="bg-surface border-2 border-outline-variant rounded-DEFAULT p-6 flex flex-col justify-center">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-1 uppercase tracking-wider">Downtime Prevented</p>
+<p class="font-headline-lg text-headline-lg text-primary">348 Hrs</p>
+</div>
+<div class="bg-surface border-2 border-outline-variant rounded-DEFAULT p-6 flex flex-col justify-center border-l-4 border-l-secondary-container">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-1 uppercase tracking-wider">Pending Verifications</p>
+<p class="font-headline-lg text-headline-lg text-secondary-container">12 Tickets</p>
+</div>
+</div>
+<!-- Receipt Cards Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-gutter">
+<!-- Card 1: Verified -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT border-l-4 border-l-[#10B981] flex flex-col relative overflow-hidden group">
+<div class="p-5 flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant block mb-1">#TK-8492-HV</span>
+<h3 class="font-headline-md text-headline-md text-primary">Grand Hotel HVAC</h3>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#D1FAE5] text-[#065F46] font-label-bold text-label-bold uppercase">
+                                Verified
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">TECHNICIAN</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">Sarah Jenkins</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">COMPLETED</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">14:30 EST</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 border border-outline-variant rounded-DEFAULT">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">verified</span> Value Proof
+                            </p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">Downtime Prevented: 12hrs</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Chiller unit #3 preventative seal replacement avoided critical failure during peak heat.</p>
+</div>
+</div>
+</div>
+<!-- Card 2: Pending -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT border-l-4 border-l-[#F59E0B] flex flex-col relative overflow-hidden group">
+<div class="p-5 flex-1 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant block mb-1">#TK-9011-MT</span>
+<h3 class="font-headline-md text-headline-md text-primary">St. Jude Medical</h3>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#FEF3C7] text-[#92400E] font-label-bold text-label-bold uppercase">
+                                Pending
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">TECHNICIAN</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">Marcus Vance</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">COMPLETED</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">15:15 EST</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 border border-outline-variant rounded-DEFAULT flex-1">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">pending_actions</span> Claimed Value
+                            </p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">Efficiency Gain: 18%</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 truncate">MRI scanner calibration optimized...</p>
+</div>
+<button class="mt-4 w-full h-[44px] bg-secondary-container hover:bg-secondary text-on-secondary font-label-bold text-label-bold rounded-DEFAULT transition-colors duration-200 uppercase tracking-widest flex items-center justify-center gap-2">
+                            Verify Value <span class="material-symbols-outlined text-[18px]">check_circle</span>
+</button>
+</div>
+</div>
+<!-- Card 3: Verified -->
+<div class="bg-surface border border-outline-variant rounded-DEFAULT border-l-4 border-l-[#10B981] flex flex-col relative overflow-hidden group">
+<div class="p-5 flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="font-data-mono text-data-mono text-on-surface-variant block mb-1">#TK-8495-HV</span>
+<h3 class="font-headline-md text-headline-md text-primary">Apex Logistics Ctr</h3>
+</div>
+<span class="inline-flex items-center px-2 py-1 rounded bg-[#D1FAE5] text-[#065F46] font-label-bold text-label-bold uppercase">
+                                Verified
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">TECHNICIAN</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">Elena Rodriguez</p>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant mb-1">COMPLETED</p>
+<p class="font-body-md text-body-md font-medium text-on-surface">11:05 EST</p>
+</div>
+</div>
+<div class="bg-surface-container-low p-4 border border-outline-variant rounded-DEFAULT">
+<p class="font-label-bold text-label-bold text-on-surface-variant mb-2 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">verified</span> Value Proof
+                            </p>
+<p class="font-body-lg text-body-lg font-semibold text-primary">Energy Savings: $450/mo</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Reprogrammed thermostat schedules and cleared blocked main exhaust vents.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

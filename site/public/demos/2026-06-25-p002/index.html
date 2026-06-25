@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CEASEFIRE DESK v1.0 - Operator Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#1f1f27",
+                        "surface-container-high": "#292932",
+                        "on-secondary-container": "#00424e",
+                        "surface-tint": "#c0c1ff",
+                        "on-tertiary-container": "#452000",
+                        "tertiary-fixed": "#ffdcc5",
+                        "inverse-surface": "#e4e1ed",
+                        "tertiary-container": "#d97721",
+                        "on-error-container": "#ffdad6",
+                        "secondary-container": "#03b5d3",
+                        "outline-variant": "#464554",
+                        "error": "#ffb4ab",
+                        "on-secondary": "#003640",
+                        "on-secondary-fixed-variant": "#004e5c",
+                        "secondary-fixed": "#acedff",
+                        "on-background": "#e4e1ed",
+                        "secondary-fixed-dim": "#4cd7f6",
+                        "surface-container-lowest": "#0d0d15",
+                        "on-secondary-fixed": "#001f26",
+                        "outline": "#908fa0",
+                        "surface-dim": "#13131b",
+                        "error-container": "#93000a",
+                        "on-primary": "#1000a9",
+                        "on-surface-variant": "#c7c4d7",
+                        "secondary": "#4cd7f6",
+                        "on-tertiary": "#4f2500",
+                        "background": "#13131b",
+                        "tertiary": "#ffb783",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "on-primary-container": "#0d0096",
+                        "surface-container-highest": "#34343d",
+                        "surface-bright": "#393841",
+                        "inverse-on-surface": "#303038",
+                        "on-error": "#690005",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-variant": "#34343d",
+                        "primary-container": "#8083ff",
+                        "on-tertiary-fixed": "#301400",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "primary": "#c0c1ff",
+                        "surface-container-low": "#1b1b23",
+                        "inverse-primary": "#494bd6",
+                        "surface": "#13131b",
+                        "on-surface": "#e4e1ed",
+                        "on-primary-fixed": "#07006c",
+                        "on-tertiary-fixed-variant": "#703700"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "row-height-sm": "32px",
+                        "row-height-md": "40px",
+                        "container-margin": "16px",
+                        "gutter": "12px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #0F172A; color: #e4e1ed; }
+        .hairline-border { border: 1px solid #334155; }
+        .hairline-border-b { border-bottom: 1px solid #334155; }
+        .hairline-border-r { border-right: 1px solid #334155; }
+        .hairline-border-l { border-left: 1px solid #334155; }
+        .surface-bg { background-color: #1E293B; }
+        .interactive-hover:hover { box-shadow: inset 0 0 10px rgba(192, 193, 255, 0.2); }
+        .status-badge { border-radius: 2px; padding: 2px 6px; box-shadow: 0 0 4px currentColor; }
+        .input-inset { background-color: #0F172A; border: 1px solid #334155; }
+        .input-inset:focus { border-color: #c0c1ff; box-shadow: 0 0 4px rgba(192, 193, 255, 0.5); outline: none; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0F172A; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    </style>
+</head>
+<body class="h-screen w-full flex overflow-hidden font-body-md bg-background text-on-surface">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[240px] border-r border-outline-variant bg-surface-container dark:bg-surface-container text-secondary dark:text-secondary font-data-mono text-data-mono flex flex-col h-full py-4 z-50">
+<div class="px-container-margin mb-8">
+<h1 class="font-display-lg text-display-lg text-primary tracking-tighter">CEASEFIRE</h1>
+<div class="text-on-surface-variant mt-1 text-[10px] tracking-widest uppercase">OPERATOR_042</div>
+<img alt="System Status Indicator" class="w-8 h-8 rounded-full mt-4 border border-outline-variant" data-alt="A small, glowing digital avatar indicating system status in a futuristic, high-tech interface setting. Subtle cyan and indigo tones against a dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQe8mJ-zJRdJIH_pS1EENB2tHTuJiAD1Y_VyEQ9IAMqBL1Zfym0bZfXN9qCXdeNgOeKjkMlF7bFYfGt2w8JP8ivAYuMQjAI4EV8Jub7j_e-V2SRMjh6PoLqOj1YbsOJfNZ2guE4X9l4rIA8O70HVWsRsFe9bnjbjRBdAewRcGIzRSk01_HQ472vSf-Vu3-jTPdsjUPJoacXgQX1uPLxRz7EIUiL8b_vMZ7XEm2Dt_SSykUJC503tyD0utaWddvSo_ZpA2SpGp4wOgd"/>
+</div>
+<div class="flex-grow flex flex-col space-y-1 px-2">
+<!-- Active: Dashboard -->
+<a class="bg-secondary-container text-on-secondary-container border-l-4 border-secondary transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">security</span>
+                Threats
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">policy</span>
+                Evidence
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">history</span>
+                Archive
+            </a>
+</div>
+<div class="px-container-margin mt-auto mb-4">
+<button class="w-full bg-primary text-on-primary font-bold py-2 px-4 rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center justify-center h-[32px] font-label-caps uppercase">
+<span class="material-symbols-outlined mr-2 text-[16px]">add</span>
+                NEW_TICKET
+            </button>
+</div>
+<div class="flex flex-col space-y-1 px-2 mb-4">
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">tune</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">contact_support</span>
+                Help
+            </a>
+<a class="text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all duration-150 ease-in-out flex items-center px-3 py-2 rounded-r-DEFAULT border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined mr-3 text-[18px]">gif_box</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-[240px] flex flex-col h-full bg-[#0F172A]">
+<!-- TopNavBar (Embedded within main for layout ease) -->
+<header class="w-full h-row-height-md flex items-center justify-between px-gutter border-b border-outline-variant bg-surface-container-highest dark:bg-surface-container-highest z-40 shrink-0">
+<div class="flex items-center space-x-6 h-full">
+<!-- Search implicitly on left based on layout -->
+<div class="relative w-64 h-full flex items-center">
+<span class="material-symbols-outlined absolute left-2 text-on-surface-variant text-[18px]">search</span>
+<input class="input-inset w-full h-[28px] pl-8 pr-2 text-data-mono font-data-mono text-on-surface text-[12px] placeholder:text-outline rounded-[2px]" placeholder="Search queues, IDs..." type="text"/>
+</div>
+<nav class="flex h-full font-headline-md text-headline-md space-x-4">
+<a class="h-full flex items-center text-primary border-b-2 border-primary cursor-pointer active:opacity-80 px-2" href="#">Queue</a>
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-2" href="#">Operations</a>
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-2" href="#">Analytics</a>
+<a class="h-full flex items-center text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 px-2" href="#">Logs</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors flex items-center justify-center w-8 h-8 rounded hover:bg-surface-container-high"><span class="material-symbols-outlined">settings</span></button>
+<button class="hover:text-primary transition-colors flex items-center justify-center w-8 h-8 rounded hover:bg-surface-container-high relative">
+<span class="material-symbols-outlined">notifications_active</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hover:text-primary transition-colors flex items-center justify-center w-8 h-8 rounded hover:bg-surface-container-high"><span class="material-symbols-outlined">help_outline</span></button>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<img alt="Operator Profile" class="w-7 h-7 rounded-full hairline-border" data-alt="Operator profile image, sleek corporate headshot, dark theme, moody lighting, professional tech setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6U0d0SmJvTUkWKvhInxVUuyzKKO_jDbuqtfNEdyZmM1BIL-AXzdrvA9scG-OxcLZjdMvGXWXnULc28y1Lr2lzrT4lRRFXae84ewb4Ewj0M3m-e_qKfUQ0Ic5F1BN2lgeKxydLZvFoeqR-IDP1oN1OfKf77-_YK5UtMWzA-aXgvb6vz5eUXBI-hcK1Yl1IUDk3HBjQbP7sro4yUpKcT_gySRXfzbd-J2BVdVAi6eaV6Y3UGP2Y79uCMPio0JZALzfCNYhNiIdWil9F"/>
+</div>
+</header>
+<!-- Data Workspace Grid -->
+<main class="flex-1 flex overflow-hidden p-gutter gap-gutter custom-scrollbar">
+<!-- 1. Thread Queue (Center) -->
+<section class="flex-1 flex flex-col surface-bg hairline-border rounded-DEFAULT overflow-hidden min-w-[400px]">
+<header class="h-row-height-sm bg-surface-container-highest hairline-border-b flex items-center justify-between px-3 shrink-0">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[16px] text-primary">list_alt</span>
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Active Thread Queue</h2>
+</div>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[11px]">14 PENDING</span>
+</header>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<table class="w-full text-left border-collapse font-data-mono text-data-mono text-[12px]">
+<thead class="sticky top-0 bg-surface-container-highest z-10 hairline-border-b">
+<tr>
+<th class="py-2 px-3 font-normal text-on-surface-variant">ID / CUSTOMER</th>
+<th class="py-2 px-3 font-normal text-on-surface-variant">AI SCORE</th>
+<th class="py-2 px-3 font-normal text-on-surface-variant">BOT-v-BOT METER</th>
+<th class="py-2 px-3 font-normal text-on-surface-variant">WAIT</th>
+<th class="py-2 px-3 font-normal text-on-surface-variant text-right">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#334155]">
+<!-- Row 1: Selected -->
+<tr class="h-row-height-sm bg-[#334155] cursor-pointer">
+<td class="px-3 py-1">
+<div class="flex flex-col">
+<span class="text-primary font-bold">#TK-8992</span>
+<span class="text-on-surface text-[11px] truncate w-32">Acme Corp (J. Doe)</span>
+</div>
+</td>
+<td class="px-3 py-1">
+<div class="flex items-center text-error">
+<span class="material-symbols-outlined text-[14px] mr-1">warning</span>
+                                        98%
+                                    </div>
+</td>
+<td class="px-3 py-1 w-32">
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden flex">
+<div class="h-full bg-error w-3/4"></div>
+<div class="h-full bg-tertiary w-1/4"></div>
+</div>
+<div class="text-[9px] text-on-surface-variant mt-0.5 text-right">7 CYCLES</div>
+</td>
+<td class="px-3 py-1 text-on-surface-variant">04:12:09</td>
+<td class="px-3 py-1 text-right">
+<span class="status-badge bg-error/10 text-error border border-error/50 font-label-caps text-[9px]">CRITICAL</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="h-row-height-sm hover:bg-[#292932] interactive-hover cursor-pointer transition-colors">
+<td class="px-3 py-1">
+<div class="flex flex-col">
+<span class="text-on-surface">#TK-8993</span>
+<span class="text-on-surface-variant text-[11px] truncate w-32">Globex (S. Smith)</span>
+</div>
+</td>
+<td class="px-3 py-1 text-tertiary">74%</td>
+<td class="px-3 py-1 w-32">
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden flex">
+<div class="h-full bg-tertiary w-1/2"></div>
+</div>
+<div class="text-[9px] text-on-surface-variant mt-0.5 text-right">3 CYCLES</div>
+</td>
+<td class="px-3 py-1 text-on-surface-variant">01:45:22</td>
+<td class="px-3 py-1 text-right">
+<span class="status-badge bg-tertiary/10 text-tertiary border border-tertiary/50 font-label-caps text-[9px]">REPEAT</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="h-row-height-sm hover:bg-[#292932] interactive-hover cursor-pointer transition-colors">
+<td class="px-3 py-1">
+<div class="flex flex-col">
+<span class="text-on-surface">#TK-8994</span>
+<span class="text-on-surface-variant text-[11px] truncate w-32">Initech (P. Gibbons)</span>
+</div>
+</td>
+<td class="px-3 py-1 text-secondary">22%</td>
+<td class="px-3 py-1 w-32">
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary w-1/6"></div>
+</div>
+<div class="text-[9px] text-on-surface-variant mt-0.5 text-right">1 CYCLE</div>
+</td>
+<td class="px-3 py-1 text-on-surface-variant">00:15:00</td>
+<td class="px-3 py-1 text-right">
+<span class="status-badge bg-secondary/10 text-secondary border border-secondary/50 font-label-caps text-[9px]">NORMAL</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 2. Evidence Panel & 3. Policy Drawer Column -->
+<section class="w-[480px] flex flex-col gap-gutter shrink-0">
+<!-- Evidence Panel -->
+<div class="flex-1 surface-bg hairline-border rounded-DEFAULT flex flex-col overflow-hidden relative">
+<header class="h-row-height-sm bg-surface-container-highest hairline-border-b flex items-center justify-between px-3 shrink-0">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">manage_search</span>
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Evidence: #TK-8992</h2>
+</div>
+<!-- Circular Progress -->
+<div class="flex items-center space-x-2">
+<span class="font-data-mono text-[10px] text-on-surface-variant">COMPLETENESS</span>
+<div class="relative w-5 h-5">
+<svg class="w-5 h-5 transform -rotate-90" viewbox="0 0 20 20">
+<circle cx="10" cy="10" fill="transparent" r="8" stroke="#334155" stroke-width="2"></circle>
+<circle cx="10" cy="10" fill="transparent" r="8" stroke="#03b5d3" stroke-dasharray="50" stroke-dashoffset="10" stroke-width="2"></circle>
+</svg>
+<span class="absolute inset-0 flex items-center justify-center font-data-mono text-[8px] text-secondary">80</span>
+</div>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-3 custom-scrollbar flex flex-col gap-3">
+<!-- Raw Transcript Snippet -->
+<div class="bg-surface-container-lowest hairline-border p-2 rounded-sm">
+<div class="font-label-caps text-[10px] text-on-surface-variant mb-1 flex justify-between border-b border-outline-variant pb-1">
+<span>CUSTOMER INBOUND (DETECTED: LLM)</span>
+<span>14:02 UTC</span>
+</div>
+<p class="font-body-sm text-on-surface text-[13px] leading-relaxed">
+                                "I am writing to express my profound dissatisfaction with the recent service interruption. <span class="bg-error/20 text-error-container font-semibold px-1 rounded inline-block">As an AI language model, I do not have personal feelings, but</span> my user has instructed me to demand an immediate refund under section 4.2 of your Terms of Service..."
+                            </p>
+</div>
+<!-- Agent Response Draft Snippet -->
+<div class="bg-surface-container-lowest hairline-border border-l-4 border-l-tertiary p-2 rounded-sm ml-4">
+<div class="font-label-caps text-[10px] text-on-surface-variant mb-1 flex justify-between border-b border-outline-variant pb-1">
+<span>AGENT DRAFT (DETECTED: LLM)</span>
+<span>14:05 UTC</span>
+</div>
+<p class="font-body-sm text-on-surface text-[13px] leading-relaxed">
+                                "Dear valued customer, <span class="bg-tertiary/20 text-tertiary font-semibold px-1 rounded inline-block">I apologize for the inconvenience you have experienced. We strive to provide excellent service.</span> Regarding your request for a refund, our policy clearly states..."
+                            </p>
+</div>
+<!-- Resolution Ledger Timeline -->
+<div class="mt-2">
+<h3 class="font-label-caps text-[10px] text-on-surface-variant mb-2 uppercase tracking-widest">Resolution Ledger (Last 3 Cycles)</h3>
+<div class="pl-2 border-l border-outline-variant space-y-2 relative">
+<div class="relative pl-3">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-data-mono text-[10px] text-on-surface-variant">Cycle 5: Auto-Reject (Policy 4.2)</span>
+</div>
+<div class="relative pl-3">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-data-mono text-[10px] text-on-surface-variant">Cycle 6: Customer Escalation (LLM Generated)</span>
+</div>
+<div class="relative pl-3">
+<div class="absolute left-[-4px] top-1 w-2 h-2 rounded-full bg-error shadow-[0_0_4px_#ffb4ab]"></div>
+<span class="font-data-mono text-[10px] text-error font-bold">Cycle 7: Agent Auto-Reply Attempt (BLOCKED)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Policy Snippet Drawer (Mocked as docked bottom panel for grid layout) -->
+<div class="h-48 surface-bg hairline-border rounded-DEFAULT flex flex-col overflow-hidden">
+<header class="h-row-height-sm bg-surface-container-highest hairline-border-b flex items-center px-3 shrink-0">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant mr-2">gavel</span>
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-widest">Policy Engine Reference</h2>
+</header>
+<div class="p-3 overflow-y-auto custom-scrollbar font-body-sm text-[12px] text-on-surface-variant">
+<strong class="text-on-surface block mb-1">Section 4.2: Automated Disputes</strong>
+<p class="mb-2">"Any dispute or refund request generated entirely or substantially by automated means, including Large Language Models, without substantive human review, is subject to immediate quarantine."</p>
+<div class="font-data-mono text-[10px] bg-surface-container-lowest p-1 rounded hairline-border mt-2">
+                            CONFIDENCE: 99.8% MATCH (Keyword: "section 4.2", Syntax: LLM_STANDARD)
+                        </div>
+</div>
+</div>
+</section>
+<!-- 4. Human Decision Rail (Far Right) -->
+<section class="w-[200px] surface-bg hairline-border rounded-DEFAULT flex flex-col shrink-0 overflow-hidden">
+<header class="h-row-height-sm bg-surface-container-highest hairline-border-b flex items-center justify-center shrink-0">
+<h2 class="font-label-caps text-label-caps text-error uppercase tracking-widest flex items-center">
+<span class="material-symbols-outlined text-[14px] mr-1">bolt</span>
+                        Action Rail
+                    </h2>
+</header>
+<div class="flex-1 p-3 flex flex-col gap-3 overflow-y-auto custom-scrollbar">
+<!-- Primary Action -->
+<button class="w-full bg-primary/10 border border-primary text-primary hover:bg-primary hover:text-on-primary transition-all duration-200 h-[32px] rounded-sm font-label-caps text-[11px] flex items-center justify-center shadow-[inset_0_0_8px_rgba(192,193,255,0.2)]">
+<span class="material-symbols-outlined text-[14px] mr-1">gpp_maybe</span>
+                        APPROVE CEASEFIRE
+                    </button>
+<div class="h-px bg-outline-variant w-full my-1"></div>
+<!-- Secondary Actions -->
+<button class="w-full bg-transparent border border-outline-variant text-on-surface hover:border-secondary hover:text-secondary transition-colors h-[32px] rounded-sm font-label-caps text-[10px] flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] mr-1">smart_toy</span>
+                        OVERRIDE AI
+                    </button>
+<button class="w-full bg-transparent border border-outline-variant text-on-surface hover:border-tertiary hover:text-tertiary transition-colors h-[32px] rounded-sm font-label-caps text-[10px] flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] mr-1">person_raised_hand</span>
+                        ESCALATE TO HUMAN
+                    </button>
+<button class="w-full bg-transparent border border-outline-variant text-on-surface hover:border-primary-container hover:text-primary-container transition-colors h-[32px] rounded-sm font-label-caps text-[10px] flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] mr-1">edit_note</span>
+                        INJECT MANUAL TONE
+                    </button>
+<!-- 5. Tone/Liability Preview Widget -->
+<div class="mt-auto bg-surface-container-lowest hairline-border rounded-sm p-2 flex flex-col gap-2">
+<div class="font-label-caps text-[9px] text-on-surface-variant flex justify-between items-center">
+<span>LIABILITY RISK</span>
+<span class="material-symbols-outlined text-[12px] text-error">warning</span>
+</div>
+<div class="flex items-end space-x-1">
+<span class="font-display-lg text-[24px] leading-none text-error">HIGH</span>
+<span class="font-data-mono text-[9px] text-on-surface-variant pb-1">/ 89%</span>
+</div>
+<div class="h-1 w-full bg-surface-container rounded-full overflow-hidden mt-1">
+<div class="h-full bg-error w-[89%]"></div>
+</div>
+<p class="font-data-mono text-[8px] text-on-surface-variant mt-1 leading-tight">Draft tone suggests automated liability admission.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Restaurant Rescue - Detail View</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&amp;family=Hanken+Grotesk:wght@400..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f3f0ef",
+                        "secondary-container": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "outline": "#916f65",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#5c4037",
+                        "secondary-fixed": "#e2e2e2",
+                        "on-background": "#1c1b1b",
+                        "tertiary-fixed-dim": "#c6c7c2",
+                        "secondary": "#5e5e5e",
+                        "tertiary-fixed": "#e3e3de",
+                        "outline-variant": "#e6beb2",
+                        "surface-container-highest": "#e5e2e1",
+                        "secondary-fixed-dim": "#c6c6c6",
+                        "primary": "#aa3000",
+                        "primary-container": "#d43f00",
+                        "primary-fixed": "#ffdbd0",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-fixed-variant": "#454744",
+                        "on-tertiary-fixed": "#1a1c19",
+                        "on-primary-container": "#fffbff",
+                        "surface-container": "#f0eded",
+                        "on-surface": "#1c1b1b",
+                        "on-secondary": "#ffffff",
+                        "surface": "#fcf9f8",
+                        "primary-fixed-dim": "#ffb59e",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5b5c59",
+                        "on-tertiary-container": "#fdfdf8",
+                        "on-secondary-container": "#646464",
+                        "on-secondary-fixed-variant": "#474747",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#ffb59e",
+                        "surface-dim": "#dcd9d9",
+                        "tertiary-container": "#747571",
+                        "surface-container-low": "#f6f3f2",
+                        "background": "#fcf9f8",
+                        "surface-bright": "#fcf9f8",
+                        "on-primary-fixed": "#3a0b00",
+                        "on-primary-fixed-variant": "#852400",
+                        "surface-variant": "#e5e2e1",
+                        "surface-container-high": "#eae7e7",
+                        "surface-tint": "#ae3200",
+                        "on-secondary-fixed": "#1b1b1b",
+                        "inverse-surface": "#313030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "48px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Anybody"],
+                        "label-mono": ["Space Mono"],
+                        "headline-lg-mobile": ["Anybody"],
+                        "display-relay": ["Anybody"],
+                        "timer-md": ["Space Mono"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Anybody"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "label-mono": ["14px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                        "display-relay": ["72px", { "lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "timer-md": ["20px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .brutalist-shadow {
+            box-shadow: 4px 4px 0 0 #1c1b1b;
+        }
+        .brutalist-shadow-red {
+            box-shadow: 4px 4px 0 0 #aa3000;
+        }
+        .brutalist-card {
+            border: 2px solid #1c1b1b;
+        }
+        .brutalist-card-urgent {
+            border: 2px solid #aa3000;
+        }
+        .active-press:active {
+            transform: translate(2px, 2px);
+            box-shadow: none !important;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .blink-colon {
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes pulse-red {
+            0% { border-color: #aa3000; box-shadow: 0 0 0 0 rgba(170, 48, 0, 0.4); }
+            70% { border-color: #ffb59e; box-shadow: 0 0 0 10px rgba(170, 48, 0, 0); }
+            100% { border-color: #aa3000; box-shadow: 0 0 0 0 rgba(170, 48, 0, 0); }
+        }
+        .live-indicator {
+            animation: pulse-red 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b-2 border-on-background dark:border-surface-variant flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full h-16 z-50 docked full-width top-0">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold italic uppercase text-primary dark:text-primary-fixed-dim">Relay</span>
+</div>
+<nav class="hidden md:flex gap-8 h-full">
+<a class="h-full flex items-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 px-4 font-headline-md text-headline-md font-label-mono text-label-mono" href="#">Live Lanes</a>
+<a class="h-full flex items-center text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 px-4 font-headline-md text-headline-md font-label-mono text-label-mono" href="#">My Batons</a>
+<a class="h-full flex items-center text-primary dark:text-primary-fixed-dim border-b-4 border-primary hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5 px-4 font-headline-md text-headline-md font-label-mono text-label-mono" href="#">Rescue</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high p-2 rounded-full transition-transform active:translate-x-0.5 active:translate-y-0.5">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+</button>
+<button class="text-primary dark:text-inverse-primary hover:bg-surface-container-high p-2 rounded-full transition-transform active:translate-x-0.5 active:translate-y-0.5">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-8 md:py-12 flex flex-col gap-8">
+<!-- Hero Section & Countdown -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Restaurant Image -->
+<div class="lg:col-span-8 relative brutalist-card bg-surface-container-high h-[400px] overflow-hidden">
+<img alt="Restaurant Interior" class="w-full h-full object-cover grayscale opacity-80 mix-blend-multiply" data-alt="A high-contrast, moody architectural shot of an upscale modern restaurant interior. The lighting is cinematic with deep shadows and warm, inviting highlights on polished wooden tables and minimalist tableware. The scene evokes a premium dining experience with a modern, high-energy brutalist edge. Colors are primarily deep blacks, rich browns, and bright white highlights, aligning with an exclusive urban vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBc95lJHvJahm3_2oHPqRt-MBmMRWAuqDhG-2TFKn4CsM2O1MjwETyDY8v8xzymAd5eyZOurbkm99Y92naYlNf4exd_VmABKYA5IIY2I_RMzMAMIEIvVoOU3Jsokmk3a4Wa27Z9oVCDrHyKQ4p37d5hhiF5mfC5QvzPDJ0qv47CW_GuFvo_XIBf-XLrQG84wwVTbmqwrKZB1aHEj2TVttJeXVZpBqh425M9qeshGGbd1mQImX5Se9GO-EqDbSzRTMMFxeV2JSLjYbPr"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-background/80 to-transparent flex flex-col justify-end p-8">
+<span class="font-label-mono text-label-mono text-primary-fixed mb-2 uppercase tracking-widest">Table for 2 • 8:00 PM</span>
+<h1 class="font-display-relay text-display-relay text-on-primary">The Obsidian Grill</h1>
+</div>
+</div>
+<!-- Rescue Status & Timer -->
+<div class="lg:col-span-4 flex flex-col gap-unit h-full">
+<div class="brutalist-card brutalist-card-urgent brutalist-shadow-red bg-surface p-6 flex flex-col items-center justify-center flex-grow live-indicator">
+<div class="flex items-center gap-2 mb-4">
+<span class="w-3 h-3 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-mono text-label-mono text-primary uppercase">Urgent Rescue</span>
+</div>
+<div class="bg-on-background text-primary px-6 py-4 border-2 border-primary mb-4 w-full text-center">
+<span class="font-timer-md text-timer-md">00<span class="blink-colon">:</span>45<span class="blink-colon">:</span>12</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-center">Time remaining before no-show penalty</p>
+</div>
+<!-- Primary CTA -->
+<button class="w-full bg-primary text-on-primary font-headline-md text-headline-md py-6 border-2 border-on-background brutalist-shadow active-press uppercase tracking-wide flex justify-center items-center gap-3">
+                    Claim Baton
+                    <span class="material-symbols-outlined" data-icon="sports_score" data-weight="fill">sports_score</span>
+</button>
+</div>
+</div>
+<!-- Details & Context Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter mt-8">
+<!-- Transfer Context -->
+<div class="lg:col-span-2 brutalist-card bg-surface-container-low p-8 flex flex-col gap-6 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+<div class="flex items-start gap-4">
+<div class="bg-primary-container text-on-primary-container p-3 rounded-none border-2 border-on-background brutalist-shadow mt-1">
+<span class="material-symbols-outlined" data-icon="warning">warning</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-background mb-2">The Stakes</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                            This table is at risk of a <strong class="text-primary font-bold">$50 no-show fee</strong>. Help a fellow diner avoid the penalty and claim this premium reservation for face value. You take the baton, they avoid the drop.
+                        </p>
+</div>
+</div>
+<hr class="border-t-2 border-on-background/20 my-2"/>
+<!-- Host-Safe Guarantee -->
+<div class="flex items-center gap-4 p-4 border-2 border-primary/30 bg-primary-fixed/20">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="verified_user">verified_user</span>
+<div>
+<h3 class="font-label-mono text-label-mono text-on-background uppercase mb-1">Host-Safe Guarantee</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Transaction secured via Relay. Restaurant notified instantly.</p>
+</div>
+</div>
+<!-- Reviews/Highlights snippet -->
+<div class="mt-4">
+<h3 class="font-label-mono text-label-mono text-on-background uppercase mb-4 tracking-widest border-b-2 border-on-background inline-block pb-1">Baton Highlights</h3>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="star">star</span>
+<span class="font-body-md text-body-md text-on-surface">"Best dry-aged ribeye in the city." - The Infatuation</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="local_dining">local_dining</span>
+<span class="font-body-md text-body-md text-on-surface">Normally a 3-week waitlist for prime Friday hours.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Map & Location -->
+<div class="lg:col-span-1 flex flex-col gap-unit">
+<div class="brutalist-card bg-surface-container-low h-64 relative overflow-hidden">
+<img alt="Location Map" class="w-full h-full object-cover" data-alt="A stylized, high-contrast minimalist street map view of a downtown urban area. The map uses a brutalist color palette with a stark off-white background, thick black lines for major roads, and a prominent, vibrant red geometric marker indicating a specific location. The design feels athletic, precise, and highly functional, avoiding typical standard map aesthetics in favor of sharp, high-energy graphic design." data-location="New York City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR3Y57jgAi7yipZa3gVwAG-GGMJlf9uaSpp79JRNvIYzuA9PiDgZfi2A5gEnc1gMYdZMmDyQLYIY2qm3KfgdoaTbw28HSRddv7oeAHTphxjPqdn-NxnCdCgsEk4_HrNX-liGzSsNK-Tlb2IkqPiIE8s-nyu-eNJRHu3pfLgWU18rO4SfREtl5HnC-wMbG-eLdlqPca1Oq1UJ75ZkoFE8i1XDdv8Ojy_3flmc8xwiaRCSUckI0q48nqH11S7HEtN4LpYFt-TRbiqayZ"/>
+<div class="absolute inset-0 border-4 border-on-background pointer-events-none"></div>
+</div>
+<div class="brutalist-card bg-surface p-4 flex items-center justify-between">
+<div>
+<span class="font-label-mono text-label-mono text-on-surface-variant block mb-1">Location</span>
+<span class="font-body-md text-body-md text-on-background font-bold block">124 West 43rd St.</span>
+<span class="font-body-md text-body-md text-on-surface-variant text-sm block">Downtown District</span>
+</div>
+<button class="bg-surface-container-high border-2 border-on-background p-2 brutalist-shadow active-press hover:bg-secondary-container transition-colors">
+<span class="material-symbols-outlined" data-icon="directions">directions</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t-4 border-on-background w-full mt-auto flex flex-col md:flex-row justify-between items-center px-margin-desktop py-8 gap-gutter font-body-md text-body-md font-label-mono text-label-mono">
+<div class="flex items-center gap-4">
+<span class="text-headline-md font-headline-md text-primary font-bold italic uppercase">Relay</span>
+<span class="text-on-surface dark:text-inverse-on-surface text-sm">© 2024 Relay Reservation Transfer. All rights reserved.</span>
+</div>
+<nav class="flex gap-6">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Trust &amp; Safety</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Host Terms</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Runner Guidelines</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Download App</a>
+</nav>
+</footer>
+</body></html>

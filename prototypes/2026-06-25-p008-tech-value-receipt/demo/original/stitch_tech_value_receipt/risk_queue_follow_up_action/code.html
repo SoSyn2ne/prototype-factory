@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Follow-up Risk Queue | Tech Value Receipt</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed-variant": "#783200",
+                        "primary-container": "#131b2e",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "on-secondary-fixed": "#341100",
+                        "outline-variant": "#c6c6cd",
+                        "surface-dim": "#cbdbf5",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#565e74",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "tertiary-container": "#0d1c2f",
+                        "surface-variant": "#d3e4fe",
+                        "on-primary-container": "#7c839b",
+                        "on-primary-fixed": "#131b2e",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "on-surface-variant": "#45464d",
+                        "surface": "#f8f9ff",
+                        "secondary": "#9d4300",
+                        "tertiary-fixed": "#d5e3fd",
+                        "background": "#f8f9ff",
+                        "on-secondary-container": "#5c2400",
+                        "primary": "#000000",
+                        "primary-fixed": "#dae2fd",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#fd761a",
+                        "on-primary": "#ffffff",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "inverse-surface": "#213145",
+                        "on-tertiary-container": "#76859b",
+                        "secondary-fixed": "#ffdbca",
+                        "surface-container-high": "#dce9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "tertiary": "#000000",
+                        "primary-fixed-dim": "#bec6e0",
+                        "surface-container-low": "#eff4ff",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "secondary-fixed-dim": "#ffb690",
+                        "inverse-primary": "#bec6e0",
+                        "outline": "#76777d",
+                        "surface-bright": "#f8f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "32px",
+                        "touch-target": "44px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "data-mono": ["\"ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace\""],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-lg min-h-screen flex antialiased">
+<!-- SideNavBar (Desktop Only) -->
+<nav class="hidden md:flex flex-col bg-surface dark:bg-inverse-surface h-screen w-64 border-r-2 border-outline-variant dark:border-outline fixed left-0 top-0 transition-colors duration-150 z-50">
+<div class="p-6 border-b-2 border-outline-variant dark:border-outline flex items-center gap-4">
+<img class="w-12 h-12 rounded-full object-cover border-2 border-outline-variant" data-alt="A professional headshot of a field operations technician in high-visibility gear, standing against a clean industrial background. The lighting is crisp and the mood is focused and serious, fitting a light-mode high-contrast enterprise application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlGtF1a-1AM2pRR_gG6woqi5TVqlD7FPP4Te1EfPmaiCJKyEHBYaJF95VZPSncoMGIKbQbX0aUNPoS5ntp49byp86gyRrbUxw448on0WLpSKofk5a194vL20hKZU9Rv39MucBeRQKRcwOaY30F3e2RjhktC9bDb0X3PasZC1AcHDUuD-wytr-74QYKlVXwlx_g_4PRGgboBdSIRDnHHKJ2wz24xLXe7WxcMp-wqRY7DD_u-rlYfVl4w6xiZuUbQQticnJYNDHVOE4"/>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed leading-tight">Tech Value Receipt</h1>
+<p class="font-label-md text-label-md text-on-surface-variant">Field Operations</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-body-md text-body-md">Receipt Wall</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-body-md text-body-md">Value Ledger</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-secondary dark:text-secondary-fixed-dim font-bold border-r-4 border-secondary bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem" data-weight="fill" style="font-variation-settings: 'FILL' 1;">report_problem</span>
+<span class="font-body-md text-body-md">Risk Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-6 py-3 text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-body-md text-body-md">Analytics</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-touch-target sticky top-0 z-40 bg-surface dark:bg-inverse-surface border-b-2 border-outline-variant dark:border-outline transition-all duration-200">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed md:hidden">Tech Value Receipt</h2>
+<!-- Search (Desktop) -->
+<div class="hidden md:flex items-center border border-outline-variant rounded bg-surface-container-lowest px-3 py-1 focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-body-md text-body-md text-primary w-64 placeholder-on-surface-variant" placeholder="Search visits, assets..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Actions -->
+<div class="hidden md:flex items-center gap-2">
+<button class="font-label-bold text-label-bold text-secondary border border-secondary px-4 py-2 rounded hover:bg-surface-container-high transition-colors">
+                        Manager View
+                    </button>
+<button class="font-label-bold text-label-bold text-on-primary bg-secondary px-4 py-2 rounded hover:bg-on-secondary-fixed-variant transition-colors">
+                        Territory Filter
+                    </button>
+</div>
+<!-- Icons -->
+<button class="text-on-surface-variant hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="hidden md:block text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant md:hidden" data-alt="A small, circular avatar of a field technician wearing a safety helmet. The image is brightly lit, clear, and perfectly integrated into a high-contrast modern web interface dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDijvPS7UG9gvEQqGxoARgMkFp97h1K-vT3JFA6Lrqn1NU3u2BNNixc-5xXAUvYWH9U0IEKTZJRYX32T72Ie5pnSuyTLXQ3YRaxD195Kv34jhTXvr91789q8ecosTrknz4QeLpeCUWSbSaH2L3IWhgybvfoT295zVfZBwhE5zOtMQ8L3lyqPH5s1P1cd7_H-hOmQFrwLrt5ez62OkWWhKtO2uZcYzpw8b8u84y31EODX0dt-FQ4jqQMbcAlSe3S4g-O2DfKjrfNPoE"/>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop overflow-x-hidden">
+<div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-primary font-bold">Follow-up Risk Queue</h2>
+<p class="font-body-md text-on-surface-variant mt-2 max-w-2xl">Prioritized list of service visits requiring immediate attention to prevent operational failure or client churn.</p>
+</div>
+<!-- Quick Stats -->
+<div class="flex gap-4">
+<div class="bg-surface border border-outline-variant rounded p-3 flex flex-col items-center min-w-[80px]">
+<span class="font-headline-md text-error font-bold">3</span>
+<span class="font-label-bold text-on-surface-variant text-[10px]">CRITICAL</span>
+</div>
+<div class="bg-surface border border-outline-variant rounded p-3 flex flex-col items-center min-w-[80px]">
+<span class="font-headline-md text-secondary-container font-bold">5</span>
+<span class="font-label-bold text-on-surface-variant text-[10px]">WARNING</span>
+</div>
+</div>
+</div>
+<!-- Risk Queue List -->
+<div class="space-y-4">
+<!-- Critical Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col md:flex-row relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant ml-1">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-on-surface-variant">SV-8924-A</span>
+<span class="bg-error text-on-error font-label-bold text-[10px] px-2 py-1 rounded-sm tracking-wider">CRITICAL</span>
+</div>
+<h3 class="font-headline-md text-primary font-bold mb-1">Industrial HVAC Unit #4</h3>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            Facility B, Sector 7
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant bg-surface-container-lowest">
+<span class="font-label-bold text-on-surface-variant mb-1">RISK FACTOR</span>
+<p class="font-body-md text-error font-semibold flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] mt-0.5" data-icon="warning">warning</span>
+                            Unresolved Noise: High amplitude vibrations detected post-service. Immediate failure risk.
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex flex-col justify-center gap-3 bg-surface-container-lowest md:min-w-[200px]">
+<button class="w-full h-touch-target bg-error text-on-error font-label-bold rounded hover:bg-on-error-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="directions_car">directions_car</span>
+                            RE-DISPATCH
+                        </button>
+<button class="w-full h-touch-target border border-primary text-primary font-label-bold rounded hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                            CALL CLIENT
+                        </button>
+</div>
+</div>
+<!-- Critical Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col md:flex-row relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant ml-1">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-on-surface-variant">SV-8941-C</span>
+<span class="bg-error text-on-error font-label-bold text-[10px] px-2 py-1 rounded-sm tracking-wider">CRITICAL</span>
+</div>
+<h3 class="font-headline-md text-primary font-bold mb-1">Mainline Conveyor Motor</h3>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            Warehouse 1, Assembly Line
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant bg-surface-container-lowest">
+<span class="font-label-bold text-on-surface-variant mb-1">RISK FACTOR</span>
+<p class="font-body-md text-error font-semibold flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] mt-0.5" data-icon="pending_actions">pending_actions</span>
+                            Parts Pending: Critical replacement bearing out of stock. Client operations halted.
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex flex-col justify-center gap-3 bg-surface-container-lowest md:min-w-[200px]">
+<button class="w-full h-touch-target bg-error text-on-error font-label-bold rounded hover:bg-on-error-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="inventory_2">inventory_2</span>
+                            EXPEDITE PART
+                        </button>
+<button class="w-full h-touch-target border border-primary text-primary font-label-bold rounded hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                            CALL CLIENT
+                        </button>
+</div>
+</div>
+<!-- Warning Card 1 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col md:flex-row relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant ml-1">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-on-surface-variant">SV-8910-B</span>
+<span class="bg-secondary-container text-on-primary font-label-bold text-[10px] px-2 py-1 rounded-sm tracking-wider">WARNING</span>
+</div>
+<h3 class="font-headline-md text-primary font-bold mb-1">Secondary Power Grid</h3>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            Exterior Substation Alpha
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant bg-surface-container-lowest">
+<span class="font-label-bold text-on-surface-variant mb-1">RISK FACTOR</span>
+<p class="font-body-md text-on-secondary-container font-semibold flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] mt-0.5" data-icon="note_alt">note_alt</span>
+                            Technician Note: Temporary patch applied. Second visit likely required within 48hrs.
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex flex-col justify-center gap-3 bg-surface-container-lowest md:min-w-[200px]">
+<button class="w-full h-touch-target bg-secondary text-on-secondary font-label-bold rounded hover:bg-on-secondary-fixed-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="schedule">schedule</span>
+                            SCHEDULE VISIT
+                        </button>
+</div>
+</div>
+<!-- Warning Card 2 -->
+<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col md:flex-row relative opacity-90">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant ml-1">
+<div class="flex justify-between items-start mb-2">
+<span class="font-data-mono text-data-mono text-on-surface-variant">SV-8902-D</span>
+<span class="bg-secondary-container text-on-primary font-label-bold text-[10px] px-2 py-1 rounded-sm tracking-wider">WARNING</span>
+</div>
+<h3 class="font-headline-md text-primary font-bold mb-1">Cooling Tower Pump</h3>
+<p class="font-body-md text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="location_on">location_on</span>
+                            Roof Deck, Building 2
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex-1 flex flex-col justify-center border-b md:border-b-0 md:border-r border-outline-variant bg-surface-container-lowest">
+<span class="font-label-bold text-on-surface-variant mb-1">RISK FACTOR</span>
+<p class="font-body-md text-on-secondary-container font-semibold flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] mt-0.5" data-icon="thermostat">thermostat</span>
+                            Slightly elevated operating temperatures noted after baseline calibration.
+                        </p>
+</div>
+<div class="p-4 md:p-6 flex flex-col justify-center gap-3 bg-surface-container-lowest md:min-w-[200px]">
+<button class="w-full h-touch-target border border-primary text-primary font-label-bold rounded hover:bg-surface-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="monitor_heart">monitor_heart</span>
+                            MONITOR REMOTE
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

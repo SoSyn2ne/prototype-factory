@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Active Hiring Cockpit - QSR Hire</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191c1e",
+                        "surface-container": "#eceef0",
+                        "on-primary-fixed": "#0f0069",
+                        "outline": "#777587",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-fixed-dim": "#ffb695",
+                        "outline-variant": "#c7c4d8",
+                        "on-surface-variant": "#464555",
+                        "surface-bright": "#f7f9fb",
+                        "surface-container-high": "#e6e8ea",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#ffdbcc",
+                        "surface-dim": "#d8dadc",
+                        "surface-variant": "#e0e3e5",
+                        "on-tertiary-container": "#ffd2be",
+                        "surface-tint": "#4d44e3",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-surface": "#191c1e",
+                        "secondary-container": "#d0e1fb",
+                        "tertiary-container": "#a44100",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#0b1c30",
+                        "primary-fixed": "#e2dfff",
+                        "surface-container-highest": "#e0e3e5",
+                        "tertiary": "#7e3000",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "primary-container": "#4f46e5",
+                        "inverse-primary": "#c3c0ff",
+                        "primary": "#3525cd",
+                        "inverse-on-surface": "#eff1f3",
+                        "secondary-fixed": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "inverse-surface": "#2d3133",
+                        "on-tertiary-fixed": "#351000",
+                        "surface": "#f7f9fb",
+                        "on-error-container": "#93000a",
+                        "background": "#f7f9fb",
+                        "on-secondary-container": "#54647a",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#505f76",
+                        "on-tertiary-fixed-variant": "#7b2f00",
+                        "error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "row-height-standard": "40px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "container-padding": "16px",
+                        "row-height-compact": "32px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "title-sm": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fb; color: #191c1e; margin: 0; padding: 0; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; font-size: 18px; vertical-align: middle; }
+        .filled-icon { font-variation-settings: 'FILL' 1; }
+        
+        /* Custom scrollbar for dense data tables */
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: #f2f4f6; }
+        ::-webkit-scrollbar-thumb { background: #c7c4d8; border-radius: 2px; }
+        ::-webkit-scrollbar-thumb:hover { background: #777587; }
+    </style>
+</head>
+<body class="bg-background text-on-background flex h-screen overflow-hidden text-body-sm font-body-sm">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-0 h-full z-40 flex flex-col bg-surface-container-low dark:bg-surface-dim border-r border-outline-variant dark:border-outline h-screen w-16 hover:w-64 transition-all duration-300 group overflow-hidden">
+<div class="flex items-center p-4 border-b border-outline-variant whitespace-nowrap overflow-hidden">
+<span class="material-symbols-outlined filled-icon text-primary text-2xl mr-4 shrink-0">dashboard</span>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<div class="font-headline text-headline text-primary dark:text-primary-fixed-dim">QSR Hire</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Admin Console</div>
+</div>
+</div>
+<div class="flex-1 py-4 flex flex-col gap-unit">
+<!-- Active Tab: Schedule -->
+<a class="flex items-center px-4 py-2 mx-2 bg-primary-container text-on-primary-container dark:bg-primary-fixed-variant dark:text-on-primary-container rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4 filled-icon">calendar_today</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Schedule</span>
+</a>
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest dark:hover:bg-on-surface-variant transition-colors duration-150 ease-in-out rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">dashboard</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Dashboard</span>
+</a>
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest dark:hover:bg-on-surface-variant transition-colors duration-150 ease-in-out rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">group</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Candidates</span>
+</a>
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest dark:hover:bg-on-surface-variant transition-colors duration-150 ease-in-out rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">video_chat</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Interviews</span>
+</a>
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest dark:hover:bg-on-surface-variant transition-colors duration-150 ease-in-out rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">person_search</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">Talent Pool</span>
+</a>
+</div>
+<div class="p-4 border-t border-outline-variant">
+<button class="w-full flex items-center justify-center bg-primary text-on-primary h-row-height-standard rounded-DEFAULT font-title-sm text-title-sm hover:bg-on-primary-fixed-variant transition-colors mb-4 opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined mr-2">add</span> Post Job
+             </button>
+<div class="flex flex-col gap-unit">
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest transition-colors duration-150 rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">settings</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100">Settings</span>
+</a>
+<a class="flex items-center px-4 py-2 mx-2 text-on-surface-variant dark:text-on-surface hover:bg-surface-container-highest transition-colors duration-150 rounded-lg whitespace-nowrap" href="#">
+<span class="material-symbols-outlined shrink-0 mr-4">help</span>
+<span class="font-title-sm text-title-sm opacity-0 group-hover:opacity-100">Support</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-16 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="sticky top-0 right-0 w-full z-30 flex items-center justify-between px-container-padding h-row-height-standard bg-surface-container-lowest dark:bg-on-background border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex items-center gap-4">
+<h1 class="font-headline text-headline font-bold text-on-surface">Store #402</h1>
+<nav class="hidden md:flex gap-6 ml-6 h-full items-center">
+<a class="font-title-sm text-title-sm text-on-surface-variant hover:text-on-surface h-full flex items-center px-2" href="#">Hiring</a>
+<a class="font-title-sm text-title-sm text-primary border-b-2 border-primary h-full flex items-center px-2" href="#">Onboarding</a>
+<a class="font-title-sm text-title-sm text-on-surface-variant hover:text-on-surface h-full flex items-center px-2" href="#">Compliance</a>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="relative hidden sm:block w-48">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-8 pl-8 pr-2 bg-surface-container-high border-none rounded text-body-sm focus:ring-2 focus:ring-primary" placeholder="Search..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded scale-95 active:scale-100 transition-transform"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded scale-95 active:scale-100 transition-transform"><span class="material-symbols-outlined">history</span></button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded scale-95 active:scale-100 transition-transform"><span class="material-symbols-outlined">help</span></button>
+</div>
+<div class="flex gap-2 ml-2">
+<button class="h-8 px-3 border border-outline text-on-surface font-title-sm text-title-sm rounded hover:bg-surface-container-high scale-95 active:scale-100 transition-transform whitespace-nowrap">Bulk Actions</button>
+<button class="h-8 px-3 bg-primary text-on-primary font-title-sm text-title-sm rounded hover:bg-on-primary-fixed-variant scale-95 active:scale-100 transition-transform whitespace-nowrap">Hire Now</button>
+</div>
+<div class="w-8 h-8 rounded-full bg-surface-variant border border-outline ml-2 overflow-hidden shrink-0">
+<img class="w-full h-full object-cover" data-alt="A small square avatar portrait of a professional quick service restaurant manager wearing a dark uniform polo shirt. The lighting is bright and even, typical of a professional headshot. The background is a plain light gray. The image is clear, sharp, and business-appropriate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCE52VG7F2eSzGYXjkSlQ2-DSm6WbdvtFW2fn54Y-AIybpmy3kTWG-NOpRvNc7mWB32-mySg5P2JJGRe4P0Ts_63BZfHka917OmyyA86k_1NK1qt44bamESOdy3dyrCRAIQj4bkr9S2y6jQr-yjfr02Ig_IWtV01S6cNZP98Nq3UHPHso-e866DkbtcQnDID3sXuGj-GFh65NcD-EzvR4PV9qmSYGXXx7-hgzjVT-fFiJfejg3xcRlThTb90iLunaiy5fRT2kNv_-M"/>
+</div>
+</div>
+</header>
+<!-- Cockpit Content -->
+<div class="flex-1 overflow-y-auto p-container-padding bg-background flex flex-col gap-gutter">
+<!-- 1. Staffing Gap Strip -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex items-center p-2 gap-4 overflow-x-auto shrink-0 shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase whitespace-nowrap mr-2">Critical Gaps</span>
+<div class="flex items-center gap-2 bg-error-container text-on-error-container px-3 py-1 rounded-full whitespace-nowrap border border-error">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="font-title-sm text-title-sm">Cook: -2</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high text-on-surface px-3 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">point_of_sale</span>
+<span class="font-title-sm text-title-sm">Cashier: OK</span>
+</div>
+<div class="flex items-center gap-2 bg-tertiary-fixed text-on-tertiary-fixed px-3 py-1 rounded-full whitespace-nowrap border border-tertiary">
+<span class="material-symbols-outlined text-[14px]">local_shipping</span>
+<span class="font-title-sm text-title-sm">Delivery: -1</span>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-high text-on-surface px-3 py-1 rounded-full whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">supervisor_account</span>
+<span class="font-title-sm text-title-sm">Shift Lead: OK</span>
+</div>
+</div>
+<!-- Main Grid -->
+<div class="grid grid-cols-12 gap-gutter flex-1 min-h-[600px]">
+<!-- Left Column (Span 8) -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-gutter h-full">
+<!-- 2. Candidate Risk Heatmap -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col shadow-sm flex-1">
+<div class="p-3 border-b border-outline-variant flex justify-between items-center bg-surface-bright rounded-t">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">grid_view</span>
+                                Applicant Reliability Heatmap
+                            </h2>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps flex items-center gap-1"><div class="w-3 h-3 bg-[#e2dfff] rounded-sm"></div> Low Risk</span>
+<span class="font-label-caps text-label-caps flex items-center gap-1"><div class="w-3 h-3 bg-[#a5b4fc] rounded-sm"></div> Med Risk</span>
+<span class="font-label-caps text-label-caps flex items-center gap-1"><div class="w-3 h-3 bg-[#4f46e5] rounded-sm"></div> High Risk</span>
+</div>
+</div>
+<div class="p-4 overflow-auto flex-1">
+<div class="grid grid-cols-5 gap-1 h-full min-h-[200px]">
+<!-- Heatmap Headers -->
+<div class="col-span-1 font-label-caps text-label-caps text-on-surface-variant p-2 flex items-end">Role</div>
+<div class="col-span-1 font-label-caps text-label-caps text-on-surface-variant p-2 text-center flex items-end justify-center">0-25% Risk</div>
+<div class="col-span-1 font-label-caps text-label-caps text-on-surface-variant p-2 text-center flex items-end justify-center">26-50% Risk</div>
+<div class="col-span-1 font-label-caps text-label-caps text-on-surface-variant p-2 text-center flex items-end justify-center">51-75% Risk</div>
+<div class="col-span-1 font-label-caps text-label-caps text-on-surface-variant p-2 text-center flex items-end justify-center">76-100% Risk</div>
+<!-- Cook Row -->
+<div class="col-span-1 font-body-sm text-body-sm flex items-center p-2 border-r border-outline-variant bg-surface">Cook</div>
+<div class="col-span-1 bg-[#e2dfff] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">12</div>
+<div class="col-span-1 bg-[#a5b4fc] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">5</div>
+<div class="col-span-1 bg-[#4f46e5] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-white">2</div>
+<div class="col-span-1 bg-surface-container-high border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-surface-variant">0</div>
+<!-- Cashier Row -->
+<div class="col-span-1 font-body-sm text-body-sm flex items-center p-2 border-r border-outline-variant bg-surface">Cashier</div>
+<div class="col-span-1 bg-[#e2dfff] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">4</div>
+<div class="col-span-1 bg-[#a5b4fc] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">8</div>
+<div class="col-span-1 bg-[#4f46e5] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-white">15</div>
+<div class="col-span-1 bg-[#3323cc] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-white">7</div>
+<!-- Delivery Row -->
+<div class="col-span-1 font-body-sm text-body-sm flex items-center p-2 border-r border-outline-variant bg-surface">Delivery</div>
+<div class="col-span-1 bg-[#e2dfff] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">1</div>
+<div class="col-span-1 bg-[#a5b4fc] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-primary-fixed">3</div>
+<div class="col-span-1 bg-surface-container-high border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-on-surface-variant">0</div>
+<div class="col-span-1 bg-[#3323cc] hover:opacity-80 cursor-pointer border border-white rounded-sm flex items-center justify-center font-data-mono text-data-mono text-white">1</div>
+</div>
+</div>
+</div>
+<!-- Bottom Left Split -->
+<div class="grid grid-cols-2 gap-gutter h-64 shrink-0">
+<!-- 6. Source Quality Report -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col shadow-sm">
+<div class="p-3 border-b border-outline-variant bg-surface-bright rounded-t">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">monitoring</span>
+                                    Source Quality (30d)
+                                </h2>
+</div>
+<div class="p-3 overflow-y-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant">Source</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-right">Yield</th>
+<th class="py-1 font-label-caps text-label-caps text-on-surface-variant text-right">Ret.</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<td class="py-2">Indeed</td>
+<td class="py-2 text-right">45</td>
+<td class="py-2 text-right text-error">42%</td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="py-2">Referral</td>
+<td class="py-2 text-right">12</td>
+<td class="py-2 text-right text-primary">88%</td>
+</tr>
+<tr class="border-b border-outline-variant bg-surface-container-low">
+<td class="py-2">Snagajob</td>
+<td class="py-2 text-right">28</td>
+<td class="py-2 text-right">65%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- 7. Manager Handoff Notes -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col shadow-sm relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary rounded-l"></div>
+<div class="p-3 border-b border-outline-variant bg-surface-bright rounded-t pl-4">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">note_alt</span>
+                                    Shift Handoff Notes
+                                </h2>
+</div>
+<div class="p-3 flex-1 flex flex-col pl-4">
+<textarea class="w-full h-full bg-surface resize-none border-outline-variant text-body-sm font-body-sm p-2 focus:ring-1 focus:ring-primary rounded" placeholder="E.g., Morning rush was heavy, need extra prep cook for PM shift. John D. is a strong hire for cashier."></textarea>
+<div class="flex justify-end mt-2">
+<button class="h-row-height-compact px-3 bg-surface-container-highest hover:bg-outline-variant text-on-surface font-title-sm text-title-sm rounded transition-colors text-xs">Save Note</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Span 4) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-gutter h-full">
+<!-- 3. Interview Calendar (Dense) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col shadow-sm flex-1 min-h-[300px]">
+<div class="p-3 border-b border-outline-variant bg-surface-bright rounded-t flex justify-between items-center relative">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-tl"></div>
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2 pl-2">
+<span class="material-symbols-outlined text-primary text-[18px]">event</span>
+                                Today's Slate
+                            </h2>
+<span class="bg-primary-container text-on-primary-container font-data-mono text-[10px] px-2 py-0.5 rounded-full">4 Scheduled</span>
+</div>
+<div class="overflow-y-auto flex-1 p-2">
+<!-- Interview Item -->
+<div class="flex flex-col p-2 border-b border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low cursor-default">
+<div class="flex justify-between items-start mb-1">
+<div class="font-title-sm text-title-sm font-semibold">10:00 AM - Sarah K.</div>
+<div class="bg-surface-container-high px-1.5 py-0.5 rounded text-[10px] font-label-caps border border-outline-variant">Cook</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">call</span> Confirmed
+                                    </div>
+<div class="font-label-caps text-label-caps text-primary bg-primary-fixed px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_down</span> 10% No-show Risk
+                                    </div>
+</div>
+</div>
+<!-- Interview Item (High Risk) -->
+<div class="flex flex-col p-2 border-b border-outline-variant bg-error-container/10 hover:bg-error-container/20 cursor-default">
+<div class="flex justify-between items-start mb-1">
+<div class="font-title-sm text-title-sm font-semibold text-error">11:30 AM - John D.</div>
+<div class="bg-surface-container-high px-1.5 py-0.5 rounded text-[10px] font-label-caps border border-outline-variant">Cashier</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sms</span> Sent reminder
+                                    </div>
+<div class="font-label-caps text-label-caps text-on-error bg-error px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">warning</span> 95% No-show Risk
+                                    </div>
+</div>
+</div>
+<!-- Interview Item -->
+<div class="flex flex-col p-2 border-b border-outline-variant bg-surface-container-lowest hover:bg-surface-container-low cursor-default">
+<div class="flex justify-between items-start mb-1">
+<div class="font-title-sm text-title-sm font-semibold">2:00 PM - Mike R.</div>
+<div class="bg-surface-container-high px-1.5 py-0.5 rounded text-[10px] font-label-caps border border-outline-variant">Delivery</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="font-data-mono text-[11px] text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">mark_email_read</span> Viewed
+                                    </div>
+<div class="font-label-caps text-label-caps text-on-surface-variant bg-surface-variant px-1.5 py-0.5 rounded flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">horizontal_rule</span> 40% No-show Risk
+                                    </div>
+</div>
+</div>
+</div>
+<!-- 4. Nudge Composer (Attached to bottom of calendar) -->
+<div class="p-2 border-t border-outline-variant bg-surface-bright flex gap-2">
+<select class="h-row-height-compact text-xs border-outline-variant rounded bg-surface w-24">
+<option>John D.</option>
+<option>Mike R.</option>
+</select>
+<button class="h-row-height-compact px-3 bg-surface-variant hover:bg-outline-variant text-on-surface font-title-sm text-title-sm rounded transition-colors text-xs flex items-center gap-1 whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">sms</span> Nudge
+                             </button>
+</div>
+</div>
+<!-- 5. Same-day Offer Readiness Checklist -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col shadow-sm shrink-0">
+<div class="p-3 border-b border-outline-variant bg-surface-bright rounded-t">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">verified</span>
+                                    Immediate Hire Checklist
+                                </h2>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm group-hover:text-primary transition-colors">I-9 Forms Available</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm group-hover:text-primary transition-colors">Uniforms Stocked (M/L)</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer group">
+<input checked="" class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-primary" type="checkbox"/>
+<span class="font-body-sm text-body-sm line-through text-on-surface-variant">Manager Approval Code</span>
+</label>
+<button class="mt-2 w-full h-row-height-standard bg-primary text-on-primary font-title-sm text-title-sm rounded hover:bg-on-primary-fixed-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add_task</span> Generate Offer Packet
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

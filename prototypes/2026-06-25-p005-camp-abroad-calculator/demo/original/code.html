@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Camp Abroad Calculator - Decision Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..600&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#dddad2",
+                    "on-tertiary-fixed-variant": "#464744",
+                    "on-primary-fixed-variant": "#434845",
+                    "on-tertiary": "#ffffff",
+                    "primary-container": "#2c312e",
+                    "inverse-primary": "#c3c8c3",
+                    "secondary": "#4f6359",
+                    "outline-variant": "#c4c7c3",
+                    "on-error-container": "#93000a",
+                    "surface-container-high": "#ece8e0",
+                    "surface-container-highest": "#e6e2db",
+                    "background": "#fdf9f1",
+                    "tertiary-fixed": "#e3e2df",
+                    "secondary-fixed-dim": "#b6cbc0",
+                    "tertiary-container": "#2f302e",
+                    "tertiary": "#1a1b19",
+                    "surface-container-lowest": "#ffffff",
+                    "surface": "#fdf9f1",
+                    "on-primary-container": "#949995",
+                    "secondary-fixed": "#d2e7dc",
+                    "on-surface-variant": "#434845",
+                    "inverse-surface": "#31302c",
+                    "surface-tint": "#5a605c",
+                    "on-surface": "#1c1c17",
+                    "on-secondary-container": "#54675e",
+                    "on-primary": "#ffffff",
+                    "inverse-on-surface": "#f4f0e9",
+                    "on-tertiary-container": "#979894",
+                    "on-secondary-fixed": "#0d1f18",
+                    "on-primary-fixed": "#181d1a",
+                    "surface-bright": "#fdf9f1",
+                    "outline": "#747875",
+                    "tertiary-fixed-dim": "#c7c7c3",
+                    "surface-container": "#f1ede6",
+                    "primary-fixed-dim": "#c3c8c3",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f7f3ec",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#dfe4df",
+                    "secondary-container": "#cfe5d9",
+                    "primary": "#171c19",
+                    "on-secondary-fixed-variant": "#384b42",
+                    "error": "#ba1a1a",
+                    "on-background": "#1c1c17",
+                    "surface-variant": "#e6e2db",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#1b1c1a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "unit": "8px",
+                    "margin-mobile": "20px",
+                    "container-max": "1140px",
+                    "margin-desktop": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": [
+                            "\"Source Serif 4\""
+                    ],
+                    "body-lg": [
+                            "Work Sans"
+                    ],
+                    "headline-md": [
+                            "\"Source Serif 4\""
+                    ],
+                    "data-numeral": [
+                            "Work Sans"
+                    ],
+                    "label-sm": [
+                            "Work Sans"
+                    ],
+                    "body-md": [
+                            "Work Sans"
+                    ],
+                    "headline-lg-mobile": [
+                            "\"Source Serif 4\""
+                    ]
+            },
+            "fontSize": {
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-lg": [
+                            "18px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "28px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "data-numeral": [
+                            "24px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "label-sm": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "30px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "600"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .ambient-shadow {
+            box-shadow: 0px 12px 32px rgba(44, 49, 46, 0.04);
+        }
+        
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(196, 199, 195, 0.3);
+        }
+
+        /* Hide scrollbar for clean horizontal scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen font-body-md text-body-md text-on-surface bg-background selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 border-b border-outline-variant flat no shadows bg-background flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-20 z-50 sticky">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-semibold text-primary">Camp Abroad</span>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="text-on-surface-variant pb-1 hover:text-primary transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">Dashboard</a>
+<a class="text-on-surface-variant pb-1 hover:text-primary transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">Comparisons</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 hover:text-primary transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">Calculator</a>
+<a class="text-on-surface-variant pb-1 hover:text-primary transition-colors cursor-pointer active:opacity-80 transition-opacity" href="#">Calendar</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block text-on-surface-variant hover:text-primary transition-colors text-label-sm font-label-sm uppercase tracking-wider">Export PDF</button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-DEFAULT font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-tint transition-colors">Save Plan</button>
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A sophisticated, minimalist profile portrait of a smiling parent in a bright, modern setting with soft, natural lighting. The image relies on a warm stone and white color palette, evoking a premium editorial feel. The mood is calm, authoritative, and welcoming." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCwNigtriyPvW1ZZDz3aDW9iTPL_fMOplDehLTV8eMpvIsqVxox0fmmXGRy4tAmGNQC9Lk-NA6oMo1D3gQgRuQYcmFI2jdtUXzYGPYyTBGjwMtSuqtfydYRdBcn0ClHjspmjlWEg6fVMs_BOJSELsVJonxNtm0ZVqd4ak1TS3QKfRLBG8h886KjpHlNU7FIMdlNKEOlN0oX7PSdrHWodrqoKVmM3Z-86kt5el8N6YhEfkKcBCAgirpGsDmW8VJ4NPQbBCXjwcIpDj4"/>
+</div>
+</nav>
+<main class="w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-12 pb-32">
+<!-- Header -->
+<header class="mb-12">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4">Decision Workspace</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Evaluate options, balance the budget, and finalize your summer 2024 coverage plan.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main Content Area -->
+<div class="lg:col-span-8 space-y-12">
+<!-- Weekly Coverage Confidence Meter -->
+<section class="bg-surface-container-lowest p-6 rounded-xl ambient-shadow border border-outline-variant/30">
+<div class="flex justify-between items-end mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary text-xl">Coverage Confidence</h2>
+<p class="text-on-surface-variant text-sm mt-1">June 15 - August 30</p>
+</div>
+<div class="text-right">
+<span class="font-data-numeral text-data-numeral text-secondary text-3xl block">78%</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Summer Covered</span>
+</div>
+</div>
+<div class="h-3 w-full bg-surface-variant rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary w-2/5 border-r border-background"></div>
+<div class="h-full bg-secondary-fixed-dim w-1/5 border-r border-background"></div>
+<div class="h-full bg-tertiary-fixed-dim w-1/5 border-r border-background"></div>
+</div>
+<div class="flex gap-4 mt-4 text-xs font-label-sm text-on-surface-variant uppercase">
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span> Confirmed</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-secondary-fixed-dim inline-block"></span> Pending</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-tertiary-fixed-dim inline-block"></span> Waitlist</div>
+<div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-surface-variant inline-block"></span> Gap</div>
+</div>
+</section>
+<!-- Camp Comparison Table/Cards (Bento Grid Style) -->
+<section>
+<h2 class="font-headline-md text-headline-md text-primary text-2xl mb-6">Shortlisted Options</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow border border-outline-variant/50 hover:border-secondary transition-colors group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-secondary-container rounded-bl-full flex items-start justify-end p-2 opacity-50 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded text-on-surface-variant uppercase tracking-wide">Top Choice</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary text-xl mb-1">Paris Day Camp</h3>
+<p class="text-on-surface-variant text-sm mb-4">Language Immersion</p>
+<div class="space-y-2 mb-6 border-t border-outline-variant/30 pt-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Dates</span>
+<span class="font-medium text-primary">Jul 1 - Jul 19</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Cost</span>
+<span class="font-data-numeral text-data-numeral text-lg">$2,400</span>
+</div>
+<div class="flex justify-between text-sm items-center">
+<span class="text-on-surface-variant">Fit Score</span>
+<div class="flex text-secondary gap-0.5">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm text-surface-variant" style="font-variation-settings: 'FILL' 1;">circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow border border-outline-variant/50 hover:border-secondary transition-colors group cursor-pointer relative overflow-hidden">
+<h3 class="font-headline-md text-headline-md text-primary text-xl mb-1 mt-6">Vermont Sleepaway</h3>
+<p class="text-on-surface-variant text-sm mb-4">Nature &amp; Adventure</p>
+<div class="space-y-2 mb-6 border-t border-outline-variant/30 pt-4">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Dates</span>
+<span class="font-medium text-primary">Aug 5 - Aug 23</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Cost</span>
+<span class="font-data-numeral text-data-numeral text-lg">$3,800</span>
+</div>
+<div class="flex justify-between text-sm items-center">
+<span class="text-on-surface-variant">Fit Score</span>
+<div class="flex text-secondary gap-0.5">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm text-surface-variant" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm text-surface-variant" style="font-variation-settings: 'FILL' 1;">circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow border border-outline-variant/50 hover:border-secondary transition-colors group cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-surface-container-high rounded-bl-full flex items-start justify-end p-2 opacity-50">
+<span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+</div>
+<div class="flex justify-between items-start mb-3">
+<span class="font-label-sm text-label-sm bg-surface-variant px-2 py-1 rounded text-on-surface-variant uppercase tracking-wide">Waitlist</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary text-xl mb-1">Local NYC Day Camp</h3>
+<p class="text-on-surface-variant text-sm mb-4">Arts &amp; Crafts Focus</p>
+<div class="space-y-2 mb-6 border-t border-outline-variant/30 pt-4 opacity-80">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Dates</span>
+<span class="font-medium text-primary">Jun 17 - Jun 28</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Cost</span>
+<span class="font-data-numeral text-data-numeral text-lg">$1,200</span>
+</div>
+<div class="flex justify-between text-sm items-center">
+<span class="text-on-surface-variant">Fit Score</span>
+<div class="flex text-secondary gap-0.5">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm text-surface-variant" style="font-variation-settings: 'FILL' 1;">circle</span>
+<span class="material-symbols-outlined text-sm text-surface-variant" style="font-variation-settings: 'FILL' 1;">circle</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Add New Placeholder -->
+<div class="bg-transparent border border-dashed border-outline-variant p-5 rounded-xl flex flex-col items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary transition-colors cursor-pointer min-h-[220px]">
+<span class="material-symbols-outlined text-3xl mb-2">add</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wide">Add Option</span>
+</div>
+</div>
+</section>
+<!-- True-Cost Calculator -->
+<section class="bg-surface-container-low p-6 rounded-xl border border-outline-variant/30">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">calculate</span>
+<h2 class="font-headline-md text-headline-md text-primary text-xl">True-Cost Breakdown</h2>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+<span class="text-on-surface">Base Tuition (Selected Camps)</span>
+<span class="font-data-numeral text-data-numeral text-lg text-primary">$6,200</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="text-on-surface">Flights &amp; Travel</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm cursor-help" title="Estimated for 2 adults, 1 child">info</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase bg-surface-container px-2 py-1 rounded">EUR → USD</span>
+<span class="font-data-numeral text-data-numeral text-lg text-primary">$1,850</span>
+</div>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+<span class="text-on-surface">Required Kit &amp; Gear</span>
+<span class="font-data-numeral text-data-numeral text-lg text-primary">$340</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-outline-variant/20 opacity-60">
+<span class="text-on-surface-variant">Weekend Care (Gap Coverage)</span>
+<span class="font-data-numeral text-data-numeral text-lg text-on-surface-variant">$450</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Sidebar -->
+<div class="lg:col-span-4 space-y-8">
+<!-- Child-Fit Checklist -->
+<section class="bg-surface-container-lowest p-6 rounded-xl ambient-shadow border border-outline-variant/30">
+<h3 class="font-headline-md text-headline-md text-primary text-lg mb-4">Fit Requirements</h3>
+<ul class="space-y-3">
+<li class="flex items-start gap-3">
+<input checked="" class="mt-1 rounded text-secondary focus:ring-secondary border-outline-variant bg-surface" type="checkbox"/>
+<span class="text-sm text-on-surface">Full language immersion available</span>
+</li>
+<li class="flex items-start gap-3">
+<input checked="" class="mt-1 rounded text-secondary focus:ring-secondary border-outline-variant bg-surface" type="checkbox"/>
+<span class="text-sm text-on-surface">Nut-free facility guarantee</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 rounded text-secondary focus:ring-secondary border-outline-variant bg-surface" type="checkbox"/>
+<span class="text-sm text-on-surface">Swimming instruction included</span>
+</li>
+<li class="flex items-start gap-3">
+<input class="mt-1 rounded text-secondary focus:ring-secondary border-outline-variant bg-surface" type="checkbox"/>
+<span class="text-sm text-on-surface">Flexible drop-off (before 8:30 AM)</span>
+</li>
+</ul>
+</section>
+<!-- Parent Network Notes -->
+<section class="bg-[#f4f0e9] p-6 rounded-xl border border-[#d2e7dc]/50 relative overflow-hidden">
+<div class="absolute top-0 right-0 opacity-10 text-[100px] leading-none text-secondary translate-x-4 -translate-y-4 font-serif">"</div>
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary text-sm">forum</span>
+<h3 class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Network Notes</h3>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-lowest/80 p-3 rounded-lg text-sm border border-outline-variant/20">
+<p class="text-on-surface-variant italic">"Paris Day Camp fills up fast by March. Great structure, but lunch is very late (1:30 PM)."</p>
+<span class="block mt-2 text-xs font-label-sm uppercase text-on-tertiary-container">- Sarah T. (2023 parent)</span>
+</div>
+<div class="bg-surface-container-lowest/80 p-3 rounded-lg text-sm border border-outline-variant/20">
+<p class="text-on-surface-variant italic">"Vermont Sleepaway packing list is serious. Buy the specific hiking boots they recommend."</p>
+<span class="block mt-2 text-xs font-label-sm uppercase text-on-tertiary-container">- Mark R.</span>
+</div>
+</div>
+<button class="mt-4 text-xs font-label-sm text-secondary uppercase tracking-wide hover:underline flex items-center gap-1">Add Note <span class="material-symbols-outlined text-[14px]">edit</span></button>
+</section>
+</div>
+</div>
+</main>
+<!-- Pinned Decision Summary -->
+<div class="fixed bottom-0 left-0 w-full glass-panel border-t border-outline-variant/30 z-40 transform transition-transform duration-300">
+<div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex gap-8">
+<div>
+<span class="block text-xs font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Total Estimated</span>
+<span class="font-data-numeral text-data-numeral text-2xl text-primary">$8,840</span>
+</div>
+<div class="hidden sm:block w-px h-10 bg-outline-variant/50"></div>
+<div>
+<span class="block text-xs font-label-sm text-on-surface-variant uppercase tracking-wider mb-1">Coverage</span>
+<span class="font-data-numeral text-data-numeral text-2xl text-primary">56 <span class="text-lg text-on-surface-variant font-body-md font-normal">/ 72 days</span></span>
+</div>
+</div>
+<button class="w-full md:w-auto bg-secondary text-on-secondary px-8 py-3 rounded-DEFAULT font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-tint transition-colors shadow-sm flex items-center justify-center gap-2">
+                Finalize Plan
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</body></html>
