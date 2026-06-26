@@ -17,7 +17,11 @@ const dlDir = process.env.STITCH_DL_DIR || path.join('/home/sy/Downloads/stitch_
 await fs.mkdir(outDir, { recursive: true });
 await fs.mkdir(dlDir, { recursive: true });
 
-const browser = await puppeteer.connect({ browserURL: endpoint, defaultViewport: null });
+const browser = await puppeteer.connect({
+  browserURL: endpoint,
+  defaultViewport: null,
+  protocolTimeout: Number(process.env.STITCH_PROTOCOL_TIMEOUT_MS || 300000),
+});
 let page = (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com') && !p.url().includes('/projects/'))
   || (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com'))
   || await browser.newPage();
