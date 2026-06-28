@@ -1,0 +1,45 @@
+# PRD - Publisher AI Crawler Bargain Room
+
+## Problem
+- Small publishers compare traffic loss, crawler blocking, licensing asks, and AI citation value before accepting another platform deal.
+
+## Target user
+- Independent publishers, newsletter operators, niche media owners, and SEO leads deciding how to handle AI crawlers and search-platform licensing.
+
+## Key UX
+- Publisher imports traffic and crawler logs, models allow/block choices, drafts licensing asks, and produces a negotiation memo with traffic, training, and citation tradeoffs.
+
+## Required UI sections
+- Traffic-at-risk header with search clicks, AI referral, crawler hits, and subscription value
+- Crawler allow/block matrix by bot, path, and content category
+- AI citation and zero-click loss estimator
+- Licensing ask calculator for archive access, summaries, and training use
+- Robots and Cloudflare-style rule preview
+- Editorial risk notes for exclusives, reviews, and evergreen guides
+- Platform negotiation memo with accept, counter, or block recommendation
+
+## Assigned design profile
+- financial-analyst
+
+## Theme
+- 자산 방어 / 역전 - publisher revenue defense against AI platform leverage.
+
+## Source signal references
+- S10
+
+## Stitch prompt
+Build a production-grade web app prototype called "Publisher AI Crawler Bargain Room" for small publishers comparing traffic loss, crawler blocking, licensing asks, and AI citation value before accepting another platform deal. The first screen must be a working publisher strategy workbench with a traffic-at-risk header, crawler allow/block matrix, AI citation and zero-click loss estimator, licensing ask calculator, robots-rule preview, editorial risk notes, and platform negotiation memo. Use realistic sample data: 38% search referral dependence, Googlebot tied to search visibility, AI crawler hits on product reviews, Cloudflare block option, $42K annual ad value at risk, and three licensing counteroffers. Design direction: use the financial-analyst profile with rigorous revenue math, restrained institutional colors, confidence badges, and charts paired with plain-language interpretation. Do not make a marketing landing page; the first screen must be the working app.
+
+## Constraints
+- Phase A only: do not implement a custom demo.
+- First screen in Stitch must be the working app, not a marketing landing page.
+- Use external sources as problem evidence only, not market-size proof.
+
+## Non-goals
+- No external API integration in the prototype.
+- No legal, medical, financial, or regulatory advice claims beyond workflow support.
+
+## Success metrics
+- User can understand the pain in under 10 seconds.
+- User can identify the next action from the first screen.
+- The prototype includes every required UI section from this PRD.
