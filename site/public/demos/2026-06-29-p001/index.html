@@ -1,59 +1,347 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leak Blame Evidence Relay - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-29-p001</p>
-        <h1>Leak Blame Evidence Relay</h1>
-        <p>Korean apartment residents turn leak photos, management-office replies, and insurance gaps into a calm responsibility packet before repair fights escalate.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>누수 증거 마스터 - Case #2024-001</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d7e4ec",
+                        "on-secondary-container": "#5a666d",
+                        "on-error-container": "#93000a",
+                        "primary-container": "#00bcd4",
+                        "inverse-on-surface": "#ecf2f3",
+                        "error": "#ba1a1a",
+                        "tertiary": "#5c5f61",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed": "#111d23",
+                        "on-tertiary-fixed": "#191c1e",
+                        "on-tertiary-fixed-variant": "#444749",
+                        "secondary-fixed-dim": "#bbc8d0",
+                        "on-tertiary-container": "#3c4041",
+                        "surface-container": "#e9eff0",
+                        "on-secondary-fixed-variant": "#3c494f",
+                        "secondary-fixed": "#d7e4ec",
+                        "surface-container-low": "#eff5f6",
+                        "outline-variant": "#bbc9cc",
+                        "on-surface": "#161d1e",
+                        "secondary": "#546067",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#004e59",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-dim": "#d5dbdd",
+                        "primary-fixed": "#a1efff",
+                        "inverse-primary": "#44d8f1",
+                        "surface-tint": "#006876",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#e0e3e5",
+                        "on-primary-container": "#004650",
+                        "outline": "#6c797c",
+                        "tertiary-fixed-dim": "#c4c7c9",
+                        "on-background": "#161d1e",
+                        "primary-fixed-dim": "#44d8f1",
+                        "background": "#f4fafc",
+                        "surface-container-highest": "#dde3e5",
+                        "surface-bright": "#f4fafc",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed": "#001f25",
+                        "primary": "#006876",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e3e9eb",
+                        "surface": "#f4fafc",
+                        "inverse-surface": "#2b3133",
+                        "surface-variant": "#dde3e5",
+                        "on-surface-variant": "#3c494c",
+                        "tertiary-container": "#a8abad"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "margin-desktop": "32px",
+                        "gutter": "16px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "ko-label": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "ko-label": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            gap: 16px;
+        }
+        .bg-pattern {
+            background-image: radial-gradient(#bbc9cc 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden flex justify-between items-center px-margin-mobile h-14 w-full z-50 bg-surface border-b border-outline-variant flat no shadows transition-colors duration-200 sticky top-0">
+<div class="font-headline-md text-headline-md font-bold text-primary">누수 증거 마스터</div>
+<div class="flex gap-4">
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">search</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-high p-2 rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined text-sm mt-1">settings</span>
+<span class="sr-only">설정</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full border-r border-outline-variant p-4 space-y-4 bg-surface-container-low w-64 flex-shrink-0 fixed top-0 bottom-0 overflow-y-auto">
+<div class="mb-stack-lg px-2">
+<div class="font-headline-md text-headline-md font-bold text-primary mb-stack-md">누수 증거 마스터</div>
+<div class="flex items-center gap-3 py-3 border-b border-outline-variant">
+<div class="w-10 h-10 bg-surface-container-highest rounded-full flex items-center justify-center overflow-hidden">
+<img alt="관리자 프로필" class="w-full h-full object-cover" data-alt="A professional headshot of an Asian male site manager wearing a hard hat and safety vest, looking confident in an industrial setting, soft diffused lighting, neutral background, high resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAe4HmRLDOAYFITJX4ClMFHO6jDobrhi6i-cMjWFSNOLe-oMViwsbcZoZ-BNnJ8xr7-yO1546xf_cfTguTcNaHaKW0gZvzU3Xl7AX9N7u9WV7H57lshhrFDSV44yeEjsM0aSBdm34-UdMrcFBRgP_5O1Uk4FHYR_49pR82M6J7LZgtDeKeeSnclzAH2Ykhwhh1qP0OUMIx09iRBhFrVmE6GYiHnDJUZoD-amJ0DSBDB0uk7bvqECJNBoDhnfbRVqQ4mWRml1fga7k5n"/>
+</div>
+<div>
+<div class="font-body-md text-body-md font-bold text-on-surface">현장 관리자</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">서울지부 제1팀</div>
+</div>
+</div>
+</div>
+<div class="flex-1 space-y-2">
+<button class="w-full flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-md text-body-md">대시보드</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container font-bold rounded-lg transition-all duration-200 text-left">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="font-body-md text-body-md">누수 케이스</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-body-md text-body-md">보험 청구</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+<span class="material-symbols-outlined">build</span>
+<span class="font-body-md text-body-md">수리 업체</span>
+</button>
+<button class="w-full flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-highest transition-all duration-200 rounded-lg text-left">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">설정</span>
+</button>
+</div>
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm py-3 rounded-lg flex items-center justify-center gap-2 hover:bg-primary hover:text-on-primary transition-colors duration-200 mt-auto shadow-sm">
+<span class="material-symbols-outlined">add</span>
+            새 케이스 등록
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 bg-surface p-margin-mobile md:p-margin-desktop min-h-screen pb-24 md:pb-margin-desktop">
+<!-- Header -->
+<header class="mb-stack-lg">
+<div class="flex items-center gap-2 mb-stack-sm">
+<span class="font-label-caps text-label-caps bg-surface-container-highest text-on-surface px-2 py-1 rounded">Case #2024-001</span>
+<span class="font-label-caps text-label-caps bg-tertiary-container text-on-tertiary-container px-2 py-1 rounded opacity-90 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync</span> In Progress
+                </span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface">안방 천장 누수</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 border-b border-outline-variant pb-4">현장 증거 기록 및 책임 소재 파악 콘솔</p>
+</header>
+<div class="evidence-grid">
+<!-- Column 1: Photo Timeline (Spans 8 cols on desktop) -->
+<div class="col-span-12 md:col-span-8 flex flex-col gap-stack-lg">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">photo_camera</span>
+                            사진 타임라인
+                        </h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">3 STAGES RECORDED</span>
+</div>
+<div class="p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Stage 1 -->
+<div class="flex flex-col border border-outline-variant rounded-lg overflow-hidden group">
+<div class="h-32 bg-surface-container relative">
+<img alt="천장 얼룩" class="w-full h-full object-cover" data-alt="A close-up, high-resolution photo of a plain white apartment ceiling with an irregular, light brown water stain developing. The lighting is slightly dim, typical of indoor residential spaces before professional lighting. Utilitarian and documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDsG2S3xHD3nt-WPww1yPCUlGEQpuABQ5zCzkg9Eoj28GXb1FCVrAmHsqDT5eZFr-Cqc5oxOE1aKqlBlg4aP-vhZB-RYF_knFJNrm0Vr09JeTlUladuh5qwrh2L1KJoqt1qTLo8XEUUaHdzEPJqHf0imDtyMVMxttYc_EBT86oPpF5k2YiXiAFIMcQfYfyYXzpfZM_VRxS7MZHQGS6evzsaeCArc6W_Y-MHPSbmKROxAP-DIEFOr9jcqD2B6hQEcVIXXN-2sYI5-l7_"/>
+<div class="absolute top-2 left-2 bg-surface/90 px-2 py-1 rounded text-label-caps font-label-caps text-on-surface border border-outline-variant">T-1 09:00</div>
+</div>
+<div class="p-3 bg-surface-container-lowest flex-1 border-t border-outline-variant">
+<h3 class="font-ko-label text-ko-label text-primary font-bold mb-1">Discovery (발견)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">천장 얼룩 확인됨</p>
+</div>
+</div>
+<!-- Stage 2 -->
+<div class="flex flex-col border border-outline-variant rounded-lg overflow-hidden group shadow-[0_0_0_1px_#00bcd4] ring-1 ring-[#00bcd4] ring-opacity-20 relative">
+<div class="absolute -top-1 -right-1 flex h-3 w-3 z-10">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</div>
+<div class="h-32 bg-surface-container relative">
+<img alt="욕실 배관 의심" class="w-full h-full object-cover" data-alt="A brightly lit, clinical inspection photo of a bathroom ceiling inspection panel open, showing PVC plumbing pipes. Focus is on a specific pipe joint where a small droplet of water is visible. Highly detailed, industrial documentary style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd1YQZucvkjjA5ItYNuT1jTFcIrkqb-5WLop60-luu0fsM3J4zKhV_fLrT69aK0E1-zmyzB7HYeNp0vyI7vvPPQDUK43F5YJgnkuKirfIQNIZ3_92P_p4qRqYkdP3wSas0TkwMj6pJjLG2kbfT0UqVxql2cV9e9BSybhvN-F6pnhWHoERkWINEB36LYVd2N-AXsaZGUB-k0PYwNAvyQvv3L3tJm2AHoQFVKmjpFV76fSQ3iH-4fqMUoWJEpS2IqyG5WOx3S0mY-DhW"/>
+<div class="absolute top-2 left-2 bg-surface/90 px-2 py-1 rounded text-label-caps font-label-caps text-on-surface border border-outline-variant">T-2 13:30</div>
+</div>
+<div class="p-3 bg-surface-container-lowest flex-1 border-t border-outline-variant">
+<h3 class="font-ko-label text-ko-label text-error font-bold mb-1">Suspicion (의심)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">욕실 배관 의심</p>
+</div>
+</div>
+<!-- Stage 3 -->
+<div class="flex flex-col border border-outline-variant rounded-lg overflow-hidden group">
+<div class="h-32 bg-surface-container relative flex items-center justify-center bg-pattern">
+<div class="text-center">
+<span class="material-symbols-outlined text-[#00BCD4] text-4xl mb-2">add_a_photo</span>
+<p class="font-ko-label text-ko-label text-on-surface-variant">사진 첨부</p>
+</div>
+<div class="absolute top-2 left-2 bg-surface/90 px-2 py-1 rounded text-label-caps font-label-caps text-on-surface border border-outline-variant">T-3 TBD</div>
+</div>
+<div class="p-3 bg-surface-container-lowest flex-1 border-t border-outline-variant">
+<h3 class="font-ko-label text-ko-label text-tertiary font-bold mb-1">Observation (관찰)</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">점진적 확산 모니터링</p>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-sm text-headline-sm flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">assignment</span>
+                            책임 소재 분석
+                        </h2>
+</div>
+<div class="p-4 flex flex-col md:flex-row gap-4 items-stretch">
+<div class="flex-1 border border-outline-variant rounded bg-surface p-4 flex flex-col items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2 z-10">COMMON AREA</span>
+<span class="font-headline-md text-headline-md text-on-surface z-10">공용</span>
+</div>
+<div class="flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined">swap_horiz</span>
+</div>
+<div class="flex-1 border border-outline-variant rounded bg-surface p-4 flex flex-col items-center justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">EXCLUSIVE</span>
+<span class="font-headline-md text-headline-md text-on-surface text-opacity-40">전용</span>
+</div>
+</div>
+<div class="px-4 py-3 bg-surface-container-lowest border-t border-outline-variant flex items-center gap-3">
+<span class="inline-block w-2 h-2 rounded-full bg-error"></span>
+<span class="font-ko-label text-ko-label text-on-surface-variant">Current state:</span>
+<span class="font-body-md text-body-md font-bold text-on-surface bg-error/10 text-error px-2 py-0.5 rounded-full text-xs border border-error/20">Inspection Pending</span>
+</div>
+</section>
+</div>
+<!-- Column 2: Status & Actions (Spans 4 cols on desktop) -->
+<div class="col-span-12 md:col-span-4 flex flex-col gap-stack-lg">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<div class="bg-surface-container-low px-4 py-3 border-b border-outline-variant">
+<h2 class="font-headline-sm text-headline-sm flex items-center gap-2 text-on-surface">
+<span class="material-symbols-outlined text-tertiary">list_alt</span>
+                            상세 정보
+                        </h2>
+</div>
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 border-b border-outline-variant hover:bg-surface-container transition-colors">
+<span class="font-ko-label text-ko-label text-secondary w-1/3">관리실 상태</span>
+<span class="font-body-md text-body-md text-on-surface sm:w-2/3 sm:text-right mt-1 sm:mt-0 bg-surface-variant px-2 py-1 rounded inline-block text-sm">관리실: 공용부 점검 대기 중</span>
+</div>
+<!-- Row 2 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 border-b border-outline-variant hover:bg-surface-container transition-colors">
+<span class="font-ko-label text-ko-label text-secondary w-1/3">보험 상태</span>
+<span class="font-body-md text-body-md text-on-surface sm:w-2/3 sm:text-right mt-1 sm:mt-0 flex items-center sm:justify-end gap-1">
+<span class="material-symbols-outlined text-error text-[16px]">help</span>
+                                일상생활배상책임보험: 확인 필요
+                            </span>
+</div>
+<!-- Row 3 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 border-b border-outline-variant hover:bg-surface-container transition-colors">
+<span class="font-ko-label text-ko-label text-secondary w-1/3">수리 견적</span>
+<span class="font-body-md text-body-md text-on-surface sm:w-2/3 sm:text-right mt-1 sm:mt-0 font-bold">도배 견적: 780,000원</span>
+</div>
+<!-- Row 4 -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between p-3 hover:bg-surface-container transition-colors">
+<span class="font-ko-label text-ko-label text-secondary w-1/3">피해 범위</span>
+<span class="font-body-md text-body-md text-error sm:w-2/3 sm:text-right mt-1 sm:mt-0 flex items-center sm:justify-end gap-1 bg-error/10 px-2 py-1 rounded-full border border-error/20 w-fit sm:w-auto">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+                                아랫집 피해 발생
+                            </span>
+</div>
+</div>
+</section>
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 flex flex-col h-full relative overflow-hidden">
+<div class="absolute -right-10 -bottom-10 opacity-5">
+<span class="material-symbols-outlined text-[150px]">send</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm mb-2 text-on-surface relative z-10">최종 조치</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 relative z-10">증거 수집이 완료되면 내용증명 패키지를 생성하여 관계자에게 발송하십시오.</p>
+<div class="mt-auto relative z-10 flex flex-col gap-2">
+<div class="flex items-center justify-between bg-surface-container p-2 rounded border border-outline-variant">
+<span class="font-label-caps text-label-caps text-secondary">DEADLINE</span>
+<span class="font-label-caps text-label-caps text-error font-bold">48H REMAINING</span>
+</div>
+<button class="w-full h-12 bg-[#00BCD4] text-white font-headline-sm text-headline-sm rounded flex items-center justify-center gap-2 hover:bg-[#00a3b8] transition-colors shadow-sm">
+<span class="material-symbols-outlined">file_present</span>
+                            내용증명 패키지 생성
+                        </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 w-full z-50 flex justify-around items-center h-16 bg-surface border-t border-outline-variant px-4 pb-safe flat no shadows">
+<a class="flex flex-col items-center justify-center text-primary font-bold active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-ko-label text-ko-label mt-1">증거 목록</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+<span class="font-ko-label text-ko-label mt-1">통신 기록</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-ko-label text-ko-label mt-1">보험/견적</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+<span class="font-ko-label text-ko-label mt-1">보고서</span>
+</a>
+</nav>
+</body></html>

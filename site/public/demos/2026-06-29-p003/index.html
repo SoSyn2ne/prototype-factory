@@ -1,43 +1,402 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>No-Show Deposit Notice Kit - Form Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="split">
-      <section class="brand">
-        <p class="id">2026-06-29-p003</p>
-        <h1>No-Show Deposit Notice Kit</h1>
-        <p>Small restaurants convert phone reservations into legal deposit notices, reminder proof, and privacy-safe no-show recovery.</p>
-      </section>
-      <section class="card-wrap">
-        <form class="card" aria-label="Intake form">
-          <h2>Project intake</h2>
-          <label>
-            Prototype goal
-            <input type="text" placeholder="What should this prototype prove?" />
-          </label>
-          <label>
-            Primary persona
-            <input type="text" placeholder="Who is this for?" />
-          </label>
-          <label>
-            Constraints
-            <textarea id="constraints" rows="4" placeholder="Time, budget, technical limits..."></textarea>
-          </label>
-          <div class="foot">
-            <span id="counter">0 / 280</span>
-            <button type="button">Submit draft</button>
-          </div>
-        </form>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pro-Operator Core - No-Show Management</title>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d83900",
+                        "primary-fixed-dim": "#bcc7de",
+                        "primary": "#091426",
+                        "inverse-on-surface": "#eaf1ff",
+                        "secondary": "#ad2c00",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#545f73",
+                        "on-surface-variant": "#45474c",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary": "#1e1200",
+                        "error": "#ba1a1a",
+                        "surface-container-lowest": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#a38c6a",
+                        "surface-container-low": "#eff4ff",
+                        "surface": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "inverse-primary": "#bcc7de",
+                        "on-secondary-fixed-variant": "#872000",
+                        "tertiary-fixed": "#fadfb8",
+                        "tertiary-container": "#35260c",
+                        "surface-dim": "#cbdbf5",
+                        "on-primary-container": "#8590a6",
+                        "secondary-fixed": "#ffdbd1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#564427",
+                        "surface-bright": "#f8f9ff",
+                        "on-primary-fixed-variant": "#3c475a",
+                        "on-primary": "#ffffff",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed": "#111c2d",
+                        "outline-variant": "#c5c6cd",
+                        "on-secondary-fixed": "#3b0900",
+                        "primary-fixed": "#d8e3fb",
+                        "on-secondary-container": "#fffbff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary-fixed-dim": "#ffb5a0",
+                        "background": "#f8f9ff",
+                        "surface-container-high": "#dce9ff",
+                        "tertiary-fixed-dim": "#ddc39d",
+                        "outline": "#75777d",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#0b1c30",
+                        "primary-container": "#1e293b",
+                        "on-tertiary-fixed": "#271902",
+                        "brand-urgent": "#FF4500" // Added specific brand color requested
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-page": "24px",
+                        "gutter": "16px",
+                        "cell-padding-x": "12px",
+                        "row-height-dense": "32px",
+                        "row-height-standard": "48px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Hanken Grotesk"],
+                        "data-mono": ["Noto Sans"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "label-sm": ["Noto Sans"],
+                        "body-md": ["Noto Sans"],
+                        "title-sm": ["Noto Sans"],
+                        "body-sm": ["Noto Sans"],
+                        "label-bold": ["Noto Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "label-bold": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Noto Sans', sans-serif; background-color: #F8FAFC; } /* Slate-50 fallback */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .urgent-badge {
+            background-color: #FF4500;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased flex flex-col md:flex-row min-h-screen">
+<!-- JSON Component: SideNavBar -->
+<nav class="hidden md:flex flex-col p-gutter w-[240px] h-screen bg-surface-container border-r border-outline-variant fixed left-0 top-0 z-40 transition-all duration-150 ease-in-out font-label-bold text-label-bold">
+<div class="mb-8">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Operator Console</h1>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-1">Restaurant ID: 2904</p>
+</div>
+<div class="flex-1 space-y-2">
+<!-- Active Nav Item based on intent (Active Notices -> generating intake form) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-primary text-on-primary rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment_late</span>
+<span>Active Notices</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">security</span>
+<span>Risk Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span>Loss Reports</span>
+</a>
+</div>
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant">
+<button class="w-full flex items-center justify-center gap-2 bg-[#FF4500] text-white py-2 rounded-DEFAULT font-label-bold mb-4 hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+                Emergency Intake
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span>Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors duration-150 rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-[240px] flex flex-col min-w-0">
+<!-- JSON Component: TopNavBar -->
+<header class="flex justify-between items-center h-row-height-standard px-margin-page w-full bg-surface border-b border-outline-variant fixed top-0 md:w-[calc(100%-240px)] z-30 transition-colors duration-200">
+<div class="flex items-center gap-4">
+<div class="font-headline-md text-headline-md text-primary font-bold">Pro-Operator Core</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-[#FF4500] text-white font-label-bold text-label-bold px-4 py-1.5 rounded-DEFAULT hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">send</span> Send No-Show Notice
+                </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button aria-label="Notifications" class="p-1.5 hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="Settings" class="p-1.5 hover:bg-surface-container-low rounded-full transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 mt-row-height-standard p-margin-page overflow-y-auto space-y-6 max-w-container-max mx-auto w-full">
+<!-- Section 1: Reservation Risk Header (Bento Style) -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+<div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant p-5 rounded-lg flex flex-col justify-between relative overflow-hidden">
+<!-- Subtle background pattern indication -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, black 1px, transparent 0); background-size: 16px 16px;"></div>
+<div class="flex justify-between items-start z-10">
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface mb-1">Today's High Risk Reservations</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Requires immediate deposit verification.</p>
+</div>
+<span class="urgent-badge font-label-sm text-label-sm px-2 py-1 rounded-sm">High Risk (8 Pax)</span>
+</div>
+<div class="mt-6 flex items-end justify-between z-10 border-t border-outline-variant pt-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary font-label-bold">K*m</div>
+<div>
+<div class="font-label-bold text-label-bold text-on-surface">김** (010-****-1234)</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">Oct 24, 19:00 • 8명</div>
+</div>
+</div>
+<div class="text-right">
+<div class="text-[#FF4500] font-label-bold text-label-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span> Deposit Deadline: 14:00 (Today)
+                            </div>
+<div class="font-data-mono text-data-mono text-on-surface-variant mt-1">Pending: 120,000 KRW</div>
+</div>
+</div>
+</div>
+<!-- Timeline Widget linked to this reservation -->
+<div class="bg-surface-container-lowest border border-outline-variant p-5 rounded-lg">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-4">Reminder Timeline</h3>
+<div class="space-y-4 relative before:absolute before:inset-y-0 before:left-2 before:w-0.5 before:bg-outline-variant">
+<div class="flex gap-3 relative z-10">
+<div class="w-4 h-4 rounded-full bg-[#FF4500] mt-0.5 shadow-[0_0_0_2px_#fff]"></div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">SMS Reminder Pending</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Scheduled for 12:00</p>
+</div>
+</div>
+<div class="flex gap-3 relative z-10 opacity-50">
+<div class="w-4 h-4 rounded-full bg-outline mt-0.5 shadow-[0_0_0_2px_#fff]"></div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">Phone Intake Verified</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Awaiting action</p>
+</div>
+</div>
+<div class="flex gap-3 relative z-10 opacity-50">
+<div class="w-4 h-4 rounded-full bg-outline mt-0.5 shadow-[0_0_0_2px_#fff]"></div>
+<div>
+<p class="font-label-bold text-label-bold text-on-surface">Legal Notice Sent</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Final step before cancellation</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2 & 3: Intake Form & Notice Composer / Receipt Builder (Asymmetric Layout) -->
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<!-- Left: Intake & Receipt (2 columns wide) -->
+<div class="xl:col-span-2 space-y-6">
+<!-- Intake Form -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5">
+<h3 class="font-title-sm text-title-sm text-on-surface border-b border-outline-variant pb-3 mb-4">Phone/DM Intake</h3>
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-1">Name</label>
+<input class="w-full bg-surface-container border-outline-variant rounded-sm font-data-mono text-data-mono h-[32px] px-2 text-on-surface-variant cursor-not-allowed" disabled="" type="text" value="김** (Masked)"/>
+</div>
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-1">Party Size</label>
+<input class="w-full border-outline-variant focus:border-primary focus:ring-0 rounded-sm font-data-mono text-data-mono h-[32px] px-2" type="number" value="8"/>
+</div>
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-1">Date</label>
+<input class="w-full border-outline-variant focus:border-primary focus:ring-0 rounded-sm font-data-mono text-data-mono h-[32px] px-2" type="date" value="2023-10-24"/>
+</div>
+<div>
+<label class="block font-label-bold text-label-bold text-on-surface-variant mb-1">Rule Application</label>
+<select class="w-full border-outline-variant focus:border-primary focus:ring-0 rounded-sm font-data-mono text-data-mono h-[32px] px-2">
+<option>48-hour cancellation policy</option>
+<option>24-hour strict policy</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Prep-Cost Receipt Builder -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-5">
+<div class="flex justify-between items-center border-b border-outline-variant pb-3 mb-4">
+<h3 class="font-title-sm text-title-sm text-on-surface">Prep-Cost Receipt Builder</h3>
+<span class="font-label-sm text-label-sm bg-surface-container px-2 py-1 rounded-sm text-on-surface-variant">Bakery Order (100 items)</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container font-label-bold text-label-bold text-on-surface-variant">
+<th class="p-2 border-b border-outline-variant w-1/2">Item Description</th>
+<th class="p-2 border-b border-outline-variant">Qty</th>
+<th class="p-2 border-b border-outline-variant text-right">Unit Cost</th>
+<th class="p-2 border-b border-outline-variant text-right">Total</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-2">Premium Butter Croissant Prep</td>
+<td class="p-2">40</td>
+<td class="p-2 text-right">3,500</td>
+<td class="p-2 text-right">140,000</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-2">Sourdough Starter &amp; Flour Base</td>
+<td class="p-2">60</td>
+<td class="p-2 text-right">2,800</td>
+<td class="p-2 text-right">168,000</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low">
+<td class="p-2">Specialty Packaging (Custom)</td>
+<td class="p-2">1</td>
+<td class="p-2 text-right">15,000</td>
+<td class="p-2 text-right">15,000</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="font-label-bold text-label-bold bg-error-container text-on-error-container">
+<td class="p-2 text-right" colspan="3">Estimated Total Loss Potential:</td>
+<td class="p-2 text-right">323,000 KRW</td>
+</tr>
+<!-- Additional buffer to reach the requested 443k -->
+<tr class="font-label-bold text-label-bold bg-[#FF4500]/10 text-[#FF4500]">
+<td class="p-2 text-right" colspan="3">Including Opportunity Cost Estimate:</td>
+<td class="p-2 text-right">443,000 KRW</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+<!-- Right: Deposit Notice Composer (Glassmorphism card) -->
+<div class="glass-panel rounded-lg p-5 flex flex-col h-full sticky top-[calc(48px+24px)]">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-2 border-b border-outline-variant pb-2">Deposit Notice Composer</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Preview of legal notice to be sent via SMS/Kakao.</p>
+<div class="bg-surface p-4 rounded border border-outline-variant flex-1 font-body-sm text-body-sm leading-relaxed whitespace-pre-wrap text-on-surface">
+[예약금 입금 안내]
+
+안녕하세요, 김** 고객님. 
+오는 10월 24일 19:00, 8인 예약 확인을 위한 안내입니다.
+
+예약금 120,000원 입금 부탁드립니다.
+입금 기한: 오늘 14:00까지
+
+* [노쇼 방지 법적 효력 고지]
+본 예약금은 식자재 사전 준비(Bakery Order 100 items 등)로 인한 손실 방지용이며, 48시간 전 취소 시에만 100% 환불됩니다. 기한 내 미입금 시 예약은 자동 취소됩니다.
+
+입금 계좌: 신한은행 110-xxx-xxxxxx (예금주: 식당2904)
+                    </div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 bg-surface-container border border-outline-variant text-on-surface py-2 rounded-sm font-label-bold hover:bg-surface-container-high transition-colors">Edit Text</button>
+<button class="flex-1 bg-primary text-on-primary py-2 rounded-sm font-label-bold flex items-center justify-center gap-1 hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined text-[16px]">send</span> Transmit
+                        </button>
+</div>
+</div>
+</div>
+<!-- Section 5: Monthly Loss Report Table -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface">
+<h3 class="font-title-sm text-title-sm text-on-surface">Monthly No-Show Recovery Stats</h3>
+<button class="text-primary font-label-bold text-label-bold flex items-center gap-1 hover:underline">
+                        Export CSV <span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<!-- Compact Table Mode (32px row height) -->
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container font-label-bold text-label-bold text-surface-tint">
+<tr>
+<th class="px-cell-padding-x h-row-height-dense border-b border-outline-variant w-24">Date</th>
+<th class="px-cell-padding-x h-row-height-dense border-b border-outline-variant">Name</th>
+<th class="px-cell-padding-x h-row-height-dense border-b border-outline-variant text-right">Amount (KRW)</th>
+<th class="px-cell-padding-x h-row-height-dense border-b border-outline-variant text-center">Status</th>
+<th class="px-cell-padding-x h-row-height-dense border-b border-outline-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<!-- Zebra striping applied manually for demonstration, usually CSS nth-child -->
+<tr class="h-row-height-dense hover:bg-surface-container-low transition-colors border-b border-outline-variant">
+<td class="px-cell-padding-x">10/22</td>
+<td class="px-cell-padding-x">이** (4명)</td>
+<td class="px-cell-padding-x text-right">60,000</td>
+<td class="px-cell-padding-x text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Pending</span>
+</td>
+<td class="px-cell-padding-x text-right">
+<button class="text-primary hover:underline font-label-bold text-label-bold">Resend</button>
+</td>
+</tr>
+<tr class="h-row-height-dense bg-surface-bright hover:bg-surface-container-low transition-colors border-b border-outline-variant">
+<td class="px-cell-padding-x">10/21</td>
+<td class="px-cell-padding-x">박** (12명)</td>
+<td class="px-cell-padding-x text-right">180,000</td>
+<td class="px-cell-padding-x text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-[#eaf1ff] text-[#091426] font-label-sm text-label-sm">Recovered</span>
+</td>
+<td class="px-cell-padding-x text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[16px]">receipt_long</span></button>
+</td>
+</tr>
+<tr class="h-row-height-dense hover:bg-surface-container-low transition-colors border-b border-outline-variant">
+<td class="px-cell-padding-x">10/18</td>
+<td class="px-cell-padding-x">최** (2명)</td>
+<td class="px-cell-padding-x text-right">30,000</td>
+<td class="px-cell-padding-x text-center">
+<span class="inline-block px-2 py-0.5 rounded-sm bg-error-container text-on-error-container font-label-sm text-label-sm">Loss</span>
+</td>
+<td class="px-cell-padding-x text-right">
+<button class="text-error hover:underline font-label-bold text-label-bold">File Claim</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+</body></html>

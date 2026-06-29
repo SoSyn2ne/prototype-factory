@@ -1,59 +1,393 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Management Fee Rent Scanner - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-29-p002</p>
-        <h1>Management Fee Rent Scanner</h1>
-        <p>Korean renters spot rent-disguised management fees, missing disclosures, and monthly bill spikes before signing or renewing.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fee Scanner Workbench</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#111c2c",
+                        "surface-tint": "#455f88",
+                        "surface-bright": "#f9f9ff",
+                        "tertiary-fixed": "#ffdcc3",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#552b00",
+                        "on-secondary-fixed-variant": "#41474e",
+                        "surface-container-high": "#dee8ff",
+                        "on-error": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#6e3900",
+                        "surface-variant": "#d8e3fa",
+                        "inverse-on-surface": "#ebf1ff",
+                        "secondary": "#595f66",
+                        "secondary-fixed": "#dde3eb",
+                        "outline": "#74777f",
+                        "primary-fixed-dim": "#adc7f7",
+                        "tertiary-fixed-dim": "#ffb77d",
+                        "tertiary": "#361900",
+                        "primary-fixed": "#d6e3ff",
+                        "surface": "#f9f9ff",
+                        "outline-variant": "#c4c6cf",
+                        "on-primary-fixed": "#001b3c",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-tertiary-fixed": "#2f1500",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#86a0cd",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c1c7cf",
+                        "on-background": "#111c2c",
+                        "surface-container-highest": "#d8e3fa",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#161c22",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary": "#ffffff",
+                        "surface-container": "#e7eeff",
+                        "background": "#f9f9ff",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#5f656c",
+                        "primary-container": "#1a365d",
+                        "on-tertiary-container": "#eb851c",
+                        "secondary-container": "#dde3eb",
+                        "surface-container-low": "#f0f3ff",
+                        "surface-dim": "#cfdaf1",
+                        "inverse-primary": "#adc7f7",
+                        "primary": "#002045",
+                        "inverse-surface": "#263142"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F7FAFC; }
+        .data-grid-header { background-color: #EDF2F7; }
+        .amber-warning { color: #d97706; background-color: #fef3c7; border: 1px solid #fde68a; }
+        .amber-text { color: #d97706; }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-on-surface fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline flex items-center justify-between px-margin h-16 w-full">
+<div class="flex items-center gap-8">
+<span class="font-display-lg text-display-lg text-primary dark:text-primary-fixed tracking-tighter">Fee Scanner Workbench</span>
+<div class="hidden md:flex gap-6 items-center pt-1">
+<a class="font-headline-md text-headline-md text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1" href="#">Dashboard</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Property Portfolio</a>
+<a class="font-headline-md text-headline-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Analysis History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Analyst Profile" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional headshot of a financial analyst in a modern office, sharp lighting, corporate style, neutral background, calm expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAw6bOb0uVhjyY6UfIGdO6T8Nt4QoWXmZ3l3Xv6MAhGcBpU9HnPxpdcMxTiPCCOAs_9aIW-1ovsj7heO7iFPLsXb6CcQQQQsMzaRvCIhe5d_XcjzSzygGVYz7EtM8rOCop5Ldhn1sNXkE9HSTtnW5TVmymRPo2sP4Ng4606ew5CpKmAc7M5RLDapS4Dkd2syaznyurYvj-0G1d_DFpuWg_dFncDf84-uBKVN99QZWqYW5v0Unx9XSzKRIKr1VJolOZFARUn6qhRfd0"/>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-4 gap-2 bg-surface-container-low dark:bg-on-surface fixed left-0 top-16 w-[280px] h-[calc(100vh-64px)] border-r border-outline-variant dark:border-outline z-40 overflow-y-auto">
+<div class="mb-6 px-4 py-2 border-b border-outline-variant pb-6">
+<div class="flex items-center gap-3 mb-2">
+<img alt="Property Symbol" class="w-10 h-10 rounded border border-outline-variant bg-white p-1 object-cover" data-alt="A small abstract geometric icon representing a property, minimalist line art, deep blue color, corporate branding style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHMm9S0IfWEHWVcE1bLxENjuBSy0BmeNz_CIyffGzqOklvewSlKaysk9Avrp5O6rNDUbBx0NXDq66jeXX_IJJBxEchiNhLpd5nczLEmIQ1aDWsnw29aKrjXI4EsJOA2zLpjKOLr2ABA9aNHAvqUjfaATnw6fi8sTzFclUScXC1XtH1ZL_KHk89YcPvQZzggk7O-Vx5MjufCUx7CGsk5zCQ912PMPIY1CgGGB0Gykfwi94fzgRwUK3_W1Dg9C0UYFHd_H7KV8Uv-iM"/>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface leading-none mb-1 text-[18px]">Scan ID: 8824-K</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant font-normal">Analysis in Progress</p>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg font-semibold" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span>Current Scan</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-secondary-fixed-variant rounded-lg" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Data Validation</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-secondary-fixed-variant rounded-lg" href="#">
+<span class="material-symbols-outlined">balance</span>
+<span>Cost Benchmarking</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-secondary-fixed-variant rounded-lg" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span>Tax Compliance</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-on-secondary-fixed-variant rounded-lg" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span>Final Verdict</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-4 border-t border-outline-variant">
+<button class="w-full bg-primary text-on-primary font-body-md font-semibold py-2 px-4 rounded hover:bg-primary-container hover:text-on-primary-container transition-colors border border-primary">
+                Export Report
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="pt-16 md:pl-[280px] min-h-screen pb-20">
+<div class="max-w-[container-max] mx-auto p-margin grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column (Data & Scans) - 8 cols -->
+<div class="lg:col-span-8 flex flex-col gap-gutter">
+<!-- 1. Listing Cost Header -->
+<section class="bg-white border border-outline-variant rounded p-margin">
+<h3 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-4">Total Monthly Commitment</h3>
+<div class="flex items-end gap-6 border-b border-outline-variant pb-6 mb-4">
+<div>
+<span class="font-data-mono text-data-mono text-5xl text-on-surface tracking-tight">KRW 820,000</span>
+</div>
+<div class="pb-1">
+<span class="font-body-md text-on-surface-variant bg-surface-container px-2 py-1 rounded text-sm">Baseline Estimate</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center justify-between p-3 bg-surface border border-outline-variant rounded">
+<span class="font-body-md text-on-surface">Base Rent</span>
+<span class="font-data-mono text-data-mono text-lg">KRW 650,000</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface border border-outline-variant rounded">
+<span class="font-body-md text-on-surface">Declared Mgmt Fee</span>
+<span class="font-data-mono text-data-mono text-lg text-primary">KRW 170,000</span>
+</div>
+</div>
+</section>
+<!-- 2. Line-Item Scanner -->
+<section class="bg-white border border-outline-variant rounded overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface-bright flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[18px]">Management Fee Line-Item Analysis</h3>
+<span class="font-label-sm text-label-sm px-2 py-1 bg-surface-container rounded border border-outline-variant">Confidence: 78%</span>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="data-grid-header border-b border-outline-variant">
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant font-semibold">Category</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant font-semibold">Declared Cost</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant font-semibold">Benchmarked Avg</th>
+<th class="p-3 font-label-sm text-label-sm text-on-surface-variant font-semibold">Status / Action</th>
+</tr>
+</thead>
+<tbody class="font-body-md">
+<tr class="border-b border-outline-variant">
+<td class="p-3 font-medium">Internet &amp; Cable</td>
+<td class="p-3 font-data-mono text-data-mono">KRW 35,000</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant">KRW 30,000</td>
+<td class="p-3"><span class="px-2 py-1 text-xs bg-surface-container text-on-surface-variant rounded border border-outline-variant">Typical</span></td>
+</tr>
+<tr class="border-b border-outline-variant">
+<td class="p-3 font-medium">Building Cleaning</td>
+<td class="p-3 font-data-mono text-data-mono">KRW 40,000</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant">KRW 45,000</td>
+<td class="p-3"><span class="px-2 py-1 text-xs bg-surface-container text-on-surface-variant rounded border border-outline-variant">Typical</span></td>
+</tr>
+<tr class="border-b border-outline-variant bg-error-container/20">
+<td class="p-3 font-medium flex items-center gap-2">
+                                    General Maintenance
+                                    <span class="material-symbols-outlined text-[16px] amber-text">warning</span>
+</td>
+<td class="p-3 font-data-mono text-data-mono font-bold">KRW 95,000</td>
+<td class="p-3 font-data-mono text-data-mono text-on-surface-variant">KRW 40,000</td>
+<td class="p-3">
+<button class="amber-warning px-2 py-1 text-xs rounded font-semibold flex items-center gap-1 cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">help_center</span>
+                                        Request Detail
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="p-3 bg-surface-bright text-sm text-on-surface-variant flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] mt-0.5">info</span>
+<p><strong>Interpretation:</strong> The "General Maintenance" line item is 137% above the local neighborhood average. This is a common tactic to offset low base rent to avoid higher taxation brackets.</p>
+</div>
+</section>
+<!-- 5. Seasonal Bill Spike Simulator -->
+<section class="bg-white border border-outline-variant rounded p-margin">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[18px]">Seasonal Utility Projection</h3>
+<span class="font-label-sm text-label-sm px-2 py-1 bg-surface-container rounded border border-outline-variant">Gas &amp; Electricity</span>
+</div>
+<div class="h-48 w-full border border-outline-variant rounded bg-surface relative flex items-end px-4 pt-4 pb-8 gap-2">
+<!-- Chart Mockup -->
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-secondary-fixed h-[30%] rounded-t"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">MAY</span>
+</div>
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-secondary-fixed h-[40%] rounded-t"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">JUL (AC)</span>
+</div>
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-secondary-fixed h-[35%] rounded-t"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">SEP</span>
+</div>
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-fixed-dim h-[80%] rounded-t border-t-2 border-primary relative">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-white border border-outline-variant px-2 py-1 rounded shadow-sm text-xs font-data-mono whitespace-nowrap z-10">~KRW 250k</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold text-[10px]">DEC (Heating)</span>
+</div>
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-primary-fixed-dim h-[90%] rounded-t border-t-2 border-primary"></div>
+<span class="font-label-sm text-label-sm text-primary font-bold text-[10px]">JAN (Heating)</span>
+</div>
+<div class="w-1/6 flex flex-col items-center gap-2">
+<div class="w-full bg-secondary-fixed h-[45%] rounded-t"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant text-[10px]">MAR</span>
+</div>
+<!-- Overlay Lines -->
+<div class="absolute bottom-8 left-0 w-full border-t border-dashed border-outline-variant z-0"></div>
+<div class="absolute bottom-20 left-0 w-full border-t border-dashed border-outline-variant z-0"></div>
+</div>
+<div class="mt-4 p-3 bg-surface border border-outline-variant rounded flex gap-3">
+<div class="w-2 h-full bg-primary rounded-full"></div>
+<div>
+<p class="font-body-md text-sm text-on-surface font-semibold">Winter Spike Warning</p>
+<p class="font-body-md text-sm text-on-surface-variant">Due to the building's central boiler age (installed 2012), winter heating bills historically spike to approximately KRW 250,000/mo, pushing total monthly commitment over KRW 1M.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column (Analysis & Action) - 4 cols -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- 3. Disclosure Gap Checklist -->
+<section class="bg-white border border-outline-variant rounded p-4">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[18px] mb-4">Legal Disclosure Status</h3>
+<ul class="flex flex-col gap-3">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<div>
+<span class="font-body-md block text-sm font-medium">Registered Broker Info</span>
+<span class="font-label-sm text-xs text-on-surface-variant font-normal">Verified on Gov Portal</span>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-secondary text-[20px]">check_circle</span>
+<div>
+<span class="font-body-md block text-sm font-medium">Building Purpose Code</span>
+<span class="font-label-sm text-xs text-on-surface-variant font-normal">Officetel (Class II)</span>
+</div>
+</li>
+<li class="flex items-start gap-2 bg-error-container/20 p-2 rounded border border-error-container/50 -mx-2">
+<span class="material-symbols-outlined amber-text text-[20px]">warning</span>
+<div>
+<span class="font-body-md block text-sm font-semibold amber-text">Missing Prior-Bill Disclosure</span>
+<span class="font-label-sm text-xs text-on-surface-variant font-normal block mt-1">Under Article 18-2, landlords must provide a 12-month trailing average of actual utility costs for units over 50 households.</span>
+</div>
+</li>
+</ul>
+</section>
+<!-- 4. Comparable Fee Benchmark -->
+<section class="bg-surface-bright border border-outline-variant rounded p-4">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[18px] mb-3">Local Fee Benchmark</h3>
+<p class="font-label-sm text-xs text-on-surface-variant mb-4">Radius: 500m | Type: Officetel</p>
+<div class="flex flex-col gap-3">
+<!-- Current -->
+<div class="p-3 border-2 border-primary rounded bg-white relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary text-white text-[10px] px-2 py-0.5 rounded-bl font-bold">CURRENT</div>
+<span class="font-body-md block text-sm font-semibold text-primary">Target Property</span>
+<span class="font-data-mono text-data-mono text-lg block mt-1">KRW 170,000 / mo</span>
+</div>
+<!-- Comp 1 -->
+<div class="p-3 border border-outline-variant rounded bg-white">
+<div class="flex justify-between items-start">
+<span class="font-body-md block text-sm font-medium">Boutique Officetel</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-outline-variant">-29%</span>
+</div>
+<span class="font-data-mono text-data-mono text-md block mt-1 text-on-surface-variant">KRW 120,000 / mo</span>
+</div>
+<!-- Comp 2 -->
+<div class="p-3 border border-outline-variant rounded bg-white">
+<div class="flex justify-between items-start">
+<span class="font-body-md block text-sm font-medium">Urban Suite</span>
+<span class="font-label-sm text-[10px] text-on-surface-variant bg-surface px-1.5 py-0.5 rounded border border-outline-variant">-15%</span>
+</div>
+<span class="font-data-mono text-data-mono text-md block mt-1 text-on-surface-variant">KRW 145,000 / mo</span>
+</div>
+</div>
+</section>
+<!-- 6. Landlord Question Script -->
+<section class="bg-primary-fixed-dim/20 border border-primary-fixed rounded p-4">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-primary text-[20px]">assignment</span>
+<h3 class="font-headline-md text-headline-md text-on-surface text-[16px]">Negotiation Script</h3>
+</div>
+<p class="font-body-md text-sm text-on-surface-variant mb-3">Copy these precise questions for the broker/landlord to demand clarity on vague line items.</p>
+<div class="bg-white border border-outline-variant p-3 rounded text-sm font-body-md relative group cursor-pointer hover:border-primary transition-colors">
+<p class="pr-6">"Can you provide a breakdown of the KRW 95,000 'General Maintenance' fee? The neighborhood average for similar officetels is roughly KRW 40,000."</p>
+<span class="material-symbols-outlined absolute top-3 right-3 text-outline-variant group-hover:text-primary transition-colors text-[18px]">content_copy</span>
+</div>
+<div class="bg-white border border-outline-variant p-3 rounded text-sm font-body-md relative group cursor-pointer hover:border-primary transition-colors mt-2">
+<p class="pr-6">"Please provide the 12-month trailing utility bill average as required by the Housing Lease Protection Act disclosures."</p>
+<span class="material-symbols-outlined absolute top-3 right-3 text-outline-variant group-hover:text-primary transition-colors text-[18px]">content_copy</span>
+</div>
+</section>
+<!-- 7. Lease Decision Receipt -->
+<section class="bg-surface-container-highest border border-outline-variant rounded p-5 mt-auto">
+<h3 class="font-headline-md text-headline-md text-on-surface text-[18px] border-b border-outline-variant pb-3 mb-4">Verdict Summary</h3>
+<div class="flex items-center gap-3 mb-4 bg-white p-3 rounded border border-error-container">
+<span class="material-symbols-outlined amber-text text-[28px]">gavel</span>
+<div>
+<span class="font-body-md font-bold text-on-surface block">High-Risk Fee Structure</span>
+<span class="font-label-sm text-xs text-on-surface-variant font-normal">Hidden costs detected in Mgmt Fee</span>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-white border border-outline-variant text-on-surface font-body-md font-semibold py-2 px-4 rounded hover:bg-surface-bright transition-colors text-center text-sm">
+                            Save Draft
+                        </button>
+<button class="flex-1 bg-primary text-on-primary font-body-md font-semibold py-2 px-4 rounded hover:bg-primary-container transition-colors text-center text-sm shadow-sm flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export PDF
+                        </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-on-surface fixed bottom-0 left-0 md:left-[280px] right-0 border-t border-outline-variant dark:border-outline flex justify-between items-center px-margin py-4 z-40">
+<span class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant font-normal">
+            © 2024 Management Fee Rent Scanner | Korean Housing Market Division
+        </span>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:underline transition-opacity" href="#">Data Privacy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:underline transition-opacity" href="#">Regulatory Standards</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant dark:text-surface-variant hover:underline transition-opacity" href="#">Help Desk</a>
+</div>
+</footer>
+</body></html>

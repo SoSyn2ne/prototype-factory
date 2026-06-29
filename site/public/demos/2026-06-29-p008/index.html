@@ -1,59 +1,428 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Return Fraud Inspection Theater - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-29-p008</p>
-        <h1>Return Fraud Inspection Theater</h1>
-        <p>Small ecommerce teams stage suspicious returns, box photos, customer history, and refund rules into a fast approve-deny performance.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Return Fraud Inspection Theater - Case ID-7822</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Chivo:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "on-primary-container": "#858384",
+                        "tertiary-container": "#380038",
+                        "background": "#f9f9fa",
+                        "surface-tint": "#5f5e5f",
+                        "tertiary-fixed-dim": "#ffabf3",
+                        "surface-bright": "#f9f9fa",
+                        "on-secondary-container": "#616363",
+                        "surface-container-low": "#f3f3f4",
+                        "on-primary-fixed-variant": "#474647",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#1b1b1c",
+                        "surface-container-highest": "#e2e2e3",
+                        "on-error-container": "#93000a",
+                        "inverse-surface": "#2f3132",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#eeeeef",
+                        "on-surface": "#1a1c1d",
+                        "surface-variant": "#e2e2e3",
+                        "on-secondary-fixed-variant": "#454747",
+                        "tertiary": "#000000",
+                        "primary": "#000000",
+                        "on-background": "#1a1c1d",
+                        "on-tertiary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "outline": "#76777b",
+                        "on-tertiary-fixed-variant": "#810081",
+                        "primary-container": "#1b1b1c",
+                        "surface": "#f9f9fa",
+                        "on-tertiary-container": "#e800e8",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#c8c6c7",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-container": "#dfe0e0",
+                        "on-tertiary-fixed": "#380038",
+                        "surface-container-high": "#e8e8e9",
+                        "surface-dim": "#dadadb",
+                        "on-surface-variant": "#46474a",
+                        "secondary": "#5d5f5f",
+                        "outline-variant": "#c7c6ca",
+                        "primary-fixed": "#e5e2e3",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "tertiary-fixed": "#ffd7f5",
+                        "secondary-fixed": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "inverse-primary": "#c8c6c7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "stage-margin": "48px",
+                        "backstage-sidebar": "320px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Playfair Display"],
+                        "headline-lg": ["Playfair Display"],
+                        "body-main": ["Chivo"],
+                        "body-large": ["Chivo"],
+                        "display-theater": ["Playfair Display"],
+                        "label-technical": ["JetBrains Mono"],
+                        "label-caps": ["Chivo"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-main": ["15px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-large": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-theater": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "label-technical": ["13px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "900" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Chivo', sans-serif; }
+        .cast-shadow { box-shadow: 4px 4px 0px #1A1A1B; }
+        .cast-shadow-sm { box-shadow: 2px 2px 0px #1A1A1B; }
+        .cast-shadow-lg { box-shadow: 8px 8px 0px #1A1A1B; }
+        .hover-lift:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px #1A1A1B; }
+        .hover-press:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px #1A1A1B; }
+        
+        /* Custom Scrollbar for Stage Area */
+        .stage-scroll::-webkit-scrollbar { width: 8px; }
+        .stage-scroll::-webkit-scrollbar-track { background: #f9f9fa; border-left: 2px solid #000; }
+        .stage-scroll::-webkit-scrollbar-thumb { background: #000; border: 2px solid #000; }
+        
+        .photo-strip-scroll::-webkit-scrollbar { height: 8px; }
+        .photo-strip-scroll::-webkit-scrollbar-track { background: #f9f9fa; border-top: 2px solid #000; }
+        .photo-strip-scroll::-webkit-scrollbar-thumb { background: #000; border: 2px solid #000; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen overflow-hidden flex flex-col font-body-main text-body-main">
+<!-- TopAppBar -->
+<header class="bg-background dark:bg-background w-full top-0 sticky border-b-3 border-primary dark:border-on-primary-fixed shadow-[4px_4px_0px_#1A1C1D] flex justify-between items-center px-gutter py-4 z-50">
+<div class="font-display-theater text-display-theater uppercase text-primary dark:text-on-primary-fixed tracking-tight">
+            Return Fraud Theater
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex items-center gap-6">
+<div class="relative hidden md:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-secondary" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="pl-10 pr-4 py-2 border-2 border-primary bg-surface-container-lowest focus:border-tertiary-container focus:ring-0 outline-none text-label-technical font-label-technical cast-shadow-sm w-64 transition-all" placeholder="Search Logs..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 border-2 border-primary bg-surface-container-lowest flex items-center justify-center cast-shadow-sm hover-lift hover-press transition-all">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">priority_high</span>
+</button>
+<button class="w-10 h-10 border-2 border-primary bg-surface-container-lowest flex items-center justify-center cast-shadow-sm hover-lift hover-press transition-all">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">warning</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex flex-1 overflow-hidden">
+<!-- Left Rail: Program (SideNavBar) -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low w-backstage-sidebar h-full sticky left-0 border-r-3 border-primary flex flex-col py-8 gap-4 flex-shrink-0 overflow-y-auto hidden lg:flex z-40">
+<div class="px-6 mb-6">
+<h2 class="font-headline-lg text-headline-lg font-black text-primary">Program</h2>
+<p class="font-label-technical text-label-technical text-secondary mt-1">Inspection Cue</p>
+</div>
+<button class="mx-6 mb-8 bg-tertiary text-on-tertiary border-2 border-primary py-3 px-4 flex items-center justify-center gap-2 cast-shadow hover-lift hover-press transition-all font-label-caps text-label-caps uppercase tracking-widest">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+                New Act
+            </button>
+<div class="flex-1 flex flex-col gap-2 px-4">
+<!-- Active Nav Item -->
+<a class="bg-primary text-on-primary flex items-center gap-4 p-4 border-2 border-primary shadow-[2px_2px_0px_#000000] active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">theaters</span>
+<span class="font-label-caps text-label-caps uppercase">Current Performance</span>
+</a>
+<!-- Inactive Nav Item -->
+<a class="text-secondary flex items-center gap-4 p-4 border-2 border-transparent hover:border-primary hover:bg-surface-container-highest active:scale-95 transition-all group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">history</span>
+<span class="font-label-caps text-label-caps uppercase group-hover:text-primary">Past Acts</span>
+</a>
+</div>
+<div class="mt-auto px-4 flex flex-col gap-2 border-t-2 border-outline-variant pt-6">
+<a class="text-secondary flex items-center gap-4 p-3 border-2 border-transparent hover:border-primary hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+<span class="font-label-technical text-label-technical group-hover:text-primary">Settings</span>
+</a>
+<a class="text-secondary flex items-center gap-4 p-3 border-2 border-transparent hover:border-primary hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help</span>
+<span class="font-label-technical text-label-technical group-hover:text-primary">Support</span>
+</a>
+</div>
+</nav>
+<!-- Center Stage -->
+<section class="flex-1 bg-surface-container-lowest stage-scroll overflow-y-auto relative z-30 flex flex-col p-stage-margin">
+<!-- Stage Header -->
+<div class="mb-12 border-b-3 border-primary pb-6 flex justify-between items-end">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-tertiary-container text-on-tertiary-container border-2 border-primary px-2 py-1 font-label-technical text-label-technical cast-shadow-sm inline-block uppercase">ID-7822</span>
+<span class="bg-surface-container-lowest text-primary border-2 border-primary px-2 py-1 font-label-technical text-label-technical cast-shadow-sm inline-block uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">sell</span>
+                            $289.00
+                        </span>
+</div>
+<h1 class="font-display-theater text-display-theater text-primary uppercase">The Midnight Gala Gown</h1>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-secondary uppercase mb-1">Status</p>
+<div class="bg-error text-on-error border-2 border-primary px-4 py-2 font-label-caps text-label-caps cast-shadow inline-flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                        Under Review
+                    </div>
+</div>
+</div>
+<!-- Bento Grid Stage Layout -->
+<div class="grid grid-cols-12 gap-6 mb-12">
+<!-- Main Act: Suspicious Return View (Col 1-8) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-lowest border-3 border-primary cast-shadow flex flex-col">
+<div class="border-b-3 border-primary p-4 bg-surface flex justify-between items-center">
+<h3 class="font-label-caps text-label-caps text-primary uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">visibility</span>
+                            Exhibit A: The Returned Item
+                        </h3>
+<div class="flex gap-2">
+<span class="bg-surface-container-lowest text-primary border-2 border-primary px-2 py-0.5 font-label-technical text-label-technical text-xs cast-shadow-sm">Missing Tag</span>
+<span class="bg-surface-container-lowest text-primary border-2 border-primary px-2 py-0.5 font-label-technical text-label-technical text-xs cast-shadow-sm">Post-Event</span>
+</div>
+</div>
+<div class="relative h-96 bg-surface-container-highest overflow-hidden p-6 flex items-center justify-center">
+<!-- Placeholder for Main Dress Image -->
+<div class="bg-cover bg-center w-full h-full border-2 border-primary cast-shadow-sm" data-alt="A high-resolution, brutally lit studio photograph of a formal midnight blue evening gown laid flat on a stark white examination table. The gown shows subtle signs of wear around the hemline. The lighting is harsh and forensic, casting sharp, distinct black shadows that emphasize the texture of the fabric and the structural lines of the garment. High contrast, clinical aesthetic." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDltUuLrFa_VWzCjGZZRS4znKNfceHG7lHX1CiFqlrtXdphEzQdTKGmiFWytLTcHMHkq43bKUGUzylUY4ZpWKMneOnKGu1KapK8xM0ohmLpUfYdT5X9PseKncvPs9iEmM0NtJusB86bqQWkRvxCDuLgyCFWpei5_45zzJ-Ovb0u16JhPFqJKvOk1cXY3099oxZkclE41DS1G1YBtCJrUIXR-MVIOzu1N9ms0GXOK0rNDdrsxf37jRkQzicfZohPhZM6rcEj-2wZKxQn')"></div>
+<!-- Tactical Overlay Lines -->
+<div class="absolute inset-0 pointer-events-none p-6">
+<div class="absolute top-12 left-1/2 w-48 border-t-2 border-tertiary-container border-dashed"></div>
+<div class="absolute top-10 left-[calc(50%+12rem)] bg-surface-container-lowest border-2 border-primary px-2 py-1 font-label-technical text-label-technical text-tertiary-container cast-shadow-sm text-xs">
+                                 Hem Soil Detected
+                             </div>
+</div>
+</div>
+<!-- Unboxing Photo Strip -->
+<div class="border-t-3 border-primary p-4 bg-surface-container-low">
+<h4 class="font-label-technical text-label-technical text-secondary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 0;">photo_camera</span>
+                            Intake Evidence Roll
+                        </h4>
+<div class="flex gap-4 overflow-x-auto photo-strip-scroll pb-2">
+<!-- Strip Images -->
+<img class="h-24 w-24 object-cover border-2 border-primary flex-shrink-0 cast-shadow-sm hover:scale-105 transition-transform cursor-pointer" data-alt="Close up forensic style photo of a torn price tag string on a dark blue dress, high contrast black and white lighting, sharp focus, stark shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYEZTZT2pY32Tg5TPSulEMMkYGbxJPHCeOBmeWmq7v4ueCKaHKv8HQBfEm2BEuX6cIp4d8fLQwN8cWmzRRr3eWLeJwy_3AsnBQo4VKVcATlMlAcghmZZig2hmGc6zyM9P-0uVmkWt-Nx8iU9_CexsFyYWckVW66ugt-VvloNfB3cqmV16Kd94dweUZU62bdx0kbWGrdjACKm6aasK4ojUvHmugUg-HMUM5zZQH8ZIY5T2tlhrjOUHgh1iKsdgt_LL5j9k1GKSbFZPR"/>
+<img class="h-24 w-24 object-cover border-2 border-primary flex-shrink-0 cast-shadow-sm hover:scale-105 transition-transform cursor-pointer" data-alt="Close up forensic style photo of the dirty hem of a midnight blue dress against a pure white background, harsh lighting highlighting dust and wear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoWrly06LlolWVfmdN5-ONfCC50pqn-XItuq4rPrEmr9I4aV1_nfvXsXHYqdjxyQV9KNaDT43Bt0P3v7Shff1iyUL4VNUKhuYU2lGVVsjxqPyt7N_eERWVOeoGq4_EevNRP0Xs4gOrjb7ELm9tc8e2TkgM6c7r_E2Upl-NQCiHVG2Njp8a9ZsSdx6L7xkb-PhTEc4AhWrjpQAuuRHkaVWgT1GTa0TR6N6aEK3ZMCvkCotkAULGnoBEA1fj06G7cgE3S4SIocjaRe76"/>
+<img class="h-24 w-24 object-cover border-2 border-primary flex-shrink-0 cast-shadow-sm hover:scale-105 transition-transform cursor-pointer" data-alt="Forensic photo of an open cardboard shipping box with crushed tissue paper inside, bright stark lighting, high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4OATIlKo1-FpCC8H_bAcUr56t2Vw2eSDqPld9JBI01Nc8ZwhV2RHsLIxZrrXaAu2KOGETvLf5tpH6fEjI8PGV3naDNWpPMlyI3-Prxxroaj5gTm-TpNwX3rWaCiI-nzVuwThh2EHbD0HqcOFauVfcGM1WxaR8KugmPYuNh1G9iaRrwzAlKXRBiykg2mg8Puy4GTbSDPqDPwBug2xxiNq5kASsYs-YMFOgPIk983Wyx_LTwOO3fiolkktPNYUfUvZ1eDq711JEFdLE"/>
+<img class="h-24 w-24 object-cover border-2 border-primary flex-shrink-0 cast-shadow-sm hover:scale-105 transition-transform cursor-pointer" data-alt="Close up forensic photo of a zipper on a dark dress slightly stuck or snagged on fabric, stark white clinical background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOhCgus9SRwUbw8UZHcCKsCSCq5TtZH4JmmQECOfW9CmzqwhfUHVuh7q0oV2T2tcsuDk9CS4AahnWwvbXuMhiN-Lq2LI-owzmKqTE0ajq1ICuAN6XgOZdeoFFwl-dMma3DlADwKUTO0-8Ei2dErAgJ9CzCs5MT-7oJIoCSO5RBN23owIXmDo0djGxdFuw3Tmy0qVDq5ykNxUuWvSSh7j5ZWqvw_h4fZ23MCXAi-pX1piSFYk4vAGu8W0qZ-iTusEUw1GkuUsicXWEg"/>
+<div class="h-24 w-24 border-2 border-primary border-dashed flex items-center justify-center flex-shrink-0 text-secondary hover:text-primary hover:border-solid transition-all cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">add_a_photo</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Panel (Col 9-12) -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<!-- Weight-Scan Timeline -->
+<div class="bg-surface-container-lowest border-3 border-primary cast-shadow flex flex-col">
+<div class="border-b-3 border-primary p-3 bg-surface">
+<h3 class="font-label-caps text-label-caps text-primary uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">scale</span>
+                                Mass Discrepancy
+                            </h3>
+</div>
+<div class="p-6 flex flex-col gap-6">
+<div class="flex justify-between items-end border-b-2 border-outline-variant pb-2">
+<div>
+<p class="font-label-technical text-label-technical text-secondary">Outbound</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary">2.4 <span class="text-sm">lbs</span></p>
+</div>
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">local_shipping</span>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<p class="font-label-technical text-label-technical text-tertiary-container font-bold">Return Intake</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-tertiary-container">1.1 <span class="text-sm">lbs</span></p>
+</div>
+<span class="material-symbols-outlined text-tertiary-container" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+</div>
+<!-- Visual Graph -->
+<div class="w-full h-8 flex border-2 border-primary">
+<div class="bg-primary h-full w-[100%] transition-all" style="width: 100%;" title="Outbound Weight"></div>
+</div>
+<div class="w-full h-8 flex border-2 border-tertiary-container mt-[-1rem] relative z-10 cast-shadow-sm">
+<div class="bg-tertiary-container h-full transition-all" style="width: 45%;" title="Return Weight"></div>
+</div>
+<div class="bg-error-container border-2 border-error text-on-error-container p-2 font-label-technical text-label-technical text-xs flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">error</span>
+<span>Critical deficit. 1.3 lbs unaccounted for.</span>
+</div>
+</div>
+</div>
+<!-- Customer History Clues -->
+<div class="bg-surface-container-lowest border-3 border-primary cast-shadow flex-1 flex flex-col">
+<div class="border-b-3 border-primary p-3 bg-tertiary-container text-on-tertiary-container">
+<h3 class="font-label-caps text-label-caps uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person_alert</span>
+                                Actor Profile
+                            </h3>
+</div>
+<div class="p-6">
+<div class="mb-4">
+<span class="bg-surface-container-lowest text-tertiary-container border-2 border-tertiary-container px-3 py-1 font-label-caps text-label-caps cast-shadow-sm inline-block uppercase font-black">
+                                    Wardrobing Risk
+                                </span>
+</div>
+<p class="font-label-technical text-label-technical text-on-surface mb-6 border-l-4 border-tertiary-container pl-3">
+                                "Customer has history of wardrobing."
+                            </p>
+<div class="grid grid-cols-2 gap-4">
+<div class="border-2 border-outline-variant p-3 bg-surface">
+<p class="font-label-technical text-label-technical text-secondary text-xs mb-1">Returns (90d)</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary">6</p>
+</div>
+<div class="border-2 border-outline-variant p-3 bg-surface">
+<p class="font-label-technical text-label-technical text-secondary text-xs mb-1">Approval Rate</p>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary">16%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Widgets Stage Area -->
+<div class="grid grid-cols-12 gap-6 pb-12">
+<!-- Policy Test Cards -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest border-3 border-primary cast-shadow p-6">
+<h3 class="font-label-caps text-label-caps text-primary uppercase flex items-center gap-2 border-b-3 border-primary pb-4 mb-6">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fact_check</span>
+                        Policy Interrogation
+                    </h3>
+<div class="flex flex-col gap-4">
+<!-- Card 1 -->
+<label class="flex items-center justify-between p-4 border-2 border-primary bg-surface cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-4">
+<input checked="" class="form-checkbox h-6 w-6 text-tertiary-container border-2 border-primary rounded-none focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-label-technical text-label-technical text-primary font-bold">Original Tag Present?</span>
+</div>
+<span class="bg-error text-on-error px-2 py-1 font-label-caps text-label-caps border-2 border-primary cast-shadow-sm">NO</span>
+</label>
+<!-- Card 2 -->
+<label class="flex items-center justify-between p-4 border-2 border-primary bg-surface cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-4">
+<input class="form-checkbox h-6 w-6 text-primary border-2 border-primary rounded-none focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-label-technical text-label-technical text-primary font-bold">Original Packaging?</span>
+</div>
+<span class="bg-surface-container-lowest text-primary px-2 py-1 font-label-caps text-label-caps border-2 border-primary cast-shadow-sm">YES</span>
+</label>
+<!-- Card 3 -->
+<label class="flex items-center justify-between p-4 border-2 border-primary bg-surface cursor-pointer hover:bg-surface-container-highest transition-colors">
+<div class="flex items-center gap-4">
+<input checked="" class="form-checkbox h-6 w-6 text-tertiary-container border-2 border-primary rounded-none focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-label-technical text-label-technical text-primary font-bold">Signs of Wear?</span>
+</div>
+<span class="bg-error text-on-error px-2 py-1 font-label-caps text-label-caps border-2 border-primary cast-shadow-sm">YES</span>
+</label>
+</div>
+</div>
+<!-- Weekly Fraud Pattern Wall -->
+<div class="col-span-12 lg:col-span-6 bg-surface-container-lowest border-3 border-primary cast-shadow p-6 relative overflow-hidden group">
+<!-- Background Pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000), repeating-linear-gradient(45deg, #000 25%, transparent 25%, transparent 75%, #000 75%, #000); background-position: 0 0, 10px 10px; background-size: 20px 20px;"></div>
+<h3 class="font-label-caps text-label-caps text-primary uppercase flex items-center gap-2 border-b-3 border-primary pb-4 mb-6 relative z-10">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+                        Pattern Wall (Regional)
+                    </h3>
+<div class="grid grid-cols-2 gap-6 relative z-10">
+<div class="bg-surface p-4 border-2 border-primary">
+<div class="flex items-center gap-2 text-tertiary-container mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-label-caps text-label-caps font-bold">Network Warning</span>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1">+42%</p>
+<p class="font-label-technical text-label-technical text-secondary text-xs leading-tight">Spike in organized return rings this week.</p>
+</div>
+<div class="bg-surface p-4 border-2 border-primary">
+<div class="flex items-center gap-2 text-primary mb-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">deployed_code</span>
+<span class="font-label-caps text-label-caps font-bold">Empty Box Claims</span>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1">128</p>
+<p class="font-label-technical text-label-technical text-secondary text-xs leading-tight">Active investigations in sector 4.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Rail: The Stage Rail (Decision Rail) -->
+<aside class="bg-surface dark:bg-surface w-backstage-sidebar h-full sticky right-0 border-l-3 border-primary flex flex-col p-gutter flex-shrink-0 z-40 hidden md:flex">
+<div class="mb-8">
+<h2 class="font-label-caps text-label-caps text-primary uppercase border-b-2 border-primary pb-2 mb-1">The Stage Rail</h2>
+<p class="font-label-technical text-label-technical text-secondary">Final Decision</p>
+</div>
+<!-- Customer Reply Composer -->
+<div class="flex-1 flex flex-col mb-6 bg-surface-container-lowest border-2 border-primary cast-shadow-sm overflow-hidden">
+<div class="bg-surface-container-highest border-b-2 border-primary p-3 flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-primary uppercase">Draft Notice</span>
+<span class="material-symbols-outlined text-[18px] text-secondary cursor-pointer hover:text-primary" style="font-variation-settings: 'FILL' 0;">edit</span>
+</div>
+<div class="p-4 flex-1 flex flex-col">
+<div class="mb-3">
+<label class="font-label-technical text-label-technical text-secondary text-xs block mb-1">To:</label>
+<input class="w-full border-b-2 border-outline-variant bg-transparent font-label-technical text-label-technical py-1 focus:outline-none focus:border-primary" readonly="" type="text" value="customer@email.com"/>
+</div>
+<div class="flex-1 flex flex-col">
+<label class="font-label-technical text-label-technical text-secondary text-xs block mb-1">Message:</label>
+<textarea class="w-full flex-1 border-2 border-outline-variant bg-surface-bright p-3 font-body-main text-body-main text-sm focus:border-primary focus:ring-0 resize-none font-medium">Dear Customer,
+
+We have received your return for order #7822. Upon inspection, the item ("The Midnight Gala Gown") arrived without original tags and showed signs of wear. 
+
+As per our return policy, items must be unworn and in original condition. Therefore, we are unable to process this refund.</textarea>
+</div>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-4 mt-auto pt-6 border-t-3 border-primary">
+<button class="w-full bg-tertiary-container text-on-tertiary-container border-2 border-primary p-6 shadow-[4px_4px_0px_#000000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-150 flex items-center justify-between font-label-caps text-label-caps uppercase tracking-widest font-black group">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 1;">cancel</span>
+                        Deny Fraud
+                    </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+<button class="w-full bg-surface text-primary border-2 border-primary p-6 shadow-[4px_4px_0px_#000000] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all duration-150 flex items-center justify-between font-label-caps text-label-caps uppercase tracking-widest font-black group">
+<span class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[24px]" style="font-variation-settings: 'FILL' 0;">check_circle</span>
+                        Approve Case
+                    </span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+</aside>
+</main>
+<!-- Footer -->
+<footer class="bg-inverse-surface dark:bg-inverse-surface fixed bottom-0 left-0 w-full h-unit-8 border-t-2 border-primary flex justify-between items-center px-gutter py-2 z-50">
+<div class="font-label-technical text-label-technical text-inverse-on-surface">
+            System Log: v2.4.0-Backstage
+        </div>
+<div class="flex items-center gap-6">
+<a class="font-label-technical text-label-technical text-surface-variant hover:text-on-tertiary-fixed-variant cursor-pointer transition-colors" href="#">Terminal</a>
+<a class="font-label-technical text-label-technical text-surface-variant hover:text-on-tertiary-fixed-variant cursor-pointer transition-colors" href="#">Logs</a>
+<a class="font-label-technical text-label-technical text-surface-variant hover:text-on-tertiary-fixed-variant cursor-pointer transition-colors" href="#">API</a>
+</div>
+</footer>
+</body></html>
