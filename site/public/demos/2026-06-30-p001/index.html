@@ -1,59 +1,388 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shelf Tag Price Memory - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-30-p001</p>
-        <h1>Shelf Tag Price Memory</h1>
-        <p>A shopper-side receipt camera that catches digital shelf tag price drift before checkout.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - Shelf Tag Price Memory</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary": "#ffffff",
+                      "tertiary-container": "#a16b26",
+                      "surface-tint": "#46645b",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-high": "#e6e9ea",
+                      "on-secondary-container": "#65645f",
+                      "on-secondary-fixed-variant": "#474742",
+                      "surface-variant": "#e0e3e4",
+                      "primary-fixed-dim": "#adcec2",
+                      "on-surface-variant": "#414845",
+                      "primary-container": "#5e7d73",
+                      "surface-container": "#ebeeef",
+                      "surface-bright": "#f7fafb",
+                      "background": "#f7fafb",
+                      "surface": "#f7fafb",
+                      "tertiary": "#84530e",
+                      "secondary-fixed-dim": "#c9c6c0",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed-dim": "#fcb96d",
+                      "on-surface": "#181c1d",
+                      "on-error": "#ffffff",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2d3132",
+                      "surface-container-highest": "#e0e3e4",
+                      "on-primary-fixed": "#012019",
+                      "primary-fixed": "#c8eade",
+                      "on-tertiary-container": "#ffffff",
+                      "on-primary-fixed-variant": "#2f4c44",
+                      "on-tertiary-fixed-variant": "#673d00",
+                      "outline-variant": "#c1c8c4",
+                      "on-error-container": "#93000a",
+                      "tertiary-fixed": "#ffddba",
+                      "primary": "#46645b",
+                      "surface-dim": "#d7dadb",
+                      "secondary": "#5f5e59",
+                      "inverse-primary": "#adcec2",
+                      "outline": "#727975",
+                      "on-background": "#181c1d",
+                      "on-primary-container": "#ffffff",
+                      "on-secondary-fixed": "#1c1c18",
+                      "surface-container-low": "#f1f4f5",
+                      "secondary-container": "#e5e2db",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-fixed": "#2b1700",
+                      "secondary-fixed": "#e5e2db",
+                      "surface-container-lowest": "#ffffff",
+                      "inverse-on-surface": "#eef1f2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-margin-mobile": "20px",
+                      "container-margin-desktop": "64px",
+                      "gutter": "24px",
+                      "section-gap": "48px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "\"Source Sans 3\""
+                      ],
+                      "button": [
+                              "\"Source Sans 3\""
+                      ],
+                      "label-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "\"Source Sans 3\""
+                      ],
+                      "headline-lg-mobile": [
+                              "\"Source Sans 3\""
+                      ],
+                      "body-lg": [
+                              "\"Source Sans 3\""
+                      ],
+                      "headline-md": [
+                              "\"Source Sans 3\""
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "button": [
+                              "16px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      }
+              }
+            }
+          }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        .soft-shadow {
+            box-shadow: 0px 4px 20px -5px rgba(0,0,0,0.06);
+        }
+        .confidence-glow {
+            box-shadow: 0 0 0 2px rgba(173, 206, 194, 0.4);
+        }
+        .script-card {
+            border-left: 4px solid theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim shadow-sm docked full-width top-0 z-50">
+<div class="flex justify-between items-center w-full px-container-margin-desktop max-w-[1200px] mx-auto h-16">
+<div class="font-headline-md text-headline-md font-semibold text-primary dark:text-inverse-primary tracking-tight">
+                Shelf Tag Price Memory
+            </div>
+<nav class="hidden md:flex space-x-8">
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">My Memories</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">Analysis</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors duration-200" href="#">Profile</a>
+</nav>
+<div class="flex items-center space-x-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary" style="font-variation-settings: 'FILL' 0;">search</span>
+<input class="bg-secondary-container text-on-surface pl-10 pr-4 py-2 rounded-full focus:outline-none focus:ring-2 focus:ring-primary border-none w-48 transition-all" placeholder="Search memories..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-button text-button px-6 py-2 rounded-full hover:opacity-90 active:opacity-80 active:scale-95 transition-all flex items-center space-x-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">add_circle</span>
+<span>New Capture</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow w-full max-w-[1200px] mx-auto px-container-margin-mobile md:px-container-margin-desktop py-section-gap flex flex-col gap-section-gap">
+<!-- Hero Section -->
+<section class="flex flex-col gap-4 text-center md:text-left">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Your Price Memory. Calm shopping, guaranteed.</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl">We remember the shelf tags so you don't have to. Shop with confidence knowing your budget is protected.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Snapped Today & Mismatch Table (Col Span 8) -->
+<div class="lg:col-span-8 flex flex-col gap-section-gap">
+<!-- Snapped Today -->
+<section>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">camera_alt</span>
+                        Snapped Today
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-base">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl soft-shadow border border-surface-variant flex flex-col gap-2 relative">
+<div class="absolute top-4 right-4 bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-full flex items-center gap-1 font-label-mono text-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Verified
+                            </div>
+<div class="font-label-mono text-label-mono text-secondary">10:42 AM</div>
+<div class="font-headline-md text-headline-md text-on-surface mt-2">$4.99</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Organic Milk 1 Gal</div>
+<div class="font-label-mono text-xs text-secondary mt-auto pt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> FreshMart
+                            </div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl soft-shadow border border-surface-variant flex flex-col gap-2 relative">
+<div class="absolute top-4 right-4 bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-full flex items-center gap-1 font-label-mono text-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Verified
+                            </div>
+<div class="font-label-mono text-label-mono text-secondary">10:55 AM</div>
+<div class="font-headline-md text-headline-md text-on-surface mt-2">$5.49</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Honey Nut Cereal</div>
+<div class="font-label-mono text-xs text-secondary mt-auto pt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> FreshMart
+                            </div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest p-6 rounded-xl soft-shadow border border-surface-variant flex flex-col gap-2 relative">
+<div class="absolute top-4 right-4 bg-primary-fixed-dim/20 text-primary-container px-2 py-1 rounded-full flex items-center gap-1 font-label-mono text-xs">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                                Verified
+                            </div>
+<div class="font-label-mono text-label-mono text-secondary">11:15 AM</div>
+<div class="font-headline-md text-headline-md text-on-surface mt-2">$2.99</div>
+<div class="font-body-md text-body-md text-on-surface-variant">Avocado (ea)</div>
+<div class="font-label-mono text-xs text-secondary mt-auto pt-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">storefront</span> FreshMart
+                            </div>
+</div>
+</div>
+</section>
+<!-- Checkout Check Table -->
+<section class="bg-surface-container-lowest rounded-xl soft-shadow border border-surface-variant overflow-hidden">
+<div class="p-6 border-b border-surface-variant">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+                            Checkout Check
+                        </h2>
+<p class="font-body-md text-secondary mt-1">Reviewing today's haul for discrepancies.</p>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low font-label-mono text-label-mono text-secondary">
+<th class="p-4 border-b border-surface-variant font-medium">Item</th>
+<th class="p-4 border-b border-surface-variant font-medium">Shelf Price</th>
+<th class="p-4 border-b border-surface-variant font-medium">Receipt Price</th>
+<th class="p-4 border-b border-surface-variant font-medium">Difference</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-on-surface">
+<tr class="border-b border-surface-variant hover:bg-surface-bright transition-colors">
+<td class="p-4">Organic Milk 1 Gal</td>
+<td class="p-4 text-secondary">$4.99</td>
+<td class="p-4">$4.99</td>
+<td class="p-4 text-primary">Match</td>
+</tr>
+<tr class="bg-tertiary-fixed/30 border-b border-surface-variant">
+<td class="p-4 font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[18px]">error</span>
+                                        Honey Nut Cereal
+                                    </td>
+<td class="p-4 text-secondary">$5.49</td>
+<td class="p-4">$5.99</td>
+<td class="p-4 text-tertiary font-bold">+$0.50</td>
+</tr>
+<tr class="hover:bg-surface-bright transition-colors">
+<td class="p-4">Avocado (ea)</td>
+<td class="p-4 text-secondary">$2.99</td>
+<td class="p-4">$2.99</td>
+<td class="p-4 text-primary">Match</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Right Column: Timeline, Confidence, Script (Col Span 4) -->
+<div class="lg:col-span-4 flex flex-col gap-gutter">
+<!-- Confidence Badge -->
+<div class="bg-surface-container-lowest p-6 rounded-xl soft-shadow border border-surface-variant flex items-start gap-4">
+<div class="bg-primary/10 p-3 rounded-full flex-shrink-0 text-primary">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">98% Price Accuracy</h3>
+<p class="font-label-mono text-label-mono text-secondary mt-1">at FreshMart</p>
+<p class="font-body-md text-sm text-on-surface-variant mt-2">Based on your 12 recent memories. Shopping here is generally calm and predictable.</p>
+</div>
+</div>
+<!-- Price-Match Script Drawer -->
+<div class="bg-secondary-container rounded-xl p-6 script-card soft-shadow">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">forum</span>
+<h3 class="font-headline-md text-headline-md text-on-surface text-lg">Your Price-Match Script</h3>
+</div>
+<p class="font-body-md text-sm text-secondary mb-4">Read this at customer service for a calm resolution.</p>
+<div class="bg-surface-container-lowest p-4 rounded-lg font-label-mono text-label-mono text-on-surface leading-relaxed border border-surface-variant">
+                        "Excuse me, I noticed a price difference for <span class="bg-tertiary-fixed/50 px-1 rounded">Honey Nut Cereal</span>. My records show it was listed for <span class="bg-primary-fixed/50 px-1 rounded">$5.49</span>. Could you please check the shelf tag?"
+                    </div>
+<button class="mt-4 w-full bg-surface-container-lowest border-2 border-primary text-primary font-button text-button py-2 rounded-full hover:bg-primary/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">content_copy</span> Copy Script
+                    </button>
+</div>
+<!-- Saved Shelf-Tag Timeline -->
+<div class="bg-surface-container-lowest p-6 rounded-xl soft-shadow border border-surface-variant flex-grow">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">history</span>
+                        Price Timeline
+                    </h2>
+<div class="relative border-l border-outline-variant/30 ml-3 space-y-6">
+<!-- Timeline Item 1 -->
+<div class="relative pl-6">
+<div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-primary confidence-glow"></div>
+<div class="font-label-mono text-xs text-secondary mb-1">Oct 24 • MegaMart</div>
+<div class="bg-surface-bright p-3 rounded-lg border border-surface-variant">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface">Paper Towels (6pk)</span>
+<span class="font-label-mono text-primary font-bold">$12.99</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative pl-6">
+<div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-secondary"></div>
+<div class="font-label-mono text-xs text-secondary mb-1">Oct 20 • FreshMart</div>
+<div class="bg-surface-bright p-3 rounded-lg border border-surface-variant opacity-80">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface">Apples (1lb)</span>
+<span class="font-label-mono text-secondary">$1.99</span>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3 -->
+<div class="relative pl-6">
+<div class="absolute -left-1.5 top-1.5 w-3 h-3 rounded-full bg-secondary"></div>
+<div class="font-label-mono text-xs text-secondary mb-1">Oct 15 • Corner Deli</div>
+<div class="bg-surface-bright p-3 rounded-lg border border-surface-variant opacity-80">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface">Artisan Bread</span>
+<span class="font-label-mono text-secondary">$4.50</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant full-width bottom-0 mt-section-gap">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-container-margin-desktop py-base max-w-[1200px] mx-auto min-h-[64px] gap-4 md:gap-0">
+<div class="font-headline-sm text-headline-sm font-bold text-secondary">
+                © 2024 Shelf Tag Price Memory. Calm-Protective Shopping.
+            </div>
+<nav class="flex space-x-6">
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">How it works</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Store support</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Privacy Policy</a>
+<a class="font-label-mono text-label-mono text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary underline transition-all focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Terms</a>
+</nav>
+</div>
+</footer>
+</body></html>

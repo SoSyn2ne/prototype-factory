@@ -1,59 +1,355 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Roof ACV Claim Shock Desk - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-30-p002</p>
-        <h1>Roof ACV Claim Shock Desk</h1>
-        <p>A homeowner claim explainer that turns roof depreciation language into cash-at-risk and appeal steps.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Claim Analysis: Roof Depreciation &amp; Cash-at-Risk | Institutional Claim Analytics</title>
+<!-- Google Fonts & Material Icons -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config injected from instructions -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#8192a7",
+                      "surface-container-highest": "#e0e3e5",
+                      "background": "#f7fafc",
+                      "tertiary-container": "#0f3018",
+                      "on-surface": "#181c1e",
+                      "secondary-fixed-dim": "#bcc7dd",
+                      "error": "#ba1a1a",
+                      "tertiary": "#001a07",
+                      "error-container": "#ffdad6",
+                      "tertiary-fixed": "#c6ecc8",
+                      "on-tertiary-fixed": "#01210b",
+                      "primary-container": "#1a2b3c",
+                      "on-background": "#181c1e",
+                      "primary-fixed": "#d2e4fb",
+                      "tertiary-fixed-dim": "#abd0ad",
+                      "on-error": "#ffffff",
+                      "surface-container": "#ebeef0",
+                      "secondary": "#545f72",
+                      "on-secondary-fixed": "#111c2c",
+                      "primary-fixed-dim": "#b7c8de",
+                      "on-error-container": "#93000a",
+                      "inverse-surface": "#2d3133",
+                      "inverse-primary": "#b7c8de",
+                      "secondary-container": "#d5e0f7",
+                      "outline": "#74777d",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed-variant": "#38485a",
+                      "outline-variant": "#c4c6cd",
+                      "on-tertiary": "#ffffff",
+                      "surface-dim": "#d7dadc",
+                      "surface-tint": "#4f6073",
+                      "inverse-on-surface": "#eef1f3",
+                      "on-surface-variant": "#44474c",
+                      "on-secondary-container": "#586377",
+                      "surface-container-high": "#e5e9eb",
+                      "on-tertiary-fixed-variant": "#2d4e33",
+                      "surface-container-low": "#f1f4f6",
+                      "surface-bright": "#f7fafc",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed": "#0b1d2d",
+                      "secondary-fixed": "#d8e3fa",
+                      "surface-variant": "#e0e3e5",
+                      "on-tertiary-container": "#769a7a",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "surface": "#f7fafc",
+                      "primary": "#041627"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "container-max": "1200px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "section-gap": "64px",
+                      "margin-desktop": "48px"
+              },
+              "fontFamily": {
+                      "headline-xl": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "\"Source Serif 4\""
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "data-display": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "\"Source Serif 4\""
+                      ],
+                      "label-bold": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-xl": [
+                              "36px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "28px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "data-display": [
+                              "24px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #F7FAFC; /* background token */
+        }
+        
+        /* Subtle shadow for cards */
+        .card-shadow {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Progress bar animation */
+        @keyframes fillProgress {
+            from { width: 0; }
+            to { width: 62%; }
+        }
+        .animate-progress {
+            animation: fillProgress 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-on-background font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-base max-w-container-max mx-auto flat no shadows z-10 sticky top-0">
+<div class="flex items-center gap-6">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">Roof ACV Claim Shock Desk</span>
+<nav class="hidden md:flex gap-6 items-center pt-1 h-full">
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-bold text-label-bold" href="#">Policy Decoder</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors duration-150 font-label-bold text-label-bold cursor-pointer active:opacity-80" href="#">Risk Meter</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors duration-150 font-label-bold text-label-bold cursor-pointer active:opacity-80" href="#">Decision Lane</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors duration-150 font-label-bold text-label-bold cursor-pointer active:opacity-80" href="#">Checklist</a>
+<a class="text-secondary dark:text-secondary-fixed hover:text-primary dark:hover:text-primary-fixed transition-colors duration-150 font-label-bold text-label-bold cursor-pointer active:opacity-80" href="#">Scripts</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-bold text-label-bold text-secondary hidden md:inline-block">Case ID: #882941</span>
+<button class="font-label-bold text-label-bold border border-outline-variant rounded px-4 py-2 text-primary hover:bg-surface-container-low transition-colors duration-150">Export Report</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-section-gap grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Page Header -->
+<div class="col-span-1 md:col-span-12 mb-8">
+<h1 class="font-headline-xl text-headline-xl text-primary mb-2">Claim Analysis: Roof Depreciation &amp; Cash-at-Risk</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-3xl">Comprehensive analysis of structural depreciation factors impacting actual cash value settlements. Case #882941 evaluation.</p>
+</div>
+<!-- Left Column: Data Input & Key Metrics -->
+<div class="col-span-1 md:col-span-8 flex flex-col gap-6">
+<!-- Depreciation Cash-at-Risk Meter (KPI Card) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 card-shadow flex flex-col justify-between h-auto">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary mb-1">Depreciation Cash-at-Risk</h2>
+<p class="font-label-sm text-label-sm text-secondary">Estimated Replacement Cost Gap</p>
+</div>
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">analytics</span>
+</div>
+<div class="flex flex-col md:flex-row items-end gap-8 mb-8">
+<div>
+<span class="font-data-display text-[48px] leading-none tracking-tight font-bold text-error block mb-2">-$12,400</span>
+<span class="font-label-sm text-label-sm text-secondary bg-surface-container-high px-2 py-1 rounded inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span>
+                            Out-of-Pocket Liability
+                        </span>
+</div>
+<div class="flex-grow w-full">
+<div class="flex justify-between font-label-sm text-label-sm text-secondary mb-2">
+<span>ACV Settlement ($7,600)</span>
+<span>RCV Target ($20,000)</span>
+</div>
+<div class="h-3 w-full bg-surface-container-highest rounded-full overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full bg-error animate-progress rounded-full" style="width: 62%;"></div>
+</div>
+<div class="text-right mt-1 font-label-sm text-label-sm font-bold text-on-surface-variant">62% Depreciation Gap</div>
+</div>
+</div>
+</section>
+<!-- Policy Term Decoder & Decision Lane (Bento Grid Layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Policy Term Decoder -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 card-shadow">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">policy</span>
+<h3 class="font-headline-md text-headline-md text-primary">Policy Decoder</h3>
+</div>
+<form class="space-y-4">
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Policy Valuation Type</label>
+<select class="w-full bg-surface border-outline-variant text-on-surface font-body-md rounded focus:ring-1 focus:ring-primary focus:border-primary">
+<option>Actual Cash Value (ACV)</option>
+<option>Replacement Cost Value (RCV)</option>
+<option>Stated Value</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Roof Age (Years)</label>
+<input class="w-full bg-surface border-outline-variant text-on-surface font-body-md rounded focus:ring-1 focus:ring-primary focus:border-primary font-mono" type="number" value="15"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Estimated Lifespan (Years)</label>
+<input class="w-full bg-surface border-outline-variant text-on-surface font-body-md rounded focus:ring-1 focus:ring-primary focus:border-primary font-mono bg-surface-container-low" readonly="" type="number" value="25"/>
+</div>
+<div class="pt-4 border-t border-outline-variant mt-4">
+<div class="flex justify-between items-center">
+<span class="font-label-sm text-label-sm text-secondary">Effective Depreciation Rate</span>
+<span class="font-label-bold text-label-bold text-primary">60%</span>
+</div>
+</div>
+</form>
+</section>
+<!-- File-or-Wait Decision Lane -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 card-shadow flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">route</span>
+<h3 class="font-headline-md text-headline-md text-primary">Decision Lane</h3>
+</div>
+<div class="bg-tertiary-fixed border border-tertiary-fixed-dim rounded p-4 mb-6 flex items-start gap-3">
+<span class="material-symbols-outlined text-on-tertiary-fixed mt-0.5">verified</span>
+<div>
+<h4 class="font-label-bold text-label-bold text-on-tertiary-fixed">High Confidence: Appeal Recommended</h4>
+<p class="font-label-sm text-label-sm text-on-tertiary-fixed mt-1 opacity-90">Based on recent structural assessments, straight-line depreciation may be successfully contested.</p>
+</div>
+</div>
+<div class="space-y-3 flex-grow">
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded hover:bg-surface-container-low transition-colors cursor-pointer border-l-4 border-l-primary">
+<div>
+<span class="font-label-bold text-label-bold text-primary block">File Condition Appeal</span>
+<span class="font-label-sm text-label-sm text-secondary">Est. Recovery: +$4,200</span>
+</div>
+<span class="material-symbols-outlined text-secondary">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-3 border border-outline-variant rounded opacity-60">
+<div>
+<span class="font-label-bold text-label-bold text-on-surface block">Accept ACV Settlement</span>
+<span class="font-label-sm text-label-sm text-secondary">Immediate payout: $7,600</span>
+</div>
+<span class="material-symbols-outlined text-secondary">chevron_right</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Right Column: Analyst's Interpretation -->
+<div class="col-span-1 md:col-span-4 h-full">
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 card-shadow h-full flex flex-col border-l-4 border-l-secondary-fixed-dim">
+<div class="flex items-center gap-2 mb-6 pb-4 border-b border-outline-variant">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">description</span>
+<h3 class="font-headline-md text-headline-md text-primary">Analyst Interpretation</h3>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant space-y-4">
+<p>
+                        Your policy utilizes a strict <strong class="text-on-surface font-semibold">Actual Cash Value (ACV)</strong> settlement provision for roofing structures exceeding 10 years of age. 
+                    </p>
+<p>
+                        Applying a 15-year straight-line depreciation schedule against a presumed 25-year architectural shingle lifespan results in a 60% reduction of the replacement cost.
+                    </p>
+<div class="bg-surface-container-low p-4 rounded text-sm italic border border-outline-variant">
+                        "This calculation results in a $12,400 out-of-pocket gap to complete full roof replacement at current market material rates."
+                    </div>
+<p>
+                        However, the adjuster's report notes exceptional granular adhesion prior to the wind event. This presents a strong basis to argue for <strong class="text-on-surface font-semibold">Observed Condition Depreciation</strong> rather than strict straight-line age depreciation.
+                    </p>
+</div>
+<div class="mt-auto pt-6">
+<button class="w-full bg-primary text-on-primary font-label-bold text-label-bold py-3 px-4 rounded hover:bg-opacity-90 transition-all duration-150 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit_document</span>
+                        Draft Condition Appeal
+                    </button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline flex justify-between items-center w-full px-margin-desktop py-gutter max-w-container-max mx-auto mt-auto">
+<span class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed">© 2024 Institutional Claim Analytics. Confidential Financial Report.</span>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:underline hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:underline hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-secondary dark:text-secondary-fixed hover:underline hover:text-primary dark:hover:text-primary-fixed transition-opacity duration-150" href="#">Security Disclosure</a>
+</div>
+</footer>
+</body></html>

@@ -1,59 +1,500 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Bot Toll Booth - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-30-p004</p>
-        <h1>AI Bot Toll Booth</h1>
-        <p>A publisher traffic workbench that separates useful search bots from unpaid AI scraping and drafts access rules.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
-        </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AI Bot Toll Booth - Control Center</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#2b1700",
+                        "secondary-container": "#139cc7",
+                        "outline": "#a28d79",
+                        "tertiary-container": "#00c3ff",
+                        "on-tertiary": "#003548",
+                        "inverse-primary": "#885200",
+                        "outline-variant": "#544433",
+                        "surface-container-low": "#1b1b1d",
+                        "tertiary": "#93daff",
+                        "on-secondary-container": "#002e3d",
+                        "surface-variant": "#353437",
+                        "primary": "#ffc688",
+                        "surface-container-highest": "#353437",
+                        "secondary-fixed-dim": "#68d3ff",
+                        "on-tertiary-fixed-variant": "#004d67",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#673d00",
+                        "on-background": "#e4e2e4",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-secondary": "#003546",
+                        "on-primary-fixed-variant": "#673d00",
+                        "secondary-fixed": "#bee9ff",
+                        "on-error": "#690005",
+                        "surface": "#131315",
+                        "secondary": "#68d3ff",
+                        "on-surface-variant": "#dac3ad",
+                        "on-secondary-fixed": "#001f2a",
+                        "primary-container": "#ff9f0a",
+                        "on-tertiary-container": "#004d67",
+                        "primary-fixed": "#ffddbb",
+                        "background": "#131315",
+                        "inverse-surface": "#e4e2e4",
+                        "surface-tint": "#ffb868",
+                        "surface-container": "#1f1f21",
+                        "surface-container-high": "#2a2a2c",
+                        "on-primary": "#482900",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed": "#c1e8ff",
+                        "surface-dim": "#131315",
+                        "on-surface": "#e4e2e4",
+                        "primary-fixed-dim": "#ffb868",
+                        "tertiary-fixed-dim": "#73d1ff",
+                        "inverse-on-surface": "#303032",
+                        "surface-bright": "#39393b",
+                        "on-secondary-fixed-variant": "#004d64",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#001e2b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-padding": "1.5rem",
+                        "component-gap-sm": "8px",
+                        "gutter": "1rem",
+                        "section-margin": "24px",
+                        "unit": "4px",
+                        "component-gap-xs": "4px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["JetBrains Mono"],
+                        "label-mono-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-mono-sm": ["10px", { "lineHeight": "12px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        @import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600&family=JetBrains+Mono:wght@500&display=swap');
+        
+        /* Utility styles for the "flight deck" look */
+        .panel {
+            background-color: theme('colors.surface-container');
+            border: 1px solid theme('colors.outline-variant');
+        }
+        
+        /* Custom scrollbar for dense panels */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-low');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline-variant');
+        }
+        
+        /* Pulse animation for active risks */
+        @keyframes subtlePulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        .pulse-risk {
+            animation: subtlePulse 2s infinite;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex h-screen overflow-hidden font-body-md">
+<!-- SideNavBar (JSON Component) -->
+<aside class="bg-surface-container dark:bg-surface-container docked left-0 h-screen w-64 border-r border-outline-variant dark:border-outline-variant flat no shadows flex flex-col p-unit border-r border-outline-variant z-40 hidden md:flex shrink-0">
+<!-- Header Profile/Brand Area -->
+<div class="px-3 py-4 mb-4 border-b border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="System Operator" class="w-full h-full object-cover" data-alt="A small, stylized avatar profile picture suitable for a system operator in a high-tech control room environment, using deep charcoal and vibrant amber colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtwmNv31R4f_q04ufiW8qzEsn6jdU5yGgmVlHZklPto-WL4pAJuvVW6rM7vQ07BVqF6jxvuBhqI0RdP3auH6RAzvOWuo71GEUQOhixavGr61gebDG6UJURwWhPhOfzQXideZlmoeV-yZEpwIO1fCWr77jyycA1M_odFqLjroGi7XyQm6B5OOq9MvC4pVAirTAT2zo2JCGJKS_Kjbvs5_O_xithoJemQ5SbyF3HGLZsPtug5PDvvi1X7TQvZA4oBKPJqr-_sRVwYoaG"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface m-0 p-0 leading-tight">Control Center</h2>
+<p class="font-label-mono-sm text-label-mono-sm text-on-surface-variant m-0 p-0">Active Session: ID-8821</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 overflow-y-auto px-2 space-y-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container dark:bg-primary-container text-on-primary-container dark:text-on-primary-container rounded-lg Active: scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-mono text-label-mono">Control Room</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Bot Ledger</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Rule Engine</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">shield_with_heart</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Traffic Intercept</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Audit Logs</span>
+</a>
+</nav>
+<!-- CTA & Footer Tabs -->
+<div class="mt-auto px-2 pb-4 space-y-4 border-t border-outline-variant pt-4">
+<button class="w-full flex items-center justify-center gap-2 py-2 px-4 bg-surface-variant text-on-surface rounded-DEFAULT hover:bg-surface-bright transition-colors border border-outline-variant font-label-mono text-label-mono">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                Export Rules
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant rounded-lg transition-colors group" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-label-mono text-label-mono group-hover:text-on-surface transition-colors">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- TopNavBar (JSON Component) -->
+<header class="bg-surface dark:bg-surface font-headline-md text-headline-md font-label-mono text-label-mono docked full-width top-0 border-b border-outline-variant dark:border-outline-variant flat no shadows flex justify-between items-center w-full px-gutter h-14 sticky top-0 z-50 shrink-0">
+<!-- Left: Brand / Title -->
+<div class="flex items-center gap-4">
+<span class="md:hidden material-symbols-outlined cursor-pointer hover:text-primary transition-colors text-on-surface-variant">menu</span>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary tracking-tighter m-0 p-0">AI Bot Toll Booth</h1>
+</div>
+<!-- Center: Navigation Links -->
+<nav class="hidden md:flex items-end h-full pt-2 space-x-6">
+<!-- Active Top Nav -->
+<a class="h-full flex items-center text-primary dark:text-primary border-b-2 border-primary pb-1 Active: opacity-80 transition-opacity font-label-mono text-label-mono uppercase tracking-widest" href="#">
+                    Monitoring
+                </a>
+<!-- Inactive Top Navs -->
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors pb-1 border-b-2 border-transparent font-label-mono text-label-mono uppercase tracking-widest" href="#">
+                    Firewall
+                </a>
+<a class="h-full flex items-center text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors pb-1 border-b-2 border-transparent font-label-mono text-label-mono uppercase tracking-widest" href="#">
+                    Analytics
+                </a>
+</nav>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full pulse-risk"></span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant ml-2 overflow-hidden border border-outline-variant cursor-pointer hover:border-primary transition-colors">
+<img alt="Publisher Profile" class="w-full h-full object-cover" data-alt="Publisher Profile thumbnail avatar, technical style, dark mode." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3hgTnTKUMBjSh3TZGk45XygXHgZNeb2togxt_l3KM3GB96ijcMG7Dx30KNQAnjyepr-tRjBULwrBB28294CyecMDuC1q5Yr0M5nrjAsyBc8Xz1iT-sqLEBJECwgMfdfH7BCPAHXp98cV89TRUuHSK2RpfZL1iwtIokQCDNb-P_xw7L2ilCKJ-mra3tCevBEIhSsyeKueHFCFuxK60U4-AOaw_enS8bcumb5f7WT345vfU_alr5q_YFTQUnMAx_HENpqpv65_vrM4h"/>
+</div>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<main class="flex-1 overflow-y-auto p-gutter bg-background">
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-unit h-full min-h-[800px] auto-rows-min">
+<!-- 1. Bot Identity Ledger (High Density Table) -->
+<section class="col-span-12 lg:col-span-8 panel flex flex-col h-[400px]">
+<div class="flex items-center justify-between p-3 border-b border-outline-variant bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">list_alt</span>
+<h3 class="font-label-mono text-label-mono text-on-surface uppercase tracking-widest">Bot Identity Ledger</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-secondary rounded-full"></span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant uppercase">Live Traffic</span>
+</div>
+</div>
+<div class="flex-1 overflow-auto bg-surface-container-low">
+<table class="w-full text-left border-collapse">
+<thead class="sticky top-0 bg-surface-container-high border-b border-outline-variant font-label-mono-sm text-label-mono-sm text-on-surface-variant uppercase z-10">
+<tr>
+<th class="p-2 font-normal">Bot Name</th>
+<th class="p-2 font-normal">Organization</th>
+<th class="p-2 font-normal">Identified IP</th>
+<th class="p-2 font-normal">Behavior Profile</th>
+<th class="p-2 font-normal text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-label-mono text-label-mono">
+<!-- Row 1 (Extractive Risk) -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant transition-colors">
+<td class="p-2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">warning</span>
+                                        GPTBot
+                                    </td>
+<td class="p-2 text-on-surface-variant">OpenAI</td>
+<td class="p-2 text-tertiary">20.15.112.55</td>
+<td class="p-2">
+<span class="px-1.5 py-0.5 rounded-sm bg-primary-container/20 text-primary border border-primary/30 inline-block text-[10px]">Extractive Scrape</span>
+</td>
+<td class="p-2 text-right">
+<button class="px-2 py-1 bg-surface border border-outline-variant hover:border-primary text-on-surface rounded-sm transition-colors uppercase text-[10px]">Block</button>
+</td>
+</tr>
+<!-- Row 2 (Beneficial) -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant transition-colors">
+<td class="p-2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                                        Googlebot
+                                    </td>
+<td class="p-2 text-on-surface-variant">Alphabet Inc.</td>
+<td class="p-2 text-tertiary">66.249.66.1</td>
+<td class="p-2">
+<span class="px-1.5 py-0.5 rounded-sm bg-secondary-container/20 text-secondary border border-secondary/30 inline-block text-[10px]">Index Crawl</span>
+</td>
+<td class="p-2 text-right">
+<button class="px-2 py-1 bg-surface-variant text-on-surface-variant rounded-sm cursor-not-allowed uppercase text-[10px] opacity-50">Allowed</button>
+</td>
+</tr>
+<!-- Row 3 (Unknown/Suspicious) -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant transition-colors">
+<td class="p-2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">help_outline</span>
+                                        Unknown-Scraper-44
+                                    </td>
+<td class="p-2 text-on-surface-variant">AWS (US-East)</td>
+<td class="p-2 text-tertiary">54.210.19.122</td>
+<td class="p-2">
+<span class="px-1.5 py-0.5 rounded-sm bg-surface-variant text-on-surface-variant border border-outline-variant inline-block text-[10px]">Aggressive Async</span>
+</td>
+<td class="p-2 text-right">
+<button class="px-2 py-1 bg-surface border border-outline-variant hover:border-primary text-on-surface rounded-sm transition-colors uppercase text-[10px]">Inspect</button>
+</td>
+</tr>
+<!-- Row 4 (Beneficial) -->
+<tr class="border-b border-outline-variant hover:bg-surface-variant transition-colors">
+<td class="p-2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary">check_circle</span>
+                                        Bingbot
+                                    </td>
+<td class="p-2 text-on-surface-variant">Microsoft</td>
+<td class="p-2 text-tertiary">40.77.167.11</td>
+<td class="p-2">
+<span class="px-1.5 py-0.5 rounded-sm bg-secondary-container/20 text-secondary border border-secondary/30 inline-block text-[10px]">Sitemap Sync</span>
+</td>
+<td class="p-2 text-right">
+<button class="px-2 py-1 bg-surface-variant text-on-surface-variant rounded-sm cursor-not-allowed uppercase text-[10px] opacity-50">Allowed</button>
+</td>
+</tr>
+<!-- Row 5 (Extractive Risk) -->
+<tr class="hover:bg-surface-variant transition-colors">
+<td class="p-2 text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary">warning</span>
+                                        CCBot
+                                    </td>
+<td class="p-2 text-on-surface-variant">Common Crawl</td>
+<td class="p-2 text-tertiary">18.234.32.11</td>
+<td class="p-2">
+<span class="px-1.5 py-0.5 rounded-sm bg-primary-container/20 text-primary border border-primary/30 inline-block text-[10px]">Bulk Archive</span>
+</td>
+<td class="p-2 text-right">
+<button class="px-2 py-1 bg-surface border border-outline-variant hover:border-primary text-on-surface rounded-sm transition-colors uppercase text-[10px]">Block</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Right Column Stack -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-unit h-[400px]">
+<!-- 2. Behavior-Based Traffic Classifier -->
+<section class="panel flex-1 flex flex-col">
+<div class="flex items-center gap-2 p-3 border-b border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">rule_folder</span>
+<h3 class="font-label-mono text-label-mono text-on-surface uppercase tracking-widest">Classifier Queues</h3>
+</div>
+<div class="p-3 flex-1 flex flex-col gap-3 overflow-y-auto bg-surface-container-low">
+<!-- Beneficial Queue -->
+<div class="border border-outline-variant rounded-sm p-2 bg-surface">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-secondary uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Beneficial
+                                    </span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant bg-surface-variant px-1 rounded-sm">12 Active</span>
+</div>
+<div class="flex flex-wrap gap-1">
+<span class="px-1.5 py-0.5 bg-surface-variant text-on-surface border border-outline-variant rounded-sm font-label-mono text-[10px]">Googlebot</span>
+<span class="px-1.5 py-0.5 bg-surface-variant text-on-surface border border-outline-variant rounded-sm font-label-mono text-[10px]">Bingbot</span>
+<span class="px-1.5 py-0.5 bg-surface-variant text-on-surface border border-outline-variant rounded-sm font-label-mono text-[10px]">Applebot</span>
+</div>
+</div>
+<!-- Extractive Queue -->
+<div class="border border-outline-variant rounded-sm p-2 bg-surface border-l-2 border-l-primary">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-mono-sm text-label-mono-sm text-primary uppercase flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">block</span> Extractive
+                                    </span>
+<span class="font-label-mono-sm text-label-mono-sm text-on-surface-variant bg-surface-variant px-1 rounded-sm">4 Pending</span>
+</div>
+<div class="flex flex-wrap gap-1">
+<span class="px-1.5 py-0.5 bg-primary-container/10 text-primary border border-primary/30 rounded-sm font-label-mono text-[10px] cursor-pointer hover:bg-primary-container/30">GPTBot</span>
+<span class="px-1.5 py-0.5 bg-primary-container/10 text-primary border border-primary/30 rounded-sm font-label-mono text-[10px] cursor-pointer hover:bg-primary-container/30">CCBot</span>
+<span class="px-1.5 py-0.5 bg-primary-container/10 text-primary border border-primary/30 rounded-sm font-label-mono text-[10px] cursor-pointer hover:bg-primary-container/30">Anthropic-ai</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. License Negotiation Notes -->
+<section class="panel h-1/3 flex flex-col">
+<div class="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">gavel</span>
+<h3 class="font-label-mono-sm text-label-mono-sm text-on-surface uppercase tracking-widest">Outreach Desk</h3>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[14px] cursor-pointer hover:text-primary">add</span>
+</div>
+<div class="p-2 overflow-y-auto font-body-sm text-body-sm text-on-surface-variant bg-surface-container-low flex-1 space-y-2">
+<div class="p-1.5 bg-surface border border-outline-variant rounded-sm border-l-2 border-l-tertiary">
+<div class="flex justify-between font-label-mono-sm text-label-mono-sm mb-1">
+<span class="text-on-surface">OpenAI Legal</span>
+<span class="text-tertiary">In Progress</span>
+</div>
+<p class="text-[10px] leading-tight">Sent terms for exclusive real-time news indexing. Awaiting reply.</p>
+</div>
+<div class="p-1.5 bg-surface border border-outline-variant rounded-sm">
+<div class="flex justify-between font-label-mono-sm text-label-mono-sm mb-1">
+<span class="text-on-surface">Perplexity AI</span>
+<span class="text-on-surface-variant">Drafting</span>
+</div>
+<p class="text-[10px] leading-tight">Preparing block notice unless rev-share agreed.</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Bottom Row -->
+<!-- 3. Search Visibility Risk Simulator -->
+<section class="col-span-12 lg:col-span-6 panel flex flex-col h-[350px]">
+<div class="flex items-center gap-2 p-3 border-b border-outline-variant bg-surface-container-high">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">monitoring</span>
+<h3 class="font-label-mono text-label-mono text-on-surface uppercase tracking-widest">Visibility Risk Simulator</h3>
+</div>
+<div class="p-4 flex-1 flex flex-col bg-surface-container-low relative">
+<!-- Abstract Data Viz Placeholder via CSS Grid/Flex -->
+<div class="flex-1 flex items-end gap-2 p-4 border-b border-l border-outline-variant relative">
+<!-- Y Axis Labels -->
+<div class="absolute -left-1 top-0 bottom-0 flex flex-col justify-between text-[10px] font-label-mono text-on-surface-variant -translate-x-full pr-2 pb-4">
+<span>+20%</span>
+<span>0%</span>
+<span>-20%</span>
+</div>
+<!-- Simulation Bars (Bar Chart Aesthetic) -->
+<div class="flex-1 flex justify-center items-end group">
+<div class="w-12 bg-secondary/20 border border-secondary h-[80%] rounded-t-sm relative transition-all group-hover:bg-secondary/40 cursor-crosshair">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-mono-sm text-secondary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-outline-variant z-10">+18% Gain</div>
+</div>
+<div class="w-12 bg-surface-variant border border-outline-variant h-[30%] rounded-t-sm -ml-2 z-0"></div>
+</div>
+<div class="flex-1 flex justify-center items-end group">
+<div class="w-12 bg-primary/20 border border-primary h-[40%] rounded-t-sm relative transition-all group-hover:bg-primary/40 cursor-crosshair translate-y-[20%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-mono-sm text-primary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-outline-variant z-10">-12% Loss</div>
+</div>
+</div>
+<div class="flex-1 flex justify-center items-end group">
+<div class="w-12 bg-secondary/20 border border-secondary h-[60%] rounded-t-sm relative transition-all group-hover:bg-secondary/40 cursor-crosshair">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 font-label-mono-sm text-secondary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap bg-surface px-1 border border-outline-variant z-10">+5% Gain</div>
+</div>
+</div>
+</div>
+<!-- X Axis Legend -->
+<div class="flex pt-2 font-label-mono-sm text-label-mono-sm text-on-surface-variant text-center">
+<div class="flex-1">Block Generic Scrapers</div>
+<div class="flex-1 text-primary">Block Search Bots</div>
+<div class="flex-1">Hybrid Model</div>
+</div>
+<!-- Top overlay stats -->
+<div class="absolute top-4 right-4 flex flex-col gap-2">
+<div class="bg-surface border border-outline-variant p-2 rounded-sm text-right">
+<div class="font-label-mono-sm text-on-surface-variant uppercase">Projected Protection</div>
+<div class="font-headline-md text-secondary">94.2%</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. Robots/Access Rule Exporter -->
+<section class="col-span-12 lg:col-span-6 panel flex flex-col h-[350px]">
+<div class="flex items-center justify-between p-3 border-b border-outline-variant bg-surface-container-high">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">code</span>
+<h3 class="font-label-mono text-label-mono text-on-surface uppercase tracking-widest">Active Synthesized Rules</h3>
+</div>
+<div class="flex bg-surface rounded-sm border border-outline-variant p-0.5">
+<button class="px-2 py-0.5 bg-surface-variant text-on-surface font-label-mono-sm text-[10px] rounded-sm uppercase">robots.txt</button>
+<button class="px-2 py-0.5 text-on-surface-variant hover:text-on-surface font-label-mono-sm text-[10px] rounded-sm uppercase transition-colors">.htaccess</button>
+</div>
+</div>
+<div class="p-4 flex-1 bg-[#0a0a0c] overflow-y-auto font-label-mono text-label-mono leading-relaxed relative group">
+<div class="text-outline-variant select-none absolute left-2 top-4 bottom-4 flex flex-col text-right pr-2 border-r border-outline-variant/30 text-[10px]">
+<span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span><span>11</span>
+</div>
+<pre class="pl-8 text-on-surface-variant text-[11px] whitespace-pre-wrap"><span class="text-outline"># AUTO-GENERATED BY AI BOT TOLL BOOTH</span>
+<span class="text-outline"># Last Updated: 2023-10-27 14:32 UTC</span>
+
+User-agent: *
+Allow: /
+
+<span class="text-outline"># --- BENEFICIAL BOTS (Whitelisted) ---</span>
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+<span class="text-outline"># --- EXTRACTIVE BOTS (Blocked) ---</span>
+User-agent: GPTBot
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Anthropic-ai
+Disallow: /</pre>
+<button class="absolute bottom-4 right-4 bg-primary text-on-primary font-label-mono text-[10px] uppercase px-3 py-1.5 rounded-sm hover:bg-primary-container transition-colors opacity-0 group-hover:opacity-100 shadow-md">
+                            Deploy to Edge
+                        </button>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,59 +1,311 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Camp Hidden Cost Truce - Dashboard Demo</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./assets/style.css" />
-  </head>
-  <body>
-    <main class="app-shell">
-      <aside class="rail">
-        <p class="rail-id">2026-06-30-p005</p>
-        <h1>Camp Hidden Cost Truce</h1>
-        <p>A parent calculator that compares summer camp sticker prices against the messy real total: food, gear, fees, deposits, and waitlist risk.</p>
-        <nav>
-          <a href="#">Overview</a>
-          <a href="#">Alerts</a>
-          <a href="#">Experiments</a>
-          <a href="#">Settings</a>
-        </nav>
-      </aside>
-      <section class="content">
-        <header>
-          <h2>Realtime Snapshot</h2>
-          <p id="clock">--:--:--</p>
-        </header>
-        <div class="cards">
-          <article>
-            <span>Active users</span>
-            <strong>12,480</strong>
-            <small>+8.2% vs yesterday</small>
-          </article>
-          <article>
-            <span>Conversion</span>
-            <strong>7.4%</strong>
-            <small>New onboarding flow</small>
-          </article>
-          <article>
-            <span>Blockers</span>
-            <strong>3</strong>
-            <small>2 need triage</small>
-          </article>
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Camp Hidden Cost Truce - Comparison Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Literata & Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Literata:opsz,wght@7..72,500;7..72,600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#efeee9",
+                    "inverse-surface": "#30312e",
+                    "tertiary": "#565747",
+                    "on-tertiary-fixed-variant": "#474839",
+                    "surface-dim": "#dbdad5",
+                    "outline": "#77786f",
+                    "on-error-container": "#93000a",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-container": "#785b3c",
+                    "surface": "#faf9f4",
+                    "on-surface": "#1b1c19",
+                    "on-surface-variant": "#464740",
+                    "on-error": "#ffffff",
+                    "on-secondary-fixed": "#2b1701",
+                    "outline-variant": "#c7c7bd",
+                    "on-tertiary": "#ffffff",
+                    "surface-bright": "#faf9f4",
+                    "inverse-on-surface": "#f2f1ec",
+                    "primary-fixed-dim": "#c4c9b1",
+                    "surface-container-highest": "#e3e3de",
+                    "on-background": "#1b1c19",
+                    "on-primary-fixed": "#191d0e",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#fdd6ae",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#6e6f5e",
+                    "tertiary-fixed-dim": "#c8c8b4",
+                    "on-primary-container": "#eff4db",
+                    "secondary": "#75593a",
+                    "surface-container-low": "#f5f4ef",
+                    "on-tertiary-container": "#f3f3de",
+                    "error": "#ba1a1a",
+                    "surface-variant": "#e3e3de",
+                    "primary-container": "#6b705c",
+                    "secondary-fixed-dim": "#e5c099",
+                    "tertiary-fixed": "#e4e4cf",
+                    "inverse-primary": "#c4c9b1",
+                    "surface-tint": "#5c614d",
+                    "primary-fixed": "#e0e5cc",
+                    "background": "#faf9f4",
+                    "surface-container-high": "#e9e8e3",
+                    "primary": "#535845",
+                    "on-tertiary-fixed": "#1b1d10",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#5c4224",
+                    "secondary-fixed": "#ffddbb",
+                    "on-primary-fixed-variant": "#444937"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "stack-md": "24px",
+                    "gutter": "24px",
+                    "stack-sm": "12px",
+                    "margin-mobile": "16px",
+                    "container-max": "1120px",
+                    "stack-lg": "48px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Literata"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Literata"],
+                    "data-mono": ["Inter"],
+                    "display-lg-mobile": ["Literata"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "data-mono": ["14px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        
+        .ambient-shadow {
+            box-shadow: 0px 4px 20px rgba(63, 63, 55, 0.05);
+        }
+
+        /* Custom Slider Styling */
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            cursor: pointer;
+            margin-top: -10px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<header class="bg-surface shadow-sm docked full-width top-0 fixed top-0 w-full z-50 flex justify-between items-center px-gutter py-stack-sm max-w-container-max mx-auto left-0 right-0">
+<div class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg font-bold text-primary">
+            Camp Hidden Cost Truce
         </div>
-        <section class="panel">
-          <h3>Next actions</h3>
-          <ul>
-            <li>Review anomaly spikes at 14:00</li>
-            <li>Ship checklist updates to QA</li>
-            <li>Capture a screenshot for the daily report</li>
-          </ul>
-        </section>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<nav class="hidden md:flex gap-stack-md font-body-md text-body-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Calculators</a>
+<a class="text-primary border-b-2 border-primary font-bold pb-1 hover:bg-surface-container-low transition-all scale-95 duration-150 ease-in-out" href="#">My Comparisons</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors pb-1" href="#">Guilt-Free Planning</a>
+</nav>
+<div class="hidden md:flex items-center text-primary">
+<span class="material-symbols-outlined cursor-pointer text-[24px]">account_circle</span>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-[100px] pb-stack-lg max-w-container-max mx-auto px-gutter w-full">
+<!-- Hero Section -->
+<section class="mb-stack-lg text-center max-w-3xl mx-auto mt-stack-md">
+<h1 class="font-display-lg-mobile text-display-lg-mobile md:font-display-lg md:text-display-lg text-on-surface mb-stack-sm">
+                Navigating Summer Costs with Clarity
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                Take a deep breath. We're breaking down the hidden fees so you can make confident, guilt-free choices for your family's summer.
+            </p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-stack-md">
+<!-- Comparison Table Card (Spans 8 columns) -->
+<div class="md:col-span-8 bg-surface-container-lowest rounded-xl ambient-shadow p-stack-md border border-tertiary/20">
+<div class="flex items-center justify-between mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Camp Comparison</h2>
+<span class="font-label-caps text-label-caps text-tertiary bg-surface-container px-3 py-1 rounded-full">Base vs Reality</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<th class="pb-2 font-normal">Cost Category</th>
+<th class="pb-2 font-semibold text-primary">Adventure Woods</th>
+<th class="pb-2 font-semibold text-secondary">Creative Arts Hub</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-body-md">
+<tr class="border-b border-surface-variant">
+<td class="py-3 text-on-surface-variant">Sticker Price</td>
+<td class="py-3 text-on-surface font-medium">$450 <span class="text-sm text-tertiary font-normal">/wk</span></td>
+<td class="py-3 text-on-surface font-medium">$520 <span class="text-sm text-tertiary font-normal">/wk</span></td>
+</tr>
+<tr class="border-b border-surface-variant">
+<td class="py-3 text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">directions_bus</span>
+                                    Travel &amp; Aftercare
+                                </td>
+<td class="py-3 text-on-surface">+$85 <span class="text-sm text-tertiary block">Bus fee required</span></td>
+<td class="py-3 text-on-surface">+$0 <span class="text-sm text-tertiary block">Included</span></td>
+</tr>
+<tr class="border-b border-surface-variant">
+<td class="py-3 text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">backpack</span>
+                                    Mandatory Gear
+                                </td>
+<td class="py-3 text-on-surface">+$120 <span class="text-sm text-tertiary block">Boots, specific pack</span></td>
+<td class="py-3 text-on-surface">+$40 <span class="text-sm text-tertiary block">Art smock</span></td>
+</tr>
+<tr class="bg-surface-container-low font-data-mono text-data-mono">
+<td class="py-3 pl-2 font-semibold text-on-surface">Estimated Total Reality</td>
+<td class="py-3 font-semibold text-primary">$655 <span class="text-sm font-normal">/wk</span></td>
+<td class="py-3 font-semibold text-secondary">$560 <span class="text-sm font-normal">/wk</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Hidden Extras Checklist (Spans 4 columns) -->
+<div class="md:col-span-4 bg-surface-container-low rounded-xl ambient-shadow p-stack-md border border-outline-variant/30 flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Hidden Extras</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md text-sm">Don't let these sneak up on you.</p>
+<div class="space-y-stack-sm flex-grow">
+<label class="flex items-start gap-3 cursor-pointer group">
+<input checked="" class="mt-1 rounded text-primary focus:ring-primary border-outline-variant w-5 h-5 bg-surface" type="checkbox"/>
+<div>
+<span class="font-body-md text-body-md text-on-surface block group-hover:text-primary transition-colors">Lunches &amp; Snacks</span>
+<span class="text-sm text-on-surface-variant block">Are they provided or packed daily?</span>
+</div>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<input checked="" class="mt-1 rounded text-primary focus:ring-primary border-outline-variant w-5 h-5 bg-surface" type="checkbox"/>
+<div>
+<span class="font-body-md text-body-md text-on-surface block group-hover:text-primary transition-colors">Tech / Materials Fees</span>
+<span class="text-sm text-on-surface-variant block">Often billed separately post-registration.</span>
+</div>
+</label>
+<label class="flex items-start gap-3 cursor-pointer group">
+<input class="mt-1 rounded text-primary focus:ring-primary border-outline-variant w-5 h-5 bg-surface" type="checkbox"/>
+<div>
+<span class="font-body-md text-body-md text-on-surface block group-hover:text-primary transition-colors">Non-refundable Deposits</span>
+<span class="text-sm text-on-surface-variant block">Read the fine print on cancellation.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Waitlist & Deposit Risk Meter (Spans 6 columns) -->
+<div class="md:col-span-6 bg-surface-container-lowest rounded-xl ambient-shadow p-stack-md border border-tertiary/20">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-stack-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">warning</span>
+                    Risk Assessment
+                </h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant mb-2">
+<span>Adventure Woods Waitlist Risk</span>
+<span class="text-error">High</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-3">
+<div class="bg-error h-3 rounded-full" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-caps text-label-caps text-on-surface-variant mb-2">
+<span>Creative Arts Hub Deposit Risk</span>
+<span class="text-primary">Low</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-3">
+<div class="bg-primary h-3 rounded-full" style="width: 20%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Tradeoff Slider (Spans 6 columns) -->
+<div class="md:col-span-6 bg-surface-container-lowest rounded-xl ambient-shadow p-stack-md border border-tertiary/20 flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">The Truce Slider</h3>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm mb-stack-md">Find your balance between kid enthusiasm and budget reality.</p>
+<div class="px-2">
+<input class="w-full appearance-none bg-transparent focus:outline-none" max="100" min="1" type="range" value="50"/>
+<div class="flex justify-between mt-4 font-label-caps text-label-caps text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">savings</span> Budget Priority</span>
+<span class="flex items-center gap-1">Kid Happiness <span class="material-symbols-outlined text-[16px]">sentiment_very_satisfied</span></span>
+</div>
+</div>
+</div>
+<!-- Family Truce Summary (Spans 12 columns) -->
+<div class="md:col-span-12 bg-primary/10 rounded-xl p-stack-md border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-stack-md mt-stack-sm">
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Your Recommended Truce</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Based on your reality costs and low deposit risk, <strong>Creative Arts Hub</strong> offers the best value with fewer hidden surprises.
+                    </p>
+</div>
+<button class="bg-primary text-on-primary font-body-md text-body-md font-medium px-6 py-3 rounded-lg hover:bg-primary-container hover:text-on-primary-container transition-colors whitespace-nowrap ambient-shadow flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+                    Select Arts Hub
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-gutter flex flex-col md:flex-row justify-between items-center gap-stack-md bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="font-display-lg-mobile text-display-lg-mobile text-on-surface font-bold text-[24px]">
+            Camp Hidden Cost Truce
+        </div>
+<div class="font-body-md text-body-md text-tertiary text-center md:text-left">
+            © 2024 Camp Hidden Cost Truce. Radically transparent planning for calm parents.
+        </div>
+<nav class="flex gap-stack-sm font-label-caps text-label-caps">
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded px-1" href="#">Budgeting Resources</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded px-1" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded px-1" href="#">Help Center</a>
+</nav>
+</footer>
+</body></html>
