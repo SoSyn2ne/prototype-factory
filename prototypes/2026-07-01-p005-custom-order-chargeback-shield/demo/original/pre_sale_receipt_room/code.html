@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chargeback Shield - Asset Defense</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#45474a",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "on-secondary-fixed": "#261a00",
+                        "surface-container-low": "#0d1c2d",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c4c6ce",
+                        "error-container": "#93000a",
+                        "secondary": "#ffe2ab",
+                        "on-tertiary-container": "#7c7e86",
+                        "on-tertiary": "#2d3037",
+                        "surface-container-lowest": "#010f1f",
+                        "secondary-fixed-dim": "#fbbc00",
+                        "outline": "#8f9094",
+                        "surface-container-high": "#1c2b3c",
+                        "on-background": "#d4e4fa",
+                        "inverse-on-surface": "#233143",
+                        "on-tertiary-fixed": "#191c21",
+                        "on-secondary-container": "#6d5000",
+                        "primary": "#c6c6ca",
+                        "on-secondary": "#402d00",
+                        "secondary-container": "#ffbf00",
+                        "on-surface-variant": "#c6c6ca",
+                        "inverse-primary": "#5d5e62",
+                        "inverse-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#c6c6ca",
+                        "background": "#051424",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "on-primary-fixed": "#1a1c1f",
+                        "surface-variant": "#273647",
+                        "primary-container": "#121417",
+                        "surface-dim": "#051424",
+                        "on-primary-container": "#7d7e82",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#e2e2e6",
+                        "surface": "#051424",
+                        "surface-tint": "#c6c6ca",
+                        "surface-container": "#122131",
+                        "tertiary-fixed": "#e1e2ea",
+                        "on-primary": "#2f3034",
+                        "on-tertiary-fixed-variant": "#44474d",
+                        "on-primary-fixed-variant": "#45474a",
+                        "tertiary": "#c4c6ce",
+                        "tertiary-container": "#11141a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "row-height-standard": "44px",
+                        "margin-page": "24px",
+                        "row-height-dense": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["JetBrains Mono"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .ledger-row:hover { background-color: theme('colors.surface-container-highest'); }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden antialiased">
+<!-- TopNavBar (Responsive Pivot: Hidden on Mobile) -->
+<nav class="hidden md:flex justify-between items-center w-full px-gutter h-row-height-standard bg-surface border-b border-outline-variant z-50">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-display-lg text-secondary-container tracking-tighter">CHARGEBACK SHIELD</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="text-on-surface border-b-2 border-secondary font-bold h-row-height-standard flex items-center font-headline-md text-headline-md hover:bg-surface-container-high transition-colors" href="#">Risk Intake</a>
+<a class="text-on-surface-variant font-medium font-headline-md text-headline-md hover:bg-surface-container-high transition-colors" href="#">Milestones</a>
+<a class="text-on-surface-variant font-medium font-headline-md text-headline-md hover:bg-surface-container-high transition-colors" href="#">Proof Vault</a>
+<a class="text-on-surface-variant font-medium font-headline-md text-headline-md hover:bg-surface-container-high transition-colors" href="#">Receipts</a>
+<a class="text-on-surface-variant font-medium font-headline-md text-headline-md hover:bg-surface-container-high transition-colors" href="#">Export</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-data-mono text-secondary">OPERATOR_0821</span>
+<button class="bg-secondary text-on-secondary px-3 py-1 font-label-caps text-label-caps hover:opacity-80 transition-opacity">NEW DEFENSE</button>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col h-full w-64 py-margin-page gap-unit bg-surface-container-low border-r border-outline-variant z-40">
+<div class="px-gutter mb-6">
+<h2 class="font-display-lg text-display-lg text-secondary-container">ASSET DEFENSE</h2>
+<p class="font-data-mono text-data-mono text-on-surface-variant">SECTOR-01</p>
+</div>
+<nav class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-3 px-gutter py-2 bg-secondary-container text-on-secondary-container border-l-4 border-secondary hover:bg-surface-container-highest active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-caps text-label-caps">Intake</span>
+</a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span class="font-label-caps text-label-caps">Milestones</span>
+</a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">Vault</span>
+</a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-caps text-label-caps">Boundaries</span>
+</a>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">upload_file</span>
+<span class="font-label-caps text-label-caps">Export</span>
+</a>
+</nav>
+<div class="px-gutter mt-auto flex flex-col gap-2">
+<button class="w-full bg-error text-on-error py-2 font-label-caps text-label-caps border border-error hover:bg-error-container hover:text-on-error-container transition-colors">LOCKDOWN MODE</button>
+<div class="flex gap-4 pt-4 border-t border-outline-variant">
+<a class="text-on-surface-variant hover:text-on-surface flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto bg-background p-margin-page flex flex-col gap-6">
+<!-- Hero Warning Section -->
+<div class="bg-surface-container border-l-4 border-error p-6 shadow-none">
+<h1 class="font-headline-md text-headline-md md:font-display-lg md:text-display-lg text-error mb-2 uppercase tracking-wide">Do not wait until the bank sides with the buyer to start building the court case.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Center Canvas: Active Ledger -->
+<div class="col-span-1 lg:col-span-8 flex flex-col gap-4">
+<!-- Quick Intake Form -->
+<div class="bg-surface-container p-4 border border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-secondary mb-3 flex items-center gap-2"><span class="material-symbols-outlined text-sm">add_circle</span> QUICK INTAKE</h3>
+<div class="flex flex-wrap gap-2">
+<input class="bg-surface-container-low border border-outline-variant text-on-surface font-data-mono text-data-mono p-2 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none w-32" placeholder="Order ID" type="text"/>
+<input class="bg-surface-container-low border border-outline-variant text-on-surface font-data-mono text-data-mono p-2 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none flex-1 min-w-[200px]" placeholder="Buyer Email" type="text"/>
+<select class="bg-surface-container-low border border-outline-variant text-on-surface font-data-mono text-data-mono p-2 focus:border-secondary focus:ring-1 focus:ring-secondary outline-none">
+<option>Medium Risk</option>
+<option>High Risk</option>
+<option>Critical</option>
+</select>
+<button class="bg-secondary-container text-on-secondary-container px-4 py-2 font-label-caps text-label-caps hover:opacity-90">INITIATE DEFENSE</button>
+</div>
+</div>
+<!-- Ledger Table -->
+<div class="bg-surface-container border border-outline-variant overflow-hidden">
+<div class="flex justify-between items-center p-3 border-b border-outline-variant bg-surface-container-low">
+<span class="font-label-caps text-label-caps text-on-surface-variant">ACTIVE DEFENSE LEDGER</span>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">filter_list</span>
+</div>
+<!-- Table Header (Hidden on Mobile) -->
+<div class="hidden md:grid grid-cols-12 gap-4 px-4 py-2 bg-surface-container-highest border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<div class="col-span-2">ORDER ID</div>
+<div class="col-span-3">BUYER</div>
+<div class="col-span-2">VALUE</div>
+<div class="col-span-3">DEFENSE STATUS</div>
+<div class="col-span-2 text-right">ACTION</div>
+</div>
+<!-- Rows -->
+<div class="flex flex-col">
+<!-- Row 1 (High Risk) -->
+<div class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-4 py-3 border-b border-outline-variant items-center border-l-2 border-l-secondary">
+<div class="col-span-2 font-data-mono text-data-mono text-secondary">#CUS-8821</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">j.doe@example.com</div>
+<div class="col-span-2 font-data-mono text-data-mono text-on-surface">$2,450.00</div>
+<div class="col-span-3">
+<span class="inline-flex items-center gap-1 bg-secondary-container text-on-secondary-container px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">warning</span> Missing Boundary Sig
+                                    </span>
+</div>
+<div class="col-span-2 md:text-right">
+<button class="border border-outline-variant text-on-surface px-2 py-1 font-label-caps text-label-caps text-[10px] hover:border-secondary hover:text-secondary">SECURE</button>
+</div>
+</div>
+<!-- Row 2 (Secure) -->
+<div class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-4 py-3 border-b border-outline-variant items-center border-l-2 border-l-transparent">
+<div class="col-span-2 font-data-mono text-data-mono text-on-surface-variant">#CUS-8820</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">m.smith@corp.net</div>
+<div class="col-span-2 font-data-mono text-data-mono text-on-surface">$850.00</div>
+<div class="col-span-3">
+<span class="inline-flex items-center gap-1 bg-[#1a4d2e] text-[#a3e635] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">shield</span> Vault Locked
+                                    </span>
+</div>
+<div class="col-span-2 md:text-right">
+<button class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps text-[10px]">VIEW PROOF</button>
+</div>
+</div>
+<!-- Row 3 (In Progress) -->
+<div class="ledger-row grid grid-cols-1 md:grid-cols-12 gap-2 md:gap-4 px-4 py-3 border-b border-outline-variant items-center border-l-2 border-l-transparent">
+<div class="col-span-2 font-data-mono text-data-mono text-on-surface-variant">#CUS-8819</div>
+<div class="col-span-3 font-body-sm text-body-sm text-on-surface truncate">a.williams@studio.co</div>
+<div class="col-span-2 font-data-mono text-data-mono text-on-surface">$1,200.00</div>
+<div class="col-span-3">
+<span class="inline-flex items-center gap-1 bg-surface-container-highest text-on-surface-variant px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[12px]">sync</span> Awaiting Delivery
+                                    </span>
+</div>
+<div class="col-span-2 md:text-right">
+<button class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps text-[10px]">UPDATE</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Stats & High Risk Cards -->
+<div class="col-span-1 lg:col-span-4 flex flex-col gap-6">
+<!-- Asset Defense Status -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container p-4 border border-outline-variant">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">ASSETS SECURED</p>
+<p class="font-data-mono text-data-mono text-lg text-secondary">$124,500</p>
+</div>
+<div class="bg-surface-container p-4 border border-outline-variant">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1">TIME SAVED</p>
+<p class="font-data-mono text-data-mono text-lg text-on-surface">42 HRS</p>
+</div>
+</div>
+<!-- High Risk Queue -->
+<div class="bg-surface-container border border-outline-variant p-4 flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<h3 class="font-label-caps text-label-caps text-error flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">priority_high</span> HIGH RISK QUEUE
+                            </h3>
+<span class="bg-error text-on-error px-1.5 py-0.5 text-[10px] font-bold">2 ACTION REQ</span>
+</div>
+<!-- Card 1 -->
+<div class="bg-surface-container-low border border-error p-3 flex flex-col gap-2">
+<div class="flex justify-between">
+<span class="font-data-mono text-data-mono text-secondary">#CUS-8821</span>
+<span class="font-data-mono text-data-mono text-on-surface">$2,450.00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">Client requested unusual shipping address post-payment.</p>
+<button class="mt-2 bg-transparent border border-secondary text-secondary py-1 font-label-caps text-label-caps text-[10px] hover:bg-secondary hover:text-on-secondary transition-colors text-center">ENFORCE BOUNDARY</button>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low border border-outline-variant hover:border-secondary p-3 flex flex-col gap-2 transition-colors">
+<div class="flex justify-between">
+<span class="font-data-mono text-data-mono text-on-surface">#CUS-8790</span>
+<span class="font-data-mono text-data-mono text-on-surface">$5,100.00</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant truncate">High value custom piece; milestone approval pending for 48h.</p>
+<button class="mt-2 bg-transparent border border-outline-variant text-on-surface py-1 font-label-caps text-label-caps text-[10px] hover:border-secondary hover:text-secondary transition-colors text-center">SEND REMINDER</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

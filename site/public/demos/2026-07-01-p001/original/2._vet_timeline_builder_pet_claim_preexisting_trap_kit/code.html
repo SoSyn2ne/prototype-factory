@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Vet Timeline Builder - Pet Defender</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+    </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Guidance -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "primary": "#00626b",
+                    "on-secondary-container": "#5f6363",
+                    "secondary-fixed": "#e0e3e2",
+                    "surface-variant": "#d9e5e7",
+                    "on-primary-fixed-variant": "#004f56",
+                    "surface-dim": "#d1dcde",
+                    "on-primary": "#ffffff",
+                    "surface-tint": "#006972",
+                    "outline": "#6e797b",
+                    "on-surface-variant": "#3e494a",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#7dd4e0",
+                    "on-secondary-fixed-variant": "#434847",
+                    "on-secondary-fixed": "#181c1c",
+                    "secondary-fixed-dim": "#c4c7c6",
+                    "error-container": "#ffdad6",
+                    "secondary-container": "#dde0df",
+                    "on-background": "#131d1f",
+                    "tertiary-container": "#6c7171",
+                    "outline-variant": "#bdc8ca",
+                    "surface-container": "#e4f0f2",
+                    "surface-container-highest": "#d9e5e7",
+                    "tertiary-fixed-dim": "#c2c7c7",
+                    "surface": "#f0fbfe",
+                    "on-secondary": "#ffffff",
+                    "surface-container-high": "#dfeaec",
+                    "on-tertiary-container": "#f1f6f5",
+                    "error": "#ba1a1a",
+                    "primary-container": "#127c87",
+                    "on-error": "#ffffff",
+                    "surface-container-low": "#eaf6f8",
+                    "primary-fixed": "#99f0fc",
+                    "on-tertiary-fixed-variant": "#424847",
+                    "primary-fixed-dim": "#7dd4e0",
+                    "secondary": "#5b5f5f",
+                    "surface-bright": "#f0fbfe",
+                    "inverse-on-surface": "#e7f3f5",
+                    "on-surface": "#131d1f",
+                    "tertiary-fixed": "#dee3e2",
+                    "background": "#f0fbfe",
+                    "on-primary-fixed": "#001f23",
+                    "inverse-surface": "#283234",
+                    "on-tertiary-fixed": "#171d1c",
+                    "tertiary": "#535958",
+                    "on-primary-container": "#dffbff",
+                    "surface-container-lowest": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "80px",
+                    "md": "24px",
+                    "base": "8px",
+                    "sm": "12px",
+                    "container-max": "1120px",
+                    "xs": "4px",
+                    "lg": "48px",
+                    "gutter": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["Manrope"],
+                    "label-sm": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-md": ["Manrope"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "body-lg": ["Plus Jakarta Sans"],
+                    "display-lg": ["Manrope"],
+                    "body-md": ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-lg": ["40px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased flex">
+<!-- Shared Component: SideNavBar -->
+<!-- Applying style_component_shape: h-screen w-64 fixed left-0 top-0 -->
+<!-- Applying style_bg_color: bg-surface-container-low -->
+<!-- Applying style_separation_logic: border-r border-outline-variant -->
+<nav class="h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant z-20 flex flex-col justify-between hidden md:flex">
+<!-- Top Section -->
+<div class="flex flex-col p-md space-y-base h-full">
+<!-- Branding / Status Area -->
+<div class="mb-lg pb-md border-b border-outline-variant text-center">
+<div class="w-16 h-16 mx-auto bg-surface-container-highest rounded-full flex items-center justify-center mb-sm shadow-sm">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="shield" style="font-variation-settings: 'FILL' 1;">shield</span>
+</div>
+<!-- style_brand_logo mapped to title -->
+<h2 class="font-headline-md text-headline-md text-primary mb-xs">Appeal Packet</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Est. Value: $25,000</p>
+<button class="mt-sm w-full bg-primary text-on-primary py-2 rounded font-label-md text-label-md hover:opacity-90 transition-opacity">
+                    Review Packet
+                </button>
+</div>
+<!-- Navigation Links -->
+<ul class="flex-1 space-y-2">
+<!-- Tab 1: Inactive -->
+<li>
+<a class="flex items-center px-sm py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="assignment_late">assignment_late</span>
+                        1. Denial Intake
+                    </a>
+</li>
+<!-- Tab 2: ACTIVE (Matches "2. Record Timeline") -->
+<li>
+<a class="flex items-center px-sm py-3 bg-primary-container text-on-primary-container font-bold rounded-lg font-label-md text-label-md scale-[0.98] transition-transform" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="timeline">timeline</span>
+                        2. Record Timeline
+                    </a>
+</li>
+<!-- Tab 3: Inactive -->
+<li>
+<a class="flex items-center px-sm py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="checklist">checklist</span>
+                        3. Evidence Checklist
+                    </a>
+</li>
+<!-- Tab 4: Inactive -->
+<li>
+<a class="flex items-center px-sm py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="find_in_page">find_in_page</span>
+                        4. Clause Explainer
+                    </a>
+</li>
+<!-- Tab 5: Inactive -->
+<li>
+<a class="flex items-center px-sm py-3 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="description">description</span>
+                        5. Final Packet
+                    </a>
+</li>
+</ul>
+</div>
+<!-- Footer Section -->
+<div class="p-md border-t border-outline-variant">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center px-sm py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center px-sm py-2 text-on-surface-variant hover:bg-surface-variant rounded-lg font-label-md text-label-md transition-all" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="logout">logout</span>
+                        Log Out
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- Header / Banner Area -->
+<header class="pt-xl px-lg pb-md">
+<h1 class="font-display-lg text-display-lg text-on-background mb-xs">Interrogating the Evidence</h1>
+<div class="inline-flex items-center bg-surface-container-low px-sm py-2 rounded border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-primary-container mr-2" data-icon="security" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-md text-label-md text-on-surface">Building your timeline to recover <strong class="text-primary">$25,000</strong>.</span>
+</div>
+</header>
+<!-- Split Screen Layout -->
+<main class="flex-1 px-lg pb-xl grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+<!-- Left Side: Interactive Timeline (Span 7 cols) -->
+<section class="xl:col-span-7 flex flex-col">
+<div class="flex justify-between items-center mb-md">
+<h3 class="font-headline-md text-headline-md text-on-surface">Medical Timeline</h3>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-surface-tint transition-colors flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm" data-icon="add">add</span>
+                        Add Vet Visit
+                    </button>
+</div>
+<!-- Timeline Container -->
+<div class="relative pl-6 border-l-2 border-surface-variant ml-4 space-y-xl flex-1">
+<!-- Timeline Item 1 (Completed/Verified) -->
+<div class="relative">
+<!-- Connector Dot -->
+<div class="absolute -left-[35px] top-0 w-8 h-8 rounded-full bg-surface-container-highest border-2 border-surface flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<!-- Content Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border border-outline-variant hover:shadow-md transition-shadow">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">June 12, 2023</span>
+<h4 class="font-label-md text-label-md text-on-surface mt-2">Routine Checkup</h4>
+</div>
+<span class="font-label-sm text-label-sm text-primary bg-surface-container-low border border-primary-fixed-dim px-2 py-1 rounded-full">Verified</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-2"><strong class="text-on-surface">Clinic:</strong> Downtown Animal Hospital</p>
+<div class="bg-error-container/20 border border-error-container p-sm rounded mt-sm">
+<p class="font-label-sm text-label-sm text-on-surface-variant"><strong class="text-on-error-container">Vague Note Found:</strong> "Slight limp noted on right side, owner monitoring."</p>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2 (Active/Editing) -->
+<div class="relative">
+<!-- Connector Dot -->
+<div class="absolute -left-[35px] top-0 w-8 h-8 rounded-full bg-primary-container border-2 border-surface flex items-center justify-center shadow-[0_0_0_4px_rgba(18,124,135,0.2)]">
+<div class="w-3 h-3 bg-on-primary-container rounded-full"></div>
+</div>
+<!-- Content Card -->
+<div class="bg-surface-container-lowest p-md rounded-xl shadow-sm border-2 border-primary-container hover:shadow-md transition-shadow relative overflow-hidden">
+<!-- Subtle highlight background for active state -->
+<div class="absolute inset-0 bg-primary-fixed opacity-[0.03] pointer-events-none"></div>
+<div class="flex justify-between items-start mb-sm relative z-10">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-1 rounded">August 05, 2023</span>
+<h4 class="font-label-md text-label-md text-on-surface mt-2">Specialist Consultation</h4>
+</div>
+<span class="font-label-sm text-label-sm text-secondary bg-secondary-container px-2 py-1 rounded-full">Under Review</span>
+</div>
+<div class="space-y-sm relative z-10">
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Clinic:</strong> Ortho-Vet Specialists</p>
+<p class="font-body-md text-body-md text-on-surface-variant"><strong class="text-on-surface">Diagnosis:</strong> Cruciate Ligament Tear</p>
+<div class="bg-surface-variant p-sm rounded mt-sm border border-outline-variant">
+<p class="font-label-sm text-label-sm text-on-surface-variant italic">"Owner reports limping started a few weeks ago after a jump."</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Right Side: Record Interrogation Panel (Span 5 cols) -->
+<section class="xl:col-span-5 h-full">
+<!-- Sticky Panel -->
+<div class="bg-surface-container-highest rounded-xl p-md shadow-sm sticky top-xl border border-outline-variant flex flex-col h-[calc(100vh-160px)]">
+<div class="flex items-center mb-md pb-md border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary-container text-3xl mr-3" data-icon="search_insights" style="font-variation-settings: 'FILL' 1;">search_insights</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Record Interrogation</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Reviewing: August 05 Specialist Consult</p>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto pr-2 space-y-md">
+<!-- Question 1 -->
+<div class="bg-surface-container-lowest p-sm rounded border border-outline-variant">
+<label class="block font-label-md text-label-md text-on-surface mb-2">
+                                Does this note actually mention the pre-existing condition claimed by the insurer?
+                            </label>
+<div class="flex gap-4">
+<label class="flex items-center cursor-pointer">
+<input class="form-radio text-primary focus:ring-primary w-4 h-4 border-outline-variant bg-surface" name="mention_condition" type="radio"/>
+<span class="ml-2 font-body-md text-body-md text-on-surface-variant">Yes, explicitly</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input class="form-radio text-primary focus:ring-primary w-4 h-4 border-outline-variant bg-surface" name="mention_condition" type="radio"/>
+<span class="ml-2 font-body-md text-body-md text-on-surface-variant">No, it's vague</span>
+</label>
+</div>
+</div>
+<!-- Question 2 -->
+<div class="bg-surface-container-lowest p-sm rounded border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<label class="block font-label-md text-label-md text-on-surface mb-2">
+                                Is there a gap in clinical signs before this visit?
+                            </label>
+<textarea class="w-full bg-surface-container-low border-outline-variant rounded focus:border-primary focus:ring-primary text-on-surface font-body-md text-body-md p-2 placeholder-on-surface-variant/50" placeholder="Explain the gap... (e.g., 'No limping noted for 2 months prior')" rows="3"></textarea>
+</div>
+<!-- Context Help Box -->
+<div class="bg-inverse-on-surface p-sm rounded flex items-start">
+<span class="material-symbols-outlined text-primary mr-2 text-xl" data-icon="info">info</span>
+<p class="font-label-sm text-label-sm text-on-surface">Insurers often rely on "vague clinical signs" (like a single limp) to establish pre-existing conditions. Interrogating these notes is key to asset defense.</p>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-md mt-md border-t border-outline-variant flex justify-end gap-3">
+<button class="px-4 py-2 rounded border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-variant transition-colors">
+                            Skip for Now
+                        </button>
+<button class="px-4 py-2 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-surface-tint transition-colors flex items-center shadow-sm">
+<span class="material-symbols-outlined mr-2 text-sm" data-icon="save">save</span>
+                            Save Analysis
+                        </button>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

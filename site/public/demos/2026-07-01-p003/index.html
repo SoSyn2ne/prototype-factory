@@ -1,164 +1,324 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Caregiver Handoff Baton Demo</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f7f7f1;
-        --ink: #18201b;
-        --muted: #5d685f;
-        --panel: #ffffff;
-        --soft: #e9eddd;
-        --line: #cdd5c2;
-        --accent: #2f6d3b;
-        --warn: #b64f2a;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
-    </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Caregiver Handoff Baton</strong>
-        <small>2026-07-01-p003 · field-ops</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p003</span><span>field-ops</span><span>건강</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Shift Baton</p>
-          <h1>A family eldercare handoff surface for meds, routines, shift notes, and “did this actually happen?” proof between private caregivers.</h1>
-          <p class="lead">Shift handoff report로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Hand off shift</button>
-            <button class="secondary">Review evidence</button>
-          </div>
-        </div>
-        <aside class="metric">
-          <div>
-            <div class="value">4/5</div>
-            <p>care tasks confirmed</p>
-          </div>
-          <p class="muted">Caregiver Handoff Baton keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Today care baton</button><button class="">Medication and meal checkoff</button><button class="">Exception photo log</button><button class="">Next caregiver briefing</button><button class="">Monthly cost snapshot</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>8 AM meds confirmed</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Lunch appetite low</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>Walker path photo added</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Next shift alert pinned</span>
-      <em>ready</em>
-    </li>
-  </ul>
-        </div>
-        <div class="workflow">
-    <article>
-      <small>Shift Baton 1</small>
-      <h3>Today care baton</h3>
-      <p>A family eldercare handoff surface for meds, routines, shift notes, and “did this actually happen?” proof between private caregivers.</p>
-    </article>
-  
-    <article>
-      <small>Shift Baton 2</small>
-      <h3>Medication and meal checkoff</h3>
-      <p>A family eldercare handoff surface for meds, routines, shift notes, and “did this actually happen?” proof between private caregivers.</p>
-    </article>
-  
-    <article>
-      <small>Shift Baton 3</small>
-      <h3>Exception photo log</h3>
-      <p>A family eldercare handoff surface for meds, routines, shift notes, and “did this actually happen?” proof between private caregivers.</p>
-    </article>
-  
-    <article>
-      <small>Shift Baton 4</small>
-      <h3>Next caregiver briefing</h3>
-      <p>A family eldercare handoff surface for meds, routines, shift notes, and “did this actually happen?” proof between private caregivers.</p>
-    </article>
-  
-    <article>
-      <small>Shift Baton 5</small>
-      <h3>Monthly cost snapshot</h3>
-      <p>Output: Shift handoff report</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>Shift handoff report</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shift Handoff Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary": "#ffffff",
+                      "surface": "#fcf8fa",
+                      "on-tertiary-container": "#98805d",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-bright": "#fcf8fa",
+                      "inverse-primary": "#bec6e0",
+                      "on-primary": "#ffffff",
+                      "outline-variant": "#c6c6cd",
+                      "secondary-fixed": "#d5e3fd",
+                      "secondary-container": "#d5e3fd",
+                      "surface-variant": "#e4e2e4",
+                      "on-tertiary-fixed": "#271901",
+                      "on-tertiary-fixed-variant": "#574425",
+                      "secondary": "#515f74",
+                      "error": "#ba1a1a",
+                      "outline": "#76777d",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#eae7e9",
+                      "inverse-surface": "#303032",
+                      "surface-dim": "#dcd9db",
+                      "primary-fixed": "#dae2fd",
+                      "secondary-fixed-dim": "#b9c7e0",
+                      "inverse-on-surface": "#f3f0f2",
+                      "surface-tint": "#565e74",
+                      "tertiary-fixed-dim": "#dec29a",
+                      "on-secondary-container": "#57657b",
+                      "on-secondary-fixed-variant": "#3a485c",
+                      "on-primary-container": "#7c839b",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e4e2e4",
+                      "tertiary-fixed": "#fcdeb5",
+                      "on-error-container": "#93000a",
+                      "background": "#fcf8fa",
+                      "surface-container": "#f0edef",
+                      "on-surface": "#1b1b1d",
+                      "primary-container": "#131b2e",
+                      "on-secondary-fixed": "#0d1c2f",
+                      "surface-container-low": "#f6f3f5",
+                      "primary": "#000000",
+                      "on-error": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#271901",
+                      "on-background": "#1b1b1d",
+                      "on-surface-variant": "#45464d",
+                      "tertiary": "#000000",
+                      "primary-fixed-dim": "#bec6e0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "touch-target-min": "48px",
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "stack-sm": "8px",
+                      "stack-md": "16px",
+                      "stack-lg": "24px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-xl": [
+                              "Inter"
+                      ],
+                      "status-lg": [
+                              "Inter"
+                      ],
+                      "display-critical": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-xl": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "status-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-critical": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col pt-[88px] pb-[80px] md:pb-0">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface border-b-2 border-primary dark:border-primary-fixed flex flex-col px-margin-mobile py-4 gap-stack-sm md:hidden">
+<div class="flex items-center justify-between">
+<span class="font-display-critical text-display-critical text-primary dark:text-primary-fixed uppercase tracking-tighter">Caregiver Baton</span>
+<div class="flex gap-stack-md">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" style="font-variation-settings: 'FILL' 0;">timer</span>
+</div>
+</div>
+<p class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed">When care costs $7,500 to $24,000 a month, 'I think they did it' is not enough.</p>
+</header>
+<!-- Top Nav Desktop -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-inverse-surface border-b-2 border-primary dark:border-primary-fixed hidden md:flex flex-col px-margin-desktop py-4 gap-stack-sm">
+<div class="flex items-center justify-between">
+<span class="font-display-critical text-display-critical text-primary dark:text-primary-fixed uppercase tracking-tighter">Caregiver Baton</span>
+<div class="flex gap-stack-md">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" style="font-variation-settings: 'FILL' 0;">timer</span>
+</div>
+</div>
+<p class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed">When care costs $7,500 to $24,000 a month, 'I think they did it' is not enough.</p>
+<nav class="flex gap-stack-lg mt-stack-sm">
+<a class="text-primary dark:text-primary-fixed font-bold border-b-2 border-primary opacity-80 transition-opacity duration-100 hover:bg-surface-container-high dark:hover:bg-surface-variant px-2 py-1 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+                 Shift Handoff
+             </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant px-2 py-1 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+                 Care Log
+             </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant px-2 py-1 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">assessment</span>
+                 Reports
+             </a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant px-2 py-1 flex items-center gap-2" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                 Financial
+             </a>
+</nav>
+</header>
+<!-- EmergencyNoteStrip -->
+<div class="fixed top-[88px] md:top-[140px] left-0 w-full z-40 bg-error-container dark:bg-tertiary-container border-y-2 border-error dark:border-error-container px-margin-mobile py-2 flex items-center justify-between cursor-default">
+<span class="font-status-lg text-status-lg font-black text-on-error-container dark:text-on-tertiary-container uppercase tracking-widest font-bold">CRITICAL VITALS: LAST ADMIN 08:00AM</span>
+</div>
+<main class="flex-grow w-full max-w-[800px] mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg mt-12 md:mt-[60px] flex flex-col gap-stack-lg">
+<section class="flex flex-col gap-stack-sm">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Shift Handoff: Maria G. to David K.</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Nov 12, 2023 | 07:00 AM - 03:00 PM Shift</p>
+</section>
+<!-- Compliance & Red Flags Bento -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Compliance -->
+<div class="border-2 border-primary bg-surface-container-lowest p-[20px] flex flex-col gap-stack-sm items-center justify-center min-h-[150px]">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Medication Compliance</span>
+<div class="font-display-critical text-display-critical text-primary text-5xl">100%</div>
+<span class="font-status-lg text-status-lg text-primary flex items-center gap-2 mt-2 bg-[#dcfce7] px-3 py-1 border border-[#22c55e]">
+<span class="material-symbols-outlined text-[#166534]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                     All doses verified
+                 </span>
+</div>
+<!-- Red Flags -->
+<div class="border-[3px] border-error bg-error-container p-[20px] flex flex-col gap-stack-sm min-h-[150px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-headline-lg text-headline-lg text-error uppercase">Red Flags (1)</span>
+</div>
+<p class="font-body-md text-body-md text-on-error-container mt-2">Patient reported mild dizziness at 02:15 PM after standing up quickly. Blood pressure was slightly low (105/65). Monitored for 30 mins; resolved.</p>
+</div>
+</section>
+<!-- Chronological Care Log -->
+<section class="flex flex-col gap-stack-md mt-stack-md">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary border-b-2 border-surface-dim pb-2">Care Log &amp; Evidence</h2>
+<div class="flex flex-col gap-stack-md relative">
+<!-- Vertical Line -->
+<div class="absolute left-[15px] top-[10px] bottom-0 w-[2px] bg-outline-variant z-0 hidden md:block"></div>
+<!-- Log Item 1 -->
+<div class="border-2 border-primary bg-surface-container-lowest p-[20px] flex flex-col md:flex-row gap-stack-md relative z-10 md:ml-10">
+<div class="absolute -left-[35px] top-[20px] bg-primary w-[14px] h-[14px] rounded-full hidden md:block border-2 border-surface-container-lowest"></div>
+<div class="flex flex-col gap-1 min-w-[100px]">
+<span class="font-status-lg text-status-lg text-primary">08:00 AM</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Morning Meds</span>
+</div>
+<div class="flex-grow flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-body-md font-bold">Administered Lisinopril 10mg</span>
+<div class="bg-[#dcfce7] border border-[#22c55e] w-8 h-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#166534]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Taken with water. No issues swallowing.</p>
+<div class="mt-2 w-full max-w-[200px] aspect-square border-2 border-outline-variant bg-surface-dim relative overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A close up, clearly lit photograph showing a small white pill in a small clear plastic medicine cup resting on a clean wooden table next to a glass of water. The lighting is bright and clinical, emphasizing transparency and proof of the medication being prepared. The aesthetic is documentary style and highly detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIZQebEh0hxAjOlNIEghxk9JbEESz3F6otMjCGmiWDTiFCX3TuEi_y8Vt6tJ2LYfRPoOKfPrE3FsYVR-J26lDbuKyBVfpOQ79RCVfUaWGZ6NPqaJ2Bc6tqARB3jV6AzesS6FlI8Rez25Ra1Ey21xWzQSuyIx1Pjafve3cEXYU09xGQxNns56zmy39spsLbV5QHE_84yKHDQTX7WDq3nRe2eA1iMsGczzKR_pyKv72D9xkwCQunEV9LwMb01cC_9fqatC_B9rrI5ZU"/>
+<div class="absolute bottom-0 left-0 w-full bg-black/60 text-white p-1 text-[10px] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">photo_camera</span> Verified
+                            </div>
+</div>
+</div>
+</div>
+<!-- Log Item 2 -->
+<div class="border-2 border-primary bg-surface-container-lowest p-[20px] flex flex-col md:flex-row gap-stack-md relative z-10 md:ml-10">
+<div class="absolute -left-[35px] top-[20px] bg-primary w-[14px] h-[14px] rounded-full hidden md:block border-2 border-surface-container-lowest"></div>
+<div class="flex flex-col gap-1 min-w-[100px]">
+<span class="font-status-lg text-status-lg text-primary">12:30 PM</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Meal</span>
+</div>
+<div class="flex-grow flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-body-md font-bold">Lunch Consumed (75%)</span>
+<div class="bg-[#dcfce7] border border-[#22c55e] w-8 h-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#166534]" style="font-variation-settings: 'FILL' 1;">check</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">Chicken soup and crackers. Patient had good appetite.</p>
+</div>
+</div>
+<!-- Log Item 3 - Issue -->
+<div class="border-[2px] border-error bg-surface-container-lowest p-[20px] flex flex-col md:flex-row gap-stack-md relative z-10 md:ml-10">
+<div class="absolute -left-[35px] top-[20px] bg-error w-[14px] h-[14px] rounded-full hidden md:block border-2 border-surface-container-lowest"></div>
+<div class="flex flex-col gap-1 min-w-[100px]">
+<span class="font-status-lg text-status-lg text-error">02:15 PM</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Observation</span>
+</div>
+<div class="flex-grow flex flex-col gap-stack-sm">
+<div class="flex justify-between items-start">
+<span class="font-body-md text-body-md font-bold text-error">Mild Dizziness Reported</span>
+<div class="bg-error-container border border-error w-8 h-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-error" style="font-variation-settings: 'FILL' 1;">priority_high</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">See red flags section for details.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<section class="mt-stack-lg pt-stack-lg border-t-2 border-primary flex flex-col gap-stack-md items-center">
+<p class="font-body-xl text-body-xl text-center text-on-surface">By accepting this handoff, you acknowledge receipt of all clinical information and red flags noted above.</p>
+<button class="bg-primary text-on-primary font-status-lg text-status-lg h-touch-target-min px-8 border-2 border-primary flex items-center gap-2 hover:bg-secondary transition-colors w-full md:w-auto justify-center">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">verified</span>
+                 Accept &amp; Confirm Handoff (Baton Passed)
+             </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-touch-target-min bg-primary dark:bg-primary-container border-t-2 border-primary dark:border-primary-fixed md:hidden">
+<a class="flex flex-col items-center justify-center bg-on-primary-container text-primary-fixed rounded-none h-full w-full scale-95 transition-transform duration-75" href="#">
+<span class="material-symbols-outlined">swap_horiz</span>
+<span class="font-status-lg text-status-lg mt-1 text-[10px]">Shift Handoff</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-primary dark:text-on-primary-container h-full w-full hover:bg-secondary dark:hover:bg-secondary-container" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span class="font-status-lg text-status-lg mt-1 text-[10px]">Care Log</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-primary dark:text-on-primary-container h-full w-full hover:bg-secondary dark:hover:bg-secondary-container" href="#">
+<span class="material-symbols-outlined">assessment</span>
+<span class="font-status-lg text-status-lg mt-1 text-[10px]">Reports</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-primary dark:text-on-primary-container h-full w-full hover:bg-secondary dark:hover:bg-secondary-container" href="#">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-status-lg text-status-lg mt-1 text-[10px]">Financial</span>
+</a>
+</nav>
+</body></html>

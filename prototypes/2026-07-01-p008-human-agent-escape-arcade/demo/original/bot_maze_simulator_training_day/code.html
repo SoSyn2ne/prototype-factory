@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Escape Arcade | Bot Maze Escape</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600&amp;family=JetBrains+Mono:wght@500;700&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-container": "#006970",
+                    "tertiary-container": "#d9d9d9",
+                    "primary": "#dbfcff",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "surface-container-low": "#1b1b1f",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-error-container": "#ffdad6",
+                    "surface-container": "#1f1f23",
+                    "surface-container-lowest": "#0e0e12",
+                    "on-surface": "#e4e1e7",
+                    "inverse-surface": "#e4e1e7",
+                    "inverse-on-surface": "#303034",
+                    "on-tertiary": "#2f3131",
+                    "on-background": "#e4e1e7",
+                    "on-primary-fixed-variant": "#004f54",
+                    "surface": "#131317",
+                    "error-container": "#93000a",
+                    "on-error": "#690005",
+                    "outline-variant": "#3b494b",
+                    "surface-bright": "#39393d",
+                    "on-secondary": "#303032",
+                    "tertiary-fixed": "#e2e2e2",
+                    "on-primary-fixed": "#002022",
+                    "surface-container-highest": "#353439",
+                    "secondary": "#c8c6c8",
+                    "primary-container": "#00f0ff",
+                    "secondary-container": "#474649",
+                    "inverse-primary": "#006970",
+                    "on-secondary-fixed": "#1b1b1d",
+                    "on-primary": "#00363a",
+                    "surface-dim": "#131317",
+                    "on-surface-variant": "#b9cacb",
+                    "tertiary": "#f5f5f5",
+                    "surface-tint": "#00dbe9",
+                    "on-secondary-fixed-variant": "#474649",
+                    "background": "#131317",
+                    "outline": "#849495",
+                    "on-tertiary-container": "#5d5f5f",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "surface-variant": "#353439",
+                    "surface-container-high": "#2a2a2e",
+                    "primary-fixed-dim": "#00dbe9",
+                    "secondary-fixed": "#e5e1e4",
+                    "secondary-fixed-dim": "#c8c6c8",
+                    "on-secondary-container": "#b7b4b7",
+                    "primary-fixed": "#7df4ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit-1": "4px",
+                    "unit-4": "16px",
+                    "unit-8": "32px",
+                    "margin-desktop": "48px",
+                    "gutter": "24px",
+                    "base": "4px",
+                    "unit-2": "8px",
+                    "unit-16": "64px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "label-mono": [
+                            "JetBrains Mono"
+                    ],
+                    "body-main": [
+                            "Geist"
+                    ],
+                    "headline-lg": [
+                            "Space Grotesk"
+                    ],
+                    "script-card-title": [
+                            "Geist"
+                    ],
+                    "status-code": [
+                            "JetBrains Mono"
+                    ],
+                    "headline-lg-mobile": [
+                            "Space Grotesk"
+                    ],
+                    "display-arcade": [
+                            "Space Grotesk"
+                    ]
+            },
+            "fontSize": {
+                    "label-mono": [
+                            "14px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-main": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "script-card-title": [
+                            "20px",
+                            {
+                                    "lineHeight": "1.5",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "status-code": [
+                            "12px",
+                            {
+                                    "lineHeight": "1.0",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-arcade": [
+                            "72px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+            /* The Void scanline effect */
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 1px,
+                rgba(255, 255, 255, 0.03) 2px,
+                rgba(255, 255, 255, 0.03) 3px
+            );
+            background-attachment: fixed;
+        }
+
+        /* Power On glow for interactive elements */
+        .power-glow:hover {
+            box-shadow: 0 0 12px 2px theme('colors.primary-fixed-dim');
+            border-color: theme('colors.primary-fixed-dim');
+        }
+
+        /* Arcade button press effect */
+        .arcade-btn {
+            transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+            box-shadow: 4px 4px 0px theme('colors.outline');
+        }
+        .arcade-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px theme('colors.outline');
+        }
+
+        /* Terminal Alert Toast Animation */
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .terminal-toast {
+            animation: slideInRight 0.3s ease-out forwards;
+        }
+
+        /* Blinking cursor */
+        .blink-cursor {
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Health meter flicker */
+        @keyframes flicker {
+            0% { opacity: 1; }
+            5% { opacity: 0.2; }
+            10% { opacity: 1; }
+            15% { opacity: 0.8; }
+            20% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+        .health-segment {
+            transition: background-color 0.3s, opacity 0.3s;
+        }
+        .health-segment.critical {
+            animation: flicker 2s infinite;
+        }
+
+        /* Hide scrollbar for chat area */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-body-main text-body-main antialiased min-h-screen flex flex-col relative overflow-hidden">
+<!-- Top Navigation (Generated from JSON) -->
+<header class="bg-surface dark:bg-surface font-headline-lg text-headline-lg docked full-width top-0 border-b-2 border-outline-variant shadow-[0px_0px_10px_rgba(0,219,233,0.3)] z-50">
+<div class="flex justify-between items-center w-full px-unit-8 h-16 max-w-[1440px] mx-auto">
+<!-- Brand -->
+<div class="font-display-arcade text-headline-lg text-primary-container uppercase tracking-tighter">
+                ESCAPE_ARCADE
+            </div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex gap-unit-8">
+<a class="text-primary font-bold border-b-2 border-primary-container hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all active:translate-y-0.5 active:translate-x-0.5 px-2 py-4" href="#">
+                    SCENARIOS
+                </a>
+<a class="text-on-surface-variant font-body-main hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all active:translate-y-0.5 active:translate-x-0.5 px-2 py-4" href="#">
+                    LEADERBOARD
+                </a>
+<a class="text-on-surface-variant font-body-main hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all active:translate-y-0.5 active:translate-x-0.5 px-2 py-4" href="#">
+                    RULES
+                </a>
+</nav>
+<!-- Actions -->
+<div class="flex items-center gap-unit-4">
+<button aria-label="history_edu" class="hidden md:flex items-center justify-center p-2 text-primary-container hover:bg-surface-container-highest rounded transition-colors">
+<span class="material-symbols-outlined">history_edu</span>
+</button>
+<button aria-label="settings" class="hidden md:flex items-center justify-center p-2 text-primary-container hover:bg-surface-container-highest rounded transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="arcade-btn bg-primary-container text-on-primary-container font-label-mono text-label-mono px-unit-4 py-unit-2 border-2 border-on-primary-container uppercase">
+                    ESCAPE_NOW
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<div class="flex flex-1 overflow-hidden h-[calc(100vh-64px-48px)]">
+<!-- Left SideNav (Generated from JSON) -->
+<!-- Note: The JSON says SideNavBar but TopNav is already present.
+             The prompt asks for "Bot Maze Escape" / Training Screen layout.
+             I will render the SideNav as per JSON, but make it collapsable or fit the arcade theme. -->
+<aside class="bg-surface-container-low dark:bg-surface-container-low font-label-mono text-label-mono h-full w-64 flex-shrink-0 border-r-2 border-outline-variant flex flex-col py-unit-4 z-40 relative">
+<!-- Header Avatar Info -->
+<div class="px-unit-4 mb-unit-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-surface-container-highest border border-outline-variant overflow-hidden">
+<!-- Placeholder for Player Avatar -->
+<div class="w-full h-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline">person</span>
+</div>
+</div>
+<div>
+<div class="text-primary-container truncate font-bold" title="OPERATOR_LEVEL_04">OPERATOR_LEVEL_04</div>
+<div class="text-status-code font-status-code text-on-surface-variant mt-1">XP: 2400 / 5000</div>
+</div>
+</div>
+</div>
+<!-- Main Tabs -->
+<nav class="flex flex-col gap-1 flex-1 overflow-y-auto no-scrollbar">
+<a class="bg-primary-container text-on-primary-container font-bold border-l-4 border-on-primary px-unit-4 py-3 flex items-center gap-3 active:scale-95 transition-transform cursor-pointer" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>REFUNDS</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-3 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">local_shipping</span>
+<span>DELIVERIES</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-3 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">receipt_long</span>
+<span>BILLING</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-3 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">construction</span>
+<span>TECH_SUPPORT</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-3 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">priority_high</span>
+<span>COMPLAINTS</span>
+</a>
+</nav>
+<div class="px-unit-4 my-unit-4">
+<button class="w-full arcade-btn bg-surface border-2 border-primary text-primary font-bold py-2 hover:bg-surface-container-highest">
+                    UNLOCK_SCENARIO
+                </button>
+</div>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-outline-variant pt-2 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-2 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span>INVENTORY</span>
+</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container-highest hover:pl-unit-4 transition-all duration-150 border-l-4 border-transparent px-unit-4 py-2 flex items-center gap-3 active:scale-95 cursor-pointer" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>LOGS</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas: Bot Maze & Loadout -->
+<main class="flex-1 flex flex-col md:flex-row h-full overflow-hidden relative">
+<!-- Left: The Bot Maze (Simulated Chat) -->
+<section class="flex-1 border-r border-outline-variant flex flex-col bg-[#1E1E22] relative p-unit-8 m-unit-4 lg:m-unit-8 border border-outline">
+<!-- Maze Header -->
+<div class="mb-4 flex items-center justify-between border-b border-outline pb-2">
+<h2 class="font-headline-lg text-script-card-title text-primary-fixed uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined">smart_toy</span>
+                        SYSTEM_MAZE_v9.1
+                    </h2>
+<div class="flex gap-1" id="patience-meter">
+<!-- Patience Health Meter -->
+<div class="w-4 h-6 bg-primary health-segment"></div>
+<div class="w-4 h-6 bg-primary health-segment"></div>
+<div class="w-4 h-6 bg-primary health-segment"></div>
+<div class="w-4 h-6 bg-primary health-segment"></div>
+<div class="w-4 h-6 bg-primary health-segment"></div>
+<div class="w-4 h-6 bg-surface-container-highest health-segment"></div>
+<div class="w-4 h-6 bg-surface-container-highest health-segment"></div>
+<div class="w-4 h-6 bg-surface-container-highest health-segment"></div>
+<div class="w-4 h-6 bg-surface-container-highest health-segment"></div>
+<div class="w-4 h-6 bg-surface-container-highest health-segment"></div>
+</div>
+</div>
+<!-- Chat Feed -->
+<div class="flex-1 overflow-y-auto no-scrollbar flex flex-col gap-unit-4 pb-unit-8 font-label-mono text-label-mono">
+<!-- Bot Msg -->
+<div class="self-start bg-surface-container border border-outline-variant p-4 max-w-[80%] rounded-sm">
+<p class="text-on-surface">&gt; I'm sorry, I didn't quite catch that. Could you rephrase your request using one of the following options?</p>
+<ul class="mt-2 text-on-surface-variant list-none pl-4 space-y-1">
+<li>[1] Check Order Status</li>
+<li>[2] Return Policy</li>
+<li>[3] Update Payment</li>
+</ul>
+</div>
+<!-- User Msg -->
+<div class="self-end border border-primary text-primary p-4 max-w-[80%] rounded-sm relative shadow-[0_0_10px_rgba(0,219,233,0.1)]">
+<p>&gt; HUMAN AGENT PLEASE</p>
+</div>
+<!-- Bot Msg -->
+<div class="self-start bg-surface-container border border-error-container p-4 max-w-[80%] rounded-sm">
+<p class="text-error">&gt; I am fully equipped to handle most inquiries. It looks like you want to talk about a recent order. Is that correct?</p>
+</div>
+</div>
+<!-- Input Area (Command Prompt) -->
+<div class="mt-auto border-t border-outline-variant pt-4 relative">
+<div class="flex items-center bg-surface border border-outline-variant p-3 focus-within:border-primary focus-within:shadow-[0_0_8px_rgba(0,219,233,0.3)] transition-all">
+<span class="text-primary-fixed-dim mr-2 font-status-code">&gt; LVL3_ESCALATION : </span>
+<input class="bg-transparent border-none outline-none w-full text-on-surface font-label-mono text-label-mono placeholder-on-surface-variant placeholder-opacity-50" placeholder="Type command..." type="text" value="AGENT"/>
+<span class="bg-primary w-2 h-4 blink-cursor inline-block ml-1"></span>
+</div>
+<button class="absolute right-4 top-1/2 translate-y-[2px] text-primary hover:text-primary-container">
+<span class="material-symbols-outlined">send</span>
+</button>
+</div>
+</section>
+<!-- Right: Tactical Loadout -->
+<section class="w-full md:w-[400px] flex-shrink-0 flex flex-col p-unit-4 lg:p-unit-8 gap-unit-8 overflow-y-auto no-scrollbar bg-surface z-10">
+<!-- ESCALATION TIMER -->
+<div class="border border-error p-unit-4 bg-surface-container-lowest shadow-[0_0_15px_rgba(147,0,10,0.15)]">
+<div class="font-status-code text-status-code text-error tracking-widest uppercase flex justify-between mb-2">
+<span>TIME_STOLEN</span>
+<span class="material-symbols-outlined text-sm">timer</span>
+</div>
+<div class="font-display-arcade text-headline-lg-mobile text-error text-center animate-pulse tracking-widest">
+                        04:12:09
+                    </div>
+</div>
+<!-- EVIDENCE INVENTORY -->
+<div class="border border-outline-variant p-unit-4 bg-[#1E1E22]">
+<h3 class="font-headline-lg text-script-card-title text-primary-fixed mb-4 border-b border-outline-variant pb-2 uppercase tracking-wide">
+                        EVIDENCE INVENTORY
+                    </h3>
+<div class="grid grid-cols-1 gap-3 font-label-mono text-label-mono">
+<!-- Slot 1 -->
+<div class="border border-outline border-dashed p-3 flex justify-between items-center hover:bg-surface-container-highest cursor-pointer group transition-colors">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase">SLOT_01: ORDER_ID</span>
+<span class="text-on-surface group-hover:text-primary">#REQ-992-ALPHA</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">content_copy</span>
+</div>
+<!-- Slot 2 -->
+<div class="border border-outline border-dashed p-3 flex justify-between items-center hover:bg-surface-container-highest cursor-pointer group transition-colors bg-surface-container-highest">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase">SLOT_02: BUG_SHOT</span>
+<span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-sm">image</span> error_log_404.png</span>
+</div>
+<span class="material-symbols-outlined text-primary">check_circle</span>
+</div>
+<!-- Slot 3 -->
+<div class="border border-outline border-dashed p-3 flex justify-between items-center hover:bg-surface-container-highest cursor-pointer group transition-colors">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-[10px] uppercase">SLOT_03: PREV_CASE</span>
+<span class="text-on-surface-variant italic">Empty Slot...</span>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary">add</span>
+</div>
+</div>
+</div>
+<!-- VICTORY SCRIPT CARD -->
+<div class="mt-auto border-2 border-primary-container p-unit-4 bg-surface-container relative group power-glow cursor-crosshair">
+<div class="absolute -top-3 left-4 bg-surface px-2 font-status-code text-status-code text-primary-container border border-primary-container">
+                        VICTORY_SCRIPT_CARD
+                    </div>
+<p class="font-body-main text-on-surface mt-2 mb-4 leading-relaxed">
+                        "Hello, I have been looping in the automated system. I need you to escalate ticket <strong class="text-primary">#REQ-992-ALPHA</strong> immediately. I have documented the failure."
+                    </p>
+<button class="w-full arcade-btn bg-primary-container text-on-primary-container font-bold py-3 uppercase flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">file_copy</span>
+                        COPY_TO_CLIPBOARD
+                    </button>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer (Generated from JSON) -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest font-status-code text-status-code docked full-width bottom-0 border-t-2 border-error-container shadow-[0_-4px_12px_rgba(147,0,10,0.2)] flex justify-around items-center w-full py-unit-2 px-unit-8 z-50">
+<div class="font-label-mono text-error uppercase animate-pulse">
+            © 2024 ESCAPE_ARCADE_SYSTEMS // REVERSE_ENGINEER_AI
+        </div>
+<div class="hidden md:flex gap-unit-8">
+<a class="text-on-surface-variant opacity-70 hover:text-error-container cursor-crosshair" href="#">TIME_STOLEN_METER</a>
+<a class="text-on-surface-variant opacity-70 hover:text-error-container cursor-crosshair" href="#">MONEY_WASTED_TRACKER</a>
+<a class="text-on-surface-variant opacity-70 hover:text-error-container cursor-crosshair" href="#">VICTORY_LOGS</a>
+</div>
+</footer>
+<!-- Terminal Alert Toast (Absolute positioning) -->
+<div class="fixed top-20 right-8 bg-[#1E1E22] border-l-4 border-primary p-3 shadow-lg terminal-toast z-50 flex items-start gap-3 max-w-xs font-label-mono text-[12px]">
+<span class="material-symbols-outlined text-primary">priority_high</span>
+<div>
+<div class="text-primary font-bold mb-1">PRO-TIP:</div>
+<div class="text-on-surface">Typing "AGENT" 3 times rapidly often breaks the parsing loop.</div>
+</div>
+</div>
+</body></html>

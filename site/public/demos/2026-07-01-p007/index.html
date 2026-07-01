@@ -1,164 +1,269 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dating App Burnout Escape Map Demo</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #101017;
-        --ink: #f8f7ff;
-        --muted: #b9b4ca;
-        --panel: #1c1b27;
-        --soft: #29263a;
-        --line: #47415e;
-        --accent: #ff6f61;
-        --warn: #ffd166;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Escape Map - Hotspots</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&amp;family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;family=Work+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#41484a",
+                    "inverse-surface": "#2f3130",
+                    "surface-variant": "#e2e3e1",
+                    "on-primary-fixed-variant": "#822800",
+                    "primary-fixed": "#ffdbcf",
+                    "tertiary": "#006970",
+                    "on-primary": "#ffffff",
+                    "tertiary-container": "#00b5c0",
+                    "on-secondary-container": "#5d6466",
+                    "tertiary-fixed": "#7af4ff",
+                    "on-primary-container": "#6c2000",
+                    "secondary-fixed-dim": "#c1c8ca",
+                    "surface": "#f9f9f7",
+                    "surface-container-high": "#e8e8e6",
+                    "on-surface": "#1a1c1b",
+                    "surface-container-low": "#f4f4f2",
+                    "error": "#ba1a1a",
+                    "inverse-on-surface": "#f1f1ef",
+                    "on-background": "#1a1c1b",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#57423b",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#dde4e6",
+                    "on-secondary": "#ffffff",
+                    "surface-tint": "#a43c12",
+                    "on-tertiary-container": "#004145",
+                    "secondary-container": "#dae1e3",
+                    "surface-bright": "#f9f9f7",
+                    "error-container": "#ffdad6",
+                    "outline": "#8b7169",
+                    "on-tertiary-fixed": "#002022",
+                    "surface-container-highest": "#e2e3e1",
+                    "primary-container": "#ff7f50",
+                    "on-secondary-fixed": "#161d1f",
+                    "tertiary-fixed-dim": "#4dd9e4",
+                    "on-error": "#ffffff",
+                    "primary-fixed-dim": "#ffb59c",
+                    "background": "#f9f9f7",
+                    "secondary": "#586062",
+                    "on-primary-fixed": "#380c00",
+                    "surface-dim": "#dadad8",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#ffb59c",
+                    "outline-variant": "#dec0b6",
+                    "surface-container": "#eeeeec",
+                    "primary": "#a43c12",
+                    "on-tertiary-fixed-variant": "#004f54"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-desktop": "40px",
+                    "border-width-thin": "1.5px",
+                    "margin-mobile": "20px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "border-width-thick": "3px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Anybody"],
+                    "label-caps": ["Space Mono"],
+                    "headline-lg": ["Anybody"],
+                    "body-md": ["Work Sans"],
+                    "display-xl": ["Anybody"],
+                    "ui-button": ["Anybody"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "label-caps": ["12px", {"lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.2", "fontWeight": "800"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-xl": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                    "ui-button": ["18px", {"lineHeight": "1", "letterSpacing": "0.02em", "fontWeight": "700"}]
+            }
+        }
+        }
       }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
+    </script>
+<style>
+        /* Custom styles for the Brutalist Map aesthetic */
+        .hard-shadow {
+            box-shadow: 4px 4px 0px 0px rgba(26,28,27,1);
+        }
+        .hard-shadow-coral {
+            box-shadow: 4px 4px 0px 0px #ff7f50;
+        }
+        .brutalist-border {
+            border: 3px solid #1a1c1b;
+        }
+        .zigzag-bottom {
+            background: linear-gradient(-45deg, transparent 16px, #ff7f50 0), linear-gradient(45deg, transparent 16px, #ff7f50 0);
+            background-repeat: repeat-x;
+            background-position: left bottom;
+            background-size: 22px 32px;
+            padding-bottom: 24px;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
     </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Dating App Burnout Escape Map</strong>
-        <small>2026-07-01-p007 · playful-experimental</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p007</span><span>playful-experimental</span><span>외로움</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Offline Route Planner</p>
-          <h1>A playful offline-dating route planner that turns app fatigue into a weekly map of gyms, classes, events, and low-pressure conversation openings.</h1>
-          <p class="lead">Shareable offline dating map로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Make route poster</button>
-            <button class="secondary">Review evidence</button>
-          </div>
-        </div>
-        <aside class="metric">
-          <div>
-            <div class="value">7 days</div>
-            <p>escape map</p>
-          </div>
-          <p class="muted">Dating App Burnout Escape Map keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Burnout intake quiz</button><button class="">Offline venue map</button><button class="">Conversation opener cards</button><button class="">Budget slider</button><button class="">Escape plan poster</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>Gym class matched</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Low-pressure event selected</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>Opener card unlocked</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Saturday route poster ready</span>
-      <em>ready</em>
-    </li>
-  </ul>
-        </div>
-        <div class="workflow">
-    <article>
-      <small>Offline Route Planner 1</small>
-      <h3>Burnout intake quiz</h3>
-      <p>A playful offline-dating route planner that turns app fatigue into a weekly map of gyms, classes, events, and low-pressure conversation openings.</p>
-    </article>
-  
-    <article>
-      <small>Offline Route Planner 2</small>
-      <h3>Offline venue map</h3>
-      <p>A playful offline-dating route planner that turns app fatigue into a weekly map of gyms, classes, events, and low-pressure conversation openings.</p>
-    </article>
-  
-    <article>
-      <small>Offline Route Planner 3</small>
-      <h3>Conversation opener cards</h3>
-      <p>A playful offline-dating route planner that turns app fatigue into a weekly map of gyms, classes, events, and low-pressure conversation openings.</p>
-    </article>
-  
-    <article>
-      <small>Offline Route Planner 4</small>
-      <h3>Budget slider</h3>
-      <p>A playful offline-dating route planner that turns app fatigue into a weekly map of gyms, classes, events, and low-pressure conversation openings.</p>
-    </article>
-  
-    <article>
-      <small>Offline Route Planner 5</small>
-      <h3>Escape plan poster</h3>
-      <p>Output: Shareable offline dating map</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>Shareable offline dating map</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface text-primary font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg docked full-width top-0 border-b-border-width-thick border-on-surface shadow-[4px_4px_0px_0px_rgba(26,28,27,1)] flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 sticky z-40 transition-transform active:translate-y-1 active:shadow-none">
+<div class="italic font-black text-primary">ESCAPE MAP</div>
+<div class="flex gap-4">
+<button class="flex items-center justify-center p-2 brutalist-border rounded-none bg-surface-container-lowest text-on-surface hover:bg-primary-container hover:text-on-primary-container hard-shadow transition-transform active:translate-y-1 active:shadow-none">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">map</span>
+</button>
+<button class="flex items-center justify-center p-2 brutalist-border rounded-none bg-surface-container-lowest text-on-surface hover:bg-primary-container hover:text-on-primary-container hard-shadow transition-transform active:translate-y-1 active:shadow-none hidden md:flex">
+<span class="material-symbols-outlined font-variation-settings: 'FILL' 1;">route</span>
+</button>
+</div>
+</header>
+<!-- Main Layout: Map & Overlay -->
+<main class="flex-grow flex flex-col md:flex-row relative overflow-hidden h-[calc(100vh-80px)] md:h-[calc(100vh-100px)]">
+<!-- Interactive Map Canvas (Simulated) -->
+<div class="absolute inset-0 w-full h-full z-0 bg-surface-container-high" data-alt="A highly detailed, stylized overhead map of a dense urban environment. The map uses a brutalist, high-contrast aesthetic with thick black lines denoting streets and solid block colors for buildings in stark whites, greys, and tactical coral accents. The lighting is bright and flat, evoking a modern, light-mode navigation tool. The mood is energetic and directional, avoiding realistic satellite textures in favor of clean, graphic vector-style representation." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBRMb85hxXhB2Gx9CburdYUtVEATuCaLHfvB8u1dG9LHaZGLWifuG7HdWH-2R6X1FAthwzO10fFhWQpmaTaf1-afMMnQlkAMeEQxcx66hpU5Sy2It90PsbyNT33GzX_5ZU1tgiK2K7dolxxkn2olAKfWTptYXJmfPlBerQGuuZCWFFe_oXX994VNXIK4T1_g1TyLEDWXASKgyDpedZDWpxAGFaG5u7w3wu7nl_N3BPuNM1BNBJSfb3_nBEH82wKxG4h4nHbxJnINZU')">
+<!-- Simulated Map Markers -->
+<div class="absolute top-[30%] left-[40%] flex flex-col items-center animate-bounce z-10 cursor-pointer">
+<div class="w-12 h-12 bg-primary-container rounded-full brutalist-border hard-shadow flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+</div>
+</div>
+<div class="absolute top-[60%] left-[20%] flex flex-col items-center z-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+<div class="w-10 h-10 bg-primary-container rounded-full brutalist-border flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">pattern</span>
+</div>
+</div>
+<div class="absolute top-[45%] right-[25%] flex flex-col items-center z-10 cursor-pointer opacity-80 hover:opacity-100 transition-opacity">
+<div class="w-10 h-10 bg-primary-container rounded-full brutalist-border flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">directions_run</span>
+</div>
+</div>
+<!-- The "Route" Line connecting hotspots -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none z-0" xmlns="http://www.w3.org/2000/svg">
+<path class="animate-[dash_2s_linear_infinite]" d="M40vw,30vh Q30vw,45vh 20vw,60vh T75vw,45vh" fill="none" stroke="#ff7f50" stroke-dasharray="10,10" stroke-width="4"></path>
+</svg>
+</div>
+<!-- Floating UI: Controls & View Toggle -->
+<div class="absolute top-margin-mobile left-margin-mobile z-20 flex gap-4 pointer-events-none">
+<!-- Toggle Control -->
+<div class="flex brutalist-border bg-surface-container-lowest pointer-events-auto hard-shadow">
+<button class="px-6 py-3 font-label-caps text-label-caps bg-primary-container text-on-primary-container border-r-border-width-thick border-on-surface">MAP</button>
+<button class="px-6 py-3 font-label-caps text-label-caps text-on-surface hover:bg-surface-container-high transition-colors">LIST</button>
+</div>
+</div>
+<!-- Venue Cards / List Overlay (Mobile Bottom Sheet / Desktop Sidebar) -->
+<aside class="z-20 w-full md:w-[450px] bg-surface/95 backdrop-blur-sm border-t-border-width-thick md:border-t-0 md:border-l-border-width-thick border-on-surface absolute bottom-0 md:top-0 md:right-0 md:h-full flex flex-col transform transition-transform duration-300 md:translate-y-0 translate-y-[60%] hover:translate-y-0 h-[819px] md:h-auto">
+<!-- Mobile Drag Handle -->
+<div class="w-full flex justify-center py-4 md:hidden cursor-pointer bg-primary-container border-b-border-width-thick border-on-surface">
+<div class="w-16 h-2 bg-on-primary-container rounded-full"></div>
+</div>
+<div class="p-margin-mobile border-b-border-width-thick border-on-surface bg-surface flex-shrink-0">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface uppercase mb-2">Social Serendipity</h2>
+<p class="text-on-surface-variant font-label-caps text-label-caps">High-Energy Hotspots Detected</p>
+</div>
+<!-- Scrollable Hotspot List -->
+<div class="flex-grow overflow-y-auto p-margin-mobile flex flex-col gap-gutter hide-scrollbar pb-32 md:pb-margin-mobile">
+<!-- Hotspot Card 1: Active Focus -->
+<div class="brutalist-border bg-surface-container-lowest hard-shadow flex flex-col">
+<!-- Opener Header (Inverted for attention) -->
+<div class="bg-primary-container text-on-primary-container p-4 border-b-border-width-thick border-on-surface relative overflow-hidden">
+<div class="absolute right-[-10%] top-[-20%] opacity-20 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">chat_bubble</span>
+</div>
+<h4 class="font-label-caps text-label-caps mb-1 text-on-primary-fixed-variant opacity-80">Opener Intel</h4>
+<p class="font-headline-lg-mobile text-[24px] leading-tight font-bold relative z-10">"Nice deadlift form."</p>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-ui-button text-ui-button uppercase mb-1">Iron &amp; Grit Gym</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+<span>0.4 MI AWAY</span>
+</div>
+</div>
+<div class="brutalist-border bg-tertiary-container text-on-tertiary-container px-3 py-1 font-label-caps text-label-caps font-bold">
+                                DENSITY: HIGH
+                            </div>
+</div>
+<div class="w-full h-32 brutalist-border relative" data-alt="A gritty, modern warehouse gym environment filled with heavy iron weights, chalk dust, and intense lighting. The setting is raw and industrial, heavily leaning into the brutalist UI style with high-contrast shadows and stark highlights. Bright coral accent lighting cuts through the industrial gloom, highlighting a community of energetic individuals engaged in intense physical training. The mood is powerful, active, and focused on physical community over digital interaction." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-174Yn0Wd9myKpPH5f_dTSewR1-kT93O4JeSrfd-3vu8RPB6TZR7MakBGMjErbwH0s402KHd1kqthiHWvaNJ3KTfWQHEMeWzOahI-M_gLo35VlS-0WyzDgYKhsILpNo6CPGWdJv40PjUwYakwsbQJ0zTvfsqqD0rQWI6QPrj4CzCB9RQVJcLqi9f499k9-QAFw7mtWteiml3LUTTn867OfrBSEsk3C5puaNfkUNbIjgUA1LE9zzwe6EllEfX2MoHQzqUdHrERKA4')">
+</div>
+<button class="w-full py-4 brutalist-border bg-surface text-on-surface font-ui-button text-ui-button uppercase hover:bg-surface-container-high transition-colors flex justify-center items-center gap-2">
+<span>Set Course</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Hotspot Card 2 -->
+<div class="brutalist-border bg-surface-container-lowest flex flex-col">
+<!-- Opener Header -->
+<div class="bg-surface-variant text-on-surface p-4 border-b-border-width-thick border-on-surface">
+<h4 class="font-label-caps text-label-caps mb-1 opacity-70">Opener Intel</h4>
+<p class="font-headline-lg-mobile text-[24px] leading-tight font-bold italic">"Is this clay supposed to feel like this?"</p>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="font-ui-button text-ui-button uppercase mb-1">Mud &amp; Maker Studio</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">distance</span>
+<span>1.2 MI AWAY</span>
+</div>
+</div>
+<div class="brutalist-border bg-secondary-container text-on-secondary-container px-3 py-1 font-label-caps text-label-caps font-bold">
+                                DENSITY: MED
+                            </div>
+</div>
+<button class="w-full py-3 brutalist-border bg-surface text-on-surface font-ui-button text-[14px] uppercase hover:bg-surface-container-high transition-colors flex justify-center items-center gap-2">
+<span>Details</span>
+</button>
+</div>
+</div>
+</div>
+</aside>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="bg-surface border-t-border-width-thick border-on-surface fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-20 md:hidden flat no shadows">
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 w-full hover:bg-surface-container-high active:bg-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">explore</span>
+<span class="font-label-caps text-[10px] mt-1">The Route</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-none border-x-border-width-thin border-on-surface h-full px-4 w-full hover:bg-surface-container-high active:bg-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-caps text-[10px] mt-1 font-bold">Outposts</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 w-full hover:bg-surface-container-high active:bg-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">edit_note</span>
+<span class="font-label-caps text-[10px] mt-1">Field Notes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant px-4 w-full hover:bg-surface-container-high active:bg-primary-fixed" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">emergency</span>
+<span class="font-label-caps text-[10px] mt-1">SOS</span>
+</a>
+</nav>
+<style>
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+    </style>
+</body></html>

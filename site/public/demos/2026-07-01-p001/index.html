@@ -1,164 +1,289 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pet Claim Preexisting Trap Kit Demo</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f6f8f5;
-        --ink: #17211f;
-        --muted: #61706b;
-        --panel: #ffffff;
-        --soft: #e7efeb;
-        --line: #cbd8d1;
-        --accent: #147a73;
-        --warn: #b25b2a;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pet Defender - Pet Claim Preexisting Trap Kit</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Brand Anchors -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "primary": "#00626b",
+                        "on-secondary-container": "#5f6363",
+                        "secondary-fixed": "#e0e3e2",
+                        "surface-variant": "#d9e5e7",
+                        "on-primary-fixed-variant": "#004f56",
+                        "surface-dim": "#d1dcde",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#006972",
+                        "outline": "#6e797b",
+                        "on-surface-variant": "#3e494a",
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#7dd4e0",
+                        "on-secondary-fixed-variant": "#434847",
+                        "on-secondary-fixed": "#181c1c",
+                        "secondary-fixed-dim": "#c4c7c6",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#dde0df",
+                        "on-background": "#131d1f",
+                        "tertiary-container": "#6c7171",
+                        "outline-variant": "#bdc8ca",
+                        "surface-container": "#e4f0f2",
+                        "surface-container-highest": "#d9e5e7",
+                        "tertiary-fixed-dim": "#c2c7c7",
+                        "surface": "#f0fbfe",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dfeaec",
+                        "on-tertiary-container": "#f1f6f5",
+                        "error": "#ba1a1a",
+                        "primary-container": "#127c87",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#eaf6f8",
+                        "primary-fixed": "#99f0fc",
+                        "on-tertiary-fixed-variant": "#424847",
+                        "primary-fixed-dim": "#7dd4e0",
+                        "secondary": "#5b5f5f",
+                        "surface-bright": "#f0fbfe",
+                        "inverse-on-surface": "#e7f3f5",
+                        "on-surface": "#131d1f",
+                        "tertiary-fixed": "#dee3e2",
+                        "background": "#f0fbfe",
+                        "on-primary-fixed": "#001f23",
+                        "inverse-surface": "#283234",
+                        "on-tertiary-fixed": "#171d1c",
+                        "tertiary": "#535958",
+                        "on-primary-container": "#dffbff",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "md": "24px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "container-max": "1120px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-md": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "display-lg": ["Manrope"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
     </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Pet Claim Preexisting Trap Kit</strong>
-        <small>2026-07-01-p001 · calm-consumer</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p001</span><span>calm-consumer</span><span>자산 방어</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Appeal Packet Builder</p>
-          <h1>A pet-owner appeal kit that turns denied “preexisting condition” claims into a clean vet-record evidence packet.</h1>
-          <p class="lead">PDF-style appeal packet로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Build insurer letter</button>
-            <button class="secondary">Review evidence</button>
-          </div>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md antialiased selection:bg-primary-container selection:text-on-primary-container relative">
+<!-- Subtle Background Elements for 'Protective Calm' -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-[-1]">
+<!-- Soft gradient blob top right -->
+<div class="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-fixed-dim/10 rounded-full blur-[120px] transform translate-x-1/3 -translate-y-1/3"></div>
+<!-- Soft gradient blob bottom left -->
+<div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-secondary-fixed/20 rounded-full blur-[100px] transform -translate-x-1/4 translate-y-1/4"></div>
+</div>
+<!-- Header / Nav Shell -->
+<!-- Suppressed navigation shell for onboarding/transactional flow as per semantic shell mandate -->
+<header class="w-full flex justify-between items-center px-md py-base max-w-container-max mx-auto border-b-0">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary font-[24px]">shield</span>
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed tracking-tight">Pet Defender</span>
+</div>
+<!-- Subtle indicator of security/trust instead of full nav -->
+<div class="flex items-center gap-xs text-on-surface-variant bg-surface-container-low px-sm py-xs rounded-full border border-surface-variant">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+<span class="font-label-sm text-label-sm">Secure Intake</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center justify-start w-full px-4 md:px-md py-lg md:py-xl max-w-container-max mx-auto relative z-10">
+<!-- Hero Section -->
+<div class="w-full max-w-3xl text-center mb-xl">
+<div class="inline-flex items-center gap-2 bg-surface-container-high text-on-surface rounded-full px-sm py-xs mb-md border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-[18px]">gavel</span>
+<span class="font-label-md text-label-md">Preexisting Trap Kit</span>
+</div>
+<h1 class="font-display-lg text-display-lg md:text-[48px] text-on-background mb-sm leading-tight">
+                Your $25,000 claim should not die because one vague note looked like a preexisting condition.
+            </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                A pet-owner appeal kit that turns denied 'preexisting condition' claims into a clean vet-record evidence packet.
+            </p>
+</div>
+<!-- Intake Form Grid -->
+<div class="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Central Intake Card (8 cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl shadow-[0_4px_20px_rgba(0,98,107,0.04)] border border-outline-variant/30 p-md md:p-lg relative overflow-hidden">
+<!-- Progress Indicator -->
+<div class="mb-lg border-b border-surface-variant pb-md">
+<div class="flex items-center justify-between mb-sm">
+<span class="font-label-md text-label-md text-primary">1. Denial Intake</span>
+<span class="font-label-sm text-label-sm text-outline">Step 1 of 5</span>
+</div>
+<div class="w-full bg-surface-variant h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-1/5 rounded-full transition-all duration-500 ease-out"></div>
+</div>
+</div>
+<div class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Pet Name -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface block" for="petName">Pet's Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-sm py-sm text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors h-[48px] shadow-sm" id="petName" placeholder="e.g., Bella" type="text"/>
+</div>
+<!-- Insurer Name -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface block" for="insurerName">Insurer Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-sm py-sm text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors h-[48px] shadow-sm" id="insurerName" placeholder="e.g., HealthyPaws" type="text"/>
+</div>
+</div>
+<!-- Denied Amount (Asset Focus) -->
+<div class="space-y-xs bg-primary-fixed/20 p-sm rounded-lg border border-primary-fixed-dim/30">
+<label class="font-label-md text-label-md text-on-primary-fixed-variant block flex items-center gap-xs" for="deniedAmount">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+                            Denied Amount (Value at Risk)
+                        </label>
+<div class="relative">
+<span class="absolute left-sm top-1/2 transform -translate-y-1/2 text-on-surface-variant font-body-lg">$</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg pl-xl pr-sm py-sm text-headline-md font-headline-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-colors h-[56px] shadow-sm tracking-wide" id="deniedAmount" type="text" value="25,000"/>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs">We pre-filled this to emphasize what's at stake. Adjust if needed.</p>
+</div>
+<!-- Reason for Denial -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface block flex justify-between" for="denialReason">
+<span>Reason for Denial (Quoted from letter)</span>
+<span class="text-outline font-normal">Optional for now</span>
+</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-sm py-sm text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors shadow-sm resize-none" id="denialReason" placeholder="Paste the exact phrasing here..." rows="4"></textarea>
+</div>
+</div>
+<!-- Action Area -->
+<div class="mt-lg pt-md flex items-center justify-between">
+<button class="font-label-md text-label-md text-secondary hover:text-primary transition-colors px-sm py-sm rounded-lg border border-transparent hover:bg-surface-variant">
+                        Save Draft
+                    </button>
+<button class="bg-primary-container text-on-primary-container hover:opacity-90 font-label-md text-label-md px-md py-sm rounded-lg shadow-sm transition-all duration-200 flex items-center gap-xs group">
+                        Start Evidence Checklist
+                        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Context / Sidebar (4 cols) -->
+<div class="lg:col-span-4 space-y-md">
+<!-- Why this matters Card -->
+<div class="bg-surface-container-low rounded-xl border border-surface-variant p-md shadow-sm relative overflow-hidden group">
+<!-- Decorative subtle accent line -->
+<div class="absolute left-0 top-0 w-1 h-full bg-primary-fixed-dim"></div>
+<div class="flex items-start gap-sm mb-sm">
+<div class="bg-surface-variant rounded-full p-xs text-primary shrink-0">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs leading-tight">Why this matters</h3>
+<p class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider mb-sm">자산 방어 (Asset Protection)</p>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                        Don't let <span class="font-bold text-on-surface">$25,000</span> in vet bills become a permanent loss. Insurance companies rely on you giving up after a vague 'preexisting' rejection.
+                    </p>
+<div class="mt-md pt-sm border-t border-outline-variant/30 flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+<span class="font-label-sm text-label-sm">We organize. You defend.</span>
+</div>
+</div>
+<!-- Testimonial/Reassurance Glassmorphism Card -->
+<div class="bg-surface/60 backdrop-blur-md rounded-xl border border-outline-variant/20 p-md shadow-sm">
+<p class="font-body-md text-body-md text-on-surface italic mb-sm">
+                        "They denied Bella's claim over a note from 3 years ago. This kit helped me align my vet's current notes and we got the full amount covered."
+                    </p>
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A small, soft-focus headshot portrait of a smiling woman in her 30s with light brown hair, wearing a casual teal sweater, set against a bright, out-of-focus modern home interior. The lighting is warm and reassuring, fitting a protective calm aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABoxLw9N-z5rowf4TWhDpR1NYRyNPEkEqQL7Q_x-QWQ5rsAzr83cOU_t5UjjOad1SwCK0JE3Xs6niE2rU5xLfn0dzlxlaCnDmeHlJ1rKArlA2l6MNqmAWstcTRs623IXvuZrzdmWNLVgsDmVN3aqaoFeRwBf4LJ8DERxmss31raIbbQFczTl1K0jRwbrP-voUdq0FrYmjysJ0I2NECM4cDRBCDnE8GxG3SINxCas3EwLh1HmdWaIw0FisdKVHCKJMkq9bMEfb3bw"/>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">— Sarah &amp; Bella</span>
+</div>
+</div>
+<!-- Image asset adding calm context -->
+<div class="rounded-xl overflow-hidden border border-outline-variant/20 shadow-sm relative h-48 w-full group">
+<img class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700" data-alt="A tranquil, high-key photograph of a golden retriever resting peacefully on a clean, light-colored modern sofa. A soft teal blanket is draped nearby. Sunlight streams in softly from a nearby window, creating a serene, secure, and comforting 'Safe Harbor' mood with very gentle, diffused shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC60dGORxijNRSU7K_-8FNugpyOm38qQpFWtRSr0PwDaTJS885pjSxux8xMDoYnbca2mfcA0AGlw8gvlZD2iBQOWLQDaA8J4b6cFmuAEyYfBkrQL7efZH99t_VYZwB0L3rETUVwc2LibVTDujEk71Ez_qsCpoKl1CHcZybaDVzLZxrgFwpkg7JJHX6tX2UbVYh-jhOkdMZGAu4Kp2jlAt4cat007_70R_W6KB3rsKRozl66AWHYtlP4NKoGIbG21cZiSw0SB4VlaQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/80 to-transparent flex items-end p-sm">
+<span class="font-label-sm text-label-sm text-surface-bright flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">favorite</span>
+                            Protecting their future
+                        </span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component Output based on JSON specs (Rendered but minimized for visual flow) -->
+<footer class="w-full bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant flex flex-col md:flex-row justify-between items-center px-md py-lg mt-xl max-w-container-max mx-auto">
+<div class="font-label-md text-label-md font-black text-secondary dark:text-secondary-fixed-dim mb-sm md:mb-0">
+            Pet Defender
         </div>
-        <aside class="metric">
-          <div>
-            <div class="value">$25,000</div>
-            <p>claim at stake</p>
-          </div>
-          <p class="muted">Pet Claim Preexisting Trap Kit keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Claim denial intake</button><button class="">Vet timeline builder</button><button class="">Preexisting clause explainer</button><button class="">Missing-record checklist</button><button class="">Appeal letter preview</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>Hospital note flagged vague symptom</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Vet record requested from 2024 visit</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>Clause matched: curable condition exception</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Appeal draft ready for review</span>
-      <em>ready</em>
-    </li>
-  </ul>
+<div class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim text-center md:text-left text-sm max-w-lg mb-sm md:mb-0">
+            © 2024 Pet Defender Asset Protection. This tool provides templates and guidance, not legal advice.
         </div>
-        <div class="workflow">
-    <article>
-      <small>Appeal Packet Builder 1</small>
-      <h3>Claim denial intake</h3>
-      <p>A pet-owner appeal kit that turns denied “preexisting condition” claims into a clean vet-record evidence packet.</p>
-    </article>
-  
-    <article>
-      <small>Appeal Packet Builder 2</small>
-      <h3>Vet timeline builder</h3>
-      <p>A pet-owner appeal kit that turns denied “preexisting condition” claims into a clean vet-record evidence packet.</p>
-    </article>
-  
-    <article>
-      <small>Appeal Packet Builder 3</small>
-      <h3>Preexisting clause explainer</h3>
-      <p>A pet-owner appeal kit that turns denied “preexisting condition” claims into a clean vet-record evidence packet.</p>
-    </article>
-  
-    <article>
-      <small>Appeal Packet Builder 4</small>
-      <h3>Missing-record checklist</h3>
-      <p>A pet-owner appeal kit that turns denied “preexisting condition” claims into a clean vet-record evidence packet.</p>
-    </article>
-  
-    <article>
-      <small>Appeal Packet Builder 5</small>
-      <h3>Appeal letter preview</h3>
-      <p>Output: PDF-style appeal packet</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>PDF-style appeal packet</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex gap-md font-label-sm text-label-sm text-secondary dark:text-secondary-fixed-dim">
+<a class="hover:text-primary hover:underline transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary hover:underline transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-primary hover:underline transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</body></html>

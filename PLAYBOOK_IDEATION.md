@@ -28,6 +28,9 @@ before becoming a prototype.
 - Problem area (1 sentence)
 - Constraints (time, budget, user, platform)
 - External inspiration sweep (required, search-backed): current news, internet communities, niche operator workflows, trend shifts, weird edge-case behaviors, or overlooked boring problems
+- Source-diversity sweep (required): separate the sweep into Hada/current AI-product news, GitHub weekly rising repos, community complaints/questions, and non-web/offline behavior. These are separate lanes, not one blended search bucket.
+- GitHub rising repo pass: collect about 10 repos that are new, fast-rising, or among the most-starred this week. For each, record the repo, why it is getting attention, what user behavior it reveals, and what PF prototype mechanic it could inspire.
+- Hada signals pass: when Hada/news briefing has fresh items, record the new tool/news/repo/controversy and translate it into a changed user behavior. Hada can seed 1-2 final candidates, but should not dominate the batch unless explicitly requested.
 - Need evidence notes: for every daily batch, record at least 5 raw signals and identify which signals show actual user action. At least 3 signals should show pull behavior such as repeated questions, purchases, template use, spreadsheet/manual tracking, hiring help, saving screenshots, or asking strangers for exact advice.
 - Trend keyword pass: include at least one current-culture sweep using `docs/TREND_KEYWORD_BANK.md`. Treat trend keywords as bait/hooks only; a candidate still needs a concrete user, trigger, pull evidence, and arrival path.
 - Novelty target: ensure the output is not just a variation of the operator's recent interests.
@@ -57,6 +60,9 @@ a responsive web app until the format pass has considered alternatives.
 ### 1) Signal Roam
 
 - Record 8-14 raw signals before synthesis.
+- Cover at least 4 source lanes when available: Hada/current news, GitHub rising repos, community/forum chatter, and non-web/offline behavior. If a lane is missing, write why.
+- Add a `GitHub Rising Repo Scan` with roughly 10 repos before candidate drafting. Repos are inspiration evidence, not automatic candidates.
+- Add `Hada Signals` from the latest useful Hada/news brief when available. Convert news into “people will now try/do/fear X” rather than article summaries.
 - Prefer user actions over abstract complaints: repeated questions, screenshots,
   spreadsheets, checklists, templates, marketplace reviews, purchases, agency
   hiring, community replies, saved examples, and manual tracking.
@@ -178,6 +184,10 @@ Default final batch composition:
 - 2 face/body/status/relationship anxiety ideas.
 - 2 education/health/family pressure ideas.
 - 2 strange, shareable, portfolio-worthy, non-web, or field experiments.
+- Source cap: no more than 2 final ideas from the same source lane.
+- Theme cap: no more than 2 final ideas from the same human driver/theme unless the operator explicitly sets that theme.
+- Pattern cap: no more than 2 candidates that are mainly a dashboard, evidence packet, appeal kit, claim defense, or other money-protection mechanic.
+- Trend radar quota: include 1-2 candidates inspired by Hada/GitHub rising signals, but only if they still pass pull/workaround checks.
 
 Hard gates:
 

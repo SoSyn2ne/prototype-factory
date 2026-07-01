@@ -24,6 +24,35 @@ First prove the user is already hunting for an answer.
 
 ## Signal Roam
 
+### Source Lane Checklist
+- Hada/current AI-product news checked:
+- GitHub rising repo scan checked:
+- Community/forum complaint scan checked:
+- Non-web/offline behavior scan checked:
+- Missing lane and reason:
+
+## Hada Signals
+
+### H1 - <tool/news/repo/controversy/date>
+- URL/source:
+- What is newly happening:
+- User behavior this may change:
+- Who will try/fear/copy this:
+- PF mechanic seed:
+- Keep as candidate seed? yes/no and why:
+
+## GitHub Rising Repo Scan
+
+### G1 - <repo owner/name>
+- URL:
+- Why it is rising this week:
+- Stars/growth/time window, if available:
+- What user behavior it reveals:
+- Prototype mechanic seed:
+- Avoid copying:
+
+<!-- Repeat G1-G10 when live GitHub/trending search is available. -->
+
 ### S1 - <source/title/date>
 - URL:
 - Bucket: community question | purchase/review | template/workaround | service/agency | search trend | operator workflow | news/policy | weird behavior
@@ -148,6 +177,14 @@ one possible format.
   - B2B/ops count:
 
 ## Final 8
+
+### Diversity Gate
+- Source lane counts:
+- Theme counts:
+- Money-defense / appeal / proof-packet count:
+- Hada-derived count:
+- GitHub-derived count:
+- Rebalanced or rejected due to over-concentration:
 
 ### p001 - <type>
 

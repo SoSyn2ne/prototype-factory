@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Chargeback Shield - Evidence Export</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#45474a",
+                        "on-error": "#690005",
+                        "secondary-fixed": "#ffdfa0",
+                        "on-surface": "#d4e4fa",
+                        "on-secondary-fixed-variant": "#5c4300",
+                        "on-secondary-fixed": "#261a00",
+                        "surface-container-low": "#0d1c2d",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#c4c6ce",
+                        "error-container": "#93000a",
+                        "secondary": "#ffe2ab",
+                        "on-tertiary-container": "#7c7e86",
+                        "on-tertiary": "#2d3037",
+                        "surface-container-lowest": "#010f1f",
+                        "secondary-fixed-dim": "#fbbc00",
+                        "outline": "#8f9094",
+                        "surface-container-high": "#1c2b3c",
+                        "on-background": "#d4e4fa",
+                        "inverse-on-surface": "#233143",
+                        "on-tertiary-fixed": "#191c21",
+                        "on-secondary-container": "#6d5000",
+                        "primary": "#c6c6ca",
+                        "on-secondary": "#402d00",
+                        "secondary-container": "#ffbf00",
+                        "on-surface-variant": "#c6c6ca",
+                        "inverse-primary": "#5d5e62",
+                        "inverse-surface": "#d4e4fa",
+                        "primary-fixed-dim": "#c6c6ca",
+                        "background": "#051424",
+                        "surface-container-highest": "#273647",
+                        "surface-bright": "#2c3a4c",
+                        "on-primary-fixed": "#1a1c1f",
+                        "surface-variant": "#273647",
+                        "primary-container": "#121417",
+                        "surface-dim": "#051424",
+                        "on-primary-container": "#7d7e82",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#e2e2e6",
+                        "surface": "#051424",
+                        "surface-tint": "#c6c6ca",
+                        "surface-container": "#122131",
+                        "tertiary-fixed": "#e1e2ea",
+                        "on-primary": "#2f3034",
+                        "on-tertiary-fixed-variant": "#44474d",
+                        "on-primary-fixed-variant": "#45474a",
+                        "tertiary": "#c4c6ce",
+                        "tertiary-container": "#11141a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "row-height-standard": "44px",
+                        "margin-page": "24px",
+                        "row-height-dense": "32px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["JetBrains Mono"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["JetBrains Mono"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                        "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low docked left-0 h-full w-64 border-r border-outline-variant flat no shadows flex flex-col py-margin-page gap-unit hidden md:flex shrink-0">
+<div class="px-gutter mb-6">
+<div class="font-display-lg text-display-lg text-secondary-container mb-1">ASSET DEFENSE</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">SECTOR-01</div>
+<button class="w-full bg-secondary-container text-on-secondary-container font-label-caps text-label-caps h-row-height-standard border border-secondary hover:bg-secondary-fixed transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+                LOCKDOWN MODE
+            </button>
+</div>
+<div class="flex flex-col gap-unit flex-grow">
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                Intake
+            </a>
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+                Milestones
+            </a>
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+                Vault
+            </a>
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                Boundaries
+            </a>
+<a class="px-gutter h-row-height-standard flex items-center gap-3 bg-secondary-container text-on-secondary-container border-l-4 border-secondary font-label-caps text-label-caps scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+                Export
+            </a>
+</div>
+<div class="flex flex-col gap-unit mt-auto border-t border-outline-variant pt-4">
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Settings
+            </a>
+<a class="px-gutter h-row-height-standard flex items-center gap-3 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<div class="flex-grow flex flex-col min-w-0 overflow-hidden">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden bg-surface dark:bg-surface docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-gutter h-row-height-standard shrink-0">
+<div class="font-display-lg text-display-lg text-secondary-container dark:text-secondary-container tracking-tighter">CHARGEBACK SHIELD</div>
+<button class="bg-secondary text-on-secondary font-label-caps text-label-caps px-3 py-1 border border-secondary hover:bg-secondary-fixed transition-colors">NEW DEFENSE</button>
+</header>
+<main class="flex-grow overflow-auto p-margin-page bg-surface-dim">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-display-lg text-display-lg text-secondary mb-2">EVIDENCE EXPORT: 자산 방어</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant">CASE ID: TX-88291A-DEF | STATUS: PRE-FLIGHT VERIFICATION</p>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant">DEFENSE INTEGRITY</span>
+<div class="flex items-center gap-2 text-error">
+<span class="material-symbols-outlined fill">shield</span>
+<span class="font-headline-md text-headline-md">LEVEL 1 CRITICAL</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Evidence Ledger -->
+<div class="lg:col-span-2 space-y-4">
+<h2 class="font-headline-md text-headline-md border-b border-outline-variant pb-2">CHARGEBACK EVIDENCE PACKET</h2>
+<div class="bg-surface border border-outline-variant rounded-sm overflow-hidden">
+<!-- Ledger Header -->
+<div class="grid grid-cols-12 gap-2 px-4 h-row-height-standard items-center bg-surface-container-highest border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<div class="col-span-1">STATUS</div>
+<div class="col-span-3">ARTIFACT TYPE</div>
+<div class="col-span-4">SYSTEM HASH / TIMESTAMP</div>
+<div class="col-span-2">SIZE</div>
+<div class="col-span-2 text-right">ACTION</div>
+</div>
+<!-- Ledger Rows -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="grid grid-cols-12 gap-2 px-4 h-row-height-dense items-center border-b border-outline-variant hover:bg-surface-container-high transition-colors font-data-mono text-data-mono">
+<div class="col-span-1 flex justify-center"><span class="material-symbols-outlined text-secondary text-[16px]">verified</span></div>
+<div class="col-span-3 text-on-surface">BUYER_MESSAGES.LOG</div>
+<div class="col-span-4 text-on-surface-variant truncate">0x9a8f...2b1c | 2023-10-24 14:02:11Z</div>
+<div class="col-span-2 text-on-surface-variant">24.5 KB</div>
+<div class="col-span-2 flex justify-end gap-2 text-on-surface-variant">
+<button class="hover:text-secondary"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="grid grid-cols-12 gap-2 px-4 h-row-height-dense items-center border-b border-outline-variant hover:bg-surface-container-high transition-colors font-data-mono text-data-mono">
+<div class="col-span-1 flex justify-center"><span class="material-symbols-outlined text-secondary text-[16px]">verified</span></div>
+<div class="col-span-3 text-on-surface">CARRIER_TRACKING.PDF</div>
+<div class="col-span-4 text-on-surface-variant truncate">0x3c2d...8e4f | 2023-10-24 14:05:33Z</div>
+<div class="col-span-2 text-on-surface-variant">1.2 MB</div>
+<div class="col-span-2 flex justify-end gap-2 text-on-surface-variant">
+<button class="hover:text-secondary"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="grid grid-cols-12 gap-2 px-4 h-row-height-dense items-center border-b border-outline-variant hover:bg-surface-container-high transition-colors font-data-mono text-data-mono">
+<div class="col-span-1 flex justify-center"><span class="material-symbols-outlined text-error text-[16px]">warning</span></div>
+<div class="col-span-3 text-on-surface">APPROVAL_MILESTONES.DAT</div>
+<div class="col-span-4 text-on-surface-variant truncate text-error">SIGNATURE_MISSING | REQ_AUTH</div>
+<div class="col-span-2 text-on-surface-variant">--</div>
+<div class="col-span-2 flex justify-end gap-2 text-on-surface-variant">
+<button class="text-error hover:text-on-error border border-error px-2 py-0.5 font-label-caps text-label-caps">ATTACH</button>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="grid grid-cols-12 gap-2 px-4 h-row-height-dense items-center hover:bg-surface-container-high transition-colors font-data-mono text-data-mono">
+<div class="col-span-1 flex justify-center"><span class="material-symbols-outlined text-secondary text-[16px]">verified</span></div>
+<div class="col-span-3 text-on-surface">DELIVERY_PROOF_IMG.JPG</div>
+<div class="col-span-4 text-on-surface-variant truncate">0x7f1a...9d3e | 2023-10-24 14:10:05Z</div>
+<div class="col-span-2 text-on-surface-variant">3.8 MB</div>
+<div class="col-span-2 flex justify-end gap-2 text-on-surface-variant">
+<button class="hover:text-secondary"><span class="material-symbols-outlined text-[16px]">visibility</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Sidebar -->
+<div class="space-y-6">
+<!-- Summary Card -->
+<div class="bg-surface-container-low border border-outline-variant p-4 space-y-4">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant pb-2">PACKET SUMMARY</h3>
+<div class="space-y-2 font-data-mono text-data-mono">
+<div class="flex justify-between">
+<span class="text-on-surface-variant">TOTAL ARTIFACTS:</span>
+<span class="text-on-surface">4</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">VERIFIED:</span>
+<span class="text-secondary">3</span>
+</div>
+<div class="flex justify-between">
+<span class="text-on-surface-variant">PENDING/WARN:</span>
+<span class="text-error">1</span>
+</div>
+<div class="flex justify-between border-t border-outline-variant pt-2 mt-2">
+<span class="text-on-surface-variant">ESTIMATED SIZE:</span>
+<span class="text-on-surface">5.0 MB</span>
+</div>
+</div>
+</div>
+<!-- Buyer Boundary Receipt -->
+<div class="bg-surface-container-low border border-outline-variant p-4 space-y-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1 h-full bg-secondary"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant pb-2">BUYER BOUNDARY RECEIPT</h3>
+<p class="font-body-sm text-on-surface-variant">Generates a cryptographically signed receipt of all buyer interactions and agreed boundaries prior to dispute.</p>
+<button class="w-full bg-surface text-on-surface border border-outline-variant h-row-height-standard font-label-caps text-label-caps hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                                 PREVIEW RECEIPT
+                             </button>
+</div>
+<!-- Main Action -->
+<div class="pt-4 border-t border-outline-variant">
+<button class="w-full bg-secondary text-on-secondary font-headline-md text-headline-md py-4 border border-secondary hover:bg-secondary-fixed transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[24px]">gavel</span>
+                                GENERATE DEFENSE PACKET
+                            </button>
+<p class="text-center font-label-caps text-label-caps text-error mt-2">ACTION REQUIRES FULL ARTIFACT VERIFICATION</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

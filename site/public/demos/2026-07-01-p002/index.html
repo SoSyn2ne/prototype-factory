@@ -1,164 +1,403 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rent Renewal Comp Duel Demo</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f4f5f2;
-        --ink: #15191d;
-        --muted: #606974;
-        --panel: #ffffff;
-        --soft: #e6e9ed;
-        --line: #c6cbd2;
-        --accent: #245f96;
-        --warn: #a33d35;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rent Renewal Comp Duel - Final Counteroffer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Source+Serif+4:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#b4c5ff",
+                        "inverse-surface": "#2d3133",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#e0e3e5",
+                        "secondary": "#565e74",
+                        "primary-fixed": "#dbe1ff",
+                        "on-surface-variant": "#434655",
+                        "inverse-primary": "#b4c5ff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-container": "#e9f0ff",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "error": "#ba1a1a",
+                        "on-primary-container": "#eeefff",
+                        "secondary-container": "#dae2fd",
+                        "on-primary-fixed": "#00174b",
+                        "surface-bright": "#f7f9fb",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container-low": "#f2f4f6",
+                        "outline": "#737686",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-tint": "#0053db",
+                        "primary-container": "#2563eb",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#004ac6",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-background": "#191c1e",
+                        "on-secondary-container": "#5c647a",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#d3e4fe",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-dim": "#d8dadc",
+                        "tertiary-container": "#5e6e85",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface-container-high": "#e6e8ea",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#46566c",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "background": "#f7f9fb",
+                        "surface-variant": "#e0e3e5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "margin-edge": "32px",
+                        "gutter": "24px",
+                        "container-max": "1200px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["\"Source Serif 4\""],
+                        "display-lg": ["\"Source Serif 4\""],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["\"Source Serif 4\""],
+                        "label-caps": ["Inter"],
+                        "display-lg-mobile": ["\"Source Serif 4\""],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Minimalist scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #c3c6d7;
+            border-radius: 4px;
+        }
     </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Rent Renewal Comp Duel</strong>
-        <small>2026-07-01-p002 · financial-analyst</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p002</span><span>financial-analyst</span><span>자산 방어</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Comp Duel</p>
-          <h1>A renter negotiation room that converts nearby listings, vacancy risk, and good-tenant proof into a calm renewal counteroffer.</h1>
-          <p class="lead">Negotiation email and comp cards로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Draft counteroffer</button>
-            <button class="secondary">Review evidence</button>
-          </div>
-        </div>
-        <aside class="metric">
-          <div>
-            <div class="value">$2,184</div>
-            <p>annual savings angle</p>
-          </div>
-          <p class="muted">Rent Renewal Comp Duel keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Renewal increase intake</button><button class="">Comparable rent evidence</button><button class="">Vacancy-cost counter</button><button class="">Tone-controlled email</button><button class="">Savings scoreboard</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>Same floor unit listed $180 lower</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Move-in special: 6 weeks free</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>Good tenant proof attached</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Calm counteroffer ready</span>
-      <em>ready</em>
-    </li>
-  </ul>
-        </div>
-        <div class="workflow">
-    <article>
-      <small>Comp Duel 1</small>
-      <h3>Renewal increase intake</h3>
-      <p>A renter negotiation room that converts nearby listings, vacancy risk, and good-tenant proof into a calm renewal counteroffer.</p>
-    </article>
-  
-    <article>
-      <small>Comp Duel 2</small>
-      <h3>Comparable rent evidence</h3>
-      <p>A renter negotiation room that converts nearby listings, vacancy risk, and good-tenant proof into a calm renewal counteroffer.</p>
-    </article>
-  
-    <article>
-      <small>Comp Duel 3</small>
-      <h3>Vacancy-cost counter</h3>
-      <p>A renter negotiation room that converts nearby listings, vacancy risk, and good-tenant proof into a calm renewal counteroffer.</p>
-    </article>
-  
-    <article>
-      <small>Comp Duel 4</small>
-      <h3>Tone-controlled email</h3>
-      <p>A renter negotiation room that converts nearby listings, vacancy risk, and good-tenant proof into a calm renewal counteroffer.</p>
-    </article>
-  
-    <article>
-      <small>Comp Duel 5</small>
-      <h3>Savings scoreboard</h3>
-      <p>Output: Negotiation email and comp cards</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>Negotiation email and comp cards</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+</head>
+<body class="bg-surface text-on-surface flex h-screen overflow-hidden antialiased">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface-container-lowest border-r border-outline-variant h-screen w-64 fixed left-0 top-0 flex flex-col py-6 px-4 z-20">
+<!-- Header / Identity -->
+<div class="mb-8 px-2 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A highly detailed, professional corporate headshot of a financial analyst in a modern, well-lit office with a sterile, high-stakes aesthetic. Neutral gray background, sharp focus, 8k resolution, photorealistic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSnOrHnY7FCrzXNCUN5tkSFODRKixFttXO8ZeuPhl_65VUfXr_iicemh-S3GDP8-DyFJXKxl3LzK4nJUOqTh_DXKU9bLWyb12FkVq3W5y0Z8B-KSZ6vbi71H1zqECYb5w9GLUkjKWLKLyLfb7JlJn2JNsxQwYHI1ZeLE9P-yGnHUq019q9hwuE_oz4hqt8s-RvlvpnT9mhaXja-j_o6SDe5lsn2_f8BvgWiC_y1l6a4Q5DpxGzQrbJoK_eht7uDuYUKqBFuKkAXElD"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Savings Scoreboard</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Est. Savings: $4,200/yr</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<ul class="flex flex-col gap-2 flex-1">
+<!-- Dashboard -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+</li>
+<!-- Market Comps -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">compare_arrows</span>
+<span class="font-label-caps text-label-caps">Market Comps</span>
+</a>
+</li>
+<!-- Evidence Locker -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="font-label-caps text-label-caps">Evidence Locker</span>
+</a>
+</li>
+<!-- Counteroffer Builder (ACTIVE) -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded bg-secondary-container text-on-secondary-container font-bold border-r-4 border-primary transition-all duration-200 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px] filled">description</span>
+<span class="font-label-caps text-label-caps">Counteroffer Builder</span>
+</a>
+</li>
+<!-- Audit Log -->
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant hover:bg-surface-container-low transition-all duration-200 active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined text-[20px]">rule</span>
+<span class="font-label-caps text-label-caps">Audit Log</span>
+</a>
+</li>
+</ul>
+<!-- Bottom CTA -->
+<div class="mt-auto pt-4">
+<button class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary py-3 rounded font-label-caps text-label-caps hover:opacity-90 transition-opacity active:scale-95">
+<span class="material-symbols-outlined text-[18px]">add_task</span>
+                Generate Report
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-64 flex-1 flex flex-col h-screen relative bg-surface">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center px-margin-edge h-16 w-full max-w-container-max mx-auto z-10 shrink-0">
+<div class="flex items-center gap-2">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">Rent Renewal Comp Duel</span>
+</div>
+<div class="flex items-center gap-6">
+<!-- Trailing Primary Action -->
+<button class="font-label-caps text-label-caps text-primary hover:text-primary-container transition-colors cursor-pointer active:opacity-80">
+                    Save Draft
+                </button>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">history</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<main class="flex-1 overflow-y-auto w-full max-w-container-max mx-auto px-margin-edge py-8">
+<!-- Page Header & KPI -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-outline-variant pb-6">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Tone-Controlled Negotiation Draft</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">
+                        Review and refine the automated counteroffer. The script dynamically adjusts based on selected tone and verifiable market data.
+                    </p>
+</div>
+<!-- KPI Scoreboard -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT min-w-[240px] text-right shadow-sm">
+<div class="font-label-caps text-label-caps text-secondary mb-1">Estimated Annual Savings</div>
+<div class="font-headline-md text-headline-md text-primary">$4,200.00</div>
+<div class="font-data-mono text-data-mono text-outline mt-1 text-xs">+3.2% vs Initial Offer</div>
+</div>
+</div>
+<!-- 12-Column Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter items-start">
+<!-- LEFT COLUMN: Tone Settings (3 cols) -->
+<aside class="col-span-1 md:col-span-3 flex flex-col gap-6">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5">
+<div class="flex items-center gap-2 mb-4 pb-3 border-b border-surface-container-high">
+<span class="material-symbols-outlined text-secondary text-[20px]">tune</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Script Tone</h3>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Option 1: Firm -->
+<label class="relative flex items-start p-3 border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="mt-1 text-primary focus:ring-primary border-outline" name="tone" type="radio" value="firm"/>
+<div class="ml-3">
+<span class="block font-label-caps text-label-caps text-on-surface">Firm / Aggressive</span>
+<span class="block font-body-md text-body-md text-on-surface-variant mt-1 text-xs">Prioritizes hard data and ultimatums.</span>
+</div>
+</label>
+<!-- Option 2: Cooperative (Active) -->
+<label class="relative flex items-start p-3 border border-primary bg-primary-fixed/20 rounded cursor-pointer">
+<input checked="" class="mt-1 text-primary focus:ring-primary border-primary" name="tone" type="radio" value="cooperative"/>
+<div class="ml-3">
+<span class="block font-label-caps text-label-caps text-on-primary-fixed-variant">Cooperative / Market-Focus</span>
+<span class="block font-body-md text-body-md text-on-surface-variant mt-1 text-xs">Emphasizes shared long-term value and mutual fairness based on comps.</span>
+</div>
+<div class="absolute top-3 right-3 w-2 h-2 rounded-full bg-primary"></div>
+</label>
+<!-- Option 3: Legal/Sterile -->
+<label class="relative flex items-start p-3 border border-outline-variant rounded cursor-pointer hover:bg-surface-container-low transition-colors">
+<input class="mt-1 text-primary focus:ring-primary border-outline" name="tone" type="radio" value="sterile"/>
+<div class="ml-3">
+<span class="block font-label-caps text-label-caps text-on-surface">Sterile / Analytical</span>
+<span class="block font-body-md text-body-md text-on-surface-variant mt-1 text-xs">Pure mathematical breakdown, stripping all emotion.</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Minor Setting: Addendum -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT p-5">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-caps text-label-caps text-secondary">Include Vacancy Math</span>
+<button aria-checked="true" class="relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span aria-hidden="true" class="pointer-events-none inline-block h-4 w-4 translate-x-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant text-xs">
+                            Automatically appends the landlord's estimated loss in a 60-day vacancy scenario to strengthen leverage.
+                        </p>
+</div>
+</aside>
+<!-- CENTER COLUMN: Document Editor (6 cols) -->
+<section class="col-span-1 md:col-span-6 flex flex-col">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT shadow-sm overflow-hidden flex-1 flex flex-col min-h-[600px]">
+<!-- Editor Toolbar -->
+<div class="bg-surface-container-low border-b border-outline-variant px-4 py-2 flex items-center gap-4">
+<div class="flex items-center gap-2 border-r border-outline-variant pr-4">
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">format_bold</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">format_italic</span></button>
+<button class="p-1.5 rounded hover:bg-surface-container text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-secondary">Variables:</span>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded font-data-mono text-[10px] cursor-help">Comp #482</span>
+<span class="bg-tertiary-container text-on-tertiary px-2 py-0.5 rounded font-data-mono text-[10px] cursor-help">Vacancy Loss</span>
+</div>
+</div>
+<!-- Editor Canvas (Simulated Textarea) -->
+<div class="p-8 flex-1 font-body-lg text-body-lg text-on-surface leading-relaxed overflow-y-auto focus:outline-none" contenteditable="true" spellcheck="false">
+<p class="mb-4">Subject: Lease Renewal Counteroffer - Unit 4B</p>
+<p class="mb-4">Dear Management,</p>
+<p class="mb-4">
+                                Thank you for sending over the proposed lease renewal terms for Unit 4B. While I value my tenancy here, the proposed increase to <span class="font-data-mono text-data-mono bg-surface-container-high px-1">$3,850/mo</span> represents a significant deviation from current local market conditions.
+                            </p>
+<p class="mb-4">
+                                I have conducted a thorough review of active listings and recently signed leases within a 0.5-mile radius for comparable 2-bedroom units. Specifically, <span class="bg-secondary-container text-on-secondary-container px-1 font-medium border border-secondary-fixed-dim rounded">Market Comparable ID #482</span> (located at 1045 Horizon Blvd, identical square footage, higher floor) was recently leased at <span class="font-data-mono text-data-mono bg-surface-container-high px-1">$3,400/mo</span>, including updated amenities.
+                            </p>
+<p class="mb-4">
+                                Given this data, my counteroffer for a 12-month renewal is <span class="font-data-mono text-data-mono font-bold bg-primary-fixed text-on-primary-fixed px-1 border border-primary rounded">$3,500/mo</span>.
+                            </p>
+<div class="border-l-2 border-tertiary-container pl-4 my-6 py-2 bg-surface">
+<p class="font-label-caps text-label-caps text-tertiary mb-2 flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calculate</span> Embedded Vacancy Cost Math</p>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                                    For context, should the unit turn over, standard market vacancy averages 45 days. At the proposed rate, a 45-day vacancy results in a gross loss of <span class="font-data-mono text-data-mono bg-surface-container-high px-1">$5,775</span>, excluding prep/cleaning costs and broker fees. Accepting this counteroffer ensures zero days of lost revenue and continuous occupancy by a reliable tenant.
+                                </p>
+</div>
+<p class="mb-4">
+                                I am prepared to sign a new lease immediately at the countered rate. Please let me know by EOD Friday so we can finalize the paperwork.
+                            </p>
+<p class="mb-4">Best regards,<br/>[Your Name]</p>
+</div>
+<!-- Editor Footer / Actions -->
+<div class="bg-surface-container-low border-t border-outline-variant p-4 flex justify-between items-center">
+<span class="font-data-mono text-data-mono text-outline text-xs">Last auto-saved: 2 mins ago</span>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-6 py-3 rounded flex items-center gap-2 hover:bg-surface-tint transition-colors shadow-sm active:scale-95">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+                                Copy Professional Script
+                            </button>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Evidence Board (3 cols) -->
+<aside class="col-span-1 md:col-span-3 flex flex-col">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden h-full">
+<div class="bg-surface-container-highest px-4 py-3 border-b border-outline-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">gavel</span>
+<h3 class="font-label-caps text-label-caps text-on-surface">Evidence Board</h3>
+</div>
+<div class="p-4 flex flex-col gap-4 overflow-y-auto max-h-[700px]">
+<!-- Cited Comp Card (Highlighted) -->
+<div class="border border-primary rounded bg-surface-bright relative shadow-[0_0_0_1px_rgba(37,99,235,0.1)]">
+<div class="absolute top-0 right-0 bg-primary text-on-primary font-label-caps text-[9px] px-2 py-0.5 rounded-bl">CITED IN TEXT</div>
+<!-- Map/Thumbnail Placeholder -->
+<div class="h-24 w-full border-b border-outline-variant bg-surface-container-high relative overflow-hidden">
+<div class="bg-cover bg-center w-full h-full opacity-80 mix-blend-multiply" data-alt="A sterile, high-contrast satellite map view highlighting a specific city block with a blue pin marker. The aesthetic is professional, data-centric, resembling a financial analyst's geographic terminal." data-location="Chicago" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAL9vo2o8Nlrl45WYmS6S5Kk8dEeWgobo3GrQUYAIb2vxEoGhSfBHPHn_LkZawKMSTfS2-rwK6nPr4ifncDxASSJqgDNe8PHLYmQ0Bsao-4YdtQWlMwB5r22-t9WRMzxJUA0py9_Z0IeVJfft1uh4QrGY9yTNDm0J0Gf39dBeScOKjtrVLI-aodCp1NoTR6ivYiQdQonc0M5E3MjOoYtEU5ZxK955TSQi5hOItMlMc4cgbgS_3aLWOMge1TGh1fj_5CMgRpNV1fF5V0')"></div>
+</div>
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-label-caps text-label-caps text-on-surface">ID #482</div>
+<div class="font-data-mono text-data-mono text-primary font-bold">$3,400/mo</div>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-xs mb-2">1045 Horizon Blvd, Unit 12A</div>
+<div class="grid grid-cols-2 gap-2 border-t border-surface-variant pt-2 mt-2">
+<div>
+<div class="font-label-caps text-[9px] text-outline">SQFT</div>
+<div class="font-data-mono text-[11px] text-on-surface">950 (Match)</div>
+</div>
+<div>
+<div class="font-label-caps text-[9px] text-outline">DIFF</div>
+<div class="font-data-mono text-[11px] text-error">-$450/mo</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Supporting Comp Card -->
+<div class="border border-outline-variant rounded bg-surface-container-lowest hover:border-secondary transition-colors cursor-pointer">
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-label-caps text-label-caps text-on-surface">ID #511</div>
+<div class="font-data-mono text-data-mono text-on-surface font-medium">$3,450/mo</div>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-xs mb-2">880 State St, Unit 3C</div>
+<div class="grid grid-cols-2 gap-2 border-t border-surface-variant pt-2 mt-2">
+<div>
+<div class="font-label-caps text-[9px] text-outline">SQFT</div>
+<div class="font-data-mono text-[11px] text-on-surface">920</div>
+</div>
+<div>
+<div class="font-label-caps text-[9px] text-outline">DIFF</div>
+<div class="font-data-mono text-[11px] text-error">-$400/mo</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Supporting Comp Card -->
+<div class="border border-outline-variant rounded bg-surface-container-lowest hover:border-secondary transition-colors cursor-pointer opacity-70">
+<div class="p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-label-caps text-label-caps text-on-surface">ID #209</div>
+<div class="font-data-mono text-data-mono text-on-surface font-medium">$3,600/mo</div>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant text-xs mb-2">122 West Ave, Unit 2B</div>
+<div class="grid grid-cols-2 gap-2 border-t border-surface-variant pt-2 mt-2">
+<div>
+<div class="font-label-caps text-[9px] text-outline">SQFT</div>
+<div class="font-data-mono text-[11px] text-on-surface">980</div>
+</div>
+<div>
+<div class="font-label-caps text-[9px] text-outline">DIFF</div>
+<div class="font-data-mono text-[11px] text-error">-$250/mo</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</div>
+</body></html>

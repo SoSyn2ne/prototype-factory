@@ -3,6 +3,11 @@
 Use this when preparing `/pf idea` or a daily Phase A batch.
 
 1. **Find candidate URLs with Tavily.** Search across news, niche workflows, and community-style chatter. Do not paste or log API keys.
+   Split discovery into source lanes instead of one blended search:
+   - Hada/current AI-product news: fresh tools, repos, model releases, lawsuits, usage shifts, creator/operator debates.
+   - GitHub rising repos: about 10 new/fast-rising/most-starred repos from the current week. Translate each repo into a user behavior or interaction seed.
+   - Community complaints/questions: lived pain and workarounds from Reddit/HN/Product Hunt/forums/Korean communities.
+   - Non-web/offline behavior: kiosks, local devices, workplace rituals, camera/sensor flows, field tools, printables, scripts, spreadsheets, or physical workflows.
 2. **Extract or stub URLs locally.** Tavily is for discovery; Scrapling is only an optional extractor for the pages/comments you choose.
 
 ```bash
@@ -20,7 +25,7 @@ uv pip install scrapling curl-cffi playwright browserforge patchright
 .venv/bin/python scripts/extract-signals.py --file /tmp/pf-urls.txt --format json > /tmp/signals.json
 ```
 
-3. **Paste into `daily/YYYY-MM-DD/ideas.md`.** Put the output under `Search signals` or `External signals`, then replace the TODOs with the actual complaint/desire, who feels it, why now, willingness-to-pay/shareability, and whether it is community chatter.
+3. **Paste into `daily/YYYY-MM-DD/ideas.md`.** Put the output under `Hada Signals`, `GitHub Rising Repo Scan`, `Signal Roam`, or `External Signals`, then replace the TODOs with the actual complaint/desire, who feels it, why now, willingness-to-pay/shareability, and whether it is community chatter.
 4. **Synthesize candidates only after the evidence is written.** Each final idea should cite 1–2 signals, and the batch still needs the recent-7-days near-duplicate check.
 
 If Scrapling is absent, the helper degrades to URL-only stubs and prints an install hint in `extraction_status`; this is acceptable for offline prep, but live ideation should still include real source notes before final candidate selection.

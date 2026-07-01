@@ -1,164 +1,336 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Human Agent Escape Arcade Demo</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #101017;
-        --ink: #f8f7ff;
-        --muted: #b9b4ca;
-        --panel: #1c1b27;
-        --soft: #29263a;
-        --line: #47415e;
-        --accent: #ff6f61;
-        --warn: #ffd166;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arcade Lobby - ESCAPE_ARCADE_SYSTEMS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&amp;family=Geist:wght@400;600&amp;family=Space+Grotesk:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#006970",
+                        "tertiary-container": "#d9d9d9",
+                        "primary": "#dbfcff",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "surface-container-low": "#1b1b1f",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-error-container": "#ffdad6",
+                        "surface-container": "#1f1f23",
+                        "surface-container-lowest": "#0e0e12",
+                        "on-surface": "#e4e1e7",
+                        "inverse-surface": "#e4e1e7",
+                        "inverse-on-surface": "#303034",
+                        "on-tertiary": "#2f3131",
+                        "on-background": "#e4e1e7",
+                        "on-primary-fixed-variant": "#004f54",
+                        "surface": "#131317",
+                        "error-container": "#93000a",
+                        "on-error": "#690005",
+                        "outline-variant": "#3b494b",
+                        "surface-bright": "#39393d",
+                        "on-secondary": "#303032",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-fixed": "#002022",
+                        "surface-container-highest": "#353439",
+                        "secondary": "#c8c6c8",
+                        "primary-container": "#00f0ff",
+                        "secondary-container": "#474649",
+                        "inverse-primary": "#006970",
+                        "on-secondary-fixed": "#1b1b1d",
+                        "on-primary": "#00363a",
+                        "surface-dim": "#131317",
+                        "on-surface-variant": "#b9cacb",
+                        "tertiary": "#f5f5f5",
+                        "surface-tint": "#00dbe9",
+                        "on-secondary-fixed-variant": "#474649",
+                        "background": "#131317",
+                        "outline": "#849495",
+                        "on-tertiary-container": "#5d5f5f",
+                        "error": "#ffb4ab",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "surface-variant": "#353439",
+                        "surface-container-high": "#2a2a2e",
+                        "primary-fixed-dim": "#00dbe9",
+                        "secondary-fixed": "#e5e1e4",
+                        "secondary-fixed-dim": "#c8c6c8",
+                        "on-secondary-container": "#b7b4b7",
+                        "primary-fixed": "#7df4ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit-1": "4px",
+                        "unit-4": "16px",
+                        "unit-8": "32px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px",
+                        "base": "4px",
+                        "unit-2": "8px",
+                        "unit-16": "64px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "label-mono": ["JetBrains Mono"],
+                        "body-main": ["Geist"],
+                        "headline-lg": ["Space Grotesk"],
+                        "script-card-title": ["Geist"],
+                        "status-code": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "display-arcade": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-mono": ["14px", { "lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "script-card-title": ["20px", { "lineHeight": "1.5", "fontWeight": "600" }],
+                        "status-code": ["12px", { "lineHeight": "1.0", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "display-arcade": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .glow {
+            filter: drop-shadow(0 0 4px #00f0ff);
+        }
+        .brutalist-border {
+            border: 1px solid #e4e1e7;
+        }
+        .arcade-button:active {
+            transform: translate(2px, 2px);
+        }
+        .flicker {
+            animation: flicker 0.1s infinite;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
     </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Human Agent Escape Arcade</strong>
-        <small>2026-07-01-p008 · playful-experimental</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p008</span><span>playful-experimental</span><span>역전</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Bot Maze Escape</p>
-          <h1>A consumer mini-game that trains people to break out of AI customer-service loops with escalation phrases, timing, and evidence.</h1>
-          <p class="lead">Escalation path card로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Play escape route</button>
-            <button class="secondary">Review evidence</button>
-          </div>
+</head>
+<body class="bg-surface text-on-surface font-body-main min-h-screen flex flex-col relative overflow-x-hidden">
+<div class="scanline"></div>
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface flex justify-between items-center w-full px-unit-8 h-16 max-w-[1440px] mx-auto z-40 relative">
+<div class="font-display-arcade text-headline-lg text-primary-container uppercase tracking-tighter">
+            ESCAPE_ARCADE
         </div>
-        <aside class="metric">
-          <div>
-            <div class="value">03:40</div>
-            <p>time to human script</p>
-          </div>
-          <p class="muted">Human Agent Escape Arcade keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Scenario picker</button><button class="">Trigger phrase cards</button><button class="">Evidence inventory</button><button class="">Escalation timer</button><button class="">Victory script</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>Refund maze selected</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Trigger phrase: cancel</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>Order evidence attached</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Human-agent script unlocked</span>
-      <em>ready</em>
-    </li>
-  </ul>
+<div class="hidden md:flex space-x-unit-8">
+<a class="text-primary font-bold border-b-2 border-primary-container hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all pb-unit-1" href="#">SCENARIOS</a>
+<a class="text-on-surface-variant font-body-main hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all pb-unit-1" href="#">LEADERBOARD</a>
+<a class="text-on-surface-variant font-body-main hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all pb-unit-1" href="#">RULES</a>
+</div>
+<div class="flex items-center space-x-unit-4">
+<button class="text-primary-container hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all active:translate-y-0.5 active:translate-x-0.5 px-unit-4 py-unit-2 brutalist-border font-label-mono">ESCAPE_NOW</button>
+<span class="material-symbols-outlined text-primary-container hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all cursor-pointer">history_edu</span>
+<span class="material-symbols-outlined text-primary-container hover:text-primary-fixed-dim hover:bg-surface-container-highest transition-all cursor-pointer">settings</span>
+</div>
+<!-- Mobile Bottom Nav Hint (Simulated) -->
+<div class="md:hidden flex justify-between fixed bottom-0 left-0 w-full bg-surface border-t-2 border-outline-variant p-unit-4 z-50">
+<span class="material-symbols-outlined text-primary">videogame_asset</span>
+<span class="material-symbols-outlined text-on-surface-variant">leaderboard</span>
+<span class="material-symbols-outlined text-on-surface-variant">gavel</span>
+</div>
+</nav>
+<div class="w-full border-b-2 border-outline-variant shadow-[0px_0px_10px_rgba(0,219,233,0.3)] absolute top-16 left-0"></div>
+<main class="flex-grow flex flex-col items-center justify-start pt-unit-16 pb-unit-16 px-unit-4 max-w-[1440px] mx-auto w-full z-10">
+<!-- Hero Section -->
+<div class="text-center max-w-[800px] mb-unit-16 w-full px-unit-4">
+<h1 class="font-display-arcade text-display-arcade md:text-[80px] text-error-container tracking-tighter uppercase mb-unit-4 brutalist-border p-unit-8 bg-surface-container-lowest shadow-[0_-4px_12px_rgba(147,0,10,0.2)]">
+                STOP TYPING YOUR LIFE STORY.
+            </h1>
+<p class="font-label-mono text-status-code md:text-[16px] text-primary-fixed-dim bg-surface-container-high p-unit-4 brutalist-border border-outline-variant glow">
+                &gt; The bot doesn't care about your cat. It only needs the word 'CANCEL'. <span class="flicker">_</span>
+</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter w-full max-w-[1200px]">
+<!-- Left Column: Scenarios & Triggers -->
+<div class="lg:col-span-8 flex flex-col gap-unit-8">
+<!-- BOT MAZE SCENARIO PICKER -->
+<section>
+<h2 class="font-label-mono text-script-card-title text-primary-container mb-unit-4 flex items-center">
+<span class="material-symbols-outlined mr-unit-2">gamepad</span> SELECT_SCENARIO
+                    </h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-unit-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-low brutalist-border p-unit-8 hover:border-[3px] hover:border-primary-container transition-all cursor-crosshair group relative overflow-hidden h-48 flex flex-col justify-between">
+<div class="absolute inset-0 bg-gradient-to-br from-surface to-surface-container-highest z-0"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-headline-lg text-script-card-title text-on-surface uppercase group-hover:text-primary-fixed-dim transition-colors">Refund Loop</h3>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container">payments</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-mono text-status-code text-on-surface-variant">LVL: IMPOSSIBLE</p>
+<p class="font-label-mono text-status-code text-on-surface-variant">ETA: 45 MINS</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-low brutalist-border p-unit-8 hover:border-[3px] hover:border-primary-container transition-all cursor-crosshair group relative overflow-hidden h-48 flex flex-col justify-between">
+<div class="absolute inset-0 bg-gradient-to-br from-surface to-surface-container-highest z-0"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-headline-lg text-script-card-title text-on-surface uppercase group-hover:text-primary-fixed-dim transition-colors">Delivery Purgatory</h3>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container">local_shipping</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-mono text-status-code text-on-surface-variant">LVL: HARD</p>
+<p class="font-label-mono text-status-code text-on-surface-variant">ETA: 30 MINS</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-low brutalist-border p-unit-8 hover:border-[3px] hover:border-primary-container transition-all cursor-crosshair group relative overflow-hidden h-48 flex flex-col justify-between">
+<div class="absolute inset-0 bg-gradient-to-br from-surface to-surface-container-highest z-0"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-headline-lg text-script-card-title text-on-surface uppercase group-hover:text-primary-fixed-dim transition-colors">Subscription Trap</h3>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container">block</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-mono text-status-code text-on-surface-variant">LVL: NIGHTMARE</p>
+<p class="font-label-mono text-status-code text-on-surface-variant">ETA: ???</p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-low brutalist-border p-unit-8 hover:border-[3px] hover:border-primary-container transition-all cursor-crosshair group relative overflow-hidden h-48 flex flex-col justify-between">
+<div class="absolute inset-0 bg-gradient-to-br from-surface to-surface-container-highest z-0"></div>
+<div class="relative z-10 flex justify-between items-start">
+<h3 class="font-headline-lg text-script-card-title text-on-surface uppercase group-hover:text-primary-fixed-dim transition-colors">Billing Dispute</h3>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary-container">receipt_long</span>
+</div>
+<div class="relative z-10">
+<p class="font-label-mono text-status-code text-on-surface-variant">LVL: MEDIUM</p>
+<p class="font-label-mono text-status-code text-on-surface-variant">ETA: 15 MINS</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TRIGGER PHRASE CARDS -->
+<section class="mt-unit-8">
+<h2 class="font-label-mono text-script-card-title text-error-container mb-unit-4 flex items-center">
+<span class="material-symbols-outlined mr-unit-2">warning</span> QUICK_TRIGGERS
+                    </h2>
+<div class="flex flex-wrap gap-unit-4">
+<button class="bg-surface-container brutalist-border border-outline-variant px-unit-8 py-unit-4 font-headline-lg text-script-card-title text-on-surface hover:border-[3px] hover:border-error hover:text-error transition-all arcade-button uppercase">AGENT</button>
+<button class="bg-surface-container brutalist-border border-outline-variant px-unit-8 py-unit-4 font-headline-lg text-script-card-title text-on-surface hover:border-[3px] hover:border-error hover:text-error transition-all arcade-button uppercase">REPRESENTATIVE</button>
+<button class="bg-surface-container brutalist-border border-outline-variant px-unit-8 py-unit-4 font-headline-lg text-script-card-title text-on-surface hover:border-[3px] hover:border-error hover:text-error transition-all arcade-button uppercase">ESCALATE</button>
+<button class="bg-surface-container brutalist-border border-outline-variant px-unit-8 py-unit-4 font-headline-lg text-script-card-title text-on-surface hover:border-[3px] hover:border-error hover:text-error transition-all arcade-button uppercase">HUMAN</button>
+</div>
+</section>
+</div>
+<!-- Right Column: Status & Map -->
+<div class="lg:col-span-4 flex flex-col gap-unit-8">
+<!-- EMOTIONAL PRESSURE METER -->
+<section class="bg-surface-container-lowest brutalist-border p-unit-8 flex flex-col gap-unit-4 relative">
+<div class="absolute top-2 right-2 font-label-mono text-error text-status-code animate-pulse">
+                        [LIVE_TRACKING]
+                    </div>
+<h3 class="font-label-mono text-script-card-title text-primary-container">PRESSURE_METER</h3>
+<div>
+<div class="flex justify-between font-label-mono text-status-code text-on-surface-variant mb-unit-1">
+<span>TIME_WASTED</span>
+<span class="text-error">42:00</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 brutalist-border flex">
+<!-- 10 segments -->
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-mono text-status-code text-on-surface-variant mb-unit-1">
+<span>MONEY_AT_RISK</span>
+<span class="text-error-container">$120.00</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 brutalist-border flex">
+<div class="flex-1 bg-error-container border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error-container border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-error-container border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high border-r border-surface-container-lowest"></div>
+<div class="flex-1 bg-surface-container-high"></div>
+</div>
+</div>
+<div class="mt-unit-4 flex items-center justify-between font-headline-lg text-script-card-title text-primary-container">
+<span>REVERSE_STATUS:</span>
+<span class="bg-primary-container text-on-primary-container px-unit-2 py-unit-1 brutalist-border">역전</span>
+</div>
+</section>
+<!-- ESC-PATH MINI-MAP -->
+<section class="bg-surface-container-low brutalist-border p-unit-8 flex-grow">
+<h3 class="font-label-mono text-script-card-title text-primary-container mb-unit-4">ESC-PATH_MINI-MAP</h3>
+<div class="flex flex-col space-y-unit-4 relative pl-unit-4">
+<!-- Vertical Line -->
+<div class="absolute left-6 top-4 bottom-4 w-1 bg-outline-variant z-0"></div>
+<!-- Step 1 -->
+<div class="flex items-center space-x-unit-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-primary-container glow flex items-center justify-center"></div>
+<span class="font-label-mono text-status-code text-on-surface">Bot Greeting</span>
+</div>
+<!-- Step 2 -->
+<div class="flex items-center space-x-unit-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-high border-2 border-primary-container glow flex items-center justify-center relative overflow-hidden">
+<div class="absolute inset-0 bg-primary-container/20 flicker"></div>
+</div>
+<span class="font-label-mono text-status-code text-primary-fixed-dim">IVR Loop 1</span>
+</div>
+<!-- Step 3 -->
+<div class="flex items-center space-x-unit-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border-2 border-outline-variant flex items-center justify-center"></div>
+<span class="font-label-mono text-status-code text-on-surface-variant">IVR Loop 2</span>
+</div>
+<!-- Step 4 -->
+<div class="flex items-center space-x-unit-4 relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border-2 border-outline-variant flex items-center justify-center"></div>
+<span class="font-label-mono text-status-code text-on-surface-variant">Human Connection</span>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest border-t-2 border-error-container shadow-[0_-4px_12px_rgba(147,0,10,0.2)] flex justify-around items-center w-full py-unit-2 px-unit-8 z-40 relative mt-auto">
+<div class="font-label-mono text-error uppercase animate-pulse text-status-code">
+            © 2024 ESCAPE_ARCADE_SYSTEMS // REVERSE_ENGINEER_AI
         </div>
-        <div class="workflow">
-    <article>
-      <small>Bot Maze Escape 1</small>
-      <h3>Scenario picker</h3>
-      <p>A consumer mini-game that trains people to break out of AI customer-service loops with escalation phrases, timing, and evidence.</p>
-    </article>
-  
-    <article>
-      <small>Bot Maze Escape 2</small>
-      <h3>Trigger phrase cards</h3>
-      <p>A consumer mini-game that trains people to break out of AI customer-service loops with escalation phrases, timing, and evidence.</p>
-    </article>
-  
-    <article>
-      <small>Bot Maze Escape 3</small>
-      <h3>Evidence inventory</h3>
-      <p>A consumer mini-game that trains people to break out of AI customer-service loops with escalation phrases, timing, and evidence.</p>
-    </article>
-  
-    <article>
-      <small>Bot Maze Escape 4</small>
-      <h3>Escalation timer</h3>
-      <p>A consumer mini-game that trains people to break out of AI customer-service loops with escalation phrases, timing, and evidence.</p>
-    </article>
-  
-    <article>
-      <small>Bot Maze Escape 5</small>
-      <h3>Victory script</h3>
-      <p>Output: Escalation path card</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>Escalation path card</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<div class="flex space-x-unit-8">
+<a class="text-on-surface-variant opacity-70 font-status-code font-status-code hover:text-error-container cursor-crosshair" href="#">TIME_STOLEN_METER</a>
+<a class="text-on-surface-variant opacity-70 font-status-code font-status-code hover:text-error-container cursor-crosshair" href="#">MONEY_WASTED_TRACKER</a>
+<a class="text-on-surface-variant opacity-70 font-status-code font-status-code hover:text-error-container cursor-crosshair" href="#">VICTORY_LOGS</a>
+</div>
+</footer>
+</body></html>

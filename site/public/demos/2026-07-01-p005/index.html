@@ -1,164 +1,408 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Custom Order Chargeback Shield Demo</title>
-    <style>
-      :root {
-        color-scheme: dark;
-        --bg: #111418;
-        --ink: #edf2f0;
-        --muted: #a6b0b4;
-        --panel: #1b2027;
-        --soft: #252d36;
-        --line: #3a4651;
-        --accent: #d79a2b;
-        --warn: #e05f4f;
-        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Delivery Proof Vault - Chargeback Shield</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "outline-variant": "#45474a",
+                    "on-error": "#690005",
+                    "secondary-fixed": "#ffdfa0",
+                    "on-surface": "#d4e4fa",
+                    "on-secondary-fixed-variant": "#5c4300",
+                    "on-secondary-fixed": "#261a00",
+                    "surface-container-low": "#0d1c2d",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed-dim": "#c4c6ce",
+                    "error-container": "#93000a",
+                    "secondary": "#ffe2ab",
+                    "on-tertiary-container": "#7c7e86",
+                    "on-tertiary": "#2d3037",
+                    "surface-container-lowest": "#010f1f",
+                    "secondary-fixed-dim": "#fbbc00",
+                    "outline": "#8f9094",
+                    "surface-container-high": "#1c2b3c",
+                    "on-background": "#d4e4fa",
+                    "inverse-on-surface": "#233143",
+                    "on-tertiary-fixed": "#191c21",
+                    "on-secondary-container": "#6d5000",
+                    "primary": "#c6c6ca",
+                    "on-secondary": "#402d00",
+                    "secondary-container": "#ffbf00",
+                    "on-surface-variant": "#c6c6ca",
+                    "inverse-primary": "#5d5e62",
+                    "inverse-surface": "#d4e4fa",
+                    "primary-fixed-dim": "#c6c6ca",
+                    "background": "#051424",
+                    "surface-container-highest": "#273647",
+                    "surface-bright": "#2c3a4c",
+                    "on-primary-fixed": "#1a1c1f",
+                    "surface-variant": "#273647",
+                    "primary-container": "#121417",
+                    "surface-dim": "#051424",
+                    "on-primary-container": "#7d7e82",
+                    "on-error-container": "#ffdad6",
+                    "primary-fixed": "#e2e2e6",
+                    "surface": "#051424",
+                    "surface-tint": "#c6c6ca",
+                    "surface-container": "#122131",
+                    "tertiary-fixed": "#e1e2ea",
+                    "on-primary": "#2f3034",
+                    "on-tertiary-fixed-variant": "#44474d",
+                    "on-primary-fixed-variant": "#45474a",
+                    "tertiary": "#c4c6ce",
+                    "tertiary-container": "#11141a"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "gutter": "12px",
+                    "row-height-standard": "44px",
+                    "margin-page": "24px",
+                    "row-height-dense": "32px"
+            },
+            "fontFamily": {
+                    "display-lg": ["JetBrains Mono", "monospace"],
+                    "headline-lg-mobile": ["JetBrains Mono", "monospace"],
+                    "data-mono": ["JetBrains Mono", "monospace"],
+                    "label-caps": ["JetBrains Mono", "monospace"],
+                    "headline-md": ["JetBrains Mono", "monospace"],
+                    "body-sm": ["Inter", "sans-serif"],
+                    "body-md": ["Inter", "sans-serif"]
+            },
+            "fontSize": {
+                    "display-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+                    "data-mono": ["13px", { "lineHeight": "16px", "fontWeight": "500" }],
+                    "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+                    "headline-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                    "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+            }
+          }
+        }
       }
-      * { box-sizing: border-box; }
-      body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); }
-      button, input, textarea { font: inherit; }
-      .topbar { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(18px, 4vw, 54px); border-bottom: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 88%, var(--panel)); }
-      .brand { display: flex; flex-direction: column; gap: 2px; }
-      .brand strong { font-size: 17px; }
-      .brand small, .muted { color: var(--muted); }
-      .pillrow { display: flex; flex-wrap: wrap; gap: 8px; }
-      .pillrow span, .status, .tabs button { border: 1px solid var(--line); background: var(--soft); color: var(--ink); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; }
-      .shell { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 28px 0 42px; display: grid; gap: 18px; }
-      .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
-      .panel, .metric, .workflow article, .output { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; }
-      .panel { padding: clamp(18px, 3vw, 30px); }
-      h1 { margin: 0; font-size: clamp(28px, 3.8vw, 44px); line-height: 1.08; letter-spacing: 0; max-width: 850px; }
-      .lead { margin: 16px 0 0; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 720px; }
-      .hero-actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; }
-      .primary { border: 0; background: var(--accent); color: #101014; border-radius: 8px; padding: 12px 16px; font-weight: 800; cursor: pointer; }
-      .secondary { border: 1px solid var(--line); background: transparent; color: var(--ink); border-radius: 8px; padding: 11px 15px; font-weight: 750; cursor: pointer; }
-      .metric { padding: 20px; display: grid; align-content: space-between; min-height: 230px; }
-      .metric .value { font-size: clamp(42px, 8vw, 82px); line-height: .9; font-weight: 900; color: var(--accent); }
-      .metric p { margin: 8px 0 0; color: var(--muted); }
-      .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 2px; }
-      .tabs button { white-space: nowrap; cursor: pointer; }
-      .tabs button.active { background: var(--accent); color: #101014; border-color: var(--accent); }
-      .main-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; }
-      .queue { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-      .queue li { min-height: 58px; border: 1px solid var(--line); background: var(--soft); border-radius: 8px; padding: 12px; display: grid; grid-template-columns: 42px minmax(0, 1fr) auto; gap: 12px; align-items: center; }
-      .queue strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-      .queue span { line-height: 1.35; }
-      .queue em { font-style: normal; color: var(--warn); font-size: 12px; font-weight: 800; text-transform: uppercase; }
-      .workflow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-      .workflow article { padding: 16px; min-height: 150px; }
-      .workflow small { display: block; color: var(--accent); font-weight: 850; margin-bottom: 8px; }
-      .workflow h3 { margin: 0 0 8px; font-size: 20px; }
-      .workflow p { margin: 0; color: var(--muted); line-height: 1.45; }
-      .output { padding: 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
-      .output h2 { margin: 0 0 6px; font-size: 24px; }
-      .output p { margin: 0; color: var(--muted); }
-      @media (max-width: 840px) {
-        .hero, .main-grid, .output { grid-template-columns: 1fr; }
-        .workflow { grid-template-columns: 1fr; }
-        .topbar { align-items: flex-start; flex-direction: column; }
-      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for ledger feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #051424; 
+            border-left: 1px solid #45474a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #273647; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #45474a; 
+        }
     </style>
-  </head>
-  <body>
-    <header class="topbar">
-      <div class="brand">
-        <strong>Custom Order Chargeback Shield</strong>
-        <small>2026-07-01-p005 · operator-dense</small>
-      </div>
-      <div class="pillrow"><span>phase-a</span><span>p005</span><span>operator-dense</span><span>자산 방어</span></div>
-    </header>
-    <main class="shell">
-      <section class="hero">
-        <div class="panel">
-          <p class="status">Boundary Receipt Room</p>
-          <h1>A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</h1>
-          <p class="lead">Buyer receipt and evidence packet로 바로 이어지는 입력, 판정, 문안 생성 흐름을 한 화면에서 검증합니다.</p>
-          <div class="hero-actions">
-            <button class="primary">Export dispute packet</button>
-            <button class="secondary">Review evidence</button>
-          </div>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-hidden font-body-md antialiased selection:bg-secondary selection:text-on-secondary">
+<!-- Mobile TopNav (Visible only on small screens) -->
+<header class="md:hidden w-full sticky top-0 z-50 bg-surface dark:bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-row-height-standard">
+<div class="font-display-lg text-display-lg text-secondary-container dark:text-secondary-container tracking-tighter">
+            CHARGEBACK SHIELD
         </div>
-        <aside class="metric">
-          <div>
-            <div class="value">86%</div>
-            <p>evidence completeness</p>
-          </div>
-          <p class="muted">Custom Order Chargeback Shield keeps the painful decision visible before the user slips back into scattered notes.</p>
-        </aside>
-      </section>
-      <nav class="tabs"><button class="active">Order risk intake</button><button class="">Approval milestones</button><button class="">Delivery proof vault</button><button class="">Buyer boundary receipt</button><button class="">Dispute evidence export</button></nav>
-      <section class="main-grid">
-        <div class="panel">
-          <h2>Live Work Queue</h2>
-          <ul class="queue">
-    <li>
-      <strong>01</strong>
-      <span>Custom spec approved</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>02</strong>
-      <span>Change request timestamped</span>
-      <em>watch</em>
-    </li>
-  
-    <li>
-      <strong>03</strong>
-      <span>UPS delivery proof saved</span>
-      <em>done</em>
-    </li>
-  
-    <li>
-      <strong>04</strong>
-      <span>Chargeback packet assembled</span>
-      <em>ready</em>
-    </li>
-  </ul>
-        </div>
-        <div class="workflow">
-    <article>
-      <small>Boundary Receipt Room 1</small>
-      <h3>Order risk intake</h3>
-      <p>A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</p>
-    </article>
-  
-    <article>
-      <small>Boundary Receipt Room 2</small>
-      <h3>Approval milestones</h3>
-      <p>A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</p>
-    </article>
-  
-    <article>
-      <small>Boundary Receipt Room 3</small>
-      <h3>Delivery proof vault</h3>
-      <p>A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</p>
-    </article>
-  
-    <article>
-      <small>Boundary Receipt Room 4</small>
-      <h3>Buyer boundary receipt</h3>
-      <p>A pre-sale proof kit for custom sellers that builds delivery, approval, and boundary receipts before a buyer can reverse the charge.</p>
-    </article>
-  
-    <article>
-      <small>Boundary Receipt Room 5</small>
-      <h3>Dispute evidence export</h3>
-      <p>Output: Buyer receipt and evidence packet</p>
-    </article>
-  </div>
-      </section>
-      <section class="output">
-        <div>
-          <h2>Buyer receipt and evidence packet</h2>
-          <p>The demo preserves the concept intent while Stitch export is unavailable; replace with original Stitch HTML when the export lands.</p>
-        </div>
-        <button class="primary">Copy final script</button>
-      </section>
-    </main>
-    <script src="./assets/app.js" defer></script>
-  </body>
-</html>
+<button class="text-on-surface hover:bg-surface-container-high transition-colors p-1">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen w-64 docked left-0 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant py-margin-page gap-unit flex-shrink-0">
+<div class="px-gutter mb-6">
+<div class="font-display-lg text-display-lg text-secondary-container tracking-tighter flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+                ASSET DEFENSE
+            </div>
+<div class="font-data-mono text-data-mono text-secondary mt-1">SECTOR-01</div>
+</div>
+<div class="flex-grow flex flex-col gap-1 px-2">
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">security</span>
+                Intake
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">fact_check</span>
+                Milestones
+            </a>
+<!-- Active Navigation Item: Vault -->
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container border-l-4 border-secondary font-label-caps text-label-caps uppercase scale-95 transition-transform" href="#" style="transform-origin: left center;">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+                Vault
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                Boundaries
+            </a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[18px]">upload_file</span>
+                Export
+            </a>
+</div>
+<div class="px-4 mt-auto mb-4">
+<button class="w-full bg-error-container text-on-error-container border border-error font-label-caps text-label-caps uppercase py-2 flex items-center justify-center gap-2 hover:bg-error hover:text-on-error transition-colors">
+<span class="material-symbols-outlined text-[16px]">lock</span>
+                LOCKDOWN MODE
+            </button>
+</div>
+<div class="flex flex-col gap-1 px-2 border-t border-outline-variant pt-4 mx-2">
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[16px]">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps uppercase" href="#">
+<span class="material-symbols-outlined text-[16px]">help</span>
+                Support
+            </a>
+</div>
+<div class="px-gutter mt-2 flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">Operator Profile</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col h-screen overflow-hidden bg-background relative">
+<!-- Desktop TopNavBar (Sub-nav for the workspace) -->
+<div class="hidden md:flex w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-outline-variant flex justify-between items-center px-gutter h-row-height-standard flex-shrink-0">
+<div class="flex gap-6 h-full">
+<!-- Inactive -->
+<a class="flex items-center h-full px-2 text-on-surface-variant font-medium font-data-mono text-data-mono hover:bg-surface-container-high transition-colors" href="#">Risk Intake</a>
+<!-- Inactive -->
+<a class="flex items-center h-full px-2 text-on-surface-variant font-medium font-data-mono text-data-mono hover:bg-surface-container-high transition-colors" href="#">Milestones</a>
+<!-- Active -->
+<a class="flex items-center h-full px-2 text-on-surface border-b-2 border-secondary font-bold font-data-mono text-data-mono hover:bg-surface-container-high transition-colors opacity-80" href="#">Proof Vault</a>
+<!-- Inactive -->
+<a class="flex items-center h-full px-2 text-on-surface-variant font-medium font-data-mono text-data-mono hover:bg-surface-container-high transition-colors" href="#">Receipts</a>
+<!-- Inactive -->
+<a class="flex items-center h-full px-2 text-on-surface-variant font-medium font-data-mono text-data-mono hover:bg-surface-container-high transition-colors" href="#">Export</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-data-mono text-on-surface-variant">OPERATOR_0821</span>
+<button class="bg-secondary text-on-secondary font-label-caps text-label-caps uppercase px-4 h-[28px] hover:bg-secondary-fixed-dim transition-colors">NEW DEFENSE</button>
+</div>
+</div>
+<!-- Scrollable Workspace -->
+<div class="flex-grow overflow-y-auto p-4 md:p-6 lg:p-8">
+<!-- Page Header / Control Panel -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 pb-4 border-b border-outline-variant gap-4">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wider flex items-center gap-2">
+                        Delivery Proof Vault
+                        <span class="bg-secondary/10 text-secondary border border-secondary px-2 py-0.5 font-label-caps text-label-caps tracking-widest">자산 방어</span>
+</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-2 flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse"></span>
+                        SYSTEM ACTIVE - ENFORCING LEDGER INTEGRITY
+                    </p>
+</div>
+<div class="flex items-center gap-2 font-data-mono text-data-mono">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+<input class="bg-surface-container border border-outline-variant text-on-surface pl-8 pr-3 py-1 text-[12px] focus:border-secondary focus:ring-0 outline-none w-48 placeholder:text-outline" placeholder="QUERY ORDER ID..." type="text"/>
+</div>
+<button class="border border-outline-variant bg-surface hover:bg-surface-container-highest px-3 py-1 flex items-center gap-1 transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> FILTER
+                    </button>
+</div>
+</div>
+<!-- Dashboard Stats Row -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-outline-variant mb-6 border border-outline-variant">
+<div class="bg-surface p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">TOTAL ASSETS LOGGED</span>
+<span class="font-display-lg text-display-lg text-on-surface">1,402</span>
+</div>
+<div class="bg-surface p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">VERIFIED RECEIPTS</span>
+<span class="font-display-lg text-display-lg text-primary">1,389</span>
+</div>
+<div class="bg-surface p-4 flex flex-col justify-center border-b-2 border-secondary">
+<span class="font-label-caps text-label-caps text-secondary mb-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> RISK EXPOSURE
+                    </span>
+<span class="font-display-lg text-display-lg text-secondary">13</span>
+</div>
+<div class="bg-surface p-4 flex flex-col justify-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">LAST SYNC</span>
+<span class="font-data-mono text-data-mono text-on-surface">14:02:44 GMT</span>
+</div>
+</div>
+<!-- High-Density Grid: Compact Proof Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+<!-- Card 1: Missing Documentation (Amber Risk Accent) -->
+<div class="bg-surface-container border border-secondary flex flex-col group relative overflow-hidden">
+<div class="absolute top-0 right-0 w-8 h-8 bg-secondary/10 flex items-center justify-center rounded-bl">
+<span class="material-symbols-outlined text-secondary text-[16px]">priority_high</span>
+</div>
+<div class="p-2 border-b border-outline-variant bg-surface-container-high flex justify-between items-center">
+<span class="bg-secondary text-on-secondary font-label-caps text-label-caps px-1.5 py-0.5">MISSING DOC</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: ORD-9921-A</span>
+</div>
+<div class="h-32 bg-surface relative flex items-center justify-center p-4 border-b border-outline-variant" data-alt="A glitching digital interface displaying an error message for a missing shipping receipt. The screen shows fragmented data blocks and scanning lines in a stark modern-brutalist style. The color palette is dominated by deep blacks and surface grays, with prominent warning accents in high-contrast amber. The mood is tense and technical, indicating a breach in data integrity within a highly secure asset defense terminal." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCwNttjwVUmpF9BSIjBEdzzzYX1ym2FTpqvTR88x3NoKCAQ8Y4CMOMnOU2sKnIrjF0j_tewXxbJ5p97jtAepL1HAO_CUuNH9UEc5ksJlfH60xl3B1EYl6z7k0kQQKWDZeELwo3ELHLtDoRrhyHQ69IEOvqdlJ7NayCJgyBh0-TUGHb6yY_Ww-f971TFIuiW-9ccZ71VY9aa7X8dA1bE16qXPE4UaCDW6ouCldnbsE4JKalzq_V4Zpsyhi7hzCEtu7uF36b82EpUC8U')">
+<div class="absolute inset-0 bg-background/60 flex flex-col items-center justify-center backdrop-blur-[2px]">
+<span class="material-symbols-outlined text-secondary text-3xl mb-2">scan_delete</span>
+<span class="font-data-mono text-data-mono text-secondary text-center max-w-[80%] leading-tight">AWAITING CARRIER<br/>SIGNATURE</span>
+</div>
+</div>
+<div class="p-2 flex flex-col gap-1 font-data-mono text-data-mono text-[11px]">
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">T-STAMP</span>
+<span class="text-secondary animate-pulse">PENDING</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">COORD</span>
+<span class="text-on-surface">34.0522° N, 118.2437° W</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-on-surface-variant">VALUE</span>
+<span class="text-on-surface">$4,250.00</span>
+</div>
+</div>
+<button class="w-full py-1.5 bg-surface-container-highest hover:bg-secondary hover:text-on-secondary text-secondary font-label-caps text-label-caps border-t border-secondary transition-colors uppercase">
+                        Request Resync
+                    </button>
+</div>
+<!-- Card 2: Packing Photo (Verified) -->
+<div class="bg-surface-container border border-outline-variant flex flex-col group hover:border-on-surface-variant transition-colors">
+<div class="p-2 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="bg-tertiary-container text-tertiary font-label-caps text-label-caps px-1.5 py-0.5 border border-tertiary/30">PACKING LOG</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: ORD-9920-B</span>
+</div>
+<div class="h-32 relative border-b border-outline-variant overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center opacity-80 mix-blend-luminosity grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="A high-contrast, security-camera style photograph of a custom luxury electronic item being meticulously packed into a protective hardcase shipping crate. The image is framed within a digital interface, featuring faint alignment grids and technical overlays. The lighting is stark, cold, and industrial, highlighting the precise geometry of the packaging. The mood conveys absolute security, methodical procedure, and technical rigor within a secure logistics facility." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDf1sSzjHxY5eanVOLh3JWBdXujRJ_mYmOj8zEAum_aGzhesoybs_Hcs2doeQg3CIQWsyzUOIus5jXrKquJSRYYUjPzYPjgjQYvrHHypKsSVMwDdZKctuCDKhZx8O59egM7ZxBGkCWiCIKWGpTEfHDA4JIIlW1TZ1UzBirawAFpOs_WLfwAjWJMUzGRnOHW9UqRwsrJrDLA1vC5qwc9gdlTBHQ-te95AANogxON6R-ddPFqOTlL-3gvcxBMHByZ1RT-oE0XfN-2nlo')"></div>
+<div class="absolute inset-0 shadow-[inset_0_0_20px_rgba(5,20,36,0.8)] pointer-events-none"></div>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+</div>
+</div>
+<div class="p-2 flex flex-col gap-1 font-data-mono text-data-mono text-[11px]">
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">T-STAMP</span>
+<span class="text-on-surface">08:14:22Z</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">OPERATOR</span>
+<span class="text-on-surface">PKG_UNIT_4</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-on-surface-variant">WEIGHT</span>
+<span class="text-on-surface">2.4 KG</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Tracking Screenshot (Verified) -->
+<div class="bg-surface-container border border-outline-variant flex flex-col group hover:border-on-surface-variant transition-colors">
+<div class="p-2 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="bg-surface-bright text-on-surface font-label-caps text-label-caps px-1.5 py-0.5 border border-outline-variant">FEDEX SYNC</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: ORD-9918-C</span>
+</div>
+<div class="h-32 relative border-b border-outline-variant bg-surface-container-lowest flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-cover bg-center opacity-60 mix-blend-screen" data-alt="A highly stylized, macro crop of a digital logistics tracking interface displaying an interactive map and routing data. The aesthetic is extremely dense and technical, resembling a military or advanced financial terminal. Thin, precise lines map out a delivery route against a near-black background, overlaid with columns of tiny monospace coordinate data. The lighting is emitted solely from the UI elements themselves, in stark whites and muted cyans." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBSQMZAocyeIjt4eqw6A0Hq5Ga0KxXNYaP4JorPgY6E_lx_9NojwxZ-mjWpYYo0_KZHp6DBIDbpoweeQzCSVPMEy-FXnP_A3KvQIDTIf7CffAgKyPLDLFqiwh6c8VrnFQgn5fEa99aO21jShi81cR_vDesEjDcHVVuwFK-b8_obRNHCz5U1yrs9TP3iTtxwJ21dnAmBQ2WdOC5fdyCJDWDA8A_VvYv4o5Ugamf9cE0iByKmj8C2n3727g6uwY-1VbTotCEP_dQSx2E')"></div>
+<div class="absolute bottom-2 right-2 bg-surface/90 border border-outline-variant px-1 font-data-mono text-[9px] text-on-surface backdrop-blur-sm">SECURE_LNK_OK</div>
+</div>
+<div class="p-2 flex flex-col gap-1 font-data-mono text-data-mono text-[11px]">
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">TRK#</span>
+<span class="text-on-surface">7894...2190</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">STATUS</span>
+<span class="text-primary flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">check_circle</span> DELIVERED</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-on-surface-variant">NODE</span>
+<span class="text-on-surface">CHG-HUB-09</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Signed Receipt (Verified) -->
+<div class="bg-surface-container border border-outline-variant flex flex-col group hover:border-on-surface-variant transition-colors">
+<div class="p-2 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="bg-primary-container text-primary font-label-caps text-label-caps px-1.5 py-0.5 border border-primary/30">SIG CAPTURE</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: ORD-9915-D</span>
+</div>
+<div class="h-32 relative border-b border-outline-variant overflow-hidden bg-white/5">
+<div class="absolute inset-0 bg-contain bg-no-repeat bg-center opacity-70 mix-blend-lighten" data-alt="A stark, high-contrast negative scan of a signed delivery manifest. The background is a dense, textured black, while the digital signature and printed text glow in a harsh, unearthly white. The document is overlaid with a subtle, geometric alignment grid, giving it the appearance of forensic evidence being analyzed in a high-tech laboratory environment. The visual tone is brutalist, uncompromising, and strictly focused on indisputable proof." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCUOsCicPJ0LEzw2HoHC4oSWyRrr2bfx7UrjpBH0WcGGfNan03ExKL3uI33iRJ7KHO6TGVrZcY6qkQzNK9e_08h8ePIayMZNza0ffzkz_wZriP-gSfLc2PONJzPem3C92bHui0N1pse40M9V-vtlKxK0uHcj6Z-uCdoOhpJYG_cSWzQyXkXSt0pJCgG1XmYUb8-KU4SMsFru9t5It4p2zgW9_6Hz_XyEzB5WX-Nn78UvKr3CmWQU9P2fOQI7sLbK9XiaS37feElRLc')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container to-transparent"></div>
+</div>
+<div class="p-2 flex flex-col gap-1 font-data-mono text-data-mono text-[11px]">
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">T-STAMP</span>
+<span class="text-on-surface">11:05:59Z</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">SIGNATORY</span>
+<span class="text-on-surface truncate max-w-[100px] text-right">J. DOE (AUTH)</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-on-surface-variant">IP LOG</span>
+<span class="text-on-surface">192.168.1.1</span>
+</div>
+</div>
+</div>
+<!-- Repeat structural elements for density feel without taking too much generation time -->
+<!-- Card 5: Packing Photo (Verified) -->
+<div class="bg-surface-container border border-outline-variant flex flex-col group hover:border-on-surface-variant transition-colors opacity-80">
+<div class="p-2 border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<span class="bg-tertiary-container text-tertiary font-label-caps text-label-caps px-1.5 py-0.5 border border-tertiary/30">PACKING LOG</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-[10px]">ID: ORD-9912-E</span>
+</div>
+<div class="h-32 relative border-b border-outline-variant overflow-hidden flex items-center justify-center bg-surface-container-highest">
+<span class="material-symbols-outlined text-outline-variant text-4xl">inventory</span>
+<div class="absolute top-2 left-2 flex gap-1">
+<span class="w-1.5 h-1.5 bg-outline-variant rounded-full"></span>
+</div>
+</div>
+<div class="p-2 flex flex-col gap-1 font-data-mono text-data-mono text-[11px]">
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">T-STAMP</span>
+<span class="text-on-surface">ARCHIVED</span>
+</div>
+<div class="flex justify-between border-b border-outline-variant border-dashed pb-1">
+<span class="text-on-surface-variant">OPERATOR</span>
+<span class="text-on-surface">AUTO_SYS_1</span>
+</div>
+<div class="flex justify-between pt-1">
+<span class="text-on-surface-variant">HASH</span>
+<span class="text-on-surface text-[9px]">0x8F9...2A1B</span>
+</div>
+</div>
+</div>
+</div>
+<!-- End of scroll space -->
+<div class="h-12"></div>
+</div>
+</main>
+</body></html>
