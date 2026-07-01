@@ -1,0 +1,54 @@
+# PRD - World Cup Ticket Replacement Clock
+
+## Problem
+- Your match ticket vanished, the flight is booked, and “comparable” might mean worse seats across town.
+- Users are already relying on manual workarounds: screenshots, emails, spreadsheets, community advice, or ad hoc scripts.
+
+## Target user
+- Fans and friend groups whose resale World Cup or concert tickets get canceled close to travel or event day.
+
+## One-liner
+- A fan crisis room for canceled resale tickets that tracks refund deadlines, replacement quality, written escalation, and travel-risk proof.
+
+## Key UX
+- Users log ticket, travel, and replacement details; compare “comparable” seat quality; generate written escalation; and share a countdown card with the group.
+
+## Required UI sections
+- Event countdown panic header
+- Canceled ticket evidence locker
+- Replacement quality comparator
+- Refund/escalation script builder
+- Group travel risk card
+
+## Design profile
+- playful-experimental
+- Design direction: bold tournament energy, collectible ticket-card visuals, vivid but readable countdown states, and a celebratory recovery card when replacement quality is acceptable.
+
+## Theme
+- 외로움
+
+## Source signal references
+- S14: The Guardian, 2026-06-27 - https://www.theguardian.com/us-news/2026/jun/27/stubhub-world-cup-resale-ticket
+
+## Output artifact
+- Escalation letter, complaint checklist, and shareable group risk card
+
+## Constraints
+- Time: Phase A only; no custom demo implementation.
+- Budget: Stitch prompt and scaffold only.
+- Platform: responsive web app prototype generated later by Stitch.
+
+## Non-goals
+- Do not implement a custom demo in Phase A.
+- Do not call external LLM APIs.
+
+## Success metrics
+- User can understand the trigger in 3 seconds.
+- User can complete the core crisis clock flow.
+- User receives Escalation letter, complaint checklist, and shareable group risk card.
+
+## Stitch prompt
+
+```text
+Create a responsive web app called "World Cup Ticket Replacement Clock" for Fans and friend groups whose resale World Cup or concert tickets get canceled close to travel or event day.. The app is based on observed user pull: S14: World Cup fans report canceled StubHub resale tickets, lost travel money, poor customer service, and inferior replacement offers. The app should use a crisis clock around the trigger moment "Your match ticket vanished, the flight is booked, and “comparable” might mean worse seats across town." and make the first screen communicate "Your match ticket vanished, the flight is booked, and “comparable” might mean worse seats across town.". Use the user's own language: "A fan crisis room for canceled resale tickets that tracks refund deadlines, replacement quality, written escalation, and travel-risk proof.". Build the core workflow around replacement fairness duel and produce Escalation letter, complaint checklist, and shareable group risk card. Required sections: Event countdown panic header; Canceled ticket evidence locker; Replacement quality comparator; Refund/escalation script builder; Group travel risk card. Emotional pressure to make visible: 외로움, with concrete money, time, status, relationship, or health stakes. Design direction: use the `playful-experimental` profile with bold tournament energy, collectible ticket-card visuals, vivid but readable countdown states, and a celebratory recovery card when replacement quality is acceptable. Avoid generic dashboard framing; make the main interaction feel like a crisis clock. Do not make a marketing landing page; the first screen must be the working product experience.
+```

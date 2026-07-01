@@ -1,0 +1,20 @@
+# Product Passport QR Sprint
+
+A small-seller passport studio that turns product materials, repair notes, and supplier gaps into a first EU-ready QR label plan.
+
+## Phase A
+- Slot: p007
+- Practical vs fun: Practical / Commercial
+- Design profile: premium-editorial
+- Theme: 자산 방어
+- Expected Stitch drop: `/home/sy/Downloads/stitch_drop/2026-07-02/p007/`
+
+## Source Signals
+- S10: DigiProdPass guide, 2026-06 - https://digiprodpass.com/blogs/digital-product-passport-guide
+- S11: Reddit r/BuyFromEU, 2025/2026 discussion - https://www.reddit.com/r/BuyFromEU/comments/1kn0r2g/digital_product_passport_in_eu/
+
+## Stitch Prompt
+
+```text
+Create a responsive web app called "Product Passport QR Sprint" for Small apparel, accessory, and lifestyle sellers preparing for EU Digital Product Passport expectations without a compliance team.. The app is based on observed user pull: S10: Under ESPR Article 13, the EU must establish the Digital Product Passport Registry by 19 July 2026. S11: A software engineer asks sellers whether they have started collecting DPP data such as materials, CO2 footprint, and repair info. The app should use a QR label sprint around the trigger moment "The EU passport deadline is not a PDF problem; it is every missing material fact on your product page." and make the first screen communicate "The EU passport deadline is not a PDF problem; it is every missing material fact on your product page.". Use the user's own language: "A small-seller passport studio that turns product materials, repair notes, and supplier gaps into a first EU-ready QR label plan.". Build the core workflow around passport field assembler and produce Product passport QR draft and supplier-data request memo. Required sections: Product data intake; Material and supplier evidence gaps; Repair/care info editor; QR label preview; EU readiness memo. Emotional pressure to make visible: 자산 방어, with concrete money, time, status, relationship, or health stakes. Design direction: use the `premium-editorial` profile with refined editorial product cards, archival typography, polished QR/label mockups, and one ink-black CTA for requesting missing supplier data. Avoid generic dashboard framing; make the main interaction feel like a QR label sprint. Do not make a marketing landing page; the first screen must be the working product experience.
+```
