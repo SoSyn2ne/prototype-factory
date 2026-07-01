@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const endpoint = process.env.CHROME_DEBUG_URL || 'http://127.0.0.1:9222';
+const launchHeadless = process.env.STITCH_LAUNCH_HEADLESS === '1';
 const id = process.env.PF_ID || process.argv[2];
 const prompt = process.env.STITCH_PROMPT || process.argv.slice(3).join(' ');
 if (!id || !prompt) {
@@ -17,11 +18,26 @@ const dlDir = process.env.STITCH_DL_DIR || path.join('/home/sy/Downloads/stitch_
 await fs.mkdir(outDir, { recursive: true });
 await fs.mkdir(dlDir, { recursive: true });
 
-const browser = await puppeteer.connect({
-  browserURL: endpoint,
-  defaultViewport: null,
-  protocolTimeout: Number(process.env.STITCH_PROTOCOL_TIMEOUT_MS || 300000),
-});
+const browser = launchHeadless
+  ? await puppeteer.launch({
+      executablePath: process.env.CHROME_PATH || '/opt/google/chrome/chrome',
+      headless: process.env.STITCH_HEADLESS_MODE === '0' ? false : 'new',
+      userDataDir: process.env.STITCH_CHROME_PROFILE || `${process.env.HOME}/.openclaw/chrome-stitch-debug`,
+      defaultViewport: null,
+      protocolTimeout: Number(process.env.STITCH_PROTOCOL_TIMEOUT_MS || 300000),
+      args: [
+        '--no-sandbox',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-features=OptimizationGuideOnDeviceModel,OptimizationGuideModelDownloading,OptimizationHintsFetching,OptimizationTargetPrediction',
+        '--no-first-run',
+      ],
+    })
+  : await puppeteer.connect({
+      browserURL: endpoint,
+      defaultViewport: null,
+      protocolTimeout: Number(process.env.STITCH_PROTOCOL_TIMEOUT_MS || 300000),
+    });
 let page = (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com') && !p.url().includes('/projects/'))
   || (await browser.pages()).find((p) => p.url().includes('stitch.withgoogle.com'))
   || await browser.newPage();
@@ -250,4 +266,8 @@ if (process.env.STITCH_FAST_EXIT === '1') {
   process.exit(0);
 }
 console.log(JSON.stringify({ id, url: page.url(), title: await page.title().catch(() => ''), dlDir, files, newZipFiles }, null, 2));
-await browser.disconnect();
+if (launchHeadless) {
+  await browser.close();
+} else {
+  await browser.disconnect();
+}
