@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fine-Risk Patch Checklist &amp; Packet Export</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary": "#c6c6c7",
+                      "tertiary-fixed-dim": "#ffb5a0",
+                      "on-surface": "#e3e2e2",
+                      "secondary-fixed-dim": "#c6c6c7",
+                      "on-primary-fixed-variant": "#474746",
+                      "surface-container-highest": "#343535",
+                      "on-error": "#690005",
+                      "surface-container": "#1f2020",
+                      "on-background": "#e3e2e2",
+                      "tertiary-fixed": "#ffdbd1",
+                      "surface-variant": "#343535",
+                      "on-primary-container": "#848282",
+                      "surface-tint": "#c8c6c5",
+                      "inverse-primary": "#5f5e5e",
+                      "on-secondary-fixed": "#1a1c1c",
+                      "error-container": "#93000a",
+                      "surface-container-lowest": "#0d0e0f",
+                      "on-tertiary-fixed": "#3b0900",
+                      "primary-container": "#1a1a1a",
+                      "on-tertiary-fixed-variant": "#872000",
+                      "error": "#ffb4ab",
+                      "outline": "#8e9192",
+                      "secondary-container": "#454747",
+                      "on-tertiary": "#601400",
+                      "surface-container-high": "#292a2a",
+                      "surface": "#121414",
+                      "on-secondary-fixed-variant": "#454747",
+                      "on-tertiary-container": "#f24100",
+                      "secondary-fixed": "#e2e2e2",
+                      "primary-fixed": "#e5e2e1",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-primary": "#313030",
+                      "tertiary-container": "#390800",
+                      "surface-dim": "#121414",
+                      "inverse-surface": "#e3e2e2",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-fixed": "#1c1b1b",
+                      "surface-bright": "#383939",
+                      "primary": "#c8c6c5",
+                      "on-secondary": "#2f3131",
+                      "surface-container-low": "#1b1c1c",
+                      "tertiary": "#ffb5a0",
+                      "outline-variant": "#444748",
+                      "inverse-on-surface": "#303031",
+                      "on-surface-variant": "#c4c7c7",
+                      "on-secondary-container": "#b4b5b5",
+                      "background": "#121414"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "gutter": "12px",
+                      "margin": "16px",
+                      "container-max-width": "1440px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "code-md": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "code-md": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopAppBar (Transactional/Intent focus, so nav shell suppressed, but top app bar kept for identity) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin h-14 bg-surface-container-highest dark:bg-surface-container-highest border-b border-outline-variant dark:border-outline-variant transition-colors duration-100 ease-linear">
+<div class="flex items-center gap-4">
+<span class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface dark:text-on-surface">Fee Font Menu Rehearsal</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest border border-outline-variant px-2 py-1 rounded">Fine Risk Status</span>
+<button class="hidden material-symbols-outlined text-on-surface hover:bg-surface-variant rounded p-1 transition-colors">menu</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-20 px-margin pb-24 md:pl-[100px] max-w-container-max-width mx-auto w-full">
+<div class="mb-8">
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Patch Packet Export</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Final summary of applied compliance patches. Verify all items before generating the final export packet for legal review.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Checklist Section -->
+<section class="lg:col-span-8 bg-surface-container rounded border border-outline-variant p-margin shadow-sm">
+<div class="flex justify-between items-center mb-6 pb-4 border-b border-outline-variant">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">checklist</span>
+                        Implementation Audit
+                    </h2>
+<div class="px-3 py-1 rounded border border-outline-variant bg-surface-container-high text-on-surface font-label-caps text-label-caps flex items-center gap-2" id="risk-status">
+<span class="w-2 h-2 rounded-full bg-outline-variant" id="status-indicator"></span>
+<span id="status-text">Risk Level: PENDING</span>
+</div>
+</div>
+<div class="space-y-unit" id="checklist-container">
+<!-- Item 1 -->
+<label class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="relative flex items-start pt-1">
+<input checked="" class="compliance-check peer sr-only" type="checkbox"/>
+<div class="w-5 h-5 border border-outline-variant bg-surface flex items-center justify-center peer-checked:bg-on-surface peer-checked:border-on-surface transition-colors rounded-sm">
+<span class="material-symbols-outlined text-surface text-[14px] opacity-0 peer-checked:opacity-100 font-bold">close</span>
+</div>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg text-on-surface font-bold group-hover:text-primary transition-colors">Menu Typography Updated</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Font weights for secondary fee disclosures adjusted to meet minimum contrast ratio (4.5:1).</p>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant">
+                            #PTCH-001
+                        </div>
+</label>
+<!-- Item 2 -->
+<label class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="relative flex items-start pt-1">
+<input checked="" class="compliance-check peer sr-only" type="checkbox"/>
+<div class="w-5 h-5 border border-outline-variant bg-surface flex items-center justify-center peer-checked:bg-on-surface peer-checked:border-on-surface transition-colors rounded-sm">
+<span class="material-symbols-outlined text-surface text-[14px] opacity-0 peer-checked:opacity-100 font-bold">close</span>
+</div>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg text-on-surface font-bold group-hover:text-primary transition-colors">QR Flow Disclosure Inserted</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Mandatory preliminary fee warning injected before payload execution on mobile endpoints.</p>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant">
+                            #PTCH-002
+                        </div>
+</label>
+<!-- Item 3 -->
+<label class="flex items-start gap-4 p-4 border border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer group">
+<div class="relative flex items-start pt-1">
+<input class="compliance-check peer sr-only" type="checkbox"/>
+<div class="w-5 h-5 border border-outline-variant bg-surface flex items-center justify-center peer-checked:bg-on-surface peer-checked:border-on-surface transition-colors rounded-sm">
+<span class="material-symbols-outlined text-surface text-[14px] opacity-0 peer-checked:opacity-100 font-bold">close</span>
+</div>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg text-on-surface font-bold group-hover:text-primary transition-colors">Receipt Footer Revised</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Surcharge itemization explicitly detailed per Section 4.b regulatory guidelines.</p>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant">
+                            #PTCH-003
+                        </div>
+</label>
+<!-- Item 4 -->
+<label class="flex items-start gap-4 p-4 border border-[4px] border-l-[#FF4500] border-outline-variant bg-surface-container-high hover:bg-surface-bright transition-colors cursor-pointer group" id="item-4-container">
+<div class="relative flex items-start pt-1">
+<input class="compliance-check peer sr-only" type="checkbox"/>
+<div class="w-5 h-5 border border-outline-variant bg-surface flex items-center justify-center peer-checked:bg-on-surface peer-checked:border-on-surface transition-colors rounded-sm">
+<span class="material-symbols-outlined text-surface text-[14px] opacity-0 peer-checked:opacity-100 font-bold">close</span>
+</div>
+</div>
+<div class="flex-grow">
+<h3 class="font-body-lg text-body-lg text-on-surface font-bold group-hover:text-primary transition-colors">Staff Trained on Script</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Verbal fee disclosure rehearsal logged and signed by all active floor personnel.</p>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant">
+                            #PTCH-004
+                        </div>
+</label>
+</div>
+</section>
+<!-- Export Panel -->
+<section class="lg:col-span-4 flex flex-col gap-gutter">
+<div class="bg-surface-container-high border border-outline-variant p-margin rounded h-full flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-4 border-b border-outline-variant pb-2">Packet Assembly</h2>
+<div class="flex-grow space-y-4">
+<div class="flex justify-between items-center py-2 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Total Patches</span>
+<span class="font-code-md text-code-md text-on-surface font-bold">4</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Verified</span>
+<span class="font-code-md text-code-md text-on-surface font-bold" id="verified-count">2</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Target Format</span>
+<span class="font-code-md text-code-md text-on-surface">Encrypted PDF</span>
+</div>
+<div class="flex justify-between items-center py-2 border-b border-surface-variant">
+<span class="font-body-md text-body-md text-on-surface-variant">Ledger Hash</span>
+<span class="font-code-md text-code-md text-on-surface-variant truncate w-32">0x8F9A...C4B2</span>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-outline-variant">
+<button class="w-full bg-surface-variant text-on-surface-variant font-label-caps text-label-caps py-4 rounded border border-outline-variant transition-colors flex items-center justify-center gap-2 cursor-not-allowed" disabled="" id="export-btn">
+<span class="material-symbols-outlined">lock</span>
+                            EXPORT PATCH PACKET
+                        </button>
+<p class="font-body-sm text-body-sm text-center text-on-surface-variant mt-3" id="export-hint">All checks must be cleared to generate export.</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="flex flex-col md:flex-row justify-between items-center px-margin py-gutter border-t-2 border-on-surface bg-surface-container-high dark:bg-surface-container-high mt-auto md:ml-20">
+<div class="font-label-caps text-label-caps text-primary mb-4 md:mb-0">
+            © 2024 COMPLIANCE REHEARSAL SYSTEM
+        </div>
+<div class="flex gap-4">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Generate Patch Packet</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Export Legal Ledger</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Contact Counsel</a>
+</div>
+</footer>
+<!-- SideNavBar (Hidden on mobile, strict 20px w-20 desktop layout) -->
+<nav class="hidden md:flex fixed left-0 top-14 bottom-0 flex-col items-center py-4 z-40 bg-surface-container dark:bg-surface-container border-r border-outline-variant dark:border-outline-variant w-20">
+<!-- Intent: Patch Packet Export. Closest match in labels: none direct, but contextually this is related to finishing audits. No specific tab is 'active' for this transactional view as per semantic mandate. -->
+<a class="w-full flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors mb-2 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">restaurant_menu</span>
+<span class="font-label-caps text-label-caps text-[9px] text-center w-full leading-tight">Menu View</span>
+</a>
+<a class="w-full flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors mb-2 group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">qr_code_2</span>
+<span class="font-label-caps text-label-caps text-[9px] text-center w-full leading-tight">QR View</span>
+</a>
+<a class="w-full flex flex-col items-center justify-center py-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-container-high transition-colors group" href="#">
+<span class="material-symbols-outlined mb-1 group-hover:scale-110 transition-transform">receipt_long</span>
+<span class="font-label-caps text-label-caps text-[9px] text-center w-full leading-tight">Receipt View</span>
+</a>
+</nav>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('.compliance-check');
+            const verifiedCountEl = document.getElementById('verified-count');
+            const exportBtn = document.getElementById('export-btn');
+            const exportHint = document.getElementById('export-hint');
+            const riskStatusEl = document.getElementById('risk-status');
+            const statusIndicator = document.getElementById('status-indicator');
+            const statusText = document.getElementById('status-text');
+            const item4Container = document.getElementById('item-4-container');
+
+            function updateStatus() {
+                const total = checkboxes.length;
+                const checked = document.querySelectorAll('.compliance-check:checked').length;
+                
+                verifiedCountEl.textContent = checked;
+
+                // Handle specific visual styles for violations
+                checkboxes.forEach(cb => {
+                    const container = cb.closest('label');
+                    if(!cb.checked) {
+                         container.classList.add('border-l-[4px]', 'border-l-[#FF4500]');
+                         container.classList.remove('border');
+                    } else {
+                         container.classList.remove('border-l-[4px]', 'border-l-[#FF4500]');
+                         container.classList.add('border');
+                    }
+                });
+
+
+                if (checked === total) {
+                    // SAFE State
+                    riskStatusEl.className = 'px-3 py-1 rounded border border-[#262626] bg-[#262626] text-white font-label-caps text-label-caps flex items-center gap-2';
+                    statusIndicator.className = 'w-2 h-2 rounded-full bg-white';
+                    statusText.textContent = 'Risk Level: SAFE';
+                    statusText.className = 'text-white';
+
+                    exportBtn.disabled = false;
+                    exportBtn.className = 'w-full bg-[#F2F2F2] text-black font-label-caps text-label-caps py-4 rounded border border-transparent transition-colors flex items-center justify-center gap-2 hover:bg-white active:scale-[0.98] shadow-sm';
+                    exportBtn.innerHTML = '<span class="material-symbols-outlined" style="font-variation-settings: \'FILL\' 1;">download</span>EXPORT PATCH PACKET';
+                    exportHint.textContent = 'Packet ready for ledger execution.';
+                    exportHint.className = 'font-body-sm text-body-sm text-center text-primary mt-3';
+
+                } else {
+                    // PENDING / AT RISK State
+                    riskStatusEl.className = 'px-3 py-1 rounded border border-white bg-transparent text-white font-label-caps text-label-caps flex items-center gap-2';
+                    statusIndicator.className = 'w-2 h-2 rounded-full bg-white';
+                    statusText.textContent = 'Risk Level: PENDING';
+
+                    exportBtn.disabled = true;
+                    exportBtn.className = 'w-full bg-surface-variant text-on-surface-variant font-label-caps text-label-caps py-4 rounded border border-outline-variant transition-colors flex items-center justify-center gap-2 cursor-not-allowed';
+                    exportBtn.innerHTML = '<span class="material-symbols-outlined">lock</span>EXPORT PATCH PACKET';
+                    exportHint.textContent = 'All checks must be cleared to generate export.';
+                    exportHint.className = 'font-body-sm text-body-sm text-center text-on-surface-variant mt-3';
+                }
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', updateStatus);
+            });
+
+            // Initial call to set state based on default HTML
+            updateStatus();
+        });
+    </script>
+</body></html>

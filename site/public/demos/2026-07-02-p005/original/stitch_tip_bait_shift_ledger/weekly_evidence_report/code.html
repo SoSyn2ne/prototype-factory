@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Aggregation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-highest": "#353534",
+                      "surface-tint": "#c6c6c7",
+                      "surface-bright": "#393939",
+                      "on-tertiary-fixed-variant": "#005321",
+                      "outline-variant": "#444748",
+                      "primary-container": "#e2e2e2",
+                      "inverse-on-surface": "#313030",
+                      "inverse-primary": "#5d5f5f",
+                      "background": "#131313",
+                      "primary-fixed": "#e2e2e2",
+                      "on-error": "#690005",
+                      "on-primary-fixed": "#1a1c1c",
+                      "on-tertiary-container": "#007432",
+                      "outline": "#8e9192",
+                      "surface": "#131313",
+                      "error": "#ffb4ab",
+                      "primary-fixed-dim": "#c6c6c7",
+                      "on-secondary-fixed-variant": "#7a3000",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-low": "#1c1b1b",
+                      "on-surface": "#e5e2e1",
+                      "on-tertiary-fixed": "#002109",
+                      "secondary-fixed-dim": "#ffb693",
+                      "on-secondary": "#561f00",
+                      "surface-container-lowest": "#0e0e0e",
+                      "on-secondary-fixed": "#351000",
+                      "secondary": "#ffb693",
+                      "on-surface-variant": "#c4c7c8",
+                      "tertiary-fixed-dim": "#4ae176",
+                      "surface-variant": "#353534",
+                      "on-primary-container": "#636565",
+                      "surface-container-high": "#2a2a2a",
+                      "tertiary-fixed": "#6bff8f",
+                      "surface-dim": "#131313",
+                      "inverse-surface": "#e5e2e1",
+                      "surface-container": "#201f1f",
+                      "on-tertiary": "#003915",
+                      "on-background": "#e5e2e1",
+                      "error-container": "#93000a",
+                      "secondary-container": "#fe6b00",
+                      "on-primary": "#2f3131",
+                      "tertiary-container": "#6bff8f",
+                      "primary": "#ffffff",
+                      "secondary-fixed": "#ffdbcc",
+                      "on-secondary-container": "#572000",
+                      "tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#454747"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "md": "16px",
+                      "margin-mobile": "16px",
+                      "sm": "12px",
+                      "xl": "32px",
+                      "lg": "24px",
+                      "touch-target": "48px",
+                      "gutter": "16px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "data-lg": [
+                              "JetBrains Mono"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "headline-sm": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ],
+                      "data-md": [
+                              "JetBrains Mono"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "data-lg": [
+                              "20px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-sm": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row antialiased">
+<!-- NavigationDrawer (Hidden on mobile) -->
+<nav class="hidden md:flex flex-col h-full w-64 bg-surface-container border-r-2 border-outline-variant p-md shrink-0 sticky top-0 h-screen">
+<div class="mb-lg">
+<div class="flex items-center gap-sm mb-xs">
+<img class="w-12 h-12 rounded-full border-2 border-outline-variant object-cover" data-alt="A rugged, high-contrast avatar placeholder image. It should depict a stark, silhouetted profile against an industrial gray background, emphasizing utility and anonymity suitable for a professional delivery driver interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY1Vdz-d7fIJnPsR-1AGIuiORy2t7OTF4GErQabmlx26xZ0ga7MsJ_UjyPzkN2Cb4TJephb-Yr3FXw9THqDvuBXRkt6mPhjUvUfJ_a8AHRWV4jqIUeEGbJjuMsZ5UszmHnr4aNpv6v9lKiE4SS1aLP6IzImLwvR7pUpWZ0dcgEnVMnGgxxytgCng4nP5ICn2US0Uw6Ue-wBhdSAs9tQ-iR1xQyFiAepxh-S-aN4fCbMAixCZcwlJdzj4isPzNKf_Pqfj7tmW2nd3o"/>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">OPERATOR_082</h2>
+<p class="font-data-md text-data-md text-on-surface-variant">Field Status: ACTIVE</p>
+</div>
+</div>
+<p class="font-data-md text-data-md text-outline-variant text-xs">v1.0.4-RUGGED</p>
+</div>
+<ul class="flex flex-col gap-base flex-1">
+<li>
+<a class="flex items-center gap-sm p-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-label-caps">Shift History</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-caps text-label-caps">Platform Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded text-secondary-container font-bold bg-surface-container-highest transition-transform translate-x-1" href="#">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="font-label-caps text-label-caps">Evidence Vault</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-sm p-sm rounded text-on-surface-variant hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-label-caps text-label-caps">Support Log</span>
+</a>
+</li>
+</ul>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 pb-[64px] md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-background border-b-2 border-surface-container-highest flex justify-between items-center w-full px-margin-mobile h-touch-target sticky top-0 z-40">
+<div class="flex items-center gap-sm text-primary">
+<span class="material-symbols-outlined hover:bg-surface-container-highest cursor-pointer p-xs rounded transition-transform scale-95">security</span>
+</div>
+<h1 class="font-headline-md text-headline-md md:text-headline-md-mobile font-extrabold text-primary uppercase tracking-tighter">FIELD LEDGER</h1>
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined hover:bg-surface-container-highest cursor-pointer p-xs rounded">sensors</span>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 p-margin-mobile md:p-lg max-w-5xl mx-auto w-full flex flex-col gap-lg">
+<!-- Page Header & Summary -->
+<section class="flex flex-col gap-sm">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase">WEEKLY EVIDENCE REPORT</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-xs">Week of Oct 12: <span class="text-error font-data-md">-$86.50 Total Tip Bait Loss</span></p>
+</div>
+<div class="hidden md:flex items-center border border-tertiary-container px-sm py-xs rounded bg-surface-container text-tertiary-container">
+<span class="material-symbols-outlined text-sm mr-xs">check_circle</span>
+<span class="font-label-caps text-label-caps">Ready for Platform Support</span>
+</div>
+</div>
+</section>
+<!-- Action Area -->
+<section class="bg-surface-container-low border-2 border-outline-variant p-md rounded-DEFAULT flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div class="flex-1">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-xs">SUPPORT NOTE PREVIEW</h3>
+<p class="font-data-md text-data-md text-on-surface p-sm bg-surface-container-lowest border border-surface-container-highest rounded-sm font-mono text-sm">
+                        REIMBURSEMENT CLAIM: Discrepancy detected across 4 orders where offered amount was $14.00 and actual was $5.00. Please review attached ledger evidence.
+                    </p>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps h-touch-target px-lg rounded flex items-center gap-sm hover:bg-primary-container transition-colors whitespace-nowrap shrink-0 border-2 border-primary">
+<span class="material-symbols-outlined">content_copy</span>
+                    COPY SUPPORT NOTE
+                </button>
+</section>
+<!-- Evidence List -->
+<section class="flex flex-col gap-sm">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-xs border-b border-surface-container-highest pb-xs">INCIDENT LEDGER</h3>
+<!-- Card 1 -->
+<div class="bg-surface border border-outline-variant rounded p-sm flex flex-col md:flex-row gap-md hover:border-secondary-container transition-colors relative">
+<div class="absolute top-sm right-sm font-data-md text-data-md text-on-surface-variant">
+                        12/10 14:32
+                    </div>
+<div class="w-full md:w-32 h-24 bg-surface-container-highest border border-outline-variant rounded flex items-center justify-center shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="A stark, high-contrast screenshot of a delivery app interface showing an initial offer of $15.50. The screenshot is framed tightly within a rugged UI element, emphasizing the numerical offer value against a dark digital map background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoYyxt46WfiY-FzOcKgEc9LRtalKS6NPVfjzmJo4J9NEngjs2q-dIp7HcclofkFF4uLSWxZ2D1GkrwwZwjaw3GJpHak3WUXYjvR1Vax5skWzIi2U5xL24SBBJRO-zQ0Hv-vYT9IC2rNpa8MJXK5zN1uEgMMFtQHAGE5IFxzCc2GlUOHItsV2iArmiAuQepEVrpRId8UvvWwrPbmqNt3h2ltcn4aYLAPxOioRv_wdq6l-r21LoMm1Y0D7mIwfuGZsLWpSrBNvgH8cE"/>
+<div class="absolute inset-0 ring-1 ring-inset ring-outline-variant"></div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-xs">Order ID: #A892-XT</h4>
+<div class="flex gap-lg font-data-md text-data-md">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">OFFERED</span>
+<span class="text-primary">$15.50</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">ACTUAL</span>
+<span class="text-error">$5.50</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">LOSS</span>
+<span class="text-secondary-container">-$10.00</span>
+</div>
+</div>
+</div>
+<div class="mt-md pt-sm border-t border-surface-container-highest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                                Route Time: 42m
+                            </span>
+<span class="font-data-md text-data-md text-outline-variant">Platform Claim: Tip reduced post-delivery.</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface border border-outline-variant rounded p-sm flex flex-col md:flex-row gap-md hover:border-secondary-container transition-colors relative">
+<div class="absolute top-sm right-sm font-data-md text-data-md text-on-surface-variant">
+                       11/10 19:15
+                   </div>
+<div class="w-full md:w-32 h-24 bg-surface-container-highest border border-outline-variant rounded flex items-center justify-center shrink-0 overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-80 hover:opacity-100 transition-opacity" data-alt="A grim, low-light screenshot capture of a delivery confirmation screen showing a slashed payout amount. The text 'Customer adjusted tip' is barely visible, presented as raw visual evidence within an industrial-style dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnCJhn-k_HAACEcG-dUb2AH7k7oHMSILADy3XXrZ1kO2mWe-Kux9wPtGzLmur97_E0n88TgfqK1ROtIg32by-FPoe3ZBJmY-2G1mfKqvpMEI-NxJfyBoNvM_jeL0wnpBcnFezTN9_KwelusXgpVhammTmCUPRge_uN6e-a4DW1L7ajktAs960ywBe__MIazHnm5igsJP3uCApdSHHIlKcVWBUxceHg-v0EZTvzujMUpMsf2-DK0mrEmDgTsVQL9UHw9EGPDxtZPKE"/>
+<div class="absolute inset-0 ring-1 ring-inset ring-outline-variant"></div>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div>
+<h4 class="font-headline-sm text-headline-sm text-primary mb-xs">Order ID: #B104-YQ</h4>
+<div class="flex gap-lg font-data-md text-data-md">
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">OFFERED</span>
+<span class="text-primary">$22.00</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">ACTUAL</span>
+<span class="text-error">$10.00</span>
+</div>
+<div class="flex flex-col">
+<span class="text-on-surface-variant text-xs">LOSS</span>
+<span class="text-secondary-container">-$12.00</span>
+</div>
+</div>
+</div>
+<div class="mt-md pt-sm border-t border-surface-container-highest flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">schedule</span>
+                               Route Time: 58m
+                           </span>
+<span class="font-data-md text-data-md text-outline-variant">Platform Claim: Customer reported missing item.</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-stretch h-[64px] bg-surface border-t-2 border-surface-container-highest">
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mb-xs">format_list_bulleted</span>
+<span class="font-label-caps text-label-caps">INCIDENTS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant h-full w-full hover:bg-surface-container-high transition-colors" href="#">
+<span class="material-symbols-outlined mb-xs">analytics</span>
+<span class="font-label-caps text-label-caps">PATTERNS</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-none h-full w-full opacity-80" href="#">
+<span class="material-symbols-outlined mb-xs" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-caps text-label-caps">REPORTS</span>
+</a>
+</nav>
+</body></html>

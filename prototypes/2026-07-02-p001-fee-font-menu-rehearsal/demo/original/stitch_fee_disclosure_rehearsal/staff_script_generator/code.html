@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Staff Script - Compliance Rehearsal System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c6c6c7",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-surface": "#e3e2e2",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-container-highest": "#343535",
+                        "on-error": "#690005",
+                        "surface-container": "#1f2020",
+                        "on-background": "#e3e2e2",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-variant": "#343535",
+                        "on-primary-container": "#848282",
+                        "surface-tint": "#c8c6c5",
+                        "inverse-primary": "#5f5e5e",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "on-tertiary-fixed": "#3b0900",
+                        "primary-container": "#1a1a1a",
+                        "on-tertiary-fixed-variant": "#872000",
+                        "error": "#ffb4ab",
+                        "outline": "#8e9192",
+                        "secondary-container": "#454747",
+                        "on-tertiary": "#601400",
+                        "surface-container-high": "#292a2a",
+                        "surface": "#121414",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-tertiary-container": "#f24100",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-primary": "#313030",
+                        "tertiary-container": "#390800",
+                        "surface-dim": "#121414",
+                        "inverse-surface": "#e3e2e2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-bright": "#383939",
+                        "primary": "#c8c6c5",
+                        "on-secondary": "#2f3131",
+                        "surface-container-low": "#1b1c1c",
+                        "tertiary": "#ffb5a0",
+                        "outline-variant": "#444748",
+                        "inverse-on-surface": "#303031",
+                        "on-surface-variant": "#c4c7c7",
+                        "on-secondary-container": "#b4b5b5",
+                        "background": "#121414"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "margin": "16px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "code-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #121414; /* surface */
+            color: #e3e2e2; /* on-surface */
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Table Styles */
+        .data-table th {
+            background-color: #333333;
+            color: #F2F2F2;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #1a1a1a;
+        }
+        .data-table tr:nth-child(odd) {
+            background-color: #262626;
+        }
+        .violation-row {
+            border-left: 4px solid #FF4500;
+        }
+        
+        /* Checkbox Override */
+        input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border: 1px solid #8e9192;
+            background-color: transparent;
+            display: inline-grid;
+            place-content: center;
+        }
+        input[type="checkbox"]::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            transform: scale(0);
+            background-color: #e3e2e2;
+            clip-path: polygon(14% 0, 50% 36%, 86% 0, 100% 14%, 64% 50%, 100% 86%, 86% 100%, 50% 64%, 14% 100%, 0 86%, 36% 50%, 0 14%);
+            transition: 120ms transform ease-in-out;
+        }
+        input[type="checkbox"]:checked::before {
+            transform: scale(1);
+        }
+
+        /* Toggle Switch Override */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #c8c6c5;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #1a1a1a;
+            border-color: #c8c6c5;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #444748;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8e9192;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-lg min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin h-14 bg-surface-container-highest border-b border-outline-variant transition-colors duration-100 ease-linear">
+<div class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface">
+            Fee Font Menu Rehearsal
+        </div>
+<div class="flex items-center space-x-gutter">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Fine Risk Status</span>
+<div class="h-3 w-3 bg-[#FF4500] rounded-full"></div>
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex fixed left-0 top-14 bottom-0 flex-col items-center py-4 z-40 bg-surface-container border-r border-outline-variant w-20">
+<div class="mb-8 flex flex-col items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase text-center w-full">Audit Views</span>
+</div>
+<div class="flex flex-col space-y-6 w-full px-2">
+<div class="flex flex-col items-center cursor-pointer group text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-transform p-2 rounded">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">restaurant_menu</span>
+<span class="font-label-caps text-label-caps text-center">Menu View</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer group text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-transform p-2 rounded">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">qr_code_2</span>
+<span class="font-label-caps text-label-caps text-center">QR View</span>
+</div>
+<div class="flex flex-col items-center cursor-pointer group text-on-surface-variant hover:bg-surface-container-high active:scale-95 transition-transform p-2 rounded">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">receipt_long</span>
+<span class="font-label-caps text-label-caps text-center">Receipt View</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-[72px] pb-[80px] px-margin md:ml-20 md:pb-margin max-w-container-max-width mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 border-b border-outline-variant pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Staff Explanation Script Generator</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                    Select a localized fee to generate legally vetted response scripts. 
+                    Objective: Disarm tension, state policy facts, and prevent operational escalation.
+                </p>
+</div>
+<div class="mt-4 md:mt-0 flex items-center bg-surface-container p-3 rounded-DEFAULT border border-outline-variant shadow-sm">
+<span class="font-label-caps text-label-caps text-on-surface-variant mr-3">Roleplay Mode</span>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-4 appearance-none cursor-pointer border-outline z-10 transition-all duration-200" id="roleplayToggle" name="toggle" style="top: 0; left: 0; right: auto;" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-container-high border border-outline-variant cursor-pointer" for="roleplayToggle"></label>
+</div>
+<span class="material-symbols-outlined text-outline text-sm" style="font-variation-settings: 'FILL' 0;">mic</span>
+</div>
+</div>
+<!-- Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-unit items-start">
+<!-- Left Column: Fee Selector & Context -->
+<div class="lg:col-span-4 bg-primary-container border border-outline-variant rounded-DEFAULT overflow-hidden">
+<div class="bg-surface-container-highest p-3 border-b border-outline-variant flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Target Fee</h2>
+<span class="font-label-caps text-label-caps bg-surface-container px-2 py-1 border border-outline-variant rounded">SELECT ONE</span>
+</div>
+<div class="p-3 space-y-2 max-h-[600px] overflow-y-auto">
+<!-- Fee Item 1 (Active) -->
+<div class="bg-surface-container-high border-l-4 border-l-primary border border-y-outline-variant border-r-outline-variant p-3 cursor-pointer hover:bg-surface-variant transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline-md text-headline-md text-on-surface">3.5% Wellness Fee</span>
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant mb-2">ID: FEE-2024-WLN</div>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps px-2 py-1 bg-surface-container-lowest border border-outline text-on-surface">MANDATORY</span>
+<span class="font-label-caps text-label-caps px-2 py-1 bg-[#262626] border border-white text-white">SAFE</span>
+</div>
+</div>
+<!-- Fee Item 2 -->
+<div class="bg-surface-container border border-outline-variant p-3 cursor-pointer hover:bg-surface-variant transition-colors violation-row">
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline-md text-headline-md text-on-surface">18% Gratuity (Auto)</span>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant mb-2">ID: FEE-2024-GRT</div>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps px-2 py-1 bg-surface-container-lowest border border-outline text-on-surface">CONDITIONAL</span>
+<span class="font-label-caps text-label-caps px-2 py-1 bg-[#FF4500] text-black">VIOLATION RISK</span>
+</div>
+</div>
+<!-- Fee Item 3 -->
+<div class="bg-surface-container border border-outline-variant p-3 cursor-pointer hover:bg-surface-variant transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-headline-md text-headline-md text-on-surface">To-Go Packaging Surcharge</span>
+</div>
+<div class="font-code-md text-code-md text-on-surface-variant mb-2">ID: FEE-2024-PKG</div>
+<div class="flex gap-2">
+<span class="font-label-caps text-label-caps px-2 py-1 border border-white text-white">AT RISK</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Script Generation & Comparison -->
+<div class="lg:col-span-8 grid grid-cols-1 gap-unit">
+<!-- Situation Banner -->
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-4 flex items-center justify-between">
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">CURRENT SCENARIO</div>
+<div class="font-headline-md text-headline-md text-on-surface">Guest Questions: "What is this 3.5% charge on my bill?"</div>
+</div>
+<button class="bg-secondary-container hover:bg-inverse-primary text-on-surface border border-outline px-4 py-2 font-label-caps text-label-caps rounded transition-colors">
+                        RANDOMIZE SCENARIO
+                    </button>
+</div>
+<!-- Scripts Comparison Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-unit">
+<!-- At-Risk Script (Negative Example) -->
+<div class="bg-error-container/10 border border-error/50 rounded-DEFAULT overflow-hidden flex flex-col">
+<div class="bg-error-container/20 p-2 border-b border-error/50 flex items-center">
+<span class="material-symbols-outlined text-error mr-2" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-caps text-label-caps text-error">AT-RISK SCRIPT (DO NOT USE)</span>
+</div>
+<div class="p-4 flex-grow bg-surface-container">
+<p class="font-body-lg text-body-lg text-on-surface italic opacity-80 line-through decoration-error/70 decoration-2">
+                                "Oh, that's just a fee the owners added to cover employee health insurance and inflation because food costs are so high right now. You can talk to a manager if you want it taken off."
+                            </p>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-2">LIABILITY ANALYSIS</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<span class="material-symbols-outlined text-error text-[16px] mr-2 mt-0.5">close</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Invokes specific operational costs (health/inflation) which implies strict legal allocation.</span>
+</li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-error text-[16px] mr-2 mt-0.5">close</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Suggests arbitrary removal, undermining the mandatory nature of the posted fee.</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Compliant Script (Positive Example) -->
+<div class="bg-primary-container border border-primary rounded-DEFAULT overflow-hidden flex flex-col shadow-[0_4px_0_0_#000000]">
+<div class="bg-[#333333] p-2 border-b border-primary flex items-center justify-between">
+<div class="flex items-center">
+<span class="material-symbols-outlined text-primary mr-2" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span class="font-label-caps text-label-caps text-primary">COMPLIANT SCRIPT (APPROVED)</span>
+</div>
+<button class="text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+<div class="p-4 flex-grow bg-[#262626]">
+<p class="font-body-lg text-body-lg text-on-surface font-semibold border-l-2 border-primary pl-3">
+                                "That is a 3.5% mandatory surcharge applied to all checks to support overall restaurant operations. It is not a gratuity. The policy is printed at the bottom of the menu for reference."
+                            </p>
+<div class="mt-4 pt-4 border-t border-outline-variant">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-2">DEFENSE MECHANISMS</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary text-[16px] mr-2 mt-0.5">check</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Clearly states it is a <span class="text-on-surface font-bold">mandatory surcharge</span> (general), not tied to specific benefits.</span>
+</li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary text-[16px] mr-2 mt-0.5">check</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Explicitly disclaims it as <span class="text-on-surface font-bold">not a gratuity</span> (Tax compliance).</span>
+</li>
+<li class="flex items-start">
+<span class="material-symbols-outlined text-primary text-[16px] mr-2 mt-0.5">check</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Redirects to <span class="text-on-surface font-bold">menu print</span> to establish prior consent.</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="bg-surface-container p-3 border-t border-outline-variant flex justify-end">
+<button class="bg-[#F2F2F2] hover:bg-white text-black font-label-caps text-label-caps px-6 py-2 rounded-none uppercase transition-colors flex items-center">
+<span class="material-symbols-outlined mr-2 text-sm">volume_up</span>
+                                Play Audio Reference
+                            </button>
+</div>
+</div>
+</div>
+<!-- Escalation Protocol Matrix -->
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT mt-unit">
+<div class="p-3 border-b border-outline-variant bg-surface-container-highest">
+<h3 class="font-headline-md text-headline-md text-on-surface">Escalation Matrix</h3>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full data-table text-left border-collapse">
+<thead>
+<tr>
+<th class="p-3 font-label-caps text-label-caps border-b border-outline-variant w-1/3">Guest Action</th>
+<th class="p-3 font-label-caps text-label-caps border-b border-outline-variant w-1/3">Staff Protocol</th>
+<th class="p-3 font-label-caps text-label-caps border-b border-outline-variant w-1/3">System Log Requirement</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm">
+<tr>
+<td class="p-3 border-b border-outline-variant border-r">Inquires politely about fee</td>
+<td class="p-3 border-b border-outline-variant border-r">Deliver <span class="font-code-md text-code-md text-primary">COMPLIANT SCRIPT</span> once.</td>
+<td class="p-3 border-b border-outline-variant text-on-surface-variant">None</td>
+</tr>
+<tr>
+<td class="p-3 border-b border-outline-variant border-r">Argues fee is illegal/hidden</td>
+<td class="p-3 border-b border-outline-variant border-r">Do not engage in legal debate. Reply: "I will get a manager to assist you."</td>
+<td class="p-3 border-b border-outline-variant text-on-surface-variant">Manager notes in POS</td>
+</tr>
+<tr class="violation-row">
+<td class="p-3 border-b border-outline-variant border-r text-on-surface font-semibold">Refuses to pay / Threatens chargeback</td>
+<td class="p-3 border-b border-outline-variant border-r font-semibold">Manager Intervention Required immediately. Provide QR code to Policy Ledger.</td>
+<td class="p-3 border-b border-outline-variant text-[#FF4500] font-semibold">File Incident Report within 24h</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center h-16 bg-surface-container-lowest border-t border-outline-variant">
+<!-- Fee Inventory (Inactive) -->
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant px-2 py-1 transition-all duration-75" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" style="font-variation-settings: 'FILL' 0;">inventory_2</span>
+<span class="font-label-caps text-label-caps text-[10px]">Fee Inventory</span>
+</a>
+<!-- Surface Audit (Inactive) -->
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant px-2 py-1 transition-all duration-75" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" style="font-variation-settings: 'FILL' 0;">fact_check</span>
+<span class="font-label-caps text-label-caps text-[10px]">Surface Audit</span>
+</a>
+<!-- Staff Script (Active) -->
+<a class="flex flex-col items-center justify-center w-full h-full border-t-4 border-on-surface text-on-surface font-bold px-2 py-1 transition-all duration-75 bg-surface-container" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" style="font-variation-settings: 'FILL' 1;">record_voice_over</span>
+<span class="font-label-caps text-label-caps text-[10px]">Staff Script</span>
+</a>
+<!-- Patch Packet (Inactive) -->
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant px-2 py-1 transition-all duration-75" href="#">
+<span class="material-symbols-outlined mb-1 text-xl" style="font-variation-settings: 'FILL' 0;">inventory</span>
+<span class="font-label-caps text-label-caps text-[10px]">Patch Packet</span>
+</a>
+</nav>
+<!-- Footer -->
+<footer class="hidden md:flex flex-col md:flex-row justify-between items-center px-margin py-gutter ml-20 mb-16 border-t-2 border-on-surface bg-surface-container-high">
+<div class="font-body-sm text-body-sm text-on-surface-variant mb-4 md:mb-0">
+            © 2024 COMPLIANCE REHEARSAL SYSTEM
+        </div>
+<div class="flex space-x-6">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Generate Patch Packet</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Export Legal Ledger</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors cursor-pointer" href="#">Contact Counsel</a>
+</div>
+</footer>
+<script>
+        // Simple logic for the toggle switch to change visual state of the scenario box
+        document.getElementById('roleplayToggle').addEventListener('change', function() {
+            const isChecked = this.checked;
+            const scenarioBox = this.closest('.flex.flex-col').querySelector('.bg-surface-container.p-4.flex.items-center');
+            
+            if(isChecked) {
+                // Roleplay mode active (visual indicator)
+                document.querySelector('.toggle-label').style.backgroundColor = '#FF4500';
+                document.querySelector('.toggle-checkbox').style.borderColor = '#FF4500';
+            } else {
+                // Normal mode
+                document.querySelector('.toggle-label').style.backgroundColor = '';
+                document.querySelector('.toggle-checkbox').style.borderColor = '';
+            }
+        });
+    </script>
+</body></html>

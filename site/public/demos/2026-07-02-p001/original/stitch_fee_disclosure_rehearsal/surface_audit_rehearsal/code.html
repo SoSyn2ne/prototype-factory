@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Surface Audit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#c6c6c7",
+                        "tertiary-fixed-dim": "#ffb5a0",
+                        "on-surface": "#e3e2e2",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-primary-fixed-variant": "#474746",
+                        "surface-container-highest": "#343535",
+                        "on-error": "#690005",
+                        "surface-container": "#1f2020",
+                        "on-background": "#e3e2e2",
+                        "tertiary-fixed": "#ffdbd1",
+                        "surface-variant": "#343535",
+                        "on-primary-container": "#848282",
+                        "surface-tint": "#c8c6c5",
+                        "inverse-primary": "#5f5e5e",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e0f",
+                        "on-tertiary-fixed": "#3b0900",
+                        "primary-container": "#1a1a1a",
+                        "on-tertiary-fixed-variant": "#872000",
+                        "error": "#ffb4ab",
+                        "outline": "#8e9192",
+                        "secondary-container": "#454747",
+                        "on-tertiary": "#601400",
+                        "surface-container-high": "#292a2a",
+                        "surface": "#121414",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-tertiary-container": "#f24100",
+                        "secondary-fixed": "#e2e2e2",
+                        "primary-fixed": "#e5e2e1",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-primary": "#313030",
+                        "tertiary-container": "#390800",
+                        "surface-dim": "#121414",
+                        "inverse-surface": "#e3e2e2",
+                        "on-error-container": "#ffdad6",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-bright": "#383939",
+                        "primary": "#c8c6c5",
+                        "on-secondary": "#2f3131",
+                        "surface-container-low": "#1b1c1c",
+                        "tertiary": "#ffb5a0",
+                        "outline-variant": "#444748",
+                        "inverse-on-surface": "#303031",
+                        "on-surface-variant": "#c4c7c7",
+                        "on-secondary-container": "#b4b5b5",
+                        "background": "#121414"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "margin": "16px",
+                        "container-max-width": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "code-md": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "code-md": ["13px", { "lineHeight": "18px", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Minimal Scrollbar for density */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #121414; }
+        ::-webkit-scrollbar-thumb { background: #343535; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444748; }
+
+        .toggle-checkbox:checked { right: 0; border-color: #e3e2e2; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #e3e2e2; }
+        .toggle-checkbox:checked + .toggle-label:after { transform: translateX(100%); border-color: white; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased h-screen overflow-hidden flex flex-col md:flex-row">
+<!-- SideNavBar (Hidden on Mobile, Visible on md+) -->
+<nav class="hidden md:flex flex-col items-center py-4 z-40 bg-surface-container border-r border-outline-variant h-full w-20 fixed left-0 top-0">
+<div class="mb-8 flex flex-col items-center justify-center space-y-1">
+<span class="font-headline-md text-headline-md text-on-surface leading-none">C</span>
+<span class="font-headline-md text-headline-md text-on-surface leading-none">R</span>
+<span class="font-headline-md text-headline-md text-on-surface leading-none">S</span>
+</div>
+<div class="flex-1 flex flex-col space-y-4 w-full px-2">
+<!-- Inactive -->
+<button class="w-full flex flex-col items-center justify-center p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-transform active:scale-95 group">
+<span class="material-symbols-outlined mb-1 group-hover:text-on-surface transition-colors">restaurant_menu</span>
+<span class="font-label-caps text-[9px] text-center opacity-70 group-hover:opacity-100 transition-opacity">Menu View</span>
+</button>
+<!-- Inactive -->
+<button class="w-full flex flex-col items-center justify-center p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-transform active:scale-95 group">
+<span class="material-symbols-outlined mb-1 group-hover:text-on-surface transition-colors">qr_code_2</span>
+<span class="font-label-caps text-[9px] text-center opacity-70 group-hover:opacity-100 transition-opacity">QR View</span>
+</button>
+<!-- Inactive -->
+<button class="w-full flex flex-col items-center justify-center p-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-transform active:scale-95 group">
+<span class="material-symbols-outlined mb-1 group-hover:text-on-surface transition-colors">receipt_long</span>
+<span class="font-label-caps text-[9px] text-center opacity-70 group-hover:opacity-100 transition-opacity">Receipt View</span>
+</button>
+<!-- Active Map: "Surface Audit" -> Matches Bottom Nav "Surface Audit" conceptually for this screen intent -->
+<div class="w-full border-t border-outline-variant my-2"></div>
+<button class="w-full flex flex-col items-center justify-center p-2 rounded bg-on-surface text-on-secondary-fixed-variant transition-transform active:scale-95">
+<span class="material-symbols-outlined mb-1 fill">fact_check</span>
+<span class="font-label-caps text-[9px] text-center">Surface Audit</span>
+</button>
+</div>
+</nav>
+<!-- BottomNavBar (Visible on Mobile, Hidden on md+) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center h-16 bg-surface-container-lowest border-t border-outline-variant">
+<button class="flex flex-col items-center p-1 text-on-surface-variant transition-all duration-75">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-[10px]">Fee Inventory</span>
+</button>
+<button class="flex flex-col items-center p-1 border-t-4 border-on-surface text-on-surface font-bold px-2 py-1 transition-all duration-75 bg-surface-container">
+<span class="material-symbols-outlined fill">fact_check</span>
+<span class="font-label-caps text-[10px]">Surface Audit</span>
+</button>
+<button class="flex flex-col items-center p-1 text-on-surface-variant transition-all duration-75">
+<span class="material-symbols-outlined">record_voice_over</span>
+<span class="font-label-caps text-[10px]">Staff Script</span>
+</button>
+<button class="flex flex-col items-center p-1 text-on-surface-variant transition-all duration-75">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-label-caps text-[10px]">Patch Packet</span>
+</button>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-full md:ml-20 mb-16 md:mb-0 w-full">
+<!-- TopAppBar (Specific to this screen's context, acting as header) -->
+<header class="flex-none bg-surface-container-highest border-b border-outline-variant w-full h-14 flex justify-between items-center px-margin z-30">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-lg text-headline-lg font-bold tracking-tighter text-on-surface">Surface Audit Screen</h1>
+<span class="px-2 py-0.5 border border-on-surface text-on-surface font-label-caps text-label-caps rounded bg-surface-container">AUDIT MODE</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-error text-black font-label-caps text-label-caps px-4 py-2 hover:opacity-90 transition-opacity uppercase font-bold tracking-wider rounded-none">Fine Risk Status</button>
+</div>
+</header>
+<!-- Split View Container -->
+<main class="flex-1 overflow-hidden flex flex-col md:flex-row w-full bg-background relative">
+<!-- Left: Compliance Controls (Charcoal) -->
+<section class="w-full md:w-1/3 lg:w-1/4 bg-surface-container-high border-r border-outline-variant flex flex-col h-full overflow-y-auto">
+<div class="p-4 border-b border-outline-variant bg-surface-container">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+                        Compliance Controls
+                    </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Configure baseline parameters for UI evaluation.</p>
+</div>
+<div class="p-4 space-y-6 flex-1">
+<!-- Control Block 1 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-body-sm text-body-sm text-on-surface font-semibold">Font Size</label>
+<span class="font-code-md text-code-md text-on-surface-variant text-[11px] bg-surface-container px-1 py-0.5 border border-outline-variant">Match Menu Item</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 top-0.5 left-0.5 transition-transform duration-200" id="toggle1" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-outline-variant cursor-pointer border border-outline" for="toggle1"></label>
+</div>
+<p class="font-body-sm text-[11px] text-on-surface-variant leading-tight">Enforces disclosure text size matches primary item price size exactly.</p>
+</div>
+<div class="h-px bg-outline-variant w-full"></div>
+<!-- Control Block 2 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-body-sm text-body-sm text-error font-semibold">Location Proximity</label>
+<span class="font-code-md text-code-md text-error text-[11px] bg-error-container/20 px-1 py-0.5 border border-error/50">Immediate</span>
+</div>
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-surface border-2 border-outline-variant appearance-none cursor-pointer z-10 top-0.5 left-0.5 transition-transform duration-200" id="toggle2" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-6 rounded-full bg-surface-container cursor-pointer border border-outline-variant" for="toggle2"></label>
+</div>
+<p class="font-body-sm text-[11px] text-error leading-tight flex items-start gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            Currently detecting footer placement. Proximity constraint failed.
+                        </p>
+</div>
+<div class="h-px bg-outline-variant w-full"></div>
+<!-- Control Block 3 -->
+<div class="space-y-3">
+<div class="flex justify-between items-center">
+<label class="font-body-sm text-body-sm text-on-surface font-semibold">Contrast Ratio</label>
+<span class="font-code-md text-code-md text-on-surface-variant text-[11px] bg-surface-container px-1 py-0.5 border border-outline-variant">Min 4.5:1</span>
+</div>
+<div class="flex items-center space-x-2">
+<input class="w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-on-surface" max="10" min="1" type="range" value="4.5"/>
+<span class="font-code-md text-code-md text-on-surface w-8 text-right">4.5</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-outline-variant bg-surface-container-highest">
+<button class="w-full bg-error text-white font-headline-md text-body-lg font-bold py-3 hover:bg-[#d63a00] transition-colors rounded-none flex items-center justify-center gap-2 shadow-[4px_4px_0px_#000000]">
+<span class="material-symbols-outlined">build</span>
+                        Patch Controls
+                    </button>
+</div>
+</section>
+<!-- Right: Rehearsal Previews (Fog-colored / Lighter Surface) -->
+<section class="w-full md:w-2/3 lg:w-3/4 bg-surface flex flex-col h-full overflow-hidden relative">
+<!-- Preview Tabs -->
+<div class="flex border-b border-outline-variant bg-surface-container-low px-4 pt-2 overflow-x-auto no-scrollbar">
+<button class="px-6 py-2 border-b-2 border-on-surface text-on-surface font-label-caps text-label-caps flex items-center gap-2 bg-surface-container rounded-t whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">web</span>
+                        Menu Preview
+                    </button>
+<button class="px-6 py-2 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps flex items-center gap-2 rounded-t whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">smartphone</span>
+                        QR Order Page
+                    </button>
+<button class="px-6 py-2 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors font-label-caps text-label-caps flex items-center gap-2 rounded-t whitespace-nowrap">
+<span class="material-symbols-outlined text-[16px]">receipt</span>
+                        Receipt
+                    </button>
+</div>
+<!-- Preview Canvas -->
+<div class="flex-1 bg-surface-dim p-4 md:p-8 overflow-y-auto flex items-center justify-center relative">
+<!-- Simulated Digital Menu Mockup -->
+<div class="w-full max-w-2xl bg-surface-container border border-outline-variant shadow-2xl relative">
+<!-- Header Mockup -->
+<div class="h-16 border-b border-outline-variant flex items-center justify-between px-6 bg-surface-container-high">
+<div class="font-headline-lg text-headline-lg text-on-surface tracking-tighter">BURGERS &amp; CO.</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">DIGITAL MENU</div>
+</div>
+<!-- Menu Item -->
+<div class="p-6 border-b border-outline-variant flex justify-between items-start hover:bg-surface-container-highest transition-colors cursor-pointer relative group">
+<!-- Violation Indicator (Red-Orange Accent) -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-error opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="w-2/3 pr-4">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Classic Smash Burger</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Two smashed beef patties, american cheese, house pickles, special sauce on a toasted brioche bun.</p>
+<!-- COMPLIANT DISCLOSURE (Simulated Patch Target) -->
+<div class="mt-2 hidden border border-success bg-success/10 p-2 text-success font-body-sm text-[11px] items-center gap-1 w-fit">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                    A 4% operational fee is applied to all orders.
+                                </div>
+</div>
+<div class="text-right">
+<div class="font-code-md text-headline-md text-on-surface">$14.50</div>
+</div>
+</div>
+<div class="p-6 border-b border-outline-variant flex justify-between items-start opacity-50">
+<div class="w-2/3 pr-4">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-1">Crispy Fries</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Shoestring cut, heavily salted.</p>
+</div>
+<div class="text-right">
+<div class="font-code-md text-headline-md text-on-surface">$4.50</div>
+</div>
+</div>
+<!-- Footer Mockup (NON-COMPLIANT DISCLOSURE) -->
+<div class="p-4 bg-surface-container-lowest text-center relative border-t-2 border-error border-dashed">
+<!-- Annotation Badge -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-error text-black font-label-caps text-[9px] px-2 py-0.5 rounded-sm whitespace-nowrap z-10 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">warning</span>
+                                NON-COMPLIANT PLACEMENT
+                            </div>
+<p class="font-body-sm text-[9px] text-on-surface-variant opacity-60">Consuming raw or undercooked meats may increase your risk of foodborne illness.</p>
+<!-- Buried Fee -->
+<p class="font-body-sm text-[8px] text-error mt-2">A 4% service fee is added to all checks to support competitive wages.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
