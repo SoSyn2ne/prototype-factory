@@ -19,3 +19,24 @@ Golden rules to enforce:
 <!-- styleseed-default-ui:end -->
 
 This file captures durable agent instructions for this project.
+
+## PF Ideation Pivot
+
+Daily Phase A and `/pf idea` must be signal-first. Do not use the model as a
+hallucination engine for plausible app concepts. Use the model as a translator:
+external signals and user workarounds in, product wedge and Stitch prompt out.
+
+Before reporting Phase A complete, verify:
+- `docs/IDEA_BOARD.md` gates are satisfied.
+- `daily/YYYY-MM-DD/ideas.md` includes Hada/current news, GitHub Rising Repo
+  Scan, community complaint/question, and non-web/offline lanes, or explicitly
+  records why a lane was unavailable.
+- The final 8 include domestic/Korea vs overseas/global classification,
+  `loved_by_small_group`, `spread_trigger`, source lane counts, theme counts,
+  and recent-7-days duplicate check.
+- No default batch has more than 2 candidates in the same desire axis or the
+  same money-defense/proof-packet pattern.
+
+If any of those checks fail, say the batch is incomplete and reselect before
+Stitch. Do not claim that the user's direction was reflected just because
+search links exist.

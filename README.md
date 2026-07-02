@@ -17,9 +17,12 @@ Core expectations:
 목표: **매일 8개 프로토타입 생산 → GitHub에 축적 → 갤러리(랜딩)에서 자동 수집 → 4개 선별해 서비스로 승격**
 
 추가 운영 계약: 일일 아이데이션 단계에서는 기본적으로 **후보 8개 + Stitch 프롬프트 8개 전체 전달**을 표준으로 한다.
+단, 2026-07-02 이후 PF 아이데이션은 "환각 발상"이 아니라 **현실 신호 번역**으로 운영한다. AI는
+아이디어를 꾸며내는 발상기가 아니라, 검색/커뮤니티/현장 신호를 제품 후보와 Stitch 프롬프트로
+압축하는 번역기다. 결정 배경은 `docs/IDEATION_PIVOT_2026-07-02.md`에 기록한다.
 
 ## 0) 운영 원칙
-- 아이디어 생성 단계: 제약 최소(엉뚱함 OK)
+- 아이디어 생성 단계: 현실 신호 먼저, AI 조합은 나중. 근거 없는 환각형 후보는 초안에도 올리지 않는다.
 - 출고(QC) 단계: 사실/리스크/구현가능성 체크
 - 결과물은 항상 **Preview URL + README + 스크린샷** 포함
 - 일일 아이디어 배치는 기본적으로 **실전형/상업형만 고집하지 않는다**. 권장 구성은 `실전형 5~6 + 재미/실험형 또는 현장형 2~3`.
@@ -27,6 +30,10 @@ Core expectations:
 - 재미/실험형은 즉시 수익화가 약해도 괜찮지만, 대신 시각적 재미, 스토리, 공유성, 포트폴리오 가치 중 하나는 분명해야 한다.
 - 사용자가 당일 테마 프레임을 주면, 그날 배치는 그 프레임을 반드시 따른다. 현재 강제 7축은 `성욕 / 외모 / 사교육 / 자산 방어 / 외로움 / 건강 / 역전`이다.
 - 8개 배치에서는 각 후보가 어떤 축을 반영하는지 `theme`로 명시해야 하며, 단순한 일반 B2B ops 아이디어로 흐리면 실패로 본다.
+- 최종 8개는 국내형 4개 + 해외형 4개를 기본값으로 한다. 해외 신호는 그대로 복붙하지 말고 한국 적용 가능성 또는 해외 특화성을 분명히 구분한다.
+- 최종 8개는 같은 욕망 축, 같은 소스 레인, 같은 "돈 지키기/증거 패킷" 문제에서 2개를 초과하면 실패다. 초과 시 다시 선별한다.
+- 모든 최종 후보는 `loved_by_small_group` 1~5점과 `spread_trigger`를 남긴다. 이 둘이 없으면 Phase A 미완료다.
+- `/pf idea`와 daily Phase A는 `Hada Signals`, `GitHub Rising Repo Scan`, 커뮤니티 불평/질문, 비웹/현장 행동을 먼저 기록한다. GitHub 후보를 쓰지 않더라도 스캔 결과와 탈락 이유는 남긴다.
 - 일일 기본 배치는 항상 `p001`부터 `p008`까지 8개를 만든다.
 - 일일 배치는 아이디어 문서의 후보 수, 실제 `prototypes/YYYY-MM-DD-p001~p008-*` 폴더 수, publish된 항목 수가 일치해야 완료로 인정한다.
 - `/pf sti` 완료 기준도 기본적으로 당일 8개 전체 ingest, review gate, build, commit, push까지 포함한다.
@@ -106,13 +113,14 @@ node scripts/new-proto.mjs --title "No demo example" --no-demo
 ## 4) n8n 파이프라인(개요)
 1) Cron(평일/매일 원하는 시간)
 2) `scripts/worktree-new "pf/<date>/<slug>" origin/main`으로 새 worktree 생성
-3) LLM: 아이디어 8개 생성(제약 거의 없음)
-4) LLM: 8개 전부의 Stitch 프롬프트를 작성하고, `p001~p008` 스캐폴드/스펙을 모두 생성
-5) Stitch 결과도 기본적으로 8개 전부 ingest하여 `/d/2026-..-p001~p008`까지 출고
-6) Fast-Prototype 실행(필요 시 선택된 후보를 코드 프로토타입으로 승격)
-7) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
-8) GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
-9) Telegram 알림: 오늘의 8개 프로토타입 링크
+3) 신호 수집: Hada/current news, GitHub rising repos, 커뮤니티 불평/질문, 비웹/현장 행동을 분리 기록
+4) 선별 게이트: 12~16개 후보를 만들고 국내/해외, 7축, loved_by_small_group, spread_trigger, 중복/쏠림을 검사
+5) LLM: 통과한 8개 전부의 Stitch 프롬프트를 작성하고, `p001~p008` 스캐폴드/스펙을 모두 생성
+6) Stitch 결과도 기본적으로 8개 전부 ingest하여 `/d/2026-..-p001~p008`까지 출고
+7) Fast-Prototype 실행(필요 시 선택된 후보를 코드 프로토타입으로 승격)
+8) worktree 안에서 `scripts/worktree-merge-squash feat "<summary>" main`으로 로컬 squash merge
+9) GitHub 푸시 / Vercel Preview/Deploy (site는 자동으로 prototypes index 읽음)
+10) Telegram 알림: 오늘의 8개 프로토타입 링크
 
 상세 규칙과 예시는 `WORKTREE.md` 참고.
 

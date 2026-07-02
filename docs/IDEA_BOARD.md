@@ -9,6 +9,11 @@ PF should not promote a candidate from signal to prototype until it has pull
 evidence. Pain alone is not enough. A strong candidate shows that someone is
 already spending money, time, reputation, or social effort to solve it badly.
 
+2026-07-02 pivot: PF ideation no longer treats model hallucination as the
+source of ideas. The model may combine, name, sharpen, and package candidates,
+but the raw material must be observed pull signals. If a candidate cannot point
+to a user action, workaround, or current external signal, park it as fiction.
+
 ## Board Flow
 
 `Signal Roam -> Need Evidence -> Workaround Proof -> Search/Community Language -> Format Roulette -> Desire Lens -> Candidate Drafts -> Kill List -> Final 8 -> Stitch Prompts`
@@ -16,6 +21,9 @@ already spending money, time, reputation, or social effort to solve it badly.
 Do not start with the seven desire themes. They are lenses for interpreting a
 validated pull signal, not boxes to fill. Do not start with a web-app mechanic.
 First prove the user is already hunting for an answer.
+
+Do not start from a clever title. Titles are allowed only after the need,
+workaround, arrival path, and output artifact are clear.
 
 ## Daily Template
 
@@ -182,9 +190,13 @@ one possible format.
 - Source lane counts:
 - Theme counts:
 - Money-defense / appeal / proof-packet count:
+- Domestic / overseas split:
+- Repeated pattern count:
 - Hada-derived count:
 - GitHub-derived count:
 - Rebalanced or rejected due to over-concentration:
+- Gate verdict: pass/fail
+- If fail, what must be reselected before Stitch:
 
 ### p001 - <type>
 
@@ -201,6 +213,9 @@ one possible format.
 - Existing workaround:
 - Arrival path:
 - Pull evidence score:
+- loved_by_small_group: <1-5>
+- spread_trigger:
+- Market fit: domestic/Korea | overseas/global
 
 ### Theme
 
@@ -235,6 +250,7 @@ one possible format.
 - Reach:
 - Visual:
 - WTP:
+- loved_by_small_group:
 
 ### Inspired By Signals
 
@@ -289,10 +305,28 @@ turned into content/search tests instead of Stitch prototypes.
   marketplace, referral path, or trigger event.
 - Final batch includes at least 5 distinct human-driver themes, but theme mapping
   happens after pull evidence.
+- No single human-driver theme may exceed 2 final candidates unless the user
+  explicitly asks for a themed batch.
+- The "money defense / appeal / proof packet" pattern may not exceed 2 final
+  candidates. Rename-only variants count as the same pattern.
+- Default market split is 4 domestic/Korea-fit candidates and 4 overseas/global
+  candidates.
 - Final batch includes at least 5 distinct formats or mechanics.
 - At least two final ideas are not dashboards, boards, scanners, planners, or consoles.
 - At least two final ideas are consumer desire/anxiety tools.
+- At least two final ideas should come from non-web, field, offline, hardware,
+  physical-space, printable, script, kiosk, or local-device behavior.
 - At least five final ideas are commercially practical.
+- Every final idea must include `loved_by_small_group` and `spread_trigger`.
+- `loved_by_small_group` below 3 usually means kill or rewrite. A 5 means not
+  using the product risks money, status, relationships, health, or opportunity.
+- `spread_trigger` must explain why the user would show the output, invite
+  others, share a card/report, or feel immediate relief after use.
+- `GitHub Rising Repo Scan` must be attempted and documented. If no repo-derived
+  candidate survives, keep the scan and record why the repo ideas were killed.
 - Every final idea has a concrete output artifact and a first validation test.
 - Every final Stitch prompt includes pull evidence, user language, mechanic,
   trigger moment, emotional pressure, output artifact, and first-screen promise.
+
+If any hard gate fails, Phase A is incomplete. Do not report "requirements
+reflected" and do not move to Stitch prompts until the final 8 are reselected.
