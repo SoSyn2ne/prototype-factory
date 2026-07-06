@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RECOVERY BENCH - Script Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "primary": "#4edea3",
+                      "secondary": "#bec6e0",
+                      "on-primary": "#003824",
+                      "surface-variant": "#26364a",
+                      "surface-tint": "#4edea3",
+                      "primary-fixed": "#6ffbbe",
+                      "primary-fixed-dim": "#4edea3",
+                      "error": "#ffb4ab",
+                      "surface-container": "#102034",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-background": "#d3e4fe",
+                      "on-primary-fixed": "#002113",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-container": "#711419",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-primary": "#006c49",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "inverse-surface": "#d3e4fe",
+                      "surface-container-high": "#1b2b3f",
+                      "on-secondary-container": "#adb4ce",
+                      "surface-dim": "#031427",
+                      "outline-variant": "#3c4a42",
+                      "surface-container-highest": "#26364a",
+                      "outline": "#86948a",
+                      "tertiary": "#ffb3af",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "surface": "#031427",
+                      "surface-container-lowest": "#000f21",
+                      "secondary-container": "#3f465c",
+                      "on-surface": "#d3e4fe",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-primary-container": "#00422b",
+                      "primary-container": "#10b981",
+                      "secondary-fixed": "#dae2fd",
+                      "on-surface-variant": "#bbcabf",
+                      "on-tertiary": "#650911",
+                      "tertiary-container": "#fc7c78",
+                      "inverse-on-surface": "#213145",
+                      "background": "#031427",
+                      "on-tertiary-fixed": "#410005",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-secondary": "#283044",
+                      "surface-bright": "#2a3a4f",
+                      "surface-container-low": "#0b1c30",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "row-height-md": "40px",
+                      "margin-mobile": "12px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "margin-desktop": "24px",
+                      "row-height-sm": "32px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "data-tabular": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-tabular": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+          font-family: 'Material Symbols Outlined';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex bg-surface-dim dark:bg-surface-dim font-body-md text-body-md font-label-caps text-label-caps docked left-0 h-full w-[240px] border-r border-surface-variant flex flex-col fixed left-0 top-0 h-screen pt-row-height-md pb-margin-desktop z-40">
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-surface-variant flex items-center justify-center overflow-hidden">
+<img alt="Clinic Logo" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark metallic server rack with a glowing green LED indicator. The lighting is low-key, professional, and clinical, emphasizing the texture of the brushed metal and the sharp geometry of the hardware. The mood is high-tech, reliable, and secure, fitting for a corporate clinic operator system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-Bv-Zjf8CYrDW7y_u9ISVOcI2nmx2H0L2fSKNCeBtr9kEv4Dye9gH2zxEo3AjQqc-Zc0KX29XfMAhty2akHbTmrB4DXQVSVEpflcISATIc0boNgsUm3jxjPqVKEUZ0tJivswkzmmJwurNcsvXk2-ncnD_iV44pbxLcA8GxDcwn419wQhtVNVAU1EXA2Db3ndd2pifDW6GtDI8zO4Db4gPm-eXA0rfYLr6a9G-F4wl3I-4G-PFKNBJowztwzVl-ZlNoHrskygMpJE"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary font-bold tracking-tight">System Operator</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-0.5 uppercase">Revenue Recovery Mode</p>
+</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col">
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">pending_actions</span>
+<span>No-Show Queue</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span>Policy Simulator</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-primary font-bold bg-surface-container-highest border-r-4 border-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">library_books</span>
+<span>Script Library</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">format_list_bulleted</span>
+<span>Waitlist Management</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="mt-auto border-t border-surface-variant pt-4">
+<ul class="flex flex-col">
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dns</span>
+<span>System Health</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_outline</span>
+<span>Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container text-primary font-headline-md text-headline-md font-label-caps text-label-caps docked full-width top-0 border-b border-surface-variant flex justify-between items-center px-margin-mobile h-row-height-md w-full sticky top-0 z-50">
+<div class="font-headline-md text-headline-md font-black tracking-tighter text-primary truncate">RECOVERY BENCH</div>
+<div class="flex items-center gap-3">
+<button class="text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 p-1 rounded">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-6 h-6 rounded-full overflow-hidden border border-surface-variant">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional system operator in a dimly lit, high-tech control room setting. Monitors cast a soft, cool blue glow on their face, contrasting with deep shadows. The atmosphere is serious, focused, and clinical, reflecting absolute control and precision in a corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRCEEHrK39WEp66TTSUqp-u_0B-Y6VFzayCTUM9BgTnr17Scvn23wcCKoK2iGjhhcwnpi6mnVIUkvWeid0pZMQFUA1gpnzKnk0fX0YcVQCaK9U-ZeGxdKvX1fi8MHlJYym81rVbT-Tpfc3dVw1XFnGS8W-ebSdZB-_x0f0tsMSz32PXeti60JxMgdBf7p1iW2xvk-jgpJ_eiGuIG2c75XZaiQ_cZpRxiUb2DpvZ4g8SWfOCLWYrOB2BpykSoGW3h1u_TPoF-523oI"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full md:ml-[240px] flex flex-col p-margin-mobile md:p-margin-desktop gap-6">
+<!-- Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-variant pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg font-bold text-on-surface tracking-tight">Script Library</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-2xl">A highly curated repository of text variants engineered for optimal no-show recovery and policy enforcement.</p>
+</div>
+<div class="flex gap-3">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" style="font-size: 18px;">search</span>
+<input class="bg-surface-container-highest border border-surface-variant text-on-surface font-body-sm text-body-sm rounded pl-9 pr-3 py-1.5 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all w-full md:w-64 placeholder-on-surface-variant" placeholder="Search scripts..." type="text"/>
+</div>
+<button class="bg-surface-container-highest border border-surface-variant text-on-surface font-label-caps text-label-caps uppercase rounded px-4 py-1.5 hover:bg-surface-container-high transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">filter_list</span>
+                    Filter
+                </button>
+</div>
+</header>
+<!-- Script Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+<!-- Category: Polite First Warning -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-surface-variant pb-2">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Polite First Warning</h3>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px] font-bold text-primary font-data-tabular">2 VARIANTS</span>
+</div>
+<!-- Card 1 -->
+<article class="bg-[#0F172A] border border-[#1E293B] rounded-lg p-5 flex flex-col gap-4 hover:border-[#334155] transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Variant Alpha</span>
+</div>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant text-xs flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">timer</span>
+                            ~12s
+                        </span>
+</div>
+<div class="font-body-md text-body-md text-on-surface leading-relaxed relative z-10">
+                        "Hi {{Patient_Name}}, we missed you at your appointment today at {{Time}}. Please reply to reschedule or call us at {{Phone}}. We hope everything is okay!"
+                    </div>
+<div class="mt-auto pt-4 flex gap-2 border-t border-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex-1 bg-surface-container-highest border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-caps text-label-caps uppercase py-2 rounded transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+                            Copy
+                        </button>
+<button class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps uppercase py-2 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2 font-bold">
+<span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+                            Send
+                        </button>
+</div>
+</article>
+</div>
+<!-- Category: Urgent Re-booking -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-surface-variant pb-2">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Urgent Re-booking</h3>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px] font-bold text-tertiary font-data-tabular">1 VARIANT</span>
+</div>
+<!-- Card 2 -->
+<article class="bg-[#0F172A] border border-[#1E293B] rounded-lg p-5 flex flex-col gap-4 hover:border-[#334155] transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Critical Response</span>
+</div>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant text-xs flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">timer</span>
+                            ~15s
+                        </span>
+</div>
+<div class="font-body-md text-body-md text-on-surface leading-relaxed relative z-10">
+                        "URGENT: {{Patient_Name}}, your scheduled procedure was missed. This requires immediate rescheduling to avoid health risks. Reply 'YES' to view available slots immediately."
+                    </div>
+<div class="mt-auto pt-4 flex gap-2 border-t border-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex-1 bg-surface-container-highest border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-caps text-label-caps uppercase py-2 rounded transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+                            Copy
+                        </button>
+<button class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps uppercase py-2 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2 font-bold">
+<span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+                            Send
+                        </button>
+</div>
+</article>
+</div>
+<!-- Category: Deposit Policy Update -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between border-b border-surface-variant pb-2">
+<h3 class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">Deposit Policy Update</h3>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px] font-bold text-secondary font-data-tabular">1 VARIANT</span>
+</div>
+<!-- Card 3 -->
+<article class="bg-[#0F172A] border border-[#1E293B] rounded-lg p-5 flex flex-col gap-4 hover:border-[#334155] transition-colors group relative overflow-hidden">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Policy Enforcement</span>
+</div>
+<span class="font-data-tabular text-data-tabular text-on-surface-variant text-xs flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 14px;">timer</span>
+                            ~20s
+                        </span>
+</div>
+<div class="font-body-md text-body-md text-on-surface leading-relaxed relative z-10">
+                        "Notice: Due to a recent missed appointment, a $50 deposit is now required to secure your next booking. This amount will be applied to your treatment. Link to pay: {{Link}}"
+                    </div>
+<div class="mt-auto pt-4 flex gap-2 border-t border-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="flex-1 bg-surface-container-highest border border-outline-variant text-on-surface hover:bg-surface-container-high font-label-caps text-label-caps uppercase py-2 rounded transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" style="font-size: 16px;">content_copy</span>
+                            Copy
+                        </button>
+<button class="flex-1 bg-primary text-on-primary font-label-caps text-label-caps uppercase py-2 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2 font-bold">
+<span class="material-symbols-outlined" style="font-size: 16px;">send</span>
+                            Send
+                        </button>
+</div>
+</article>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container font-label-caps text-label-caps docked full-width bottom-0 flex justify-around items-center h-row-height-md w-full fixed bottom-0 z-50 border-t border-surface-variant">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 0;">pending_actions</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 0;">analytics</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary border-t-2 border-primary bg-surface-container-highest" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 1;">library_books</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 0;">format_list_bulleted</span>
+</a>
+</nav>
+<script>
+        // Simple clipboard copy feedback
+        document.querySelectorAll('button:has(span:contains("content_copy"))').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const originalText = e.currentTarget.innerHTML;
+                e.currentTarget.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px;">check</span> Copied`;
+                setTimeout(() => {
+                    e.currentTarget.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+
+        // jQuery-like helper for simplicity if needed for complex matching, but native works fine.
+        // The above uses a pseudo-selector that isn't native CSS, fixing it below:
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.textContent.includes('Copy')) {
+                 btn.addEventListener('click', function() {
+                    const originalHTML = this.innerHTML;
+                    this.innerHTML = `<span class="material-symbols-outlined" style="font-size: 16px; font-variation-settings: 'FILL' 1;">check</span> Copied`;
+                    this.classList.add('text-primary', 'border-primary');
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                        this.classList.remove('text-primary', 'border-primary');
+                    }, 1500);
+                 });
+            }
+        });
+    </script>
+</body></html>

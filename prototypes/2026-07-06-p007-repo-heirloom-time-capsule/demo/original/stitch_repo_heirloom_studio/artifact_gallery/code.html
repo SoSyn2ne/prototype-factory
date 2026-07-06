@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Repo Heirloom - Artifact Preview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&amp;family=Geist:wght@400&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#0c0d18",
+                        "on-primary-fixed-variant": "#54358a",
+                        "on-primary-container": "#4c2c82",
+                        "on-surface-variant": "#ccc3d2",
+                        "secondary-container": "#0c4393",
+                        "on-tertiary-fixed": "#121a37",
+                        "inverse-on-surface": "#2f303b",
+                        "surface-container-low": "#1a1b26",
+                        "inverse-surface": "#e2e1f1",
+                        "secondary-fixed-dim": "#aec6ff",
+                        "on-tertiary": "#282f4d",
+                        "tertiary-fixed-dim": "#bec5eb",
+                        "outline": "#958e9c",
+                        "surface-tint": "#d4bbff",
+                        "on-error-container": "#ffdad6",
+                        "on-error": "#690005",
+                        "inverse-primary": "#6c4da4",
+                        "tertiary-container": "#a2a9ce",
+                        "on-secondary-fixed": "#001a43",
+                        "surface-dim": "#12131d",
+                        "outline-variant": "#4a4550",
+                        "surface-container-highest": "#333440",
+                        "primary": "#d4bbff",
+                        "on-surface": "#e2e1f1",
+                        "on-primary": "#3d1b72",
+                        "on-secondary-fixed-variant": "#0c4393",
+                        "surface": "#12131d",
+                        "surface-container-high": "#282935",
+                        "tertiary": "#bec5eb",
+                        "surface-variant": "#333440",
+                        "on-tertiary-fixed-variant": "#3e4565",
+                        "background": "#12131d",
+                        "secondary-fixed": "#d8e2ff",
+                        "primary-container": "#bb9af7",
+                        "primary-fixed": "#ebdcff",
+                        "surface-container": "#1e1f2a",
+                        "surface-bright": "#383844",
+                        "on-tertiary-container": "#363d5d",
+                        "on-primary-fixed": "#260058",
+                        "secondary": "#aec6ff",
+                        "on-secondary": "#002e6b",
+                        "on-secondary-container": "#93b4ff",
+                        "error-container": "#93000a",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#d4bbff",
+                        "tertiary-fixed": "#dde1ff",
+                        "on-background": "#e2e1f1"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-max": "1440px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-xl": ["Bricolage Grotesque"],
+                        "headline-lg-mobile": ["Bricolage Grotesque"],
+                        "headline-lg": ["Bricolage Grotesque"],
+                        "body-md": ["Geist"],
+                        "metadata-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-xl": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "metadata-sm": ["13px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Scanline Overlay */
+        .scanlines {
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        
+        /* Hard Offset Shadows for Buttons/Cards */
+        .hard-shadow-primary {
+            box-shadow: 4px 4px 0px 0px theme('colors.primary');
+            transition: all 0.15s ease;
+        }
+        .hard-shadow-primary:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px theme('colors.primary');
+        }
+        
+        .hard-shadow-secondary {
+            box-shadow: 4px 4px 0px 0px theme('colors.secondary');
+            transition: all 0.15s ease;
+        }
+        .hard-shadow-secondary:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px theme('colors.secondary');
+        }
+
+        /* CD Animation */
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 20s linear infinite;
+        }
+        .group:hover .animate-spin-slow {
+            animation-duration: 5s;
+        }
+
+        /* Glitch Effect on Hover */
+        .glitch-hover:hover {
+            animation: glitch-skew 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+        }
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(-5deg); }
+            40% { transform: skew(5deg); }
+            60% { transform: skew(-2deg); }
+            80% { transform: skew(2deg); }
+            100% { transform: skew(0deg); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col relative overflow-x-hidden selection:bg-primary selection:text-on-primary">
+<!-- Scanline Overlay -->
+<div class="fixed inset-0 scanlines z-50 mix-blend-overlay"></div>
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-lowest docked full-width top-0 border-b border-outline-variant flat no shadows z-40 sticky">
+<div class="flex justify-between items-center w-full px-margin-desktop h-16 max-w-container-max mx-auto md:px-margin-desktop px-margin-mobile">
+<!-- Brand -->
+<div class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary tracking-tighter uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">archive</span>
+                HEIRLOOM_ARCHIVE
+            </div>
+<!-- Web Nav -->
+<div class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-150 font-label-caps text-label-caps px-2 py-1" href="#">Repositories</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-label-caps text-label-caps px-2 py-1 Active: translate-y-0.5 transition-transform" href="#">Vault</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-150 font-label-caps text-label-caps px-2 py-1" href="#">Catalog</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-colors duration-150 font-label-caps text-label-caps px-2 py-1" href="#">Specs</a>
+</div>
+<!-- Actions -->
+<div class="hidden md:flex items-center gap-4">
+<button class="font-label-caps text-label-caps text-on-surface border border-outline px-4 py-2 hover:bg-surface-container-highest transition-colors duration-150 uppercase">Export Artifact</button>
+<button class="font-label-caps text-label-caps text-on-primary bg-primary px-4 py-2 hard-shadow-primary uppercase border border-primary">Commit to Archive</button>
+</div>
+<!-- Mobile Menu Trigger (Simplified) -->
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 flex flex-col gap-gutter">
+<!-- Header Area -->
+<header class="border-b border-outline-variant pb-8 mb-4">
+<div class="flex items-center gap-3 mb-2">
+<span class="bg-primary text-on-primary font-label-caps text-label-caps px-2 py-1 border border-primary uppercase">Status: Sealed</span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant uppercase"><span class="text-primary">&gt;</span> Artifact Preview generated</span>
+</div>
+<h1 class="font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-2">ARCHIVE_PREVIEW: repo-core-v2</h1>
+<p class="font-metadata-sm text-metadata-sm text-on-surface-variant max-w-2xl">Inspecting sealed components prior to cold storage. Hover over artifacts to verify integrity parameters.</p>
+</header>
+<!-- Gallery Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- 1. CD Label Preview (Spans 8 cols on desktop) -->
+<div class="col-span-1 md:col-span-8 bg-surface-container-low border border-outline-variant relative group overflow-hidden flex flex-col">
+<div class="h-2 w-full bg-primary absolute top-0 left-0 z-10"></div>
+<div class="p-6 border-b border-outline-variant flex justify-between items-center z-10 relative bg-surface-container-low">
+<h2 class="font-label-caps text-label-caps text-primary uppercase"><span class="text-on-surface-variant mr-2">[01]</span> Physical Media Prototype</h2>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">album</span>
+</div>
+<div class="flex-grow flex items-center justify-center p-12 bg-surface-container-lowest relative">
+<!-- Tech grid background -->
+<div class="absolute inset-0 opacity-10" style="background-image: linear-gradient(theme('colors.outline-variant') 1px, transparent 1px), linear-gradient(90deg, theme('colors.outline-variant') 1px, transparent 1px); background-size: 20px 20px;"></div>
+<!-- The CD Graphic -->
+<div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full border-4 border-outline-variant bg-surface flex items-center justify-center shadow-[0_0_30px_rgba(212,187,255,0.1)] group-hover:shadow-[0_0_50px_rgba(212,187,255,0.3)] transition-all duration-500 z-10">
+<!-- Disc Rings -->
+<div class="absolute inset-2 rounded-full border border-outline-variant/30"></div>
+<div class="absolute inset-6 rounded-full border border-outline-variant/20"></div>
+<!-- Inner Hole -->
+<div class="w-16 h-16 rounded-full border-4 border-outline-variant bg-surface-container-lowest flex items-center justify-center z-20">
+<div class="w-8 h-8 rounded-full border border-outline-variant bg-background"></div>
+</div>
+<!-- Label Text Array (Rotating) -->
+<div class="absolute inset-0 animate-spin-slow pointer-events-none">
+<!-- Top Curve Text -->
+<svg class="w-full h-full absolute inset-0 text-on-surface opacity-80" viewbox="0 0 100 100">
+<path d="M 20,50 a 30,30 0 1,1 60,0" fill="transparent" id="curve-top"></path>
+<text class="font-label-caps text-[6px] tracking-widest uppercase fill-current">
+<textpath href="#curve-top" startoffset="50%" text-anchor="middle">
+                                        repo-core-v2 // owner: dev-ops-lead
+                                    </textpath>
+</text>
+</svg>
+<!-- Bottom Curve Text -->
+<svg class="w-full h-full absolute inset-0 text-primary opacity-80" viewbox="0 0 100 100">
+<path d="M 80,50 a 30,30 0 1,1 -60,0" fill="transparent" id="curve-bottom"></path>
+<text class="font-label-caps text-[6px] tracking-widest uppercase fill-current">
+<textpath href="#curve-bottom" startoffset="50%" text-anchor="middle">
+                                        HASH: a7f89b2...99e1c
+                                    </textpath>
+</text>
+</svg>
+</div>
+<!-- Holographic shine effect overlay -->
+<div class="absolute inset-0 rounded-full bg-gradient-to-tr from-transparent via-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-screen pointer-events-none"></div>
+</div>
+</div>
+<!-- Inspection Overlay on Hover -->
+<div class="absolute bottom-0 left-0 w-full p-4 bg-surface-container-highest border-t border-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-20 flex justify-between items-center">
+<div class="font-metadata-sm text-metadata-sm">
+<span class="text-primary">&gt;</span> FORMAT: ISO-9660
+                    </div>
+<button class="font-label-caps text-label-caps border border-primary text-primary px-3 py-1 hover:bg-primary hover:text-on-primary transition-colors uppercase">Extract Config</button>
+</div>
+</div>
+<!-- 2. Dependency Tombstone (Spans 4 cols on desktop) -->
+<div class="col-span-1 md:col-span-4 bg-surface-container-low border border-outline-variant relative group flex flex-col">
+<div class="h-2 w-full bg-secondary absolute top-0 left-0 z-10"></div>
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low z-10">
+<h2 class="font-label-caps text-label-caps text-secondary uppercase"><span class="text-on-surface-variant mr-2">[02]</span> Dependency Graveyard</h2>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-secondary transition-colors">account_tree</span>
+</div>
+<div class="flex-grow p-6 bg-surface-container-lowest flex flex-col gap-4 overflow-y-auto max-h-[400px]">
+<p class="font-metadata-sm text-metadata-sm text-on-surface-variant mb-2 uppercase border-b border-outline-variant pb-2"><span class="text-secondary">&gt;</span> Deprecated Packages</p>
+<!-- Tombstone Item 1 -->
+<div class="border border-outline-variant p-4 bg-surface hover:bg-surface-container-high transition-colors flex flex-col relative group/item">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant group-hover/item:bg-secondary transition-colors"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface uppercase pl-2">react-router-dom</span>
+<span class="font-metadata-sm text-metadata-sm text-error bg-error-container px-1 uppercase">v5.3.4</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant pl-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">skull</span> Cause: Migration to Next.js
+                        </div>
+</div>
+<!-- Tombstone Item 2 -->
+<div class="border border-outline-variant p-4 bg-surface hover:bg-surface-container-high transition-colors flex flex-col relative group/item">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant group-hover/item:bg-secondary transition-colors"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface uppercase pl-2">moment.js</span>
+<span class="font-metadata-sm text-metadata-sm text-error bg-error-container px-1 uppercase">v2.29.4</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant pl-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">skull</span> Cause: Bundle size bloat
+                        </div>
+</div>
+<!-- Tombstone Item 3 -->
+<div class="border border-outline-variant p-4 bg-surface hover:bg-surface-container-high transition-colors flex flex-col relative group/item">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant group-hover/item:bg-secondary transition-colors"></div>
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface uppercase pl-2">lodash</span>
+<span class="font-metadata-sm text-metadata-sm text-error bg-error-container px-1 uppercase">v4.17.21</span>
+</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant pl-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">skull</span> Cause: Native ES6 implementation
+                        </div>
+</div>
+</div>
+</div>
+<!-- 3. Handoff Note (Spans full 12 cols) -->
+<div class="col-span-1 md:col-span-12 bg-surface-container-low border border-outline-variant relative group mt-4">
+<div class="h-2 w-full bg-primary absolute top-0 left-0 z-10"></div>
+<div class="p-6 border-b border-outline-variant flex justify-between items-center bg-surface-container-low z-10">
+<h2 class="font-label-caps text-label-caps text-primary uppercase"><span class="text-on-surface-variant mr-2">[03]</span> Archivist's Log</h2>
+<div class="flex items-center gap-4">
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant hidden md:inline-block">FILE: README_FINAL.md</span>
+<span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">description</span>
+</div>
+</div>
+<div class="p-8 md:p-12 bg-surface-container-lowest font-body-md text-on-surface-variant border-l-4 border-l-surface-container-highest ml-4 my-8 md:mx-12 relative">
+<!-- Decorative corner markers -->
+<div class="absolute top-0 left-0 w-4 h-4 border-t border-l border-outline-variant -translate-x-4 -translate-y-4"></div>
+<div class="absolute bottom-0 right-0 w-4 h-4 border-b border-r border-outline-variant translate-x-4 translate-y-4"></div>
+<div class="font-metadata-sm text-metadata-sm text-primary mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+<span>$ cat handoff_note.txt</span>
+</div>
+<div class="space-y-4 text-on-surface">
+<p>To whoever unseals this repository,</p>
+<p>This snapshot represents the final stable state of <span class="font-label-caps text-label-caps bg-surface-container-high px-1 border border-outline-variant">repo-core-v2</span> before the Great Refactor of Q4 2024. The architecture held up well under load, but technical debt in the caching layer ultimately forced our hand.</p>
+<p>A few warnings:</p>
+<ul class="list-none space-y-2 pl-4 border-l border-outline-variant ml-2">
+<li class="flex gap-2"><span class="text-primary">&gt;</span> The auth middleware has a known race condition if Redis latency spikes above 50ms.</li>
+<li class="flex gap-2"><span class="text-primary">&gt;</span> Do not attempt to re-enable the legacy webhook processor (cron jobs in `/workers/old`). It will consume all available memory.</li>
+</ul>
+<p>Godspeed compiling this on future hardware.</p>
+<div class="mt-8 pt-4 border-t border-outline-variant border-dashed flex justify-between items-center">
+<div class="font-label-caps text-label-caps uppercase text-outline">
+                                Sign-off: Lead Engineer [E.R.]
+                            </div>
+<div class="font-label-caps text-label-caps uppercase text-outline">
+                                Timestamp: 2024-10-24T14:32:00Z
+                            </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer (Shared Component) -->
+<footer class="bg-surface-dim dark:bg-surface-dim docked full-width bottom-0 border-t border-outline-variant flat no shadows mt-auto">
+<div class="flex justify-between items-center w-full px-margin-desktop py-4 mx-auto max-w-container-max md:px-margin-desktop px-margin-mobile flex-col md:flex-row gap-4">
+<div class="font-label-caps text-label-caps text-on-surface uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">memory</span>
+                ©2024 HEIRLOOM_SYSTEMS [STABLE_BUILD]
+            </div>
+<div class="flex gap-6 font-metadata-sm text-metadata-sm text-on-tertiary-fixed-variant">
+<a class="hover:text-tertiary-container hover:underline cursor-pointer uppercase" href="#"><span class="text-primary mr-1">&gt;</span>Privacy.md</a>
+<a class="hover:text-tertiary-container hover:underline cursor-pointer uppercase" href="#"><span class="text-primary mr-1">&gt;</span>Terminal_Manual</a>
+<a class="hover:text-tertiary-container hover:underline cursor-pointer uppercase" href="#"><span class="text-primary mr-1">&gt;</span>API_Protocol</a>
+</div>
+</div>
+</footer>
+</body></html>

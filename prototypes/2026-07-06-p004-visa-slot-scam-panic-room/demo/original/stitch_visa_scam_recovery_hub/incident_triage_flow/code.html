@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Incident Triage - Panic Room</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#39485a",
+                      "on-secondary-fixed-variant": "#03497a",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e0e3e5",
+                      "surface-variant": "#e0e3e5",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e6e8ea",
+                      "tertiary-fixed-dim": "#b9c8de",
+                      "secondary-fixed": "#d0e4ff",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#145283",
+                      "on-tertiary-fixed": "#0d1c2d",
+                      "inverse-surface": "#2d3133",
+                      "error": "#ba1a1a",
+                      "surface-container-low": "#f2f4f6",
+                      "surface-bright": "#f7f9fb",
+                      "on-error": "#ffffff",
+                      "on-surface": "#191c1e",
+                      "surface": "#f7f9fb",
+                      "on-tertiary": "#ffffff",
+                      "on-surface-variant": "#44474c",
+                      "surface-container": "#eceef0",
+                      "tertiary-fixed": "#d4e4fa",
+                      "outline-variant": "#c5c6cd",
+                      "on-primary-fixed-variant": "#3a485c",
+                      "surface-dim": "#d8dadc",
+                      "primary-fixed-dim": "#b9c7e0",
+                      "tertiary": "#1c2b3c",
+                      "primary": "#1d2b3e",
+                      "tertiary-container": "#334153",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#93c5fd",
+                      "surface-tint": "#515f74",
+                      "on-primary-fixed": "#0d1c2f",
+                      "primary-fixed": "#d5e3fd",
+                      "on-secondary": "#ffffff",
+                      "on-primary-container": "#9eadc5",
+                      "on-secondary-fixed": "#001d35",
+                      "primary-container": "#334155",
+                      "inverse-primary": "#b9c7e0",
+                      "inverse-on-surface": "#eff1f3",
+                      "outline": "#75777d",
+                      "secondary-fixed-dim": "#9ccaff",
+                      "background": "#f7f9fb",
+                      "secondary": "#2b6193",
+                      "on-background": "#191c1e",
+                      "on-tertiary-container": "#9eadc2"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "64px",
+                      "gutter": "24px",
+                      "stack-sm": "12px",
+                      "stack-md": "24px",
+                      "stack-lg": "48px",
+                      "container-max": "1120px",
+                      "base": "8px",
+                      "margin-mobile": "20px"
+              },
+              "fontFamily": {
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "headline-md": [
+                              "Manrope"
+                      ],
+                      "headline-xl": [
+                              "Manrope"
+                      ],
+                      "headline-lg-mobile": [
+                              "Manrope"
+                      ],
+                      "label-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "label-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #E2E8F0;
+        }
+        .radio-custom:checked + div {
+            background-color: #F0FDF4; /* Sage green for positive reinforcement */
+            border-color: #334155; /* primary-container */
+        }
+        .radio-custom:checked + div .radio-icon {
+            color: #1d2b3e; /* primary */
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-surface text-primary dark:text-inverse-primary docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows scale-95 duration-200 ease-in-out flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto h-16 sticky z-50">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">
+            Panic Room
+        </div>
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Recovery Dashboard</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Evidence Vault</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-body-md text-body-md" href="#">Contact Map</a>
+</nav>
+<button class="bg-error text-on-error px-4 py-2 rounded-lg font-label-md text-label-md hover:bg-on-error-container transition-colors">
+            Immediate Help
+        </button>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-highest text-primary dark:text-inverse-primary h-screen w-64 fixed left-0 top-16 shadow-sm hidden md:flex flex-col gap-base p-stack-md transition-all duration-300 z-40">
+<div class="mb-stack-md">
+<h2 class="font-headline-md text-headline-md text-primary">Recovery Progress</h2>
+<p class="font-label-md text-label-md text-on-surface-variant mt-1">Step 1 of 4</p>
+</div>
+<nav class="flex flex-col gap-2 flex-1 font-label-md text-label-md">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span>Panic Summary</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-primary dark:text-inverse-primary font-bold bg-secondary-container dark:bg-secondary rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span>Incident Triage</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Recovery Dashboard</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant dark:text-on-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="share">share</span>
+<span>Action &amp; Sharing</span>
+</a>
+</nav>
+<div class="mt-auto pt-stack-md border-t border-outline-variant">
+<button class="w-full bg-error text-on-error py-3 rounded-lg font-label-md text-label-md font-bold hover:bg-on-error-container transition-colors">
+                    Revoke Access
+                </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop min-h-screen">
+<!-- Progress Indicator -->
+<div class="mb-stack-lg max-w-3xl mx-auto">
+<div class="flex justify-between items-end mb-2">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Incident Triage</h1>
+<span class="font-label-md text-label-md text-on-surface-variant">Step 1 of 4</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-secondary-fixed-dim h-full" style="width: 25%;"></div>
+</div>
+<p class="mt-stack-sm font-body-md text-body-md text-on-surface-variant max-w-2xl">
+                    Please provide details about the incident. This information helps us tailor your recovery path and prioritize immediate actions to secure your assets. Take a deep breath; we are here to help.
+                </p>
+</div>
+<!-- Triage Form -->
+<div class="max-w-3xl mx-auto space-y-stack-lg pb-stack-lg">
+<!-- Question 1 -->
+<section class="glass-card rounded-xl p-stack-md md:p-stack-lg shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">What happened?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Select the option that best describes the initial event.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-custom" name="incident_type" type="radio" value="broker"/>
+<div class="h-full border border-outline-variant rounded-lg p-stack-md transition-all hover:bg-surface-container-low flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-outline radio-icon text-3xl" data-icon="payments">payments</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Paid a broker</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-custom" name="incident_type" type="radio" value="password"/>
+<div class="h-full border border-outline-variant rounded-lg p-stack-md transition-all hover:bg-surface-container-low flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-outline radio-icon text-3xl" data-icon="password">password</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Lost password</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-custom" name="incident_type" type="radio" value="fake_site"/>
+<div class="h-full border border-outline-variant rounded-lg p-stack-md transition-all hover:bg-surface-container-low flex flex-col items-center text-center gap-3">
+<span class="material-symbols-outlined text-outline radio-icon text-3xl" data-icon="warning">warning</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Suspect a fake site</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Question 2 -->
+<section class="glass-card rounded-xl p-stack-md md:p-stack-lg shadow-sm">
+<h3 class="font-headline-md text-headline-md text-primary mb-stack-sm">Where did it occur?</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Identify the platform where the interaction took place.</p>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-gutter">
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-custom" name="platform" type="radio" value="whatsapp"/>
+<div class="border border-outline-variant rounded-lg p-4 transition-all hover:bg-surface-container-low flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="forum">forum</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">WhatsApp</span>
+</div>
+</label>
+<label class="cursor-pointer relative">
+<input class="peer sr-only radio-custom" name="platform" type="radio" value="telegram"/>
+<div class="border border-outline-variant rounded-lg p-4 transition-all hover:bg-surface-container-low flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="send">send</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Telegram</span>
+</div>
+</label>
+<label class="cursor-pointer relative sm:col-span-2">
+<input class="peer sr-only radio-custom" name="platform" type="radio" value="third_party"/>
+<div class="border border-outline-variant rounded-lg p-4 transition-all hover:bg-surface-container-low flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="public">public</span>
+</div>
+<span class="font-label-md text-label-md text-on-surface font-semibold">Third-party portal</span>
+</div>
+</label>
+</div>
+</section>
+<!-- Action Area -->
+<div class="flex justify-end pt-stack-sm">
+<button class="bg-primary text-on-primary px-8 py-3 rounded-lg font-label-md text-label-md font-semibold hover:bg-primary-container transition-colors shadow-sm">
+                        Continue to Step 2
+                    </button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tradeoff Analysis - Sleep Debt Negotiator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-on-surface": "#f2f1ec",
+                      "surface-container-highest": "#e4e2dd",
+                      "on-tertiary-fixed-variant": "#623f18",
+                      "on-primary-fixed": "#032013",
+                      "on-primary-fixed-variant": "#304d3d",
+                      "on-tertiary-container": "#ffffff",
+                      "primary-container": "#5f7d6b",
+                      "surface": "#fbf9f4",
+                      "on-surface-variant": "#424843",
+                      "on-secondary-fixed-variant": "#334a54",
+                      "surface-variant": "#e4e2dd",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#aeceb9",
+                      "secondary-container": "#cbe3f0",
+                      "surface-container-low": "#f5f3ee",
+                      "surface-container-high": "#eae8e3",
+                      "primary": "#476453",
+                      "tertiary-fixed-dim": "#f0bd8b",
+                      "tertiary-container": "#986e42",
+                      "on-secondary-container": "#4f6671",
+                      "surface-dim": "#dbdad5",
+                      "on-tertiary-fixed": "#2c1600",
+                      "secondary": "#4b626d",
+                      "on-surface": "#1b1c19",
+                      "tertiary": "#7d562c",
+                      "inverse-surface": "#30312e",
+                      "on-primary-container": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "outline-variant": "#c2c8c2",
+                      "outline": "#727973",
+                      "error": "#ba1a1a",
+                      "background": "#fbf9f4",
+                      "on-secondary": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-background": "#1b1c19",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#aeceb9",
+                      "surface-tint": "#476554",
+                      "on-error": "#ffffff",
+                      "tertiary-fixed": "#ffdcbd",
+                      "surface-bright": "#fbf9f4",
+                      "on-secondary-fixed": "#051e28",
+                      "secondary-fixed": "#cee6f3",
+                      "secondary-fixed-dim": "#b2cad7",
+                      "surface-container": "#f0eee9",
+                      "primary-fixed": "#c9ead5",
+                      "error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "8px",
+                      "stack-lg": "32px",
+                      "stack-sm": "8px",
+                      "margin-desktop": "64px",
+                      "container-max": "1200px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "stack-md": "16px",
+                      "stack-xl": "64px"
+              },
+              "fontFamily": {
+                      "body-md": [
+                              "Work Sans"
+                      ],
+                      "label-md": [
+                              "Work Sans"
+                      ],
+                      "headline-md": [
+                              "Manrope"
+                      ],
+                      "label-sm": [
+                              "Work Sans"
+                      ],
+                      "headline-xl-mobile": [
+                              "Manrope"
+                      ],
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Work Sans"
+                      ],
+                      "headline-xl": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-xl-mobile": [
+                              "30px",
+                              {
+                                      "lineHeight": "36px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-xl": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-md text-body-md h-full flex flex-col md:flex-row">
+<!-- Mobile Top Nav (Hidden on Desktop) -->
+<nav class="md:hidden fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile h-16 bg-surface shadow-sm transition-all duration-200 ease-in-out">
+<div class="font-headline-md text-headline-md font-bold text-primary">Sleep Debt Negotiator</div>
+<div class="flex gap-stack-sm text-primary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</div>
+</nav>
+<!-- Desktop SideNav (Hidden on Mobile) -->
+<aside class="hidden lg:flex flex-col p-stack-md gap-stack-sm bg-surface-container-low text-primary h-full w-64 fixed left-0 top-0">
+<div class="mb-stack-lg px-unit">
+<div class="font-headline-lg text-headline-lg text-primary mb-stack-md font-bold">Sleep Debt Negotiator</div>
+<div class="flex items-center gap-stack-sm mb-stack-md">
+<img class="w-10 h-10 rounded-full object-cover shadow-sm" data-alt="A small, circular avatar portrait of a child. The image should be warm, gently lit, and have a calm, reassuring tone in line with a modern, supportive parenting app. Soft cream and muted sage green colors in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGErAZm9u7ThVjHh5_SZ8YUIa_NwWyipsQfk910PX0wU8otExj9Asbqt_YTEL_W18dCfeXrawwFp_u50RNJrWbmE8Sm_4wRr6jP9swZWhzYBQ9_waRQRSo0uBHfF52K9eLrga4cSfcLm5fpHJzfm-FIYWYHqEZdvXhFQVqNfoLQqJuFzifJqg6XeaRCHnVcxEHnWzY3VOXYpECC5YtuXMGcgnFcxmibOD1hJaNra84p9lQNQ80BxPXiTog1oRk6lUWkSSfU4y5LnP5"/>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Min-jun's Plan</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Current Sleep: 5.5h</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 rounded-md font-label-md text-label-md hover:bg-surface-tint transition-colors">Start New Negotiation</button>
+</div>
+<nav class="flex-1 flex flex-col gap-unit font-label-md text-label-md">
+<a class="flex items-center gap-stack-sm p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+                Input Dashboard
+            </a>
+<a class="flex items-center gap-stack-sm p-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="balance">balance</span>
+                Tradeoff Analysis
+            </a>
+<a class="flex items-center gap-stack-sm p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="published_with_changes">published_with_changes</span>
+                Negotiation
+            </a>
+<a class="flex items-center gap-stack-sm p-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+                Family Agreement
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 pt-16 md:pt-0 min-h-screen pb-stack-xl flex flex-col">
+<!-- Desktop TopNav Header -->
+<header class="hidden lg:flex justify-between items-center px-margin-desktop h-16 bg-surface mb-stack-lg border-b border-surface-variant">
+<div class="flex gap-stack-lg font-label-md text-label-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Tradeoffs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Scenarios</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Agreements</a>
+</div>
+<div class="flex gap-stack-md text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:text-surface-tint" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-surface-tint" data-icon="settings">settings</span>
+<img class="w-8 h-8 rounded-full object-cover shadow-sm cursor-pointer ml-unit" data-alt="A small, circular avatar portrait of an adult parent. The image should be warm, gently lit, and have a calm, reassuring tone in line with a modern, supportive parenting app. Soft cream and muted sage green colors in the background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBLV_5iKerSR6ZDE9F75MtdhrRGGJgGU5Iiu7BR1gtxlp8vi8aHNupfc0E___S7uAHnC9CfcWC0_SfeQjcyrVTi5FmqZSdwPjrtasd7y3LQH6bOHCRMRAFvbboo14kU7oHCTNyIdvnfB4ZiBL61_9ZAqe3T-jbmT0IaGLNAnWFIn_krHrICDZB71lspIjz4rtEIJVMqkhuXhjgjpTWYa5bQP1mJeSHjRzH1dG6Bu2lEnhJiPzrJ4aldQAWtSdpJhod3lvYTkukNdOxd"/>
+</div>
+</header>
+<!-- Canvas -->
+<div class="px-margin-mobile md:px-gutter lg:px-margin-desktop max-w-container-max mx-auto w-full flex-1 mt-stack-md md:mt-stack-xl">
+<div class="mb-stack-lg">
+<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-surface mb-stack-sm">Tradeoff Analysis</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Compare scenarios to find a sustainable balance between Min-jun's academic schedule and essential sleep recovery.</p>
+</div>
+<!-- Dashboard Overview Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-stack-xl">
+<!-- Sleep Recovery Visualizer (The Goal) -->
+<div class="md:col-span-8 bg-surface-container-lowest p-stack-lg rounded-xl shadow-sm border border-surface-variant relative overflow-hidden">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md flex items-center gap-unit">
+<span class="material-symbols-outlined text-primary" data-icon="bedtime">bedtime</span>
+                        Sleep Recovery Goal
+                    </h2>
+<div class="mb-stack-md flex justify-between items-end">
+<div>
+<span class="font-headline-xl text-headline-xl text-primary block">8.5h</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Recommended Nightly Target</span>
+</div>
+<div class="text-right">
+<span class="font-headline-lg text-headline-lg text-secondary block">5.5h</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Current Average</span>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="h-8 bg-surface-variant rounded-full overflow-hidden relative">
+<div class="absolute top-0 left-0 h-full bg-secondary-container w-[65%] transition-all duration-1000 ease-out flex items-center px-unit">
+<span class="font-label-sm text-label-sm text-on-secondary-container font-bold">Current: 5.5h</span>
+</div>
+<!-- Target Marker -->
+<div class="absolute top-0 left-[100%] h-full border-l-2 border-primary-container hidden"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-stack-sm text-right">Requires +3.0h recovery</p>
+</div>
+<!-- Status Anxiety / Peer Pressure (The Problem) -->
+<div class="md:col-span-4 bg-error-container/20 p-stack-lg rounded-xl shadow-sm border border-error-container relative flex flex-col justify-center">
+<h2 class="font-headline-md text-headline-md text-on-error-container mb-stack-sm flex items-center gap-unit">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                        Peer Benchmarks
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">Min-jun's current schedule is driven by the top 10% peer average in Daechi-dong.</p>
+<div class="flex flex-wrap gap-stack-sm">
+<span class="bg-surface text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm border border-outline-variant shadow-sm text-xs">Math: +2 Hagwons</span>
+<span class="bg-surface text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm border border-outline-variant shadow-sm text-xs">English: Elite Track</span>
+<span class="bg-surface text-on-surface-variant px-3 py-1 rounded-full font-label-sm text-label-sm border border-outline-variant shadow-sm text-xs">Weekend: Intensive</span>
+</div>
+</div>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-on-surface mb-stack-md">Negotiation Scenarios</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg">Select a path below to see the detailed impact on time, cost, and well-being.</p>
+<!-- Scenarios Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Scenario 1: Current Path -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-sm border border-surface-variant flex flex-col hover:shadow-md transition-shadow cursor-pointer">
+<div class="mb-stack-md">
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded text-xs font-bold uppercase tracking-wider mb-stack-sm inline-block">High Stress</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">Current Path</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Maintain all current commitments.</p>
+</div>
+<div class="flex-1 flex flex-col gap-stack-sm mb-stack-lg border-t border-b border-surface-variant py-stack-md">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="bedtime">bedtime</span> Sleep</span>
+<span class="font-body-md text-body-md font-bold text-error">5.5h / night</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="payments">payments</span> Cost</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">₩2.8M / mo</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="school">school</span> Academic</span>
+<span class="font-body-md text-body-md font-bold text-primary-container">Top 10% Pace</span>
+</div>
+</div>
+<button class="w-full border-2 border-outline-variant text-on-surface-variant py-2 rounded-md font-label-md text-label-md hover:bg-surface-variant transition-colors">Select Scenario</button>
+</div>
+<!-- Scenario 2: The Middle Ground -->
+<div class="bg-primary-fixed/30 p-stack-lg rounded-xl shadow-sm border border-primary relative flex flex-col hover:shadow-md transition-shadow cursor-pointer transform md:-translate-y-2">
+<div class="absolute top-0 right-0 bg-primary text-on-primary text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl">Recommended</div>
+<div class="mb-stack-md">
+<span class="bg-primary-container text-on-primary-container px-2 py-1 rounded text-xs font-bold uppercase tracking-wider mb-stack-sm inline-block">Moderate Tradeoffs</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">The Middle Ground</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Drop secondary math hagwon, consolidate weekend study.</p>
+</div>
+<div class="flex-1 flex flex-col gap-stack-sm mb-stack-lg border-t border-b border-primary/20 py-stack-md">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="bedtime">bedtime</span> Sleep</span>
+<span class="font-body-md text-body-md font-bold text-primary">7.0h / night <span class="text-xs text-primary-container">(+1.5h)</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="payments">payments</span> Cost</span>
+<span class="font-body-md text-body-md font-bold text-secondary">₩2.2M / mo <span class="text-xs text-secondary-container">(-₩600k)</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="school">school</span> Academic</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">Top 15% Pace</span>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-2 rounded-md font-label-md text-label-md hover:bg-surface-tint transition-colors shadow-sm">Review Tradeoffs</button>
+</div>
+<!-- Scenario 3: The Health Priority -->
+<div class="bg-surface-container-lowest p-stack-lg rounded-xl shadow-sm border border-surface-variant flex flex-col hover:shadow-md transition-shadow cursor-pointer">
+<div class="mb-stack-md">
+<span class="bg-secondary-container text-on-secondary-container px-2 py-1 rounded text-xs font-bold uppercase tracking-wider mb-stack-sm inline-block">Optimal Sleep</span>
+<h4 class="font-headline-md text-headline-md text-on-surface">The Health Priority</h4>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Core subjects only. Free weekends for recovery.</p>
+</div>
+<div class="flex-1 flex flex-col gap-stack-sm mb-stack-lg border-t border-b border-surface-variant py-stack-md">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="bedtime">bedtime</span> Sleep</span>
+<span class="font-body-md text-body-md font-bold text-primary">8.5h / night <span class="text-xs text-primary-container">(+3.0h)</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="payments">payments</span> Cost</span>
+<span class="font-body-md text-body-md font-bold text-secondary">₩1.5M / mo <span class="text-xs text-secondary-container">(-₩1.3M)</span></span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant flex items-center gap-unit"><span class="material-symbols-outlined text-sm" data-icon="school">school</span> Academic</span>
+<span class="font-body-md text-body-md font-bold text-on-surface">Top 25% Pace</span>
+</div>
+</div>
+<button class="w-full border-2 border-outline-variant text-on-surface-variant py-2 rounded-md font-label-md text-label-md hover:bg-surface-variant transition-colors">Select Scenario</button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-stack-xl flex flex-col md:flex-row justify-between items-center bg-surface-container-highest">
+<div class="font-headline-md text-headline-md text-primary mb-stack-md md:mb-0">Supportive Advisor Navigation</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-stack-md md:mb-0 text-center md:text-left">© 2024 Supportive Advisor Navigation. Prioritizing sustainable balance for Korean families.</p>
+<div class="flex gap-stack-md font-label-sm text-label-sm">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Sleep Science Sources</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Bottom Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface shadow-[0_-1px_3px_rgba(0,0,0,0.05)]">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="edit_note">edit_note</span>
+<span class="text-[10px] mt-1 font-label-sm">Input</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary border-t-2 border-primary" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="balance" data-weight="fill" style="font-variation-settings: 'FILL' 1;">balance</span>
+<span class="text-[10px] mt-1 font-label-sm font-bold">Tradeoffs</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary" href="#">
+<span class="material-symbols-outlined text-[24px]" data-icon="published_with_changes">published_with_changes</span>
+<span class="text-[10px] mt-1 font-label-sm">Negotiate</span>
+</a>
+</nav>
+</body></html>

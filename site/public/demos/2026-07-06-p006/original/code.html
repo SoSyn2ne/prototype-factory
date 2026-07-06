@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sleep Debt Negotiator - Input Dashboard</title>
+<!-- Tailwind CSS & Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f2f1ec",
+                    "surface-container-highest": "#e4e2dd",
+                    "on-tertiary-fixed-variant": "#623f18",
+                    "on-primary-fixed": "#032013",
+                    "on-primary-fixed-variant": "#304d3d",
+                    "on-tertiary-container": "#ffffff",
+                    "primary-container": "#5f7d6b",
+                    "surface": "#fbf9f4",
+                    "on-surface-variant": "#424843",
+                    "on-secondary-fixed-variant": "#334a54",
+                    "surface-variant": "#e4e2dd",
+                    "on-tertiary": "#ffffff",
+                    "inverse-primary": "#aeceb9",
+                    "secondary-container": "#cbe3f0",
+                    "surface-container-low": "#f5f3ee",
+                    "surface-container-high": "#eae8e3",
+                    "primary": "#476453",
+                    "tertiary-fixed-dim": "#f0bd8b",
+                    "tertiary-container": "#986e42",
+                    "on-secondary-container": "#4f6671",
+                    "surface-dim": "#dbdad5",
+                    "on-tertiary-fixed": "#2c1600",
+                    "secondary": "#4b626d",
+                    "on-surface": "#1b1c19",
+                    "tertiary": "#7d562c",
+                    "inverse-surface": "#30312e",
+                    "on-primary-container": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "outline-variant": "#c2c8c2",
+                    "outline": "#727973",
+                    "error": "#ba1a1a",
+                    "background": "#fbf9f4",
+                    "on-secondary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "on-background": "#1b1c19",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#aeceb9",
+                    "surface-tint": "#476554",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#ffdcbd",
+                    "surface-bright": "#fbf9f4",
+                    "on-secondary-fixed": "#051e28",
+                    "secondary-fixed": "#cee6f3",
+                    "secondary-fixed-dim": "#b2cad7",
+                    "surface-container": "#f0eee9",
+                    "primary-fixed": "#c9ead5",
+                    "error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "8px",
+                    "stack-lg": "32px",
+                    "stack-sm": "8px",
+                    "margin-desktop": "64px",
+                    "container-max": "1200px",
+                    "gutter": "24px",
+                    "margin-mobile": "20px",
+                    "stack-md": "16px",
+                    "stack-xl": "64px"
+            },
+            "fontFamily": {
+                    "body-md": ["Work Sans"],
+                    "label-md": ["Work Sans"],
+                    "headline-md": ["Manrope"],
+                    "label-sm": ["Work Sans"],
+                    "headline-xl-mobile": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "body-lg": ["Work Sans"],
+                    "headline-xl": ["Manrope"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-xl-mobile": ["30px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Custom gentle shadow for surfaces */
+        .soft-elevation-1 {
+            box-shadow: 0 4px 24px -4px rgba(71, 100, 83, 0.08), 0 2px 8px -2px rgba(71, 100, 83, 0.04);
+        }
+        
+        /* Input custom styles */
+        .warm-input {
+            background-color: var(--color-surface-container-low, #f5f3ee);
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+        .warm-input:focus {
+            background-color: var(--color-surface-container-lowest, #ffffff);
+            border-color: var(--color-primary, #476453);
+            box-shadow: 0 0 0 2px rgba(71, 100, 83, 0.1);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 bg-surface shadow-sm transition-all duration-200 ease-in-out">
+<div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">spa</span>
+            Sleep Debt Negotiator
+        </div>
+<!-- Desktop Nav Links -->
+<div class="hidden md:flex space-x-stack-lg items-center h-full pt-1">
+<a class="h-full flex items-center text-primary border-b-2 border-primary font-label-md text-label-md transition-colors" href="#">Dashboard</a>
+<a class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Tradeoffs</a>
+<a class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Scenarios</a>
+<a class="h-full flex items-center text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Agreements</a>
+</div>
+<div class="flex items-center space-x-stack-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container-high">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="Parent profile avatar" class="w-8 h-8 rounded-full border border-outline-variant ml-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrsLRyUL2S9_z4YB7l5umxa7OMmJBc3Is0DtuTFs0aGQgGrbX05dNGxghcYh9gBkzf9UCSeqZCXE5SGkDoBwhmLz8HrJEc4rp2nxnen4U47pdpgrXEqvCMSBw05Pi1O6TVW_LM_17I5TkvX8WwyHGu4qrcNriONdeTWNQioFIZD5mYJhOt-SykcLorkGEbJpMyTKQV2iUpLrLmzgIYrnj9ILW-g0wz7O2XX6dF4-Xse5uM2--lkZ_Y-P4gsYHlxFVJGdhID9nY_GSP"/>
+</div>
+</nav>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden lg:flex flex-col p-stack-md gap-stack-sm h-full w-64 fixed left-0 top-16 bg-surface-container-low border-r border-outline-variant/20 z-40">
+<div class="flex items-center gap-stack-sm mb-stack-md p-2">
+<img alt="Child profile" class="w-12 h-12 rounded-full border-2 border-surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ0s-4R8mvOroI9erARf8QU1K5F615_ITWYMlMbGbdXeTFHr_Xa-wq2ZHuplLdcvE84amH7JYpo7jT3QEyvzG-yeXbpoHDVi5TvSIMGBVaQcXZ1An_ywgeqF2hnEuNoq69iqdkvvkUfWhK50ohXHW_vqIUco0yEscYWUSjhsBn5UP20E4CggWlxUd4V5xoEtJ3UBF3gC7Ofwcpf-zmBmgsYwrLBLqQj4yDi1_OTNLnlVOgYc_doLNRwQ3t8NemmjnRLHT-Hy0XoMtc"/>
+<div>
+<div class="font-headline-lg text-headline-lg text-primary text-xl leading-tight">Min-jun's Plan</div>
+<div class="font-label-md text-label-md text-secondary mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">bedtime</span> Current Sleep: 5.5h
+                    </div>
+</div>
+</div>
+<nav class="flex flex-col gap-1 flex-1">
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container text-on-secondary-container rounded-lg font-bold font-label-md text-label-md transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_note</span> Input Dashboard
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">balance</span> Tradeoff Analysis
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">published_with_changes</span> Negotiation
+                </a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-md text-label-md transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span> Family Agreement
+                </a>
+</nav>
+<button class="mt-auto w-full flex items-center justify-center gap-2 bg-primary text-on-primary font-label-md text-label-md py-3 rounded-lg hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+                Start New Negotiation
+            </button>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 w-full lg:pl-64 overflow-y-auto">
+<div class="max-w-container-max mx-auto p-margin-mobile md:p-margin-desktop space-y-stack-xl">
+<!-- Page Header -->
+<header class="max-w-2xl">
+<h1 class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-surface mb-2">Understand the Current Rhythm</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Let's map out Min-jun's weekly commitments without judgment. Seeing the whole picture helps us find gentle opportunities to restore balance and sleep.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Sleep Baseline (Wide Card) -->
+<section class="lg:col-span-12 bg-surface-container-lowest rounded-[24px] p-stack-lg soft-elevation-1 border border-outline-variant/20">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-secondary text-[28px]" style="font-variation-settings: 'FILL' 1;">nightlight</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Sleep Baseline</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+<div class="space-y-4">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Average Bedtime</label>
+<input class="warm-input w-full px-4 py-3 rounded-lg font-body-md text-on-surface" type="time" value="01:30"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-1">Average Wake Time</label>
+<input class="warm-input w-full px-4 py-3 rounded-lg font-body-md text-on-surface" type="time" value="07:00"/>
+</div>
+</div>
+<!-- Sleep Recovery Visualizer -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-stack-md flex flex-col justify-center border border-outline-variant/30">
+<div class="flex justify-between items-end mb-2">
+<div>
+<div class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Current Sleep Duration</div>
+<div class="font-headline-lg text-headline-lg text-on-surface flex items-baseline gap-1">
+                                            5.5 <span class="font-body-md text-body-md text-on-surface-variant">hours</span>
+</div>
+</div>
+<div class="text-right">
+<div class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Healthy Target</div>
+<div class="font-label-md text-label-md text-primary">8.0 hours</div>
+</div>
+</div>
+<!-- Recovery Bar (Blue/Teal toned for health, not red for deficit) -->
+<div class="w-full h-4 bg-surface-container-highest rounded-full overflow-hidden mt-2 flex">
+<div class="h-full bg-secondary-fixed-dim w-[68%] relative">
+<!-- Subtle pattern overlay for the filled bar -->
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(var(--color-on-secondary-fixed-variant) 1px, transparent 1px); background-size: 4px 4px;"></div>
+</div>
+<div class="h-full w-[32%] bg-surface-container-high"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-3 text-center">
+                                    Regaining <span class="text-secondary font-bold">2.5 hours</span> will significantly lower daily cortisol levels and improve focus.
+                                </p>
+</div>
+</div>
+</section>
+<!-- Class Cost Stack (Main List) -->
+<section class="lg:col-span-8 bg-surface-container-lowest rounded-[24px] p-stack-lg soft-elevation-1 border border-outline-variant/20 flex flex-col">
+<div class="flex justify-between items-center mb-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-[28px]" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Class Cost Stack</h2>
+</div>
+<button class="text-primary hover:bg-primary-container/20 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-md">List all current academies and tutoring. Consider the total time investment, including travel.</p>
+<div class="space-y-stack-sm flex-1">
+<!-- Hagwon Item 1 -->
+<div class="group relative bg-surface-container-low rounded-xl p-4 border border-outline-variant/10 hover:border-primary/30 transition-all hover:soft-elevation-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block px-2 py-0.5 bg-secondary-container text-on-secondary-container rounded-md font-label-sm text-[10px] uppercase font-bold tracking-wider">Math</span>
+<h3 class="font-label-md text-label-md font-bold text-on-surface">Advanced Calculus Prep</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Daechi-dong Main Campus</p>
+</div>
+<div class="text-right">
+<div class="font-label-md text-label-md font-bold text-on-surface">₩650,000</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">/ month</div>
+</div>
+</div>
+<div class="flex items-center gap-6 pt-3 border-t border-outline-variant/10">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">3 days / week (9h total)</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">directions_bus</span>
+<span class="font-label-sm text-label-sm">45m one-way</span>
+</div>
+</div>
+</div>
+<!-- Hagwon Item 2 -->
+<div class="group relative bg-surface-container-low rounded-xl p-4 border border-outline-variant/10 hover:border-primary/30 transition-all hover:soft-elevation-1">
+<div class="flex justify-between items-start mb-3">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="inline-block px-2 py-0.5 bg-[#f0bd8b]/30 text-[#623f18] rounded-md font-label-sm text-[10px] uppercase font-bold tracking-wider">English</span>
+<h3 class="font-label-md text-label-md font-bold text-on-surface">TEPS Intensive Speaking</h3>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Online / Zoom</p>
+</div>
+<div class="text-right">
+<div class="font-label-md text-label-md font-bold text-on-surface">₩320,000</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">/ month</div>
+</div>
+</div>
+<div class="flex items-center gap-6 pt-3 border-t border-outline-variant/10">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+<span class="font-label-sm text-label-sm">2 days / week (4h total)</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">home</span>
+<span class="font-label-sm text-label-sm">0m commute</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Emotional Context (Sidebar Card) -->
+<section class="lg:col-span-4 bg-surface-container-lowest rounded-[24px] p-stack-lg soft-elevation-1 border border-outline-variant/20 flex flex-col">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">psychology_alt</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Emotional Context</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg">Understanding the "why" behind the schedule helps in finding sustainable compromises.</p>
+<div class="space-y-stack-md flex-1">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Primary Academic Goal</label>
+<select class="warm-input w-full px-4 py-3 rounded-lg font-body-md text-on-surface appearance-none cursor-pointer">
+<option>Maintain Top 10% in cohort</option>
+<option>Preparation for Science High School</option>
+<option>General university readiness</option>
+<option>Catching up in weak subjects</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2 flex items-center gap-2">
+                                    Peer Pressure Level
+                                    <span class="material-symbols-outlined text-[16px] text-outline cursor-help" title="How much of the schedule is driven by what peers are doing?">info</span>
+</label>
+<div class="flex gap-2">
+<button class="flex-1 py-2 rounded-lg bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-label-sm hover:bg-surface-container transition-colors">Low</button>
+<button class="flex-1 py-2 rounded-lg bg-secondary-container border border-secondary/30 text-on-secondary-container font-label-sm font-bold shadow-sm">Moderate</button>
+<button class="flex-1 py-2 rounded-lg bg-surface-container-high border border-outline-variant/30 text-on-surface-variant font-label-sm hover:bg-surface-container transition-colors">High</button>
+</div>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-2">Parental Notes &amp; Worries</label>
+<textarea class="warm-input w-full px-4 py-3 rounded-lg font-body-md text-on-surface resize-none" placeholder="e.g., 'I worry he looks exhausted on Sunday mornings, but all his friends are taking this math class.'" rows="4"></textarea>
+<p class="font-label-sm text-label-sm text-outline mt-2 text-right">This is a safe space. No judgment here.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer -->
+<footer class="w-full py-stack-lg px-margin-mobile md:px-margin-desktop mt-stack-xl flex flex-col md:flex-row justify-between items-center bg-surface-container-highest border-t border-outline-variant/20">
+<div class="font-headline-md text-headline-md text-primary mb-4 md:mb-0">
+<span class="material-symbols-outlined align-middle mr-1">spa</span>
+                    Sleep Debt Negotiator
+                </div>
+<div class="text-center md:text-left mb-4 md:mb-0">
+<p class="font-label-sm text-label-sm text-secondary opacity-80 hover:opacity-100 transition-opacity">© 2024 Supportive Advisor Navigation. Prioritizing sustainable balance for Korean families.</p>
+</div>
+<div class="flex gap-4">
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Sleep Science Sources</a>
+<a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

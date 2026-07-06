@@ -46,10 +46,10 @@ const cdp = await page.createCDPSession();
 await cdp.send('Browser.getWindowForTarget')
   .then(({ windowId }) => cdp.send('Browser.setWindowBounds', {
     windowId,
-    bounds: { left: 0, top: 0, width: 1600, height: 1000, windowState: 'normal' },
+    bounds: { left: 0, top: 0, width: 1600, height: 1200, windowState: 'normal' },
   }))
   .catch(() => {});
-await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 1 }).catch(() => {});
+await page.setViewport({ width: 1600, height: 1200, deviceScaleFactor: 1 }).catch(() => {});
 await cdp.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: dlDir }).catch(() => {});
 const downloadsBefore = new Set(await fs.readdir(dlDir).catch(() => []));
 
@@ -80,16 +80,18 @@ async function clickByText(text, opts = {}) {
 }
 
 async function clickGenerate() {
-  const clicked = await appFrame.evaluate(() => {
+  const enabled = await appFrame.evaluate(() => {
     const button = [...document.querySelectorAll('button,[role=button]')]
       .find((node) => {
         const label = node.getAttribute('aria-label') || (node.innerText || node.textContent || '').trim();
         return label === '디자인 생성' || /^Generate designs?$/i.test(label);
       });
-    button?.click();
-    return Boolean(button);
+    return Boolean(button && !(button.disabled || button.getAttribute('aria-disabled') === 'true'));
   });
-  if (!clicked) throw new Error('Could not find generate button');
+  if (!enabled) throw new Error('Could not find enabled generate button');
+  // Stitch's ProseMirror composer submits reliably via Enter; synthetic button
+  // clicks can leave the homepage unchanged even when the button is enabled.
+  await page.keyboard.press('Enter');
 }
 
 // Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.
@@ -127,15 +129,43 @@ if (modelButton) {
   await new Promise((r) => setTimeout(r, 500));
 }
 
-await appFrame.evaluate((value) => {
-  const editor = document.querySelector('[contenteditable="true"]');
+const editorBox = await appFrame.evaluate(() => {
+  const editor = [...document.querySelectorAll('[contenteditable="true"][role="textbox"], [contenteditable="true"], [role="textbox"], textarea')]
+    .find((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 100 && rect.height > 40;
+    });
   if (!editor) throw new Error('Could not find Stitch prompt editor');
-  editor.focus();
-  document.execCommand('selectAll', false, null);
-  document.execCommand('insertText', false, value);
-  editor.dispatchEvent(new InputEvent('input', { bubbles: true, inputType: 'insertText', data: value }));
-}, prompt);
+  const rect = editor.getBoundingClientRect();
+  return { x: rect.x + Math.min(24, rect.width / 2), y: rect.y + Math.min(24, rect.height / 2) };
+});
+await page.mouse.click(editorBox.x, editorBox.y);
+await page.keyboard.down(process.platform === 'darwin' ? 'Meta' : 'Control');
+await page.keyboard.press('A');
+await page.keyboard.up(process.platform === 'darwin' ? 'Meta' : 'Control');
+await cdp.send('Input.insertText', { text: prompt });
 await new Promise((r) => setTimeout(r, 1000));
+const promptEcho = await appFrame.evaluate(() => {
+  const editor = [...document.querySelectorAll('[contenteditable="true"][role="textbox"], [contenteditable="true"], [role="textbox"], textarea')]
+    .find((node) => {
+      const rect = node.getBoundingClientRect();
+      return rect.width > 100 && rect.height > 40;
+    });
+  return (editor?.innerText || editor?.textContent || '').trim();
+});
+const promptNeedle = prompt.slice(0, 120);
+if (!promptEcho.includes(promptNeedle)) {
+  throw new Error(`Stitch prompt editor mismatch before generate. Expected ${JSON.stringify(promptNeedle)}, got ${JSON.stringify(promptEcho.slice(0, 180))}`);
+}
+const generateEnabled = await appFrame.evaluate(() => {
+  const button = [...document.querySelectorAll('button,[role=button]')]
+    .find((node) => {
+      const label = node.getAttribute('aria-label') || (node.innerText || node.textContent || '').trim();
+      return label === '디자인 생성' || /^Generate designs?$/i.test(label);
+    });
+  return Boolean(button && !(button.disabled || button.getAttribute('aria-disabled') === 'true'));
+});
+if (!generateEnabled) throw new Error('Stitch generate button is still disabled after prompt input');
 await shot('01-filled');
 await clickGenerate();
 
@@ -158,15 +188,14 @@ while (Date.now() - waitStarted < renderWaitMs) {
   const renderedPreviewCount = page.frames()
     .filter((frame) => frame.url() === 'about:srcdoc')
     .length;
+  const hasGeneratedScreens = generatedScreenCount > 0 || renderedPreviewCount > 0;
+  const hasCompletionCopy = /Would you like|What would you like|How do these screens|I have designed|I've designed|I've completed|I built|I've developed|The design|Design Highlights|Downloaded screens/i.test(body);
   if (
     body
     && /내보내기|Export/.test(body)
     && !/화면 생성 중|Creating the UX flows|Crafting|Generating/i.test(body)
-    && (generatedScreenCount > 0 || renderedPreviewCount > 0 || /I've designed|I have designed|Design Highlights/i.test(body))
-    && (
-      renderedPreviewCount > 0
-      || /Would you like|What would you like|How do these screens|I have designed|I've designed|I've completed|I built|I've developed|The design|Design Highlights|Downloaded screens/i.test(body)
-    )
+    && (hasGeneratedScreens || /I've designed|I have designed|Design Highlights/i.test(body))
+    && (hasGeneratedScreens || hasCompletionCopy)
   ) {
     rendered = true;
     break;
@@ -174,6 +203,16 @@ while (Date.now() - waitStarted < renderWaitMs) {
   await new Promise((r) => setTimeout(r, 5000));
 }
 if (!rendered) throw new Error('Stitch project did not finish rendering before timeout');
+const expectedTitle = process.env.STITCH_EXPECTED_TITLE || prompt.match(/called\s+([^\\.]+)\./i)?.[1]?.replace(/^["“]|["”]$/g, '');
+if (expectedTitle) {
+  const projectText = await appFrame.evaluate(() => document.body?.innerText || '').catch(() => '');
+  const frameText = (await Promise.all(page.frames().map((frame) =>
+    frame.evaluate(() => document.body?.innerText || '').catch(() => '')
+  ))).join('\n');
+  if (!`${projectText}\n${frameText}`.toLowerCase().includes(expectedTitle.toLowerCase())) {
+    throw new Error(`Rendered Stitch output did not include expected title ${JSON.stringify(expectedTitle)}`);
+  }
+}
 await shot('02-project');
 
 // Select all generated screens, open export, choose zip, export.

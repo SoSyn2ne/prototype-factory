@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Repo Heirloom - Export Ritual</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&amp;family=Geist:wght@400&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#0c0d18",
+                      "on-primary-fixed-variant": "#54358a",
+                      "on-primary-container": "#4c2c82",
+                      "on-surface-variant": "#ccc3d2",
+                      "secondary-container": "#0c4393",
+                      "on-tertiary-fixed": "#121a37",
+                      "inverse-on-surface": "#2f303b",
+                      "surface-container-low": "#1a1b26",
+                      "inverse-surface": "#e2e1f1",
+                      "secondary-fixed-dim": "#aec6ff",
+                      "on-tertiary": "#282f4d",
+                      "tertiary-fixed-dim": "#bec5eb",
+                      "outline": "#958e9c",
+                      "surface-tint": "#d4bbff",
+                      "on-error-container": "#ffdad6",
+                      "on-error": "#690005",
+                      "inverse-primary": "#6c4da4",
+                      "tertiary-container": "#a2a9ce",
+                      "on-secondary-fixed": "#001a43",
+                      "surface-dim": "#12131d",
+                      "outline-variant": "#4a4550",
+                      "surface-container-highest": "#333440",
+                      "primary": "#d4bbff",
+                      "on-surface": "#e2e1f1",
+                      "on-primary": "#3d1b72",
+                      "on-secondary-fixed-variant": "#0c4393",
+                      "surface": "#12131d",
+                      "surface-container-high": "#282935",
+                      "tertiary": "#bec5eb",
+                      "surface-variant": "#333440",
+                      "on-tertiary-fixed-variant": "#3e4565",
+                      "background": "#12131d",
+                      "secondary-fixed": "#d8e2ff",
+                      "primary-container": "#bb9af7",
+                      "primary-fixed": "#ebdcff",
+                      "surface-container": "#1e1f2a",
+                      "surface-bright": "#383844",
+                      "on-tertiary-container": "#363d5d",
+                      "on-primary-fixed": "#260058",
+                      "secondary": "#aec6ff",
+                      "on-secondary": "#002e6b",
+                      "on-secondary-container": "#93b4ff",
+                      "error-container": "#93000a",
+                      "error": "#ffb4ab",
+                      "primary-fixed-dim": "#d4bbff",
+                      "tertiary-fixed": "#dde1ff",
+                      "on-background": "#e2e1f1"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "container-max": "1440px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-xl": [
+                              "Bricolage Grotesque"
+                      ],
+                      "headline-lg-mobile": [
+                              "Bricolage Grotesque"
+                      ],
+                      "headline-lg": [
+                              "Bricolage Grotesque"
+                      ],
+                      "body-md": [
+                              "Geist"
+                      ],
+                      "metadata-sm": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-xl": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "metadata-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+            background: linear-gradient(
+                to bottom,
+                rgba(255, 255, 255, 0),
+                rgba(255, 255, 255, 0) 50%,
+                rgba(0, 0, 0, 0.2) 50%,
+                rgba(0, 0, 0, 0.2)
+            );
+            background-size: 100% 4px;
+            opacity: 0.15;
+        }
+
+        .btn-physical {
+            border: 1px solid theme('colors.outline');
+            box-shadow: 2px 2px 0 0 theme('colors.primary');
+            transition: all 0.15s ease;
+        }
+        
+        .btn-physical:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0 0 theme('colors.primary');
+            background-color: theme('colors.surface-container-high');
+        }
+
+        .btn-physical-primary {
+            border: 1px solid theme('colors.primary');
+            box-shadow: 4px 4px 0 0 theme('colors.primary');
+            transition: all 0.15s ease;
+        }
+        
+        .btn-physical-primary:hover {
+            transform: translate(4px, 4px);
+            box-shadow: 0 0 0 0 theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<div class="scanlines"></div>
+<!-- Header (Suppressed active states as this is a transactional end-stage) -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest border-b border-outline-variant flex justify-between items-center w-full px-margin-desktop h-16 max-w-container-max mx-auto relative z-10">
+<div class="font-headline-lg text-headline-lg text-primary tracking-tighter uppercase flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="terminal" data-weight="fill" style="font-variation-settings: 'FILL' 1;">terminal</span>
+            HEIRLOOM_ARCHIVE
+        </div>
+<nav class="hidden md:flex gap-6">
+<span class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps cursor-not-allowed opacity-50">Repositories</span>
+<span class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps cursor-not-allowed opacity-50">Vault</span>
+<span class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps cursor-not-allowed opacity-50">Catalog</span>
+<span class="text-on-surface-variant hover:text-on-surface font-label-caps text-label-caps cursor-not-allowed opacity-50">Specs</span>
+</nav>
+<div class="flex gap-4">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface cursor-pointer hidden md:block">Exit Ritual</button>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col md:flex-row max-w-container-max mx-auto w-full px-margin-mobile md:px-margin-desktop py-gutter gap-gutter relative z-10">
+<!-- Left Column: The Ritual Animation & Central Element -->
+<section class="w-full md:w-7/12 flex flex-col border-r border-outline-variant pr-0 md:pr-gutter relative min-h-[614px]">
+<div class="flex items-center gap-2 mb-8">
+<span class="font-label-caps text-label-caps text-primary px-2 py-1 bg-surface-container-high border border-outline-variant inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                    SEALING_PROTOCOL_INITIATED
+                </span>
+<span class="font-metadata-sm text-metadata-sm text-on-surface-variant">STEP 4 OF 4</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-4">The Final Commit.</h1>
+<p class="text-on-surface-variant mb-12 max-w-lg">
+                Your repository has been successfully analyzed, sanitized, and compiled into a secure archival format. Choose your method of preservation to complete the heirloom ritual.
+            </p>
+<!-- Abstract Visual Representation of the Capsule -->
+<div class="relative w-full aspect-square md:aspect-video border border-outline-variant bg-surface-container-low flex items-center justify-center overflow-hidden">
+<!-- Decorative Grid Background -->
+<div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(theme('colors.primary') 1px, transparent 1px); background-size: 16px 16px;"></div>
+<!-- Glowing Core Element -->
+<div class="relative w-48 h-48 border border-primary flex items-center justify-center bg-surface-container-lowest z-10">
+<div class="absolute inset-0 bg-primary opacity-5 blur-2xl"></div>
+<div class="w-40 h-40 border border-outline-variant flex items-center justify-center bg-surface flex-col">
+<span class="material-symbols-outlined text-[48px] text-primary mb-2" data-weight="fill" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-label-caps text-label-caps text-on-surface">HR-883.DAT</span>
+</div>
+<!-- Animated scanning line -->
+<div class="absolute left-0 right-0 h-[2px] bg-primary top-1/2 opacity-50 shadow-[0_0_8px_rgba(212,187,255,0.8)] animate-pulse"></div>
+</div>
+<!-- Technical Overlays -->
+<div class="absolute top-4 left-4 font-metadata-sm text-metadata-sm text-on-surface-variant flex flex-col gap-1">
+<span>&gt; ENCRYPTION: AES-256</span>
+<span>&gt; CHECKSUM: VALID</span>
+<span>&gt; REDUNDANCY: ON</span>
+</div>
+<div class="absolute bottom-4 right-4 font-label-caps text-label-caps text-primary border border-primary px-2 py-1 bg-surface-container-lowest">
+                    READY FOR EXPORT
+                </div>
+</div>
+</section>
+<!-- Right Column: Actions & Receipt -->
+<section class="w-full md:w-5/12 flex flex-col pl-0 md:pl-gutter pt-8 md:pt-0">
+<div class="flex flex-col gap-4 mb-12">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Export Methods</h2>
+<button class="btn-physical bg-surface-container flex items-start gap-4 p-4 text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary transition-colors"></div>
+<span class="material-symbols-outlined text-primary mt-1" data-icon="token">token</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Mint Digital Artifact</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">Immuteable record on the Arweave network. Requires connected wallet.</div>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="btn-physical bg-surface-container flex items-start gap-4 p-4 text-left w-full group relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-transparent group-hover:bg-primary transition-colors"></div>
+<span class="material-symbols-outlined text-primary mt-1" data-icon="print">print</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface mb-1">Download Print-Ready Labels</div>
+<div class="font-metadata-sm text-metadata-sm text-on-surface-variant">High-res PDFs for physical floppy disks or hard drives.</div>
+</div>
+<span class="material-symbols-outlined ml-auto text-outline group-hover:text-primary transition-colors" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="btn-physical-primary bg-primary text-on-primary flex items-start gap-4 p-4 text-left w-full mt-4">
+<span class="material-symbols-outlined mt-1" data-icon="box" data-weight="fill" style="font-variation-settings: 'FILL' 1;">package</span>
+<div>
+<div class="font-label-caps text-label-caps mb-1">Ship Physical Kit</div>
+<div class="font-metadata-sm text-metadata-sm opacity-80">Request a titanium-etched data plate and hermetically sealed drive.</div>
+</div>
+<span class="material-symbols-outlined ml-auto" data-icon="shopping_cart">shopping_cart</span>
+</button>
+</div>
+<!-- Receipt of Immortality -->
+<div class="mt-auto border border-outline-variant bg-surface-container-low p-6 relative">
+<!-- Top border accent -->
+<div class="absolute top-0 left-0 right-0 h-2 bg-primary"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4 border-b border-outline-variant pb-2">RECEIPT OF IMMORTALITY</h3>
+<div class="flex flex-col gap-2 font-metadata-sm text-metadata-sm text-on-surface-variant">
+<div class="flex justify-between">
+<span>REPOSITORY:</span>
+<span class="text-on-surface">github/archive/core</span>
+</div>
+<div class="flex justify-between">
+<span>SIZE:</span>
+<span class="text-on-surface">4.2 GB</span>
+</div>
+<div class="flex justify-between">
+<span>FILES:</span>
+<span class="text-on-surface">12,403</span>
+</div>
+<div class="flex justify-between pt-2 border-t border-outline-variant border-dashed mt-2">
+<span>TIMESTAMP:</span>
+<span class="text-primary font-bold" id="current-time">2024-10-27T08:42:11Z</span>
+</div>
+<div class="flex justify-between mt-1">
+<span>SIGNATURE:</span>
+<span class="text-on-surface truncate max-w-[120px] md:max-w-[180px]">0x8fB...3aC9</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-dim dark:bg-surface-dim border-t border-outline-variant mt-auto">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto gap-4">
+<div class="font-label-caps text-label-caps text-on-surface">©2024 HEIRLOOM_SYSTEMS [STABLE_BUILD]</div>
+<nav class="flex gap-6 font-metadata-sm text-metadata-sm">
+<a class="text-on-tertiary-fixed-variant hover:text-tertiary-container hover:underline cursor-pointer" href="#">Privacy.md</a>
+<a class="text-on-tertiary-fixed-variant hover:text-tertiary-container hover:underline cursor-pointer" href="#">Terminal_Manual</a>
+<a class="text-on-tertiary-fixed-variant hover:text-tertiary-container hover:underline cursor-pointer" href="#">API_Protocol</a>
+</nav>
+</div>
+</footer>
+<script>
+        // Update timestamp on load
+        document.getElementById('current-time').innerText = new Date().toISOString().replace(/\.\d{3}/, '');
+    </script>
+</body></html>

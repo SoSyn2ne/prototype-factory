@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Policy Simulator - RECOVERY BENCH</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed-variant": "#3f465c",
+                      "primary": "#4edea3",
+                      "secondary": "#bec6e0",
+                      "on-primary": "#003824",
+                      "surface-variant": "#26364a",
+                      "surface-tint": "#4edea3",
+                      "primary-fixed": "#6ffbbe",
+                      "primary-fixed-dim": "#4edea3",
+                      "error": "#ffb4ab",
+                      "surface-container": "#102034",
+                      "error-container": "#93000a",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "on-background": "#d3e4fe",
+                      "on-primary-fixed": "#002113",
+                      "on-error-container": "#ffdad6",
+                      "on-tertiary-container": "#711419",
+                      "tertiary-fixed": "#ffdad7",
+                      "inverse-primary": "#006c49",
+                      "on-tertiary-fixed-variant": "#842225",
+                      "inverse-surface": "#d3e4fe",
+                      "surface-container-high": "#1b2b3f",
+                      "on-secondary-container": "#adb4ce",
+                      "surface-dim": "#031427",
+                      "outline-variant": "#3c4a42",
+                      "surface-container-highest": "#26364a",
+                      "outline": "#86948a",
+                      "tertiary": "#ffb3af",
+                      "tertiary-fixed-dim": "#ffb3af",
+                      "surface": "#031427",
+                      "surface-container-lowest": "#000f21",
+                      "secondary-container": "#3f465c",
+                      "on-surface": "#d3e4fe",
+                      "on-secondary-fixed": "#131b2e",
+                      "on-primary-container": "#00422b",
+                      "primary-container": "#10b981",
+                      "secondary-fixed": "#dae2fd",
+                      "on-surface-variant": "#bbcabf",
+                      "on-tertiary": "#650911",
+                      "tertiary-container": "#fc7c78",
+                      "inverse-on-surface": "#213145",
+                      "background": "#031427",
+                      "on-tertiary-fixed": "#410005",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-secondary": "#283044",
+                      "surface-bright": "#2a3a4f",
+                      "surface-container-low": "#0b1c30",
+                      "on-error": "#690005"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "row-height-md": "40px",
+                      "margin-mobile": "12px",
+                      "unit": "4px",
+                      "gutter": "16px",
+                      "margin-desktop": "24px",
+                      "row-height-sm": "32px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "Hanken Grotesk"
+                      ],
+                      "headline-lg": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-sm": [
+                              "Hanken Grotesk"
+                      ],
+                      "data-tabular": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Hanken Grotesk"
+                      ],
+                      "body-md": [
+                              "Hanken Grotesk"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "data-tabular": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        /* Custom range slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 0 4px theme('colors.surface');
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: 2px;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+        
+        .chart-bar-historic {
+            background-color: theme('colors.surface-variant');
+        }
+        .chart-bar-projected {
+            background-color: theme('colors.primary');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex bg-surface-dim dark:bg-surface-dim fixed left-0 top-0 h-screen flex-col pt-row-height-md pb-margin-desktop w-[240px] border-r border-surface-variant z-40">
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3">
+<img alt="Clinic Logo" class="w-8 h-8 rounded bg-surface-container" data-alt="A minimalist, geometric logo for a high-end financial or clinic operator system. Rendered in crisp emerald green and deep slate tones, featuring sharp angles and a sense of precision. The style is clinical, corporate, and highly professional, set against a dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlCH23cLzs1oefo_xA_pXMz1RAYuGxbkdJ5-gcizP4G4sYiKOfYWiMSTAGVnaOSmsNCu9PULgg7Sjl5N-PPcoiCHmUcwXHxa4fuNDIrN1bpPsyWRlCgUeeKbfQQGO7I73uP8gpDaeyhn-plXVx9ItvkSPw7GDEWO1MPKXK2uYhl8CPMAN88D7_5AZDZj9n8t8A20bl_b2BdzjqRndEZNS10zUxO40YrJyURAXCD3GqSkB4kxuKVIBbhrj6SQccdy8wq6BXiWvYigo"/>
+<div>
+<h1 class="font-headline-md text-headline-md text-primary">System Operator</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase">Revenue Recovery Mode</p>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-1">
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">pending_actions</span>
+<span class="font-body-md text-body-md">No-Show Queue</span>
+</a>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-primary font-bold bg-surface-container-highest border-r-4 border-primary hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-body-md text-body-md">Policy Simulator</span>
+</a>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">library_books</span>
+<span class="font-body-md text-body-md">Script Library</span>
+</a>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+<span class="font-body-md text-body-md">Waitlist Management</span>
+</a>
+</div>
+<div class="flex flex-col gap-1 mt-auto">
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">dns</span>
+<span class="font-body-md text-body-md">System Health</span>
+</a>
+<a class="flex items-center gap-gutter px-4 py-row-height-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-body-md text-body-md">Support</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile only since this is a sub-page intent, but keeping it per instruction structure, adapting for detail view) -->
+<header class="md:hidden bg-surface-container dark:bg-surface-container flex justify-between items-center px-margin-mobile h-row-height-md w-full sticky top-0 z-50 border-b border-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+<span class="font-headline-md text-headline-md font-black tracking-tighter text-primary">RECOVERY BENCH</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer active:opacity-80">notifications</span>
+<img alt="Operator Profile" class="w-6 h-6 rounded-full border border-surface-variant" data-alt="A high-contrast profile picture of a system operator. Lit with cool, technical lighting, wearing professional attire. The background is dark and abstract, emphasizing a sterile, highly disciplined corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAI-Jbu5oyvDDS13mwjzKmZ0jQutyP4mkMWQ4GeqUvYyHESir3eYpvRoHHlTetw_KRkCNHH-i5RMmQeXoNvNpS94eq9b83eoN9Udw03dfBxLWgKeyfs43ZywdQLmmR_zq3rsIvUxd2S-eS5cN_85OpWXCKYUlum_p4Bdna28xTjdTsbxXX0BpUxHOMf5mpPT4xlqFAZZVB4nPPuarrPLtSOlCpa2cWinwz5a0hVQQN2rJ-OJSOp6nCQZHPTZOuCBl0MMT_9R1PoopU"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-[240px] flex flex-col h-full overflow-y-auto bg-background">
+<!-- Top App Bar context for Desktop -->
+<header class="hidden md:flex bg-surface-container dark:bg-surface-container justify-between items-center px-margin-desktop h-row-height-md w-full sticky top-0 z-30 border-b border-surface-variant">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-black tracking-tighter text-primary">RECOVERY BENCH</span>
+<span class="text-on-surface-variant font-label-caps text-label-caps uppercase">/ Policy Simulator</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="font-label-caps text-label-caps uppercase text-primary border border-primary px-3 py-1 rounded hover:bg-surface-container-high transition-colors">Emergency Waitlist</button>
+<button class="font-label-caps text-label-caps uppercase bg-primary text-on-primary px-3 py-1 rounded hover:opacity-90 transition-opacity">Deploy Policy</button>
+<div class="h-4 w-px bg-surface-variant mx-2"></div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">notifications</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface transition-colors">settings</span>
+<img alt="Operator Profile" class="w-6 h-6 rounded-full border border-surface-variant ml-2" data-alt="A high-contrast profile picture of a system operator. Lit with cool, technical lighting, wearing professional attire. The background is dark and abstract, emphasizing a sterile, highly disciplined corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP6JBUqq40dc6EFVRGEczXwMQwxTWG4_XAvItHZp_I6I5XSOIKfQR5wzolKUGjnrWBN9So0wQH91kAlFimlhs7daxwoq6ELIUz8AHbh05ph43eDoVcmG7RBtXlPuCw6CtmspGJLVEh6427zhq9andtk118Du7_ufVnTB3O6InwIUIFP3rfJpstQhAHSKsbKP8Jb4YnBkOoMwqJWyB8RWd3wo1eTwp7SF0jj3-g5qXbToVjOjzXsfOlto8HdKdAPb-nxccZ-x__d8c"/>
+</div>
+</header>
+<div class="p-margin-mobile md:p-margin-desktop flex flex-col gap-6 max-w-7xl mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-1">Strict Deposit Matrix</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Adjust business rules to balance recovery revenue against customer friction.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 font-label-caps text-label-caps uppercase text-on-surface border border-surface-variant px-3 py-1.5 rounded bg-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">history</span>
+                        Reset to Baseline
+                    </button>
+</div>
+</div>
+<!-- Main Layout Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column: Controls (Bento Style) -->
+<div class="lg:col-span-5 flex flex-col gap-4">
+<!-- Control Card 1: Deposit -->
+<div class="bg-surface-container-low border border-surface-variant rounded-lg p-5">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">payments</span>
+                                Upfront Deposit
+                            </h3>
+<span class="font-data-tabular text-data-tabular text-primary bg-primary/10 px-2 py-1 rounded">50%</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Percentage of total service cost required at booking.</p>
+<div class="relative pt-1">
+<input class="w-full" max="100" min="0" type="range" value="50"/>
+<div class="flex justify-between text-on-surface-variant font-label-caps text-label-caps uppercase mt-2">
+<span>0%</span>
+<span>25%</span>
+<span>50%</span>
+<span>75%</span>
+<span>100%</span>
+</div>
+</div>
+</div>
+<!-- Control Card 2: Cadence -->
+<div class="bg-surface-container-low border border-surface-variant rounded-lg p-5">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">schedule</span>
+                                Confirmation Cadence
+                            </h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Automated outreach sequence prior to appointment.</p>
+<div class="grid grid-cols-3 gap-2">
+<div class="border border-primary bg-primary/10 rounded p-3 text-center cursor-pointer">
+<span class="block font-data-tabular text-data-tabular text-primary mb-1">48h / 24h</span>
+<span class="block font-label-caps text-label-caps uppercase text-primary">Aggressive</span>
+</div>
+<div class="border border-surface-variant bg-surface rounded p-3 text-center cursor-pointer hover:border-outline transition-colors">
+<span class="block font-data-tabular text-data-tabular text-on-surface mb-1">24h / 4h</span>
+<span class="block font-label-caps text-label-caps uppercase text-on-surface-variant">Standard</span>
+</div>
+<div class="border border-surface-variant bg-surface rounded p-3 text-center cursor-pointer hover:border-outline transition-colors">
+<span class="block font-data-tabular text-data-tabular text-on-surface mb-1">24h only</span>
+<span class="block font-label-caps text-label-caps uppercase text-on-surface-variant">Lenient</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Visualizations & Metrics -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<!-- Top Metrics Row -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container border border-surface-variant rounded-lg p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant mb-2">Projected Recovery Yield</span>
+<div class="flex items-end gap-2">
+<span class="font-data-tabular text-[32px] leading-none text-primary">$12,450</span>
+<span class="font-data-tabular text-body-sm text-primary flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 14.2%
+                                </span>
+</div>
+</div>
+<div class="bg-surface-container border border-surface-variant rounded-lg p-4 flex flex-col justify-between">
+<span class="font-label-caps text-label-caps uppercase text-on-surface-variant mb-2">Friction Index (Est. Drop-off)</span>
+<div class="flex items-end gap-2">
+<span class="font-data-tabular text-[32px] leading-none text-error">3.8%</span>
+<span class="font-data-tabular text-body-sm text-error flex items-center">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 0.5%
+                                </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
