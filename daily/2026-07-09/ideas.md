@@ -383,3 +383,19 @@ Create a playful consumer-rights game prototype called “Refund Queue Boss Figh
 - /home/sy/Downloads/stitch_drop/2026-07-09/p006/code.html + /home/sy/Downloads/stitch_drop/2026-07-09/p006/screen.png
 - /home/sy/Downloads/stitch_drop/2026-07-09/p007/code.html + /home/sy/Downloads/stitch_drop/2026-07-09/p007/screen.png
 - /home/sy/Downloads/stitch_drop/2026-07-09/p008/code.html + /home/sy/Downloads/stitch_drop/2026-07-09/p008/screen.png
+
+## Operator feedback rework
+
+Feedback at 2026-07-09 13:27 KST: the slate was weak. Diagnosis: too many evidence/claim/ops consoles and too little proven-pattern transformation. Treat p001-p006 as demoted raw signals, not strong product candidates. The next replacement direction is documented in `daily/2026-07-09/ideas-rework.md`.
+
+Replacement slate:
+- p001 Pocket Game Oven: Meta Pocket / TikTok mini-game feed pattern, constrained into eight 15-second game molds.
+- p002 Convenience Store Chameleon: Prop Hunt / MECCHA CHAMELEON pattern localized to Korean convenience-store shelf hiding.
+- p003 Photocard Blind Trade Room: gacha pull tracker + trading marketplace for K-pop photocard duplicate matching.
+- p004 Hook Fight Club: creator analytics turned into a social A/B bracket where viewers guess which hook wins.
+- p005 Deck Error Speedrun: OfficeCLI/document QA signal turned into a timed "find meeting-killing mistakes" game.
+- p006 Split Bill Court: Splitwise plus courtroom voting for disputed group expenses.
+- p007 Room Makeover Guess Duel: before/after interior content plus hidden-change race.
+- p008 Refund Boss Rush: refund evidence checklist retained only as a true card-battle/boss-fight loop.
+
+New rejection rule: if a candidate cannot be explained as "known pattern X, changed by Y, played/shared through Z," reject it before scaffolding.
