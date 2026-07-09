@@ -401,3 +401,5 @@ Replacement slate:
 New rejection rule: if a candidate cannot be explained as "known pattern X, changed by Y, played/shared through Z," reject it before scaffolding.
 
 GitHub Top 100 rule: if the user asks for GitHub-derived ideation, the scan must start with a real top/rising repo list and each candidate must include `source_repo`, `why_starred`, `reference_pattern`, `twist`, `first_screen`, and `share_or_play_loop`.
+
+Hada correction: Hada was also not properly checked before the initial slate. The corrected Hada front-page pass is documented in `daily/2026-07-09/hada-rework.md`, including actual Hada titles/links and candidate seeds such as Model Router Receipt, TS7 Migration Speedrun, Dead Share Link Rescue, Browser Memory Box, QR Font Label Forge, Local TTS Booth, Tiny Team Chat Room, and Korean CMS Migration Board.
