@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seeker Reveal - Camouflage Shelf Sprint</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500&amp;family=Space+Mono:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#3c4d00",
+                        "inverse-surface": "#e5e2e1",
+                        "on-tertiary-container": "#656464",
+                        "surface-variant": "#353534",
+                        "on-surface-variant": "#c4c9ac",
+                        "surface-container": "#201f1f",
+                        "on-tertiary-fixed": "#1c1b1b",
+                        "error": "#ffb4ab",
+                        "primary-container": "#c3f400",
+                        "on-surface": "#e5e2e1",
+                        "primary-fixed-dim": "#abd600",
+                        "on-error": "#690005",
+                        "primary-fixed": "#c3f400",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#8e9379",
+                        "surface": "#131313",
+                        "surface-dim": "#131313",
+                        "secondary": "#c6c7c1",
+                        "on-primary-fixed": "#161e00",
+                        "tertiary-fixed-dim": "#c8c6c5",
+                        "on-secondary-container": "#bbbcb7",
+                        "on-primary": "#283500",
+                        "inverse-primary": "#506600",
+                        "secondary-container": "#4a4c48",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary": "#ffffff",
+                        "error-container": "#93000a",
+                        "inverse-on-surface": "#313030",
+                        "secondary-fixed": "#e3e3dd",
+                        "surface-container-lowest": "#0e0e0e",
+                        "on-secondary-fixed": "#1a1c19",
+                        "primary": "#ffffff",
+                        "outline-variant": "#444933",
+                        "surface-bright": "#393939",
+                        "surface-tint": "#abd600",
+                        "tertiary-fixed": "#e5e2e1",
+                        "tertiary-container": "#e5e2e1",
+                        "secondary-fixed-dim": "#c6c7c1",
+                        "surface-container-low": "#1c1b1b",
+                        "on-secondary": "#2f312d",
+                        "on-tertiary-fixed-variant": "#474746",
+                        "on-background": "#e5e2e1",
+                        "surface-container-highest": "#353534",
+                        "background": "#131313",
+                        "on-tertiary": "#313030",
+                        "on-primary-container": "#556d00",
+                        "on-secondary-fixed-variant": "#464743"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "16px",
+                        "base": "8px",
+                        "stack-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Bricolage Grotesque"],
+                        "headline-lg-mobile": ["Bricolage Grotesque"],
+                        "label-sm": ["Space Mono"],
+                        "display-lg": ["Bricolage Grotesque"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Bricolage Grotesque"],
+                        "body-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
+                        "headline-lg-mobile": ["32px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "display-lg": ["72px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.2", "fontWeight": "800" }],
+                        "body-lg": ["18px", { "lineHeight": "1.5", "fontWeight": "500" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .vibrate-1 { animation: vibrate-1 0.3s linear infinite both; }
+        @keyframes vibrate-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: theme('colors.primary-fixed');
+            box-shadow: 0 0 20px theme('colors.primary-fixed'), 0 0 40px theme('colors.primary-fixed');
+            animation: scan 3s ease-in-out infinite alternate;
+            z-index: 50;
+        }
+        @keyframes scan {
+            0% { top: 0; opacity: 0.8; }
+            50% { opacity: 1; height: 8px; }
+            100% { top: 100%; opacity: 0.8; }
+        }
+        .shake-intense { animation: shake-intense 0.1s cubic-bezier(.36,.07,.19,.97) infinite; }
+        @keyframes shake-intense {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(3px, 3px) rotate(1deg); }
+            50% { transform: translate(-3px, -2px) rotate(-1deg); }
+            75% { transform: translate(-2px, 3px) rotate(0deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-primary w-full border-b-2 border-on-tertiary-fixed-variant shadow-[4px_4px_0px_#000000] flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full z-40 relative">
+<div class="font-headline-md text-headline-md text-primary uppercase tracking-tighter hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all cursor-pointer">
+            Camouflage Shelf Sprint
+        </div>
+<div class="flex items-center gap-stack-gap">
+<div class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full border border-outline">
+                Room: XJ92
+            </div>
+<div class="flex gap-2">
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-tertiary-fixed-variant rounded-full bg-surface-container text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] shadow-[2px_2px_0px_#000000] transition-all">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center border-2 border-on-tertiary-fixed-variant rounded-full bg-surface-container text-on-surface hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px] shadow-[2px_2px_0px_#000000] transition-all">
+<span class="material-symbols-outlined" data-icon="qr_code">qr_code</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow relative px-margin-mobile md:px-margin-desktop py-8 flex flex-col relative z-10">
+<!-- Scanning Overlay Effect -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden z-20">
+<div class="scan-line"></div>
+<div class="absolute inset-0 bg-primary-fixed/5 animate-pulse mix-blend-overlay"></div>
+</div>
+<!-- Header -->
+<header class="mb-8 text-center z-30 relative shake-intense">
+<h1 class="font-display-lg text-display-lg text-error uppercase drop-shadow-[4px_4px_0px_rgba(255,180,171,0.5)]">
+                Seeker is Scanning...
+            </h1>
+<p class="font-label-sm text-label-sm text-on-surface mt-2 bg-surface-container-high inline-block px-4 py-2 border-2 border-outline-variant rounded-full">
+                STAY PERFECTLY STILL.
+            </p>
+</header>
+<!-- The "Shelf" Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter flex-grow relative z-10">
+<!-- Shelf Item 1 -->
+<div class="bg-surface-container border-2 border-on-tertiary-fixed-variant rounded-lg p-stack-gap relative shadow-[4px_4px_0px_#000000] flex flex-col group">
+<div class="h-48 w-full bg-surface-container-lowest border-2 border-outline-variant mb-stack-gap relative overflow-hidden" data-alt="A brightly lit, chaotic collection of neon-colored vintage toys and retro gadgets jumbled together on a worn wooden shelf. Thick outlines and high contrast colors dominate the scene, evoking a playful, brutalist indie game aesthetic. The lighting is harsh and directional, casting hard, stark shadows that emphasize the physical depth of the objects." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBgf9ihVBghKh-1Jxx9bvgIbMV6Zxj73idGG8tvoXLBFCBT-z5AgnzayoEAYg256eRjS5fN1koiCla18qFtZ7KNHwqtBkayYE_RdpW3MQX0MMEknrVKNXqOw0kZdd5WJFG6UFkiKIaUzfUB0ntjfVWjsUoRo9D4jYCbA7pd3I7ewWiyPkNJk-xmjfnUBXCJdSmIHr2hNxc8hE_smrTxUNDCrCc1vBYhESqyMfF12yQ26OZyErEwncFqlbHpxpeprzuPfm0h49Y_s5U')">
+<!-- Subtle noise overlay -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+')] opacity-20"></div>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Prop 01</span>
+<span class="px-2 py-1 bg-surface-container-high border border-outline rounded text-[10px] font-label-sm text-on-surface">Static</span>
+</div>
+</div>
+<!-- Shelf Item 2 (Found/Vibrating) -->
+<div class="bg-error-container border-4 border-error rounded-lg p-stack-gap relative shadow-[8px_8px_0px_theme(colors.error)] flex flex-col group vibrate-1 z-30">
+<div class="absolute -top-3 -right-3 bg-error text-on-error font-label-sm text-label-sm px-3 py-1 rounded-full border-2 border-on-tertiary-fixed-variant z-40 shadow-[2px_2px_0px_#000000] animate-bounce">
+                    FOUND!
+                </div>
+<div class="h-48 w-full bg-surface-container-lowest border-2 border-error mb-stack-gap relative overflow-hidden flex items-center justify-center" data-alt="A close-up of a brightly colored, absurdly shaped plastic fruit toy hidden among real, duller fruits on a shelf. The plastic fruit stands out with an unnaturally vibrant, almost glowing neon hue against the drab background. The style is highly tactile and slightly chaotic, with thick, bold lines and a brutalist, high-energy vibe." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8D6JtB1TdDcd-ncrfEUijM69QVB3c_4rAuEnMc8dzqg8XqKIw6NPttwvBBPbI8ceaxVczE5V0SNqVQoKTQEimeTL6aqrpRx6R7W66mcvvOnlKhl7GyQuR7PBtYgXktoSXjAxuaiUSCib8uM-3VHeIYk1bCG_PnUkHUMq6SL3FlWiI4Gj7nGLooRChByirL2aHUsc_pRm6ul9iEh3QOW5RO_QtK0fKKgnSBK1M5PWn1E2nH6SPKSMHKlbmIksmdWAz1pRFAofMMcU')">
+<span class="material-symbols-outlined text-[64px] text-error drop-shadow-[2px_2px_0px_#000000]" data-icon="visibility">visibility</span>
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-label-sm text-label-sm text-error uppercase font-bold">Player_03</span>
+<span class="px-2 py-1 bg-error border border-on-error rounded text-[10px] font-label-sm text-on-error">Eliminated</span>
+</div>
+</div>
+<!-- Shelf Item 3 -->
+<div class="bg-surface-container border-2 border-on-tertiary-fixed-variant rounded-lg p-stack-gap relative shadow-[4px_4px_0px_#000000] flex flex-col group">
+<div class="h-48 w-full bg-surface-container-lowest border-2 border-outline-variant mb-stack-gap relative overflow-hidden" data-alt="A dusty, cluttered bookshelf filled with mismatched, brightly colored hardback books and strange, geometric bookends. The scene is rendered in a modern indie game style with a focus on tactile physicality—thick outlines, heavy drop shadows, and a limited but intense color palette of neon greens and deep charcoals. The lighting suggests a harsh spotlight sweeping across." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmQ57RvRbQ32fu7yI16bDNDFaupYyREgBifQBQ66mCXLCoqv2ZtEAiE9Ij8cSL0hG9UnQI6MvjXjyMpoI0GUk2ZdoTlRXUD2jQ4GxWNa2AAQYrdpnF57fw6-T4uLTDDjI3LQV0r78emykl_FE1UfIouJmoOQUgvI9JuHF8dzrUdcGGvcH0fvZD11eGksocEXqRFGlXstXz0nreHcOqs6fY_KD4d9MDkqhvsvEu4SUF2u1RPI4yU3OCRRNckwNoaC6BdqePYCdNeBg')">
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Prop 03</span>
+<span class="px-2 py-1 bg-surface-container-high border border-outline rounded text-[10px] font-label-sm text-on-surface">Static</span>
+</div>
+</div>
+<!-- Shelf Item 4 (Suspicious) -->
+<div class="bg-surface-container border-2 border-primary-fixed rounded-lg p-stack-gap relative shadow-[4px_4px_0px_#000000] flex flex-col group transition-transform duration-75">
+<div class="absolute inset-0 border-2 border-primary-fixed rounded-lg opacity-50 animate-ping"></div>
+<div class="h-48 w-full bg-surface-container-lowest border-2 border-primary-fixed mb-stack-gap relative overflow-hidden flex items-center justify-center group-hover:scale-[1.02] transition-transform" data-alt="A seemingly normal ceramic mug sitting on a cluttered desk, but the mug has a slightly off, almost digital glitch texture applied to its surface. The surrounding objects are highly physical and tactile, featuring brutalist design elements like thick black strokes and hard shadows. The overall mood is tense and playful, bathed in a low-key, gritty light." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAVD6DgH0OJW3U4iONStvFHncwOVg4fdHlyLpZkAjw7bklm2Cxvb1c_anCnf0wGy7kTUTBLGGvqY0E4DbRWkrPfWNECsoEvEKqkJPn0VjqV2xFjCEupCq_tfBXTjC-eeCYBsskURHmEtdVeYTjOq9dngqFSkusU0F-VTJk0Oxvs5_XaNkDJ9xhKoUc-O2KR0xcGvdVswYTTm5vLyvzB03kZkjKQzYQcDH0cYI0CtMf31f3Grkjcuouaj4MJxBPDVGW6fj7-kvfwHwE')">
+<div class="absolute inset-0 bg-primary-fixed/10 mix-blend-overlay"></div>
+</div>
+<div class="flex justify-between items-center mt-auto relative z-10">
+<span class="font-label-sm text-label-sm text-primary-fixed uppercase">Prop 04??</span>
+<span class="px-2 py-1 bg-surface-container border border-primary-fixed text-primary-fixed rounded text-[10px] font-label-sm animate-pulse">Scanning</span>
+</div>
+</div>
+<!-- Shelf Item 5 -->
+<div class="bg-surface-container border-2 border-on-tertiary-fixed-variant rounded-lg p-stack-gap relative shadow-[4px_4px_0px_#000000] flex flex-col group md:col-span-2">
+<div class="h-48 w-full bg-surface-container-lowest border-2 border-outline-variant mb-stack-gap relative overflow-hidden" data-alt="A wide view of a chaotic workshop bench overflowing with bizarre, colorful tools and gadgets. The aesthetic is heavily stylized, blending brutalism and neomorphism—objects have hard, thick borders and cast solid black drop shadows. A subtle, glowing green laser line cuts across the middle of the composition, illuminating dust motes in the air." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOwPLd2U2KrDVuwRQlgeRz6Co8AvY4PUXG5XDawBLD6jNqk7rj9oPbasN3kSbV5Quz3k2oCp4uvO5ANFo_I98mYawg1dEmzpfd5XkEJaYBtmYb1uQZv3lS6H_1Y_-qU5GZVcV2q3DrRQpJ0KmkH8PKia5xiatz6mWHAKnp5JzDaOnxIv5079xF2Ev5QJdTflSMUknPiYdpGrJKc_0uuFRr9-h5JZrmX_2hURjIqrgOkB7Eo7swpdWPPUVHAinfQVYmzr1u-08yGUQ')">
+</div>
+<div class="flex justify-between items-center mt-auto">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase">Prop Cluster Alpha</span>
+<span class="px-2 py-1 bg-surface-container-high border border-outline rounded text-[10px] font-label-sm text-on-surface">Cleared</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-surface-container-lowest text-on-surface dark:text-on-surface w-full border-t-2 border-on-tertiary-fixed-variant flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-8 gap-stack-gap relative z-40">
+<div class="font-label-sm text-label-sm uppercase text-on-surface-variant">
+            © 2024 Camouflage Shelf Sprint
+        </div>
+<div class="flex gap-stack-gap font-label-sm text-label-sm uppercase">
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Share Room</a>
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Leave Game</a>
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Help</a>
+<a class="text-on-surface-variant hover:text-primary-fixed transition-colors cursor-pointer" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>

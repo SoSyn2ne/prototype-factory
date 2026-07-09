@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Evidence Library - Dispute Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#e5eeff",
+                    "secondary": "#5c5f61",
+                    "on-surface": "#0b1c30",
+                    "secondary-fixed": "#e0e3e5",
+                    "surface-tint": "#565e74",
+                    "background": "#f8f9ff",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#410004",
+                    "on-tertiary-container": "#ef4444",
+                    "surface": "#f8f9ff",
+                    "on-background": "#0b1c30",
+                    "on-primary-fixed": "#131b2e",
+                    "on-secondary-container": "#626567",
+                    "secondary-container": "#e0e3e5",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-fixed": "#191c1e",
+                    "error": "#ba1a1a",
+                    "outline": "#76777d",
+                    "inverse-on-surface": "#eaf1ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "tertiary": "#000000",
+                    "inverse-primary": "#bec6e0",
+                    "on-tertiary-fixed": "#410004",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb3ad",
+                    "on-tertiary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#eff4ff",
+                    "surface-bright": "#f8f9ff",
+                    "surface-variant": "#d3e4fe",
+                    "outline-variant": "#c6c6cd",
+                    "secondary-fixed-dim": "#c4c7c9",
+                    "inverse-surface": "#213145",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#ffdad7",
+                    "surface-dim": "#cbdbf5",
+                    "on-surface-variant": "#45464d",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-primary-container": "#7c839b",
+                    "surface-container-highest": "#d3e4fe",
+                    "primary-container": "#131b2e",
+                    "primary": "#000000",
+                    "on-tertiary-fixed-variant": "#930013",
+                    "surface-container-high": "#dce9ff",
+                    "error-container": "#ffdad6",
+                    "on-secondary-fixed-variant": "#444749"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-gap": "1rem",
+                    "row-height-sm": "2.25rem",
+                    "row-height-md": "3rem",
+                    "container-padding": "1.5rem",
+                    "gutter-dense": "0.75rem"
+            },
+            "fontFamily": {
+                    "label-sm": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "label-md": [
+                            "Inter"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "headline-md": [
+                            "Inter"
+                    ],
+                    "mono-label": [
+                            "Geist"
+                    ],
+                    "body-sm": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "label-sm": [
+                            "11px",
+                            {
+                                    "lineHeight": "14px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "headline-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-md": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "body-md": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "headline-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "mono-label": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-sm": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+</head>
+<body class="h-full font-body-md text-on-surface bg-background flex flex-col md:flex-row antialiased">
+<!-- Top Navigation (Mobile primarily, hidden md) -->
+<header class="md:hidden sticky top-0 z-50 flex justify-between items-center h-12 px-6 w-full bg-surface-container-lowest border-b border-outline-variant">
+<div class="text-headline-md font-headline-md font-black text-on-surface">Dispute Manager</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-secondary hover:text-primary transition-colors cursor-pointer" data-icon="search">search</span>
+<span class="material-symbols-outlined text-secondary hover:text-primary transition-colors cursor-pointer" data-icon="notifications">notifications</span>
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, circular avatar portrait of a professional individual in a corporate setting. High-key lighting, bright minimal background. The style is sharp, clean, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBacPd5fHDf7XH74QH_JE1mJkmvSjV7Z4D24Zb7_8gEg6NTWkV4RBYGKa66wX7arcVQfvCkjxRYY0_9EhbnOEvrHeuT2ri_t88UmursYn9oV-B0cxzcC7gPmh8ivcIAUYRScb3bx_II0LCWmJIvXDrw1OAu2MREqCai0FLWo-rhUHo-w8P32vlIezaGbm_nqZgDCnDvYhfV5rW8XG6te0_Yp0YmwVQBt48LsjZxtBa4vZit2fteOjE1f9ubJdDnMUQwKct39WNm2W0"/>
+</div>
+</header>
+<!-- Side Navigation (Desktop) -->
+<aside class="hidden md:flex flex-col fixed left-0 top-0 h-full w-64 z-40 bg-surface border-r border-outline-variant">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-8">
+<img alt="Seller Profile Avatar" class="w-10 h-10 rounded object-cover" data-alt="A clean, minimalist logo mark for a modern corporate application. High contrast black and white geometric shapes. Sharp lines, professional and authoritative aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdC8b5qiPY3qZeVzCzMG6UKAI6HAEeX3S_KTatzg0LbOzAwWl9aCcTc6nC3kmR6DkLd70ZjCzHHalUSXVQI1ysK8-qyHo19edp9OzVwQijlpCCLtlygM8iQaUoHnpCCXK8ZL7UxO1BUUgbVy0TZFRoTfdxvwzv_c1SZOU_LczNsqf1lvOSLeCjVOqhFvDAodPvEgosniFNmOxm8fEuDs3tBmnPzzUABo6qk73Wd2tca9FM79yeCdZ5GoaN5tiAw8vFUQoKrx7E1ZA"/>
+<div>
+<h1 class="text-headline-md font-headline-md font-extrabold text-primary">Marketplace Ops</h1>
+<p class="text-label-sm font-label-sm text-secondary">Active Seller</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined" data-icon="inbox">inbox</span>
+<span class="text-label-md font-label-md">Inbox/Queue</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-primary font-bold border-l-4 border-primary bg-surface-container-low transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" data-icon="folder_open" style="font-variation-settings: 'FILL' 1;">folder_open</span>
+<span class="text-label-md font-label-md">Evidence Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-label-md font-label-md">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:bg-surface-container-low hover:text-primary transition-colors duration-150 ease-in-out rounded" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-label-md font-label-md">Analytics</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto p-6 border-t border-outline-variant">
+<div class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+<img alt="User Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, circular avatar portrait of a professional individual in a corporate setting. High-key lighting, bright minimal background. The style is sharp, clean, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZI-KSKoodXj__5Q3f-SSGu6kS4dS4zvVuQsTYcQrQrUZkOAmYA4vmAEfG1cv0z5SrFGZRrMiKIobMrLb_KtNuakDvmW5bmfU3_xY357ncO-UopYdxCdhFoCYABJwGYJn_ZZGvAT7UYfMMnKp_amrr70UkDd7KQYTK33mjek_VovZL-wbkTWF6Itk0LMVJNb5_CRnNgMJhiolNgBxh3JWbygY6NcaO8SXMebEBYUrhGXuyYqwfO4osl8v-4og1A4_8StEJiMz5iwQ"/>
+<div>
+<div class="text-label-md font-label-md text-on-surface">Alex Mercer</div>
+<div class="text-label-sm font-label-sm text-secondary">Dispute Analyst</div>
+</div>
+<span class="material-symbols-outlined text-secondary ml-auto text-sm" data-icon="settings">settings</span>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen bg-background">
+<!-- Top App Bar (Desktop specific actions) -->
+<div class="hidden md:flex sticky top-0 z-30 h-16 bg-surface-container-lowest border-b border-outline-variant items-center justify-between px-8">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Evidence Library</h2>
+<div class="flex items-center gap-4">
+<!-- Search Input -->
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-sm" data-icon="search">search</span>
+<input class="w-full pl-9 pr-4 py-2 bg-surface border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search files, ASINs, or tracking numbers..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary rounded text-label-md font-label-md hover:bg-opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm" data-icon="upload">upload</span>
+                    Upload Evidence
+                </button>
+</div>
+</div>
+<div class="p-container-padding flex-1 flex flex-col gap-6">
+<!-- Mobile Title -->
+<h2 class="md:hidden text-headline-lg font-headline-lg text-on-surface mb-2">Evidence Library</h2>
+<!-- Filters Bar -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-4 flex flex-col md:flex-row gap-4 items-start md:items-end">
+<div class="w-full md:w-auto flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Date Range</label>
+<select class="w-full py-1.5 px-3 bg-surface border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary">
+<option>Last 30 Days</option>
+<option>Last 90 Days</option>
+<option>This Year</option>
+<option>Custom Range...</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Carrier</label>
+<select class="w-full py-1.5 px-3 bg-surface border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary">
+<option>All Carriers</option>
+<option>FedEx</option>
+<option>UPS</option>
+<option>USPS</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Marketplace</label>
+<select class="w-full py-1.5 px-3 bg-surface border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary">
+<option>All Marketplaces</option>
+<option>Amazon US</option>
+<option>Walmart</option>
+<option>eBay</option>
+</select>
+</div>
+</div>
+<div class="flex gap-2 w-full md:w-auto justify-end">
+<button class="px-3 py-1.5 bg-surface text-secondary border border-outline-variant rounded text-label-md font-label-md hover:bg-surface-container-low transition-colors">
+                        Reset
+                    </button>
+<button class="px-3 py-1.5 bg-surface text-primary border border-outline-variant rounded text-label-md font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+                        More Filters
+                    </button>
+</div>
+</div>
+<!-- Content Area - Bento Grid approach for categories -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Folders / Categories Section -->
+<div class="md:col-span-1 flex flex-col gap-4">
+<h3 class="text-label-md font-label-md text-secondary uppercase tracking-wider border-b border-outline-variant pb-2">Categories</h3>
+<div class="flex flex-col gap-2">
+<div class="flex items-center justify-between p-3 bg-surface-container-low border border-primary-fixed-dim rounded cursor-pointer hover:border-primary transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="inventory_2">inventory_2</span>
+<span class="text-body-sm font-body-sm font-semibold text-on-surface">Warehouse Photos</span>
+</div>
+<span class="text-mono-label font-mono-label text-secondary bg-surface-container-highest px-2 py-0.5 rounded">142</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest border border-outline-variant rounded cursor-pointer hover:border-outline transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="local_shipping">local_shipping</span>
+<span class="text-body-sm font-body-sm text-on-surface">Shipping Labels</span>
+</div>
+<span class="text-mono-label font-mono-label text-secondary bg-surface-container-highest px-2 py-0.5 rounded">89</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest border border-outline-variant rounded cursor-pointer hover:border-outline transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="receipt_long">receipt_long</span>
+<span class="text-body-sm font-body-sm text-on-surface">Signed Receipts</span>
+</div>
+<span class="text-mono-label font-mono-label text-secondary bg-surface-container-highest px-2 py-0.5 rounded">34</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface-container-lowest border border-outline-variant rounded cursor-pointer hover:border-outline transition-colors">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary" data-icon="gavel">gavel</span>
+<span class="text-body-sm font-body-sm text-on-surface">Policy Documents</span>
+</div>
+<span class="text-mono-label font-mono-label text-secondary bg-surface-container-highest px-2 py-0.5 rounded">12</span>
+</div>
+</div>
+</div>
+<!-- Recent Files Grid -->
+<div class="md:col-span-3 flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<h3 class="text-label-md font-label-md text-secondary uppercase tracking-wider">Warehouse Photos</h3>
+<div class="flex gap-2">
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="grid_view">grid_view</span></button>
+<button class="text-secondary hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm" data-icon="view_list">view_list</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- File Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col hover:shadow-sm transition-shadow group relative overflow-hidden">
+<div class="h-32 bg-surface-container flex items-center justify-center relative border-b border-outline-variant overflow-hidden">
+<img alt="Warehouse Box Photo" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="A brightly lit warehouse shelf showing several neatly stacked cardboard boxes. Professional corporate photography, clean and organized industrial setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE3wPmSE1SbXNOpAzs04QVImXqVUv133wXdZYlJ3E7-ETYsaCbCZYzzaTBx3-dzxvt-7k-E6qgMP03InMNgiWbPHrtkapN3a7r-UGIyAV9Hyw2YPXsXVt3_0vyg37Vz_tM8WW12YQdiGysVAKsdffZJ3m1gC8HQfCLSYpTkMI0shaaAqPTXwL8kvxWmPjtASeRzopUO9CKAOZOcAsH21IEPxYYhFCNWAWnRYTORphL4GrU-odunLCo9uuNZmuGUrAO2jzND929GZg"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 rounded text-[10px] font-label-sm text-on-surface font-semibold backdrop-blur-sm border border-outline-variant">
+                                    VERIFIED
+                                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-body-sm font-body-sm font-medium text-on-surface truncate w-40" title="WH_Outbound_A1X9.jpg">WH_Outbound_A1X9.jpg</span>
+<span class="text-label-sm font-label-sm text-secondary">Oct 24, 2023 • 2.4 MB</span>
+</div>
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span></button>
+</div>
+<div class="flex gap-1 mt-1">
+<span class="px-1.5 py-0.5 bg-surface-container-low text-secondary text-[10px] rounded border border-outline-variant">Order #892-A</span>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant">
+<button class="w-full py-1.5 text-label-md font-label-md text-primary border border-primary rounded hover:bg-surface-container-low transition-colors">
+                                        Use in Dispute
+                                    </button>
+</div>
+</div>
+</div>
+<!-- File Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col hover:shadow-sm transition-shadow group relative overflow-hidden">
+<div class="h-32 bg-surface-container flex items-center justify-center relative border-b border-outline-variant overflow-hidden">
+<img alt="Damaged Box Photo" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="A close up shot of a damaged cardboard shipping box in a warehouse setting. Focus is sharp on the crushed corner of the box. Professional operational photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB13mpfdQEMgi95XVPszD-WQqUoW3f9kR8O2BkcXGnlqgOqoPs54YZWRQ4ak4Inin1K5OfDhVgHsNtVmCiJ4TJ9gnhaxaNBiHO-uJBG5QWkW7m0uZtsOSV95bE_UutZCt0VHTlgGzHn_fpafdAaUqJaava7pWtYc9bhMrrIrhtmLl6_t3b-tgCAGAeKoISP3ikWiDRhilZGkYIK5QpzGeqG0TEW0op4pygNhx5qtaRrazFnCLR3jS-6M2sWfTdCttwlM1_78onL40k"/>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-body-sm font-body-sm font-medium text-on-surface truncate w-40" title="Damage_Report_B44.jpg">Damage_Report_B44.jpg</span>
+<span class="text-label-sm font-label-sm text-secondary">Oct 23, 2023 • 1.8 MB</span>
+</div>
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span></button>
+</div>
+<div class="flex gap-1 mt-1">
+<span class="px-1.5 py-0.5 bg-error-container text-on-error-container text-[10px] rounded border border-error-container">Flagged</span>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant">
+<button class="w-full py-1.5 text-label-md font-label-md text-primary border border-primary rounded hover:bg-surface-container-low transition-colors">
+                                        Use in Dispute
+                                    </button>
+</div>
+</div>
+</div>
+<!-- File Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded flex flex-col hover:shadow-sm transition-shadow group relative overflow-hidden">
+<div class="h-32 bg-surface-container flex items-center justify-center relative border-b border-outline-variant overflow-hidden">
+<img alt="Pallet Photo" class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-multiply" data-alt="A brightly lit photo of a pallet loaded with perfectly stacked boxes wrapped in clear plastic shrink wrap in a massive distribution center. Clean, industrial, modern aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBaAykosH760WiAzbLZO0IrkkuNi51zAxH1V-Nv9IAjWza2qXISuBnji5C7Ii7bCZhlHQGG0eWk2qKRYmZYsTGx3kw_9cbCo4GARq0mt7mhgoMp5K1OLj8y2ahyFmt93cejAJc7tsqYE4tPkKQxvU6dQHDR0dGYyvwOhkfZM-i_EE4USlySJOCAzuNybOG7kxrqTvg5rieo_WlS1CdTROtEFQF0SV4mFtjP5kXo2kXFeRsUVDj91iTIvwcDfLzsa_6gRwIiqqyBkiM"/>
+<div class="absolute top-2 right-2 bg-surface-container-lowest/90 px-2 py-0.5 rounded text-[10px] font-label-sm text-on-surface font-semibold backdrop-blur-sm border border-outline-variant">
+                                    VERIFIED
+                                </div>
+</div>
+<div class="p-3 flex flex-col gap-2">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="text-body-sm font-body-sm font-medium text-on-surface truncate w-40" title="Pallet_Staging_99Z.jpg">Pallet_Staging_99Z.jpg</span>
+<span class="text-label-sm font-label-sm text-secondary">Oct 21, 2023 • 3.1 MB</span>
+</div>
+<button class="text-secondary hover:text-primary"><span class="material-symbols-outlined text-sm" data-icon="more_vert">more_vert</span></button>
+</div>
+<div class="flex gap-1 mt-1">
+<span class="px-1.5 py-0.5 bg-surface-container-low text-secondary text-[10px] rounded border border-outline-variant">Bulk Shipment</span>
+</div>
+<div class="mt-2 pt-2 border-t border-outline-variant">
+<button class="w-full py-1.5 text-label-md font-label-md text-primary border border-primary rounded hover:bg-surface-container-low transition-colors">
+                                        Use in Dispute
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

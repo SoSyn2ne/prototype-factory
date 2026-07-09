@@ -80,18 +80,18 @@ async function clickByText(text, opts = {}) {
 }
 
 async function clickGenerate() {
-  const enabled = await appFrame.evaluate(() => {
+  const target = await appFrame.evaluate(() => {
     const button = [...document.querySelectorAll('button,[role=button]')]
       .find((node) => {
         const label = node.getAttribute('aria-label') || (node.innerText || node.textContent || '').trim();
         return label === '디자인 생성' || /^Generate designs?$/i.test(label);
       });
-    return Boolean(button && !(button.disabled || button.getAttribute('aria-disabled') === 'true'));
+    if (!button || button.disabled || button.getAttribute('aria-disabled') === 'true') return null;
+    const rect = button.getBoundingClientRect();
+    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
   });
-  if (!enabled) throw new Error('Could not find enabled generate button');
-  // Stitch's ProseMirror composer submits reliably via Enter; synthetic button
-  // clicks can leave the homepage unchanged even when the button is enabled.
-  await page.keyboard.press('Enter');
+  if (!target) throw new Error('Could not find enabled generate button');
+  await page.mouse.click(target.x, target.y);
 }
 
 // Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.

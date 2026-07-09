@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inbox/Queue - Dispute Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=Geist:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#e5eeff",
+                        "secondary": "#5c5f61",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed": "#e0e3e5",
+                        "surface-tint": "#565e74",
+                        "background": "#f8f9ff",
+                        "primary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#410004",
+                        "on-tertiary-container": "#ef4444",
+                        "surface": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "on-primary-fixed": "#131b2e",
+                        "on-secondary-container": "#626567",
+                        "secondary-container": "#e0e3e5",
+                        "primary-fixed": "#dae2fd",
+                        "on-secondary-fixed": "#191c1e",
+                        "error": "#ba1a1a",
+                        "outline": "#76777d",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "tertiary": "#000000",
+                        "inverse-primary": "#bec6e0",
+                        "on-tertiary-fixed": "#410004",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#ffb3ad",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-container-low": "#eff4ff",
+                        "surface-bright": "#f8f9ff",
+                        "surface-variant": "#d3e4fe",
+                        "outline-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#c4c7c9",
+                        "inverse-surface": "#213145",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdad7",
+                        "surface-dim": "#cbdbf5",
+                        "on-surface-variant": "#45464d",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-container": "#131b2e",
+                        "primary": "#000000",
+                        "on-tertiary-fixed-variant": "#930013",
+                        "surface-container-high": "#dce9ff",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#444749"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-gap": "1rem",
+                        "row-height-sm": "2.25rem",
+                        "row-height-md": "3rem",
+                        "container-padding": "1.5rem",
+                        "gutter-dense": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "mono-label": ["Geist"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "mono-label": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dense data tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c6c6cd;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #76777d;
+        }
+        .status-chip-urgent {
+            background-color: rgba(186, 26, 26, 0.08); /* 8% error */
+            color: #ba1a1a;
+            border: 1px solid rgba(186, 26, 26, 0.2);
+        }
+        .status-chip-neutral {
+            background-color: rgba(92, 95, 97, 0.08); /* 8% secondary */
+            color: #5c5f61;
+            border: 1px solid rgba(92, 95, 97, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-full flex flex-col z-40 w-64 border-r border-outline-variant bg-surface text-primary">
+<!-- Header -->
+<div class="px-6 py-6 border-b border-outline-variant flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A small, professional, minimalist avatar placeholder for a corporate user, geometric and simple, light mode, cool tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCExR6X_SCYjvv7cHes8OqqZf_NW79hPVsXFtZ4DIjEwNT2mrPPfVL3QuAciZZurfde8Bhw1KP3bQ9p6IrvC1O-qdlVo_4jUwnXyED75N1FG8DF4hpIA5kArW9kf_qyXXVAkacpzH-n-YTVumQkaqn6S_nE7e8EVxYJsNgMyC_EtjLXY_cE_K9sqrjS98JOJMBJyYuhp7FLTQPyIkN8kukcbzJ9TjlaWGzfQXkPaObXwYQdhNEj_k1H93e2UKQS8Gjb336sDZemYnU"/>
+<div>
+<h2 class="text-headline-md font-headline-md font-extrabold text-primary">Marketplace Ops</h2>
+<span class="text-label-sm font-label-sm text-secondary block mt-0.5">Active Seller</span>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
+<!-- Active Tab -->
+<a class="flex items-center gap-3 px-4 py-2 text-primary font-bold border-r-4 border-primary bg-surface-container-low transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">inbox</span>
+<span class="text-label-md font-label-md">Inbox/Queue</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:text-primary hover:bg-surface-container-low transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">folder_open</span>
+<span class="text-label-md font-label-md">Evidence Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:text-primary hover:bg-surface-container-low transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-md font-label-md">Templates</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary hover:text-primary hover:bg-surface-container-low transition-colors duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-label-md font-label-md">Analytics</span>
+</a>
+</div>
+<!-- Footer area of sidebar if needed -->
+<div class="p-4 border-t border-outline-variant">
+<div class="text-label-sm font-label-sm text-secondary-fixed-dim">System Status: Optimal</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col ml-64 min-w-0 bg-background">
+<!-- TopNavBar (Shared Component) -->
+<header class="sticky top-0 z-30 flex justify-between items-center h-12 px-6 w-full border-b border-outline-variant bg-surface-container-lowest text-primary">
+<!-- Left side: Product Name & Search -->
+<div class="flex items-center gap-8 flex-1">
+<h1 class="text-headline-md font-headline-md font-black text-on-surface whitespace-nowrap">Dispute Manager</h1>
+<!-- Search Bar -->
+<div class="relative max-w-md w-full">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-bright border border-outline-variant rounded-DEFAULT text-body-sm font-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search orders, IDs, or amounts..." type="text"/>
+</div>
+</div>
+<!-- Right side: Actions & Profile -->
+<div class="flex items-center gap-4 ml-4">
+<button class="text-secondary hover:text-primary transition-colors flex items-center justify-center relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover cursor-pointer" data-alt="A small, professional, minimalist avatar placeholder for a user profile, geometric and simple, light mode, cool tones, 32x32 pixels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBos8j2otDKQZBSjAQPOnjFJSVK00bKKPL8oCq9mpcdE-JFUAxYIfplLiM_Cs2famqjEGq7klVnSvTb2ishz69LTSDZF0yk5m3Y0j57WVH8T4alqlqamM_tLSUbTqtRELZs9aTwkkaDVuCns5Obs3--jXQ7IDyS7A21INg5mnU--igY9xunBX-8QfXBL7T4_E25lVObbrDLrXT-TpVvMzWrVHNbenuey0jkHRMmQ86HeRNi6IxIduaRyiftE3CTX7viL0-JdD9IoNs"/>
+</div>
+</header>
+<!-- Main Canvas: Table & Quick View -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Center Data Grid -->
+<div class="flex-1 flex flex-col overflow-hidden relative">
+<!-- Toolbar -->
+<div class="px-container-padding py-4 flex flex-col gap-4 border-b border-outline-variant bg-surface-container-lowest shrink-0 z-10">
+<div class="flex items-center justify-between">
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Dispute Queue</h2>
+<div class="flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-secondary mr-2">124 items found</span>
+<button class="px-3 py-1.5 border border-outline-variant bg-surface rounded-DEFAULT text-label-md font-label-md hover:bg-surface-container-low transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px]">download</span> Export
+                            </button>
+<button class="px-3 py-1.5 bg-primary text-on-primary rounded-DEFAULT text-label-md font-label-md hover:opacity-90 transition-opacity">
+                                Bulk Actions (0)
+                            </button>
+</div>
+</div>
+<!-- Filter Pills -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1">
+<button class="px-3 py-1 rounded-full border border-primary bg-primary-fixed text-primary text-label-sm font-label-sm whitespace-nowrap">
+                            All Active (124)
+                        </button>
+<button class="px-3 py-1 rounded-full border border-outline-variant bg-surface text-secondary hover:border-outline hover:text-on-surface text-label-sm font-label-sm whitespace-nowrap transition-colors flex items-center gap-1">
+                            Action Required <span class="bg-error text-on-error rounded-full px-1.5 text-[10px] ml-1">42</span>
+</button>
+<button class="px-3 py-1 rounded-full border border-outline-variant bg-surface text-secondary hover:border-outline hover:text-on-surface text-label-sm font-label-sm whitespace-nowrap transition-colors">
+                            Evidence Sent (82)
+                        </button>
+<button class="px-3 py-1 rounded-full border border-outline-variant bg-surface text-secondary hover:border-outline hover:text-on-surface text-label-sm font-label-sm whitespace-nowrap transition-colors">
+                            High Value (&gt; $500)
+                        </button>
+<button class="px-2 py-1 rounded-full border border-outline border-dashed bg-transparent text-secondary hover:text-primary text-label-sm font-label-sm whitespace-nowrap flex items-center gap-1 ml-auto">
+<span class="material-symbols-outlined text-[14px]">tune</span> More Filters
+                        </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="flex-1 overflow-auto bg-surface-container-lowest">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead class="sticky top-0 bg-surface-container-low border-b border-outline-variant z-10">
+<tr>
+<th class="px-4 py-2 w-[40px]"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Merchant ID</th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Order ID</th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider">Reason</th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider text-right">Amount</th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider text-center">Status</th>
+<th class="px-4 py-2 text-label-sm font-label-sm text-secondary uppercase tracking-wider text-right">Time Left</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm divide-y divide-outline-variant">
+<!-- Row 1: Active/Urgent -->
+<tr class="h-row-height-md hover:bg-surface-container-low transition-colors cursor-pointer bg-surface-bright group relative">
+<td class="px-4 py-2"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">MCH-88291A</td>
+<td class="px-4 py-2 text-mono-label font-mono-label font-medium text-primary">ORD-2023-9981</td>
+<td class="px-4 py-2 text-on-surface">Item not received</td>
+<td class="px-4 py-2 text-right font-medium">$845.00</td>
+<td class="px-4 py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-label-sm font-label-sm status-chip-urgent">
+                                        Action Required
+                                    </span>
+</td>
+<td class="px-4 py-2 text-right font-medium text-error">
+                                    1d 14h
+                                </td>
+<!-- Simulated active row indicator -->
+<td class="absolute left-0 top-0 bottom-0 w-[3px] bg-primary group-hover:bg-primary-fixed-dim transition-colors"></td>
+</tr>
+<!-- Row 2: Pending -->
+<tr class="h-row-height-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-4 py-2"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">MCH-44102B</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">ORD-2023-9844</td>
+<td class="px-4 py-2 text-on-surface">Defective merchandise</td>
+<td class="px-4 py-2 text-right">$120.50</td>
+<td class="px-4 py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-label-sm font-label-sm status-chip-neutral">
+                                        Evidence Sent
+                                    </span>
+</td>
+<td class="px-4 py-2 text-right text-secondary">
+                                    4d 08h
+                                </td>
+</tr>
+<!-- Row 3: Action Required -->
+<tr class="h-row-height-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-4 py-2"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">MCH-11983C</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">ORD-2023-9712</td>
+<td class="px-4 py-2 text-on-surface">Unrecognized charge</td>
+<td class="px-4 py-2 text-right font-medium">$2,100.00</td>
+<td class="px-4 py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-label-sm font-label-sm status-chip-urgent">
+                                        Action Required
+                                    </span>
+</td>
+<td class="px-4 py-2 text-right font-medium text-error">
+                                    0d 04h
+                                </td>
+</tr>
+<!-- Row 4: Pending -->
+<tr class="h-row-height-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-4 py-2"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">MCH-99210A</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">ORD-2023-9650</td>
+<td class="px-4 py-2 text-on-surface">Item significantly not as described</td>
+<td class="px-4 py-2 text-right">$45.00</td>
+<td class="px-4 py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-label-sm font-label-sm status-chip-neutral">
+                                        Evidence Sent
+                                    </span>
+</td>
+<td class="px-4 py-2 text-right text-secondary">
+                                    7d 12h
+                                </td>
+</tr>
+<!-- Row 5: Action Required -->
+<tr class="h-row-height-md hover:bg-surface-container-low transition-colors cursor-pointer">
+<td class="px-4 py-2"><input class="rounded border-outline-variant text-primary focus:ring-primary w-4 h-4 cursor-pointer" type="checkbox"/></td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">MCH-33211X</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-secondary">ORD-2023-9501</td>
+<td class="px-4 py-2 text-on-surface">Item not received</td>
+<td class="px-4 py-2 text-right">$310.25</td>
+<td class="px-4 py-2 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-label-sm font-label-sm status-chip-urgent">
+                                        Action Required
+                                    </span>
+</td>
+<td class="px-4 py-2 text-right font-medium text-on-surface">
+                                    2d 02h
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Quick View Drawer (Right Side Pane) -->
+<aside class="w-[420px] shrink-0 border-l border-outline-variant bg-surface-container-lowest flex flex-col z-20 shadow-[-4px_0_12px_rgba(0,0,0,0.03)] hidden lg:flex">
+<!-- Drawer Header -->
+<div class="px-6 py-4 border-b border-outline-variant flex justify-between items-start bg-surface">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="text-label-sm font-label-sm text-secondary uppercase tracking-wider">Quick View</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded-[4px] text-[10px] font-label-sm status-chip-urgent">Urgent</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface">ORD-2023-9981</h3>
+</div>
+<button class="text-secondary hover:text-on-surface rounded-full p-1 transition-colors">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Drawer Scrollable Content -->
+<div class="flex-1 overflow-y-auto p-6 flex flex-col gap-8">
+<!-- Critical Alert Banner -->
+<div class="p-3 bg-error-container border border-[rgba(186,26,26,0.2)] rounded-DEFAULT flex items-start gap-3">
+<span class="material-symbols-outlined text-on-error-container mt-0.5">warning</span>
+<div>
+<h4 class="text-label-md font-label-md text-on-error-container mb-1">Missing Proof of Delivery</h4>
+<p class="text-body-sm font-body-sm text-on-error-container opacity-90">Carrier tracking shows delivered, but signature file is missing from evidence package.</p>
+</div>
+</div>
+<!-- Dense Info Grid -->
+<div class="grid grid-cols-2 gap-x-4 gap-y-4">
+<div class="flex flex-col gap-1 border-b border-outline-variant pb-2">
+<span class="text-label-sm font-label-sm text-secondary">Merchant</span>
+<span class="text-body-md font-body-md text-on-surface font-medium">Acme Electronics (MCH-88291A)</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-outline-variant pb-2">
+<span class="text-label-sm font-label-sm text-secondary">Dispute Amount</span>
+<span class="text-body-md font-body-md text-on-surface font-medium">$845.00</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-outline-variant pb-2">
+<span class="text-label-sm font-label-sm text-secondary">Filing Date</span>
+<span class="text-body-md font-body-md text-on-surface">Oct 24, 2023</span>
+</div>
+<div class="flex flex-col gap-1 border-b border-outline-variant pb-2">
+<span class="text-label-sm font-label-sm text-secondary">Deadline</span>
+<span class="text-body-md font-body-md text-error font-medium">Oct 26, 2023 (1d 14h)</span>
+</div>
+<div class="col-span-2 flex flex-col gap-1 border-b border-outline-variant pb-2">
+<span class="text-label-sm font-label-sm text-secondary">Reason Code</span>
+<span class="text-body-md font-body-md text-on-surface">1040 - Item Not Received (Cardholder claims no delivery)</span>
+</div>
+</div>
+<!-- Evidence Collection Status -->
+<div>
+<h4 class="text-label-md font-label-md text-on-surface mb-3 uppercase tracking-wider">Evidence Status</h4>
+<div class="flex flex-col gap-2">
+<!-- Item -->
+<div class="flex items-center justify-between p-2.5 border border-outline-variant rounded-DEFAULT bg-surface-bright">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[20px]">receipt_long</span>
+<span class="text-body-sm font-body-sm text-on-surface">Invoice copy</span>
+</div>
+<span class="material-symbols-outlined text-primary text-[18px]">check_circle</span>
+</div>
+<!-- Item -->
+<div class="flex items-center justify-between p-2.5 border border-error border-dashed rounded-DEFAULT bg-surface-lowest">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[20px]">local_shipping</span>
+<span class="text-body-sm font-body-sm text-on-surface">Tracking / POD</span>
+</div>
+<button class="text-label-sm font-label-sm text-error hover:underline">Upload</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Actions -->
+<div class="p-6 border-t border-outline-variant bg-surface flex gap-3">
+<button class="flex-1 py-2 border border-outline-variant bg-surface-container-lowest rounded-DEFAULT text-label-md font-label-md text-on-surface hover:bg-surface-container-low transition-colors">
+                        View Full Details
+                    </button>
+<button class="flex-1 py-2 bg-primary text-on-primary rounded-DEFAULT text-label-md font-label-md hover:opacity-90 transition-opacity">
+                        Submit Evidence
+                    </button>
+</div>
+</aside>
+</main>
+</div>
+</body></html>

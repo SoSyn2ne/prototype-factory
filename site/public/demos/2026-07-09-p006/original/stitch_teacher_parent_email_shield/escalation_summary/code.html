@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin Escalation Summary - Shield</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Plus+Jakarta+Sans:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "outline": "#727971",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#c6ecc8",
+                        "surface": "#fff8f2",
+                        "surface-dim": "#dfd9d3",
+                        "secondary": "#625e55",
+                        "surface-container": "#f3ede7",
+                        "on-surface-variant": "#424841",
+                        "on-tertiary-container": "#fcffe3",
+                        "surface-variant": "#e7e1dc",
+                        "on-tertiary-fixed": "#1c1c19",
+                        "on-primary-fixed-variant": "#2d4e33",
+                        "inverse-surface": "#33302c",
+                        "primary-fixed-dim": "#abd0ad",
+                        "on-surface": "#1d1b18",
+                        "primary-container": "#5a7d5f",
+                        "error": "#ba1a1a",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#abd0ad",
+                        "secondary-container": "#e8e2d6",
+                        "inverse-on-surface": "#f6f0ea",
+                        "tertiary": "#5d5c58",
+                        "surface-container-high": "#ede7e1",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#01210b",
+                        "tertiary-fixed-dim": "#c9c6c2",
+                        "on-secondary-container": "#68645b",
+                        "surface-tint": "#45664a",
+                        "tertiary-fixed": "#e5e2dd",
+                        "tertiary-container": "#767471",
+                        "secondary-fixed-dim": "#cbc6ba",
+                        "on-secondary-fixed": "#1e1c14",
+                        "secondary-fixed": "#e8e2d6",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#fff8f2",
+                        "primary": "#426447",
+                        "outline-variant": "#c2c8bf",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#4a473e",
+                        "on-primary-container": "#f7fff3",
+                        "surface-container-low": "#f9f2ed",
+                        "on-tertiary-fixed-variant": "#474743",
+                        "on-background": "#1d1b18",
+                        "surface-container-highest": "#e7e1dc",
+                        "background": "#fff8f2",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "xl": "80px",
+                        "margin-desktop": "64px",
+                        "lg": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill-1 {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            margin-left: 16rem; /* 64px * 4 = 256px for Sidebar */
+        }
+        @media (max-width: 768px) {
+            .content-area {
+                margin-left: 0;
+            }
+        }
+        /* Custom scrollbar for textareas */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background-color: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+<!-- SideNavBar (Hidden on Mobile) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 py-md border-r border-outline-variant/30 bg-surface-container-low dark:bg-surface-container z-40">
+<div class="px-md mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest shrink-0 flex items-center justify-center">
+<img alt="School Logo" class="w-full h-full object-cover" data-alt="A minimalist vector illustration of a shield logo representing a school, designed with clean lines and a soft, calming color palette featuring light sage green and warm cream tones. High-end modern UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMJtjgdL9gPbyVEnCryeeQifXdLn5Gc4Zj0uKZh6mc4W4ksUB6uhXF946LrG-E8ddWpLAVoWRxfSh8C9ierzjoFefvSq8GwwXRGfIQT40rF8VOd67QZt9cm8-WlBaRt5LWzC68EldsqGg0LpqFHlE2CVovBJR1jOB9MpPImsinlpP0QNm-FPOZwUUR6McNqlW-2AOENgIuJXkQBMpDZ204hB_M56WZ3rKSccC8W784hjZ840a7WrIz8AxjNSmAiD3SLLevDIWfpwE"/>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-on-surface dark:text-on-surface-variant font-semibold">Classroom Guard</h1>
+<p class="font-body-sm text-body-sm text-secondary">Stay Protected</p>
+</div>
+</div>
+<div class="px-md mb-6">
+<button class="w-full bg-primary text-on-primary py-3 rounded-lg font-label-md text-label-md flex justify-center items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined">add</span>
+                New Response
+            </button>
+</div>
+<ul class="flex-grow space-y-2 flex flex-col">
+<li>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 mx-2 hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">inbox</span>
+<span class="font-label-md text-label-md">Inbox</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 mx-2 hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-label-md text-label-md">Drafts</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 mx-2 hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-label-md text-label-md">Policy Reference</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 bg-primary-container dark:bg-primary-fixed text-on-primary-container dark:text-on-primary-fixed rounded-xl px-4 py-3 mx-2 translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined fill-1">history_edu</span>
+<span class="font-label-md text-label-md">Escalation Logs</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto border-t border-outline-variant/30 pt-4">
+<ul class="space-y-2">
+<li>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 mx-2 hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">self_care</span>
+<span class="font-label-md text-label-md">Stress Tips</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-4 text-secondary dark:text-secondary-fixed-dim px-4 py-3 mx-2 hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-all rounded-xl" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<div class="content-area">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 w-full sticky top-0 z-50 bg-surface dark:bg-background shadow-[0_4px_20px_rgba(74,71,67,0.04)]">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-secondary p-2 -ml-2 rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-lg text-headline-lg font-semibold text-primary dark:text-primary-fixed hidden md:block">
+                    Shield
+                </div>
+<!-- Search Bar on Left (Mobile hidden or icon only) -->
+<div class="hidden md:flex bg-surface-container items-center px-4 py-2 rounded-full min-w-[300px]">
+<span class="material-symbols-outlined text-secondary mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-full placeholder:text-outline p-0" placeholder="Search logs, policies..." type="text"/>
+</div>
+</div>
+<div class="flex flex-1 justify-center md:hidden">
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-semibold text-primary dark:text-primary-fixed">
+                    Shield
+                </div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex font-label-md text-label-md text-secondary hover:bg-surface-container dark:hover:bg-surface-container-highest transition-colors px-4 py-2 rounded-full">
+                    Get Support
+                </button>
+<button class="font-label-md text-label-md bg-secondary-container text-on-secondary-container px-4 py-2 rounded-full flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">air</span>
+                    Deep Breath
+                </button>
+<div class="w-10 h-10 rounded-full overflow-hidden shrink-0 border border-outline-variant/30">
+<img alt="Teacher Profile" class="w-full h-full object-cover" data-alt="A portrait photography shot of a professional female teacher in her late 30s, smiling warmly. Soft, diffused lighting, clean corporate headshot style against a neutral cream background. Calming, approachable vibe." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD82n_rxNWMIQpN6Mjj4Y90UHD_dRSNGT_U5YCLlzSS2apPHWRyTVai8Yh9ug_CWljdxnKDTrfoXSmyyWDC-V4ZhXLFnvCuVitOUYa0uLw5CrMYbm8RwC-_mo0CtJsVfaMlFvxImt9XUAjEXnyIhewFzntoAS_KyA-eafmyBPaJh3VBUuNBosw9CZ_OnMpa3uFPdVdz-JQUZpXqodM9qpIZdtMupGT2b4PLaNreIX4Tm2eWhoovbU5dJJFeu2Zijsj7PJE2seOmwQk"/>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow p-margin-mobile md:p-margin-desktop bg-background overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<!-- Page Header -->
+<div class="mb-lg">
+<div class="flex items-center gap-2 text-secondary mb-2">
+<span class="material-symbols-outlined text-sm">arrow_back</span>
+<a class="font-label-md text-label-md hover:underline" href="#">Back to Incident #9482</a>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Admin Escalation Summary</h2>
+<p class="font-body-lg text-body-lg text-secondary">Review and submit this objective summary to the principal's office.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md">
+<!-- Left Column (Primary Summary) -->
+<div class="md:col-span-8 space-y-md">
+<!-- Objective Translation Container (The Email Shield Card) -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_20px_rgba(74,71,67,0.04)] relative border border-surface-variant overflow-hidden">
+<!-- Shield Indicator Line -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">translate</span>
+                                        Summary for Admin
+                                    </h3>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Shield has drafted a neutral, professional summary based on the incident logs.</p>
+</div>
+<div class="bg-primary-fixed/30 text-on-primary-fixed-variant px-3 py-1 rounded-full font-label-md text-label-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">psychology</span>
+                                    AI Drafted
+                                </div>
+</div>
+<div class="relative group">
+<textarea class="w-full h-64 bg-surface-container rounded-lg border-none p-4 font-body-md text-body-md text-on-surface focus:ring-2 focus:ring-primary/20 focus:bg-surface-container-lowest transition-colors resize-none leading-relaxed" placeholder="Review drafted summary here...">On October 24th, 2023, an interaction occurred regarding a disagreement over late assignment grading for Student A. The parent expressed significant frustration through multiple direct messages (see Timeline). 
+
+Despite attempts to de-escalate and reference the syllabus late-work policy, the tone of the communication remained elevated. The situation requires administrative review to ensure consistent application of the grading policy and to mediate the ongoing communication with the family.</textarea>
+<!-- Optional subtle edit icon on hover -->
+<div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-secondary bg-surface-container-lowest p-1 rounded-md shadow-sm cursor-pointer hover:text-primary">edit</span>
+</div>
+</div>
+<div class="mt-6 flex justify-end gap-4">
+<button class="px-6 py-2 rounded-full font-label-md text-label-md bg-secondary-container text-on-secondary-container hover:bg-surface-variant transition-colors">
+                                    Discard Draft
+                                </button>
+<button class="px-8 py-2 rounded-full font-label-md text-label-md bg-primary text-on-primary hover:bg-surface-tint shadow-sm hover:shadow-md transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">send</span>
+                                    Send to Principal
+                                </button>
+</div>
+</div>
+<!-- Attachments Context -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_20px_rgba(74,71,67,0.04)] border border-surface-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">attach_file</span>
+                                Student Evidence Attached
+                            </h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="flex items-center p-3 bg-surface-container rounded-lg gap-3">
+<div class="w-10 h-10 bg-error-container text-on-error-container rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">picture_as_pdf</span>
+</div>
+<div class="overflow-hidden">
+<p class="font-body-sm text-body-sm text-on-surface truncate font-semibold">Q1_Syllabus_Signed.pdf</p>
+<p class="font-label-md text-label-md text-secondary">245 KB</p>
+</div>
+</div>
+<div class="flex items-center p-3 bg-surface-container rounded-lg gap-3">
+<div class="w-10 h-10 bg-secondary-container text-on-secondary-container rounded flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">image</span>
+</div>
+<div class="overflow-hidden">
+<p class="font-body-sm text-body-sm text-on-surface truncate font-semibold">Assignment_Timestamp.png</p>
+<p class="font-label-md text-label-md text-secondary">1.2 MB</p>
+</div>
+</div>
+</div>
+<button class="mt-4 font-label-md text-label-md text-primary flex items-center gap-1 hover:underline">
+<span class="material-symbols-outlined text-[16px]">add</span> Add more evidence
+                            </button>
+</div>
+</div>
+<!-- Right Column (Contextual Data) -->
+<div class="md:col-span-4 space-y-md">
+<!-- Timeline -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_20px_rgba(74,71,67,0.04)] border border-surface-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">timeline</span>
+                                Timeline of Interaction
+                            </h3>
+<div class="relative border-l-2 border-surface-variant ml-3 space-y-6">
+<!-- Event 1 -->
+<div class="relative pl-6">
+<div class="absolute w-3 h-3 bg-surface-container-lowest border-2 border-outline rounded-full -left-[7px] top-1"></div>
+<p class="font-label-md text-label-md text-secondary mb-1">Oct 24, 9:15 AM</p>
+<p class="font-body-sm text-body-sm text-on-surface">Initial parent message received regarding grade.</p>
+<span class="inline-block mt-2 px-2 py-1 bg-surface-container text-secondary text-[10px] rounded uppercase font-semibold tracking-wider">Urgent Tone</span>
+</div>
+<!-- Event 2 -->
+<div class="relative pl-6">
+<div class="absolute w-3 h-3 bg-surface-container-lowest border-2 border-primary rounded-full -left-[7px] top-1"></div>
+<p class="font-label-md text-label-md text-secondary mb-1">Oct 24, 11:30 AM</p>
+<p class="font-body-sm text-body-sm text-on-surface">Shield auto-drafted response referencing syllabus.</p>
+</div>
+<!-- Event 3 -->
+<div class="relative pl-6">
+<div class="absolute w-3 h-3 bg-error text-white rounded-full -left-[7px] top-1 flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-white rounded-full"></div>
+</div>
+<p class="font-label-md text-label-md text-secondary mb-1">Oct 24, 2:45 PM</p>
+<p class="font-body-sm text-body-sm text-on-surface">Parent reply exceeded escalation threshold.</p>
+<span class="inline-block mt-2 px-2 py-1 bg-error-container text-on-error-container text-[10px] rounded uppercase font-semibold tracking-wider">Hostile</span>
+</div>
+</div>
+</div>
+<!-- Policies Referenced -->
+<div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_20px_rgba(74,71,67,0.04)] border border-surface-variant">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">gavel</span>
+                                Policies Referenced
+                            </h3>
+<ul class="space-y-3">
+<li class="bg-surface-container p-3 rounded-lg border-l-4 border-primary">
+<p class="font-label-md text-label-md text-on-surface mb-1">Late Work Policy (Section 3.2)</p>
+<p class="font-body-sm text-body-sm text-secondary line-clamp-2">Assignments submitted past the deadline incur a 10% penalty per day up to a maximum of 3 days...</p>
+</li>
+<li class="bg-surface-container p-3 rounded-lg border-l-4 border-secondary">
+<p class="font-label-md text-label-md text-on-surface mb-1">Communication Guidelines</p>
+<p class="font-body-sm text-body-sm text-secondary line-clamp-2">Expected response times and professional conduct standards for parent-teacher communication.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Spacer for bottom padding -->
+<div class="h-xl"></div>
+</div>
+</main>
+</div>
+</body></html>

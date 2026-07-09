@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LuxeClaims Concierge - Guest Damage Claim Desk</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&amp;family=Hanken+Grotesk:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#e4e2e0",
+                        "outline": "#757873",
+                        "surface": "#faf9f7",
+                        "on-tertiary-fixed-variant": "#394b3d",
+                        "on-tertiary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#5f5e5d",
+                        "inverse-primary": "#c8c6c4",
+                        "surface-dim": "#dadad8",
+                        "tertiary-container": "#1e3023",
+                        "on-primary-fixed-variant": "#474745",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#faf9f7",
+                        "on-secondary-container": "#656357",
+                        "secondary-fixed-dim": "#cac6b9",
+                        "tertiary-fixed": "#d3e8d5",
+                        "secondary-fixed": "#e7e2d4",
+                        "tertiary": "#091b0f",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e3e2e0",
+                        "on-primary-container": "#949391",
+                        "on-tertiary-fixed": "#0e1f13",
+                        "primary": "#171817",
+                        "inverse-surface": "#2f3130",
+                        "surface-variant": "#e3e2e0",
+                        "error": "#ba1a1a",
+                        "on-tertiary-container": "#849887",
+                        "surface-container-high": "#e9e8e6",
+                        "surface-container": "#efeeec",
+                        "on-surface": "#1a1c1b",
+                        "tertiary-fixed-dim": "#b7ccb9",
+                        "on-error": "#ffffff",
+                        "background": "#faf9f7",
+                        "secondary": "#615f53",
+                        "on-background": "#1a1c1b",
+                        "inverse-on-surface": "#f1f1ef",
+                        "outline-variant": "#c5c7c2",
+                        "on-primary-fixed": "#1b1c1b",
+                        "primary-container": "#2c2c2b",
+                        "surface-container-low": "#f4f3f1",
+                        "secondary-container": "#e4e0d1",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#c8c6c4",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#454844",
+                        "on-secondary-fixed-variant": "#49473d",
+                        "on-secondary-fixed": "#1d1c13"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "margin-mobile": "20px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "margin-desktop": "64px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Libre Caslon Text"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "label-md": ["Hanken Grotesk"],
+                        "display-lg": ["Libre Caslon Text"],
+                        "display-lg-mobile": ["Libre Caslon Text"],
+                        "headline-sm": ["Libre Caslon Text"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { background-color: #faf9f7; color: #1a1c1b; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        .masonry-grid { column-count: 1; column-gap: 24px; }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        .masonry-item { break-inside: avoid; margin-bottom: 24px; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="hidden md:flex bg-surface-container-low dark:bg-surface-container-lowest docked left-0 h-screen w-80 border-r border-outline-variant dark:border-outline flat no shadows flex-col py-8 z-10 flex-shrink-0">
+<div class="px-6 mb-8">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">Claim Workspace</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">ID: CLM-88291</p>
+</div>
+<div class="px-6 mb-8 flex items-center space-x-4">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Property Thumbnail" class="w-full h-full object-cover" data-alt="A detailed thumbnail image of a luxury modern loft apartment exterior or primary living space, bathed in soft golden hour light. The architecture is sleek and contemporary with floor-to-ceiling windows. The image uses a sophisticated color palette of warm stone, charcoal, and soft white, fitting a high-end editorial aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvnYmqOZXuQD_sEahwJvc0fxWG8d6f1twe-TOe0hDzrdmLJMVwLxvpZ5VEcif3AHjeojJX6QEZRAPvTkHOQVU_WUOUdW59oRx2s3jEuti_N-SzIk03s2J4So52xOXrcxO74GGSViHURPCbHBMApAXYt97EQflMQY-9PF5KgrBMsgCPcFaNTIyJtueOHF5wR873NqyRMShb-dN7dLXoUs2kftCxZKI1_dYe7NvfzLKTVIhId8siyU1cpt7rHkFEhKFVhOXP_CvwH1F0"/>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">The Azure Loft</p>
+<button class="font-label-sm text-label-sm text-secondary hover:text-primary transition-colors flex items-center mt-1">
+                     View Policy <span class="material-symbols-outlined text-[16px] ml-1">open_in_new</span>
+</button>
+</div>
+</div>
+<ul class="flex-grow flex flex-col space-y-2">
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-3 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 text-primary dark:text-primary-fixed font-bold border-l-4 border-tertiary dark:border-tertiary-fixed-dim pl-4 py-3 bg-surface-container-high dark:bg-surface-container hover:bg-surface-container transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined fill" data-icon="photo_library">photo_library</span>
+<span class="font-label-md text-label-md">Evidence</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-3 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span class="font-label-md text-label-md">Financials</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-3 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span class="font-label-md text-label-md">Recovery Checklist</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-3 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto px-6 flex flex-col space-y-4">
+<button class="w-full bg-tertiary-container text-on-tertiary py-3 px-4 rounded-DEFAULT font-label-md text-label-md flex justify-center items-center space-x-2 transition-colors hover:bg-tertiary">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span>Submit Official Claim</span>
+</button>
+<ul class="flex flex-col space-y-2 border-t border-outline-variant pt-4">
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+</li>
+<li>
+<a class="flex items-center space-x-3 text-secondary dark:text-secondary-fixed-dim pl-5 py-2 hover:bg-surface-container dark:hover:bg-surface-container-high transition-all cursor-pointer active:scale-95" href="#">
+<span class="material-symbols-outlined" data-icon="archive">archive</span>
+<span class="font-label-md text-label-md">Archive</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20 z-10 flex-shrink-0">
+<div class="flex items-center space-x-8">
+<div class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary font-bold tracking-tight">LuxeClaims Concierge</div>
+<nav class="hidden md:flex space-x-6 h-full items-center">
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:opacity-80" href="#">Properties</a>
+<a class="font-body-md text-body-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 h-full flex items-center" href="#">Claims</a>
+<a class="font-body-md text-body-md text-secondary dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors cursor-pointer active:opacity-80" href="#">Invoices</a>
+</nav>
+</div>
+<div class="flex items-center space-x-6">
+<div class="flex space-x-4">
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="hidden md:flex items-center space-x-4 border-l border-outline-variant pl-6">
+<button class="bg-tertiary-container text-on-tertiary py-2 px-4 rounded-DEFAULT font-label-md text-label-md transition-colors hover:bg-tertiary border border-transparent">
+                          Submit Claim
+                      </button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant bg-surface-container">
+<img alt="Manager Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a luxury property manager, looking confident and approachable. The lighting is soft and natural, with a clean, light-mode background featuring warm charcoal and soft stone tones. The image style is high-end editorial photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkeZnIRsBN7fbKbm6FzfsL0kZ8-HmCjVbtG1yXWoiGtoAl-TLuXV9FPQiBVuTG9CR_syye6j-GOTXfErSxfp7s1sU13E6ZdzffNOOv_bsTgMqr0qd5_VSdlxK8fYKncI6MU46jDGz8jggnX8pef7P4ajuFfKudKhh7_7d2sGZ0XvOMF-EOVngVgHa2vQ0OEGkmwa1eIEfiV9IUCyRwnVNkeAatnxf-pTuPKZyQlFMtrpG0SDSNOnQLs7vcHCNNqtBVPc20JedbeXpt"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto px-4 md:px-margin-desktop py-8 md:py-12 bg-background">
+<div class="max-w-container-max mx-auto space-y-12">
+<!-- Property Header Context -->
+<section class="border-b border-outline-variant pb-8">
+<div class="flex flex-col md:flex-row md:justify-between md:items-end gap-6">
+<div>
+<p class="font-label-md text-label-md text-secondary mb-2 uppercase tracking-widest">Booking #4920-X</p>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-primary mb-2">The Azure Loft</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant flex items-center space-x-2">
+<span class="material-symbols-outlined text-[20px]">person</span>
+<span>Guest: Elena Moretti</span>
+</p>
+</div>
+<div class="flex space-x-3">
+<div class="bg-[#F9F8F6] border border-[#D6D2C4] px-4 py-2 rounded-DEFAULT flex items-center space-x-2">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="font-label-sm text-label-sm text-primary">Damage Reported</span>
+</div>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Evidence & Logs -->
+<div class="lg:col-span-2 space-y-10">
+<!-- Evidence Section -->
+<section>
+<h3 class="font-headline-md text-headline-md text-primary mb-6 flex items-center space-x-3">
+<span class="material-symbols-outlined">photo_library</span>
+<span>Room-by-Room Evidence</span>
+</h3>
+<div class="masonry-grid">
+<!-- Evidence Card 1 -->
+<div class="masonry-item bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden group">
+<div class="relative h-64 overflow-hidden">
+<img alt="Broken bed frame" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A close-up, high-fidelity photograph showing structural damage to a modern, expensive wooden bed frame in a luxury bedroom. The lighting is bright and objective, highlighting the splintered wood against a pristine, soft linen backdrop. The aesthetic is clean and documentary-style, suitable for an insurance claim." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlz8B7NNmkVbOpfhp7nDz1GYhh-Y9SX6nv30w0DgMZZW7zUbCfvB1A9YJ4049JQDzK_FcNPBtgXQDPYFaj2BbYFBUWg1VlP0a3RMDW-lfz4raQS8w9pZE8U9M5sN7uhTOIDm7rSHjThD2cWEbS-QU2-uv_Gnfl_xYZNF_G9EEObBZbgr-0kR-HUIR4A9H0crGqYp1Uen7vxsm2Oz7XsUTSVpylexVbqWAmUAhCxSoBcebn-Sm1b8Qo0GbwKqJ-d492mYoiFFBeGq-y"/>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Primary Bedroom</h4>
+<span class="bg-surface-container px-2 py-1 rounded font-label-sm text-label-sm text-secondary">Major</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Structural failure of custom oak bed frame rail. Guest claims it collapsed during sleep.</p>
+<div class="flex items-center space-x-4 font-label-sm text-label-sm text-secondary border-t border-outline-variant pt-3">
+<span class="flex items-center space-x-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> <span>Oct 12, 10:45 AM</span></span>
+<span class="flex items-center space-x-1"><span class="material-symbols-outlined text-[16px]">person</span> <span>Uploaded by Cleaner</span></span>
+</div>
+</div>
+</div>
+<!-- Evidence Card 2 -->
+<div class="masonry-item bg-surface-container-lowest border border-outline-variant rounded-lg overflow-hidden group">
+<div class="relative h-56 overflow-hidden">
+<img alt="Stained designer rug" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" data-alt="A clear, well-lit photograph looking down at a large, prominent red wine stain on a light-colored, high-end designer wool rug in a minimalist living area. The surrounding floor is polished concrete. The image is taken with bright, neutral lighting to clearly document the damage for a formal report." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA329sG-J5q8DH-S6eHuOAJq3JM3IG22k8We_s1txp4G7OdJ_c1qt8eSZTNHe-G4kwXYqIN2iRhTXDbcWuVPaiiO3VNqYn0sfC3pEsbNyBgOH3aU0CV3LfvzZysYmYnoJtHmEOW3HvDr2KDOcnTu7o5XtoRMGtmxPsXMSlMX0eSrLP6dFN0XEsRKg3wBhsKz_Ue6uHDpvHThIye-KB2VjwP3KCknDmpRfggX63STJ0pXJxtpGu1w9gpcO1KWjLhMpw0C2g6D06PLa0a"/>
+</div>
+<div class="p-5">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-headline-sm text-headline-sm text-primary">Living Area</h4>
+<span class="bg-surface-container px-2 py-1 rounded font-label-sm text-label-sm text-secondary">Moderate</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">Large red wine stain on the Moroccan Berber rug. Deeply set into fibers.</p>
+<div class="flex items-center space-x-4 font-label-sm text-label-sm text-secondary border-t border-outline-variant pt-3">
+<span class="flex items-center space-x-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> <span>Oct 12, 11:10 AM</span></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Cleaner's Log -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-8">
+<h3 class="font-headline-sm text-headline-sm text-primary mb-6 flex items-center space-x-3">
+<span class="material-symbols-outlined">edit_note</span>
+<span>Cleaner's Turnover Log</span>
+</h3>
+<div class="space-y-6">
+<div class="flex space-x-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-secondary">cleaning_services</span>
+</div>
+<div>
+<div class="flex justify-between items-baseline mb-1">
+<p class="font-label-md text-label-md text-primary">Maria S. (Lead Cleaner)</p>
+<p class="font-label-sm text-label-sm text-secondary">Oct 12, 2:30 PM</p>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant bg-surface-container-low p-4 rounded-DEFAULT border border-outline-variant mt-2">
+                                            "Arrived for standard turnover at 10am. Found the bed frame in the primary bedroom completely split on the right side. Attempted to spot clean the rug in the living room with standard protocol, but the red stain requires professional extraction. Took photos immediately and halted further cleaning in those specific areas to preserve evidence."
+                                        </p>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Status & Financials -->
+<div class="space-y-8">
+<!-- Platform Status -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-6 border-b border-outline-variant pb-4">Platform Claim Status</h3>
+<div class="relative pl-6 border-l-2 border-outline-variant space-y-8">
+<div class="relative">
+<span class="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-tertiary-container border-4 border-surface-container-lowest"></span>
+<p class="font-label-md text-label-md text-primary">Damage Discovered</p>
+<p class="font-label-sm text-label-sm text-secondary">Oct 12, 10:45 AM</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-tertiary-container border-4 border-surface-container-lowest"></span>
+<p class="font-label-md text-label-md text-primary">Guest Notified</p>
+<p class="font-label-sm text-label-sm text-secondary">Oct 12, 4:00 PM</p>
+</div>
+<div class="relative">
+<span class="absolute -left-[33px] top-1 w-4 h-4 rounded-full bg-surface-container border-4 border-surface-container-lowest"></span>
+<p class="font-label-md text-label-md text-secondary">Airbnb Resolution Center</p>
+<p class="font-label-sm text-label-sm text-outline">Pending Submission</p>
+</div>
+</div>
+</section>
+<!-- Financials & Warnings -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6">
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-widest mb-6 border-b border-outline-variant pb-4">Financials &amp; Estimates</h3>
+<ul class="space-y-4 mb-6">
+<li class="flex justify-between items-center py-2 border-b border-surface-container">
+<span class="font-body-md text-body-md text-on-surface-variant flex items-center"><span class="material-symbols-outlined text-[18px] mr-2 text-secondary">receipt</span> Rug Extraction</span>
+<span class="font-label-md text-label-md text-primary">$250.00</span>
+</li>
+<li class="flex justify-between items-center py-2 border-b border-surface-container">
+<span class="font-body-md text-body-md text-on-surface-variant flex items-center"><span class="material-symbols-outlined text-[18px] mr-2 text-secondary">carpenter</span> Bed Frame Repair (Est)</span>
+<span class="font-label-md text-label-md text-primary">$800.00</span>
+</li>
+<li class="flex justify-between items-center py-2 font-bold">
+<span class="font-label-md text-label-md text-primary">Total Claim Value</span>
+<span class="font-headline-sm text-headline-sm text-primary">$1,050.00</span>
+</li>
+</ul>
+<div class="bg-[#F4F3F1] border border-[#D6D2C4] p-4 rounded-DEFAULT flex items-start space-x-3">
+<span class="material-symbols-outlined text-secondary mt-0.5">info</span>
+<div>
+<p class="font-label-md text-label-md text-primary mb-1">Excluded-Cost Warning</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-tight">Standard wear and tear exclusions apply. Ensure rug stain is documented as acute damage, not general soiling, to avoid rejection by platform mediation.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

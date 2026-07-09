@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Merchant Fee Negotiation Table</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400..700&amp;family=Work+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#dadad8",
+                      "on-primary-fixed-variant": "#474647",
+                      "tertiary-container": "#3f0309",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-bright": "#faf9f7",
+                      "on-secondary-container": "#576759",
+                      "on-primary": "#ffffff",
+                      "surface-tint": "#5f5e5f",
+                      "inverse-primary": "#c8c6c7",
+                      "outline": "#76777b",
+                      "surface": "#faf9f7",
+                      "on-tertiary-fixed-variant": "#792e30",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#e5e2e3",
+                      "surface-variant": "#e3e2e0",
+                      "error": "#ba1a1a",
+                      "inverse-surface": "#2f3130",
+                      "primary": "#000000",
+                      "on-tertiary-container": "#c46969",
+                      "surface-container": "#efeeec",
+                      "surface-container-high": "#e9e8e6",
+                      "on-tertiary-fixed": "#3f0309",
+                      "error-container": "#ffdad6",
+                      "on-primary-container": "#858384",
+                      "surface-container-highest": "#e3e2e0",
+                      "secondary-fixed-dim": "#bacbba",
+                      "secondary-fixed": "#d6e7d6",
+                      "tertiary-fixed": "#ffdad8",
+                      "tertiary": "#000000",
+                      "tertiary-fixed-dim": "#ffb3b1",
+                      "on-error": "#ffffff",
+                      "background": "#faf9f7",
+                      "secondary": "#526255",
+                      "on-background": "#1a1c1b",
+                      "on-surface": "#1a1c1b",
+                      "on-secondary": "#ffffff",
+                      "on-surface-variant": "#46474a",
+                      "on-secondary-fixed-variant": "#3b4a3e",
+                      "on-secondary-fixed": "#101f14",
+                      "on-error-container": "#93000a",
+                      "primary-fixed-dim": "#c8c6c7",
+                      "outline-variant": "#c7c6ca",
+                      "on-primary-fixed": "#1b1b1c",
+                      "primary-container": "#1b1b1c",
+                      "surface-container-low": "#f4f3f1",
+                      "secondary-container": "#d3e4d3",
+                      "inverse-on-surface": "#f1f1ef"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-desktop": "32px",
+                      "gutter": "16px",
+                      "margin-mobile": "16px",
+                      "table-cell-padding": "8px 12px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "display-lg": ["\"Source Serif 4\""],
+                      "data-mono": ["Work Sans"],
+                      "body-md": ["Work Sans"],
+                      "body-lg": ["Work Sans"],
+                      "label-caps": ["Work Sans"],
+                      "headline-md": ["\"Source Serif 4\""]
+              },
+              "fontSize": {
+                      "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["13px", {"lineHeight": "16px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Ink on paper specific base styles */
+        body {
+            background-color: theme('colors.surface');
+            color: theme('colors.on-surface');
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Custom scrollbar for dense tables */
+        .dense-scroll::-webkit-scrollbar {
+            height: 6px;
+            width: 6px;
+        }
+        .dense-scroll::-webkit-scrollbar-track {
+            background: theme('colors.surface-container'); 
+        }
+        .dense-scroll::-webkit-scrollbar-thumb {
+            background: theme('colors.outline-variant'); 
+        }
+        
+        /* Table hairline borders */
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid theme('colors.outline-variant');
+        }
+    </style>
+</head>
+<body class="flex overflow-hidden">
+<!-- Shared Component: SideNavBar -->
+<nav class="bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline h-screen w-64 fixed left-0 top-0 flex flex-col py-6 gap-4 z-20">
+<!-- Header -->
+<div class="px-6 mb-4">
+<h1 class="font-display-lg text-[24px] leading-tight text-primary font-bold">Institutional<br/>Workbench</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Analysis Phase: Active</p>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex flex-col flex-1 mt-4">
+<!-- Active Tab -->
+<a class="text-primary dark:text-primary-fixed font-bold border-r-2 border-primary dark:border-primary-fixed bg-surface-container-high dark:bg-surface-container hover:bg-surface-container-highest dark:hover:bg-surface-container transition-all duration-200 ease-in-out flex items-center gap-3 px-6 py-3 cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label-caps text-label-caps">Fee Analysis</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="text-on-secondary-fixed-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-container transition-all duration-200 ease-in-out flex items-center gap-3 px-6 py-3 cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[20px]">group</span>
+<span class="font-label-caps text-label-caps">Peer Benchmarks</span>
+</a>
+<a class="text-on-secondary-fixed-variant dark:text-outline-variant hover:bg-surface-container-highest dark:hover:bg-surface-container transition-all duration-200 ease-in-out flex items-center gap-3 px-6 py-3 cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[20px]">description</span>
+<span class="font-label-caps text-label-caps">Negotiation Packet</span>
+</a>
+</div>
+<!-- Footer -->
+<div class="px-6 flex flex-col gap-2 mt-auto pb-4">
+<button class="w-full border border-primary text-primary font-label-caps text-label-caps py-2 hover:bg-surface-container-highest transition-colors flex items-center justify-center gap-2">
+                Export Insights
+            </button>
+<div class="border-t border-outline-variant pt-4 mt-4 flex flex-col gap-3">
+<a class="text-on-surface-variant flex items-center gap-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">help</span>
+<span class="font-label-caps text-label-caps">Help Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+</div>
+<div class="flex items-center gap-3 mt-4">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Analyst Profile</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-64 flex-1 flex flex-col min-h-screen bg-surface relative h-screen overflow-y-auto">
+<!-- Shared Component: TopAppBar -->
+<header class="bg-surface dark:bg-background border-b border-outline-variant dark:border-outline w-full top-0 sticky z-10 flex justify-between items-center h-16 px-margin-desktop w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-8">
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">FeeNegotiator v2.4</span>
+<nav class="hidden md:flex items-center gap-6 h-16">
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-label-caps text-label-caps hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 transition-opacity flex items-center h-full pt-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 transition-opacity flex items-center h-full" href="#">Portfolio</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 transition-opacity flex items-center h-full" href="#">Reports</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:bg-surface-container dark:hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 transition-opacity flex items-center h-full" href="#">History</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant border-r border-outline-variant pr-4">
+<button class="hover:bg-surface-container p-2 rounded transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:bg-surface-container p-2 rounded transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 hover:opacity-90 transition-opacity flex items-center gap-2">
+                    Finalize Packet
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-desktop pt-8 w-full max-w-[1440px] mx-auto">
+<div class="mb-8">
+<h2 class="font-display-lg text-display-lg text-primary border-b-2 border-primary pb-2 inline-block">가맹점 수수료 협상 테이블</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-3xl">주요 배달 플랫폼 3사 대비 가맹점의 실질 수수료 부담률을 분석하고, 동종업계 벤치마크를 통해 최적의 협상안을 도출합니다.</p>
+</div>
+<div class="grid grid-cols-12 gap-gutter items-start">
+<!-- Left/Middle Column: Data Heavy Analysis -->
+<div class="col-span-12 lg:col-span-8 flex flex-col gap-8">
+<!-- Section 1: Fee Pressure Analysis -->
+<section>
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-headline-md text-headline-md text-primary">수수료 압박 분석 (Fee Pressure Analysis)</h3>
+<button class="text-on-surface-variant flex items-center gap-1 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span class="font-label-caps text-label-caps">조건 변경</span>
+</button>
+</div>
+<div class="overflow-x-auto dense-scroll border border-outline-variant bg-surface-container-lowest">
+<table class="w-full text-left whitespace-nowrap">
+<thead>
+<tr class="bg-surface-container border-b-2 border-outline">
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant w-32">플랫폼 (Platform)</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-right">주문액 (KRW)</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-right">중개 수수료</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-right">배달비 부담</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-right bg-error-container bg-opacity-30">무료배달 부담금</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-right font-bold text-primary">실 수령액</th>
+<th class="font-label-caps text-label-caps p-[8px_12px] text-on-surface-variant text-center">마진율 (Margin)</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<!-- Baedal Minjok Group -->
+<tr class="bg-surface hover:bg-surface-container transition-colors">
+<td class="p-[8px_12px] border-r border-outline-variant font-bold row-span-3 align-top bg-surface-container-lowest">배달의민족<br/><span class="text-[10px] text-on-surface-variant font-normal">배민1 플러스</span></td>
+<td class="p-[8px_12px] text-right">15,000</td>
+<td class="p-[8px_12px] text-right">1,020 (6.8%)</td>
+<td class="p-[8px_12px] text-right">2,900</td>
+<td class="p-[8px_12px] text-right bg-error-container bg-opacity-20 text-on-error-container">1,000</td>
+<td class="p-[8px_12px] text-right font-bold border-l border-outline-variant">10,080</td>
+<td class="p-[8px_12px] text-center border-l border-outline-variant">
+<div class="flex items-center justify-end gap-2">
+<span>67.2%</span>
+<div class="w-2 h-2 bg-error"></div>
+</div>
+</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors">
+<td class="p-[8px_12px] border-l border-outline-variant text-right">30,000</td>
+<td class="p-[8px_12px] text-right">2,040 (6.8%)</td>
+<td class="p-[8px_12px] text-right">2,900</td>
+<td class="p-[8px_12px] text-right bg-error-container bg-opacity-20 text-on-error-container">1,500</td>
+<td class="p-[8px_12px] text-right font-bold border-l border-outline-variant">23,560</td>
+<td class="p-[8px_12px] text-center border-l border-outline-variant">
+<div class="flex items-center justify-end gap-2">
+<span>78.5%</span>
+<div class="w-2 h-2 bg-secondary-fixed-dim"></div>
+</div>
+</td>
+</tr>
+<tr class="bg-surface hover:bg-surface-container transition-colors border-b-2 border-outline-variant">
+<td class="p-[8px_12px] border-l border-outline-variant text-right">50,000</td>
+<td class="p-[8px_12px] text-right">3,400 (6.8%)</td>
+<td class="p-[8px_12px] text-right">2,900</td>
+<td class="p-[8px_12px] text-right bg-error-container bg-opacity-20 text-on-error-container">2,000</td>
+<td class="p-[8px_12px] text-right font-bold border-l border-outline-variant">41,700</td>
+<td class="p-[8px_12px] text-center border-l border-outline-variant">
+<div class="flex items-center justify-end gap-2">
+<span>83.4%</span>
+<div class="w-2 h-2 bg-secondary"></div>
+</div>
+</td>
+</tr>
+<!-- Coupang Eats Group -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="p-[8px_12px] border-r border-outline-variant font-bold row-span-3 align-top bg-surface-container-lowest">쿠팡이츠<br/><span class="text-[10px] text-on-surface-variant font-normal">스마트요금제</span></td>
+<td class="p-[8px_12px] text-right">15,000</td>
+<td class="p-[8px_12px] text-right">1,470 (9.8%)</td>
+<td class="p-[8px_12px] text-right">2,900</td>
+<td class="p-[8px_12px] text-right bg-error-container bg-opacity-20 text-on-error-container">1,200</td>
+<td class="p-[8px_12px] text-right font-bold border-l border-outline-variant">9,430</td>
+<td class="p-[8px_12px] text-center border-l border-outline-variant">
+<div class="flex items-center justify-end gap-2">
+<span>62.8%</span>
+<div class="w-2 h-2 bg-error"></div>
+</div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors border-b-2 border-outline-variant">
+<td class="p-[8px_12px] border-l border-outline-variant text-right text-primary-fixed-dim line-through">30,000</td>
+<td class="p-[8px_12px] text-center text-on-surface-variant italic border-l border-outline-variant" colspan="5">Data intentionally omitted for brevity in mock</td>
+</tr>
+<!-- Yogiyo Group -->
+<tr class="bg-surface hover:bg-surface-container transition-colors border-b border-outline">
+<td class="p-[8px_12px] border-r border-outline-variant font-bold align-top bg-surface-container-lowest">요기요<br/><span class="text-[10px] text-on-surface-variant font-normal">라이트 요금제</span></td>
+<td class="p-[8px_12px] text-right">15,000</td>
+<td class="p-[8px_12px] text-right">1,455 (9.7%)</td>
+<td class="p-[8px_12px] text-right">2,900</td>
+<td class="p-[8px_12px] text-right bg-error-container bg-opacity-20 text-on-error-container">0</td>
+<td class="p-[8px_12px] text-right font-bold border-l border-outline-variant">10,645</td>
+<td class="p-[8px_12px] text-center border-l border-outline-variant">
+<div class="flex items-center justify-end gap-2">
+<span>70.9%</span>
+<div class="w-2 h-2 bg-secondary-fixed-dim"></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mt-2 text-right text-[10px] text-on-surface-variant font-data-mono">
+                            * 기준: 2024년 5월. 부가세 별도. 결제 수수료(1.5%~3%)는 중개 수수료에 포함하여 약식 계산.
+                        </div>
+</section>
+<!-- Section 2: Peer Benchmarks -->
+<section class="mt-4">
+<div class="flex items-center justify-between mb-4 border-b border-outline-variant pb-2">
+<h3 class="font-headline-md text-headline-md text-primary">동종업계 벤치마크 (Peer Benchmarks)</h3>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Card 1 -->
+<div class="border border-outline-variant bg-surface p-6 flex flex-col justify-between">
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-1">평균 배달비 부담률 (Delivery Fee Burden Rate)</h4>
+<div class="flex items-end gap-4 mt-2">
+<span class="font-display-lg text-[32px] leading-none text-primary">15.2%</span>
+<span class="font-data-mono text-data-mono text-error font-bold flex items-center mb-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 3.2%p
+                                        </span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant font-data-mono text-data-mono text-on-surface-variant flex justify-between">
+<span>지역 내 한식 평균:</span>
+<span class="font-bold text-primary">12.0%</span>
+</div>
+</div>
+<!-- Card 2 with Map Placeholder -->
+<div class="border border-outline-variant bg-surface p-0 flex flex-col relative overflow-hidden group">
+<div class="p-6 relative z-10 bg-surface bg-opacity-90 flex-1 flex flex-col justify-between backdrop-blur-sm transition-all duration-300 group-hover:bg-opacity-70">
+<div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-1">객단가 대비 수수료율 (Fee Rate vs Ticket Size)</h4>
+<div class="flex items-end gap-4 mt-2">
+<span class="font-display-lg text-[32px] leading-none text-primary">21.4%</span>
+<span class="font-data-mono text-data-mono text-error font-bold flex items-center mb-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 4.1%p
+                                            </span>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant font-data-mono text-data-mono text-on-surface-variant flex justify-between">
+<span>강남구 상위 10% 평균:</span>
+<span class="font-bold text-primary">17.3%</span>
+</div>
+</div>
+<!-- Required Image Element -->
+<div class="absolute inset-0 z-0 opacity-20 grayscale" data-alt="A detailed, minimalist data visualization map of Seoul, South Korea, showing geographic density of commercial dining areas. The map is rendered in high-key, light-mode aesthetics using pristine whites, soft greys, and subtle institutional red and green highlight dots. The style resembles a high-end corporate whitepaper graphic, focusing on sharp lines, clear topography, and professional intellectual rigor." data-location="Seoul, South Korea" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDY5rEjiYDIpwgrozlYWwmcXR0xCaLWOtBoE9d0JbBdC19hDXr2iCj5przxXqNcHaS8grFnYp-tsFS36-GqR1vtXQXxg-n20aac6ZUflR5LYB65kVvqX-ogyZG6f6WCpoBKS3Bf29bqOkN1ZfneQ8_7oc7fhalQlOuUlSfwp1MFGh9AsMjPLnrjTlJUozLeLAwsuytPjGnpG84Dz2CzZgFIwIsOJvkGIDAPaQ6HWwW4KZHkReA2rjbyX2hVPanA_ZCqB2TMA_0Zi0jo')"></div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Strategy & PDF Preview -->
+<div class="col-span-12 lg:col-span-4 border-l border-outline-variant pl-gutter flex flex-col gap-8 h-full">
+<!-- Section 3: Negotiation Strategy -->
+<section>
+<h3 class="font-headline-md text-headline-md text-primary border-b border-outline-variant pb-2 mb-4">협상 전략 및 논리</h3>
+<div class="font-body-md text-body-md text-on-surface flex flex-col gap-4">
+<p class="leading-relaxed">
+                                해당 가맹점은 1.5만원 이하 소액 주문 비중이 <span class="font-bold bg-surface-container px-1">42%</span>를 차지하여, 각 플랫폼의 정액제 수수료나 프로모션 부담금이 수익성에 치명적인 영향을 미치고 있습니다.
+                            </p>
+<div class="border border-outline-variant bg-surface-container-low p-4 mt-2">
+<h4 class="font-label-caps text-label-caps text-primary border-b border-outline-variant pb-1 mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">gavel</span> 분쟁 사례 (Dispute Case)
+                                </h4>
+<p class="text-[12px] leading-relaxed text-on-surface-variant">
+                                    "A 프랜차이즈의 경우, 무료배달 프로모션 강제 적용에 대해 공정위 제소를 무기로 플랫폼 B와 개별 협상을 진행하여 <strong class="text-primary">프로모션 분담률을 20% 인하</strong>한 선례가 존재함."
+                                </p>
+</div>
+<ul class="list-disc pl-5 text-[13px] text-on-surface-variant mt-2 flex flex-col gap-2">
+<li><strong>Target 1:</strong> 배민1플러스 프로모션 부담금 면제 요구.</li>
+<li><strong>Target 2:</strong> 객단가 연동형 변동 수수료율(Sliding Scale) 제안.</li>
+</ul>
+</div>
+</section>
+<!-- Section 4: PDF Preview -->
+<section class="flex-1 flex flex-col">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant">Packet Preview</h3>
+<div class="flex gap-1">
+<button class="p-1 border border-outline-variant hover:bg-surface-container"><span class="material-symbols-outlined text-[14px]">zoom_in</span></button>
+<button class="p-1 border border-outline-variant hover:bg-surface-container"><span class="material-symbols-outlined text-[14px]">download</span></button>
+</div>
+</div>
+<!-- PDF Paper Wrapper -->
+<div class="flex-1 bg-surface-container bg-opacity-50 border border-outline-variant p-4 overflow-y-auto flex justify-center relative">
+<!-- Paper -->
+<div class="w-full max-w-[320px] aspect-[1/1.414] bg-surface-container-lowest border-2 border-outline p-6 flex flex-col relative shrink-0 shadow-sm">
+<div class="absolute top-4 right-4 font-data-mono text-[8px] text-outline-variant">CONFIDENTIAL</div>
+<h1 class="font-display-lg text-[18px] text-primary text-center mt-6 mb-8 border-b-2 border-primary pb-2 font-bold tracking-tight">제휴 수수료 조정 제안서</h1>
+<div class="flex flex-col gap-4 font-body-md text-[9px] leading-tight text-on-surface">
+<div class="grid grid-cols-[60px_1fr] border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant font-bold">수신:</span>
+<span>우아한형제들 가맹사업팀</span>
+</div>
+<div class="grid grid-cols-[60px_1fr] border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant font-bold">발신:</span>
+<span>(주)명동교자 본점</span>
+</div>
+<div class="grid grid-cols-[60px_1fr] border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant font-bold">일자:</span>
+<span class="font-data-mono">2024. 06. 15</span>
+</div>
+<div class="mt-4 border border-outline-variant p-3 bg-surface text-[8px]">
+<p class="font-bold mb-1">[제안 요지]</p>
+<p class="text-on-surface-variant">귀사의 무궁한 발전을 기원합니다. 당사는 귀사의 플랫폼을 통한 매출 증대에 기여하고 있으나, 최근 도입된 무료배달 프로모션 정책으로 인해 1.5만원 이하 소액 주문 건에서 한계비용을 초과하는 손실이 발생하고 있습니다...</p>
+</div>
+<!-- Mock lines for text -->
+<div class="mt-4 flex flex-col gap-2 opacity-50">
+<div class="h-[1px] w-full bg-outline-variant"></div>
+<div class="h-[1px] w-11/12 bg-outline-variant"></div>
+<div class="h-[1px] w-full bg-outline-variant"></div>
+<div class="h-[1px] w-4/5 bg-outline-variant"></div>
+</div>
+<div class="mt-auto text-center border-t border-outline-variant pt-4">
+<p class="font-bold">대표이사 김 상 훈 (인)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</body></html>
