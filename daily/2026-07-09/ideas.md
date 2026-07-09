@@ -386,7 +386,7 @@ Create a playful consumer-rights game prototype called “Refund Queue Boss Figh
 
 ## Operator feedback rework
 
-Feedback at 2026-07-09 13:27 KST: the slate was weak. Diagnosis: too many evidence/claim/ops consoles and too little proven-pattern transformation. Treat p001-p006 as demoted raw signals, not strong product candidates. The next replacement direction is documented in `daily/2026-07-09/ideas-rework.md`.
+Feedback at 2026-07-09 13:27 KST: the slate was weak. Diagnosis: too many evidence/claim/ops consoles and too little proven-pattern transformation. Treat p001-p006 as demoted raw signals, not strong product candidates. The first replacement direction in `daily/2026-07-09/ideas-rework.md` was also insufficient because it was not actually sourced from GitHub Top 100. The corrected source-of-truth replacement is `daily/2026-07-09/github-top100-rework.md`.
 
 Replacement slate:
 - p001 Pocket Game Oven: Meta Pocket / TikTok mini-game feed pattern, constrained into eight 15-second game molds.
@@ -399,3 +399,5 @@ Replacement slate:
 - p008 Refund Boss Rush: refund evidence checklist retained only as a true card-battle/boss-fight loop.
 
 New rejection rule: if a candidate cannot be explained as "known pattern X, changed by Y, played/shared through Z," reject it before scaffolding.
+
+GitHub Top 100 rule: if the user asks for GitHub-derived ideation, the scan must start with a real top/rising repo list and each candidate must include `source_repo`, `why_starred`, `reference_pattern`, `twist`, `first_screen`, and `share_or_play_loop`.
