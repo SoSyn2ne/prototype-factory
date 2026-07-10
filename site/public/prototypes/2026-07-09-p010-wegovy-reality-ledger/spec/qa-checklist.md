@@ -2,7 +2,7 @@
 
 ## Happy path
 - First viewport shows title, target workflow, and primary action.
-- UI includes: Cost-per-kg meter against monthly spend; Weekly weight and dose check-in; Side-effect day calendar; Clinic price quote notes; Monthly reality report with taper plan.
+- UI includes: 3-field quick calc with instant cost-per-kg; Weekly weight and dose check-in; Side-effect day calendar with 병원 상담 권장 severity flags; Clinic price quote notes; Monthly reality report with continue/taper/stop scenario math and taper plan.
 - Design profile is visibly premium-editorial.
 - Source signal references appear in spec/meta, not as inflated claims in the UI.
 

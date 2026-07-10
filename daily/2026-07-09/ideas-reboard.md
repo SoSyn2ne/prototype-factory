@@ -263,6 +263,35 @@ sweep (건강 / 외모 / 외로움).
   different need (initiating human contact), different format (roulette +
   printable mission card).
 
+## Utility Pass (second improvement, same day)
+
+The diversity gates fix selection, not usefulness. This pass upgrades each
+practical candidate so the prototype does real work instead of presenting an
+empty form. Four rules applied to p001-p006 (fun slots p007-p008 are graded on
+their share artifact, not utility):
+
+1. **Cold-start utility**: the first visit must produce value within ~2 minutes
+   with no signup — via paste-in data, a 3-field calc, a category picker, or a
+   no-login share link. A tool that is only useful after days of data entry
+   fails Phase A validation by default.
+2. **Compute a number the user cannot easily get**: 실효 수수료율, 1kg당 비용,
+   annual AI run-rate, unchecked advisory days. Labels organize; numbers
+   convince.
+3. **The artifact works outside the app**: sendable supplier email, printable
+   fridge card with emergency numbers, copy-paste record note, quotable fee
+   figure — not an in-app summary.
+4. **Prefilled reference data over empty forms**: Korean platform fee
+   structures, DPP field lists per category, KDCA checklists, policy anchor
+   libraries. The reference data is the moat and the reason to return.
+
+Each candidate block below now carries a `utility spine` (the one mechanism
+that does the work) and a `utility metric` (what proves the tool was useful),
+and every Stitch prompt was updated so the first screen demonstrates the
+computed value with realistic sample data.
+
+Fun-slot note: p008's utility is the actually-sent message — the send/skip log
+counts real sends, and the first-line drafts should be copy-ready for KakaoTalk.
+
 ## Final 8
 
 ### Diversity Gate
@@ -294,12 +323,19 @@ sweep (건강 / 외모 / 외로움).
   hold queue and clear it with keep/cap/downgrade/replace-with-human decisions.
 - target user: Owners/operators of teams under 50 already paying for ChatGPT,
   agent tools, AI receptionists, CRM automations, or AI writing apps.
-- key UX: The hold queue is the product — every AI cost sits "on hold" before
-  the billing date until the owner clears it with a decision; unclear costs
-  cannot silently renew. Human-touch risk notes attach to customer-facing tools.
-- required UI sections: Pre-bill hold queue; vendor rows with token/seat spike
-  alerts; human-touch risk notes; daily cap and owner approval rules; savings
-  receipt and next billing calendar.
+- key UX: The hold queue is the product — paste last month's card statement or
+  invoice lines and the queue auto-fills with detected AI vendors; every cost
+  sits "on hold" before the billing date until the owner clears it with a
+  decision. The queue computes annual run-rate, flags overlapping tools (two AI
+  writing apps, two transcription tools), and prices each decision in annual
+  savings. Human-touch risk notes attach to customer-facing tools.
+- required UI sections: Statement paste-in with vendor auto-match; pre-bill
+  hold queue; overlap and token/seat spike alerts; human-touch risk notes;
+  daily cap and owner approval rules; savings receipt with per-vendor
+  cancel/downgrade steps and next billing calendar.
+- utility spine: pasted statement → detected AI spend, annual run-rate, and
+  overlap flags within 2 minutes, no signup and no integrations.
+- utility metric: annual savings amount identified in the first session.
 - assigned design profile: operator-dense
 - theme: 자산 방어
 - Market fit: overseas/global
@@ -320,7 +356,7 @@ sweep (건강 / 외모 / 외로움).
 - Stitch prompt:
 
 ```text
-Create a responsive web app called "AI Spend Hold Music" for small business owners managing AI subscription and usage costs. The app is based on observed user pull: owners report hidden AI costs, seat creep, token spikes, daily spending limits, and worry that automation erodes their personal-service edge (Business Insider 2026-07, KPMG budget-visibility coverage). The app should use a pre-bill hold queue mechanic around the trigger moment "7 days before the monthly AI bills land" and make the first screen communicate "3 AI charges are on hold waiting for your decision". Use the user's own language: "I don't know what we're actually paying for AI until the bill lands". Build the core workflow around vendor rows, token/seat spike alerts, and human-touch risk notes, and produce a savings receipt listing every keep/cap/downgrade/replace decision. Required sections: pre-bill hold queue, vendor spike alerts, human-touch risk notes, cap and approval rules, savings receipt with next billing calendar. Emotional pressure to make visible: 자산 방어 — margin quietly leaking into tools nobody defends. Design direction: use the operator-dense profile with crisp compact tables, charcoal/navy surfaces, tabular numbers, one sharp action accent, and no decorative hero section. Avoid generic dashboard framing; make the main interaction feel like clearing a hold queue before the bill drops.
+Create a responsive web app called "AI Spend Hold Music" for small business owners managing AI subscription and usage costs. The app is based on observed user pull: owners report hidden AI costs, seat creep, token spikes, daily spending limits, and worry that automation erodes their personal-service edge (Business Insider 2026-07, KPMG budget-visibility coverage). The app should use a statement paste-in plus pre-bill hold queue mechanic around the trigger moment "7 days before the monthly AI bills land" and make the first screen communicate "Paste last month's statement — 3 AI charges are on hold, $2,140/year is undecided". Use the user's own language: "I don't know what we're actually paying for AI until the bill lands". Build the core workflow around auto-detected vendor rows with annual run-rate, overlapping-tool flags (two AI writing apps), token/seat spike alerts, and human-touch risk notes, and produce a savings receipt that lists every keep/cap/downgrade/replace decision with its annual savings amount and per-vendor cancel/downgrade steps. Required sections: statement paste-in with vendor auto-match, pre-bill hold queue, overlap and spike alerts, human-touch risk notes, cap and approval rules, savings receipt with next billing calendar. Show realistic sample data so the first screen already demonstrates the computed savings. Emotional pressure to make visible: 자산 방어 — margin quietly leaking into tools nobody defends. Design direction: use the operator-dense profile with crisp compact tables, charcoal/navy surfaces, tabular numbers, one sharp action accent, and no decorative hero section. Avoid generic dashboard framing; make the main interaction feel like clearing a hold queue before the bill drops.
 ```
 
 ### p002 - Practical / Commercial (kept, collective reframe)
@@ -329,12 +365,19 @@ Create a responsive web app called "AI Spend Hold Music" for small business owne
   shared evidence table and generate a collective bargaining packet.
 - target user: Korean mom-and-pop restaurants, franchisees, and merchant
   associations facing delivery-app fee negotiations.
-- key UX: Collective-first — the landing move is "우리 상인회 증거 풀에 내 수수료
-  내역 추가하기"; the packet strengthens as more merchants join, and the packet
-  preview shows how many peers back each claim.
-- required UI sections: Shared evidence pool with contributor count; fee burden
-  comparison by platform; promo/free-delivery pass-through tracker; peer
-  benchmark cards; Korean negotiation packet preview.
+- key UX: Solo-first, collective-second — a single owner pastes a week of
+  settlement lines and immediately gets 실효 수수료율 per platform versus the
+  advertised rate, plus per-order margin after fees; the association pool then
+  aggregates member calculations into peer medians and the negotiation packet.
+  This fixes the network cold-start: the calculator is worth using alone.
+- required UI sections: Settlement paste-in and effective-fee calculator;
+  platform fee comparison with prefilled, editable 배민/쿠팡이츠/요기요 fee
+  structures; shared evidence pool with contributor count; promo/free-delivery
+  pass-through tracker; Korean negotiation packet preview with peer medians.
+- utility spine: one merchant, one pasted settlement week → "광고 수수료율
+  9.8% / 실효 수수료율 27.4%" — a number worth quoting with zero peers joined.
+- utility metric: the 실효 수수료율 figure owners actually cite at the
+  association meeting.
 - assigned design profile: financial-analyst
 - theme: 자산 방어
 - Market fit: domestic/Korea
@@ -356,7 +399,7 @@ Create a responsive web app called "AI Spend Hold Music" for small business owne
 - Stitch prompt:
 
 ```text
-Create an analytical workbench called "Merchant Fee Negotiation Table" for Korean restaurant owners preparing collective delivery-app fee negotiations. The app is based on observed user pull: owners describe punishing fees and dispute burdens on r/restaurantowners, and Korean policy is opening a collective bargaining path while free-delivery promos raise pass-through fears (ChosunBiz 2026-07-03, Seoul Economic Daily 2026-05-23). The app should use a shared evidence-pool mechanic around the trigger moment "상인회 교섭 준비 회의" and make the first screen communicate "우리 상인회 증거 풀에 23개 매장이 참여 중". Use the user's own language: "수수료가 얼마나 나가는지 다 같이 모아서 보여줘야 한다". Build the core workflow around pooled receipts, commission tiers, and promo cost pass-through, and produce a printable Korean negotiation packet with peer-backed claims. Required sections: shared evidence pool with contributor count, platform fee comparison, promo burden tracker, peer benchmark cards, negotiation packet preview in Korean. Emotional pressure to make visible: 자산 방어 — fees decided alone are fees decided against you. Design direction: use the financial-analyst profile with institutional ink/off-white styling, restrained green/warning cues, high-signal tables, and written interpretation beside each chart. Avoid generic dashboard framing; make the main interaction feel like building a case file together.
+Create an analytical workbench called "Merchant Fee Negotiation Table" for Korean restaurant owners preparing collective delivery-app fee negotiations. The app is based on observed user pull: owners describe punishing fees and dispute burdens on r/restaurantowners, and Korean policy is opening a collective bargaining path while free-delivery promos raise pass-through fears (ChosunBiz 2026-07-03, Seoul Economic Daily 2026-05-23). The app should use a settlement paste-in effective-fee calculator plus shared evidence-pool mechanic around the trigger moment "상인회 교섭 준비 회의" and make the first screen communicate "광고 수수료율 9.8% — 내 실효 수수료율 27.4%". Use the user's own language: "수수료가 얼마나 나가는지 다 같이 모아서 보여줘야 한다". Build the core workflow around a pasted settlement week computed against prefilled, editable 배민/쿠팡이츠/요기요 fee structures, producing effective fee rate and per-order margin for one merchant first, then pooling members into peer medians and a printable Korean negotiation packet with peer-backed claims. Required sections: settlement paste-in with effective-fee calculator, platform fee comparison with prefilled fee structures, shared evidence pool with contributor count, promo burden tracker, negotiation packet preview in Korean with peer medians. Show realistic sample numbers so the advertised-vs-effective gap is visible instantly. Emotional pressure to make visible: 자산 방어 — fees decided alone are fees decided against you. Design direction: use the financial-analyst profile with institutional ink/off-white styling, restrained green/warning cues, high-signal tables, and written interpretation beside each chart. Avoid generic dashboard framing; make the main interaction feel like building a case file together.
 ```
 
 ### p003 - Practical / Field (kept, artifact sharpened)
@@ -365,12 +408,17 @@ Create an analytical workbench called "Merchant Fee Negotiation Table" for Korea
   ask-list they actually send, plus a QR data gap map and deadline lane.
 - target user: SME exporters, textile/electronics suppliers, sourcing managers
   preparing for EU DPP obligations.
-- key UX: The sendable ask-list is the centerpiece — every gap in the matrix
-  converts into a concrete supplier request (email or printable) with a deadline,
-  and the board tracks who answered.
-- required UI sections: Readiness score; supplier data gap matrix; QR field
-  checklist (materials, repair, lifecycle, identifiers); ask-list composer with
-  send/print; deadline lane and audit trail.
+- key UX: Pick a product category (textile / electronics / battery) and the
+  required DPP field checklist plus deadline timeline appear prefilled before
+  any data entry; add suppliers to see the gap matrix, and every gap converts
+  into an auto-drafted supplier request (email or printable) containing only
+  that supplier's missing fields.
+- required UI sections: Category picker with prefilled field checklist and
+  regulation timeline; readiness score; supplier data gap matrix; ask-list
+  composer with send/print; deadline lane and audit trail.
+- utility spine: category selection alone yields the required-field list and
+  timeline — useful on first visit even with zero suppliers entered.
+- utility metric: missing fields resolved per week; ask emails actually sent.
 - assigned design profile: field-ops
 - theme: unclassified (B2B compliance ops; visible human pull is deadline fear
   and blame for blocked shipments)
@@ -393,7 +441,7 @@ Create an analytical workbench called "Merchant Fee Negotiation Table" for Korea
 - Stitch prompt:
 
 ```text
-Create a field-ops compliance tool called "Digital Passport Supplier Chase" for SME exporters preparing EU Digital Product Passport records. The app is based on observed user pull: DPP guides warn that the product, not company size, determines obligation, and suppliers must chase identifiers, lifecycle data, and QR-ready records they do not yet have (2026 DPP preparation guides); agent-readable document tooling is trending on GitHub. The app should use a chase-board + sendable ask-list mechanic around the trigger moment "a buyer or customs notice asks for DPP data the supplier never provided" and make the first screen communicate "4 suppliers are blocking your QR passport — send today's ask list". Use the user's own language: "what exactly do I have to collect from my suppliers before the deadline?". Build the core workflow around a supplier data gap matrix and QR field checklist, and produce a sendable/printable supplier ask-list plus gap map. Required sections: readiness score, supplier gap matrix, QR field checklist, ask-list composer, deadline lane, audit trail. Emotional pressure to make visible: blocked shipments and blame landing on the person who "should have collected the data". Design direction: use the field-ops profile with disciplined steel/slate styling, high-contrast status rows, large action controls, and urgent colors only for small deadline badges. Avoid generic dashboard framing; make the main interaction feel like working through today's chase list in the field.
+Create a field-ops compliance tool called "Digital Passport Supplier Chase" for SME exporters preparing EU Digital Product Passport records. The app is based on observed user pull: DPP guides warn that the product, not company size, determines obligation, and suppliers must chase identifiers, lifecycle data, and QR-ready records they do not yet have (2026 DPP preparation guides); agent-readable document tooling is trending on GitHub. The app should use a category-prefilled checklist plus chase-board and sendable ask-list mechanic around the trigger moment "a buyer or customs notice asks for DPP data the supplier never provided" and make the first screen communicate "Pick your product category — these are the 12 fields the EU will ask for, and 4 suppliers are blocking them". Use the user's own language: "what exactly do I have to collect from my suppliers before the deadline?". Build the core workflow around a category picker that prefills the required field checklist and regulation timeline, a supplier data gap matrix, and per-supplier auto-drafted requests containing only that supplier's missing fields, and produce a sendable/printable supplier ask-list plus gap map. Required sections: category picker with prefilled checklist and timeline, readiness score, supplier gap matrix, ask-list composer, deadline lane, audit trail. Emotional pressure to make visible: blocked shipments and blame landing on the person who "should have collected the data". Design direction: use the field-ops profile with disciplined steel/slate styling, high-contrast status rows, large action controls, and urgent colors only for small deadline badges. Avoid generic dashboard framing; make the main interaction feel like working through today's chase list in the field.
 ```
 
 ### p004 - Practical / Consumer (new, scaffold p009)
@@ -402,12 +450,19 @@ Create a field-ops compliance tool called "Digital Passport Supplier Chase" for 
   shared rotation, a 60-second symptom checklist, and a family-chat proof card.
 - target user: Adult children (30-50s) in Korea whose parents live alone or
   without reliable cooling during 폭염특보 periods.
-- key UX: The first screen shows today's relay status — "오늘 아직 아무도
-  전화하지 않았습니다" — then whoever is on rotation runs a 60-second KDCA-based
-  symptom checklist during the call and posts the check card to the family chat.
-- required UI sections: Today's check status header; sibling rotation lane;
-  60-second symptom checklist (두통/어지러움/피로/수분); cooling and risk flags
-  (에어컨 가동, 낮 외출 예정); family-chat share card; printable fridge card.
+- key UX: One sibling creates the round and shares a no-login KakaoTalk link;
+  the first screen shows today's relay status — "오늘 아직 아무도 전화하지
+  않았습니다" — checking off a call is one tap plus a 60-second KDCA-based
+  symptom checklist, and on advisory days an unchecked round auto-nudges the
+  next sibling at 14:00.
+- required UI sections: No-login join via share link; today's check status
+  header with 14:00 nudge banner; sibling rotation lane; 60-second symptom
+  checklist (두통/어지러움/피로/수분); cooling and risk flags (에어컨 가동, 낮
+  외출 예정); family-chat share card; printable fridge card with emergency
+  numbers in large type.
+- utility spine: zero-signup share link — a family adopts the rotation inside
+  one KakaoTalk thread in under 2 minutes; the check itself is one tap.
+- utility metric: unchecked days during 폭염특보 (target: zero).
 - assigned design profile: calm-consumer
 - theme: 건강
 - Market fit: domestic/Korea
@@ -431,7 +486,7 @@ Create a field-ops compliance tool called "Digital Passport Supplier Chase" for 
 - Stitch prompt:
 
 ```text
-Create a calm family-coordination app called "Heatwave Parent Check Round" for adult children coordinating daily heat-wave check-ins on aging parents in Korea. The app is based on observed user pull: KDCA published heat-illness prevention rules for vulnerable groups on 2026-07-06 and tells families to set regular contact schedules; heat-illness ER visits are up 1.5x and deaths concentrate among elderly living alone. The app should use a sibling relay-ritual mechanic around the trigger moment "폭염특보 발령 후 아침" and make the first screen communicate "오늘 아직 아무도 부모님께 전화하지 않았습니다". Use the user's own language: "폭염에 혼자 계신 부모님 안부 다들 어떻게 챙기세요?". Build the core workflow around a daily call log with a 60-second symptom checklist and cooling risk flags, and produce a shareable family-chat check card plus a printable fridge checklist. Required sections: today's check status header, sibling rotation lane, symptom checklist, cooling/risk flags, family-chat share card, printable fridge card. Emotional pressure to make visible: 건강 — losing a parent to a preventable heat stroke while every sibling assumed someone else called. Design direction: use the calm-consumer profile with reassuring warm neutrals, large readable type, gentle accent color, and one urgent flag color reserved for unchecked days. Avoid generic dashboard framing; make the main interaction feel like a family relay baton passing.
+Create a calm family-coordination app called "Heatwave Parent Check Round" for adult children coordinating daily heat-wave check-ins on aging parents in Korea. The app is based on observed user pull: KDCA published heat-illness prevention rules for vulnerable groups on 2026-07-06 and tells families to set regular contact schedules; heat-illness ER visits are up 1.5x and deaths concentrate among elderly living alone. The app should use a no-login shared-link relay mechanic around the trigger moment "폭염특보 발령 후 아침" and make the first screen communicate "오늘 아직 아무도 부모님께 전화하지 않았습니다 — 14:00에 다음 순번에게 알림". Use the user's own language: "폭염에 혼자 계신 부모님 안부 다들 어떻게 챙기세요?". Build the core workflow around a one-tap check with a 60-second symptom checklist and cooling risk flags, joined via a share link without signup, with an unchecked-by-14:00 nudge to the next sibling on advisory days, and produce a shareable family-chat check card plus a printable fridge checklist with emergency numbers in large type. Required sections: no-login join via share link, today's check status header with nudge banner, sibling rotation lane, symptom checklist, cooling/risk flags, family-chat share card, printable fridge card. Emotional pressure to make visible: 건강 — losing a parent to a preventable heat stroke while every sibling assumed someone else called. Design direction: use the calm-consumer profile with reassuring warm neutrals, large readable type, gentle accent color, and one urgent flag color reserved for unchecked days. Avoid generic dashboard framing; make the main interaction feel like a family relay baton passing.
 ```
 
 ### p005 - Practical / Consumer (new, scaffold p010)
@@ -440,12 +495,18 @@ Create a calm family-coordination app called "Heatwave Parent Check Round" for a
   rebound risk so 40만원짜리 monthly pens don't end in yo-yo regret.
 - target user: Korean 위고비/마운자로 users and considerers comparing clinic
   prices and weighing side effects against results.
-- key UX: A weekly check-in feeds a cost-per-kg meter, a side-effect-day
-  calendar, and a clinic price note; a monthly "reality report" answers "이 돈
-  주고 계속 맞을 가치가 있나" and builds the taper/유지기 plan.
-- required UI sections: Cost-per-kg meter against monthly spend; weekly weight
-  and dose check-in; side-effect day calendar (메스꺼움/피로/구토 tags); clinic
-  price quote notes; monthly reality report with taper plan.
+- key UX: A 3-field quick calc (월 비용 / 시작 체중 / 현재 체중) delivers the
+  sting number — "이번 달 1kg당 23만원" — before any account exists; weekly
+  check-ins then feed a side-effect-day calendar and clinic price notes, and
+  the monthly reality report runs the scenario math ("이대로 3개월 더 = 120만원,
+  예상 감량 2.1kg") plus a generated taper/유지기 plan.
+- required UI sections: 3-field quick calc with instant cost-per-kg; weekly
+  weight and dose check-in; side-effect day calendar (메스꺼움/피로/구토 tags)
+  with "병원 상담 권장" severity flags; clinic price quote notes; monthly
+  reality report with continue/taper/stop scenario math and taper plan.
+- utility spine: the cold-start calc needs 3 numbers and no signup; the
+  monthly report turns a vague feeling into a continue/taper/stop decision.
+- utility metric: a numbers-backed continue/taper/stop decision each month.
 - assigned design profile: premium-editorial
 - theme: 외모
 - Market fit: domestic/Korea
@@ -467,7 +528,7 @@ Create a calm family-coordination app called "Heatwave Parent Check Round" for a
 - Stitch prompt:
 
 ```text
-Create a refined personal health-spend app called "Wegovy Reality Ledger" for Korean GLP-1 (위고비/마운자로) users tracking whether 40만원+ monthly pens are worth it. The app is based on observed user pull: Korean communities trade month-by-month weight logs, side-effect complaints ("맞고 하루 종일 속이 메스꺼웠다"), clinic price comparisons because prices vary per hospital, and rebound fears. The app should use a ledger + monthly reality-report mechanic around the trigger moment "monthly re-purchase decision after a side-effect or plateau week" and make the first screen communicate "이번 달 1kg당 23만원". Use the user's own language: "위고비 가격 얼마 주고 맞으세요? 부작용은 어때요?". Build the core workflow around weekly weight/dose check-ins, a side-effect day calendar, and clinic quote notes, and produce a monthly reality report with cost per kg, side-effect days, and a taper plan. Required sections: cost-per-kg meter, weekly check-in, side-effect calendar, clinic price notes, monthly reality report. Emotional pressure to make visible: 외모 — hope purchased monthly, and the quiet fear of rebounding in front of everyone who watched. Design direction: use the premium-editorial profile with warm charcoal/stone tones, refined spacing, editorial numbers, and one quiet accent color; the report should feel composed, not clinical. Avoid generic dashboard framing; make the main interaction feel like keeping an honest private ledger.
+Create a refined personal health-spend app called "Wegovy Reality Ledger" for Korean GLP-1 (위고비/마운자로) users tracking whether 40만원+ monthly pens are worth it. The app is based on observed user pull: Korean communities trade month-by-month weight logs, side-effect complaints ("맞고 하루 종일 속이 메스꺼웠다"), clinic price comparisons because prices vary per hospital, and rebound fears. The app should use a 3-field quick calc plus ledger and monthly reality-report mechanic around the trigger moment "monthly re-purchase decision after a side-effect or plateau week" and make the first screen communicate "월 비용, 시작 체중, 현재 체중 — 3칸이면 이번 달 1kg당 23만원이 나옵니다". Use the user's own language: "위고비 가격 얼마 주고 맞으세요? 부작용은 어때요?". Build the core workflow around the instant cost-per-kg calc, weekly weight/dose check-ins, a side-effect day calendar with "병원 상담 권장" severity flags, and clinic quote notes, and produce a monthly reality report with cost per kg, side-effect days, continue/taper/stop scenario math ("이대로 3개월 더 = 120만원, 예상 감량 2.1kg"), and a generated taper plan. Required sections: 3-field quick calc, cost-per-kg meter, weekly check-in, side-effect calendar with severity flags, clinic price notes, monthly reality report with scenario math. Emotional pressure to make visible: 외모 — hope purchased monthly, and the quiet fear of rebounding in front of everyone who watched. Design direction: use the premium-editorial profile with warm charcoal/stone tones, refined spacing, editorial numbers, and one quiet accent color; the report should feel composed, not clinical. Avoid generic dashboard framing; make the main interaction feel like keeping an honest private ledger.
 ```
 
 ### p006 - Practical / Consumer (reframed from Teacher Parent Email Shield)
@@ -477,12 +538,20 @@ Create a refined personal health-spend app called "Wegovy Reality Ledger" for Ko
   warmth/firmness slider.
 - target user: K-12 teachers and department heads responding to parent
   complaints about cheating, phones, or discipline.
-- key UX: Paste the email, get a heat/severity read and a "do not reply for 10
-  minutes" cooldown with a guided draft: pick the policy anchor, set the
-  warmth/firmness slider, and get a calm reply plus a one-line note for records.
-- required UI sections: Complaint intake with tone/severity read; cooldown timer
-  with grounding prompt; policy anchor selector; warmth/firmness slider; reply
-  draft; one-line record note.
+- key UX: Paste the email and get two drafts, not one — a short same-hour
+  acknowledgment ("받았고, 내일 오전까지 답드리겠습니다") that buys the cooldown
+  time, and the full policy-anchored reply built after the 10-minute cooldown
+  with the warmth/firmness slider. Policy anchors come prefilled (phone policy,
+  academic integrity, grading disputes) and are editable per school; the
+  one-line record note is copy-paste formatted for the school's log system.
+- required UI sections: Complaint intake with tone/severity read; instant short
+  acknowledgment draft; cooldown timer with grounding prompt; prefilled policy
+  anchor library; warmth/firmness slider; full reply draft; copy-paste record
+  note.
+- utility spine: the two-stage draft is the utility — the acknowledgment
+  removes the pressure to answer hot, and the full reply arrives anchored.
+- utility metric: time from email landing to a calm sent reply (target < 10
+  minutes of teacher attention).
 - assigned design profile: calm-consumer
 - theme: 사교육 (parent-teacher conflict pressure)
 - Market fit: overseas/global (Korea-adaptable)
@@ -505,7 +574,7 @@ Create a refined personal health-spend app called "Wegovy Reality Ledger" for Ko
 - Stitch prompt:
 
 ```text
-Create a calm communication tool called "Teacher Reply Cooldown" for teachers responding to angry parent emails about cheating, phones, or discipline. The app is based on observed user pull: teachers on r/Teachers describe angry parent emails, defensive documentation habits, and rare appreciation, and they already copy-paste from old replies to control tone. The app should use a 10-minute cooldown-ritual mechanic around the trigger moment "an angry parent email lands after school hours" and make the first screen communicate "숨 고르고 10분 뒤에 보내세요 — 초안은 준비됩니다". Use the user's own language: "how do I reply to this without making it worse?". Build the core workflow around complaint intake with a tone/severity read, a policy anchor selector, and a warmth/firmness slider, and produce a calm policy-anchored reply draft plus a one-line record note. Required sections: complaint intake with tone read, cooldown timer with grounding prompt, policy anchor selector, warmth/firmness slider, reply draft, one-line record note. Emotional pressure to make visible: 사교육 — parent conflict pressure and the fear of one heated reply defining your year. Design direction: use the calm-consumer profile with reassuring warm neutrals, a gentle accent color, clear next-step buttons, and supportive copy that reduces stress. Avoid generic dashboard framing; make the main interaction feel like being talked down by a wise colleague.
+Create a calm communication tool called "Teacher Reply Cooldown" for teachers responding to angry parent emails about cheating, phones, or discipline. The app is based on observed user pull: teachers on r/Teachers describe angry parent emails, defensive documentation habits, and rare appreciation, and they already copy-paste from old replies to control tone. The app should use a two-stage draft plus 10-minute cooldown-ritual mechanic around the trigger moment "an angry parent email lands after school hours" and make the first screen communicate "지금 보낼 짧은 답장과 10분 뒤 보낼 본 답장, 둘 다 준비됐습니다". Use the user's own language: "how do I reply to this without making it worse?". Build the core workflow around complaint intake with a tone/severity read, an instant short acknowledgment draft that buys the cooldown time, a prefilled and editable policy anchor library (phone policy, academic integrity, grading disputes), and a warmth/firmness slider, and produce the full policy-anchored reply plus a copy-paste formatted one-line record note. Required sections: complaint intake with tone read, instant acknowledgment draft, cooldown timer with grounding prompt, prefilled policy anchor library, warmth/firmness slider, full reply draft, copy-paste record note. Emotional pressure to make visible: 사교육 — parent conflict pressure and the fear of one heated reply defining your year. Design direction: use the calm-consumer profile with reassuring warm neutrals, a gentle accent color, clear next-step buttons, and supportive copy that reduces stress. Avoid generic dashboard framing; make the main interaction feel like being talked down by a wise colleague.
 ```
 
 ### p007 - Fun / Portfolio / Experimental (kept, citation fixed)

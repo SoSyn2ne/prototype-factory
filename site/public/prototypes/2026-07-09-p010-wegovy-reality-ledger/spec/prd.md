@@ -10,14 +10,20 @@ Korean 위고비/마운자로 users and considerers comparing clinic prices and 
 Korean 위고비/마운자로 users and considerers comparing clinic prices and weighing side effects against results.
 
 ## Key UX
-A weekly check-in feeds a cost-per-kg meter, a side-effect-day calendar, and a clinic price note; a monthly reality report answers "이 돈 주고 계속 맞을 가치가 있나" and builds the taper/유지기 plan.
+A 3-field quick calc (월 비용 / 시작 체중 / 현재 체중) delivers the sting number — "이번 달 1kg당 23만원" — before any account exists; weekly check-ins then feed a side-effect-day calendar and clinic price notes, and the monthly reality report runs the scenario math ("이대로 3개월 더 = 120만원, 예상 감량 2.1kg") plus a generated taper/유지기 plan.
+
+## Utility spine
+- The cold-start calc needs 3 numbers and no signup; the monthly report turns a vague feeling into a continue/taper/stop decision.
+
+## Utility metric
+- A numbers-backed continue/taper/stop decision each month.
 
 ## Required UI sections
-- Cost-per-kg meter against monthly spend
+- 3-field quick calc with instant cost-per-kg
 - Weekly weight and dose check-in
-- Side-effect day calendar
+- Side-effect day calendar with 병원 상담 권장 severity flags
 - Clinic price quote notes
-- Monthly reality report with taper plan
+- Monthly reality report with continue/taper/stop scenario math and taper plan
 
 ## Design profile
 - premium-editorial
@@ -41,7 +47,7 @@ S19: Wegovy users trade price, side-effect, and yo-yo warnings across Korean com
 - The anonymized reality report is the honest 후기 people already try to write by hand.
 
 ## Copy/paste Stitch prompt
-Create a refined personal health-spend app called "Wegovy Reality Ledger" for Korean GLP-1 (위고비/마운자로) users tracking whether 40만원+ monthly pens are worth it. The app is based on observed user pull: Korean communities trade month-by-month weight logs, side-effect complaints ("맞고 하루 종일 속이 메스꺼웠다"), clinic price comparisons because prices vary per hospital, and rebound fears. The app should use a ledger + monthly reality-report mechanic around the trigger moment "monthly re-purchase decision after a side-effect or plateau week" and make the first screen communicate "이번 달 1kg당 23만원". Use the user's own language: "위고비 가격 얼마 주고 맞으세요? 부작용은 어때요?". Build the core workflow around weekly weight/dose check-ins, a side-effect day calendar, and clinic quote notes, and produce a monthly reality report with cost per kg, side-effect days, and a taper plan. Required sections: cost-per-kg meter, weekly check-in, side-effect calendar, clinic price notes, monthly reality report. Emotional pressure to make visible: 외모 — hope purchased monthly, and the quiet fear of rebounding in front of everyone who watched. Design direction: use the premium-editorial profile with warm charcoal/stone tones, refined spacing, editorial numbers, and one quiet accent color; the report should feel composed, not clinical. Avoid generic dashboard framing; make the main interaction feel like keeping an honest private ledger.
+Create a refined personal health-spend app called "Wegovy Reality Ledger" for Korean GLP-1 (위고비/마운자로) users tracking whether 40만원+ monthly pens are worth it. The app is based on observed user pull: Korean communities trade month-by-month weight logs, side-effect complaints ("맞고 하루 종일 속이 메스꺼웠다"), clinic price comparisons because prices vary per hospital, and rebound fears. The app should use a 3-field quick calc plus ledger and monthly reality-report mechanic around the trigger moment "monthly re-purchase decision after a side-effect or plateau week" and make the first screen communicate "월 비용, 시작 체중, 현재 체중 — 3칸이면 이번 달 1kg당 23만원이 나옵니다". Use the user's own language: "위고비 가격 얼마 주고 맞으세요? 부작용은 어때요?". Build the core workflow around the instant cost-per-kg calc, weekly weight/dose check-ins, a side-effect day calendar with "병원 상담 권장" severity flags, and clinic quote notes, and produce a monthly reality report with cost per kg, side-effect days, continue/taper/stop scenario math ("이대로 3개월 더 = 120만원, 예상 감량 2.1kg"), and a generated taper plan. Required sections: 3-field quick calc, cost-per-kg meter, weekly check-in, side-effect calendar with severity flags, clinic price notes, monthly reality report with scenario math. Emotional pressure to make visible: 외모 — hope purchased monthly, and the quiet fear of rebounding in front of everyone who watched. Design direction: use the premium-editorial profile with warm charcoal/stone tones, refined spacing, editorial numbers, and one quiet accent color; the report should feel composed, not clinical. Avoid generic dashboard framing; make the main interaction feel like keeping an honest private ledger.
 
 ## Non-goals
 - Do not implement a custom local demo in Phase A.

@@ -2,7 +2,7 @@
 
 1. The first screen reads like a generic dashboard instead of family relay ritual + proof card.
 2. A target user cannot identify the next action within 5 seconds.
-3. The required UI sections are missing: Today's check status header; Sibling rotation lane; 60-second symptom checklist; Cooling and risk flags; Family-chat share card; Printable fridge card.
+3. The required UI sections are missing: No-login join via share link; Today's check status header with 14:00 nudge banner; Sibling rotation lane; 60-second symptom checklist; Cooling and risk flags; Family-chat share card; Printable fridge card with emergency numbers in large type.
 4. The design direction does not match calm-consumer.
 5. The prototype depends on source claims as market-size proof instead of treating them as problem evidence.
 6. The workflow duplicates one of the last 7 PF batches without a new user, trigger, data source, or interaction mechanic.

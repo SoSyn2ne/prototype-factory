@@ -10,15 +10,22 @@ Adult children (30-50s) in Korea whose parents live alone or without reliable co
 Adult children (30-50s) in Korea whose parents live alone or without reliable cooling during 폭염특보 periods.
 
 ## Key UX
-The first screen shows today's relay status — "오늘 아직 아무도 전화하지 않았습니다" — then whoever is on rotation runs a 60-second KDCA-based symptom checklist during the call and posts the check card to the family chat.
+One sibling creates the round and shares a no-login KakaoTalk link; the first screen shows today's relay status — "오늘 아직 아무도 전화하지 않았습니다" — checking off a call is one tap plus a 60-second KDCA-based symptom checklist, and on advisory days an unchecked round auto-nudges the next sibling at 14:00.
+
+## Utility spine
+- Zero-signup share link — a family adopts the rotation inside one KakaoTalk thread in under 2 minutes; the check itself is one tap.
+
+## Utility metric
+- Unchecked days during 폭염특보 (target: zero).
 
 ## Required UI sections
-- Today's check status header
+- No-login join via share link
+- Today's check status header with 14:00 nudge banner
 - Sibling rotation lane
 - 60-second symptom checklist
 - Cooling and risk flags
 - Family-chat share card
-- Printable fridge card
+- Printable fridge card with emergency numbers in large type
 
 ## Design profile
 - calm-consumer
@@ -43,7 +50,7 @@ S18: 70% of heat-illness deaths are elderly/disabled; elderly living alone are h
 - The check card lands in the family chat; siblings join the rotation and forward the fridge card to their own parents' homes.
 
 ## Copy/paste Stitch prompt
-Create a calm family-coordination app called "Heatwave Parent Check Round" for adult children coordinating daily heat-wave check-ins on aging parents in Korea. The app is based on observed user pull: KDCA published heat-illness prevention rules for vulnerable groups on 2026-07-06 and tells families to set regular contact schedules; heat-illness ER visits are up 1.5x and deaths concentrate among elderly living alone. The app should use a sibling relay-ritual mechanic around the trigger moment "폭염특보 발령 후 아침" and make the first screen communicate "오늘 아직 아무도 부모님께 전화하지 않았습니다". Use the user's own language: "폭염에 혼자 계신 부모님 안부 다들 어떻게 챙기세요?". Build the core workflow around a daily call log with a 60-second symptom checklist and cooling risk flags, and produce a shareable family-chat check card plus a printable fridge checklist. Required sections: today's check status header, sibling rotation lane, symptom checklist, cooling/risk flags, family-chat share card, printable fridge card. Emotional pressure to make visible: 건강 — losing a parent to a preventable heat stroke while every sibling assumed someone else called. Design direction: use the calm-consumer profile with reassuring warm neutrals, large readable type, gentle accent color, and one urgent flag color reserved for unchecked days. Avoid generic dashboard framing; make the main interaction feel like a family relay baton passing.
+Create a calm family-coordination app called "Heatwave Parent Check Round" for adult children coordinating daily heat-wave check-ins on aging parents in Korea. The app is based on observed user pull: KDCA published heat-illness prevention rules for vulnerable groups on 2026-07-06 and tells families to set regular contact schedules; heat-illness ER visits are up 1.5x and deaths concentrate among elderly living alone. The app should use a no-login shared-link relay mechanic around the trigger moment "폭염특보 발령 후 아침" and make the first screen communicate "오늘 아직 아무도 부모님께 전화하지 않았습니다 — 14:00에 다음 순번에게 알림". Use the user's own language: "폭염에 혼자 계신 부모님 안부 다들 어떻게 챙기세요?". Build the core workflow around a one-tap check with a 60-second symptom checklist and cooling risk flags, joined via a share link without signup, with an unchecked-by-14:00 nudge to the next sibling on advisory days, and produce a shareable family-chat check card plus a printable fridge checklist with emergency numbers in large type. Required sections: no-login join via share link, today's check status header with nudge banner, sibling rotation lane, symptom checklist, cooling/risk flags, family-chat share card, printable fridge card. Emotional pressure to make visible: 건강 — losing a parent to a preventable heat stroke while every sibling assumed someone else called. Design direction: use the calm-consumer profile with reassuring warm neutrals, large readable type, gentle accent color, and one urgent flag color reserved for unchecked days. Avoid generic dashboard framing; make the main interaction feel like a family relay baton passing.
 
 ## Non-goals
 - Do not implement a custom local demo in Phase A.

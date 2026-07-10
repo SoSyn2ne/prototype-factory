@@ -2,7 +2,7 @@
 
 ## Happy path
 - First viewport shows title, target workflow, and primary action.
-- UI includes: Today's check status header; Sibling rotation lane; 60-second symptom checklist; Cooling and risk flags; Family-chat share card; Printable fridge card.
+- UI includes: No-login join via share link; Today's check status header with 14:00 nudge banner; Sibling rotation lane; 60-second symptom checklist; Cooling and risk flags; Family-chat share card; Printable fridge card with emergency numbers in large type.
 - Design profile is visibly calm-consumer.
 - Source signal references appear in spec/meta, not as inflated claims in the UI.
 
