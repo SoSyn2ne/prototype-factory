@@ -3,6 +3,7 @@
 ## Run Contract
 - Scope: Phase A only for p001-p008.
 - Do not implement custom demos in Phase A.
+- Output style: plan-first artifacts. Each final idea includes a plan brief and development start prompt so a future Codex pass can begin implementation without reconstructing context.
 - Search-first evidence gathered at 2026-07-15 08:19-08:40 KST.
 - Expected Stitch drop folder: `/home/sy/Downloads/stitch_drop/2026-07-15/`
 
@@ -126,6 +127,8 @@
 - twist: Moves AI cost control from monthly dashboard to the seconds before a costly agent run starts.
 - small_group_fit: Small dev teams trying multiple coding agents can test it on one repo task before standardizing.
 - spread_trigger: The cost receipt can be pasted into Slack or PR comments as the reason a run was approved or blocked.
+- plan_brief: Build a pre-run governance tool for AI coding-agent work. The landing interaction is a task paste box that immediately estimates context payload, touched files, latency, and burn. Business route is devtool lead-gen or team subscription; validation route is a shareable run receipt used in Slack/PR review. Key screens are task intake, context/cost forecast, repo-touch preview, comparison strip, and receipt export. QA must prove desktop/mobile readability, non-generic control-room density, and a real run/no-run state.
+- development_start_prompt: Use the p001 plan brief to build a polished prototype in the prototype-factory repo. Implement task input, context/cost meters, repo touch preview, tool comparison, run/no-run decision, and exportable receipt with realistic mocked coding-agent data. Preserve `operator-dense`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Agent Context Toll Booth" for engineering teams comparing AI coding-agent runs. The first screen should let a user paste an agent task, then show expected context payload, hidden system prompt overhead, files likely touched, latency risk, dollar burn, and a final run/no-run receipt. Required sections: task intake, context payload meter, tool comparison strip, latency and cost forecast, repo touch preview, and receipt export. Design direction: use the operator-dense profile with compact evidence rows, dark neutral control-room surfaces, sharp cost badges, and no decorative hero.
 
 ### p002 - Practical / Commercial
@@ -141,6 +144,8 @@
 - twist: Focuses on handoff drag per content piece instead of generic content-calendar planning.
 - small_group_fit: Creators already using five or more AI/video tools can fill it in after one upload.
 - spread_trigger: The cleaned workflow screenshot is shareable as a "my stack before/after" post.
+- plan_brief: Build a creator workflow audit that turns one video production process into a toolchain drag map. Business route is affiliate/tool-stack content, paid audit template, or creator SaaS. First screen shows a step map with subscription costs and duplicated handoffs. Key screens are workflow map, subscription stack, drag score, reuse planner, budget leak panel, and weekly export. QA must show before/after savings and avoid looking like a generic content calendar.
+- development_start_prompt: Use the p002 plan brief to build a polished prototype in the prototype-factory repo. Implement a video workflow step map, subscription stack, drag scoring, budget leaks, reuse planner, and weekly workflow export with realistic creator sample data. Preserve `financial-analyst`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Creator Toolchain Drag Console" for AI-heavy video creators. The first screen should map script, voiceover, image, b-roll, caption, editing, resize, and publishing steps, then show tool subscriptions, handoff drag, budget leaks, and a lean weekly workflow export. Required sections: workflow step map, subscription stack, drag score, content reuse planner, budget leak panel, and weekly workflow export. Design direction: use the financial-analyst profile with credible cost math, tidy workflow tables, restrained creator-color accents, and clear before/after savings.
 
 ### p003 - Practical / Commercial
@@ -156,6 +161,8 @@
 - twist: Turns recurring billing into a relationship-safe treaty instead of a generic invoice SaaS.
 - small_group_fit: Operators with 10-50 repeat accounts can use it before buying a full field-service platform.
 - spread_trigger: The consent script and enrolled revenue bar are easy to show to a partner or office manager.
+- plan_brief: Build a relationship-safe billing migration tool for repeat service operators. Business route is subscription or lead-gen for payment processors/bookkeepers. First screen compares current invoice chasing with card-on-file enrollment gains. Key screens are client list, chase baseline, term builder, consent script, rollout calendar, and enrolled revenue tracker. QA must make the consent copy feel low-pressure and the revenue lift obvious.
+- development_start_prompt: Use the p003 plan brief to build a polished prototype in the prototype-factory repo. Implement client account rows, invoice-chase baseline math, autopay term builder, consent script composer, rollout calendar, and enrolled revenue tracker with realistic local-service data. Preserve `calm-consumer`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Recurring Account Autopay Treaty" for repeat local-service businesses moving monthly clients to card-on-file billing. The first screen should show client accounts, current invoice-chasing burden, autopay term options, consent script copy, rollout timing, and enrolled recurring revenue. Required sections: client account list, invoice-chase baseline, autopay term builder, consent script composer, rollout calendar, and enrolled revenue tracker. Design direction: use the calm-consumer profile with reassuring language, warm neutral panels, low-pressure consent states, and clear next-step buttons.
 
 ### p004 - Practical / Field
@@ -171,6 +178,8 @@
 - twist: Focuses on the human assistance path, not buying or redesigning kiosk hardware.
 - small_group_fit: One store can test it during a lunch shift and see whether staff know what to do.
 - spread_trigger: The counter proof card can be printed or posted in a manager chat.
+- plan_brief: Build a field-ready kiosk staff-assist planner for small Korean stores. Business route is compliance template, franchise ops pack, or local consultant lead-gen. First screen selects common kiosk trouble scenarios and outputs a staff handoff proof card. Key screens are scenario selector, staff checklist, signage preview, script cards, proof log, and manager export. QA must show large touch targets, printable output, and shift-ready language.
+- development_start_prompt: Use the p004 plan brief to build a polished prototype in the prototype-factory repo. Implement kiosk trouble scenario selection, staff handoff checklist, counter signage preview, script cards, dated proof log, and manager export with Korean small-store sample data. Preserve `field-ops`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Kiosk Staff-Assist Proof Card" for Korean small-store operators handling kiosk accessibility problems. The first screen should let a manager choose customer trouble scenarios, assign staff handoff steps, preview counter signage, rehearse customer scripts, and export a dated proof card. Required sections: scenario selector, staff handoff checklist, signage preview, customer script cards, proof log, and manager export. Design direction: use the field-ops profile with large touch targets, clear shift-ready checklists, high-contrast status rows, and a practical counter-service feel.
 
 ### p005 - Practical / Field
@@ -186,6 +195,8 @@
 - twist: Models perceived fairness and complaint risk before a parking rule is announced.
 - small_group_fit: A single apartment committee can run the scenario against its current parking count and resident mix.
 - spread_trigger: The impact table can be shared in resident chat to explain why a rule was chosen.
+- plan_brief: Build a parking-rule simulator for Korean apartment committees. Business route is property-management template, resident council tool, or local ad/lead-gen around real estate services. First screen maps inventory and lets users compare rule scenarios before publishing notices. Key screens are parking map, rule tabs, resident impact table, complaint meter, notice preview, and objection log. QA must make conflict risk and fairness tradeoffs instantly visible.
+- development_start_prompt: Use the p005 plan brief to build a polished prototype in the prototype-factory repo. Implement parking inventory, rule scenario tabs, resident impact table, complaint risk meter, notice preview, and objection log with realistic apartment sample data. Preserve `field-ops`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Apartment Parking Peace Map" for Korean apartment resident committees planning parking rules. The first screen should map parking inventory, compare assigned, guest, compact-car, and first-come scenarios, show resident impact, estimate complaint risk, and generate a policy notice. Required sections: parking inventory map, rule scenario tabs, resident impact table, complaint risk meter, notice preview, and objection log. Design direction: use the field-ops profile with grounded facility-management visuals, legible map/list hybrids, strong status colors for conflict risk, and no marketing-style hero.
 
 ### p006 - Practical / Commercial
@@ -201,6 +212,8 @@
 - twist: Treats Reddit as a daily operator workflow with ethics checks, not an auto-posting bot.
 - small_group_fit: Small teams can use it for one subreddit and five threads per day.
 - spread_trigger: A useful reply plus follow-up record can be shared internally as proof that community work produced signal.
+- plan_brief: Build an ethical community-led demand workflow for founders using Reddit/forums. Business route is subscription, agency internal tool, or content-to-lead workflow. First screen imports thread links, classifies intent, and drafts useful replies with self-promo risk checks. Key screens are thread inbox, intent classifier, quote cards, reply workspace, risk check, and follow-up pipeline. QA must prevent auto-spam vibes and make the daily operator loop clear.
+- development_start_prompt: Use the p006 plan brief to build a polished prototype in the prototype-factory repo. Implement thread inbox, intent classifier, pain quote cards, reply draft workspace, self-promo risk checks, and follow-up pipeline with realistic forum data. Preserve `operator-dense`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Reddit Reply Opportunity Radar" for founders and agencies turning complaint threads into useful replies. The first screen should ingest thread links, classify buyer intent, highlight pain quotes, draft non-spam replies, flag self-promo risk, schedule follow-up, and track conversation outcomes. Required sections: thread inbox, intent classifier, pain quote cards, reply draft workspace, self-promo risk check, and follow-up pipeline. Design direction: use the operator-dense profile with compact queues, moderation-style risk chips, clean text-review surfaces, and one decisive action accent.
 
 ### p007 - Fun / Portfolio / Experimental
@@ -216,6 +229,8 @@
 - twist: Turns repo due diligence into a funny one-minute race with real adoption signals.
 - small_group_fit: Dev teams and AI communities already debate which repo is worth trying this week.
 - spread_trigger: Prediction cards and failure states are easy to post in Discord or X.
+- plan_brief: Build a one-minute repo hype prediction game. Business/validation route is shareable dev-community toy, newsletter growth asset, or devtool content magnet. First screen shows trending repos as race entrants and asks the user to pick the survivor before hype decay. Key screens are repo lineup, hype meter, durability cards, race lane, collapse state, and share card. QA must show dopamine moments: quick pick, animated outcome, funny failure, and replay/share within 10 seconds.
+- development_start_prompt: Use the p007 plan brief to build a polished prototype in the prototype-factory repo. Implement repo entrants, hype/durability stats, pick-to-race interaction, survival/collapse outcome states, and shareable prediction card with mocked GitHub-like data. Preserve `playful-experimental`; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Agent Repo Graveyard Derby" for a playful AI-developer culture game. The first screen should show trending AI-agent repos as race entrants, a hype meter, commit durability cards, weekly race lanes, funny collapse states, and a shareable prediction card. Required sections: repo horse lineup, hype meter, durability cards, race lane, collapse result state, and share card export. Design direction: use the playful-experimental profile with bold arcade energy, readable developer-data labels, controlled color pops, and funny failure states that still feel polished.
 
 ### p008 - Fun / Portfolio / Experimental
@@ -231,6 +246,8 @@
 - twist: Makes wedding guest cost stress tactile and funny instead of another serious spreadsheet.
 - small_group_fit: Anyone invited to three or more weddings can immediately feel the season-overflow mechanic.
 - spread_trigger: The final season grid is shareable as a funny "this is why I cannot attend everything" artifact.
+- plan_brief: Build a wedding season budget puzzle for guests with too many events. Business route is affiliate travel/gift traffic, sponsored budgeting content, or viral social tool. First screen turns invitations into draggable cost blocks and shows budget/guilt overflow. Key screens are event queue, season grid, trip blocks, outfit/gift reuse lane, guilt meter, and attend/decline export. QA must make the tactile Tetris loop obvious and the final card shareable.
+- development_start_prompt: Use the p008 plan brief to build a polished prototype in the prototype-factory repo. Implement draggable wedding cost blocks, season budget grid, reuse lanes, gift/PTO costs, guilt meter, overflow states, and attend/decline card export with realistic guest data. Preserve `financial-analyst` with playful block-grid energy; verify build and screenshot QA.
 - copy/paste-ready Stitch prompt: Build a polished web prototype called "Wedding Trip Stack Tetris" for guests juggling too many weddings in one season. The first screen should show wedding events as draggable budget blocks, a season grid, shared lodging and outfit reuse lanes, gift and PTO costs, a guilt meter, and exportable attend/decline cards. Required sections: wedding event queue, season budget grid, trip-stack blocks, outfit and gift reuse lane, guilt meter, and plan/decline card export. Design direction: use the financial-analyst profile with crisp budget math, playful block-grid structure, tasteful social-pressure cues, and clean cards that feel shareable.
 
 ## Stitch Prompt Pack
