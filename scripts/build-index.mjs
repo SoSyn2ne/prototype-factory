@@ -24,6 +24,7 @@ function resolveRoot() {
 const ROOT = resolveRoot();
 const PROTOTYPES_DIR = path.join(ROOT, "prototypes");
 const OUTPUT_PATH = path.join(ROOT, "site", "public", "prototypes-index.json");
+const GRADUATIONS_OUTPUT_PATH = path.join(ROOT, "site", "public", "graduations.json");
 const COPIED_PROTOTYPES_DIR = path.join(ROOT, "site", "public", "prototypes");
 const COPIED_DEMOS_DIR = path.join(ROOT, "site", "public", "demos");
 const PREVIEWS_DIR = path.join(ROOT, "site", "public", "previews");
@@ -158,6 +159,50 @@ function copySpecFiles(folderName) {
   }
 }
 
+function copyPipelineFiles(folderName) {
+  // Copy pipeline/*.md into site/public/prototypes/<folderName>/pipeline for Vercel-safe reads.
+  const srcDir = path.join(PROTOTYPES_DIR, folderName, "pipeline");
+  if (!fs.existsSync(srcDir)) return;
+
+  const dstDir = path.join(COPIED_PROTOTYPES_DIR, folderName, "pipeline");
+  fs.mkdirSync(dstDir, { recursive: true });
+
+  const files = fs.readdirSync(srcDir, { withFileTypes: true })
+    .filter((e) => e.isFile() && e.name.endsWith(".md"))
+    .map((e) => e.name);
+
+  for (const f of files) {
+    fs.copyFileSync(path.join(srcDir, f), path.join(dstDir, f));
+  }
+}
+
+function readGraduation(folderName) {
+  const statePath = path.join(PROTOTYPES_DIR, folderName, "pipeline", "state.json");
+  if (!fs.existsSync(statePath)) return null;
+  try {
+    const state = readJson(statePath);
+    if (!Array.isArray(state.stages)) return null;
+    const done = state.stages.filter((s) => s && s.status === "done").length;
+    return {
+      id: typeof state.id === "string" ? state.id : "",
+      idea: typeof state.idea === "string" ? state.idea : folderName,
+      slug: typeof state.slug === "string" ? state.slug : "",
+      labUrl: typeof state.labUrl === "string" ? state.labUrl : "",
+      updatedAt: typeof state.updatedAt === "string" ? state.updatedAt : "",
+      folderName,
+      stages: state.stages,
+      doneCount: done,
+      totalCount: state.stages.length,
+      decision:
+        state.stages.find((s) => s && s.key === "decision")?.decision || "pending",
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    console.warn(`Skipping graduation for ${folderName}: bad state.json (${message})`);
+    return null;
+  }
+}
+
 function buildItems() {
   if (!fs.existsSync(PROTOTYPES_DIR)) {
     throw new Error(`Missing directory: ${PROTOTYPES_DIR}`);
@@ -173,6 +218,7 @@ function buildItems() {
     .map((entry) => entry.name);
 
   const items = [];
+  const graduations = [];
   for (const folderName of folders) {
     const metaPath = path.join(PROTOTYPES_DIR, folderName, "meta.json");
     if (!fs.existsSync(metaPath)) {
@@ -184,6 +230,13 @@ function buildItems() {
       const meta = readJson(metaPath);
       const hasDemoEntry = hasDemoEntrypoint(folderName);
       const item = normalizeMeta(folderName, meta, hasDemoEntry);
+      const graduation = readGraduation(folderName);
+      if (graduation) {
+        item.graduated = true;
+        item.labUrl = graduation.labUrl;
+        graduations.push(graduation);
+        copyPipelineFiles(folderName);
+      }
       items.push(item);
       copySpecFiles(folderName);
       if (hasDemoEntry) {
@@ -196,20 +249,25 @@ function buildItems() {
   }
 
   items.sort(compareDesc);
-  return items;
+  graduations.sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
+  return { items, graduations };
 }
 
 function main() {
   try {
-    const items = buildItems();
-    const payload = {
-      updatedAt: new Date().toISOString(),
-      items,
-    };
+    const { items, graduations } = buildItems();
+    const updatedAt = new Date().toISOString();
 
     fs.mkdirSync(path.dirname(OUTPUT_PATH), { recursive: true });
-    fs.writeFileSync(OUTPUT_PATH, `${JSON.stringify(payload, null, 2)}\n`, "utf8");
+    fs.writeFileSync(OUTPUT_PATH, `${JSON.stringify({ updatedAt, items }, null, 2)}\n`, "utf8");
     console.log(`Wrote ${OUTPUT_PATH} (${items.length} items)`);
+
+    fs.writeFileSync(
+      GRADUATIONS_OUTPUT_PATH,
+      `${JSON.stringify({ updatedAt, graduations }, null, 2)}\n`,
+      "utf8"
+    );
+    console.log(`Wrote ${GRADUATIONS_OUTPUT_PATH} (${graduations.length} graduations)`);
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.error(`Failed to build index: ${message}`);

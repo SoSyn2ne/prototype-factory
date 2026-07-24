@@ -6,6 +6,7 @@ import {
   readSpecFileCopied,
   repoFolderName,
 } from "@/lib/index";
+import { getGraduationById } from "@/lib/graduations";
 
 type SpecFile = {
   name: string;
@@ -52,6 +53,7 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
 
   const spec = readSpecFiles(item.repoPath);
   const isExternalDemo = isExternalUrl(item.demoUrl);
+  const graduation = getGraduationById(item.id);
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
@@ -139,6 +141,40 @@ export default function PrototypeDetailPage({ params }: { params: { id: string }
           <p className="mb-8 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
             {item.oneLiner || 'No one-liner is available for this prototype yet.'}
           </p>
+
+          {graduation ? (
+            <div className="mb-6 rounded-lg border border-emerald-500/30 bg-emerald-500/5 p-4">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-black uppercase tracking-wider text-emerald-500 dark:text-emerald-300">
+                  Graduation pipeline · {graduation.doneCount}/{graduation.totalCount}
+                </span>
+                {graduation.decision && graduation.decision !== 'pending' ? (
+                  <span className="rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-black uppercase text-emerald-600 dark:text-emerald-300">
+                    {graduation.decision}
+                  </span>
+                ) : null}
+              </div>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">
+                이 아이디어는 정적 목업을 넘어 진짜 로직이 도는 인터랙티브 프로토타입까지 통과했습니다.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {graduation.labUrl ? (
+                  <Link
+                    href={graduation.labUrl}
+                    className="rounded-lg bg-emerald-500 px-3 py-2 text-xs font-black text-white transition-colors hover:bg-emerald-600 hover:no-underline"
+                  >
+                    Open interactive prototype ↗
+                  </Link>
+                ) : null}
+                <Link
+                  href="/pipeline"
+                  className="rounded-lg border border-emerald-500/40 px-3 py-2 text-xs font-black text-emerald-600 transition-colors hover:bg-emerald-500/10 hover:no-underline dark:text-emerald-300"
+                >
+                  View pipeline
+                </Link>
+              </div>
+            </div>
+          ) : null}
 
           <div className="mb-10 flex flex-col gap-3">
             {item.demoUrl ? (

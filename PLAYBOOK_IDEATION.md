@@ -46,6 +46,7 @@ before becoming a prototype.
 - `spec/falsification.md` (5-7 questions)
 - For daily PF batches, each final candidate must include an explicit `theme:` line mapping it to a human driver/theme after the Need Evidence section.
 - Daily PF default is an 8-candidate batch and must scaffold `p001` through `p008` with no missing slot.
+- Generating 8 is the top of the funnel, not the finish. Each cycle should push at least the single strongest candidate into the graduation pipeline (`docs/GRADUATION_PIPELINE.md`, Doctrine G4): Validate → Spec → Feasibility → **interactive prototype with real logic** → go/no-go. A static mockup does not count as graduated.
 
 ## Daily need-hunt pipeline
 

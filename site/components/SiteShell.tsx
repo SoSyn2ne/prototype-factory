@@ -29,6 +29,9 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
                 <Link className="text-sm font-semibold text-zinc-600 transition-colors hover:text-primary dark:text-zinc-300 dark:hover:text-white" href="/clusters">
                   Cluster Board
                 </Link>
+                <Link className="text-sm font-semibold text-zinc-600 transition-colors hover:text-primary dark:text-zinc-300 dark:hover:text-white" href="/pipeline">
+                  Pipeline
+                </Link>
                 <Link className="text-sm font-semibold text-zinc-600 transition-colors hover:text-primary dark:text-zinc-300 dark:hover:text-white" href="/marketplace">
                   Marketplace
                 </Link>

@@ -87,6 +87,22 @@ Choose one:
 - **Prototype** (minimal runnable code) if verification is cheap and fast.
 - **Promote** only after repeated wins.
 
+### Gate G4 — Graduation (idea → build-ready)
+The daily-8 generation is the top of the funnel. A small number of the strongest
+ideas must be carried further through the **graduation pipeline** before anyone
+commits to building. See `docs/GRADUATION_PIPELINE.md`.
+
+Six stages, in order: **Signal → Validate → Spec → Feasibility → Interactive
+prototype → Decision.**
+
+- A static HTML/Stitch mockup does **not** satisfy graduation. Stage 5 requires an
+  interactive prototype with real state, real computation, and mock or
+  user-entered data — it must produce the number the idea promised.
+- No prototype is built before Stage 2 (Validate) returns a real pull signal.
+- Stage 6 (Decision) is an evidence-backed go/no-go/pivot, not a vibe.
+- Prefer **depth on 1–2 graduated ideas** over volume. Generating 8 is not the
+  finish line; a decided idea is.
+
 ---
 
 ## 4) Product directions (idea families)
@@ -107,6 +123,8 @@ Choose one:
 6) When the operator provides a binding human-driver framework, creativity happens inside that frame, not outside it.
 7) A daily batch is incomplete if ideation count, scaffold count, and published count diverge.
 8) A Stitch demo is incomplete if the shipped main experience does not preserve the original environment.
+9) Generation is the top of the funnel, not the goal. Each cycle should push at least one idea down the graduation pipeline (G4) toward a real go/no-go decision.
+10) A graduation is incomplete if its Stage-5 prototype is a static mockup rather than working, computing logic.
 
 ---
 
