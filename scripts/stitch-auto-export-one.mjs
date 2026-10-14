@@ -80,21 +80,22 @@ async function clickByText(text, opts = {}) {
 }
 
 async function clickGenerate() {
-  const target = await appFrame.evaluate(() => {
+  const clicked = await appFrame.evaluate(() => {
     const button = [...document.querySelectorAll('button,[role=button]')]
       .find((node) => {
         const label = node.getAttribute('aria-label') || (node.innerText || node.textContent || '').trim();
         return label === '디자인 생성' || /^Generate designs?$/i.test(label);
       });
-    if (!button || button.disabled || button.getAttribute('aria-disabled') === 'true') return null;
-    const rect = button.getBoundingClientRect();
-    return { x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
+    if (!button || button.disabled || button.getAttribute('aria-disabled') === 'true') return false;
+    button.click();
+    return true;
   });
-  if (!target) throw new Error('Could not find enabled generate button');
-  await page.mouse.click(target.x, target.y);
+  if (!clicked) throw new Error('Could not find enabled generate button');
 }
 
-// Operator contract: generate as Web, and use 3.1 instead of the default 3 Flash.
+// Operator contract: generate as Web. Stitch retired the old 3.1 option in
+// October 2026; require the current quality preset explicitly so UI changes
+// fail closed instead of silently falling back to a different model.
 const clickedWeb = await appFrame.evaluate(() => {
   const candidates = [...document.querySelectorAll('button,[role=button],[role=tab]')];
   const el = candidates.find((node) => {
@@ -106,28 +107,33 @@ const clickedWeb = await appFrame.evaluate(() => {
 });
 if (!clickedWeb) throw new Error('Could not click Stitch Web control');
 await new Promise((r) => setTimeout(r, 500));
-const modelButton = await appFrame.evaluate(() =>
-  [...document.querySelectorAll('button,[role=button]')]
-    .some((node) => /3\s*Flash|2\.5\s*Flash|Flash/.test((node.innerText || node.textContent || '').trim()))
-);
-if (modelButton) {
-  const clickedModel = await appFrame.evaluate(() => {
-    const el = [...document.querySelectorAll('button,[role=button]')]
-      .find((node) => /3\s*Flash|2\.5\s*Flash|Flash/.test((node.innerText || node.textContent || '').trim()));
-    el?.click();
-    return Boolean(el);
-  });
-  if (!clickedModel) throw new Error('Could not open Stitch model selector');
-  await new Promise((r) => setTimeout(r, 500));
-  const clicked31 = await appFrame.evaluate(() => {
-    const el = [...document.querySelectorAll('button,[role=button],[role=menuitem]')]
-      .find((node) => /3\.1|Thinking with 3\.1 Pro/i.test((node.innerText || node.textContent || '').trim()));
-    el?.click();
-    return Boolean(el);
-  });
-  if (!clicked31) throw new Error('Could not select Stitch model 3.1');
-  await new Promise((r) => setTimeout(r, 500));
+const modelPreset = process.env.STITCH_MODEL_PRESET || 'Balanced';
+const modelDescription = process.env.STITCH_MODEL_DESCRIPTION || 'Gemini 3.8 Flash';
+const clickedModel = await appFrame.evaluate((preset) => {
+  const el = [...document.querySelectorAll('button,[role=button]')]
+    .find((node) => (node.innerText || node.textContent || '').trim() === preset);
+  el?.click();
+  return Boolean(el);
+}, modelPreset);
+if (!clickedModel) throw new Error(`Could not open Stitch model selector for ${modelPreset}`);
+await new Promise((r) => setTimeout(r, 500));
+const clickedPreset = await appFrame.evaluate((preset, description) => {
+  const el = [...document.querySelectorAll('button,[role=button],[role=menuitem]')]
+    .find((node) => {
+      const label = (node.innerText || node.textContent || '').trim().replace(/\s+/g, ' ');
+      return label.includes(preset) && label.includes(description);
+    });
+  el?.click();
+  return Boolean(el);
+}, modelPreset, modelDescription);
+if (!clickedPreset) {
+  throw new Error(`Could not select Stitch model ${modelPreset} — ${modelDescription}`);
 }
+await new Promise((r) => setTimeout(r, 500));
+const selectedPreset = await appFrame.evaluate((preset) =>
+  [...document.querySelectorAll('button,[role=button]')]
+    .some((node) => (node.innerText || node.textContent || '').trim() === preset), modelPreset);
+if (!selectedPreset) throw new Error(`Stitch model selection did not persist: ${modelPreset}`);
 
 const editorBox = await appFrame.evaluate(() => {
   const editor = [...document.querySelectorAll('[contenteditable="true"][role="textbox"], [contenteditable="true"], [role="textbox"], textarea')]

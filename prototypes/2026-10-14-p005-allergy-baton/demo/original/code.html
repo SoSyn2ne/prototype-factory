@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ALLERGEN BATON RELAY - Mobile Kitchen Terminal</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary-fixed": "#ffdcc3",
+            "on-primary-fixed": "#2f1500",
+            "on-secondary-fixed-variant": "#93000b",
+            "on-error": "#690005",
+            "primary-container": "#d97707",
+            "tertiary": "#68dba9",
+            "error": "#ffb4ab",
+            "on-secondary-container": "#ffc8c1",
+            "on-secondary-fixed": "#410002",
+            "surface-container-highest": "#2d3449",
+            "on-surface-variant": "#dbc2b0",
+            "surface-dim": "#0b1326",
+            "tertiary-fixed-dim": "#68dba9",
+            "inverse-on-surface": "#283044",
+            "secondary": "#ffb4ab",
+            "on-tertiary-container": "#00311f",
+            "on-surface": "#dae2fd",
+            "error-container": "#93000a",
+            "on-primary-container": "#432100",
+            "secondary-container": "#bb0112",
+            "on-secondary": "#690005",
+            "outline": "#a38c7c",
+            "outline-variant": "#554336",
+            "tertiary-container": "#25a475",
+            "surface-container-low": "#131b2e",
+            "on-error-container": "#ffdad6",
+            "primary-fixed-dim": "#ffb77d",
+            "secondary-fixed-dim": "#ffb4ab",
+            "on-background": "#dae2fd",
+            "on-tertiary-fixed": "#002114",
+            "inverse-primary": "#904d00",
+            "on-primary-fixed-variant": "#6e3900",
+            "surface-container": "#171f33",
+            "on-tertiary": "#003825",
+            "surface-bright": "#31394d",
+            "background": "#0b1326",
+            "inverse-surface": "#dae2fd",
+            "tertiary-fixed": "#85f8c4",
+            "on-tertiary-fixed-variant": "#005137",
+            "surface-tint": "#ffb77d",
+            "surface-container-lowest": "#060e20",
+            "surface": "#0b1326",
+            "surface-container-high": "#222a3d",
+            "on-primary": "#4d2600",
+            "surface-variant": "#2d3449",
+            "secondary-fixed": "#ffdad6",
+            "primary": "#ffb77d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "space-xl": "2.5rem",
+            "gutter-desktop": "2rem",
+            "margin-tablet": "1.5rem",
+            "gutter": "1rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "margin-desktop": "2rem",
+            "space-lg": "1.5rem",
+            "gutter-tablet": "1.5rem",
+            "margin": "1rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Inter"],
+            "display-relay-mobile": ["Inter"],
+            "display-relay": ["Inter"],
+            "headline-lg": ["Inter"],
+            "body-sm": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "label-relay-id": ["JetBrains Mono"],
+            "label-badge": ["JetBrains Mono"],
+            "headline-md": ["Inter"],
+            "label-code-md": ["JetBrains Mono"],
+            "headline-sm": ["Inter"],
+            "label-code-lg": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["26px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "display-relay-mobile": ["32px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "display-relay": ["48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "body-lg": ["18px", { "lineHeight": "26px", "fontWeight": "500" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-relay-id": ["28px", { "lineHeight": "32px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "label-badge": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+            "label-code-md": ["14px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "label-code-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "0.04em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Mechanical keypress simulation & industrial animations */
+    .tactile-press:active {
+      transform: translateY(2px);
+    }
+    .amber-pulse {
+      box-shadow: 0 0 0 3px rgba(217, 119, 7, 0.4), inset 0 0 0 2px #d97707;
+    }
+    .red-hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        #bb0112,
+        #bb0112 14px,
+        #060e20 14px,
+        #060e20 28px
+      );
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased select-none min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- ================= TOP APP BAR (Shared Component Source of Truth) ================= -->
+<header class="flex justify-between items-center w-full px-4 h-16 max-w-full bg-surface-container-lowest border-b-2 border-outline-variant z-50 sticky top-0">
+<!-- Brand / Identity -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-3xl" data-icon="sync" style="font-variation-settings: 'FILL' 1;">sync</span>
+<span class="font-label-relay-id text-label-relay-id text-primary uppercase tracking-widest font-black text-xl">ALLERGEN BATON RELAY</span>
+</div>
+<div class="hidden xl:flex items-center bg-surface-container-high px-3 py-1.5 border border-outline-variant gap-2 text-xs font-label-code-md text-on-surface">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container animate-ping"></span>
+<span class="text-on-surface-variant font-bold">STATION:</span> TRUCK-01 // FRONT REGISTER &amp; PREP LINK
+      </div>
+<div class="hidden lg:flex items-center bg-surface-container px-3 py-1.5 border border-outline-variant text-xs font-label-code-md">
+<span class="text-on-surface-variant mr-1">OPERATOR:</span>
+<span class="text-primary font-bold">M. VASQUEZ (LEAD PREP)</span>
+</div>
+</div>
+<!-- Navigation Checkpoint Links -->
+<nav class="hidden md:flex items-center gap-8 font-headline-sm text-headline-sm uppercase tracking-wider text-sm">
+<a class="text-on-surface-variant font-medium pb-1 hover:text-on-surface transition-none" href="#counter">01 COUNTER</a>
+<a class="text-primary-container font-bold border-b-4 border-primary-container pb-1 transition-none flex items-center gap-1.5" href="#kitchen">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+        02 KITCHEN
+      </a>
+<a class="text-on-surface-variant font-medium pb-1 hover:text-on-surface transition-none" href="#window">03 WINDOW</a>
+</nav>
+<!-- Trailing Actions & EMERGENCY STOP -->
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex items-center gap-2 px-3 h-11 bg-surface-container-high border-2 border-outline-variant text-on-surface font-label-code-md text-xs hover:bg-surface-container-highest tactile-press" type="button">
+<span class="material-symbols-outlined text-base" data-icon="sync">sync</span>
+        VERIFY BATON
+      </button>
+<button class="flex items-center gap-2 px-3 h-11 bg-surface-container-high border-2 border-outline-variant text-primary font-label-code-md text-xs hover:bg-surface-container-highest tactile-press" type="button">
+<span class="material-symbols-outlined text-base text-primary" data-icon="notifications_active">notifications_active</span>
+<span class="font-bold">LOCKOUT ACTIVE</span>
+</button>
+<!-- EMERGENCY ALLERGEN STOP - HIGH VISIBILITY TRIGGER -->
+<button class="min-h-[56px] px-5 bg-secondary-container hover:bg-error-container text-white font-label-code-lg text-sm border-2 border-error font-extrabold tracking-wider flex items-center gap-2 shadow-none tactile-press" onclick="triggerEmergencyHalt()" type="button">
+<span class="material-symbols-outlined text-2xl" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span>ALLERGEN STOP</span>
+</button>
+</div>
+</header>
+<!-- ================= SUB-BANNER: MANDATORY PROTOCOL NOTICE ================= -->
+<div class="w-full bg-surface-container-lowest border-b-2 border-secondary-container px-4 py-2 flex flex-wrap items-center justify-between text-xs font-label-code-md text-on-secondary-container">
+<div class="flex items-center gap-2">
+<span class="bg-secondary-container text-white px-2 py-0.5 font-bold uppercase text-[11px] tracking-widest border border-error">LEGAL LOCKOUT</span>
+<span class="font-bold text-on-surface">DIRECTIVE 104-B:</span>
+<span>PHYSICAL BATON VERIFICATION COMPULSORY PRIOR TO PLATE ADVANCEMENT. NO SHORTCUTS.</span>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span>LATENCY: <strong class="text-tertiary">0.0 ms</strong></span>
+<span>FAILSAFE: <strong class="text-tertiary">ENGAGED</strong></span>
+</div>
+</div>
+<!-- ================= MAIN OPERATIONAL LAYOUT (GRID) ================= -->
+<main class="flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-y-auto">
+<!-- LEFT SIDEBAR: ACTIVE RELAY QUEUE & LOCKS (3 Cols) -->
+<aside class="lg:col-span-3 bg-surface-container-lowest border-r-2 border-outline-variant flex flex-col justify-between p-4">
+<div>
+<!-- Gate Identification Header -->
+<div class="pb-4 mb-4 border-b-2 border-outline-variant">
+<div class="flex items-center justify-between">
+<span class="font-label-code-lg text-xs tracking-widest text-primary font-bold">STATION GATE 02</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-tertiary text-xs font-label-code-md font-bold">ONLINE</span>
+</div>
+<h2 class="font-headline-sm text-lg font-bold text-on-surface mt-1">KITCHEN PREP · STRICT LOCKOUT</h2>
+<p class="font-body-sm text-xs text-on-surface-variant">Baton transfer requires mutual station sign-off.</p>
+</div>
+<!-- Mini Tabs (SideNav Source of Truth Tab Labels) -->
+<div class="space-y-1 mb-6">
+<button class="w-full flex items-center justify-between px-3 py-3 bg-surface-container-high text-primary font-bold border-l-4 border-primary-container text-left text-xs font-label-code-md">
+<span class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-lg" data-icon="assignment_late">assignment_late</span>
+              ACTIVE BATONS (1 HAZARD)
+            </span>
+<span class="bg-secondary-container text-white text-[10px] px-1.5 py-0.5 font-bold">01</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-none text-left text-xs font-label-code-md">
+<span class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-lg" data-icon="fact_check">fact_check</span>
+              STATION CHECKPOINTS
+            </span>
+<span class="text-on-surface-variant text-[10px]">3/3</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-none text-left text-xs font-label-code-md">
+<span class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-lg" data-icon="security">security</span>
+              CROSS-CONTACT LOCKS
+            </span>
+<span class="text-secondary text-[10px] font-bold">ENGAGED</span>
+</button>
+<button class="w-full flex items-center justify-between px-3 py-3 text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-none text-left text-xs font-label-code-md">
+<span class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-lg" data-icon="gavel">gavel</span>
+              LEGAL PROTOCOL
+            </span>
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="verified">verified</span>
+</button>
+</div>
+<!-- Relay Baton Queue Items -->
+<div class="space-y-3">
+<div class="text-[11px] font-label-code-md text-on-surface-variant font-bold uppercase tracking-wider flex justify-between">
+<span>PRIORITY RUNNERS</span>
+<span>QUEUE: 1 ACTIVE</span>
+</div>
+<!-- Active Card in Queue -->
+<div class="p-3 bg-surface-container border-2 border-secondary-container relative">
+<div class="absolute top-0 right-0 bg-secondary-container text-white text-[10px] font-bold px-2 py-0.5 tracking-wider font-label-code-md">
+              ANAPHYLACTIC
+            </div>
+<div class="font-label-relay-id text-base text-primary font-bold">BATON #AB-8492</div>
+<div class="text-xs text-on-surface mt-1 font-semibold">TICKET #104: SALAD BOX</div>
+<div class="flex items-center gap-1 mt-2">
+<span class="bg-surface-container-lowest text-secondary text-[10px] font-label-badge font-bold px-1.5 py-0.5 border border-outline-variant">PEANUT</span>
+<span class="bg-surface-container-lowest text-secondary text-[10px] font-label-badge font-bold px-1.5 py-0.5 border border-outline-variant">TREE NUT</span>
+</div>
+<div class="mt-3 flex items-center justify-between text-[11px] font-label-code-md text-on-surface-variant">
+<span>ELAPSED: <strong class="text-primary font-bold">04:18 MIN</strong></span>
+<span class="text-primary font-bold flex items-center gap-1">GATE 2/3</span>
+</div>
+</div>
+<!-- Standard Queued Ticket (Non-Allergen) -->
+<div class="p-3 bg-surface-container-low border border-outline-variant opacity-60">
+<div class="flex justify-between items-center">
+<div class="font-label-relay-id text-sm text-on-surface-variant">BATON #AB-8493</div>
+<span class="text-[10px] font-label-code-md text-tertiary">STANDARD PREP</span>
+</div>
+<div class="text-xs text-on-surface-variant mt-1">TICKET #105: 2x SMASH BURGER</div>
+<div class="text-[10px] text-on-surface-variant mt-2 font-label-code-md">COUNTER VERIFIED · WAITING FOR GATE 2</div>
+</div>
+</div>
+</div>
+<!-- Station Status Bar / Footer Actions -->
+<div class="pt-4 border-t-2 border-outline-variant space-y-3 mt-6">
+<div class="p-2.5 bg-surface-container-high border border-outline-variant text-[11px] font-label-code-md flex items-center justify-between">
+<span class="text-on-surface-variant">HOOD AIRFLOW PURGE:</span>
+<span class="text-tertiary font-bold">OPTIMAL</span>
+</div>
+<button class="w-full min-h-[48px] bg-surface-container-high hover:bg-surface-container-highest border border-outline-variant text-on-surface font-label-code-md text-xs uppercase flex items-center justify-center gap-2 tactile-press">
+<span class="material-symbols-outlined text-base" data-icon="settings_power">settings_power</span>
+          TERMINAL CONFIG &amp; AUDIT
+        </button>
+</div>
+</aside>
+<!-- CENTER HERO: GIANT ALLERGEN BATON & RELAY STATIONS (6 Cols) -->
+<section class="lg:col-span-6 bg-surface-container-low p-4 sm:p-6 flex flex-col gap-6 overflow-y-auto">
+<!-- ================= HERO BATON CONTAINER (Centerpiece) ================= -->
+<div class="relative bg-surface-container border-4 border-primary-container p-5 sm:p-6 shadow-none">
+<!-- Mechanical Industrial Header -->
+<div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b-2 border-outline-variant">
+<div class="flex items-center gap-3">
+<div class="w-4 h-12 bg-primary-container flex items-center justify-center font-black text-on-primary-container text-xs">
+              02
+            </div>
+<div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-label-code-md text-primary font-bold uppercase tracking-wider">PRIMARY BATON IDENTIFIER</span>
+<span class="text-xs font-label-code-md bg-primary-container text-on-primary-container px-1.5 py-0.2 font-black">HIGH SEVERITY</span>
+</div>
+<h1 class="font-label-relay-id text-display-relay-mobile sm:text-headline-lg font-black text-primary tracking-tight">
+                BATON #AB-8492
+              </h1>
+</div>
+</div>
+<div class="flex flex-col items-end font-label-code-md text-xs text-on-surface-variant">
+<div>LINKED TICKET: <strong class="text-on-surface text-sm">#104 (FRONT)</strong></div>
+<div>INTAKE TIMESTAMP: <strong class="text-on-surface">12:41:09 PM</strong></div>
+<div class="text-tertiary font-bold flex items-center gap-1 mt-0.5">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> LIVE RELAY ACTIVE
+            </div>
+</div>
+</div>
+<!-- VERBATIM CUSTOMER STATEMENT (High-Prominence Callout) -->
+<div class="mt-5 p-4 bg-surface-container-lowest border-2 border-secondary-container">
+<div class="flex items-center justify-between mb-2">
+<span class="flex items-center gap-2 text-xs font-label-code-md font-bold text-secondary uppercase tracking-widest">
+<span class="material-symbols-outlined text-base" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+              MANDATORY CUSTOMER VERBATIM DECLARATION
+            </span>
+<span class="text-[11px] font-label-code-md text-on-surface-variant">AUDIO/TEXT CAPTURED AT COUNTER</span>
+</div>
+<div class="relative pl-4 border-l-4 border-secondary text-on-surface font-body-lg text-base sm:text-lg italic leading-relaxed bg-surface-container-high/40 p-3">
+            "Severe anaphylactic peanut &amp; tree nut allergy. Customer says: 
+            <span class="text-secondary font-bold underline decoration-secondary decoration-2 underline-offset-4">
+              'Even trace airborne/dust or shared fryer oil will cause throat closure.
+            </span>
+            Wants grilled chicken salad box, zero nuts, fresh glove change.'"
+          </div>
+<div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs font-label-code-md text-on-surface-variant pt-2 border-t border-outline-variant">
+<span>INTAKE CASHIER: <strong class="text-on-surface">S. CHEN (STATION 01)</strong></span>
+<span class="text-tertiary font-bold">VERBAL READ-BACK: CONFIRMED ACCURATE</span>
+</div>
+</div>
+<!-- PRIMARY ALLERGEN MATRIX (Bold High-Contrast Badges) -->
+<div class="mt-5">
+<div class="text-xs font-label-code-md font-bold text-on-surface-variant tracking-wider uppercase mb-2">
+            DETECTED CONTAMINATION HAZARDS [ZERO-TOLERANCE]
+          </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- PEANUT BADGE -->
+<div class="flex items-center justify-between p-3.5 bg-white text-black border-4 border-secondary-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-3xl text-secondary-container font-black" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<div class="font-label-relay-id text-base font-black tracking-tight text-black leading-none">PEANUT</div>
+<div class="text-[11px] font-label-code-md font-extrabold text-secondary-container mt-0.5">STRICT HAZARD [PNUT-01]</div>
+</div>
+</div>
+<span class="bg-black text-white text-xs font-label-code-md font-black px-2 py-1 uppercase">AIRBORNE / TRACE</span>
+</div>
+<!-- TREE NUT BADGE -->
+<div class="flex items-center justify-between p-3.5 bg-white text-black border-4 border-secondary-container">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-3xl text-secondary-container font-black" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<div class="font-label-relay-id text-base font-black tracking-tight text-black leading-none">TREE NUTS</div>
+<div class="text-[11px] font-label-code-md font-extrabold text-secondary-container mt-0.5">STRICT HAZARD [TNUT-02]</div>
+</div>
+</div>
+<span class="bg-black text-white text-xs font-label-code-md font-black px-2 py-1 uppercase">CROSS-CONTACT</span>
+</div>
+</div>
+</div>
+<!-- ================= CRITICAL CONFLICT ALERT BOX ================= -->
+<div class="mt-5 p-4 bg-surface-container-lowest border-4 border-secondary-container">
+<div class="flex items-start gap-3">
+<div class="p-2 bg-secondary-container text-white shrink-0">
+<span class="material-symbols-outlined text-2xl" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+</div>
+<div class="flex-1">
+<div class="font-label-code-lg text-sm text-secondary font-black tracking-wider uppercase">
+                CRITICAL CONFLICT DETECTED: SHARED FRYER / UNKNOWN OIL BLEND
+              </div>
+<p class="font-body-md text-xs sm:text-sm text-on-surface mt-1 leading-snug">
+                Kitchen house fries and croutons share commercial fryer Tank #1 with nut-breaded seasonal items. 
+                <strong class="text-secondary font-bold uppercase underline">CHICKEN MUST BE GRIDDLED ON ISOLATED FLAT TOP #2 ONLY.</strong> 
+                Do not deploy fryer basket under any circumstance.
+              </p>
+<!-- Hard Stop Action Trigger (56px) -->
+<div class="mt-4 flex flex-wrap sm:flex-nowrap items-center gap-3">
+<button class="w-full sm:w-auto min-h-[56px] px-6 bg-secondary-container hover:bg-error-container text-white font-label-code-lg text-xs font-black uppercase tracking-wider border-2 border-error flex items-center justify-center gap-2 tactile-press" onclick="alert('ESCALATION DISPATCHED: Head Cook notified via audible station alert.')" type="button">
+<span class="material-symbols-outlined text-xl" data-icon="gavel">gavel</span>
+                  HALT TICKET // ESCALATE TO HEAD COOK
+                </button>
+<div class="text-[11px] font-label-code-md text-on-surface-variant">
+                  Overrides Kitchen gate progression until manager clears lockout.
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- ================= THREE-STAGE RELAY CHECKPOINT BAR ================= -->
+<div class="bg-surface-container border-2 border-outline-variant p-4">
+<div class="text-xs font-label-code-md font-bold text-on-surface-variant uppercase tracking-wider mb-3 flex items-center justify-between">
+<span>PHYSICAL BATON RELAY CHECKPOINTS (56PX CONTROLS)</span>
+<span class="text-primary font-bold">PIPELINE STAGE: 2 OF 3 ACTIVE</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<!-- STAGE 01: COUNTER (Passed) -->
+<div class="border-2 border-tertiary-container bg-surface-container-high p-3 flex flex-col justify-between min-h-[140px]">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code-md text-xs font-black text-tertiary tracking-wider">01 COUNTER</span>
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="text-xs font-bold text-on-surface">INTAKE VERIFIED</div>
+<p class="text-[11px] font-body-sm text-on-surface-variant mt-1 leading-tight">
+                "Order taken, verbatim repeated, allergy flagged."
+              </p>
+</div>
+<div class="pt-2 border-t border-outline-variant text-[10px] font-label-code-md text-on-surface-variant flex justify-between">
+<span>S. CHEN</span>
+<span>12:41:14 PM</span>
+</div>
+</div>
+<!-- STAGE 02: KITCHEN PREP (Current Active - Amber Pulse) -->
+<div class="border-4 border-primary-container bg-surface-container-high p-3 flex flex-col justify-between min-h-[140px] amber-pulse relative">
+<div class="absolute -top-3 right-2 bg-primary-container text-on-primary-container text-[10px] font-label-code-md font-black px-2 py-0.5 uppercase">
+              ACTIVE STATION
+            </div>
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code-md text-xs font-black text-primary tracking-wider">02 KITCHEN</span>
+<span class="material-symbols-outlined text-primary text-lg animate-spin" data-icon="sync">sync</span>
+</div>
+<div class="text-xs font-bold text-on-surface">PREP &amp; SEPARATION</div>
+<p class="text-[11px] font-body-sm text-on-surface-variant mt-1 leading-tight">
+                Sanitize station · Dedicated tongs · Fresh glove swap · Batch scan.
+              </p>
+</div>
+<div class="pt-2 border-t border-outline-variant text-[10px] font-label-code-md text-primary font-bold flex justify-between">
+<span>M. VASQUEZ</span>
+<span>IN PROGRESS</span>
+</div>
+</div>
+<!-- STAGE 03: WINDOW / PICKUP (Locked Pending) -->
+<div class="border-2 border-outline-variant bg-surface-container-lowest/70 p-3 flex flex-col justify-between min-h-[140px] opacity-75">
+<div>
+<div class="flex items-center justify-between mb-1">
+<span class="font-label-code-md text-xs font-black text-on-surface-variant tracking-wider">03 WINDOW</span>
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="lock">lock</span>
+</div>
+<div class="text-xs font-bold text-on-surface-variant">LOCKED (PENDING KITCHEN)</div>
+<p class="text-[11px] font-body-sm text-on-surface-variant mt-1 leading-tight">
+                Requires verbal read-back to guest before physical handoff.
+              </p>
+</div>
+<div class="pt-2 border-t border-outline-variant text-[10px] font-label-code-md text-on-surface-variant flex justify-between">
+<span>EXPEDITOR</span>
+<span>GATE LOCKED</span>
+</div>
+</div>
+</div>
+<!-- ================= STAGE 02 INTERACTIVE SAFETY VERIFICATION CHECKLIST ================= -->
+<div class="mt-4 p-4 bg-surface-container-high border-2 border-outline-variant">
+<div class="flex items-center justify-between mb-3">
+<span class="font-label-code-md text-xs font-black text-primary uppercase tracking-wide">
+              MANDATORY PHYSICAL SAFETY LOCKS (TAP ALL TO CLEAR)
+            </span>
+<span class="text-xs font-label-code-md font-bold text-on-surface-variant" id="lock-counter">
+              2 OF 4 CLEARED
+            </span>
+</div>
+<div class="space-y-2.5">
+<!-- Checklist Item 1 -->
+<label class="flex items-center gap-3.5 p-3 bg-surface-container-lowest border-2 border-outline-variant cursor-pointer hover:border-tertiary-container transition-none select-none">
+<input checked="" class="w-7 h-7 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 focus:ring-offset-0 bg-surface-container cursor-pointer" onchange="updateLockCount()" type="checkbox"/>
+<div class="text-xs sm:text-sm font-label-code-md text-on-surface font-semibold flex-1">
+                [1] Fresh cutting board deployed &amp; sanitized per Protocol Level-4
+              </div>
+<span class="text-tertiary text-xs font-label-code-md font-bold">[VERIFIED]</span>
+</label>
+<!-- Checklist Item 2 -->
+<label class="flex items-center gap-3.5 p-3 bg-surface-container-lowest border-2 border-outline-variant cursor-pointer hover:border-tertiary-container transition-none select-none">
+<input checked="" class="w-7 h-7 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 focus:ring-offset-0 bg-surface-container cursor-pointer" onchange="updateLockCount()" type="checkbox"/>
+<div class="text-xs sm:text-sm font-label-code-md text-on-surface font-semibold flex-1">
+                [2] Dedicated red tongs &amp; sanitized chef knife pulled from clean vault
+              </div>
+<span class="text-tertiary text-xs font-label-code-md font-bold">[VERIFIED]</span>
+</label>
+<!-- Checklist Item 3 (Unchecked) -->
+<label class="flex items-center gap-3.5 p-3 bg-surface-container-lowest border-2 border-outline-variant cursor-pointer hover:border-primary-container transition-none select-none">
+<input class="w-7 h-7 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 focus:ring-offset-0 bg-surface-container cursor-pointer" id="check-gloves" onchange="updateLockCount()" type="checkbox"/>
+<div class="text-xs sm:text-sm font-label-code-md text-on-surface font-semibold flex-1">
+                [3] Fresh nitrile glove swap completed after handwash cycle
+              </div>
+<span class="text-secondary text-xs font-label-code-md font-bold">[PENDING TAP]</span>
+</label>
+<!-- Checklist Item 4 (Unchecked) -->
+<label class="flex items-center gap-3.5 p-3 bg-surface-container-lowest border-2 border-outline-variant cursor-pointer hover:border-primary-container transition-none select-none">
+<input class="w-7 h-7 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 focus:ring-offset-0 bg-surface-container cursor-pointer" id="check-batch" onchange="updateLockCount()" type="checkbox"/>
+<div class="text-xs sm:text-sm font-label-code-md text-on-surface font-semibold flex-1">
+                [4] Ingredient batch barcode scan confirmed free of tree nut co-packaging
+              </div>
+<span class="text-secondary text-xs font-label-code-md font-bold">[PENDING TAP]</span>
+</label>
+</div>
+<!-- 56PX MINIMUM TACTILE ADVANCE BUTTON -->
+<div class="mt-4">
+<button class="w-full min-h-[56px] px-6 bg-primary-container hover:bg-primary text-on-primary-container font-label-code-lg text-sm sm:text-base font-black uppercase tracking-wider border-2 border-outline-variant flex items-center justify-center gap-3 tactile-press shadow-none" id="btn-advance-kitchen" onclick="confirmKitchenGate()" type="button">
+<span class="material-symbols-outlined text-2xl" data-icon="fact_check">fact_check</span>
+<span>CONFIRM KITCHEN GATE PASS // HANDOFF TO WINDOW</span>
+</button>
+<div class="text-center text-[11px] font-label-code-md text-on-surface-variant mt-1.5" id="advance-warning">
+              Lockout active: Complete all 4 physical safety locks to enable baton advance.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: CUSTOMER ACKNOWLEDGMENT SLIP & DIGITAL HANDSHAKE (3 Cols) -->
+<aside class="lg:col-span-3 bg-surface-container-lowest border-l-2 border-outline-variant p-4 flex flex-col justify-between overflow-y-auto">
+<div>
+<!-- Slip Header -->
+<div class="pb-3 mb-4 border-b-2 border-outline-variant flex items-center justify-between">
+<div>
+<div class="text-xs font-label-code-md text-primary font-bold uppercase tracking-wider">HANDSHAKE TERMINAL</div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface">CUSTOMER ACKNOWLEDGMENT SLIP</h3>
+</div>
+<span class="material-symbols-outlined text-2xl text-on-surface-variant" data-icon="receipt_long">receipt_long</span>
+</div>
+<!-- Physical Slip Rendering (Paper Container Look) -->
+<div class="bg-surface-container border-2 border-outline-variant p-4 text-xs font-label-code-md relative">
+<!-- Slip Top Notches -->
+<div class="flex justify-between items-center pb-2 border-b border-dashed border-outline-variant mb-3 text-[11px] text-on-surface-variant">
+<span>TERMINAL: TRUCK-01</span>
+<span>BATON #AB-8492</span>
+</div>
+<div class="text-center font-label-relay-id text-sm font-bold text-on-surface mb-1">
+            ALLERGEN BATON VERIFICATION SLIP
+          </div>
+<div class="text-center text-[10px] text-on-surface-variant mb-3">
+            ATTACH PHYSICAL COPY TO OUTSIDE OF SALAD DOCK BOX
+          </div>
+<!-- Order Summary Lines -->
+<div class="space-y-1.5 py-2 border-y border-outline-variant mb-3">
+<div class="flex justify-between font-bold text-on-surface">
+<span>1x GRILLED CHICKEN SALAD</span>
+<span>$14.50</span>
+</div>
+<div class="text-[11px] text-secondary pl-2">
+              -- ZERO NUTS / PEANUTS
+            </div>
+<div class="text-[11px] text-secondary pl-2">
+              -- NO CROUTONS (FRYER RISK)
+            </div>
+<div class="text-[11px] text-primary pl-2">
+              -- ISOLATED GRIDDLE FLATTOP
+            </div>
+<div class="text-[11px] text-tertiary pl-2">
+              -- DRESSING: SEALED SINGLE POUCH
+            </div>
+</div>
+<!-- Mandatory Legal Disclaimer Banner -->
+<div class="p-2.5 bg-surface-container-lowest border-l-4 border-secondary text-[11px] leading-relaxed text-on-surface font-body-sm mb-3">
+<strong class="font-label-code-md text-secondary block mb-1 uppercase font-bold text-[10px]">NOTICE &amp; LEGAL DISCLAIMER:</strong>
+            "We operate in an open, high-volume mobile kitchen. While rigorous cross-contact sanitation protocols were followed for this preparation, shared airflow and supplier supply chains prevent a 100% sterile allergy-free guarantee. Customer acknowledged risk."
+          </div>
+<!-- Two-Way Digital Handshake Checkpoints -->
+<div class="space-y-2 pt-2 border-t border-outline-variant">
+<div class="text-[10px] uppercase font-bold text-on-surface-variant tracking-wider">
+              VERBAL READ-BACK RECORD
+            </div>
+<label class="flex items-start gap-2 text-[11px] text-on-surface cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-5 h-5 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 bg-surface-container" type="checkbox"/>
+<span>[x] Verbatim allergy read-back completed to guest before payment.</span>
+</label>
+<label class="flex items-start gap-2 text-[11px] text-on-surface cursor-pointer select-none">
+<input checked="" class="mt-0.5 w-5 h-5 rounded-none border-2 border-outline-variant text-tertiary-container focus:ring-0 bg-surface-container" type="checkbox"/>
+<span>[x] Customer explicit verbal agreement &amp; awareness documented.</span>
+</label>
+</div>
+<!-- Slip Barcode Simulation -->
+<div class="mt-4 pt-3 border-t border-dashed border-outline-variant flex flex-col items-center">
+<div class="font-label-code-md text-[10px] tracking-widest text-on-surface-variant mb-1">
+              *BATON-8492-RELAY-104*
+            </div>
+<div class="w-full h-8 bg-on-surface/20 flex items-center justify-between px-2 text-[9px] font-mono overflow-hidden">
+              ||| | |||| || ||| ||||| ||| || |||| ||| ||||| || ||| ||||
+            </div>
+</div>
+</div>
+</div>
+<!-- Action Touch Controls (Minimum 56px Touch Targets) -->
+<div class="mt-4 space-y-3 pt-3 border-t-2 border-outline-variant">
+<!-- Primary 56px Action Button: PRINT & PASS -->
+<button class="w-full min-h-[56px] px-4 bg-tertiary-container hover:bg-tertiary text-on-tertiary-container font-label-code-lg text-xs font-black uppercase tracking-wider border-2 border-outline-variant flex items-center justify-center gap-2.5 tactile-press shadow-none" onclick="printSlipAndAdvance()" type="button">
+<span class="material-symbols-outlined text-2xl" data-icon="receipt_long">receipt_long</span>
+<span>PRINT HANDOFF SLIP &amp; PASS BATON</span>
+</button>
+<!-- Secondary 56px Action Button: RE-VERIFY -->
+<button class="w-full min-h-[56px] px-4 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-code-lg text-xs font-bold uppercase tracking-wider border-2 border-outline-variant flex items-center justify-center gap-2 tactile-press" onclick="alert('AUDIT LOG: Re-verifying batch specifications with kitchen prep tablet.')" type="button">
+<span class="material-symbols-outlined text-xl text-primary" data-icon="sync">sync</span>
+<span>RE-VERIFY INGREDIENTS</span>
+</button>
+<!-- Audit Stamp Footer -->
+<div class="text-[10px] font-label-code-md text-on-surface-variant text-center flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-xs text-tertiary" data-icon="verified">verified</span>
+          AUDIT SECURE: IMMUTABLE SHIFT LOG RECORD #8492
+        </div>
+</div>
+</aside>
+</main>
+<!-- ================= INLINE INTERACTION JAVASCRIPT ================= -->
+<script>
+    function updateLockCount() {
+      const g = document.getElementById('check-gloves');
+      const b = document.getElementById('check-batch');
+      const counter = document.getElementById('lock-counter');
+      const warning = document.getElementById('advance-warning');
+      const btn = document.getElementById('btn-advance-kitchen');
+
+      let cleared = 2; // initial checked
+      if (g && g.checked) cleared++;
+      if (b && b.checked) cleared++;
+
+      counter.textContent = `${cleared} OF 4 CLEARED`;
+
+      if (cleared === 4) {
+        warning.textContent = "SAFETY CRITERIA MET. You may advance baton to Window Handoff.";
+        warning.className = "text-center text-[11px] font-label-code-md text-tertiary font-bold mt-1.5";
+        btn.classList.remove('bg-primary-container');
+        btn.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+      } else {
+        warning.textContent = `Lockout active: Complete all 4 physical safety locks to enable baton advance. (${4 - cleared} remaining)`;
+        warning.className = "text-center text-[11px] font-label-code-md text-on-surface-variant mt-1.5";
+        btn.classList.add('bg-primary-container');
+        btn.classList.remove('bg-tertiary-container', 'text-on-tertiary-container');
+      }
+    }
+
+    function confirmKitchenGate() {
+      const g = document.getElementById('check-gloves');
+      const b = document.getElementById('check-batch');
+      if (!g.checked || !b.checked) {
+        alert("LOCKOUT ENGAGED: Cannot advance baton #AB-8492. Tap and clear glove swap and batch scan verification locks first.");
+        return;
+      }
+      alert("BATON ADVANCED: Stage 02 (Kitchen Prep) PASSED. Transferred to Stage 03 (Window / Pickup). Customer handoff slip generating...");
+    }
+
+    function printSlipAndAdvance() {
+      alert("COMMAND SENT TO LABEL PRINTER 01:\n- Baton #AB-8492 label printed.\n- Affix physical red warning slip to box cover.\n- Expeditor must perform final verbal read-back to guest.");
+    }
+
+    function triggerEmergencyHalt() {
+      const confirmHalt = confirm("CRITICAL ALLERGEN EMERGENCY STOP REQUESTED.\n\nThis will lock down all cooking tickets across Truck-01 and trigger an audible alert to the Head Cook.\n\nProceed with emergency halt?");
+      if (confirmHalt) {
+        alert("ALLERGEN STOP DISPATCHED: Kitchen prep paused. Station tickets frozen. Shift Manager alerted.");
+      }
+    }
+  </script>
+</body></html>

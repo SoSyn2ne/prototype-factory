@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>THEATER // MOD ROLLBACK CONTROL</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts for Playfair Display, Hanken Grotesk, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300..900;1,300..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-tertiary-container": "#910013",
+            "on-background": "#e4e1e8",
+            "surface-bright": "#39393e",
+            "primary": "#ffc665",
+            "tertiary": "#ffc0bb",
+            "surface": "#131317",
+            "error": "#ffb4ab",
+            "on-surface-variant": "#d4c4b0",
+            "on-tertiary": "#68000a",
+            "outline-variant": "#504535",
+            "primary-fixed-dim": "#fabc4d",
+            "primary-fixed": "#ffdead",
+            "primary-container": "#e5a93c",
+            "on-primary-fixed": "#281900",
+            "tertiary-fixed-dim": "#ffb3ad",
+            "surface-container-high": "#2a292e",
+            "inverse-on-surface": "#303035",
+            "on-secondary": "#3c0091",
+            "on-secondary-fixed": "#23005c",
+            "on-tertiary-fixed": "#410004",
+            "error-container": "#93000a",
+            "tertiary-fixed": "#ffdad7",
+            "secondary-fixed": "#e9ddff",
+            "on-secondary-container": "#c4abff",
+            "background": "#131317",
+            "on-primary-fixed-variant": "#604100",
+            "surface-container-highest": "#353439",
+            "inverse-primary": "#7e5700",
+            "on-primary": "#432c00",
+            "surface-tint": "#fabc4d",
+            "surface-container-lowest": "#0e0e12",
+            "secondary-container": "#571bc1",
+            "on-error": "#690005",
+            "outline": "#9d8f7c",
+            "on-secondary-fixed-variant": "#5516be",
+            "surface-container-low": "#1b1b20",
+            "inverse-surface": "#e4e1e8",
+            "surface-variant": "#353439",
+            "surface-container": "#1f1f24",
+            "on-surface": "#e4e1e8",
+            "on-error-container": "#ffdad6",
+            "surface-dim": "#131317",
+            "secondary": "#d0bcff",
+            "on-primary-container": "#5e4000",
+            "secondary-fixed-dim": "#d0bcff",
+            "on-tertiary-fixed-variant": "#930013",
+            "tertiary-container": "#ff9790"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-2xl": "4rem",
+            "space-sm": "0.5rem",
+            "space-lg": "1.5rem",
+            "space-xl": "2.5rem",
+            "gutter-desktop": "1.75rem",
+            "space-md": "1rem",
+            "margin": "1.5rem",
+            "margin-desktop": "2.5rem",
+            "gutter": "1.25rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "display-hero-mobile": ["Playfair Display"],
+            "body-sm": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Playfair Display"],
+            "headline-lg": ["Playfair Display"],
+            "body-md": ["Hanken Grotesk"],
+            "telemetry-sm": ["JetBrains Mono"],
+            "headline-md": ["Playfair Display"],
+            "title-md": ["Hanken Grotesk"],
+            "telemetry-lg": ["JetBrains Mono"],
+            "telemetry-md": ["JetBrains Mono"],
+            "title-lg": ["Hanken Grotesk"],
+            "body-lg": ["Hanken Grotesk"],
+            "display-hero": ["Playfair Display"],
+            "headline-sm": ["Playfair Display"],
+            "label-caps": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "display-hero-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "telemetry-sm": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+            "headline-md": ["28px", { "lineHeight": "36px", "fontWeight": "600" }],
+            "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }],
+            "telemetry-lg": ["15px", { "lineHeight": "22px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "telemetry-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.03em", "fontWeight": "400" }],
+            "title-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["22px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "label-caps": ["10px", { "lineHeight": "14px", "letterSpacing": "0.14em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Custom Stagecraft Effects */
+    .hazard-stripe {
+      background: repeating-linear-gradient(
+        -45deg,
+        #93000a,
+        #93000a 8px,
+        #281900 8px,
+        #281900 16px
+      );
+    }
+    .spotlight-cone {
+      background: radial-gradient(circle at 50% 0%, rgba(229, 169, 60, 0.18) 0%, rgba(229, 169, 60, 0.04) 45%, transparent 75%);
+    }
+    .shadow-trench {
+      background: radial-gradient(circle at 50% 0%, rgba(147, 0, 10, 0.12) 0%, rgba(14, 14, 18, 0.95) 70%);
+    }
+    .marquee-glow {
+      box-shadow: 0 0 25px -4px rgba(229, 169, 60, 0.45), inset 0 0 10px rgba(229, 169, 60, 0.2);
+    }
+    .violet-constellation-pulse {
+      box-shadow: 0 0 35px -8px rgba(139, 92, 246, 0.35);
+    }
+    .tactile-lever {
+      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.2), 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+    /* Rewind Screen Flash Overlay */
+    #rewind-scrim {
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    /* Slider Range Custom Thumb */
+    input[type=range]::-webkit-slider-thumb {
+      appearance: none;
+      width: 24px;
+      height: 38px;
+      background: #ffc665;
+      border: 2px solid #281900;
+      border-radius: 4px;
+      cursor: ew-resize;
+      box-shadow: 0 0 12px rgba(229, 169, 60, 0.8);
+    }
+  </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface antialiased overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col">
+<!-- THEATER TOP MARQUEE COCKPIT (Shared Component: TopNavBar mapped to JSON) -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest border-b border-outline-variant dark:border-outline-variant shadow-md flex justify-between items-center w-full px-space-lg py-space-sm h-16 sticky top-0 z-50">
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-2xl" style="font-variation-settings: 'FILL' 1;">theater_comedy</span>
+<span class="font-headline-sm text-headline-sm font-semibold tracking-wider text-primary dark:text-primary uppercase">THEATER // MOD ROLLBACK CONTROL</span>
+</div>
+<div class="hidden xl:flex items-center gap-space-xs px-space-sm py-0.5 rounded bg-surface-container-high border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">PRODUCTION #TH-8842 // ISOLATED CUE DECK</span>
+</div>
+</div>
+<!-- Central Cockpit Navigation Links -->
+<nav class="hidden lg:flex items-center gap-space-lg">
+<a class="text-primary dark:text-primary border-b-2 border-primary font-title-md text-title-md py-1 transition-colors" href="#repertoire-section">REPERTOIRE</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-title-md text-title-md py-1 hover:text-primary transition-colors" href="#constellation-section">BLAST RADIUS</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-title-md text-title-md py-1 hover:text-primary transition-colors" href="#stagebox-section">STAGE BOX</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant font-title-md text-title-md py-1 hover:text-primary transition-colors" href="#curtain-section">CURTAIN REVEAL</a>
+</nav>
+<!-- Cockpit Telemetry Strip & Actions -->
+<div class="flex items-center gap-space-md">
+<!-- Live Telemetry Readout -->
+<div class="hidden md:flex items-center gap-space-md px-space-md py-1 bg-surface-container-low rounded border border-outline-variant">
+<div class="flex flex-col text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant">REHEARSAL TELEMETRY</span>
+<div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm">
+<span class="text-primary font-bold" id="telemetry-fps">118 FPS</span>
+<span class="text-outline">|</span>
+<span class="text-secondary" id="telemetry-vram">6.2 GB VRAM</span>
+</div>
+</div>
+<div class="h-6 w-px bg-outline-variant"></div>
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">shield</span>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-primary">SANDBOX WRITES</span>
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface">100% VIRTUAL (0 B MASTER)</span>
+</div>
+</div>
+</div>
+<!-- Marquee Toggle Button -->
+<button class="hidden sm:flex items-center gap-1.5 px-space-sm py-1.5 rounded bg-surface-container-high border border-outline-variant text-primary font-label-caps text-label-caps hover:bg-surface-container-highest transition-colors active:scale-95 duration-75" id="spotlight-btn">
+<span class="material-symbols-outlined text-base">theater_comedy</span>
+<span>SPOTLIGHT: ON</span>
+</button>
+<!-- PULL EMERGENCY ROLLBACK Cord Lever Button -->
+<button class="hazard-stripe relative overflow-hidden group flex items-center gap-space-xs px-space-md py-2 rounded text-on-error-container font-label-caps text-label-caps tracking-widest border border-error active:scale-95 transition-transform duration-75 shadow-lg" id="header-emergency-pull">
+<div class="absolute inset-0 bg-error-container/60 group-hover:bg-error-container/40 transition-colors"></div>
+<span class="material-symbols-outlined relative z-10 text-tertiary-container animate-bounce">lock_reset</span>
+<span class="relative z-10 font-bold uppercase tracking-wider">PULL EMERGENCY ROLLBACK</span>
+<span class="material-symbols-outlined relative z-10 text-tertiary-container">warning</span>
+</button>
+</div>
+</header>
+<div class="flex-1 flex w-full">
+<!-- PERSISTENT SIDE NAVIGATION (Shared Component: SideNavBar mapped to JSON) -->
+<aside class="hidden xl:flex h-[calc(100vh-4rem)] w-80 docked left-0 top-16 flex-col justify-between p-space-md shrink-0 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant dark:border-outline-variant sticky top-16">
+<!-- Deck Header -->
+<div class="space-y-space-md">
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">tune</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">STAGE DIRECTOR PASSCODE KEY</div>
+<h3 class="font-title-md text-title-md font-bold text-on-surface">STAGE MANAGER DECK</h3>
+<p class="font-telemetry-sm text-telemetry-sm text-secondary">GATEWAY: DISPOSABLE COPY (ARMED)</p>
+</div>
+</div>
+<!-- Tab Items -->
+<nav class="space-y-space-xs">
+<!-- Active Nav Item -->
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded bg-surface-container-highest dark:bg-surface-container-highest text-primary dark:text-primary font-title-md text-title-md border-l-2 border-primary active:translate-x-0.5 duration-100 transition-all" href="#repertoire-section">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">tune</span>
+<span>Master Deck</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-0.5 duration-100" href="#stage-doors">
+<span class="material-symbols-outlined">door_sliding</span>
+<span>Sandbox Gateway</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-0.5 duration-100" href="#constellation-section">
+<span class="material-symbols-outlined">hub</span>
+<span>Blast Constellation</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-0.5 duration-100" href="#stagebox-section">
+<span class="material-symbols-outlined">cable</span>
+<span>Conflict Resolver</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-md py-space-sm rounded text-on-surface-variant dark:text-on-surface-variant font-body-md text-body-md hover:bg-surface-container-high hover:text-on-surface transition-colors active:translate-x-0.5 duration-100" href="#curtain-section">
+<span class="material-symbols-outlined">history</span>
+<span>Rollback Archive</span>
+</a>
+</nav>
+<!-- Staging Action CTA Button -->
+<div class="pt-space-sm">
+<button class="w-full flex items-center justify-center gap-space-xs py-space-sm px-space-md rounded bg-primary text-on-primary font-title-md text-title-md font-bold shadow-lg hover:shadow-primary/30 transition-all active:scale-95 duration-75" id="side-deploy-cta">
+<span class="material-symbols-outlined text-lg">play_circle</span>
+<span>DEPLOY REHEARSAL</span>
+</button>
+</div>
+</div>
+<!-- Deck Footer Controls -->
+<div class="border-t border-outline-variant pt-space-md space-y-space-xs">
+<div class="px-space-sm py-1 font-label-caps text-label-caps text-outline tracking-wider uppercase">MAINTENANCE RIGGING</div>
+<button class="w-full flex items-center gap-space-sm px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-body-sm font-body-sm transition-colors text-left">
+<span class="material-symbols-outlined text-base">monitor_heart</span>
+<span>Rigging Diagnostics</span>
+</button>
+<button class="w-full flex items-center gap-space-sm px-space-md py-2 rounded text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface text-body-sm font-body-sm transition-colors text-left">
+<span class="material-symbols-outlined text-base">lock_open</span>
+<span>Curtain Lock Override</span>
+</button>
+</div>
+</aside>
+<!-- CENTERSTAGE MAIN WORKSPACE -->
+<main class="flex-1 min-w-0 bg-surface-container-lowest p-space-md md:p-space-xl space-y-space-2xl">
+<!-- HERO GATEWAY: DUAL STAGE DOOR PORTAL -->
+<section class="relative" id="stage-doors">
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-sm mb-space-md border-b border-outline-variant pb-space-sm">
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">ACT I // ISOLATION PROTOCOL ARCHITECTURE</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Dual Stage Door Portal</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-1 rounded bg-surface-container text-secondary font-label-caps text-label-caps border border-outline-variant">SYSTEM: VOLATILE SYMLINK CLONE</span>
+<span class="px-space-sm py-1 rounded bg-primary-container/20 text-primary font-label-caps text-label-caps border border-primary/30">ARMED IN MEMORY</span>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- Left Door: STAGE DOOR A: DISPOSABLE COPY (SANDBOX) -->
+<div class="relative rounded border-2 border-primary-container bg-surface-container-low spotlight-cone overflow-hidden p-space-lg marquee-glow transition-all hover:border-primary">
+<!-- Filament Marquee Top Strip -->
+<div class="flex items-center justify-between pb-space-md border-b border-outline-variant/60">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-caps text-label-caps text-primary tracking-widest font-bold">LIVE &amp; ARMED</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-primary-fixed-dim">
+<span class="material-symbols-outlined text-sm">lock_open</span>
+<span>LATCH: UNLOCKED</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="py-space-lg space-y-space-md">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">APERTURE 01 // DRY-RUN REHEARSAL</span>
+<h3 class="font-headline-sm text-headline-sm text-primary font-bold mt-1">STAGE DOOR A: DISPOSABLE COPY (SANDBOX)</h3>
+</div>
+<div class="p-3 bg-primary-container/20 border border-primary rounded text-primary">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">theater_comedy</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                Virtual staging ground with ephemeral symlinks &amp; memory fork. Zero risk to base game. Dynamic shader compilation and hook injection execute inside an isolated disposable workspace.
+              </p>
+<!-- Telemetry Metrics Inset -->
+<div class="grid grid-cols-3 gap-space-sm bg-surface-container-lowest p-space-sm rounded border border-outline-variant">
+<div>
+<div class="font-label-caps text-label-caps text-outline">EPHEMERAL DELTA</div>
+<div class="font-telemetry-md text-telemetry-md text-primary font-bold mt-0.5">+4.82 GB</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-outline">SYMLINK INSERTS</div>
+<div class="font-telemetry-md text-telemetry-md text-secondary font-bold mt-0.5">148 HOOKS</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-outline">FAILSAFE STATUS</div>
+<div class="font-telemetry-md text-telemetry-md text-primary font-bold mt-0.5">DISPOSABLE</div>
+</div>
+</div>
+</div>
+<!-- Door Footer Trigger -->
+<div class="pt-space-sm border-t border-outline-variant/60 flex items-center justify-between">
+<span class="font-telemetry-sm text-telemetry-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-primary">radio_button_checked</span>
+                Target: sandbox_rehearsal_v4/
+              </span>
+<button class="px-space-md py-1.5 rounded bg-primary-container text-on-primary-container font-label-caps text-label-caps font-bold hover:bg-primary transition-colors">
+                ENTER SANDBOX
+              </button>
+</div>
+</div>
+<!-- Right Door: STAGE DOOR B: REAL INSTALL (MASTER) -->
+<div class="relative rounded border-2 border-outline-variant bg-surface-container-lowest shadow-trench overflow-hidden p-space-lg transition-all">
+<!-- Warning Header Strip -->
+<div class="flex items-center justify-between pb-space-md border-b border-outline-variant/40">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-error-container"></span>
+<span class="font-label-caps text-label-caps text-error tracking-widest font-bold">LOCKED DURING REHEARSAL // WRITE PROHIBITED</span>
+</div>
+<div class="flex items-center gap-1 font-telemetry-sm text-telemetry-sm text-error">
+<span class="material-symbols-outlined text-sm">lock</span>
+<span>SECURED SEAL</span>
+</div>
+</div>
+<!-- Content Area -->
+<div class="py-space-lg space-y-space-md">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-outline uppercase tracking-wider">APERTURE 02 // MASTER VAULT</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface-variant font-bold mt-1">STAGE DOOR B: REAL INSTALL (MASTER)</h3>
+</div>
+<div class="p-3 bg-surface-container-high border border-outline-variant rounded text-outline">
+<span class="material-symbols-outlined text-3xl">gavel</span>
+</div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">
+                Cast in backstage shadow, protected by hardware interlocks and tripwire diff sensors. Master directory pointers remain strictly immutable until stage rehearsal passes all integrity gate checks.
+              </p>
+<!-- Protection Indicators -->
+<div class="grid grid-cols-3 gap-space-sm bg-surface-container-low/60 p-space-sm rounded border border-outline-variant/60">
+<div>
+<div class="font-label-caps text-label-caps text-outline">WRITE MUTATIONS</div>
+<div class="font-telemetry-md text-telemetry-md text-error font-bold mt-0.5">0 BYTES (BLOCKED)</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-outline">LASER TRIPWIRES</div>
+<div class="font-telemetry-md text-telemetry-md text-on-surface-variant font-bold mt-0.5">ARMED &amp; ACTIVE</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-outline">MASTER HASH</div>
+<div class="font-telemetry-md text-telemetry-md text-outline font-bold mt-0.5">SHA-256 VERIFIED</div>
+</div>
+</div>
+</div>
+<!-- Footer Action (Locked) -->
+<div class="pt-space-sm border-t border-outline-variant/40 flex items-center justify-between">
+<span class="font-telemetry-sm text-telemetry-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-error">key_off</span>
+                BREAK SEAL TO COMMIT (REQUIRES RESOLUTION)
+              </span>
+<button class="cursor-not-allowed opacity-50 px-space-md py-1.5 rounded bg-surface-container-high text-outline font-label-caps text-label-caps" disabled="">
+                LOCKED BY CURTAIN
+              </button>
+</div>
+</div>
+</div>
+</section>
+<!-- MOCK MOD REPERTOIRE (SCENARIO SELECTOR) -->
+<section class="space-y-space-md" id="repertoire-section">
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div>
+<div class="font-label-caps text-label-caps text-secondary tracking-widest uppercase">ACT II // AUDITION ROSTER</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Mock Mod Repertoire</h2>
+</div>
+<div class="font-body-md text-body-md text-on-surface-variant">
+            Click audition card to inspect dependency blast radius and stage cues.
+          </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-space-md" id="mod-cards-grid">
+<!-- Mod 1: Aetherial Reshade Ultra v4.2 -->
+<div class="mod-card cursor-pointer group bg-surface-container-low hover:bg-surface-container border-2 border-primary rounded p-space-md transition-all relative overflow-hidden" data-mod="1">
+<div class="absolute -top-12 -right-12 w-28 h-28 bg-primary/10 rounded-full blur-xl pointer-events-none"></div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-primary-container/20 text-primary border border-primary/40 font-bold">
+                CLEAN REHEARSAL
+              </span>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">SCENE 01 // GRAPHICS INJECTOR</span>
+<h4 class="font-title-lg text-title-lg text-primary font-bold mt-1 group-hover:text-primary-fixed transition-colors">Aetherial Reshade Ultra v4.2</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+              High fidelity shader chain, 0 collisions detected, 120 FPS safe in virtual runtime.
+            </p>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between font-telemetry-sm text-telemetry-sm text-on-surface">
+<span>Blast: 12 Shaders</span>
+<span class="text-primary font-semibold">Ready to Preview</span>
+</div>
+</div>
+<!-- Mod 2: Titan Body Physics & Skeleton Rig -->
+<div class="mod-card cursor-pointer group bg-surface-container-low hover:bg-surface-container border border-outline-variant rounded p-space-md transition-all relative" data-mod="2">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-tertiary-container/20 text-tertiary border border-tertiary/40 font-bold">
+                DEPENDENCY MISSING
+              </span>
+<span class="material-symbols-outlined text-tertiary">link_off</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">SCENE 02 // SKELETAL RIGGING</span>
+<h4 class="font-title-lg text-title-lg text-on-surface font-bold mt-1 group-hover:text-primary transition-colors">Titan Body Physics &amp; Skeleton Rig</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+              Lacks mandatory header 'AnvilCore.dll v3.1'. Physics engine fallback triggered.
+            </p>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-error font-medium">1 Missing Link</span>
+<span class="text-outline">Shim Needed</span>
+</div>
+</div>
+<!-- Mod 3: Neo-Tokyo Weaponry & Ballistics Pack -->
+<div class="mod-card cursor-pointer group bg-surface-container-low hover:bg-surface-container border border-outline-variant rounded p-space-md transition-all relative" data-mod="3">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-secondary-container/40 text-secondary border border-secondary/40 font-bold">
+                VERSION CONFLICT
+              </span>
+<span class="material-symbols-outlined text-secondary">cable</span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">SCENE 03 // AUDIO &amp; SOUND MGR</span>
+<h4 class="font-title-lg text-title-lg text-on-surface font-bold mt-1 group-hover:text-primary transition-colors">Neo-Tokyo Weaponry &amp; Ballistics Pack</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+              Overwrites existing SoundManager v1.2 with incompatible v2.0 library.
+            </p>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-secondary font-semibold">DLL Conflict</span>
+<span class="text-outline">Priority Reposition</span>
+</div>
+</div>
+<!-- Mod 4: Omni-Economy Global Script Engine -->
+<div class="mod-card cursor-pointer group bg-surface-container-low hover:bg-surface-container border border-error-container/60 rounded p-space-md transition-all relative" data-mod="4">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-caps text-label-caps px-2 py-0.5 rounded bg-error-container/40 text-error border border-error/50 font-bold animate-pulse">
+                SAVE-RISK WARNING
+              </span>
+<span class="material-symbols-outlined text-error">warning</span>
+</div>
+<span class="font-label-caps text-label-caps text-error">SCENE 04 // PERSISTENCE HAZARD</span>
+<h4 class="font-title-lg text-title-lg text-on-surface font-bold mt-1 group-hover:text-primary transition-colors">Omni-Economy Global Script Engine</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">
+              Direct persistent save table mutation hazard. Quarantined in isolated sandbox slot.
+            </p>
+<div class="mt-space-md pt-space-xs border-t border-outline-variant flex justify-between font-telemetry-sm text-telemetry-sm">
+<span class="text-error font-bold">SAVEGAME_01.SAV</span>
+<span class="text-error">Fenced Slot</span>
+</div>
+</div>
+</div>
+</section>
+<!-- VISUAL FILE BLAST RADIUS CONSTELLATION & TELEMETRY INSPECTOR -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg" id="constellation-section">
+<!-- Interactive Orbital Radar / Nodal Map (8 Cols) -->
+<div class="lg:col-span-8 bg-surface-container-low rounded border border-outline-variant p-space-lg relative overflow-hidden flex flex-col justify-between min-h-[480px]">
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-space-sm">
+<div>
+<div class="font-label-caps text-label-caps text-secondary tracking-widest uppercase">RADAR APERTURE // MEMORY INJECTION DEPTH</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">File Blast Radius Constellation</h3>
+</div>
+<div class="flex items-center gap-space-xs font-telemetry-sm text-telemetry-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="text-on-surface-variant">ACTIVE ORBIT HOOKS: 18 NODES</span>
+</div>
+</div>
+<!-- Theatrical Interactive Radar Canvas Container -->
+<div class="relative flex-1 flex items-center justify-center my-space-md min-h-[340px]">
+<!-- Radar Concentric Rings -->
+<div class="absolute w-[360px] h-[360px] rounded-full border border-outline-variant/30 pointer-events-none"></div>
+<div class="absolute w-[260px] h-[260px] rounded-full border border-secondary/20 pointer-events-none animate-pulse"></div>
+<div class="absolute w-[160px] h-[160px] rounded-full border border-primary/20 pointer-events-none"></div>
+<!-- Diagonal Crosshairs -->
+<div class="absolute w-full h-px bg-outline-variant/20 pointer-events-none"></div>
+<div class="absolute h-full w-px bg-outline-variant/20 pointer-events-none"></div>
+<!-- Core Central Node -->
+<div class="relative z-20 cursor-pointer p-space-sm rounded-full bg-primary-container text-on-primary-container flex flex-col items-center justify-center shadow-lg border-2 border-primary hover:scale-110 transition-transform" id="radar-core">
+<span class="material-symbols-outlined text-2xl">memory</span>
+<span class="font-label-caps text-label-caps font-extrabold mt-0.5">dxgi.dll</span>
+</div>
+<!-- Orbit 1 Node: Shaders & Render Pipeline (Electric Violet) -->
+<div class="radar-node absolute -translate-x-20 -translate-y-20 z-10 cursor-pointer bg-surface-container-highest border border-secondary text-secondary p-space-xs rounded-md flex items-center gap-1 hover:scale-105 transition-transform shadow-md" data-target="shaders">
+<span class="material-symbols-outlined text-sm">auto_fix_high</span>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold">PostProcess.fx</span>
+</div>
+<!-- Orbit 2 Node: Textures & Meshes (Spotlight Gold) -->
+<div class="radar-node absolute translate-x-32 -translate-y-16 z-10 cursor-pointer bg-surface-container-highest border border-primary text-primary p-space-xs rounded-md flex items-center gap-1 hover:scale-105 transition-transform shadow-md" data-target="textures">
+<span class="material-symbols-outlined text-sm">palette</span>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold">Textures_4K.ba2</span>
+</div>
+<!-- Orbit 3 Node: Script VM Hook (Amber Warning) -->
+<div class="radar-node absolute -translate-x-28 translate-y-24 z-10 cursor-pointer bg-surface-container-highest border border-outline text-primary-fixed-dim p-space-xs rounded-md flex items-center gap-1 hover:scale-105 transition-transform shadow-md" data-target="scripts">
+<span class="material-symbols-outlined text-sm">code</span>
+<span class="font-telemetry-sm text-telemetry-sm font-semibold">VM_EventManager.pex</span>
+</div>
+<!-- Hazard Sector Node: Fenced Save File -->
+<div class="radar-node absolute translate-x-32 translate-y-28 z-10 cursor-pointer bg-error-container/40 border border-error text-error p-space-xs rounded-md flex items-center gap-1 hover:scale-105 transition-transform shadow-md animate-pulse" data-target="savegame">
+<span class="material-symbols-outlined text-sm">shield_with_house</span>
+<span class="font-telemetry-sm text-telemetry-sm font-bold">SAVEGAME_SLOT_01.SAV</span>
+</div>
+</div>
+<!-- Radar Legend Bottom Bar -->
+<div class="border-t border-outline-variant/60 pt-space-xs flex flex-wrap items-center justify-between text-body-sm font-body-sm">
+<div class="flex items-center gap-space-md">
+<span class="flex items-center gap-1 text-secondary font-telemetry-sm text-telemetry-sm">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> Orbit 1: Core Shaders
+              </span>
+<span class="flex items-center gap-1 text-primary font-telemetry-sm text-telemetry-sm">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Orbit 2: Texture Overrides
+              </span>
+<span class="flex items-center gap-1 text-error font-telemetry-sm text-telemetry-sm">
+<span class="w-2 h-2 rounded-full bg-error"></span> Hazard: Quarantined Save Slot
+              </span>
+</div>
+<span class="font-label-caps text-label-caps text-outline">CLICK NODE TO AUDIT HASH</span>
+</div>
+</div>
+<!-- Node Telemetry Inspector Card (4 Cols) -->
+<div class="lg:col-span-4 bg-surface-container rounded border border-outline-variant p-space-md flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between border-b border-outline-variant/60 pb-space-xs mb-space-sm">
+<span class="font-label-caps text-label-caps text-primary tracking-widest uppercase">RIGGING INSPECTOR</span>
+<span class="px-2 py-0.5 rounded bg-primary-container/20 text-primary border border-primary/40 font-label-caps text-label-caps font-bold" id="node-status-badge">
+                SYMLINK DIVERTED
+              </span>
+</div>
+<h4 class="font-title-lg text-title-lg text-on-surface font-bold" id="node-inspector-title">
+              Textures_4K.ba2 [Mesh Layer]
+            </h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1" id="node-inspector-desc">
+              4.2 GB high-resolution normal map override intercepted by stage symlink redirection.
+            </p>
+<!-- Detailed Hash Diagnostics Table -->
+<div class="mt-space-md space-y-space-xs bg-surface-container-lowest p-space-sm rounded border border-outline-variant">
+<div>
+<span class="font-label-caps text-label-caps text-outline">ORIGINAL SHA-256 HASH</span>
+<div class="font-telemetry-sm text-telemetry-sm text-on-surface-variant truncate" id="original-hash">
+                  8a9f4c39e2b10091bfd41...a49
+                </div>
+</div>
+<div class="pt-space-xs border-t border-outline-variant/40">
+<span class="font-label-caps text-label-caps text-primary">MODIFIED VIRTUAL HASH</span>
+<div class="font-telemetry-sm text-telemetry-sm text-primary truncate" id="staged-hash">
+                  e21bb5920cf192fa998a4...0bc
+                </div>
+</div>
+<div class="pt-space-xs border-t border-outline-variant/40 flex justify-between">
+<div>
+<span class="font-label-caps text-label-caps text-outline">INJECTION DEPTH</span>
+<div class="font-telemetry-md text-telemetry-md text-secondary font-bold">Direct Hook</div>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-outline">DISPOSABLE MEMORY</span>
+<div class="font-telemetry-md text-telemetry-md text-on-surface font-bold">4,284 MB</div>
+</div>
+</div>
+</div>
+<!-- Safety Quarantine Notice -->
+<div class="mt-space-md p-space-sm bg-surface-container-high rounded border border-outline-variant flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-base mt-0.5">verified_user</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Stage interlock prevents this asset from writing to base game directory until the Rehearsal Curtain is dropped or confirmed.
+              </p>
+</div>
+</div>
+<div class="pt-space-md border-t border-outline-variant/60 flex items-center justify-between">
+<button class="w-full py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest border border-outline text-primary font-label-caps text-label-caps tracking-wider transition-colors" id="inspect-diff-btn">
+              AUDIT FULL BYTECODE DIFF
+            </button>
+</div>
+</div>
+</section>
+<!-- CONFLICT RESOLUTION STAGE BOX -->
+<section class="bg-surface-container-low rounded border border-outline-variant p-space-lg space-y-space-md" id="stagebox-section">
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">ACT III // BACKSTAGE RIGGING LEVERS</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Conflict Resolution Stage Box</h2>
+</div>
+<div class="flex items-center gap-space-sm">
+<span class="font-label-caps text-label-caps text-outline uppercase">READINESS SCORE:</span>
+<span class="font-telemetry-lg text-telemetry-lg font-bold text-primary px- space-sm py-0.5 bg-surface-container rounded border border-primary/40" id="readiness-score">
+              72% REHEARSAL SAFE
+            </span>
+</div>
+</div>
+<!-- 3 Tactile Industrial Toggle Controls -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md pt-space-xs">
+<!-- Toggle 1: Shim Compatibility Layer -->
+<div class="p-space-md bg-surface-container rounded border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-caps text-label-caps text-secondary font-bold">HOOK LEVER A</span>
+<span class="font-label-caps text-label-caps text-primary bg-primary-container/20 px-2 py-0.5 rounded border border-primary/30" id="badge-toggle-1">ACTIVE</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">Shim Compatibility Layer</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Synthesizes missing DLL headers automatically. Resolves missing AnvilCore.dll calls in virtual memory.
+              </p>
+</div>
+<div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/60">
+<span class="font-telemetry-sm text-telemetry-sm text-outline">VIRTUAL SHIM</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-shim" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-primary-fixed peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-fixed after:border-outline after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+</label>
+</div>
+</div>
+<!-- Toggle 2: Load Order Spotlight Priority -->
+<div class="p-space-md bg-surface-container rounded border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-caps text-label-caps text-primary font-bold">HOOK LEVER B</span>
+<span class="font-label-caps text-label-caps text-primary bg-primary-container/20 px-2 py-0.5 rounded border border-primary/30" id="badge-toggle-2">DOWNSTAGE</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">Load Order Spotlight Priority</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Forces mod to lower stage priority. Preserves existing SoundManager audio subsystems.
+              </p>
+</div>
+<div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/60">
+<span class="font-telemetry-sm text-telemetry-sm text-outline">PRIORITY BIAS</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-priority" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-primary-fixed peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-fixed after:border-outline after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+</label>
+</div>
+</div>
+<!-- Toggle 3: Isolate Save Delta to Rehearsal Slot -->
+<div class="p-space-md bg-surface-container rounded border border-outline-variant flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-xs">
+<span class="font-label-caps text-label-caps text-tertiary font-bold">HOOK LEVER C</span>
+<span class="font-label-caps text-label-caps text-tertiary bg-tertiary-container/20 px-2 py-0.5 rounded border border-tertiary/30" id="badge-toggle-3">QUARANTINE ARMED</span>
+</div>
+<h4 class="font-title-md text-title-md text-on-surface font-bold">Isolate Save Delta to Slot</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+                Clones save slot into volatile sandbox container. Real save files remain 100% write-blocked.
+              </p>
+</div>
+<div class="mt-space-md flex items-center justify-between pt-space-xs border-t border-outline-variant/60">
+<span class="font-telemetry-sm text-telemetry-sm text-outline">VOLATILE CLONE</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" id="toggle-save" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-primary-fixed peer-checked:bg-primary-container after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-primary-fixed after:border-outline after:border after:rounded-full after:h-5 after:w-5 after:transition-all"></div>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- DRAMATIC CURTAIN REVEAL (INTERACTIVE BEFORE/AFTER SLIDER) -->
+<section class="bg-surface-container-low rounded border border-outline-variant p-space-lg space-y-space-md" id="curtain-section">
+<div class="flex flex-col md:flex-row items-center justify-between gap-space-sm border-b border-outline-variant pb-space-sm">
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">ACT IV // DUAL-LEAF VIEWPORT</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Dramatic Curtain Reveal</h2>
+</div>
+<div class="font-telemetry-sm text-telemetry-sm text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-primary">drag_indicator</span>
+            DRAG BRASS CURTAIN CABLE TO COMPARE RUNTIME SHADERS
+          </div>
+</div>
+<!-- The Viewport Split Container -->
+<div class="relative w-full h-[460px] rounded overflow-hidden select-none border-2 border-outline-variant shadow-2xl bg-surface-container-lowest" id="curtain-viewport">
+<!-- Layer 1 (Left / Vanilla Base Underneath) -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="A dark and gritty backstage theater setting showing raw game rendering without modern shaders. The image features untextured industrial steel scaffolds, low-contrast muted lighting in dark charcoals and flat grays, with technical backstage monitors casting dim amber flickers in an empty theater hangar." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCLP12lv8ygVlZR13jLd90zSYNLNehs1tLpOgCjjF99amrszIOdM2ksyckVjKLLsnTpO53LISW7r_JV4EA8DP-UhmaLfeS6ivZMqc4V--lt404pn19llSH4WGvNMVDP3UMX-n89e7HODfGFm9qU_Okd_Ysdv9-Ude_84AeGZrrJ05MqMgd3ueCEYbUyntAcdsJ8Wc0CBWfXxnBAdilXu_phLAdamq3bFfI9avXXmGK5y3vih6Akq--b8xPgxgp3Ba1yFjXaKS_T1w')">
+<!-- Telemetry HUD Left (Vanilla) -->
+<div class="absolute top-4 left-4 p-space-sm bg-surface-container-lowest/80 backdrop-blur-md rounded border border-outline-variant z-10">
+<div class="font-label-caps text-label-caps text-outline uppercase font-bold">LEFT CURTAIN // VANILLA RUNTIME</div>
+<div class="font-headline-sm text-headline-sm text-on-surface font-semibold mt-1">60 FPS LOCKED</div>
+<div class="font-telemetry-sm text-telemetry-sm text-on-surface-variant mt-0.5">4.1 GB VRAM // 1080P STANDARD</div>
+</div>
+</div>
+<!-- Layer 2 (Right / Modded Staging Viewport with dynamic clip-path) -->
+<div class="absolute inset-0 w-full h-full bg-cover bg-center" data-alt="A cinematic theatrical rendering showing the ultra-modded state of the same scene. Glorious volumetric gold godrays stream from stage spotlights, illuminating rich deep violet atmospheric particles and high-resolution brass fixtures with realistic reflections, extreme cinematic depth of field, and vivid warm rim lighting." id="curtain-modded-layer" style="clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%); background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZEd7ynlYlARq1R0q6VZyycCMqX9JVXULuAmUI2-0TrIcxoQxIrkLQzqUmJmELwA6Mh3w9IZvxiHOwf6Hmdc6bwbryPyjMDFrf0CQf0hr4892BdeiQjW4CXU9StUZFdOhPWP2OqCOopNklq2gi9CNVJB_iRe4YJlpOshpzOhWHcqRPH4R0aezM3F4oUEbiIiXI4dBOrpN-rcVZMgE_NPRTPAqGKnvDSuDhcbWrElekmIs2LUs59qQ2cGZILjpjHVE-h9ldqUVkUg')">
+<!-- Telemetry HUD Right (Modded) -->
+<div class="absolute top-4 right-4 p-space-sm bg-surface-container-lowest/85 backdrop-blur-md rounded border border-primary/60 text-right z-10 shadow-lg">
+<div class="font-label-caps text-label-caps text-primary uppercase font-bold">RIGHT CURTAIN // STAGED REHEARSAL</div>
+<div class="font-headline-sm text-headline-sm text-primary font-semibold mt-1">118 FPS V-SYNC</div>
+<div class="font-telemetry-sm text-telemetry-sm text-secondary mt-0.5">6.8 GB VRAM // 4K VOLUMETRICS</div>
+</div>
+</div>
+<!-- Movable Velvet/Brass Center Divider Cable -->
+<div class="absolute top-0 bottom-0 w-1 bg-primary cursor-ew-resize z-20 pointer-events-none" id="curtain-divider-line" style="left: 50%;">
+<!-- Brass Pull Cable Weight Knob -->
+<div class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-10 h-10 rounded-full bg-primary-container border-2 border-on-primary-container shadow-2xl flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-lg">swap_horiz</span>
+</div>
+</div>
+<!-- Hidden Range Input Overlay for Drag Interactivity -->
+<input class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30 m-0 p-0" id="curtain-slider" max="100" min="0" type="range" value="50"/>
+</div>
+</section>
+<!-- STAGE DIRECTOR MASTER CONTROLS & ROLLBACK STATE (Bottom Command Bridge) -->
+<section class="bg-surface-container-high rounded border-2 border-primary-container/40 p-space-md md:p-space-lg flex flex-col md:flex-row items-center justify-between gap-space-lg shadow-xl">
+<div class="flex items-center gap-space-md">
+<div class="p-space-sm rounded bg-surface-container-lowest border border-outline-variant">
+<span class="material-symbols-outlined text-3xl text-primary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">COMMAND RIGGING SAFETY INTERLOCK</div>
+<h3 class="font-title-lg text-title-lg text-on-surface font-bold">Rehearsal Verdict: Clean To Commit</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+              Disposable memory space is currently active. Dropping iron curtain will instantly restore vanilla pointers in 0.4s.
+            </p>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-space-md w-full md:w-auto">
+<!-- EMERGENCY ROLLBACK BUTTON (Theatrical Pull Cord) -->
+<button class="hazard-stripe flex-1 md:flex-initial flex items-center justify-center gap-space-xs px-space-lg py-3 rounded text-on-error-container font-label-caps text-label-caps font-bold tracking-widest border border-error shadow-xl active:scale-95 transition-all" id="master-emergency-btn">
+<span class="material-symbols-outlined">restart_alt</span>
+<span>EMERGENCY ROLLBACK (PULL CORD)</span>
+</button>
+<!-- KEEP & STRIKE TO MASTER BUTTON -->
+<button class="flex-1 md:flex-initial flex items-center justify-center gap-space-xs px-space-lg py-3 rounded bg-primary text-on-primary font-label-caps text-label-caps font-bold tracking-widest hover:bg-primary-container hover:shadow-primary/40 shadow-lg active:scale-95 transition-all" id="master-commit-btn">
+<span class="material-symbols-outlined">save_as</span>
+<span>KEEP &amp; STRIKE TO MASTER</span>
+</button>
+</div>
+</section>
+</main>
+</div>
+<!-- THEATRICAL REWIND / SANITIZED RECEIPT TOAST & SCREEN SCRIM -->
+<div class="fixed inset-0 z-50 bg-error-container/20 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center" id="rewind-scrim">
+<div class="bg-surface-container-lowest border-2 border-primary p-space-xl rounded max-w-lg w-full text-center shadow-2xl space-y-space-md scale-90 transition-transform duration-200" id="receipt-card">
+<div class="w-16 h-16 mx-auto rounded-full bg-primary-container/20 text-primary border border-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">curtains_closed</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest uppercase">IRON CURTAIN DROPPED // REHEARSAL ZEROED</div>
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold mt-1">STAGE SANITIZED</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+          Ephemeral symlinks severed. Delta memory flushed in 380ms. Real base game files remained 100% untouched.
+        </p>
+</div>
+<div class="p-space-sm bg-surface-container rounded border border-outline-variant font-telemetry-sm text-telemetry-sm text-left space-y-1">
+<div class="flex justify-between">
+<span class="text-outline">Master Install:</span>
+<span class="text-primary font-bold">Unmodified (0 Bytes Mutated)</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Volatile Delta:</span>
+<span class="text-secondary font-bold">4.82 GB Wiped</span>
+</div>
+<div class="flex justify-between">
+<span class="text-outline">Curtain Fall Time:</span>
+<span class="text-on-surface font-bold">0.38 Seconds</span>
+</div>
+</div>
+<button class="w-full py-2 rounded bg-primary text-on-primary font-label-caps text-label-caps font-bold hover:bg-primary-container transition-colors" id="dismiss-toast-btn">
+        RETURN TO MASTER DECK
+      </button>
+</div>
+</div>
+<!-- CLIENT-SIDE SCRIPTING FOR TACTILE FIDELITY -->
+<script>
+    // 1. Curtain Reveal Slider Logic
+    const slider = document.getElementById('curtain-slider');
+    const moddedLayer = document.getElementById('curtain-modded-layer');
+    const dividerLine = document.getElementById('curtain-divider-line');
+
+    if (slider && moddedLayer && dividerLine) {
+      slider.addEventListener('input', (e) => {
+        const val = e.target.value;
+        moddedLayer.style.clipPath = `polygon(${val}% 0, 100% 0, 100% 100%, ${val}% 100%)`;
+        dividerLine.style.left = `${val}%`;
+      });
+    }
+
+    // 2. Mod Repertoire Selection and Radar Inspector Linking
+    const modCards = document.querySelectorAll('.mod-card');
+    const inspectorTitle = document.getElementById('node-inspector-title');
+    const inspectorDesc = document.getElementById('node-inspector-desc');
+    const origHash = document.getElementById('original-hash');
+    const stagedHash = document.getElementById('staged-hash');
+    const nodeStatusBadge = document.getElementById('node-status-badge');
+
+    const modDetails = {
+      '1': {
+        title: 'PostProcess.fx [Aetherial Reshade Ultra]',
+        desc: '12 active shader chains compiling directly into isolated virtual framebuffers. Zero hook collisions.',
+        orig: '77f48bc01...88a (Vanilla Preset)',
+        staged: '99e21ba40...11c (Ultra Volumetric 4.2)',
+        badge: 'CLEAN REHEARSAL',
+        badgeClass: 'text-primary border-primary/40 bg-primary-container/20'
+      },
+      '2': {
+        title: 'AnvilCore.dll [Missing Dependency Hook]',
+        desc: 'Skeletal rig expects v3.1 export table. Header missing in game root; synthesized via virtual shim.',
+        orig: 'NONE (Header absent)',
+        staged: '00a382cf1...902 (Dynamic Virtual Shim)',
+        badge: 'SHIM ENGAGED',
+        badgeClass: 'text-tertiary border-tertiary/40 bg-tertiary-container/20'
+      },
+      '3': {
+        title: 'SoundManager.dll [Neo-Tokyo Audio Pack]',
+        desc: 'Incompatible v2.0 sound wrapper. Priority stage order downstaged to prevent master audio crash.',
+        orig: '44c019920...23d (SoundManager v1.2)',
+        staged: '88b39401a...77e (SoundManager v2.0 Deprioritized)',
+        badge: 'PRIORITY ISOLATED',
+        badgeClass: 'text-secondary border-secondary/40 bg-secondary-container/20'
+      },
+      '4': {
+        title: 'SAVEGAME_SLOT_01.SAV [Omni-Economy Script]',
+        desc: 'Direct persistent table write intercepted and diverted to volatile rehearsal ramdisk slot.',
+        orig: '120d8f990...441 (Unblemished Save Slot)',
+        staged: 'FAKED_VOLATILE_SAVE_01 (Sandbox Protected)',
+        badge: 'QUARANTINE ARMED',
+        badgeClass: 'text-error border-error/50 bg-error-container/40'
+      }
+    };
+
+    modCards.forEach(card => {
+      card.addEventListener('click', () => {
+        modCards.forEach(c => {
+          c.classList.remove('border-primary', 'border-2');
+          c.classList.add('border-outline-variant');
+        });
+        card.classList.remove('border-outline-variant');
+        card.classList.add('border-primary', 'border-2');
+
+        const modId = card.getAttribute('data-mod');
+        const data = modDetails[modId];
+        if (data && inspectorTitle) {
+          inspectorTitle.textContent = data.title;
+          inspectorDesc.textContent = data.desc;
+          origHash.textContent = data.orig;
+          stagedHash.textContent = data.staged;
+          nodeStatusBadge.textContent = data.badge;
+          nodeStatusBadge.className = `px-2 py-0.5 rounded font-label-caps text-label-caps font-bold ${data.badgeClass}`;
+        }
+      });
+    });
+
+    // 3. Radar Node Click Audits
+    const radarNodes = document.querySelectorAll('.radar-node');
+    radarNodes.forEach(node => {
+      node.addEventListener('click', () => {
+        const target = node.getAttribute('data-target');
+        if (target === 'shaders') {
+          modCards[0].click();
+        } else if (target === 'textures') {
+          inspectorTitle.textContent = 'Textures_4K.ba2 [Mesh Layer]';
+          inspectorDesc.textContent = '4.2 GB high-resolution normal map override intercepted by stage symlink redirection.';
+          origHash.textContent = '8a9f4c39e2b10091bfd41...a49';
+          stagedHash.textContent = 'e21bb5920cf192fa998a4...0bc';
+          nodeStatusBadge.textContent = 'SYMLINK DIVERTED';
+          nodeStatusBadge.className = 'px-2 py-0.5 rounded font-label-caps text-label-caps font-bold text-primary border-primary/40 bg-primary-container/20';
+        } else if (target === 'scripts') {
+          modCards[1].click();
+        } else if (target === 'savegame') {
+          modCards[3].click();
+        }
+      });
+    });
+
+    // 4. Industrial Stage Box Toggle Interactions & Readiness Score Calculation
+    const toggleShim = document.getElementById('toggle-shim');
+    const togglePriority = document.getElementById('toggle-priority');
+    const toggleSave = document.getElementById('toggle-save');
+    const readinessScore = document.getElementById('readiness-score');
+
+    function updateReadiness() {
+      let score = 30;
+      if (toggleShim && toggleShim.checked) score += 25;
+      if (togglePriority && togglePriority.checked) score += 20;
+      if (toggleSave && toggleSave.checked) score += 25;
+
+      if (readinessScore) {
+        readinessScore.textContent = `${score}% REHEARSAL SAFE`;
+        if (score === 100) {
+          readinessScore.className = 'font-telemetry-lg text-telemetry-lg font-bold text-primary px-space-sm py-0.5 bg-primary-container/20 rounded border border-primary';
+        } else {
+          readinessScore.className = 'font-telemetry-lg text-telemetry-lg font-bold text-tertiary px-space-sm py-0.5 bg-surface-container rounded border border-outline-variant';
+        }
+      }
+    }
+
+    [toggleShim, togglePriority, toggleSave].forEach(t => {
+      if (t) t.addEventListener('change', updateReadiness);
+    });
+
+    // 5. Cinematic Rollback Trigger (Emergency Rewind Cord)
+    const rewindScrim = document.getElementById('rewind-scrim');
+    const receiptCard = document.getElementById('receipt-card');
+    const dismissToastBtn = document.getElementById('dismiss-toast-btn');
+    const headerEmergencyPull = document.getElementById('header-emergency-pull');
+    const masterEmergencyBtn = document.getElementById('master-emergency-btn');
+
+    function triggerEmergencyRollback() {
+      if (!rewindScrim) return;
+      // Visual feedback: Screen Flash
+      rewindScrim.classList.remove('opacity-0', 'pointer-events-none');
+      rewindScrim.classList.add('opacity-100');
+      receiptCard.classList.remove('scale-90');
+      receiptCard.classList.add('scale-100');
+    }
+
+    if (headerEmergencyPull) headerEmergencyPull.addEventListener('click', triggerEmergencyRollback);
+    if (masterEmergencyBtn) masterEmergencyBtn.addEventListener('click', triggerEmergencyRollback);
+
+    if (dismissToastBtn) {
+      dismissToastBtn.addEventListener('click', () => {
+        rewindScrim.classList.remove('opacity-100');
+        rewindScrim.classList.add('opacity-0', 'pointer-events-none');
+        receiptCard.classList.remove('scale-100');
+        receiptCard.classList.add('scale-90');
+      });
+    }
+
+    // 6. Spotlight Button Toggle Micro-interaction
+    const spotlightBtn = document.getElementById('spotlight-btn');
+    if (spotlightBtn) {
+      let active = true;
+      spotlightBtn.addEventListener('click', () => {
+        active = !active;
+        spotlightBtn.innerHTML = active 
+          ? '<span class="material-symbols-outlined text-base">theater_comedy</span><span>SPOTLIGHT: ON</span>'
+          : '<span class="material-symbols-outlined text-base">light_off</span><span>SPOTLIGHT: OFF</span>';
+        document.body.classList.toggle('brightness-90');
+      });
+    }
+  </script>
+</body></html>

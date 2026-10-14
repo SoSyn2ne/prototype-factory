@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RIFF RELAY - Neo-Arcade Party Toy</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@600;700&amp;family=Syne:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface": "#1a0d26",
+            "surface-container-lowest": "#150821",
+            "inverse-on-surface": "#392b45",
+            "on-tertiary-fixed-variant": "#004f54",
+            "surface-bright": "#42334e",
+            "on-secondary-fixed": "#400012",
+            "outline-variant": "#444934",
+            "on-secondary-container": "#ffb1bb",
+            "background": "#1a0d26",
+            "on-primary": "#293500",
+            "on-surface-variant": "#c5c9ad",
+            "on-error-container": "#ffdad6",
+            "tertiary": "#ffffff",
+            "secondary-fixed": "#ffd9dd",
+            "secondary": "#ffb2bb",
+            "outline": "#8f937a",
+            "tertiary-fixed": "#7df4ff",
+            "on-surface": "#f0dbfe",
+            "primary": "#ffffff",
+            "on-primary-fixed-variant": "#3d4d00",
+            "surface-tint": "#aed500",
+            "on-primary-fixed": "#171e00",
+            "surface-dim": "#1a0d26",
+            "on-tertiary-fixed": "#002022",
+            "tertiary-fixed-dim": "#00dbe9",
+            "on-primary-container": "#576c00",
+            "surface-variant": "#3d2f4a",
+            "primary-container": "#c8f322",
+            "secondary-container": "#a7013b",
+            "inverse-surface": "#f0dbfe",
+            "surface-container-low": "#23162f",
+            "on-secondary": "#670021",
+            "on-tertiary": "#00363a",
+            "on-background": "#f0dbfe",
+            "surface-container-highest": "#3d2f4a",
+            "surface-container": "#271a33",
+            "on-tertiary-container": "#006f77",
+            "on-secondary-fixed-variant": "#910032",
+            "error-container": "#93000a",
+            "secondary-fixed-dim": "#ffb2bb",
+            "on-error": "#690005",
+            "error": "#ffb4ab",
+            "surface-container-high": "#32243e",
+            "tertiary-container": "#7df4ff",
+            "primary-fixed-dim": "#aed500",
+            "inverse-primary": "#526600",
+            "primary-fixed": "#c8f322"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "fontFamily": {
+            "label-arcade": ["Space Grotesk"],
+            "display-hero": ["Syne"],
+            "headline-lg": ["Syne"],
+            "body-md": ["Plus Jakarta Sans"],
+            "display-hero-mobile": ["Syne"],
+            "headline-lg-mobile": ["Syne"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "title-md": ["Plus Jakarta Sans"],
+            "headline-md": ["Syne"],
+            "body-sm": ["Plus Jakarta Sans"],
+            "title-lg": ["Plus Jakarta Sans"],
+            "label-meter": ["Space Grotesk"]
+          },
+          "fontSize": {
+            "label-arcade": ["14px", { "lineHeight": "18px", "letterSpacing": "0.08em", "fontWeight": "700" }],
+            "display-hero": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["15px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "display-hero-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "500" }],
+            "title-md": ["16px", { "lineHeight": "24px", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "0em", "fontWeight": "700" }],
+            "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "title-lg": ["20px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "label-meter": ["11px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .material-symbols-outlined[data-weight="fill"] {
+      font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Tactile Extrusion styles */
+    .arcade-btn-lime {
+      box-shadow: 0 6px 0px 0px #3d4d00;
+      transition: all 0.08s ease-out;
+    }
+    .arcade-btn-lime:active, .arcade-btn-lime.is-pressed {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0px 0px #3d4d00;
+    }
+
+    .arcade-btn-coral {
+      box-shadow: 0 6px 0px 0px #670021;
+      transition: all 0.08s ease-out;
+    }
+    .arcade-btn-coral:active {
+      transform: translateY(4px);
+      box-shadow: 0 2px 0px 0px #670021;
+    }
+
+    .arcade-pad-3d {
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.25), 0 6px 0px 0px #0b0412;
+      transition: all 0.08s ease;
+    }
+    .arcade-pad-3d:active, .arcade-pad-3d.string-active {
+      transform: translateY(4px);
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.4), 0 2px 0px 0px #0b0412;
+    }
+
+    /* Laser Strings Vibration */
+    @keyframes stringVibe {
+      0%, 100% { transform: translateY(0px); }
+      25% { transform: translateY(-3px); }
+      75% { transform: translateY(3px); }
+    }
+    .vibrating-line {
+      animation: stringVibe 0.12s linear infinite;
+    }
+
+    /* Pulse wave for record ring */
+    @keyframes pulseRing {
+      0% { transform: scale(0.96); opacity: 0.8; }
+      50% { transform: scale(1.04); opacity: 0.3; }
+      100% { transform: scale(0.96); opacity: 0.8; }
+    }
+    .pulse-ring-anim {
+      animation: pulseRing 1.8s ease-in-out infinite;
+    }
+
+    /* Little bouncy note creatures */
+    @keyframes creatureBounce {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-8px) scale(1.05, 0.95); }
+    }
+    .creature-bounce-slow {
+      animation: creatureBounce 2s ease-in-out infinite;
+    }
+    .creature-bounce-fast {
+      animation: creatureBounce 1.1s ease-in-out infinite;
+    }
+
+    /* Custom circular gauge progress */
+    .gauge-circle {
+      stroke-dasharray: 691;
+      stroke-dashoffset: 230; /* ~66% progress */
+      transition: stroke-dashoffset 0.2s ease-out;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col font-body-md overflow-x-hidden selection:bg-primary-container selection:text-on-primary">
+<!-- TOP APP BAR (from Shared Components JSON Blueprint) -->
+<header class="border-b border-surface-variant bg-surface-container shadow-[0_4px_0_0_#0b0412] sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-6 py-3 max-w-full mx-auto">
+<!-- Brand Logo & Room ID -->
+<div class="flex items-center gap-5">
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md font-extrabold text-primary-container tracking-wider uppercase flex items-center gap-1.5 drop-shadow-[0_0_12px_rgba(200,243,34,0.4)]">
+<span class="material-symbols-outlined text-primary-container" data-weight="fill" style="font-size: 28px;">graphic_eq</span>
+            RIFF RELAY
+          </span>
+<span class="bg-surface-variant text-primary-container font-label-arcade text-label-arcade px-2 py-0.5 rounded-full border border-outline-variant/40 text-[10px]">TOY V2.4</span>
+</div>
+<!-- Room Pill -->
+<div class="hidden md:flex items-center gap-2 bg-surface-container-lowest px-3 py-1.5 rounded-full border border-surface-variant hover:border-primary-container/50 transition-colors">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-arcade text-label-arcade text-primary-container tracking-widest text-xs">LOBBY: JAM-808</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center pl-1" id="copy-btn" onclick="copyLobbyCode()" title="Copy Room Invite">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+</div>
+</div>
+<!-- Navigation Relay Chain HUD -->
+<nav class="hidden lg:flex items-center gap-1 bg-surface-container-lowest p-1.5 rounded-full border border-surface-variant">
+<!-- P1 Lead: Active -->
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high border-b-2 border-primary-container text-primary-container font-label-arcade text-label-arcade shadow-[0_0_12px_rgba(200,243,34,0.15)]">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>Ziggy (Lead)</span>
+<span class="text-[11px] bg-primary-container text-on-primary px-1.5 py-0.2 rounded font-bold">P1</span>
+</div>
+<span class="text-on-surface-variant font-label-arcade text-xs px-1">➜</span>
+<!-- P2 Relay: Inactive -->
+<div class="flex items-center gap-2 px-3 py-1 rounded-full text-on-surface-variant font-label-arcade text-label-arcade hover:text-on-surface transition-all">
+<span class="w-2 h-2 rounded-full bg-tertiary-container/60"></span>
+<span>Bop (Relay)</span>
+<span class="text-[11px] bg-surface-variant text-tertiary-container px-1 rounded">P2</span>
+</div>
+<span class="text-on-surface-variant font-label-arcade text-xs px-1">➜</span>
+<!-- P3 Guess: Inactive -->
+<div class="flex items-center gap-2 px-3 py-1 rounded-full text-on-surface-variant font-label-arcade text-label-arcade hover:text-on-surface transition-all">
+<span class="w-2 h-2 rounded-full bg-secondary/60"></span>
+<span>Pixel (Guess)</span>
+<span class="text-[11px] bg-surface-variant text-secondary px-1 rounded">P3</span>
+</div>
+</nav>
+<!-- Trailing Controls Cluster -->
+<div class="flex items-center gap-3">
+<!-- Round Counter -->
+<div class="bg-surface-container-low border border-surface-variant px-3 py-1 rounded-lg flex items-center gap-1.5">
+<span class="material-symbols-outlined text-tertiary-fixed-dim text-sm" data-weight="fill">refresh</span>
+<span class="font-label-arcade text-label-arcade text-on-surface text-xs">Round 2 / 5</span>
+</div>
+<!-- Latency Indicator -->
+<div class="hidden sm:flex items-center gap-1.5 bg-surface-container-low border border-surface-variant px-2.5 py-1 rounded-lg">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-meter text-label-meter text-primary-container">12ms</span>
+<span class="font-label-meter text-label-meter text-on-surface-variant hidden xl:inline">TIGHT</span>
+</div>
+<!-- Mute Secondary Action -->
+<button class="w-9 h-9 rounded-full bg-surface-container-high hover:bg-surface-bright flex items-center justify-center text-on-surface active:translate-y-1 transition-all" id="mute-btn" onclick="toggleMute()" title="Toggle Mute">
+<span class="material-symbols-outlined text-lg" id="mute-icon">volume_up</span>
+</button>
+<!-- Volume visualizer fader / toy meter -->
+<div class="hidden md:flex items-center gap-1.5 bg-surface-container-lowest border border-surface-variant px-2.5 py-1.5 rounded-full" title="Party Volume">
+<span class="material-symbols-outlined text-sm text-tertiary-container" data-weight="fill">graphic_eq</span>
+<div class="flex items-end gap-0.5 h-4 w-12">
+<span class="w-1 bg-primary-container h-2 rounded-t-sm animate-pulse"></span>
+<span class="w-1 bg-primary-container h-3.5 rounded-t-sm"></span>
+<span class="w-1 bg-primary-container h-2.5 rounded-t-sm animate-pulse"></span>
+<span class="w-1 bg-tertiary-container h-4 rounded-t-sm"></span>
+<span class="w-1 bg-secondary-container h-1 rounded-t-sm"></span>
+</div>
+</div>
+<!-- Pass Aux (Primary Action Button) -->
+<button class="arcade-btn-lime bg-primary-container text-on-primary px-4 py-2 rounded-full font-label-arcade text-label-arcade flex items-center gap-2 font-bold cursor-pointer transition-all" onclick="simulatePassAux()">
+<span class="material-symbols-outlined text-base" data-weight="fill">send_to_mobile</span>
+<span>Pass Aux</span>
+</button>
+<!-- Host Profile Avatar (From JSON alt blueprint) -->
+<div class="w-9 h-9 rounded-full ring-2 ring-primary-container p-0.5 bg-surface-container-highest cursor-pointer relative overflow-hidden" title="Host Avatar Ziggy with Neon Headphones">
+<img class="w-full h-full object-cover rounded-full" data-alt="A stylized playful 3D cartoon avatar of Ziggy wearing oversized glowing acid-lime DJ headphones and retro cyberpunk shades, set against an electric violet studio background, highly detailed digital arcade toy rendering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCjdH497pCNDl93zKqoBjx0-qfdUoTF32bqH1s73TKucGcJ6ULky-Dj7OZ0uC-0GiTUd6_nDHcFHvvr0oseSxS9ujUbpMfMd5mTXjb744-R9e0lR_41VRJoW1INn_SoC3y_0LuHnOxESX-YPT8wwroAttQA4_clSfgXZLWnq995ozw_ZAePUJglsHvo3Pb6bC5n_FmHnXWaW0jACNbeupIB-2_VCA1SPOgmacOvMWmvOz2ITvAL3TWmd8_B8LQ6ralIKE8Ap0jz70"/>
+<span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-primary-container rounded-full border-2 border-surface"></span>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-1 w-full max-w-[1680px] mx-auto p-4 md:p-6 lg:p-8 flex flex-col gap-6">
+<!-- SUB-BAR / PARTY HUD RIBBON -->
+<section class="bg-surface-container-lowest/80 backdrop-blur-md rounded-2xl border border-surface-variant p-4 flex flex-wrap items-center justify-between gap-4 shadow-[0_4px_0_0_#0b0412]">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary-container/20 border border-primary-container/50 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-2xl" data-weight="fill">music_note</span>
+</div>
+<div>
+<div class="flex items-center gap-2">
+<span class="font-headline-md text-headline-md text-primary">CURRENT MISSION: “THE FUNKY WORM”</span>
+<span class="px-2 py-0.5 text-xs font-label-arcade bg-surface-variant text-tertiary-fixed rounded-md">TEMPO: 124 BPM</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Ziggy plays a 3-second riff. Bop feels only the vibration &amp; rhythm. Pixel guesses the full audio!</p>
+</div>
+</div>
+<!-- Quick Live Pill Controls -->
+<div class="flex items-center gap-2">
+<div class="bg-surface-container-high px-3 py-1.5 rounded-full border border-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-sm">schedule</span>
+<span class="font-label-arcade text-label-arcade text-xs">TIMER LIMIT: <span class="text-primary-container">3.00s</span></span>
+</div>
+<div class="bg-surface-container-high px-3 py-1.5 rounded-full border border-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-sm">casino</span>
+<span class="font-label-arcade text-label-arcade text-xs">MUTATION ACCURACY: <span class="text-tertiary-container font-bold" id="hud-acc">84%</span></span>
+</div>
+</div>
+</section>
+<!-- 2-COLUMN MAIN PLAYFIELD -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- ================= LEFT HERO: INTERACTIVE RIG (7 Cols) ================= -->
+<section class="lg:col-span-7 flex flex-col gap-6">
+<!-- RECORD RING & HERO ARCADE DISK -->
+<div class="bg-surface-container rounded-2xl border border-surface-variant p-6 relative overflow-hidden shadow-[0_6px_0_0_#0b0412]">
+<!-- Background Neon Grid Glow -->
+<div class="absolute -top-20 -left-20 w-72 h-72 bg-primary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-20 -right-20 w-72 h-72 bg-tertiary-container/10 rounded-full blur-3xl pointer-events-none"></div>
+<!-- Top status arc -->
+<div class="flex items-center justify-between mb-4 z-10 relative">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_#c8f322]"></span>
+<span class="font-label-arcade text-label-arcade text-primary-container tracking-wider uppercase" id="rig-status-label">RIG STATUS: LIVE &amp; READY</span>
+</div>
+<div class="flex items-center gap-2 font-label-meter text-label-meter text-on-surface-variant">
+<span>MIC SENSITIVITY: 94%</span>
+<span class="text-primary-container">● SYNCED</span>
+</div>
+</div>
+<!-- The Giant 3-Second Record Ring Visualizer -->
+<div class="flex flex-col md:flex-row items-center justify-center gap-8 py-4 relative">
+<!-- Circular Gauge Container -->
+<div class="relative w-64 h-64 flex items-center justify-center flex-shrink-0">
+<!-- Ambient Halo Glow Rings -->
+<div class="absolute inset-0 rounded-full border-2 border-primary-container/20 pulse-ring-anim" id="ambient-ring-1"></div>
+<div class="absolute -inset-3 rounded-full border border-primary-container/10 pulse-ring-anim" id="ambient-ring-2" style="animation-delay: 0.6s;"></div>
+<!-- SVG Radial Meter -->
+<svg class="w-full h-full -rotate-90 transform" viewbox="0 0 240 240">
+<!-- Background Track -->
+<circle class="stroke-surface-container-highest" cx="120" cy="120" fill="none" r="100" stroke-width="14"></circle>
+<!-- Active Lime Track (0 to 3.0s) -->
+<circle class="stroke-primary-container gauge-circle" cx="120" cy="120" fill="none" id="gauge-progress" r="100" stroke-linecap="round" stroke-width="14" style="filter: drop-shadow(0 0 10px rgba(200, 243, 34, 0.7));"></circle>
+</svg>
+<!-- Central Giant Push Button -->
+<div class="absolute inset-7 rounded-full bg-surface-container-lowest border-4 border-surface-variant flex flex-col items-center justify-center p-4 text-center select-none">
+<!-- Inner Neon Wave Ring Core -->
+<button class="w-full h-full rounded-full bg-gradient-to-b from-surface-bright to-surface-container-high border-2 border-primary-container/40 flex flex-col items-center justify-center gap-1 group active:scale-95 transition-all shadow-[inset_0_2px_8px_rgba(200,243,34,0.3)]" id="riff-record-btn" onmousedown="startRecording()" onmouseup="stopRecording()">
+<span class="material-symbols-outlined text-primary-container text-4xl group-hover:scale-110 transition-transform" data-weight="fill" id="record-icon">radio_button_checked</span>
+<span class="font-headline-md text-headline-md text-primary font-black tracking-tight leading-none text-base" id="record-btn-text">HOLD TO RIFF</span>
+<span class="font-label-arcade text-label-arcade text-primary-container text-[11px] tracking-wide" id="record-sub-text">3.0s MAX BURST</span>
+</button>
+</div>
+<!-- Floating Timestamp badge -->
+<div class="absolute -bottom-2 bg-surface-container-highest border border-primary-container text-primary-container px-3 py-0.5 rounded-full font-label-arcade text-xs shadow-lg">
+<span id="record-timer-text">2.18s</span> / 3.00s
+              </div>
+</div>
+<!-- Side HUD: Live Audio Waveform & Dynamics -->
+<div class="flex-1 w-full flex flex-col gap-4">
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-4 flex flex-col gap-2">
+<div class="flex items-center justify-between text-xs font-label-arcade">
+<span class="text-on-surface-variant">REALTIME AUDIO HARMONICS</span>
+<span class="text-primary-container font-mono">CHANNEL: STEREO FX</span>
+</div>
+<!-- Animated Audio Bars Canvas Simulation -->
+<div class="h-16 flex items-end justify-between gap-1 px-1 py-1 bg-surface-container-low rounded-lg border border-surface-variant/50 overflow-hidden">
+<div class="w-1.5 bg-primary-container rounded-t h-3 animate-pulse"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-8"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-12 animate-bounce"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-14"></div>
+<div class="w-1.5 bg-tertiary-container rounded-t h-10"></div>
+<div class="w-1.5 bg-tertiary-container rounded-t h-16 animate-pulse"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-11"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-6"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-15 animate-bounce"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-9"></div>
+<div class="w-1.5 bg-secondary rounded-t h-13"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-7"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-4"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-12"></div>
+<div class="w-1.5 bg-primary-container rounded-t h-16 animate-pulse"></div>
+<div class="w-1.5 bg-tertiary-container rounded-t h-10"></div>
+</div>
+<div class="flex items-center justify-between text-[11px] font-label-meter text-on-surface-variant pt-1">
+<span>INPUT: CONDENSER MIC</span>
+<span class="text-tertiary-container">BUFFER: 256 SMPS</span>
+</div>
+</div>
+<!-- Quick Instruction Toy Card -->
+<div class="bg-surface-container-low/70 rounded-xl p-3 border border-surface-variant/80 flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container/20 text-tertiary-container flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-lg">info</span>
+</div>
+<div class="text-xs">
+<p class="font-bold text-on-surface">Press &amp; hold keyboard keys or string pucks below!</p>
+<p class="text-on-surface-variant">Release to instantly package your lick and beam it down the chain.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SIX LUMINOUS KEYBOARD STRINGS -->
+<div class="bg-surface-container rounded-2xl border border-surface-variant p-6 flex flex-col gap-4 shadow-[0_6px_0_0_#0b0412]">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-weight="fill">piano</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">6 LUMINOUS LASER STRINGS</h2>
+</div>
+<span class="font-label-arcade text-label-arcade text-on-surface-variant text-xs">PENTATONIC FUNK SCALE</span>
+</div>
+<!-- The String Rack -->
+<div class="flex flex-col gap-3 py-2" id="strings-rack">
+<!-- String 1: Key [A] Bass Pluck -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(0)">
+<!-- Keycap -->
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-primary-container font-headline-md font-extrabold text-sm group-hover:border-primary-container transition-all">
+                A
+              </div>
+<!-- Pitch Pill -->
+<span class="w-9 text-center font-label-arcade text-xs text-primary-container font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">C2</span>
+<!-- Neon String Line with Puck -->
+<div class="relative flex-1 h-7 flex items-center">
+<!-- Idle Line -->
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-primary-container/80 via-primary-container to-primary-container/40 shadow-[0_0_8px_rgba(200,243,34,0.5)]"></div>
+<!-- Interactive Puck -->
+<div class="string-puck absolute left-[30%] -top-1 w-6 h-6 rounded-full bg-primary-container border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#c8f322] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-on-primary"></div>
+</div>
+</div>
+<!-- Descriptor Chip -->
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-primary-container transition-colors font-bold">Bass Pluck</span>
+<span class="block text-[10px] text-on-surface-variant">Deep Rubber</span>
+</div>
+</div>
+<!-- String 2: Key [S] Funk Chime -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(1)">
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-tertiary-container font-headline-md font-extrabold text-sm group-hover:border-tertiary-container transition-all">
+                S
+              </div>
+<span class="w-9 text-center font-label-arcade text-xs text-tertiary-container font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">E2</span>
+<div class="relative flex-1 h-7 flex items-center">
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-tertiary-container/80 via-tertiary-container to-tertiary-container/40 shadow-[0_0_8px_rgba(125,244,255,0.5)]"></div>
+<div class="string-puck absolute left-[45%] -top-1 w-6 h-6 rounded-full bg-tertiary-container border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#7df4ff] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-on-tertiary"></div>
+</div>
+</div>
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-tertiary-container transition-colors font-bold">Funk Chime</span>
+<span class="block text-[10px] text-on-surface-variant">Glassy Bell</span>
+</div>
+</div>
+<!-- String 3: Key [D] Bubble Pop -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(2)">
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-primary font-headline-md font-extrabold text-sm group-hover:border-primary transition-all">
+                D
+              </div>
+<span class="w-9 text-center font-label-arcade text-xs text-on-surface font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">G2</span>
+<div class="relative flex-1 h-7 flex items-center">
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-primary/80 via-primary to-primary/40 shadow-[0_0_8px_rgba(255,255,255,0.4)]"></div>
+<div class="string-puck absolute left-[60%] -top-1 w-6 h-6 rounded-full bg-primary border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#ffffff] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-surface"></div>
+</div>
+</div>
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-primary transition-colors font-bold">Bubble Pop</span>
+<span class="block text-[10px] text-on-surface-variant">Wet Blip</span>
+</div>
+</div>
+<!-- String 4: Key [J] Neon Lead -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(3)">
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-secondary font-headline-md font-extrabold text-sm group-hover:border-secondary transition-all">
+                J
+              </div>
+<span class="w-9 text-center font-label-arcade text-xs text-secondary font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">Bb2</span>
+<div class="relative flex-1 h-7 flex items-center">
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-secondary/80 via-secondary to-secondary/40 shadow-[0_0_8px_rgba(255,178,187,0.5)]"></div>
+<div class="string-puck absolute left-[20%] -top-1 w-6 h-6 rounded-full bg-secondary border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#ffb2bb] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-on-secondary"></div>
+</div>
+</div>
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-secondary transition-colors font-bold">Neon Lead</span>
+<span class="block text-[10px] text-on-surface-variant">Square Toy</span>
+</div>
+</div>
+<!-- String 5: Key [K] Space Zap -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(4)">
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-primary-container font-headline-md font-extrabold text-sm group-hover:border-primary-container transition-all">
+                K
+              </div>
+<span class="w-9 text-center font-label-arcade text-xs text-primary-container font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">C3</span>
+<div class="relative flex-1 h-7 flex items-center">
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-primary-container/80 via-primary-container to-primary-container/40 shadow-[0_0_8px_rgba(200,243,34,0.5)]"></div>
+<div class="string-puck absolute left-[75%] -top-1 w-6 h-6 rounded-full bg-primary-container border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#c8f322] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-on-primary"></div>
+</div>
+</div>
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-primary-container transition-colors font-bold">Space Zap</span>
+<span class="block text-[10px] text-on-surface-variant">Laser Sweep</span>
+</div>
+</div>
+<!-- String 6: Key [L] Laser Clap -->
+<div class="string-row group flex items-center gap-3 cursor-pointer select-none" onclick="triggerString(5)">
+<div class="arcade-pad-3d w-12 h-11 rounded-xl bg-surface-container-high border border-surface-variant flex items-center justify-center text-tertiary-container font-headline-md font-extrabold text-sm group-hover:border-tertiary-container transition-all">
+                L
+              </div>
+<span class="w-9 text-center font-label-arcade text-xs text-tertiary-container font-bold bg-surface-container-lowest py-1 rounded-md border border-outline-variant/30">E3</span>
+<div class="relative flex-1 h-7 flex items-center">
+<div class="string-line w-full h-[4px] rounded-full bg-gradient-to-r from-tertiary-container/80 via-tertiary-container to-tertiary-container/40 shadow-[0_0_8px_rgba(125,244,255,0.5)]"></div>
+<div class="string-puck absolute left-[50%] -top-1 w-6 h-6 rounded-full bg-tertiary-container border-2 border-surface flex items-center justify-center shadow-[0_0_12px_#7df4ff] group-hover:scale-125 transition-transform">
+<div class="w-1.5 h-1.5 rounded-full bg-on-tertiary"></div>
+</div>
+</div>
+<div class="w-32 text-right hidden sm:block">
+<span class="font-label-arcade text-xs text-on-surface group-hover:text-tertiary-container transition-colors font-bold">Laser Clap</span>
+<span class="block text-[10px] text-on-surface-variant">White Burst</span>
+</div>
+</div>
+</div>
+<!-- Bottom tactile trigger row -->
+<div class="flex items-center justify-between pt-2 border-t border-surface-variant/60">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Try pressing keys <kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest border border-surface-variant text-xs text-primary-container font-mono">A</kbd> through <kbd class="px-1.5 py-0.5 rounded bg-surface-container-highest border border-surface-variant text-xs text-tertiary-container font-mono">L</kbd> on your keyboard!</span>
+<button class="text-xs font-label-arcade text-tertiary-container hover:underline flex items-center gap-1" onclick="playArpeggioTest()">
+<span class="material-symbols-outlined text-sm">play_circle</span>
+              Quick Demo Lick
+            </button>
+</div>
+</div>
+</section>
+<!-- ================= RIGHT HERO: MUTATION & COMPARISON REVEALER (5 Cols) ================= -->
+<section class="lg:col-span-5 flex flex-col gap-6">
+<!-- MUTATION TIMELINE CARD -->
+<div class="bg-surface-container rounded-2xl border border-surface-variant p-6 flex flex-col gap-5 shadow-[0_6px_0_0_#0b0412] relative">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-weight="fill">alt_route</span>
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">RELAY MUTATION CHAIN</h2>
+</div>
+<!-- Live Toggle Match Mode -->
+<button class="px-3 py-1 rounded-full text-xs font-label-arcade bg-surface-container-high border border-surface-variant text-primary hover:border-primary-container transition-all" id="toggle-verdict-btn" onclick="toggleMatchOutcome()">
+              Toggle: <span class="text-primary-container font-bold" id="verdict-label-btn">CLOSE MATCH</span>
+</button>
+</div>
+<!-- TRACK 1: P1 ZIGGY'S ORIGINAL -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 border border-primary-container/40 flex flex-col gap-2 relative overflow-hidden group">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-primary-container text-on-primary font-bold text-xs flex items-center justify-center">1</span>
+<span class="font-label-arcade text-xs text-primary-container">P1: Ziggy's Original Riff</span>
+</div>
+<span class="font-label-meter text-[10px] text-primary-container bg-primary-container/10 px-2 py-0.5 rounded">CLEAN MASTER</span>
+</div>
+<!-- Waveform SVG with Note Creature -->
+<div class="h-14 bg-surface-container-low rounded-lg p-2 flex items-center relative overflow-hidden">
+<svg class="w-full h-full stroke-primary-container fill-none" viewbox="0 0 300 40">
+<path d="M0,20 Q20,2 40,20 T80,20 T120,5 T160,35 T200,10 T240,25 T280,15 L300,20" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<!-- Creature Doodle: The Funky Worm -->
+<div class="creature-bounce-slow absolute left-14 top-1 flex items-center gap-1 bg-surface-container-highest/90 px-1.5 py-0.5 rounded-full border border-primary-container text-[10px] text-primary-container shadow-lg">
+<span>🐛</span>
+<span class="font-bold">Groovy Worm</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant">Smooth 4-beat syncopation in C Pentatonic. Ultra catchy hook!</p>
+</div>
+<!-- TRACK 2: P2 BOP'S BLIND RHYTHM -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 border border-tertiary-container/30 flex flex-col gap-2 relative overflow-hidden">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-tertiary-container text-on-tertiary font-bold text-xs flex items-center justify-center">2</span>
+<span class="font-label-arcade text-xs text-tertiary-container">P2: Bop's Blind Rhythm Pass</span>
+</div>
+<span class="font-label-meter text-[10px] text-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded">RHYTHM ONLY</span>
+</div>
+<!-- Translucent tap-dot pulses -->
+<div class="h-14 bg-surface-container-low rounded-lg p-2 flex items-center justify-around relative">
+<div class="w-4 h-4 rounded-full bg-tertiary-container animate-ping opacity-60"></div>
+<div class="w-6 h-6 rounded-full bg-tertiary-container/40 border border-tertiary-container flex items-center justify-center text-[9px] font-bold">1</div>
+<div class="w-3 h-3 rounded-full bg-tertiary-container/60"></div>
+<div class="w-8 h-8 rounded-full bg-tertiary-container/30 border-2 border-dashed border-tertiary-container flex items-center justify-center text-[10px] font-bold">2&amp;</div>
+<div class="w-5 h-5 rounded-full bg-tertiary-container/50"></div>
+<div class="w-7 h-7 rounded-full bg-tertiary-container/40 border border-tertiary-container flex items-center justify-center text-[9px]">4</div>
+</div>
+<p class="text-[11px] text-on-surface-variant">Bop felt haptic motor pulses: guessed the timing, but zero pitch cues!</p>
+</div>
+<!-- TRACK 3: P3 PIXEL'S WILD IMITATION -->
+<div class="bg-surface-container-lowest rounded-xl p-3.5 border border-secondary/40 flex flex-col gap-2 relative overflow-hidden" id="p3-track">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-6 h-6 rounded-full bg-secondary text-on-secondary font-bold text-xs flex items-center justify-center">3</span>
+<span class="font-label-arcade text-xs text-secondary" id="p3-label">P3: Pixel's Wild Imitation</span>
+</div>
+<span class="font-label-meter text-[10px] text-secondary bg-secondary/10 px-2 py-0.5 rounded" id="p3-badge">ACCIDENTAL JAZZ</span>
+</div>
+<!-- Chaotic Jagged Waveform -->
+<div class="h-14 bg-surface-container-low rounded-lg p-2 flex items-center relative overflow-hidden">
+<svg class="w-full h-full stroke-secondary fill-none" id="p3-waveform-svg" viewbox="0 0 300 40">
+<path d="M0,20 L25,5 L50,38 L75,2 L100,32 L130,8 L160,35 L190,15 L220,38 L250,5 L280,28 L300,20" stroke-linecap="round" stroke-width="3"></path>
+</svg>
+<!-- Mutated creature doodle -->
+<div class="creature-bounce-fast absolute right-10 top-1 flex items-center gap-1 bg-surface-container-highest/90 px-1.5 py-0.5 rounded-full border border-secondary text-[10px] text-secondary shadow-lg" id="creature-pixel">
+<span>🤪</span>
+<span class="font-bold" id="creature-text">Dizzy Pixel</span>
+</div>
+</div>
+<p class="text-[11px] text-on-surface-variant" id="p3-desc">Tried to mimic the groove from rhythmic vibration alone. Chaotic magic!</p>
+</div>
+<!-- MATCH SCORECARD & VERDICT -->
+<div class="bg-gradient-to-br from-surface-container-high to-surface-container-lowest p-4 rounded-xl border-2 border-primary-container/60 flex flex-col gap-3 shadow-[0_4px_0_0_#0b0412]" id="scorecard-container">
+<div class="flex items-center justify-between">
+<div>
+<span class="font-label-meter text-label-meter text-primary-container tracking-widest block uppercase" id="scorecard-pretitle">VERDICT REPORT</span>
+<h3 class="font-headline-md text-headline-md text-primary font-black" id="scorecard-title">CLOSE MATCH (84% SYNC!)</h3>
+</div>
+<div class="text-right">
+<span class="font-display-hero text-3xl font-extrabold text-primary-container block leading-none" id="scorecard-percent">84%</span>
+<span class="font-label-meter text-[10px] text-on-surface-variant">+3,200 PTS</span>
+</div>
+</div>
+<!-- Meter Progress Segments (Arcade Style) -->
+<div class="grid grid-cols-10 gap-1 h-3" id="score-meter-bars">
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-primary-container rounded-sm"></div>
+<div class="bg-surface-variant rounded-sm"></div>
+<div class="bg-surface-variant rounded-sm"></div>
+</div>
+<p class="font-body-sm text-xs text-on-surface leading-relaxed" id="scorecard-commentary">
+              “Uncanny groove resonance! Pixel locked onto Bop’s upbeat ghost taps and nailed the third harmony interval. Crowd is going bonkers!”
+            </p>
+<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-surface-variant/50">
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-arcade text-[11px] text-primary-container">🏆 Groove Master</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-arcade text-[11px] text-tertiary-fixed">✨ 2x Multiplier</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-arcade text-[11px] text-on-surface-variant">🔊 Crowd Cheer: MAX</span>
+</div>
+</div>
+<!-- ACTION BAR -->
+<div class="grid grid-cols-2 gap-3 pt-1">
+<button class="arcade-btn-lime bg-surface-container-high hover:bg-surface-bright text-primary border border-surface-variant px-3 py-2.5 rounded-xl font-label-arcade text-xs flex items-center justify-center gap-1.5 transition-all" onclick="simulateAudioPlay('mutation')">
+<span class="material-symbols-outlined text-base text-tertiary-container" data-weight="fill">play_arrow</span>
+<span>Listen Mutation</span>
+</button>
+<button class="arcade-btn-lime bg-surface-container-high hover:bg-surface-bright text-primary border border-surface-variant px-3 py-2.5 rounded-xl font-label-arcade text-xs flex items-center justify-center gap-1.5 transition-all" onclick="simulateAudioPlay('chain')">
+<span class="material-symbols-outlined text-base text-primary-container" data-weight="fill">replay</span>
+<span>Replay Chain</span>
+</button>
+<button class="arcade-btn-coral bg-secondary-container text-white px-3 py-2.5 rounded-xl font-label-arcade text-xs flex items-center justify-center gap-1.5 col-span-2" onclick="simulatePassAux()">
+<span class="material-symbols-outlined text-base">forward</span>
+<span>Pass Aux / Next Player (Bop Turn)</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- QUICK PREVIEW INTERACTIVE STATE BAR (Neo-Arcade Switchboard) -->
+<section class="bg-surface-container-low rounded-2xl border border-surface-variant p-4 shadow-[0_4px_0_0_#0b0412]">
+<div class="flex flex-col md:flex-row items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-lg" data-weight="fill">tune</span>
+<span class="font-label-arcade text-label-arcade text-xs text-on-surface uppercase tracking-wider">State Switcher:</span>
+<span class="text-xs text-on-surface-variant hidden lg:inline">Test party modes in 1-click</span>
+</div>
+<div class="flex flex-wrap items-center gap-2 w-full md:w-auto justify-end">
+<!-- State 1: 3s Record Active -->
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface border border-surface-variant font-label-arcade text-xs flex items-center gap-1.5 active:translate-y-0.5 transition-all" onclick="setSimState('record')">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span>🔴 3s Record Active</span>
+</button>
+<!-- State 2: P2 Blind Rhythm -->
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface border border-surface-variant font-label-arcade text-xs flex items-center gap-1.5 active:translate-y-0.5 transition-all" onclick="setSimState('blind')">
+<span class="w-2 h-2 rounded-full bg-tertiary-container"></span>
+<span>👻 P2 Blind View</span>
+</button>
+<!-- State 3: Wild Miss vs Close Match -->
+<button class="px-3 py-1.5 rounded-xl bg-surface-container-highest hover:bg-surface-bright text-on-surface border border-surface-variant font-label-arcade text-xs flex items-center gap-1.5 active:translate-y-0.5 transition-all" onclick="toggleMatchOutcome()">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span>⚡ Wild Miss vs Match</span>
+</button>
+<!-- State 4: Rematch Ready -->
+<button class="px-3 py-1.5 rounded-xl bg-primary-container text-on-primary font-label-arcade text-xs font-bold flex items-center gap-1.5 active:translate-y-0.5 transition-all shadow-[0_2px_0_0_#3d4d00]" onclick="setSimState('reset')">
+<span class="material-symbols-outlined text-xs">restart_alt</span>
+<span>🔄 Rematch Ready</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- SOUND NOTIFICATION TOAST -->
+<div class="fixed bottom-6 right-6 bg-surface-container-highest border border-primary-container text-primary-container px-4 py-2 rounded-xl shadow-2xl font-label-arcade text-xs flex items-center gap-2 transform translate-y-24 opacity-0 transition-all duration-200 pointer-events-none z-50" id="toast">
+<span class="material-symbols-outlined text-base" data-weight="fill">volume_up</span>
+<span id="toast-text">Lick Triggered!</span>
+</div>
+<!-- INTERACTIVITY & TOY AUDIO LOGIC -->
+<script>
+    // State Tracker
+    let isRecording = false;
+    let recordInterval = null;
+    let recordTime = 0.0;
+    let isMuted = false;
+    let currentMatchMode = "close"; // "close" or "miss"
+    
+    // Web Audio Synthesizer (Zero assets required, arcade bleeps)
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    const pentatonicFreqs = [130.81, 164.81, 196.00, 233.08, 261.63, 329.63]; // C3 to E4
+    const stringNames = ["Bass Pluck", "Funk Chime", "Bubble Pop", "Neon Lead", "Space Zap", "Laser Clap"];
+
+    function playToyTone(freq, type = 'sawtooth', duration = 0.25) {
+      if (isMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        
+        // Tactile bouncy decay
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {
+        // Fallback gracefully
+      }
+    }
+
+    // Trigger Laser Strings
+    function triggerString(index) {
+      const freq = pentatonicFreqs[index] || 220;
+      const types = ['triangle', 'sine', 'sawtooth', 'square', 'triangle', 'sawtooth'];
+      playToyTone(freq, types[index % types.length], 0.35);
+
+      // Visual feedback
+      const rack = document.getElementById('strings-rack');
+      const rows = rack.querySelectorAll('.string-row');
+      if (rows[index]) {
+        const row = rows[index];
+        const line = row.querySelector('.string-line');
+        const puck = row.querySelector('.string-puck');
+        const key = row.querySelector('.arcade-pad-3d');
+
+        line.classList.add('vibrating-line');
+        key.classList.add('string-active');
+        puck.style.transform = 'scale(1.5)';
+
+        setTimeout(() => {
+          line.classList.remove('vibrating-line');
+          key.classList.remove('string-active');
+          puck.style.transform = '';
+        }, 220);
+      }
+
+      showToast(`Key [${['A','S','D','J','K','L'][index]}]: ${stringNames[index]}`);
+    }
+
+    // Keyboard bindings for strings
+    const keyMap = {
+      'a': 0, 'A': 0,
+      's': 1, 'S': 1,
+      'd': 2, 'D': 2,
+      'j': 3, 'J': 3,
+      'k': 4, 'K': 4,
+      'l': 5, 'L': 5
+    };
+
+    window.addEventListener('keydown', (e) => {
+      if (keyMap.hasOwnProperty(e.key)) {
+        triggerString(keyMap[e.key]);
+      }
+      if (e.code === 'Space' && !isRecording) {
+        e.preventDefault();
+        startRecording();
+      }
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (e.code === 'Space' && isRecording) {
+        e.preventDefault();
+        stopRecording();
+      }
+    });
+
+    // Recording Ring Logic
+    function startRecording() {
+      if (isRecording) return;
+      isRecording = true;
+      recordTime = 0.0;
+      
+      const recordBtn = document.getElementById('riff-record-btn');
+      const recordIcon = document.getElementById('record-icon');
+      const btnText = document.getElementById('record-btn-text');
+      const subText = document.getElementById('record-sub-text');
+      const gauge = document.getElementById('gauge-progress');
+      const statusLabel = document.getElementById('rig-status-label');
+
+      recordBtn.classList.add('is-pressed');
+      recordIcon.textContent = 'fiber_smart_record';
+      recordIcon.classList.add('text-secondary');
+      btnText.textContent = 'RECORDING...';
+      subText.textContent = 'LAY THE GROOVE!';
+      statusLabel.textContent = 'RIG STATUS: LIVE RECORDING (3.0s)';
+      statusLabel.className = 'font-label-arcade text-label-arcade text-secondary tracking-wider uppercase animate-pulse';
+
+      playToyTone(520, 'square', 0.1);
+
+      recordInterval = setInterval(() => {
+        recordTime += 0.05;
+        if (recordTime > 3.0) {
+          recordTime = 3.0;
+          stopRecording();
+        }
+        
+        // Update SVG circle
+        const progressFrac = recordTime / 3.0;
+        const totalLen = 628; // 2 * PI * 100
+        gauge.style.strokeDashoffset = totalLen * (1 - progressFrac);
+        document.getElementById('record-timer-text').textContent = recordTime.toFixed(2) + 's';
+      }, 50);
+    }
+
+    function stopRecording() {
+      if (!isRecording) return;
+      isRecording = false;
+      clearInterval(recordInterval);
+
+      const recordBtn = document.getElementById('riff-record-btn');
+      const recordIcon = document.getElementById('record-icon');
+      const btnText = document.getElementById('record-btn-text');
+      const subText = document.getElementById('record-sub-text');
+      const statusLabel = document.getElementById('rig-status-label');
+
+      recordBtn.classList.remove('is-pressed');
+      recordIcon.textContent = 'radio_button_checked';
+      recordIcon.classList.remove('text-secondary');
+      btnText.textContent = 'HOLD TO RIFF';
+      subText.textContent = 'TRANSMITTING!';
+      statusLabel.textContent = 'RIG STATUS: TRANSMITTING TO BOP ➜';
+      statusLabel.className = 'font-label-arcade text-label-arcade text-tertiary-container tracking-wider uppercase';
+
+      playToyTone(390, 'sine', 0.2);
+      showToast(`Captured ${recordTime.toFixed(2)}s Lick! Beamed to Bop.`);
+      
+      setTimeout(() => {
+        statusLabel.textContent = 'RIG STATUS: LIVE & READY';
+        statusLabel.className = 'font-label-arcade text-label-arcade text-primary-container tracking-wider uppercase';
+      }, 2500);
+    }
+
+    // Toggle Close Match vs Wild Miss
+    function toggleMatchOutcome() {
+      const title = document.getElementById('scorecard-title');
+      const percent = document.getElementById('scorecard-percent');
+      const commentary = document.getElementById('scorecard-commentary');
+      const verdictBtn = document.getElementById('verdict-label-btn');
+      const barsContainer = document.getElementById('score-meter-bars');
+      const container = document.getElementById('scorecard-container');
+      const p3Badge = document.getElementById('p3-badge');
+      const creatureText = document.getElementById('creature-text');
+      const hudAcc = document.getElementById('hud-acc');
+
+      if (currentMatchMode === "close") {
+        currentMatchMode = "miss";
+        verdictBtn.textContent = "WILD MISS (21%)";
+        verdictBtn.className = "text-secondary font-bold";
+        
+        title.textContent = "WILD MISS (21% ACCIDENTAL JAZZ!)";
+        percent.textContent = "21%";
+        percent.className = "font-display-hero text-3xl font-extrabold text-secondary block leading-none";
+        hudAcc.textContent = "21%";
+        hudAcc.className = "text-secondary font-bold";
+        
+        container.className = "bg-gradient-to-br from-surface-container-high to-surface-container-lowest p-4 rounded-xl border-2 border-secondary/60 flex flex-col gap-3 shadow-[0_4px_0_0_#0b0412]";
+        
+        commentary.textContent = "“Hilarious trainwreck! Pixel thought Bop’s ghost taps were an avant-garde bebop solo. The pitch mutated into outer space!”";
+        p3Badge.textContent = "DISASTER PIECE";
+        p3Badge.className = "font-label-meter text-[10px] text-secondary bg-secondary/20 px-2 py-0.5 rounded";
+        creatureText.textContent = "Mutated Goblin";
+
+        // Render 2 filled bars out of 10
+        barsContainer.innerHTML = `
+          <div class="bg-secondary rounded-sm"></div>
+          <div class="bg-secondary rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+        `;
+        playToyTone(180, 'sawtooth', 0.4);
+        showToast("Switched to: WILD MISS (21% Jazz)");
+      } else {
+        currentMatchMode = "close";
+        verdictBtn.textContent = "CLOSE MATCH (84%)";
+        verdictBtn.className = "text-primary-container font-bold";
+        
+        title.textContent = "CLOSE MATCH (84% GROOVE SYNC!)";
+        percent.textContent = "84%";
+        percent.className = "font-display-hero text-3xl font-extrabold text-primary-container block leading-none";
+        hudAcc.textContent = "84%";
+        hudAcc.className = "text-tertiary-container font-bold";
+
+        container.className = "bg-gradient-to-br from-surface-container-high to-surface-container-lowest p-4 rounded-xl border-2 border-primary-container/60 flex flex-col gap-3 shadow-[0_4px_0_0_#0b0412]";
+
+        commentary.textContent = "“Uncanny groove resonance! Pixel locked onto Bop’s upbeat ghost taps and nailed the third harmony interval. Crowd is going bonkers!”";
+        p3Badge.textContent = "ACCIDENTAL JAZZ";
+        p3Badge.className = "font-label-meter text-[10px] text-secondary bg-secondary/10 px-2 py-0.5 rounded";
+        creatureText.textContent = "Dizzy Pixel";
+
+        // Render 8 filled bars out of 10
+        barsContainer.innerHTML = `
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-primary-container rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+          <div class="bg-surface-variant rounded-sm"></div>
+        `;
+        playToyTone(580, 'sine', 0.3);
+        showToast("Switched to: CLOSE MATCH (84% Groove)");
+      }
+    }
+
+    // Preview Switchboard Helper
+    function setSimState(type) {
+      if (type === 'record') {
+        startRecording();
+        setTimeout(stopRecording, 1500);
+      } else if (type === 'blind') {
+        const p2 = document.querySelector('.string-row');
+        showToast("P2 Blind View: Audio silenced, haptic cues active!");
+        playToyTone(220, 'sine', 0.1);
+      } else if (type === 'reset') {
+        showToast("Round 2 Reset! Ziggy has the Aux.");
+        playToyTone(440, 'triangle', 0.2);
+      }
+    }
+
+    // Audio Playback Simulation
+    function simulateAudioPlay(mode) {
+      playArpeggioTest();
+      showToast(`Playing ${mode.toUpperCase()} playback!`);
+    }
+
+    function playArpeggioTest() {
+      [0, 1, 2, 4, 3, 5].forEach((val, i) => {
+        setTimeout(() => triggerString(val), i * 110);
+      });
+    }
+
+    function simulatePassAux() {
+      playToyTone(660, 'square', 0.15);
+      showToast("AUX PASSED: Next up is Bop (Relay Player 2)!");
+    }
+
+    function toggleMute() {
+      isMuted = !isMuted;
+      const icon = document.getElementById('mute-icon');
+      if (isMuted) {
+        icon.textContent = 'volume_off';
+        icon.classList.add('text-secondary');
+        showToast("Audio Muted");
+      } else {
+        icon.textContent = 'volume_up';
+        icon.classList.remove('text-secondary');
+        showToast("Audio Active");
+        playToyTone(440, 'sine', 0.15);
+      }
+    }
+
+    function copyLobbyCode() {
+      navigator.clipboard?.writeText("JAM-808");
+      showToast("Lobby JAM-808 copied to clipboard!");
+    }
+
+    // Toast UI helper
+    let toastTimeout = null;
+    function showToast(text) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      toastText.textContent = text;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+        toast.classList.remove('translate-y-0', 'opacity-100');
+      }, 2000);
+    }
+  </script>
+</body></html>

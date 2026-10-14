@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>야간 GPU 동의판 [LOCAL_CLUSTER_V4]</title>
+<!-- Google Fonts: Inter & JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#ffe9d3",
+            "background": "#101419",
+            "on-error": "#690005",
+            "tertiary-fixed": "#ffddb8",
+            "surface-bright": "#36393f",
+            "inverse-primary": "#006875",
+            "inverse-on-surface": "#2d3136",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed": "#2a1700",
+            "on-tertiary-container": "#7e4e00",
+            "surface": "#101419",
+            "on-primary-fixed": "#001f24",
+            "secondary-container": "#00a572",
+            "inverse-surface": "#e0e2ea",
+            "primary-fixed-dim": "#00daf3",
+            "on-secondary-fixed-variant": "#005236",
+            "on-tertiary-fixed-variant": "#653e00",
+            "on-primary-fixed-variant": "#004f58",
+            "surface-dim": "#101419",
+            "secondary-fixed-dim": "#4edea3",
+            "on-secondary": "#003824",
+            "surface-container-lowest": "#0a0e13",
+            "surface-tint": "#00daf3",
+            "secondary-fixed": "#6ffbbe",
+            "on-surface-variant": "#bac9cc",
+            "primary": "#c3f5ff",
+            "on-primary": "#00363d",
+            "tertiary-fixed-dim": "#ffb95f",
+            "error": "#ffb4ab",
+            "on-background": "#e0e2ea",
+            "on-secondary-fixed": "#002113",
+            "surface-container": "#1c2025",
+            "primary-fixed": "#9cf0ff",
+            "on-surface": "#e0e2ea",
+            "secondary": "#4edea3",
+            "surface-container-highest": "#31353b",
+            "on-primary-container": "#00626e",
+            "outline": "#849396",
+            "primary-container": "#00e5ff",
+            "on-tertiary": "#472a00",
+            "surface-container-high": "#262a30",
+            "on-secondary-container": "#00311f",
+            "outline-variant": "#3b494c",
+            "surface-container-low": "#181c21",
+            "error-container": "#93000a",
+            "tertiary-container": "#ffc681",
+            "surface-variant": "#31353b"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "space-xl": "3rem",
+            "space-xs": "0.5rem",
+            "space-sm": "0.75rem",
+            "margin": "2rem",
+            "space-md": "1.25rem",
+            "space-lg": "2rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-sm": ["Inter"],
+            "headline-md": ["Inter"],
+            "metric-display": ["JetBrains Mono"],
+            "label-lg": ["JetBrains Mono"],
+            "body-lg": ["Inter"],
+            "headline-lg": ["Inter"],
+            "label-sm": ["JetBrains Mono"],
+            "body-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "label-md": ["JetBrains Mono"],
+            "headline-xl": ["Inter"]
+          },
+          "fontSize": {
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "600" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "metric-display": ["56px", { "lineHeight": "60px", "letterSpacing": "-0.04em", "fontWeight": "700" }],
+            "label-lg": ["18px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "500" }],
+            "body-sm": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-md": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.04em", "fontWeight": "500" }],
+            "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Mechanical Tactile Styling & Inset Bevels */
+    .machine-groove {
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.85);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .machine-plate {
+      background: radial-gradient(120% 120% at 50% 0%, #1c2025 0%, #101419 100%);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .glow-cyan-border {
+      box-shadow: 0 0 15px -2px rgba(0, 229, 255, 0.35), inset 0 0 8px -2px rgba(0, 229, 255, 0.2);
+    }
+    .glow-amber-border {
+      box-shadow: 0 0 15px -2px rgba(255, 198, 129, 0.35), inset 0 0 8px -2px rgba(255, 198, 129, 0.2);
+    }
+    /* Custom Slider Appearance */
+    input[type=range] {
+      -webkit-appearance: none;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 32px;
+      width: 44px;
+      border-radius: 4px;
+      background: #181c21;
+      border: 2px solid #00daf3;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.2);
+      cursor: pointer;
+    }
+    /* Hazard border striping for physical veto button */
+    .hazard-stripe {
+      background-image: repeating-linear-gradient(
+        45deg,
+        rgba(147, 0, 10, 0.5),
+        rgba(147, 0, 10, 0.5) 12px,
+        rgba(26, 32, 37, 0.7) 12px,
+        rgba(26, 32, 37, 0.7) 24px
+      );
+    }
+    /* Thermal Receipt Sawtooth Edge */
+    .sawtooth-bottom {
+      background: linear-gradient(135deg, transparent 6px, #181c21 6px), linear-gradient(225deg, transparent 6px, #181c21 6px);
+      background-position: bottom left;
+      background-repeat: repeat-x;
+      background-size: 16px 12px;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased select-none min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- ================= TOP APP BAR (Shared Component Anchor) ================= -->
+<header class="flex justify-between items-center w-full px-space-lg h-20 bg-surface-container-low border-b border-outline-variant select-none sticky top-0 z-40">
+<!-- Left: Brand / Title -->
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 bg-surface-container-highest border border-outline-variant flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-primary-container" data-icon="memory">memory</span>
+</div>
+<div>
+<h1 class="font-label-lg text-label-lg tracking-wider text-primary font-bold uppercase">야간 GPU 동의판 [LOCAL_CLUSTER_V4]</h1>
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary inline-block animate-pulse"></span>
+<span class="font-label-sm text-label-sm">야간 정숙 모드 가동 중 (22:00 ~ 07:00)</span>
+</div>
+</div>
+</div>
+<!-- Center: Primary Nav Links (Executed as per Shared Component JSON) -->
+<nav class="hidden lg:flex items-center gap-space-lg h-full">
+<button class="text-primary border-b-2 border-primary-container pb-2 font-bold tracking-tight h-full flex items-center gap-2 transition-colors" id="nav-btn-grid" onclick="switchTab('grid')">
+<span class="material-symbols-outlined text-primary" data-icon="grid_view">grid_view</span>
+<span>워크스테이션 현황</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface pb-2 font-medium h-full flex items-center gap-2 transition-colors" id="nav-btn-sim" onclick="switchTab('sim')">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>작업 분배 시뮬레이터</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface pb-2 font-medium h-full flex items-center gap-2 transition-colors" id="nav-btn-receipt" onclick="switchTab('receipt')">
+<span class="material-symbols-outlined" data-icon="receipt_long">receipt_long</span>
+<span>익일 연산 영수증</span>
+</button>
+<button class="text-on-surface-variant hover:text-on-surface pb-2 font-medium h-full flex items-center gap-2 transition-colors" id="nav-btn-telemetry" onclick="switchTab('telemetry')">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+<span>하드웨어 텔레메트리</span>
+</button>
+</nav>
+<!-- Right: Trailing Actions & Icons -->
+<div class="flex items-center gap-space-sm">
+<div class="hidden md:flex items-center gap-2 mr-2">
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded transition-colors" title="알림">
+<span class="material-symbols-outlined" data-icon="notifications_active">notifications_active</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded transition-colors" title="시스템 설정">
+<span class="material-symbols-outlined" data-icon="settings_suggest">settings_suggest</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded transition-colors" title="원격 콘솔">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+</button>
+</div>
+<!-- Secondary: Refresh Consent -->
+<button class="h-11 px-4 border border-outline-variant hover:border-primary text-on-surface font-label-md text-label-md flex items-center gap-2 rounded bg-surface-container active:scale-[0.98] transition-all" onclick="refreshAllConsents()">
+<span class="material-symbols-outlined text-sm" data-icon="sync">sync</span>
+<span>동의 전체 갱신</span>
+</button>
+<!-- Primary Action: Emergency Veto (Physical Style Trigger) -->
+<button class="h-11 px-5 bg-error-container text-error hover:bg-opacity-90 border border-error font-label-md text-label-md font-bold rounded flex items-center gap-2 active:scale-[0.98] transition-all shadow-md" onclick="openVetoModal()">
+<span class="material-symbols-outlined text-error" data-icon="report">report</span>
+<span>긴급 연산 정지 (VETO)</span>
+</button>
+</div>
+</header>
+<!-- ================= SUB-BANNER: CLUSTER AGGREGATE METRICS ================= -->
+<section class="bg-surface-container-lowest border-b border-outline-variant px-space-lg py-3">
+<div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+<!-- Consent Ratio Pill -->
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">동의 참여 노드:</span>
+<div class="flex items-center gap-1.5 px-3 py-1 bg-surface-container-high rounded border border-outline-variant">
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+<span class="font-metric-display text-headline-sm text-primary tracking-tight" id="consent-stat">7</span>
+<span class="font-label-md text-on-surface-variant">/ 8 대 가동 승인</span>
+</div>
+</div>
+<!-- Cluster Power Budget Meter -->
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">총 허용 전력 풀:</span>
+<div class="w-48 h-3.5 bg-surface-container rounded-sm overflow-hidden border border-outline-variant p-[1px] relative">
+<div class="h-full bg-primary-container rounded-sm transition-all duration-300" style="width: 83.8%;"></div>
+</div>
+<span class="font-metric-display text-label-md text-primary font-bold">2,180W <span class="text-on-surface-variant font-normal">/ 2,600W</span></span>
+</div>
+<!-- Total Compute Power -->
+<div class="flex items-center gap-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">예상 야간 연산력:</span>
+<div class="px-3 py-1 bg-surface-container-high border border-outline-variant rounded flex items-baseline gap-1">
+<span class="font-metric-display text-headline-sm text-secondary">148.4</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">TFLOPS FP16</span>
+</div>
+</div>
+<!-- Ambient Sound Level -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="volume_down">volume_down</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">현재 오피스 음압:</span>
+<span class="font-metric-display text-label-md text-secondary font-semibold">37.2 dBA (정숙 범위)</span>
+</div>
+</div>
+</section>
+<!-- ================= MAIN CONTENT CANVAS ================= -->
+<main class="flex-1 max-w-7xl w-full mx-auto p-space-md lg:p-space-lg flex flex-col gap-6">
+<!-- TAB 1: WORKSTATION GRID (DEFAULT ACTIVE VIEW) -->
+<div class="space-y-6" id="view-grid">
+<!-- Section Header with Quick Filters -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface tracking-tight">4층 딥러닝 워크스테이션 동의 랙</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">터치하여 PC별 동의 상태를 직접 전환하거나, 온도 및 허용 소음 임계치를 조절할 수 있습니다.</p>
+</div>
+<!-- Batch Action Controls -->
+<div class="flex items-center gap-2">
+<button class="px-3 py-2 bg-surface-container hover:bg-surface-container-high border border-outline-variant text-primary font-label-sm text-label-sm rounded flex items-center gap-1 active:scale-[0.98]" onclick="setAllConsent(true)">
+<span class="material-symbols-outlined text-xs" data-icon="check_circle">check_circle</span>
+<span>전원 즉시 동의</span>
+</button>
+<button class="px-3 py-2 bg-surface-container hover:bg-surface-container-high border border-outline-variant text-error font-label-sm text-label-sm rounded flex items-center gap-1 active:scale-[0.98]" onclick="setAllConsent(false)">
+<span class="material-symbols-outlined text-xs" data-icon="cancel">cancel</span>
+<span>전체 로컬 유지</span>
+</button>
+</div>
+</div>
+<!-- 8-PC Responsive Hardware Grid (4x2 or 2x4 layout) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- PC-01 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-01">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-01</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">AI LAB</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">김민수 책임</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4090 24GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<!-- Heavy Mechanical Toggle -->
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-01')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<!-- Overnight Window Pill -->
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">22:30 ~ 06:30</span>
+</div>
+<!-- Tactile Hardware Sliders: Max Temp & Power -->
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-01">70°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-01').innerText = this.value + '°C'" type="range" value="70"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">380W / 450W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 84%;"></div>
+</div>
+</div>
+</div>
+<!-- Live Telemetry Tag -->
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">36 dB (정숙)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">LLM LoRA 경량화 파이프라인</span>
+</div>
+</div>
+</div>
+<!-- Card Bottom Veto Trigger -->
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-01')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-02 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-02">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-02</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">그래픽스</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">이지은 선임</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4080 16GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-02')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">23:00 ~ 07:00</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-02">68°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-02').innerText = this.value + '°C'" type="range" value="68"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">290W / 320W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 90%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">34 dB (정숙)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">3D 에셋 텍스처 베이킹 #12</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-02')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-03 (CURRENT THERMAL WARNING STATE: Amber Highlight) -->
+<div class="machine-plate rounded border-2 border-tertiary-container hover:border-tertiary p-4 flex flex-col justify-between transition-all duration-150 glow-amber-border relative group" id="card-pc-03">
+<div class="absolute -top-3 right-3 px-2 py-0.5 bg-tertiary-container text-on-tertiary-container font-label-sm text-[11px] font-bold rounded flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+<span>발열 경고 (74°C)</span>
+</div>
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-tertiary-container">PC-03</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-tertiary-container rounded">플랫폼팀</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">박태호 팀장</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4090 24GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-tertiary-container shadow-[0_0_8px_#ffc681] animate-ping"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-tertiary-container mb-1.5">야간 연산 참여 동의 [임계치 근접]</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-tertiary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-03')">
+<span class="font-label-md text-label-md text-tertiary-container font-bold tracking-wider">[THROTTLED: ON]</span>
+<div class="w-10 h-8 bg-tertiary-container text-on-tertiary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="thermostat">thermostat</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-tertiary-container font-bold">22:00 ~ 06:00</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-tertiary-container font-medium">발열 한도 제한</span>
+<span class="text-tertiary-container font-bold" id="temp-val-03">72°C (설정)</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-tertiary-container" max="85" min="55" oninput="document.getElementById('temp-val-03').innerText = this.value + '°C'" type="range" value="72"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span class="text-tertiary-container">현재 실측: 74°C</span>
+<span class="text-error font-bold">자동 감속 적용</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-tertiary-container font-bold">310W / 450W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-tertiary-container rounded" style="width: 68%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-tertiary-container">
+<span>현재 팬 소음:</span>
+<span class="font-bold">44 dB (주의 단계)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-on-surface">분산 캐시 인덱싱 #09</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-error-container text-error hover:bg-opacity-90 border border-error rounded font-label-sm text-label-sm font-bold flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-03')">
+<span class="material-symbols-outlined text-sm" data-icon="power_off">power_off</span>
+<span>즉시 쿨다운 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-04 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-04">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-04</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">비전팀</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">최서윤 연구원</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 3090 24GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-04')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">21:00 ~ 08:00</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-04">72°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-04').innerText = this.value + '°C'" type="range" value="72"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">350W / 350W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 100%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">39 dB (적정)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">자율주행 비디오 세그멘테이션</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-04')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-05 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-05">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-05</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">데이터랩</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">정우진 수석</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4090 24GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-05')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">23:00 ~ 06:30</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-05">69°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-05').innerText = this.value + '°C'" type="range" value="69"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">400W / 450W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 88%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">37 dB (정숙)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">한국어 도메인 특화 사전학습</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-05')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-06 (WITHHELD / OFFLINE LOCAL-ONLY STATE) -->
+<div class="machine-plate rounded border border-outline-variant opacity-75 hover:opacity-100 p-4 flex flex-col justify-between transition-all duration-150 relative group" id="card-pc-06">
+<div class="absolute -top-3 right-3 px-2 py-0.5 bg-surface-container-highest text-on-surface-variant font-label-sm text-[11px] rounded border border-outline-variant">
+            로컬 전용 유지
+          </div>
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-on-surface-variant">PC-06</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-on-surface-variant rounded">백엔드</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">한유진 선임</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4070 Ti 12GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-outline"></span>
+</div>
+<!-- Withheld Switch State -->
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-outline-variant rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-06')">
+<span class="font-label-md text-label-md text-on-surface-variant font-bold tracking-wider">[STANDBY: LOCAL_ONLY]</span>
+<div class="w-10 h-8 bg-surface-container-high text-on-surface-variant font-bold text-xs flex items-center justify-center rounded">
+<span class="material-symbols-outlined text-base" data-icon="do_not_disturb_on">do_not_disturb_on</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3 opacity-60">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant line-through">동의 철회됨</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant opacity-60">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한</span>
+<span class="text-on-surface-variant font-bold">--</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant opacity-40" disabled="" type="range" value="50"/>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-on-surface-variant font-bold">0W / 285W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-outline rounded" style="width: 0%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 상태:</span>
+<span class="text-on-surface-variant">로컬 렌더링 작업 중 (비공유)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                소유자 메모: <span class="text-outline">내일 오전 데모 준비</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-surface-container-high text-primary border border-outline-variant rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="toggleCardConsent('pc-06')">
+<span class="material-symbols-outlined text-sm" data-icon="add_task">add_task</span>
+<span>동의 재개하기</span>
+</button>
+</div>
+</div>
+<!-- PC-07 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-07">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-07</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">디자인실</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">오세훈 매니저</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 3080 10GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-07')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">22:00 ~ 07:30</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-07">68°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-07').innerText = this.value + '°C'" type="range" value="68"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">260W / 320W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 81%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">35 dB (정숙)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">UI 합성 이미지 확산 생성기</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-07')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+<!-- PC-08 -->
+<div class="machine-plate rounded border border-outline-variant hover:border-primary-container p-4 flex flex-col justify-between transition-all duration-150 glow-cyan-border relative group" id="card-pc-08">
+<div>
+<div class="flex items-start justify-between pb-3 border-b border-outline-variant">
+<div>
+<div class="flex items-center gap-2">
+<span class="font-label-lg text-label-lg font-bold text-primary">PC-08</span>
+<span class="px-1.5 py-0.5 text-[10px] font-label-sm bg-surface-container-highest text-primary rounded">LLM연구</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface font-medium">윤아름 연구원</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">RTX 4090 24GB</p>
+</div>
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_#4edea3]"></span>
+</div>
+<div class="my-4">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1.5">야간 연산 참여 동의</label>
+<button class="w-full h-14 bg-surface-container-lowest border-2 border-primary-container rounded flex items-center justify-between px-3 text-left machine-groove cursor-pointer active:scale-[0.99] transition-transform" onclick="toggleCardConsent('pc-08')">
+<span class="font-label-md text-label-md text-primary font-bold tracking-wider">[RUN_OVERNIGHT: ON]</span>
+<div class="w-10 h-8 bg-primary-container text-on-primary-container font-bold text-xs flex items-center justify-center rounded shadow-sm">
+<span class="material-symbols-outlined text-base" data-icon="power_settings_new">power_settings_new</span>
+</div>
+</button>
+</div>
+<div class="flex items-center justify-between bg-surface-container-low px-3 py-2 rounded border border-outline-variant mb-3">
+<span class="font-label-sm text-label-sm text-on-surface-variant">허용 시간대</span>
+<span class="font-label-sm text-label-sm text-primary font-bold">22:00 ~ 08:30</span>
+</div>
+<div class="space-y-3 pt-2 border-t border-outline-variant">
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">발열 제한 (Max Temp)</span>
+<span class="text-primary font-bold" id="temp-val-08">71°C</span>
+</div>
+<input class="w-full h-3 bg-surface-container-lowest rounded border border-outline-variant" max="85" min="55" oninput="document.getElementById('temp-val-08').innerText = this.value + '°C'" type="range" value="71"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-0.5">
+<span>55°C (정숙)</span>
+<span class="text-error">78°C 임계</span>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-label-sm text-label-sm mb-1">
+<span class="text-on-surface-variant">허용 전력 상한</span>
+<span class="text-secondary font-bold">420W / 450W</span>
+</div>
+<div class="w-full h-2.5 bg-surface-container-lowest rounded overflow-hidden border border-outline-variant">
+<div class="h-full bg-secondary rounded" style="width: 93%;"></div>
+</div>
+</div>
+</div>
+<div class="mt-4 p-2 bg-surface-container-lowest rounded border border-outline-variant text-[11px] font-label-sm space-y-1">
+<div class="flex justify-between text-on-surface-variant">
+<span>현재 팬 소음:</span>
+<span class="text-secondary font-bold">38 dB (정숙)</span>
+</div>
+<div class="truncate text-on-surface-variant">
+                할당: <span class="text-primary">한국어 RAG 벡터 임베딩 배치 #4</span>
+</div>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-outline-variant">
+<button class="w-full py-2 bg-surface-container hover:bg-error-container text-on-surface-variant hover:text-error border border-outline-variant hover:border-error rounded font-label-sm text-label-sm flex items-center justify-center gap-1 transition-all" onclick="triggerNodeVeto('PC-08')">
+<span class="material-symbols-outlined text-sm" data-icon="block">block</span>
+<span>소음/발열 거부권 (Veto)</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 2: WORK ALLOCATION SIMULATOR -->
+<div class="hidden space-y-6" id="view-sim">
+<div class="bg-surface-container border border-outline-variant rounded p-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-6 border-b border-outline-variant">
+<div>
+<h2 class="font-headline-md text-headline-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" data-icon="account_tree">account_tree</span>
+              야간 배치 작업 분배 시뮬레이터 (Work Allocation Simulator)
+            </h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">동의 완료된 7개 GPU 노드의 VRAM 용량 및 발열 여유폭에 따라 대기열 작업이 자동 샤딩 분할됩니다.</p>
+</div>
+<button class="px-4 py-2.5 bg-primary-container text-on-primary-container font-label-md text-label-md font-bold rounded flex items-center gap-2 active:scale-95 transition-transform shadow-md">
+<span class="material-symbols-outlined text-sm" data-icon="play_circle">play_circle</span>
+<span>최적화 토폴로지 재연산</span>
+</button>
+</div>
+<!-- 3 Queued Night Batch Jobs -->
+<div class="mt-6 space-y-4">
+<!-- Job 1 -->
+<div class="p-4 bg-surface-container-low border border-outline-variant rounded flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-primary-container text-on-primary-container font-label-sm text-xs font-bold rounded">우선순위 1</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">사내 번역 모델 Fine-tuning (40 Epochs)</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">요구 VRAM: 72GB • 예상 소요: 4시간 15분 • 발열 마진: 안전</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">할당된 워크스테이션 풀</span>
+<span class="font-metric-display text-label-md text-primary font-bold">PC-01, PC-04, PC-05 (분산 병렬)</span>
+</div>
+<span class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center text-primary font-bold">
+                FSDP
+              </span>
+</div>
+</div>
+<!-- Job 2 -->
+<div class="p-4 bg-surface-container-low border border-outline-variant rounded flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-secondary text-on-secondary font-label-sm text-xs font-bold rounded">우선순위 2</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">3D 건축 렌더링 프레임 배치 #104 (Blender Cycles)</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">요구 VRAM: 24GB • 예상 소요: 2시간 40분 • 프레임 1,200개 분할 렌더링</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">할당된 워크스테이션 풀</span>
+<span class="font-metric-display text-label-md text-secondary font-bold">PC-02, PC-07 (Ray-tracing 가속)</span>
+</div>
+<span class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center text-secondary font-bold">
+                CUDA
+              </span>
+</div>
+</div>
+<!-- Job 3 -->
+<div class="p-4 bg-surface-container-low border border-outline-variant rounded flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-tertiary-container text-on-tertiary-container font-label-sm text-xs font-bold rounded">우선순위 3</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">전사 사내 지식 베이스 임베딩 벡터 캐시 생성</h3>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">요구 VRAM: 44GB • 실시간 온도 피드백 기반 동적 가중치 조절</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">할당된 워크스테이션 풀</span>
+<span class="font-metric-display text-label-md text-tertiary font-bold">PC-03, PC-08 (가변 배치 크기 적용)</span>
+</div>
+<span class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center text-tertiary font-bold">
+                BATCH
+              </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- TAB 3: MORNING RECEIPT (PHYSICAL THERMAL PRINT SIMULATION) -->
+<div class="hidden flex justify-center py-4" id="view-receipt">
+<div class="w-full max-w-xl bg-surface-container-low border border-outline-variant rounded p-6 md:p-8 font-metric-display relative machine-groove shadow-2xl">
+<!-- Receipt Top Header -->
+<div class="text-center pb-6 border-b-2 border-dashed border-outline-variant">
+<div class="w-12 h-12 mx-auto bg-surface-container-highest rounded-full flex items-center justify-center mb-2 text-primary">
+<span class="material-symbols-outlined text-2xl" data-icon="receipt_long">receipt_long</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary font-bold">익일 아침 연산 기여 영수증</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">OFFICE-GRID 4F • 2025. 05. 14 (오전 07:00 출력)</p>
+<div class="mt-3 inline-block px-3 py-1 bg-secondary text-on-secondary font-bold text-xs rounded">
+            ALL_JOBS_EJECTED_SAFE : 100% 정상 반환 완료
+          </div>
+</div>
+<!-- Receipt Body Details -->
+<div class="py-6 space-y-4 text-sm border-b-2 border-dashed border-outline-variant">
+<div class="flex justify-between text-on-surface-variant">
+<span>총 연산 기여 가동 시간:</span>
+<span class="text-on-surface font-bold">6시간 42분 (23:18 ~ 06:00)</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>참여 PC 및 소유자:</span>
+<span class="text-on-surface font-bold">총 7대 기기 정상 참여</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>누적 소비 전력 풀:</span>
+<span class="text-on-surface font-bold">14.62 kWh</span>
+</div>
+<div class="flex justify-between text-on-surface-variant">
+<span>법인 전기료 환산액:</span>
+<span class="text-primary font-bold">약 2,340원 (야간 경부하 요금제)</span>
+</div>
+<!-- Safety Compliance Telemetry -->
+<div class="p-3 bg-surface-container-lowest rounded border border-outline-variant space-y-1.5 mt-4">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">밤샘 최고 도달 온도:</span>
+<span class="text-secondary font-bold">69.4°C (안전 임계치 78°C 미만 준수)</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">평균 팬 소음:</span>
+<span class="text-secondary font-bold">36.8 dBA (야간 정숙 규격 충족)</span>
+</div>
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">하드웨어 내구도 마모율:</span>
+<span class="text-secondary font-bold">0.018% (영향 극미)</span>
+</div>
+</div>
+</div>
+<!-- Reward & Credit Stamp -->
+<div class="py-6 space-y-3">
+<div class="flex justify-between items-center">
+<span class="text-on-surface font-bold text-base">각 PC 소유자 지급 보상:</span>
+<span class="px-2 py-1 bg-tertiary-container text-on-tertiary-container font-bold text-xs rounded">카페테리아 커피 쿠폰 x 1매</span>
+</div>
+<div class="flex justify-between text-xs text-on-surface-variant">
+<span>사내 인프라 기여 포인트:</span>
+<span class="text-primary font-bold">+ 3,500 P 적립 완료</span>
+</div>
+<div class="p-3 bg-surface-container text-[11px] text-on-surface-variant rounded border border-outline-variant font-mono">
+            HASH_KEY: 8f4a-9921-e0cd-7b21-cluster-night-ack
+          </div>
+</div>
+<!-- Dismiss button -->
+<div class="pt-4">
+<button class="w-full h-12 bg-primary-container text-on-primary-container hover:opacity-90 font-label-md text-label-md font-bold rounded flex items-center justify-center gap-2 active:scale-[0.99] transition-all" onclick="switchTab('grid')">
+<span class="material-symbols-outlined text-lg" data-icon="check">check</span>
+<span>영수증 확인 완료 / 대시보드로 복귀</span>
+</button>
+</div>
+</div>
+</div>
+<!-- TAB 4: HARDWARE TELEMETRY SENSORY -->
+<div class="hidden space-y-6" id="view-telemetry">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="machine-plate border border-outline-variant p-5 rounded">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">실시간 음향 센서 (dB METER)</span>
+<div class="font-metric-display text-metric-display text-secondary">37.2 <span class="text-headline-sm font-normal">dBA</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">정숙 허용치 48 dBA 대비 10.8 dBA 여유 마진 유지 중.</p>
+</div>
+<div class="machine-plate border border-outline-variant p-5 rounded">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">클러스터 평균 발열 (CHIP TEMP)</span>
+<div class="font-metric-display text-metric-display text-primary">64.8 <span class="text-headline-sm font-normal">°C</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">가장 높은 발열: PC-03 (74°C, 동적 스로틀링 작동).</p>
+</div>
+<div class="machine-plate border border-outline-variant p-5 rounded">
+<span class="font-label-sm text-label-sm text-on-surface-variant block mb-1">통합 VRAM 동의 용량</span>
+<div class="font-metric-display text-metric-display text-primary">150 <span class="text-headline-sm font-normal">/ 162 GB</span></div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">PC-06(12GB) 오프라인 상태 외 전량 가용.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- ================= EMERGENCY VETO MODAL (FLOATING SAFETY GUARD) ================= -->
+<div class="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center p-4 hidden" id="veto-modal">
+<div class="machine-plate border-2 border-error max-w-lg w-full rounded p-6 shadow-2xl relative overflow-hidden">
+<!-- Danger Striped Header Pattern -->
+<div class="h-2 w-full hazard-stripe absolute top-0 left-0"></div>
+<div class="flex items-start gap-4 mt-2">
+<div class="w-12 h-12 rounded bg-error-container text-error flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-3xl" data-icon="emergency_home">emergency_home</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-error font-bold">클러스터 전체 긴급 중단 (VETO)</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            소음, 발열 초과, 또는 야근 인원의 긴급 PC 사용을 위해 실행합니다. 모든 분산 컨테이너가 3초 이내에 체크포인트를 안전 저장하고 즉시 종료됩니다.
+          </p>
+</div>
+</div>
+<!-- Long-press Physical Button Simulation -->
+<div class="mt-6 p-4 bg-surface-container-lowest border border-outline-variant rounded">
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">오작동 방지 안전 스위치 (1.5초 롱터치)</label>
+<button class="w-full h-16 bg-error-container hover:bg-opacity-95 text-error border-2 border-error font-headline-sm text-headline-sm font-bold rounded flex items-center justify-center gap-3 relative overflow-hidden select-none active:scale-[0.99] transition-all" id="veto-hold-btn" onmousedown="startVetoHold()" onmouseleave="stopVetoHold()" onmouseup="stopVetoHold()" ontouchend="stopVetoHold()" ontouchstart="startVetoHold()">
+<div class="absolute left-0 top-0 bottom-0 bg-error opacity-30 w-0 transition-all duration-75" id="veto-progress-fill"></div>
+<span class="material-symbols-outlined text-2xl relative z-10" data-icon="warning">warning</span>
+<span class="relative z-10" id="veto-btn-text">길게 눌러 긴급 정지 (HOLD)</span>
+</button>
+</div>
+<!-- Cancel Action -->
+<div class="mt-4 flex justify-end">
+<button class="px-5 py-2.5 bg-surface-container text-on-surface font-label-md text-label-md rounded border border-outline-variant hover:bg-surface-container-high transition-colors" onclick="closeVetoModal()">
+          창 닫기 (취소)
+        </button>
+</div>
+</div>
+</div>
+<!-- Toast Notification Alert -->
+<div class="fixed bottom-6 right-6 z-50 bg-surface-container-high border border-primary-container text-primary px-4 py-3 rounded shadow-xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" id="status-toast">
+<span class="material-symbols-outlined text-primary-container" data-icon="info">info</span>
+<span class="font-label-md text-label-md font-semibold" id="toast-message">설정이 업데이트되었습니다.</span>
+</div>
+<!-- ================= INLINE LOGIC & INTERACTIONS ================= -->
+<script>
+    // Tab Switching Logic
+    function switchTab(tabId) {
+      const views = ['grid', 'sim', 'receipt', 'telemetry'];
+      views.forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const btn = document.getElementById('nav-btn-' + v);
+        if (el) el.classList.add('hidden');
+        if (btn) {
+          btn.className = "text-on-surface-variant hover:text-on-surface pb-2 font-medium h-full flex items-center gap-2 transition-colors";
+        }
+      });
+
+      const targetView = document.getElementById('view-' + tabId);
+      const targetBtn = document.getElementById('nav-btn-' + tabId);
+      if (targetView) targetView.classList.remove('hidden');
+      if (targetBtn) {
+        targetBtn.className = "text-primary border-b-2 border-primary-container pb-2 font-bold tracking-tight h-full flex items-center gap-2 transition-colors";
+      }
+    }
+
+    // Individual Node Consent Toggle
+    const consentStates = {
+      'pc-01': true,
+      'pc-02': true,
+      'pc-03': true,
+      'pc-04': true,
+      'pc-05': true,
+      'pc-06': false,
+      'pc-07': true,
+      'pc-08': true
+    };
+
+    function toggleCardConsent(cardId) {
+      consentStates[cardId] = !consentStates[cardId];
+      const card = document.getElementById('card-' + cardId);
+      if (!card) return;
+
+      if (consentStates[cardId]) {
+        showToast(cardId.toUpperCase() + ' 야간 연산 동의가 활성화되었습니다.');
+      } else {
+        showToast(cardId.toUpperCase() + ' 로컬 전용(동의 철회)으로 전환되었습니다.');
+      }
+      updateConsentCounter();
+    }
+
+    function setAllConsent(status) {
+      Object.keys(consentStates).forEach(k => {
+        consentStates[k] = status;
+      });
+      showToast(status ? '전체 워크스테이션이 야간 연산에 동의되었습니다.' : '전체 워크스테이션 동의가 보류/철회되었습니다.');
+      updateConsentCounter();
+    }
+
+    function updateConsentCounter() {
+      const count = Object.values(consentStates).filter(Boolean).length;
+      const el = document.getElementById('consent-stat');
+      if (el) el.innerText = count;
+    }
+
+    function refreshAllConsents() {
+      showToast('사내 Active Directory 및 좌석 체크인 상태와 동기화 중...');
+      setTimeout(() => {
+        showToast('동의 상태 갱신 완료: 7/8대 승인 상태 유지');
+      }, 700);
+    }
+
+    // Individual Node Veto Quick Trigger
+    function triggerNodeVeto(pcName) {
+      showToast(pcName + ' 거부권(VETO) 발동: 해당 노드의 분산 작업이 즉시 롤백됩니다.');
+    }
+
+    // Global Emergency Veto Hold Trigger
+    let vetoTimer = null;
+    let vetoProgress = 0;
+
+    function openVetoModal() {
+      document.getElementById('veto-modal').classList.remove('hidden');
+      resetVetoProgress();
+    }
+
+    function closeVetoModal() {
+      document.getElementById('veto-modal').classList.add('hidden');
+      resetVetoProgress();
+    }
+
+    function resetVetoProgress() {
+      if (vetoTimer) clearInterval(vetoTimer);
+      vetoProgress = 0;
+      const fill = document.getElementById('veto-progress-fill');
+      const text = document.getElementById('veto-btn-text');
+      if (fill) fill.style.width = '0%';
+      if (text) text.innerText = '길게 눌러 긴급 정지 (HOLD)';
+    }
+
+    function startVetoHold() {
+      resetVetoProgress();
+      const fill = document.getElementById('veto-progress-fill');
+      const text = document.getElementById('veto-btn-text');
+
+      vetoTimer = setInterval(() => {
+        vetoProgress += 5;
+        if (fill) fill.style.width = vetoProgress + '%';
+        if (text) text.innerText = '긴급 정지 중... ' + vetoProgress + '%';
+
+        if (vetoProgress >= 100) {
+          clearInterval(vetoTimer);
+          executeGlobalVeto();
+        }
+      }, 75);
+    }
+
+    function stopVetoHold() {
+      if (vetoProgress < 100) {
+        resetVetoProgress();
+      }
+    }
+
+    function executeGlobalVeto() {
+      closeVetoModal();
+      showToast('⚠️ 긴급 명령 수신: 4층 클러스터 전체 연산이 즉시 안전 정지되었습니다!');
+      setAllConsent(false);
+    }
+
+    // Toast Utility
+    function showToast(msg) {
+      const toast = document.getElementById('status-toast');
+      const msgEl = document.getElementById('toast-message');
+      if (!toast || !msgEl) return;
+      msgEl.innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3200);
+    }
+  </script>
+</body></html>
