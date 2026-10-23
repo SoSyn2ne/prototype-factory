@@ -18,7 +18,7 @@ type Props = {
 };
 
 function uniq(values: string[]) {
-  return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b));
+  return Array.from(new Set(values)).sort((a, b) => a.localeCompare(b, 'en'));
 }
 
 function pickCategory(tag: string) {
@@ -77,8 +77,8 @@ export default function GalleryClient({ updatedAt, items }: Props) {
     out = [...out].sort((a, b) => {
       const ad = String(a.createdAt || '');
       const bd = String(b.createdAt || '');
-      if (ad !== bd) return sort === 'newest' ? bd.localeCompare(ad) : ad.localeCompare(bd);
-      return sort === 'newest' ? String(b.id).localeCompare(String(a.id)) : String(a.id).localeCompare(String(b.id));
+      if (ad !== bd) return sort === 'newest' ? bd.localeCompare(ad, 'en') : ad.localeCompare(bd, 'en');
+      return sort === 'newest' ? String(b.id).localeCompare(String(a.id), 'en') : String(a.id).localeCompare(String(b.id), 'en');
     });
 
     return out;
@@ -449,7 +449,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
       </div>
 
       <div className="mt-10 text-xs font-semibold text-zinc-500">
-        Updated: {new Date(updatedAt).toLocaleString()} / Total: {items.length} / Matched: {filtered.length}
+        Updated: {new Date(updatedAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })} / Total: {items.length} / Matched: {filtered.length}
       </div>
     </div>
   );
