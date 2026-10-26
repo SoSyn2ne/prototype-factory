@@ -8,12 +8,12 @@ function Icon({ path, className }: { path: string; className?: string }) {
   );
 }
 
-export default function SiteShell({ children }: { children: React.ReactNode }) {
+export default function SiteShell({ children, canvas = false }: { children: React.ReactNode; canvas?: boolean }) {
   return (
-    <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden">
-      <header className="sticky top-0 z-50 w-full border-b border-zinc-200 bg-background-light/90 backdrop-blur-md dark:border-zinc-800 dark:bg-background-dark/90">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+    <div className={canvas ? 'relative flex h-dvh w-full flex-col overflow-hidden' : 'relative flex min-h-screen w-full flex-col overflow-x-hidden'}>
+      <header className="sticky top-0 z-50 w-full shrink-0 border-b border-zinc-200 bg-background-light/90 backdrop-blur-md dark:border-zinc-800 dark:bg-background-dark/90">
+        <div className={canvas ? 'px-4 sm:px-6' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
+          <div className={`flex items-center justify-between ${canvas ? 'h-14' : 'h-16'}`}>
             <div className="flex items-center gap-8">
               <Link href="/" className="flex items-center gap-2 text-primary hover:no-underline">
                 <Icon
@@ -22,7 +22,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
                 />
                 <h2 className="text-lg font-black text-zinc-950 dark:text-white">Prototype Factory</h2>
               </Link>
-              <nav className="hidden items-center gap-6 md:flex">
+              <nav className={`hidden items-center gap-6 ${canvas ? 'lg:flex' : 'md:flex'}`}>
                 <Link className="text-sm font-semibold text-zinc-600 transition-colors hover:text-primary dark:text-zinc-300 dark:hover:text-white" href="/">
                   Gallery
                 </Link>
@@ -39,7 +39,7 @@ export default function SiteShell({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="flex flex-1 items-center justify-end gap-3">
-              <span className="hidden text-xs font-semibold text-zinc-500 sm:block">gallery / clusters / demos</span>
+              {!canvas ? <span className="hidden text-xs font-semibold text-zinc-500 sm:block">gallery / clusters / demos</span> : null}
               <a
                 className="flex h-10 items-center justify-center rounded-lg border border-zinc-200 bg-white px-4 text-sm font-black text-zinc-900 transition-colors hover:bg-zinc-50 hover:no-underline dark:border-zinc-800 dark:bg-zinc-950 dark:text-white dark:hover:bg-zinc-900"
                 href="https://github.com/SoSyn2ne/prototype-factory"
