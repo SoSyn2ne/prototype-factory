@@ -301,7 +301,7 @@ export function validateLaunchOptions(options: LaunchOptions): string[] {
     ['targetUser', '대상 사용자'], ['testPlan', '실증 방법'],
     ['successCriterion', '성공 조건'], ['stopCriterion', '중단 조건'],
   ] as const) {
-    if (!text(options[key])) errors.push(`${label}를 입력해 주세요.`);
+    if (!text(options[key])) errors.push(`${label} 항목을 입력해 주세요.`);
     else if (options[key].length > 1600) errors.push(`${label}는 1,600자 이내로 입력해 주세요.`);
   }
   if (!Number.isInteger(options.durationDays) || options.durationDays < 1 || options.durationDays > 90) errors.push('실증 기간은 1~90일 사이의 정수로 입력해 주세요.');
