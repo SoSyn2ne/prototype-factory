@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import type { PrototypeIndexItem } from './index';
-import { analyzeProject } from './project-analysis';
+import { analyzeProject, normalizeSourceRevision } from './project-analysis';
 import type { ProjectAnalysis, ProjectDocument } from './project-analysis';
 
 function inside(root: string, candidate: string): boolean {
@@ -72,6 +72,7 @@ function readDocuments(siteRoot: string, projectRoot: string, repoPath: string, 
 }
 
 export function loadProjectAnalysis(item: PrototypeIndexItem): ProjectAnalysis {
+  const sourceRevision = normalizeSourceRevision(process.env.VERCEL_GIT_COMMIT_SHA);
   const cwd = process.cwd();
   const siteRoot = fs.existsSync(path.join(cwd, 'public', 'prototypes-index.json')) ? cwd : path.join(cwd, 'site');
   const repoRoot = path.resolve(siteRoot, '..');
@@ -79,6 +80,7 @@ export function loadProjectAnalysis(item: PrototypeIndexItem): ProjectAnalysis {
   const projectRoot = match ? boundedPath(repoRoot, item.repoPath) : null;
   if (!match || !projectRoot) {
     const fallback = analyzeProject({ project: item });
+    fallback.sourceRevision = sourceRevision;
     fallback.market.limitations.push('원본 프로젝트 폴더를 안전하게 확인하지 못했습니다. 문서와 실행 준비 상태를 다시 확인해야 합니다.');
     return fallback;
   }
@@ -105,6 +107,7 @@ export function loadProjectAnalysis(item: PrototypeIndexItem): ProjectAnalysis {
       demoEntry: hasFile(projectRoot, 'demo/index.html') || hasFile(siteRoot, `public/demos/${item.id}/index.html`),
     },
   });
+  result.sourceRevision = sourceRevision;
   if (metadata === undefined) result.market.limitations.push('원본 metadata를 읽지 못했거나 프로젝트 ID가 일치하지 않아 해당 정보를 사용하지 않았습니다.');
   return result;
 }

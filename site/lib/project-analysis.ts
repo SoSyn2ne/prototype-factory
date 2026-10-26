@@ -49,6 +49,7 @@ export type CommercialBrief = {
 
 export type ProjectAnalysis = {
   project: PrototypeIndexItem;
+  sourceRevision?: string;
   commercial: CommercialBrief | null;
   market: {
     targetUser: string;
@@ -140,6 +141,21 @@ export function sanitizeSourceUrl(value: unknown): string | null {
     return ['http:', 'https:'].includes(url.protocol) && !url.username && !url.password
       ? url.toString()
       : null;
+  } catch {
+    return null;
+  }
+}
+
+export function normalizeSourceRevision(value: unknown): string {
+  return typeof value === 'string' && /^[a-f0-9]{40}$/i.test(value) ? value.toLowerCase() : 'main';
+}
+
+export function repositorySourceUrl(source: string, revision?: string): string | null {
+  if (!source || source.length > 2000 || /[\u0000-\u001f\\]/.test(source) || /^[a-z][a-z0-9+.-]*:/i.test(source)) return null;
+  const segments = source.split('/');
+  if (segments.some((segment) => !segment || segment === '.' || segment === '..')) return null;
+  try {
+    return `https://github.com/SoSyn2ne/prototype-factory/blob/${encodeURIComponent(normalizeSourceRevision(revision))}/${segments.map(encodeURIComponent).join('/')}`;
   } catch {
     return null;
   }

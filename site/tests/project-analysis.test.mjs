@@ -5,7 +5,9 @@ import {
   createDefaultLaunchOptions,
   generateProjectPrompt,
   isSubstantiveMarkdown,
+  normalizeSourceRevision,
   parseCommercialBrief,
+  repositorySourceUrl,
   sanitizeSourceUrl,
   validateLaunchOptions,
 } from '../lib/project-analysis.ts';
@@ -51,6 +53,22 @@ const commercialBrief = () => ({
   automationBoundary: '반복 단계만 자동화하고 예외는 사람이 검토', reuseBoundary: '공통 변환만 재사용하며 고객 명단과 거래 자료는 분리',
   paidPilot: { scope: '승인된 예시 20건을 하나의 예약표로 정리', priceHypothesis: '제안 가격 10만원 — 아직 수금 안 됨', durationDays: 14, successCriterion: '유료 파일럿 완료 후 실제 처리 시간 감소를 기록', stopCriterion: '예외 처리와 지원 비용이 합의한 범위를 넘으면 중단' },
   evidence: [{ label: '기존 유료 대안', url: 'https://example.com/paid-alternative', kind: 'paid-alternative', note: '대안의 유료 존재만 확인하며 새 상품의 수요 증거는 아님', checkedAt: '2026-10-27' }],
+});
+
+test('repository source links use a validated deployment commit and encode each relative path segment', () => {
+  const sha = '0123456789abcdef0123456789abcdef01234567';
+  assert.equal(normalizeSourceRevision(sha.toUpperCase()), sha);
+  for (const revision of [undefined, '', 'shortsha', 'codex/new-ideas', `${sha}/other`, { sha }]) {
+    assert.equal(normalizeSourceRevision(revision), 'main');
+  }
+  const source = `${project.repoPath}/spec/검수 #1.md`;
+  const url = repositorySourceUrl(source, sha);
+  assert.equal(url, `https://github.com/SoSyn2ne/prototype-factory/blob/${sha}/${project.repoPath}/spec/%EA%B2%80%EC%88%98%20%231.md`);
+  assert.equal(new URL(url).hash, '');
+  assert.equal(repositorySourceUrl(`${project.repoPath}/meta.json`, 'codex/new-ideas'), `https://github.com/SoSyn2ne/prototype-factory/blob/main/${project.repoPath}/meta.json`);
+  for (const path of ['', '../meta.json', '/meta.json', 'prototypes/../meta.json', 'prototypes//meta.json', 'C:/meta.json', 'https://example.com/meta.json', 'prototypes\\meta.json', 'prototypes/\u0000meta.json', 'prototypes/\ud800.md']) {
+    assert.equal(repositorySourceUrl(path, sha), null);
+  }
 });
 
 test('commercial profiles are bound to their exact version and project and default to null when absent', () => {

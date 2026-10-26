@@ -6,6 +6,7 @@ import CommercialPilotPanel from '@/components/CommercialPilotPanel';
 import {
   createDefaultLaunchOptions,
   generateProjectPrompt,
+  repositorySourceUrl,
   validateLaunchOptions,
   type LaunchOptions,
   type ProjectAnalysis,
@@ -40,13 +41,14 @@ function restoreOptions(raw: string | null, projectId: string, defaults: LaunchO
   return restored;
 }
 
-function Fact({ label, value, source }: { label: string; value: string; source?: string }) {
+function Fact({ label, value, source, sourceRevision }: { label: string; value: string; source?: string; sourceRevision?: string }) {
+  const sourceUrl = source ? repositorySourceUrl(source, sourceRevision) : null;
   return (
     <div className="grid gap-1 border-b border-zinc-100 py-3 last:border-0 dark:border-zinc-800 sm:grid-cols-[7rem_minmax(0,1fr)] sm:gap-4">
       <dt className="text-xs font-bold text-zinc-500 dark:text-zinc-400">{label}</dt>
       <dd className={`min-w-0 whitespace-pre-wrap break-words text-sm leading-6 ${value ? 'text-zinc-800 dark:text-zinc-200' : 'text-zinc-500'}`}>
         {value || '기록이 없습니다. 첫 실증에서 확인할 항목입니다.'}
-        {source ? <a href={`https://github.com/SoSyn2ne/prototype-factory/blob/main/${source.split('/').map(encodeURIComponent).join('/')}`} target="_blank" rel="noreferrer" className="mt-1 block w-fit text-xs text-primary underline underline-offset-4" title={source}>출처 {source.split('/').pop()} ↗</a> : null}
+        {source && sourceUrl ? <a href={sourceUrl} target="_blank" rel="noreferrer" className="mt-1 block w-fit text-xs text-primary underline underline-offset-4" title={source}>출처 {source.split('/').pop()} ↗</a> : null}
       </dd>
     </div>
   );
@@ -156,7 +158,7 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
         <section className={panelClass} aria-labelledby="market-analysis-title">
           <div className="mb-2 text-xs font-bold text-primary dark:text-zinc-300">01 · 시장성·실증 가능성</div><h2 id="market-analysis-title" className="text-xl font-black text-zinc-950 dark:text-white">누구의 어떤 문제를 확인할까?</h2>
-          <dl className="mt-3"><Fact label="대상 사용자" value={market.targetUser} source={market.fieldSources?.targetUser} /><Fact label="문제·발생 순간" value={market.problem} source={market.fieldSources?.problem} /><Fact label="구매자·공유 대상" value={market.buyer} source={market.fieldSources?.buyer} /><Fact label="현재 대안" value={market.workaround} source={market.fieldSources?.workaround} /><Fact label="첫 유입 경로" value={market.arrivalPath} source={market.fieldSources?.arrivalPath} /></dl>
+          <dl className="mt-3"><Fact label="대상 사용자" value={market.targetUser} source={market.fieldSources?.targetUser} sourceRevision={analysis.sourceRevision} /><Fact label="문제·발생 순간" value={market.problem} source={market.fieldSources?.problem} sourceRevision={analysis.sourceRevision} /><Fact label="구매자·공유 대상" value={market.buyer} source={market.fieldSources?.buyer} sourceRevision={analysis.sourceRevision} /><Fact label="현재 대안" value={market.workaround} source={market.fieldSources?.workaround} sourceRevision={analysis.sourceRevision} /><Fact label="첫 유입 경로" value={market.arrivalPath} source={market.fieldSources?.arrivalPath} sourceRevision={analysis.sourceRevision} /></dl>
           <div className="mt-5">
             <h3 className="text-sm font-bold text-zinc-950 dark:text-white">기록된 수요 신호</h3><p className="mt-1 text-xs leading-5 text-zinc-500 dark:text-zinc-400">프로젝트 기록일 기준 자료입니다. 원문의 현재 유효성과 구매 의사는 확인되지 않았습니다.</p>
             {market.signals.length ? <ul className="mt-3 divide-y divide-zinc-200 dark:divide-zinc-800">{market.signals.map((signal, index) => <li key={`${signal.ref}-${index}`} className="py-3 text-sm leading-6"><div className="flex flex-wrap items-center gap-2"><span className="font-bold text-zinc-800 dark:text-zinc-200">{signal.ref || `기록 ${index + 1}`}</span>{signal.url ? <a className="font-semibold text-primary underline underline-offset-4" href={signal.url} target="_blank" rel="noreferrer">원문 열기 ↗</a> : <span className="text-xs text-zinc-500">원문 링크 없음</span>}</div><p className="mt-1 break-words text-zinc-600 dark:text-zinc-300">{signal.note || '추가 설명이 기록되지 않았습니다.'}</p><p className="mt-1 break-all text-xs text-zinc-500">출처 {signal.source}{signal.observedAt ? ` · 기록일 ${signal.observedAt}` : ''}</p></li>)}</ul> : <p className="mt-3 rounded-lg bg-zinc-50 p-3 text-sm leading-6 text-zinc-600 dark:bg-zinc-900 dark:text-zinc-300">연결된 수요 신호가 없습니다. 개발 전에 사용자에게 문제와 현재 대안을 직접 확인해 보세요.</p>}
