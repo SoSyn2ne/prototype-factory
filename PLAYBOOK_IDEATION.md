@@ -47,6 +47,15 @@ before becoming a prototype.
 이 문서는 에이전트 작업 지침이며 실행형 아이디어 생성기나 cron 변경이 아니다.
 기존 후보의 상업화 재정의는 새로운 daily 배치를 생성한 것으로 보지 않는다.
 
+별도로 요청한 선별 조사는 개수와 근거 범위를 명시하고 일일 8개와 구분한다.
+현재 [2026-10-27 신규 3개 예시](docs/COMMERCIAL_PILOT_EXAMPLES.md)는 후보마다
+원문 2개에서 실제 작업·대안을 확인한 뒤, 제안과 지불의사 미확인을 분리해 등록한다.
+원문 확인일을 게시일로 바꾸거나 자기보고 시간을 대표 비용으로 확대하지 않는다.
+`meta`·`commercial`·`spec` 작성 → 기존 인덱스 등록 → 상세 분석 → 실증 조건과
+`validate/build/hold` 편집 → 검증·구현·납품 프롬프트의 연결은
+[PROJECT_LAUNCH_WORKFLOW.md](docs/PROJECT_LAUNCH_WORKFLOW.md)를 따른다.
+분석 화면은 저장된 파일을 정리하며 새 인터넷 조사·AI 판단·자동 출시를 수행하지 않는다.
+
 ## Inputs
 
 - Problem area (1 sentence)

@@ -64,6 +64,20 @@ workaround, arrival path, and output artifact are clear.
 이 문서는 에이전트의 `/pf idea`·daily 작업 지침이다. 생성기나 cron을 새로 실행하거나
 변경하지 않는다. 선택한 기존 아이디어의 보강은 새 daily 8개 배치로 세지 않는다.
 
+## Selected research registration
+
+사용자가 별도로 고른 문제를 조사·등록하는 작업은 범위와 개수를 먼저 명시한다.
+2026-10-27의 [신규 3개 조사 예시](COMMERCIAL_PILOT_EXAMPLES.md)는 각 원문 2개의
+실제 작업·대안을 읽고 해법을 제안한 선별 작업이며, 일일 `Final 8` 완료 기록이 아니다.
+오늘 확인한 글과 오늘 게시된 글을 구분하고, 작성자 자기보고·우리 제안·지불의사 미확인을
+나눠 기록한다. 관찰되지 않은 구매·빈도·절감액을 원문에 덧붙이지 않는다.
+
+새 후보는 `meta.json` + 필요 시 `commercial.json` + 실제 내용이 있는 `spec/`로 남기고
+기존 인덱스에 등록한다. 이후 상세 분석에서 조건과 `validate/build/hold`를 편집해
+검증·구현·납품 프롬프트로 잇는다. 구체적인 파일·등록·판단 흐름은
+[PROJECT_LAUNCH_WORKFLOW.md](PROJECT_LAUNCH_WORKFLOW.md)를 따른다.
+기존 아이디어를 일괄 재작성하거나 새 생성기·cron을 만드는 단계는 아니다.
+
 ## Daily Template
 
 ```markdown

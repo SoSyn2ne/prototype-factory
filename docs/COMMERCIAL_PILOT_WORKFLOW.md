@@ -1,7 +1,15 @@
 # Commercial pilot: paid, recurring work before automation
 
 ## Objective
-Help a user decide whether a selected idea can become a bounded paid pilot for a named buyer with a recurring job. A curated commercial brief is a proposed redesign of that idea, not historical evidence or proven demand.
+Help a user decide whether a source-grounded idea can become a bounded paid pilot for a named buyer with a recurring job. A commercial brief is a proposed offer, not historical evidence or proven demand. The current primary examples are [three newly registered, selected research ideas](COMMERCIAL_PILOT_EXAMPLES.md); earlier redesign profiles remain historical examples rather than the preferred starting point.
+
+## From observed work to a proposed offer
+
+Read original first-person reports and separate four layers: the linked text and check date; the author's self-reported task/workaround; our proposed buyer, deliverable and pilot; and unknown access, willingness to pay, price and results. Two reports can support investigating a task without proving frequency, typical cost, domestic applicability or demand for our particular solution. Exclude promotional replies from operator evidence.
+
+Write `meta.json` for the problem and original source notes, `commercial.json` for the bounded offer, and substantive `spec/` documents for behavior, unknowns, falsification and verification. Register with the existing index scanner, then review `/p/<id>` and edit the plan before exporting validation, build or delivery prompts. [PROJECT_LAUNCH_WORKFLOW.md](PROJECT_LAUNCH_WORKFLOW.md) defines the full route. Analysis is a deterministic summary of stored files, not fresh internet research or live AI judgment.
+
+For the selected 2026-10-27 batch, each idea has exactly two original operator-report sources. It is a three-item research selection, not a completed daily eight-item batch. Existing historical metadata is preserved. An agreed scope and price plus an actual first payment are required before calling a paid pilot validated, together with the agreed same-case time/error and human-review criteria. Without payment, a useful result can establish only task feasibility or usability. No payment is currently observed.
 
 ## Data contract
 An optional `commercial.json` in the selected prototype folder contains a version-1 brief tied to its exact project ID. The brief records offer type, buyer, recurring work, paid/current alternative, cost to verify, initial offer and acquisition route, recurring value, delivery/support/automation/reuse boundaries, a proposed paid pilot, and dated source links.

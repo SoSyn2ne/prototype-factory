@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쇼핑몰 정산 차이 추적 · 설계 예시</title>
+<style>
+:root{color-scheme:dark;--bg:#111113;--surface:#18181b;--text:#f4f4f5;--muted:#a1a1aa;--line:#3f3f46;--accent:#a5b4fc;--notice:#fcd34d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.7 system-ui,"Malgun Gothic",sans-serif}
+main{max-width:960px;margin:0 auto;padding:24px 20px 48px}
+a{color:var(--accent);text-underline-offset:4px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+header{padding:20px 0;border-bottom:1px solid var(--line)}
+h1{font-size:clamp(1.5rem,5vw,2rem);line-height:1.3;margin:12px 0}
+h2{font-size:1.1rem;line-height:1.5;margin:0 0 12px}
+p{margin:0 0 12px}
+.status{display:inline-block;color:var(--notice);font-size:.85rem;font-weight:700}
+.lead{max-width:72ch}
+section{padding:24px 0;border-bottom:1px solid var(--line)}
+.muted,figcaption{color:var(--muted);font-size:.875rem}
+figure{margin:16px 0 0}
+.table-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;min-width:600px;background:var(--surface);font-size:.9rem}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+code{font-size:.9em}
+ul{margin:8px 0 0;padding-left:22px}
+li{margin:6px 0}
+figcaption{padding-top:10px}
+footer{padding-top:24px}
+@media(max-width:480px){main{padding:16px 16px 32px}header,section{padding:20px 0}}
+</style>
+</head>
+<body>
+<main>
+<nav aria-label="프로젝트 이동"><a href="/p/2026-10-27-p002">프로젝트 분석·실증 조건·실행 프롬프트로 이동</a></nav>
+<header>
+<span class="status">설계 예시 · 실제 파일 처리 미구현</span>
+<h1>쇼핑몰 정산 차이 추적</h1>
+<p class="lead">한 정산명세의 순입금 구성과 원본 거래를 따라가며, 확인한 근거와 아직 설명되지 않는 차이를 분리하는 읽기 전용 도구 제안입니다.</p>
+<p class="muted">미리 작성한 가상 검토 자료입니다. 실제 입력 파일·처리 결과·고객 성과는 포함하지 않습니다.</p>
+</header>
+<section aria-labelledby="scope-title">
+<h2 id="scope-title">먼저 확인할 작은 범위</h2>
+<p>한 스토어·정산명세 한 건과 그에 대응하는 거래 내보내기를 함께 봅니다. 담당자가 기간·통화·포함 항목·연결 키를 먼저 확인하며 서로 다른 정의의 합계를 억지로 맞추지 않습니다.</p>
+<p class="muted">구매자·자료 접근·가격·반복 효용은 아직 미확인입니다. 승인받은 담당자와 수작업 기준을 먼저 만듭니다.</p>
+</section>
+<section aria-labelledby="specimen-title">
+<h2 id="specimen-title">제안한 검토 자료의 형태</h2>
+<figure>
+<div class="table-scroll" tabindex="0" role="region" aria-label="가상 검토 행 표, 작은 화면에서 가로 스크롤">
+<table>
+<thead><tr><th scope="col">가상 검토 항목</th><th scope="col">원본 근거 예시</th><th scope="col">연결 상태 예시</th><th scope="col">사람의 다음 판단</th></tr></thead>
+<tbody><tr><td>매출 구성</td><td>가상 거래 <code>R-01</code></td><td>정의 확인 대기</td><td>명세의 포함 항목 확인</td></tr>
+<tr><td>환불</td><td>원거래 키 없는 가상 행</td><td>미연결로 보류</td><td>담당자가 원거래 확인</td></tr>
+<tr><td>차이 설명</td><td>서로 다른 기간의 예시</td><td>대조 불가</td><td>범위·자료 정의 재확인</td></tr></tbody>
+</table>
+</div>
+<figcaption>미리 작성한 가상 행이며 계산된 입금 내역이 아닙니다. 정산 완료·누락 자금·세금 오류를 판정하지 않습니다.</figcaption>
+</figure>
+</section>
+<section aria-labelledby="boundary-title">
+<h2 id="boundary-title">사람이 확인하고 멈출 지점</h2>
+<ul><li>정의·기간·통화·연결 키를 확인하지 못한 항목은 미해결로 남깁니다.</li><li>차이를 정상 시차·수수료·세금·누락 자금으로 추정하지 않고 담당자가 원본으로 판정합니다.</li><li>은행 로그인·자동 분개·세금 판단·장부 수정·환불/입금 실행·외부 전송은 범위 밖입니다.</li></ul>
+</section>
+<section aria-labelledby="sources-title">
+<h2 id="sources-title">이 문제를 직접 보고한 글</h2>
+<ul><li><a href="https://www.reddit.com/r/quickbooksonline/comments/1sevrzs/shopify_payout_reconciliation_is_anyone_doing/" target="_blank" rel="noopener noreferrer">johnmay1021 — 순입금 수동 분리 경험</a><p class="muted">입금 때마다 항목을 수동 분리하고 가끔 실수한다고 보고했습니다. 시간·규모·구매 의사는 미기재입니다. 게시일은 검색 색인상 2026-04-07이며 본문 절대 날짜는 미확인입니다.</p></li><li><a href="https://community.shopify.com/t/payments-from-shopify-only-do-not-match-total-sales-from-shopify-only/397749" target="_blank" rel="noopener noreferrer">dyeshadb — Q4 매출·입금 보고서 대조</a><p class="muted">2025-02-28 원글·2025-03-01 후속의 특정 분기 사례입니다. 실제 미지급금·회계 해석과 월 반복 빈도는 검증되지 않았습니다.</p></li></ul>
+<p class="muted">본문 확인일 2026-10-27. 작성자 자기보고이며 신원·대표성·새 도구 구매 의사는 별도로 검증되지 않았습니다.</p>
+</section>
+<footer><p>현재 산출물: 설계 문서와 이 정적 예시 화면. 실제 파일 읽기·계산·자동 반영 기능은 아직 구현되지 않았습니다.</p></footer>
+</main>
+</body>
+</html>
