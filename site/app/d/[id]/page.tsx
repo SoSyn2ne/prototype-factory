@@ -15,9 +15,10 @@ export function generateStaticParams() {
   return index.items.map((item) => ({ id: item.id }));
 }
 
-export default function DemoPage({ params }: { params: { id: string } }) {
+export default async function DemoPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const index = loadIndex();
-  const item = index.items.find((candidate) => candidate.id === params.id);
+  const item = index.items.find((candidate) => candidate.id === id);
   if (!item) notFound();
 
   const demoSrc = `/demos/${encodeURIComponent(item.id)}/index.html`;

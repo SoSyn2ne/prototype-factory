@@ -45,9 +45,10 @@ export function generateStaticParams() {
   return index.items.map((item) => ({ id: item.id }));
 }
 
-export default function PrototypeDetailPage({ params }: { params: { id: string } }) {
+export default async function PrototypeDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const index = loadIndex();
-  const item = index.items.find((candidate) => candidate.id === params.id);
+  const item = index.items.find((candidate) => candidate.id === id);
   if (!item) notFound();
 
   const spec = readSpecFiles(item.repoPath);
