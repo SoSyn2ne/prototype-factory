@@ -94,6 +94,13 @@ When the task is “idea + design”:
 - Default execution contract for daily PF runs: scaffold and publish all 8 slots `p001~p008`; missing `p008` means the batch is incomplete unless the operator explicitly says otherwise.
 - Default `/pf sti` contract: ingest, review, build, commit, and push all same-day `p001~p008` Stitch demos when matching exports exist.
 
+### Commercial candidate gate
+
+- 상업 후보는 `docs/IDEA_BOARD.md`의 Commercial pilot gate를 따른다. 결제자를 사용자·공유 대상과 분리하고, 반복 수작업·현재 비용의 측정 방법·기존 유료/무료 대안·한정된 납품물·첫 고객 경로·유료 파일럿 가격 가설·지원/원가/재사용 경계를 기록한다.
+- 범위가 정해진 상업 파일럿은 `docs/COMMERCIAL_PILOT_WORKFLOW.md`와 `CommercialBrief` 타입에 맞는 프로젝트별 `commercial.json` v1로도 작성한다. 정확한 projectId·실제 checkedAt을 사용하고 미확인 텍스트는 비워 둔다. 기존 스캐너/빌드가 읽으며 재미·자료 부족 후보는 생략할 수 있다. 빈 PRD 스캐폴드가 프로필을 자동 생성한다는 뜻은 아니다.
+- 한 고객·약 7일의 첫 파일럿에서 실제 결제, 시간/오류 개선, 사람의 결과 검토를 각각 확인한다. 월 관리에는 실제 반복 납품과 빈도가 필요하며, 없으면 일회성 구축이다. 공급사 소개나 이전 링크를 현재 구매 증거로 취급하지 않는다.
+- `weak-buyer`, `no-customer-access`, `commodity-clone`, `no-recurring-value`(구독), `unbounded-service`면 탈락 또는 재정의한다. 실전/상업 5~6개 + 재미/실험/포트폴리오 또는 현장형 2~3개 구성은 유지하고 재미 후보의 수익화를 강제하지 않는다. 이 규칙은 에이전트 문서 지침이며 생성기/cron을 새로 만들지 않는다.
+
 ---
 
 ## 4) Docs-first rule (Context7)

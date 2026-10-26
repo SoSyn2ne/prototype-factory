@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
+import CommercialPilotPanel from '@/components/CommercialPilotPanel';
 import {
   createDefaultLaunchOptions,
   generateProjectPrompt,
@@ -144,11 +145,12 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
         <h1 className="mt-3 break-words text-3xl font-black leading-tight text-zinc-950 dark:text-white sm:text-4xl">{project.title}</h1>
         <p className="mt-3 max-w-4xl text-base leading-7 text-zinc-600 dark:text-zinc-300">{project.oneLiner}</p>
         <div className="mt-5 flex flex-wrap gap-2">
-          <a className="inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#validation-plan">실증 조건 정하기 ↓</a>
+          {!analysis.commercial ? <a className="inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#validation-plan">실증 조건 정하기 ↓</a> : null}
           {demoUrl ? <Link className={secondaryButton} href={demoUrl} target={/^https?:\/\//i.test(demoUrl) ? '_blank' : undefined} rel={/^https?:\/\//i.test(demoUrl) ? 'noreferrer' : undefined}>기존 데모 보기 ↗</Link> : null}
           <a className={secondaryButton} href="#source-documents">원문 자료</a>
         </div>
       </header>
+      <CommercialPilotPanel brief={analysis.commercial} />
       <p className="mb-5 border-l-2 border-primary pl-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300">저장된 기획 자료를 바탕으로 한 사전 분석입니다. 출처가 있거나 데모가 만들어졌다는 사실은 고객 수요·매출·서비스 완성을 증명하지 않습니다.</p>
 
       <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
@@ -163,10 +165,10 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
         </section>
         <div className="grid min-w-0 gap-5">
           <section className={panelClass} aria-labelledby="technical-analysis-title">
-            <div className="mb-2 text-xs font-bold text-primary dark:text-zinc-300">02 · 구현·배포 준비도</div><h2 id="technical-analysis-title" className="text-xl font-black text-zinc-950 dark:text-white">{technical.label}</h2>
-            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">파일 존재 여부를 확인한 상태입니다. 이 프로젝트의 빌드·테스트·운영 배포는 별도로 검증해야 합니다.</p>
+            <div className="mb-2 text-xs font-bold text-primary dark:text-zinc-300">02 · {analysis.commercial ? '원본 앱·데모 자료 상태' : '구현·배포 준비도'}</div><h2 id="technical-analysis-title" className="text-xl font-black text-zinc-950 dark:text-white">{technical.label}</h2>
+            <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{analysis.commercial ? '아래는 원본 앱·데모 자료의 파일 점검 결과입니다. 현재 실증 준비는 위의 납품물·실증 조건을 따르며, 원본 앱의 실행·배포는 별도로 검증해야 합니다.' : '파일 존재 여부를 확인한 상태입니다. 이 프로젝트의 빌드·테스트·운영 배포는 별도로 검증해야 합니다.'}</p>
             <ul className="mt-4 divide-y divide-zinc-200 dark:divide-zinc-800">{technical.checks.map((check) => <li key={check.label} className="py-3"><div className="flex items-start justify-between gap-3 text-sm"><span className="font-semibold text-zinc-800 dark:text-zinc-200">{check.label}</span><span className="shrink-0 text-xs font-bold text-zinc-500 dark:text-zinc-400">{check.state === 'present' ? '자료 있음' : check.state === 'missing' ? '없음' : '미확인'}</span></div><p className="mt-1 break-words text-xs leading-5 text-zinc-500 dark:text-zinc-400">{check.detail}</p></li>)}</ul>
-            {technical.blockers.length ? <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3"><h3 className="text-sm font-bold text-amber-700 dark:text-amber-300">시작 전에 해결할 것</h3><ul className="mt-2 list-disc space-y-2 pl-4 text-sm leading-6 text-zinc-700 dark:text-zinc-300">{technical.blockers.map((blocker, index) => <li key={index}>{blocker}</li>)}</ul></div> : null}
+            {technical.blockers.length ? <div className="mt-4 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3"><h3 className="text-sm font-bold text-amber-700 dark:text-amber-300">{analysis.commercial ? '원본 앱 실행·배포 시 확인할 것' : '시작 전에 해결할 것'}</h3><ul className="mt-2 list-disc space-y-2 pl-4 text-sm leading-6 text-zinc-700 dark:text-zinc-300">{technical.blockers.map((blocker, index) => <li key={index}>{blocker}</li>)}</ul></div> : null}
             {technical.isNonWeb ? <p className="mt-4 rounded-lg bg-primary/10 p-3 text-sm leading-6 text-zinc-700 dark:text-zinc-200">현장·비웹 형식의 아이디어입니다. 먼저 실제 사용 상황에서 실증하고, 웹앱 전환이 필요한지는 별도로 결정하세요.</p> : null}
             {technical.appRoot ? <p className="mt-4 break-all text-xs text-zinc-500">앱 위치: {technical.appRoot}{technical.framework ? ` · ${technical.framework}` : ''}</p> : null}
           </section>
@@ -189,7 +191,7 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
               <label className="block text-sm font-bold text-zinc-800 dark:text-zinc-200">직접 확인한 근거·결정 이유 <span className="font-normal text-zinc-500">(선택)</span><textarea className={fieldClass} rows={3} value={options.decisionReason || ''} onChange={(event) => updateOptions({ decisionReason: event.target.value })} maxLength={2000} placeholder="직접 들은 말, 본 행동, 이번 결정을 내린 이유를 남겨주세요." /></label>
             </div>
             {market.killCriteria.length ? <details className="mt-5 text-sm"><summary className="cursor-pointer font-bold text-zinc-600 dark:text-zinc-300">원문에 기록된 반증·중단 조건</summary><ul className="mt-3 list-disc space-y-2 pl-4 leading-6 text-zinc-500 dark:text-zinc-400">{market.killCriteria.map((criterion, index) => <li key={index}>{criterion}</li>)}</ul></details> : null}
-            <button className="mt-5 text-xs font-bold text-zinc-500 underline underline-offset-4 hover:text-primary" type="button" onClick={() => { setDraft({ projectId: project.id, options: defaults }); setCopyState('idle'); setDownloadState('idle'); }}>기획 자료의 기본 조건으로 초기화</button>
+            <button className="mt-5 text-xs font-bold text-zinc-500 underline underline-offset-4 hover:text-primary" type="button" onClick={() => { setDraft({ projectId: project.id, options: defaults }); setCopyState('idle'); setDownloadState('idle'); }}>{analysis.commercial ? '유료 실증안의 제안 조건으로 초기화' : '기획 자료의 제안 조건으로 초기화'}</button>
           </div>
           <section id="launch-prompt" className={`${panelClass} scroll-mt-20`} aria-labelledby="launch-prompt-title">
             <div className="text-xs font-bold text-primary dark:text-zinc-300">04 · 실행 프롬프트</div><h2 id="launch-prompt-title" className="mt-1 text-xl font-black text-zinc-950 dark:text-white">선택한 프로젝트를 실제 작업으로 연결</h2><p className="mt-2 text-sm leading-6 text-zinc-500 dark:text-zinc-400">조건을 바꾸면 아래 내용도 함께 바뀝니다. 복사한 프롬프트를 코딩 에이전트에 전달해 실행하세요.</p>
@@ -199,7 +201,8 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
             <div className="mt-3 flex flex-wrap gap-2"><button className="inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50" type="button" disabled={copyState === 'copying' || errors.length > 0} onClick={copyPrompt}>{copyState === 'copying' ? '복사 중…' : copyState === 'copied' ? '복사했어요' : '프롬프트 복사'}</button><button type="button" disabled={errors.length > 0} className={`${secondaryButton} disabled:cursor-not-allowed disabled:opacity-50`} onClick={downloadPrompt}>텍스트로 다운로드</button></div>
             <p className="mt-2 min-h-5 text-xs leading-5 text-zinc-500" aria-live="polite">{copyState === 'copied' ? '복사한 내용을 코딩 에이전트의 새 작업에 붙여넣으세요.' : copyState === 'error' ? '자동 복사를 사용할 수 없어요. 선택된 내용을 직접 복사하거나 텍스트로 다운로드하세요.' : '프롬프트 생성·복사만으로 앱이 구현되거나 배포되지는 않습니다.'}</p>
             {downloadState !== 'idle' ? <p className="mt-2 text-xs leading-5 text-zinc-500" role="status">{downloadState === 'requested' ? '파일 저장을 요청했어요. 시작되지 않으면 복사를 이용하세요.' : '파일 저장을 요청할 수 없어요. 프롬프트 복사를 이용하세요.'}</p> : null}
-            {mode === 'deploy' && !technical.isNonWeb && options.decision === 'build' && errors.length === 0 ? <div className="mt-5 border-t border-zinc-200 pt-4 dark:border-zinc-800"><a className="text-sm font-bold text-primary underline underline-offset-4" href="https://vercel.com/new" target="_blank" rel="noreferrer">Vercel에서 가져오기 ↗</a><p className="mt-2 text-xs leading-5 text-zinc-500">구현과 검증을 마친 저장소를 직접 선택하는 화면입니다. 이 링크가 현재 아이디어를 자동으로 배포하지는 않습니다.</p></div> : null}
+            {mode === 'deploy' && !technical.isNonWeb && !analysis.commercial && options.decision === 'build' && errors.length === 0 ? <div className="mt-5 border-t border-zinc-200 pt-4 dark:border-zinc-800"><a className="text-sm font-bold text-primary underline underline-offset-4" href="https://vercel.com/new" target="_blank" rel="noreferrer">Vercel에서 가져오기 ↗</a><p className="mt-2 text-xs leading-5 text-zinc-500">구현과 검증을 마친 저장소를 직접 선택하는 화면입니다. 이 링크가 현재 아이디어를 자동으로 배포하지는 않습니다.</p></div> : null}
+            {mode === 'deploy' && analysis.commercial ? <p className="mt-4 text-xs leading-5 text-zinc-500 dark:text-zinc-400">납품 결과물과 실제 실행 환경을 먼저 정하세요. 웹앱이 필요하다고 확인된 경우에만 호스팅을 준비합니다.</p> : null}
             {analysis.developmentStartPrompt ? <details className="mt-5 text-sm"><summary className="cursor-pointer font-bold text-zinc-600 dark:text-zinc-300">원래 기록된 개발 시작 프롬프트</summary><p className="mt-3 whitespace-pre-wrap break-words text-sm leading-6 text-zinc-500 dark:text-zinc-400">{analysis.developmentStartPrompt}</p></details> : null}
           </section>
         </div>

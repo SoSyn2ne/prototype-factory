@@ -93,6 +93,7 @@ export function loadProjectAnalysis(item: PrototypeIndexItem): ProjectAnalysis {
     .map((file) => readText(projectRoot, file, 160000)).find((body) => body !== null) ?? '';
   const result = analyzeProject({
     project: item,
+    commercial: readJson(projectRoot, 'commercial.json'),
     metadata,
     documents: readDocuments(siteRoot, projectRoot, item.repoPath, match[1]),
     dailyEvidence: dailyBody === null ? undefined : { date, body: dailyBody, sourcePath: dailyPath },
