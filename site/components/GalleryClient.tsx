@@ -91,7 +91,6 @@ export default function GalleryClient({ updatedAt, items }: Props) {
     return filtered.slice(start, start + PAGE_SIZE);
   }, [filtered, safePage]);
 
-  const totalTags = Math.max(0, allTags.length - 1);
   const latestDate = useMemo(
     () => items.reduce((latest, item) => (String(item.createdAt || '') > latest ? String(item.createdAt || '') : latest), ''),
     [items]
@@ -100,110 +99,22 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-5 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-6">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <div className="text-xs font-black uppercase tracking-[0.12em] text-primary">Prototype factory index</div>
-            <h1 className="mt-2 text-3xl font-black leading-tight text-zinc-950 dark:text-white sm:text-4xl">
-              Scan daily bets, spot strong demos, keep the factory moving.
-            </h1>
-            <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600 dark:text-zinc-300 sm:text-base">
-              A compact control surface for reviewing the latest PF batch, jumping into preserved Stitch demos,
-              and deciding which ideas deserve sales validation.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-3">
-              <Link
-                href="/clusters"
-                className="inline-flex h-10 items-center justify-center rounded-lg bg-primary px-4 text-sm font-black text-white transition hover:bg-primary/90 hover:no-underline"
-              >
-                Open Cluster Board
-              </Link>
-              <div className="inline-flex h-10 items-center rounded-lg border border-zinc-200 px-4 text-sm font-bold text-zinc-600 dark:border-zinc-800 dark:text-zinc-300">
-                Latest batch: {latestDate || 'unknown'} / {latestCount} items
-              </div>
-            </div>
+      <header className="mb-5 border-b border-zinc-200 pb-5 dark:border-zinc-800">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.08em] text-primary dark:text-zinc-300">Project selection</p>
+            <h1 className="mt-2 text-2xl font-black text-zinc-950 dark:text-white sm:text-3xl">시작할 프로젝트를 고르세요</h1>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-zinc-600 dark:text-zinc-300">문제의 근거와 구현 준비도를 살펴보고, 내 실증 조건에 맞는 개발·배포 프롬프트로 이어가세요.</p>
           </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:min-w-[440px]">
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Ideas</div>
-              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{items.length}</div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Tags</div>
-              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{totalTags}</div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Visible</div>
-              <div className="mt-1 text-2xl font-black leading-none text-zinc-950 dark:text-white">{filtered.length}</div>
-            </div>
-            <div className="rounded-lg border border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
-              <div className="text-[11px] font-bold uppercase tracking-[0.08em] text-zinc-500">Updated</div>
-              <div className="mt-2 text-sm font-black leading-none text-zinc-950 dark:text-white">{String(updatedAt).slice(0, 10)}</div>
-            </div>
-          </div>
+          <Link href="/clusters" className="inline-flex min-h-10 items-center justify-center rounded-lg border border-zinc-200 px-4 py-2 text-sm font-bold text-zinc-700 hover:bg-zinc-50 hover:no-underline dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900">Cluster Board ↗</Link>
         </div>
-      </section>
-
-      <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-5 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-6">
-        <div className="flex flex-col gap-6">
-          <div className="max-w-4xl border-l-4 border-primary pl-4">
-            <div className="text-xs font-black uppercase tracking-[0.12em] text-primary">Sales validation lane</div>
-            <h2 className="mt-2 text-2xl font-black leading-tight text-zinc-950 dark:text-white sm:text-3xl">
-              Prioritize ideas where one recovered deal pays for the prototype.
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-zinc-600 dark:text-zinc-300 sm:text-base">
-              Keep the gallery useful as an operating board: buyer clarity, visible ROI, and a short path from demo to outbound.
-            </p>
-          </div>
-
-          <div className="grid gap-4 lg:grid-cols-5">
-            {[
-              {
-                rank: '01',
-                title: 'Amazon FBA Fee Drift Detector',
-                buyer: '아마존 셀러 · 운영대행사',
-                why: '수수료·광고·반품으로 새는 마진을 바로 숫자로 설명 가능',
-              },
-              {
-                rank: '02',
-                title: 'Dental Unscheduled Treatment Recovery Board',
-                buyer: '치과 원장 · 상담실장',
-                why: '미예약 치료는 바로 매출 누수라 ROI 설명이 쉬움',
-              },
-              {
-                rank: '03',
-                title: 'HVAC Lost Quote Recovery Radar',
-                buyer: 'HVAC 대표 · 영업팀장',
-                why: '잃어버린 견적 한 건만 회수해도 가치가 큼',
-              },
-              {
-                rank: '04',
-                title: 'Medspa Membership Churn Save Desk',
-                buyer: '메드스파 운영자 · 매니저',
-                why: '재방문/회원권 유지 문제는 돈으로 바로 연결됨',
-              },
-              {
-                rank: '05',
-                title: 'Auto Repair Estimate Approval Delay Board',
-                buyer: '카센터 대표 · 서비스 어드바이저',
-                why: '승인 속도 저하가 회전율과 수익성 악화로 직결됨',
-              },
-            ].map((item) => (
-              <article key={item.rank} className="rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900">
-                <div className="text-[11px] font-black uppercase tracking-[0.1em] text-primary">Top {item.rank}</div>
-                <h3 className="mt-2 text-base font-black leading-tight text-zinc-950 dark:text-white">{item.title}</h3>
-                <p className="mt-3 text-xs font-bold text-zinc-500 dark:text-zinc-400">Buyer: {item.buyer}</p>
-                <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-300">{item.why}</p>
-              </article>
-            ))}
-          </div>
-
-          <div className="rounded-lg border border-dashed border-zinc-300 px-4 py-3 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-200">
-            Operating rule: <span className="font-black">validate five sales-shaped demos at a time</span>, then deepen only the ones that get replies.
-          </div>
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-zinc-500 dark:text-zinc-400">
+          <ol aria-label="프로젝트 진행 순서" className="flex flex-wrap gap-x-4 gap-y-2">
+            <li className="font-bold text-primary dark:text-zinc-300">01 프로젝트 선택</li><li>02 근거·준비도 분석</li><li>03 실증 조건 결정</li><li>04 실행 프롬프트</li>
+          </ol>
+          <p>{items.length}개 프로젝트 · 최근 기록 {latestDate || '미기록'} / {latestCount}개</p>
         </div>
-      </section>
+      </header>
 
       <section className="mb-6 rounded-lg border border-zinc-200 bg-white p-3 shadow-card dark:border-zinc-800 dark:bg-zinc-950 sm:mb-8 sm:p-4">
         <div className="flex flex-col gap-4">
@@ -316,7 +227,8 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     className="block h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 pl-10 pr-3 text-sm font-bold text-zinc-900 shadow-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20 dark:border-zinc-800 dark:bg-zinc-900 dark:text-white"
-                    placeholder="Search ideas, tags, themes..."
+                    aria-label="프로젝트 검색"
+                    placeholder="프로젝트 이름, 문제, 태그 검색"
                     type="text"
                   />
                 </div>
@@ -328,7 +240,7 @@ export default function GalleryClient({ updatedAt, items }: Props) {
 
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="text-xs font-bold text-zinc-500 dark:text-zinc-500">
-          Showing {(safePage - 1) * PAGE_SIZE + 1}-{Math.min(safePage * PAGE_SIZE, filtered.length)} of {filtered.length}
+          Showing {filtered.length ? (safePage - 1) * PAGE_SIZE + 1 : 0}-{Math.min(safePage * PAGE_SIZE, filtered.length)} of {filtered.length}
         </div>
         <div className="flex items-center justify-between gap-2 sm:justify-end">
           <button
@@ -345,13 +257,21 @@ export default function GalleryClient({ updatedAt, items }: Props) {
           <button
             type="button"
             onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-            disabled={safePage >= pageCount}
+            disabled={filtered.length === 0 || safePage >= pageCount}
             className="rounded-lg border border-zinc-200 bg-white px-3 py-2 text-xs font-black text-zinc-700 shadow-sm transition hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-50 dark:border-zinc-800 dark:bg-zinc-950 dark:text-zinc-200 dark:hover:bg-zinc-900"
           >
             Next
           </button>
         </div>
       </div>
+
+      {filtered.length === 0 ? (
+        <section role="status" className="mb-5 rounded-lg border border-dashed border-zinc-300 p-6 text-center dark:border-zinc-700">
+          <h2 className="text-lg font-bold text-zinc-950 dark:text-white">일치하는 프로젝트가 없어요</h2>
+          <p className="mt-2 text-sm text-zinc-500">검색어를 바꾸거나 선택한 상태·태그 조건을 초기화해 보세요.</p>
+          <button type="button" className="mt-4 min-h-10 rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90" onClick={() => { setQuery(''); setStatus('all'); setTag('all'); setSort('newest'); setPage(1); }}>검색·필터 초기화</button>
+        </section>
+      ) : null}
 
       <div id="grid" className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 xl:gap-6">
         {paged.map((item) => {
@@ -365,28 +285,19 @@ export default function GalleryClient({ updatedAt, items }: Props) {
               key={item.id}
               className="group flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white transition-all hover:-translate-y-0.5 hover:shadow-lift dark:border-zinc-800 dark:bg-zinc-950"
             >
-              <div className="relative aspect-video overflow-hidden bg-slate-900">
-                <Link href={`/p/${encodeURIComponent(item.id)}`} className="block h-full w-full hover:no-underline">
-                  {item.previewImage ? (
-                    <img
-                      alt={`${item.title} preview`}
-                      src={item.previewImage}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center px-6 text-center text-xs text-zinc-400">
-                      No visual yet · use details/spec to shape this idea
-                    </div>
-                  )}
-                </Link>
-
-                <div className="absolute left-3 top-3 flex gap-2">
-                  <span className={`${badgeClass} rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white`}>
-                    {badge}
-                  </span>
+              {item.previewImage ? (
+                <div className="relative aspect-video overflow-hidden bg-zinc-900">
+                  <Link href={`/p/${encodeURIComponent(item.id)}`} className="block h-full w-full hover:no-underline">
+                    <img alt={`${item.title} preview`} src={item.previewImage} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                  </Link>
+                  <span className={`${badgeClass} absolute left-3 top-3 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white`}>{badge}</span>
                 </div>
-              </div>
+              ) : (
+                <div className="flex items-center justify-between gap-2 border-b border-zinc-200 bg-zinc-50 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900">
+                  <span className={`${badgeClass} rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white`}>{badge}</span>
+                  <span className="text-xs text-zinc-500">미리보기 없음</span>
+                </div>
+              )}
 
               <div className="flex flex-1 flex-col p-4 sm:p-5">
                 <div className="mb-2 flex items-start justify-between gap-3">
@@ -412,35 +323,30 @@ export default function GalleryClient({ updatedAt, items }: Props) {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
+                  <Link href={`/p/${encodeURIComponent(item.id)}`} className="flex min-h-10 items-center justify-center rounded-lg bg-primary px-3 py-2 text-sm font-black text-white transition-colors hover:bg-primary/90 hover:no-underline sm:px-4">분석하고 시작</Link>
                   {item.demoUrl ? (
                     isExternalUrl(item.demoUrl) ? (
                       <a
                         href={item.demoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex h-10 items-center justify-center gap-1.5 rounded-lg bg-primary px-4 text-sm font-black text-white transition-colors hover:bg-primary/90 hover:no-underline"
+                        className="flex min-h-10 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-bold text-zinc-700 hover:bg-zinc-50 hover:no-underline dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
                       >
                         Demo
                       </a>
                     ) : (
                       <Link
                         href={item.demoUrl}
-                        className="flex h-10 items-center justify-center gap-1.5 rounded-lg bg-primary px-3 text-sm font-black text-white transition-colors hover:bg-primary/90 hover:no-underline sm:px-4"
+                        className="flex min-h-10 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-2 text-sm font-bold text-zinc-700 hover:bg-zinc-50 hover:no-underline dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-900"
                       >
                         Demo
                       </Link>
                     )
                   ) : (
                     <div className="flex h-10 items-center justify-center rounded-lg bg-zinc-200 px-3 text-sm font-bold text-zinc-500 dark:bg-zinc-800 dark:text-zinc-300 sm:px-4">
-                      No demo
+                      데모 없음
                     </div>
                   )}
-                  <Link
-                    href={`/p/${encodeURIComponent(item.id)}`}
-                    className="flex h-10 items-center justify-center gap-1.5 rounded-lg border border-zinc-200 px-3 text-sm font-black text-zinc-700 transition-colors hover:bg-zinc-50 hover:no-underline dark:border-zinc-800 dark:text-zinc-200 dark:hover:bg-zinc-900 sm:px-4"
-                  >
-                    Details
-                  </Link>
                 </div>
               </div>
             </article>

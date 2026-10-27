@@ -25,6 +25,59 @@ First prove the user is already hunting for an answer.
 Do not start from a clever title. Titles are allowed only after the need,
 workaround, arrival path, and output artifact are clear.
 
+## Commercial pilot gate
+
+상업 후보는 "누가 반복 업무의 어느 부분을 돈 주고 맡길까?"부터 답한다.
+멋진 이름이나 WTP 점수는 아래 내용을 대신하지 못한다.
+
+- **결제자:** 사용자·공유 대상과 별도로, 예산을 승인하는 한 업종의 담당자.
+- **반복 업무:** 실제 입력, 발생 계기·빈도, 현재 수작업, 사람이 승인할 결과.
+- **현재 비용:** 시간·누락·오류를 어떻게 실측할지 기록. 모르면 `측정 전`.
+- **기존 대안:** 유료 도구/대행과 무료 시트/수작업, 그대로 쓰면 안 되는 이유.
+- **첫 납품물:** 맞춤 템플릿, 작은 프로그램, 운영 대행 중 하나로 범위를 제한.
+- **첫 고객 경로:** 접근 가능한 채널·소개자와 인터뷰/샘플 확보 방법. 접근권은 미확인일 수 있다.
+- **유료 파일럿:** 한 고객·약 7일, 가격 가설, 입력/결과물/수정 횟수·지원 시간,
+  첫 결제와 시간·오류 개선 및 사람 검토를 각각 확인할 통과/중단 기준.
+- **납품 원가:** 구축·교육·예외 처리·지원 시간과 외부 비용을 실측해 수금액과 비교.
+- **재사용 경계:** 공통 서식/변환 규칙과 고객별 가격표·업무 규칙·개인정보를 구분.
+- **반복 가치:** 월 관리가 있다면 실제 제공할 작업·빈도·지원 한도를 적는다.
+  반복 납품이 없으면 `일회성 구축`이며, 수동적 보장이나 억지 구독을 붙이지 않는다.
+
+가격·고객 접근·업종별 구매 의사는 검증 전 가설이다. 공급사의 상품 소개,
+실제 사용자의 행동, 우리 제안에 대한 결제 증거를 구분하고 확인 날짜를 남긴다.
+자동화는 수동/서비스 방식으로 확인한 반복 단계에만 적용한다.
+
+범위가 정해진 상업 파일럿은 해당 `prototypes/<folder>/commercial.json`에도 기록한다.
+`docs/COMMERCIAL_PILOT_WORKFLOW.md`와 `site/lib/project-analysis.ts`의
+`CommercialBrief` 타입에 맞춰 `version: 1`, 정확한 `projectId`, 실제 출처 확인일
+`checkedAt`을 사용한다. 모르는 텍스트 필드는 빈 문자열로 남기고 결제·고객·성과
+증거를 만들지 않는다. 기존 스캐너/빌드는 이 파일을 분석 화면에 연결한다.
+재미·자료 부족 후보는 생략할 수 있다. 스캐폴드의 상업 항목은 빈 PRD 입력란으로
+남기며 프로필을 자동 생성하지 않는다. 프로필 작성은 에이전트 작업이고 새 생성기/cron이 아니다.
+
+탈락/재정의 태그: `weak-buyer`, `no-customer-access`, `commodity-clone`,
+`no-recurring-value`(구독 제안에 적용), `unbounded-service`.
+기존 무료·유료 도구로 충분하거나 예외/지원 원가가 요금을 넘으면 중단하거나 범위를 줄인다.
+재미·실험 후보는 수익화를 강제하지 않는다. 기본 8개 중 실전/상업 5~6개와
+재미/실험/포트폴리오 또는 현장형 2~3개의 구성은 유지한다.
+
+이 문서는 에이전트의 `/pf idea`·daily 작업 지침이다. 생성기나 cron을 새로 실행하거나
+변경하지 않는다. 선택한 기존 아이디어의 보강은 새 daily 8개 배치로 세지 않는다.
+
+## Selected research registration
+
+사용자가 별도로 고른 문제를 조사·등록하는 작업은 범위와 개수를 먼저 명시한다.
+2026-10-27의 [신규 3개 조사 예시](COMMERCIAL_PILOT_EXAMPLES.md)는 각 원문 2개의
+실제 작업·대안을 읽고 해법을 제안한 선별 작업이며, 일일 `Final 8` 완료 기록이 아니다.
+오늘 확인한 글과 오늘 게시된 글을 구분하고, 작성자 자기보고·우리 제안·지불의사 미확인을
+나눠 기록한다. 관찰되지 않은 구매·빈도·절감액을 원문에 덧붙이지 않는다.
+
+새 후보는 `meta.json` + 필요 시 `commercial.json` + 실제 내용이 있는 `spec/`로 남기고
+기존 인덱스에 등록한다. 이후 상세 분석에서 조건과 `validate/build/hold`를 편집해
+검증·구현·납품 프롬프트로 잇는다. 구체적인 파일·등록·판단 흐름은
+[PROJECT_LAUNCH_WORKFLOW.md](PROJECT_LAUNCH_WORKFLOW.md)를 따른다.
+기존 아이디어를 일괄 재작성하거나 새 생성기·cron을 만드는 단계는 아니다.
+
 ## Daily Template
 
 ```markdown
@@ -150,6 +203,9 @@ one possible format.
 - Trigger moment:
 - Target user:
 - Buyer/share audience:
+- Commercial only: paying buyer / recurring job / current cost to measure:
+- Commercial only: scoped deliverable / first-customer route / paid pilot hypothesis:
+- Commercial only: delivery cost / support limit / reusable vs bespoke / recurring value or one-time:
 - User-action sentence:
 - Search/community language:
 - Key input/data:
@@ -165,7 +221,7 @@ one possible format.
 
 ### K1 - <candidate title>
 - Source draft:
-- Kill tag: no-pull-evidence | no-user-action | no-workaround | unclear-arrival-path | article-only | just-dashboard | weak-buyer | saas-clone | no-3-sec-sting | theme-wash | stitch-bland-risk | low-urgency | no-output-artifact
+- Kill tag: no-pull-evidence | no-user-action | no-workaround | unclear-arrival-path | article-only | just-dashboard | weak-buyer | no-customer-access | commodity-clone | no-recurring-value | unbounded-service | saas-clone | no-3-sec-sting | theme-wash | stitch-bland-risk | low-urgency | no-output-artifact
 - Reason:
 - What evidence would revive it:
 - Salvage path, if any:
@@ -228,6 +284,17 @@ one possible format.
 ### Target User
 
 ### Buyer / Share Audience
+
+### Commercial Pilot (상업 후보만)
+
+- 결제자 / 사용자 / 공유 대상:
+- 반복 업무·발생 계기·빈도 / 현재 시간·오류 측정 방법:
+- 기존 유료 대안 / 무료 대안 / 맞춤 작업이 필요한 이유:
+- 한정된 납품물 / 첫 고객 접근 경로와 미확인 사항:
+- 한 고객·약 7일 파일럿 / 가격 가설 / 사람 검토 / 통과·중단 기준:
+- 구축·예외·지원 원가 / 수정·지원 한도:
+- 재사용 부분 / 고객별 맞춤 부분:
+- 월별 실제 납품·빈도 또는 일회성 구축:
 
 ### User-Action Sentence
 
@@ -317,6 +384,8 @@ turned into content/search tests instead of Stitch prototypes.
 - At least two final ideas should come from non-web, field, offline, hardware,
   physical-space, printable, script, kiosk, or local-device behavior.
 - At least five final ideas are commercially practical.
+- Commercial candidates pass the Commercial pilot gate above; experimental
+  candidates remain explicitly noncommercial when monetization is untested.
 - Every final idea must include `loved_by_small_group` and `spread_trigger`.
 - `loved_by_small_group` below 3 usually means kill or rewrite. A 5 means not
   using the product risks money, status, relationships, health, or opportunity.

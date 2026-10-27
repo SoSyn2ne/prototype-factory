@@ -237,8 +237,8 @@ function scoreTotal(candidate: CandidateSeed) {
 
 function modeButtonClass(active: boolean) {
   return active
-    ? 'border-emerald-400 bg-emerald-400 text-slate-950'
-    : 'border-slate-700 bg-slate-950 text-slate-200 hover:bg-slate-800';
+    ? 'border-primary bg-primary text-white'
+    : 'border-zinc-700 bg-zinc-950 text-zinc-200 hover:bg-zinc-800';
 }
 
 function ModeTabs({ activeMode, onChange }: { activeMode: BrainroomMode; onChange: (mode: BrainroomMode) => void }) {
@@ -249,12 +249,13 @@ function ModeTabs({ activeMode, onChange }: { activeMode: BrainroomMode; onChang
   ];
 
   return (
-    <div className="flex flex-wrap items-center gap-2 rounded-xl border border-slate-800 bg-slate-950/78 p-2 shadow-sm backdrop-blur-xl">
+    <div className="flex flex-wrap items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-950/90 p-2">
       {tabs.map((tab) => (
         <button
           key={tab.mode}
           type="button"
           onClick={() => onChange(tab.mode)}
+          aria-pressed={activeMode === tab.mode}
           className={`min-w-[124px] rounded-lg border px-3 py-2 text-left text-xs font-black transition ${modeButtonClass(activeMode === tab.mode)}`}
         >
           <span className="block text-sm">{tab.label}</span>
@@ -277,12 +278,12 @@ function BrainroomShell({
   children: ReactNode;
 }) {
   return (
-    <div className="min-h-screen overflow-y-auto bg-[linear-gradient(180deg,#020617_0%,#0f172a_62%,#111827_100%)] px-4 py-4 text-slate-100 sm:px-6">
+    <div className="h-full overflow-y-auto bg-background-dark px-4 py-4 text-zinc-100 sm:px-6">
       <div className="mx-auto flex max-w-[1480px] flex-col gap-4">
         <div className="flex flex-col gap-3 border-b border-slate-800 pb-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div className="text-xs font-black uppercase text-emerald-300">PF Brainroom</div>
-            <h1 className="mt-1 text-2xl font-black text-white sm:text-3xl">{title}</h1>
+            <h2 className="mt-1 text-2xl font-black text-white sm:text-3xl">{title}</h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-300">
               Search signals stay, but the factory now exposes the messy middle: memo, mutation, failure reasons, and promotion gates.
             </p>
@@ -600,38 +601,40 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
   }
 
   return (
-    <div className={fullscreen ? 'relative h-screen w-screen overflow-hidden bg-[radial-gradient(circle_at_center,_rgba(59,130,246,0.12),_transparent_42%),linear-gradient(180deg,#020617_0%,#0f172a_100%)]' : 'space-y-4 p-4 sm:p-6'}>
+    <div className={fullscreen ? 'relative h-full w-full overflow-hidden bg-background-dark' : 'space-y-4 p-4 sm:p-6'}>
       <div className="absolute left-0 top-0 z-30 flex h-full">
-        <div className={`${panelOpen ? 'w-[320px]' : 'w-[56px]'} border-r border-slate-800 bg-slate-950/88 backdrop-blur-xl transition-all duration-200`}>
+        <div className={`${panelOpen ? 'w-[320px]' : 'w-[56px]'} border-r border-zinc-800 bg-zinc-950/95 backdrop-blur-md transition-all duration-200`}>
           <div className="flex h-full flex-col">
-            <div className="flex items-center justify-between border-b border-slate-800 px-3 py-3">
+            <div className="flex items-center justify-between border-b border-zinc-800 px-3 py-3">
               {panelOpen ? (
                 <div>
-                  <div className="text-xs font-black uppercase text-primary">PF Brainroom</div>
+                  <div className="text-xs font-bold text-zinc-400">Cluster Board</div>
                   <div className="mt-1 text-sm font-bold text-white">Map mode</div>
                 </div>
               ) : null}
               <button
                 type="button"
                 onClick={() => setPanelOpen((v) => !v)}
-                className="rounded-lg border border-slate-700 px-2.5 py-2 text-xs font-black text-slate-200 hover:bg-slate-800"
+                aria-label={panelOpen ? '태그 패널 접기' : '태그 패널 펼치기'}
+                aria-expanded={panelOpen}
+                className="rounded-lg border border-zinc-700 px-2.5 py-2 text-xs font-black text-zinc-200 hover:bg-zinc-800"
               >
                 {panelOpen ? '◀' : '▶'}
               </button>
             </div>
             {panelOpen ? (
-              <div className="border-b border-slate-800 px-3 py-3">
+              <div className="border-b border-zinc-800 px-3 py-3">
                 <ModeTabs activeMode={activeMode} onChange={setActiveMode} />
               </div>
             ) : null}
 
             {panelOpen ? (
               <>
-                <div className="flex flex-wrap gap-2 border-b border-slate-800 px-3 py-3">
-                  <button type="button" onClick={openAll} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">Open all</button>
-                  <button type="button" onClick={closeAll} className="rounded-lg border border-slate-700 px-3 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">Close all</button>
+                <div className="flex flex-wrap gap-2 border-b border-zinc-800 px-3 py-3">
+                  <button type="button" onClick={openAll} className="rounded-lg border border-zinc-700 px-3 py-2 text-xs font-black text-zinc-200 hover:bg-zinc-800">Open all</button>
+                  <button type="button" onClick={closeAll} className="rounded-lg border border-zinc-700 px-3 py-2 text-xs font-black text-zinc-200 hover:bg-zinc-800">Close all</button>
                   {focusedTag ? (
-                    <button type="button" onClick={() => setFocusedTag(null)} className="rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-2 text-xs font-black text-emerald-200">Clear focus</button>
+                    <button type="button" onClick={() => setFocusedTag(null)} className="rounded-lg bg-primary px-3 py-2 text-xs font-black text-white hover:bg-primary/90">Clear focus</button>
                   ) : null}
                 </div>
 
@@ -640,7 +643,7 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
                     const collapsed = collapsedTags.has(group.tag);
                     const focused = focusedTag === group.tag;
                     return (
-                      <div key={group.tag} className="mb-2 rounded-xl border border-slate-800 bg-slate-900/55">
+                      <div key={group.tag} className="mb-2 rounded-lg border border-zinc-800 bg-zinc-900/60">
                         <div className="flex items-center gap-2 px-3 py-2">
                           <button type="button" onClick={() => toggleTagCollapse(group.tag)} className="w-6 shrink-0 text-left text-xs font-black text-slate-300">
                             {collapsed ? '▶' : '▼'}
@@ -648,7 +651,8 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
                           <button
                             type="button"
                             onClick={() => setFocusedTag((prev) => (prev === group.tag ? null : group.tag))}
-                            className={`min-w-0 flex-1 text-left text-sm font-bold ${focused ? 'text-emerald-300' : 'text-white'}`}
+                            aria-pressed={focused}
+                            className={`min-w-0 flex-1 text-left text-sm font-bold ${focused ? 'text-white underline decoration-primary decoration-2 underline-offset-4' : 'text-zinc-300'}`}
                           >
                             #{group.tag}
                           </button>
@@ -687,25 +691,25 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
 
       <div className={`absolute left-0 top-0 h-full ${panelOpen ? 'w-[320px]' : 'w-[56px]'}`} />
 
-      <div className={`absolute right-4 top-4 z-20 items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950/70 px-2 py-2 backdrop-blur-xl ${panelOpen ? 'hidden sm:flex' : 'flex'}`}>
+      <div className={`absolute right-4 top-4 z-20 items-center gap-1.5 rounded-lg border border-zinc-800 bg-zinc-950/95 px-2 py-2 backdrop-blur-md ${panelOpen ? 'hidden sm:flex' : 'flex'}`}>
         {!panelOpen ? (
-          <button type="button" onClick={() => setPanelOpen(true)} className="rounded-lg border border-slate-700 px-2.5 py-2 text-xs font-black text-slate-200 hover:bg-slate-800">Tabs</button>
+          <button type="button" onClick={() => setPanelOpen(true)} className="rounded-lg border border-zinc-700 px-2.5 py-2 text-xs font-black text-zinc-200 hover:bg-zinc-800">Tabs</button>
         ) : null}
-        <button type="button" aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(0.55, Number((z - 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-slate-700 text-xs font-black text-slate-200 hover:bg-slate-800">-</button>
-        <button type="button" aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(2.8, Number((z + 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-slate-700 text-xs font-black text-slate-200 hover:bg-slate-800">+</button>
+        <button type="button" aria-label="Zoom out" onClick={() => setZoom((z) => Math.max(0.55, Number((z - 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-zinc-700 text-xs font-black text-zinc-200 hover:bg-zinc-800">-</button>
+        <button type="button" aria-label="Zoom in" onClick={() => setZoom((z) => Math.min(2.8, Number((z + 0.15).toFixed(2))))} className="h-9 w-9 rounded-lg border border-zinc-700 text-xs font-black text-zinc-200 hover:bg-zinc-800">+</button>
         <button type="button" onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }); }} className="h-9 rounded-lg bg-primary px-3 text-xs font-black text-white hover:bg-primary/90">Reset</button>
         <div className="hidden border-l border-slate-800 pl-2 text-[10px] font-bold uppercase tracking-wider text-slate-500 sm:block">Wheel / drag / click</div>
       </div>
 
-      <div className="absolute bottom-4 right-4 z-20 w-[360px] rounded-2xl border border-slate-800 bg-slate-950/78 p-4 text-sm text-slate-200 shadow-sm backdrop-blur-xl">
-        <div className="text-[11px] font-black uppercase tracking-[0.22em] text-emerald-300">Reality check</div>
+      <div className="absolute bottom-4 left-[72px] right-4 z-20 max-h-[40%] w-auto max-w-[360px] overflow-y-auto rounded-lg border border-zinc-800 bg-zinc-950/95 p-4 text-sm text-zinc-200 backdrop-blur-md sm:left-auto sm:w-[360px] lg:max-h-[calc(100%-6rem)]">
+        <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-300">Reality check</div>
         <ul className="mt-3 space-y-2 text-xs leading-5 text-slate-300">
           {realityChecks.map((line) => (
             <li key={line} className="rounded-lg border border-slate-800 bg-slate-900/55 px-3 py-2">{line}</li>
           ))}
         </ul>
         <div className="mt-4 border-t border-slate-800 pt-4">
-          <div className="text-[11px] font-black uppercase tracking-[0.22em] text-primary">Quick summary</div>
+          <div className="text-[11px] font-bold uppercase tracking-wider text-zinc-300">Quick summary</div>
           {summary ? (
             <>
               <div className="mt-2 text-base font-black text-white">{summary.title}</div>
@@ -738,8 +742,7 @@ export default function ClusterForceMindMap({ items, fullscreen = false }: Props
       ) : null}
 
       <div
-        className="h-screen overflow-hidden cursor-grab active:cursor-grabbing"
-        style={{ marginLeft: panelOpen ? 320 : 56, marginRight: 360 }}
+        className={`h-full overflow-hidden cursor-grab active:cursor-grabbing lg:mr-[360px] ${panelOpen ? 'ml-14 sm:ml-[320px]' : 'ml-14'}`}
         onWheel={(e) => {
           e.preventDefault();
           setZoom((prev) => {

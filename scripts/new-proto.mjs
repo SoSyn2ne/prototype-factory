@@ -190,7 +190,7 @@ function main() {
 
   writeFile(
     path.join(outDir, "spec", "prd.md"),
-    `# PRD — ${title}\n\n## Problem\n- \n\n## Target user\n- \n\n## Constraints\n- Time:\n- Budget:\n- Platform:\n\n## Non-goals\n- \n\n## Success metrics\n- \n\n## Notes\n- \n`
+    `# PRD — ${title}\n\n## Problem\n- \n\n## Target user\n- \n\n## Commercial pilot (상업 후보만)\n- 결제자 / 사용자 / 공유 대상:\n- 반복 업무 / 발생 계기·빈도:\n- 현재 시간·오류·비용: 측정 전 — 측정 방법:\n- 기존 유료 대안 / 무료 방식:\n- 한정된 납품물 / 첫 고객 접근 경로:\n- 한 고객·약 7일 파일럿 / 가격 가설:\n- 실제 결제 + 시간·오류 개선 + 사람 검토의 통과 기준:\n- 기존 도구로 충분하거나 지원 원가가 요금을 넘을 때 중단 기준:\n- 구축·예외·지원 원가 / 수정·지원 한도:\n- 재사용 부분 / 고객별 맞춤 부분 / 자동화 경계:\n- 실제 월별 납품·빈도 또는 일회성 구축:\n- 재미·실험 후보는 수익화를 강제하지 않음. docs/IDEA_BOARD.md 참고.\n\n## Constraints\n- Time:\n- Budget:\n- Platform:\n\n## Non-goals\n- \n\n## Success metrics\n- \n\n## Notes\n- \n`
   );
 
   writeFile(

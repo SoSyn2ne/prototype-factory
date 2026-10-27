@@ -23,6 +23,39 @@ A candidate with high pain but weak pull is not ready for Stitch. It should be
 parked for research, turned into content, or tested with a landing/template
 before becoming a prototype.
 
+## Commercial direction: one paying operator, one recurring job
+
+상업 후보에는 `docs/IDEA_BOARD.md`의 Commercial pilot gate를 적용한다.
+사용자·공유 대상과 결제자를 분리하고, 한 업종에서 반복되는 수작업의 입력,
+발생 계기·빈도, 사람의 승인 지점을 먼저 적는다. 현재 시간·오류·비용은
+측정 방법과 함께 `측정 전`으로 남기며 임의의 절감액을 채우지 않는다.
+
+첫 상품은 맞춤 템플릿·작은 프로그램·운영 워크플로 서비스 중 가장 작은
+납품물이다. 기존 유료 도구와 무료 방식으로 충분한지 먼저 비교한다.
+실제로 접근할 첫 고객 경로, 한 고객·약 7일 유료 파일럿, 가격 가설,
+수정·지원 한도, 첫 결제와 시간/오류 개선·사람 검토의 통과 기준을 기록한다.
+고객 접근과 구매 의사는 확인 전 가설이며, 공급사 설명은 결제 증거가 아니다.
+
+구축·교육·수동 예외·지원 원가와 재사용/고객별 맞춤 경계를 확인한다.
+자동화는 검증된 반복 단계부터 한다. 월 요금은 실제 반복 납품 작업과 빈도가
+있을 때만 제안하고, 없으면 일회성 구축으로 판정한다. `weak-buyer`,
+`no-customer-access`, `commodity-clone`, `no-recurring-value`(구독),
+`unbounded-service`는 탈락 또는 재정의 이유다. 원가가 요금을 넘거나 기존 도구가
+충분하면 중단한다. 기본 8개와 실전/상업 5~6 + 재미/실험/포트폴리오 또는
+현장형 2~3의 구성은 유지하고, 재미 후보에 억지 수익화를 붙이지 않는다.
+
+이 문서는 에이전트 작업 지침이며 실행형 아이디어 생성기나 cron 변경이 아니다.
+기존 후보의 상업화 재정의는 새로운 daily 배치를 생성한 것으로 보지 않는다.
+
+별도로 요청한 선별 조사는 개수와 근거 범위를 명시하고 일일 8개와 구분한다.
+현재 [2026-10-27 신규 3개 예시](docs/COMMERCIAL_PILOT_EXAMPLES.md)는 후보마다
+원문 2개에서 실제 작업·대안을 확인한 뒤, 제안과 지불의사 미확인을 분리해 등록한다.
+원문 확인일을 게시일로 바꾸거나 자기보고 시간을 대표 비용으로 확대하지 않는다.
+`meta`·`commercial`·`spec` 작성 → 기존 인덱스 등록 → 상세 분석 → 실증 조건과
+`validate/build/hold` 편집 → 검증·구현·납품 프롬프트의 연결은
+[PROJECT_LAUNCH_WORKFLOW.md](docs/PROJECT_LAUNCH_WORKFLOW.md)를 따른다.
+분석 화면은 저장된 파일을 정리하며 새 인터넷 조사·AI 판단·자동 출시를 수행하지 않는다.
+
 ## Inputs
 
 - Problem area (1 sentence)
@@ -148,6 +181,9 @@ Draft 12-16 candidates before selecting the final eight. Each draft needs:
 - Format and mechanic.
 - Trigger moment.
 - Target user and buyer/share audience.
+- Commercial candidates: separate payer, recurring job/trigger, cost to measure,
+  paid/free alternative, bounded deliverable, customer access, paid pilot price
+  hypothesis, delivery/support costs, reusable/bespoke boundary and recurring value.
 - User-action sentence.
 - Search/community language.
 - Data/input needed.
@@ -169,6 +205,10 @@ Use these tags:
 - `article-only`: article summary without lived user pull.
 - `just-dashboard`: mostly a generic board/table.
 - `weak-buyer`: unclear payer or owner.
+- `no-customer-access`: no credible route to interview or recruit a first customer.
+- `commodity-clone`: existing free/paid tools already solve the scoped job.
+- `no-recurring-value`: subscription proposed without recurring delivered work.
+- `unbounded-service`: exceptions, revisions or support cannot fit the proposed fee.
 - `saas-clone`: existing SaaS with a new label.
 - `no-3-sec-sting`: first screen requires too much explanation.
 - `theme-wash`: assigned theme is decorative, not core to the UX.
@@ -283,6 +323,9 @@ Hard gates:
 - One-liner:
 - Target user:
 - Buyer/share audience:
+- Commercial pilot: payer / recurring job / cost to measure / paid and free alternatives:
+- Scoped delivery / first customer / price hypothesis / success and stop criteria:
+- Delivery and support cost / automation and reuse boundary / recurring value or one-time:
 - Output artifact:
 - Why now:
 - Scores: Pull / Pain / Urgency / Workaround / Reach / Visual / WTP
