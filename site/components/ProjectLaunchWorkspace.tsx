@@ -147,6 +147,7 @@ export default function ProjectLaunchWorkspace({ analysis }: { analysis: Project
         <h1 className="mt-3 break-words text-3xl font-black leading-tight text-zinc-950 dark:text-white sm:text-4xl">{project.title}</h1>
         <p className="mt-3 max-w-4xl text-base leading-7 text-zinc-600 dark:text-zinc-300">{project.oneLiner}</p>
         <div className="mt-5 flex flex-wrap gap-2">
+          {project.id === '2026-10-27-p001' ? <Link className="inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline" href="/tools/supplier-review">파일로 검수하기</Link> : null}
           {!analysis.commercial ? <a className="inline-flex min-h-10 items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-bold text-white hover:bg-primary/90 hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" href="#validation-plan">실증 조건 정하기 ↓</a> : null}
           {demoUrl ? <Link className={secondaryButton} href={demoUrl} target={/^https?:\/\//i.test(demoUrl) ? '_blank' : undefined} rel={/^https?:\/\//i.test(demoUrl) ? 'noreferrer' : undefined}>기존 데모 보기 ↗</Link> : null}
           <a className={secondaryButton} href="#source-documents">원문 자료</a>
